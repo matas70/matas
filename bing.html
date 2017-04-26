@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>יום העצמאות 2017 - מפת מטסים חיל האוויר</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>      
+      #map {
+        height: 100%;
+      }
+      /* Makes the page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }  
+      div.aircraftInfoContent {
+        width: 150px;
+        height: 150px;
+      }          
+      img.aircraftImage {
+        width: 140px;
+      }
+      div.firstHeading {
+        font: normal 1.5em/25px arial;
+      }
+    </style>    
+    <link rel="stylesheet" href="http://m.iaf.org.il/Style/Shared/he/style.css">
+    <link rel="stylesheet" href="http://m.iaf.org.il/HomePageCss?v=-5210127314001509347">        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    
+    <link href='http://www.iaf.org.il/favicon.ico' rel='Shortcut Icon' type='image/x-icon' /><link href='http://www.iaf.org.il/favicon.ico' rel='Icon' type='image/x-icon' />    
+  </head>
+  <body>        
+    <header id="headerMobile" class="clearfix">
+    <h1>
+        <a href="http://m.iaf.org.il/7240-he/IAF.aspx" id="ctl00_ucHeader_ancHome" class="logo">
+            <img src="http://m.iaf.org.il/Images/logo.png" id="ctl00_ucHeader_imgLogo">
+            חיל האוויר 
+        </a>
+        <span style="color: #ffffffff;padding: 7px 10px 7px 16px;font: normal 0.7em/12px arial;">מטס יום העצמאות 2017</span>
+   </h1>
+    <div class="navbar-header">
+        <a href="https://he.wikipedia.org/wiki/%D7%99%D7%97%D7%99%D7%93%D7%AA_%D7%90%D7%95%D7%A4%D7%A7" id="ctl00_ucHeader_ancHome" class="logo">
+            <img src="icons/OfekUnit.png" style="width:40px;height:40px" id="ctl00_ucHeader_imgLogo">             
+        </a>      
+    </div>
+    <div class="clearfix"><!----></div>        
+    </header>
+    <div id="map"></div>
+	  <script src="js/functions.js"></script>
+    <script src="js/map-bing.js"></script>
+    <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=loadMapScenario' async defer></script>   
+  </body>
+</html>

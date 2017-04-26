@@ -1,0 +1,92 @@
+  #map {
+    position: absolute;
+       top: 64px; /* Header Height */
+       bottom: 0px; /* Footer Height */
+       width: 100%;    
+  }
+  
+  /* Makes the page fill the window. */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    direction: rtl;    
+  }  
+  div.aircraftInfoContent {
+    width: 150px;
+    height: 150px;
+  }          
+  img.aircraftImage {
+    width: 140px;
+  }
+  div.firstHeading {
+    font: normal 1.5em/25px arial;
+  }  
+  
+  div.fullScreenFloating {
+    position:absolute; width:100%; z-index: 9999           
+  }
+  
+  div.topbar-help {
+    background-color: #4286f4;
+    opacity: 0.8;         
+    color: white; 
+    display: inline-block;
+    padding: 4px;
+  }
+  
+  div.map-dark {
+    pointer-events: none;
+    position:absolute; 
+    width:100%;
+    height:100%;
+    z-index: 9999;
+    background-color: #060606;
+    opacity: 0.1;   
+  }
+  
+  div.splash {
+    pointer-events: none;
+    position:absolute; 
+    width:100%;
+    top: 0px; 
+    bottom: 0px; 
+    width: 100%;    
+    z-index: 99999;
+    background-color: #7bd1fc;
+    opacity: 1.0; 
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+#headerIcon {
+  display: block;
+  width: 90px;   
+  margin: 0 auto;
+  padding-top: 5pt;
+}  
+
+#menuButton {
+  display: block;
+  width: 22px;   
+  float: left; 
+  margin-left: 19px;
+  margin-top: 25.6px;
+}
+
+#homeButton {
+  display: block;
+  width: 24px;   
+  float: right;
+  margin-right: 20px;
+  margin-top: 22.6px;  
+}
+
+HEADER 
+{ 
+    display:block; 
+    background:#08051a ; 
+    position:relative; 
+    height:64px;
+}
+
