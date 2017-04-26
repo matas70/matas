@@ -108,8 +108,10 @@ function getNextLocation(path, currentTime) {
 	var found = false;
 	
 	// if the aircraft hasn't start flying yet, return its second location
-	if (plannedStartTime + relativeTime < convertTime(path[prevLocation].time)) 
-		return getPathLocation(path[1].pointId);
+	if (plannedStartTime + relativeTime < convertTime(path[prevLocation].time))  {
+		var nextTime = convertTime(path[1].time) - plannedStartTime + actualStartTime;		
+		return {location:getPathLocation(path[1].pointId), time:nextTime};	
+	}
 	
 	// otherwise - search for the two points where the aircraft suppossed to be between
 	while (nextLocation < path.length && !found) {
@@ -124,11 +126,12 @@ function getNextLocation(path, currentTime) {
 	
 	// if not found - the aircraft already landed, return the last location
 	if (!found) {
-		return getPathLocation(path[path.length-1].pointId);
+		return {location:getPathLocation(path[path.length-1].pointId), time:currentTime};
 	}
 	
 	// otherwise - return the next location
-	return getPathLocation(path[nextLocation].pointId);
+	var nextTime = convertTime(path[nextLocation].time) - plannedStartTime + actualStartTime;
+	return {location:getPathLocation(path[nextLocation].pointId),time:nextTime};
 }
 
 function getCurrentTime() {
@@ -242,7 +245,7 @@ function loadAircrafts(callback) {
 				
 		// TODO: remove this before production
 		// make the simulation start before 60 minutes
-		actualStartTime = getCurrentTime() - 3600000;
+		actualStartTime = getCurrentTime() - 3645000;
 		//***
 		
 		callback(aircrafts);

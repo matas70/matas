@@ -7,7 +7,7 @@
 			"aircraftId": 1,
 			"name": "ברק",
 			"type" : "קרב",
-			"icon" : "icons/barak.png",
+			"icon" : "barak",
 			"image" : "images/barak.jpg",
 			"path": [
 				{ "pointId": 1, "time": "11:22:00" },
@@ -55,7 +55,7 @@
 			"aircraftId": 2,
 			"name": "רעם",
 			"type" : "קרב",
-			"icon" : "icons/raam.png",
+			"icon" : "raam",
 			"image" : "images/raam.jpg",
 			"path": [
 				{ "pointId": 1, "time": "11:23:00" },
