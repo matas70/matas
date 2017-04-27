@@ -166,46 +166,23 @@ function indexOfPosition(pos, list) {
     return -1;
 }
 
-function buildLocationsMap(aircrafts) {
-	locations = [];
-	
+function updateLocationsMap(aircrafts) {	
 	// build locations map for all of the aircraft paths		
 	aircrafts.forEach(function(aircraft) {
 		var fromPosition = null;
 		aircraft.path.forEach(function(location) {
 			var item = { 
 					aircraftId: aircraft.aircraftId,
-					aircraftName: aircraft.name,
+					name: aircraft.name,
+					icon: aircraft.icon,
+					aircraftType: aircraft.type,					  
 					time: location.time }; 
-			var position = convertLocation(location.N, location.E);
-			var locationKey = position.lat + "," + position.lng;
-			var location; 
-			var i = indexOfPosition(position, locations);
-			if (i == -1) {	
-				location = {
-					position: position,
-					aircrafts: [item],
-					from: []
-				};			
-				locations.push(location);
-			}
-			else {
-				location = locations[i];
-				location.aircrafts.push(item);
-			}
-			
-			// add "from" position if exists and not already added
-			if (fromPosition != null) {
-				if (!containsPosition(fromPosition, location.from)) {
-					location.from.push(fromPosition);
-				}
-			}
-			
-			fromPosition = position;
+			var location = locations[location.pointId];
+			location.aircrafts.push(item);
 		}, this);
 	}, this);
 	
-	// sory each location points by time
+	// sort each location points by time
 	locations.forEach(function(loc) {
 		loc.aircrafts.sort(function(item1, item2) {
     	var keyA = convertTime(item1.time),
@@ -224,6 +201,7 @@ function buildLocationsMap(aircrafts) {
 function updateLocations(points) {
 	points.forEach(function(point) {
 		locations[point.pointId] = point;
+		locations[point.pointId].aircrafts = [];
 	}, this);
 }
 
@@ -247,7 +225,8 @@ function loadAircrafts(callback) {
 		// make the simulation start before 60 minutes
 		actualStartTime = getCurrentTime() - 3645000;
 		//***
-		
+			
+		updateLocationsMap(aircrafts);	
 		callback(aircrafts);
 	});
 }
@@ -285,5 +264,4 @@ function compassHeading(alpha, beta, gamma) {
   compassHeading *= 180 / Math.PI;
 
   return compassHeading;
-
 }

@@ -1,40 +1,3 @@
-var RotateIcon = function(options){
-    this.options = options || {};
-    this.rImg = options.img || new Image();
-    this.rImg.src = this.rImg.src || this.options.url || '';
-    this.options.width = this.options.width || this.rImg.width || 52;
-    this.options.height = this.options.height || this.rImg.height || 60;
-    var canvas = document.createElement("canvas");
-    canvas.width = this.options.width;
-    canvas.height = this.options.height;
-    this.context = canvas.getContext("2d");
-    this.canvas = canvas;
-};
-RotateIcon.makeIcon = function(url) {
-    return new RotateIcon({url: url});
-};
-RotateIcon.prototype.setRotation = function(options){
-    var canvas = this.context,
-        angle = options.deg ? options.deg * Math.PI / 180:
-            options.rad,
-        centerX = this.options.width/2,
-        centerY = this.options.height/2;
-
-    canvas.clearRect(0, 0, this.options.width, this.options.height);
-    canvas.save();
-    canvas.translate(centerX, centerY);
-    canvas.rotate(angle);
-    canvas.translate(-centerX, -centerY);
-    canvas.drawImage(this.rImg, 0, 0);
-    canvas.restore();
-    return this;
-};
-RotateIcon.prototype.getUrl = function(){
-    return this.canvas.toDataURL('image/png');
-};
-
-//===============
-
 function setAircraftIcon(marker, icon, azimuth) {
 	var imageUrl = RotateIcon
             .makeIcon("icons/aircrafts/"+ icon + ".svg")
@@ -49,7 +12,6 @@ function setAircraftIcon(marker, icon, azimuth) {
             });	
 }
 
-var infoWindow;
 var aircraftPath;
 var selectedAircraft = null;
 var aircrafts = null;
@@ -85,6 +47,7 @@ function showAircraftPath(aircraft) {
 var locationInfoWindow;
 var selectedLocation = null;
 var selectedLocationMarker = null;
+var selectedLocationMarkerIcon = null;
 
 function showLocationInfoWindow(location, marker) {
 	var infoHtml = "<div>";
@@ -419,10 +382,16 @@ function drawRouteOnMap(route) {
 		    // The anchor for this image is the center of the circle
 		    anchor: new google.maps.Point(17,17)
 	};
+	
+	var markerIconClicked = {
+		    url: "icons/pointPress-"+route.color+".png",		    
+		    // The anchor for this image is the center of the circle
+		    anchor: new google.maps.Point(20,20)
+	};
   
 	// create the points marker
-	for (var i=0; i<route.points.length; i++) {
-		var location = convertLocation(route.points[i].N, route.points[i].E);
+	route.points.forEach(function(point) {
+		var location = convertLocation(point.N, point.E);
 		
 		// draw marker for this location		
 		var marker = new google.maps.Marker({
@@ -430,8 +399,37 @@ function drawRouteOnMap(route) {
 		    map: map,
 			title: "לחץ כדי להציג את רשימת המטוסים במיקום זה",
 			icon: markerIcon		
-		});	
-	}		
+		});
+		
+		marker.addListener('click', function() {			
+			if (selectedLocation == location) {
+				// hide selected location
+				hideLocationPopup(point);
+				// set it to the previous marker icon
+				selectedLocationMarker.setIcon(markerIcon);
+				// mark it is deselected
+				selectedLocation = null;				
+			} else {
+				// first hide the previous popup
+				if (selectedLocation != null) {
+					// hide selected location
+					hideLocationPopup(point);
+					// set it to the previous marker icon
+					selectedLocationMarker.setIcon(selectedLocationMarkerIcon);
+					// mark it is deselected
+					selectedLocation = null;
+				}
+				// then show a new popup
+				showLocationPopup(point);
+				google.maps.event.trigger("resize");
+				map.panTo(location);
+				marker.setIcon(markerIconClicked);
+				selectedLocation = location;
+				selectedLocationMarker = marker;
+				selectedLocationMarkerIcon = markerIcon;
+			}								
+		});
+	}, this);
 }
 
 function drawRoutesOnMap(routes) {
@@ -465,6 +463,7 @@ function animateToNextLocation(aircraft, previousAzimuth) {
 	   animateToNextLocation(aircraft, currentAircraftAzimuth);			
 	}, nextAircraftPosition.time - currentTime);
 }
+
 function startAircraftsAnimation() {
 	aircrafts.forEach(function(aircraft) {
 		animateToNextLocation(aircraft, aircraftMarkers[aircraft.aircraftId].currentAircraftAzimuth);					
@@ -473,7 +472,8 @@ function startAircraftsAnimation() {
 
 var defer = $.Deferred();
 
-function initMap() {
+function initMap() {	
+	initPopups();
 	map = new google.maps.Map(document.getElementById('map'), 
 		{
 			center: {lat: 32.00, lng: 35.00},  

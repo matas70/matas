@@ -6,10 +6,16 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/map.css">        
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="js/slidingMarker/jquery.easing.1.3.js"></script>    
+    <script src="js/slidingMarker/jquery.easing.1.3.js"></script>
+    <script src="js/functions.js"></script>    
+    <script src="js/popups.js"></script>
+    <script src="js/RotateIcon.js"></script>
+    <script src="js/map.js"></script>        
     <link href='icons/favicon.ico' rel='Shortcut Icon' type='image/x-icon' /><link href='icons/favicon.ico' rel='Icon' type='image/x-icon' />    
+    <link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">
   </head>
   <body>    
+    <!-- page header -->
     <header id="headerMobile">
       <a href="javascript:void(0)" onclick="onMenuButtonClick()">
         <img id="menuButton" src="icons/menuIcon.png"/>
@@ -19,15 +25,42 @@
        </a>
       <img id="headerIcon" src="icons/logo.png"/>                
     </header>    
+    
+    <!-- map overlay -->
     <div class="map-dark"></div>         
-    <div class="splash" style="background-image: url('animation/splashAni_V1_alpha_small.gif');">
-    </div>       
-    <div id="map"></div>  
-    <img id="raam" src="icons/aircrafts/raam.svg"></img>         
-    <img id="barak" src="icons/aircrafts/barak.svg"></img>
-    <img id="tzufit" src="icons/aircrafts/tzufit.svg"></img>
-    <script src="js/functions.js"></script>    
-    <script src="js/map.js"></script>
+    
+    <!-- startup splash screen -->
+    <div class="splash" style="background-image: url('animation/splashAni_V1_alpha_small.gif');"></div>       
+    
+    <!-- the map itself -->
+    <div id="map"></div> 
+    
+    <!-- location info popup -->
+    <div id="locationPopup">
+        <div id="popupHeader">
+            <div id="popupTitle">תל אביב</div>
+            <div id="popupSubTitle">שעת הגעה</div>
+        </div>
+        <div id="aircraftsList" class="table">
+          <div class="tableRow">            
+            <img src="icons/aircrafts/raam.png" class="aircraftIcon"/>
+            <div class="aircraftName"><b>רעם</b> קרב</div>                        
+            <div class="time">09:00</div>
+          </div>
+          <div class="tableRow">            
+            <img src="icons/aircrafts/tzufit.png" class="aircraftIcon">
+            <div class="aircraftName"><b>צופית</b> סיור</div>
+            <div class="time">09:25</div>
+          </div>
+        </div>
+    </div>
+    
+    <!-- aircraft images cache -->
+    <img id="raam" src="icons/aircrafts/raam.svg" class="imageCache" ></img>         
+    <img id="barak" src="icons/aircrafts/barak.svg" class="imageCache" ></img>
+    <img id="tzufit" src="icons/aircrafts/tzufit.svg" class="imageCache" ></img>
+    
+    <!-- javascript files -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArnvYMCM_9f7qySlzH3GDyFZ7YBbGqg6M&callback=initMap&language=he&region=IL" async defer></script>
     <script src="js/slidingMarker/markerAnimate.js" async defer></script>
     <script src="js/slidingMarker/SlidingMarker.min.js" async defer></script>          
