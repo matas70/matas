@@ -3,7 +3,7 @@
 		{
 			"routeId": 1,
 			"name": "מסלול מרכזי",
-			"color": "#3bb5f2",
+			"color": "3bb5f2",
 			"visible": true,
 			"points": [
 				{ "pointId": 1, "pointName": "י\"כ קמה", "N": 3126.310, "E": 3445.590 },
@@ -45,6 +45,16 @@
 				{ "pointId": 37, "pointName": "אופקים", "N": 3118.460, "E": 3438.110 },
 				{ "pointId": 38, "pointName": "מוזיאון", "N": 3114.290, "E": 3441.57 },
 				{ "pointId": 39, "pointName": "רמת חובב", "N": 3108.000, "E": 3448.00 }				
+			]
+		},
+		{
+			"routeId": 2,
+			"name": "נקודות נוספות במסלול המרכזי",
+			"color": "f9ea55",
+			"visible": false,
+			"points": [
+				{ "pointId": 40, "pointName": "ראש כרמל", "N": 3250.140, "E": 3459.110 },
+				{ "pointId": 41, "pointName": "ראש כרמל", "N": 3241.878, "E": 3454.461 }
 			]
 		}
 	]		

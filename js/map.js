@@ -37,13 +37,14 @@ RotateIcon.prototype.getUrl = function(){
 
 function setAircraftIcon(marker, icon, azimuth) {
 	var imageUrl = RotateIcon
-            .makeIcon("icons/"+ icon + ".png")
+            .makeIcon("icons/aircrafts/"+ icon + ".svg")
             .setRotation({deg: azimuth})
             .getUrl();
 	var domIcon = $('#'+icon);
 	domIcon.attr("src",imageUrl);
 	marker.setIcon({
               url: domIcon.attr('src'),
+			  scaledSize: new google.maps.Size(51,51),
 			  anchor: new google.maps.Point(26,26) 
             });	
 }
@@ -407,14 +408,14 @@ function drawRouteOnMap(route) {
           path: path,
 		  geodesic: true,
           strokeOpacity: route.visible?1.0:0.0,
-		  strokeColor: route.color,
+		  strokeColor: "#" + route.color,
 		  strokeWeight: 3,
 		  label: route.name,          
           map: map
         });
 	
 	var markerIcon = {
-		    url: "icons/bluePointIcon.png",		    
+		    url: "icons/point-"+route.color+".png",		    
 		    // The anchor for this image is the center of the circle
 		    anchor: new google.maps.Point(17,17)
 	};
