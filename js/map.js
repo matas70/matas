@@ -420,14 +420,14 @@ function drawRouteOnMap(route) {
 					selectedLocation = null;
 				}
 				// then show a new popup
-				showLocationPopup(point);
-				google.maps.event.trigger("resize");
+				showLocationPopup(point);				
 				map.panTo(location);
 				marker.setIcon(markerIconClicked);
 				selectedLocation = location;
 				selectedLocationMarker = marker;
 				selectedLocationMarkerIcon = markerIcon;
-			}								
+			}
+			google.maps.event.trigger(map, "resize");								
 		});
 	}, this);
 }
