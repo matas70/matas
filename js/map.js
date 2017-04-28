@@ -7,8 +7,8 @@ function setAircraftIcon(marker, icon, azimuth) {
 	domIcon.attr("src",imageUrl);
 	marker.setIcon({
               url: domIcon.attr('src'),
-			  scaledSize: new google.maps.Size(51,51),
-			  anchor: new google.maps.Point(26,26) 
+			  scaledSize: new google.maps.Size(70,70),
+			  anchor: new google.maps.Point(36,36) 
             });	
 }
 
@@ -204,7 +204,9 @@ function addAircraftsToMap() {
 		    position: currentAircraftPosition,
 		    map: map,
 			title: aircraft.name,
-			easing: "linear",			
+			easing: "linear",
+			optimized: false,
+      		zIndex:9			
 		});	
 		
 		setAircraftIcon(aircraftMarker, aircraft.icon, currentAircraftAzimuth);
@@ -351,6 +353,31 @@ function showCurrentLocation() {
     }
 }
 
+function deselectCurrentLocation() {
+	if (selectedLocation != null) {
+		// hide selected location
+		hideLocationPopup();
+		// set it to the previous marker icon
+		selectedLocationMarker.setIcon(selectedLocationMarkerIcon);
+		// mark it is deselected
+		selectedLocation = null;
+		// trigger google maps resized event
+		google.maps.event.trigger(map, "resize");
+	}
+}
+
+function selectLocation(point, location, marker, markerIcon, markerIconClicked, color) {
+	showLocationPopup(point, color);				
+	map.panTo(location);
+	marker.setIcon(markerIconClicked);
+	selectedLocation = location;
+	selectedLocationMarker = marker;
+	selectedLocationMarkerIcon = markerIcon;
+	
+	// trigger google maps resized event
+	google.maps.event.trigger(map, "resize");
+}
+
 function drawRouteOnMap(route) {
 	// create the line path
 	var path = [];
@@ -373,7 +400,9 @@ function drawRouteOnMap(route) {
           strokeOpacity: route.visible?1.0:0.0,
 		  strokeColor: "#" + route.color,
 		  strokeWeight: 3,
-		  label: route.name,          
+		  label: route.name,   
+		  optimized: false,
+      	  zIndex:route.routeId,       
           map: map
         });
 	
@@ -398,36 +427,23 @@ function drawRouteOnMap(route) {
 		    position: location,
 		    map: map,
 			title: "לחץ כדי להציג את רשימת המטוסים במיקום זה",
-			icon: markerIcon		
+			icon: markerIcon,
+			optimized: false,
+      		zIndex:route.routeId		
 		});
 		
 		marker.addListener('click', function() {			
 			if (selectedLocation == location) {
-				// hide selected location
-				hideLocationPopup(point);
-				// set it to the previous marker icon
-				selectedLocationMarker.setIcon(markerIcon);
-				// mark it is deselected
-				selectedLocation = null;				
+				deselectCurrentLocation();				
 			} else {
 				// first hide the previous popup
 				if (selectedLocation != null) {
-					// hide selected location
-					hideLocationPopup(point);
-					// set it to the previous marker icon
-					selectedLocationMarker.setIcon(selectedLocationMarkerIcon);
-					// mark it is deselected
-					selectedLocation = null;
+					deselectCurrentLocation();
 				}
+				
 				// then show a new popup
-				showLocationPopup(point);				
-				map.panTo(location);
-				marker.setIcon(markerIconClicked);
-				selectedLocation = location;
-				selectedLocationMarker = marker;
-				selectedLocationMarkerIcon = markerIcon;
-			}
-			google.maps.event.trigger(map, "resize");								
+				selectLocation(point, location, marker, markerIcon, markerIconClicked, "#" + route.color);								
+			}											
 		});
 	}, this);
 }
@@ -480,6 +496,10 @@ function initMap() {
 			zoom: 8,
 			gestureHandling: 'greedy'
 			});
+			
+	map.addListener('click', function() {
+		deselectCurrentLocation();
+	});
 	
 	// load all routes
 	loadRoutes(function(routes) {

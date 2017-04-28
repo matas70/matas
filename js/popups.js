@@ -2,19 +2,25 @@ function initPopups() {
 	$("#locationPopup").hide();
 }
 
-function showLocationPopup(point) {
+function showLocationPopup(point, color) {
 	// build popup html
 	html = "";
 	point.aircrafts.forEach(function(aircraft) {
 		html += createTableRow(aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time);
 	}, this);
 	$("#aircraftsList").html(html);
-	$("#popupTitle").text(point.pointName);	
+	$("#popupTitle").text(point.pointName);
+	$("#popupHeader").css("background", color);
+	if (color == "#f9ea55") {
+		$("#popupTitle").css("color", "black");
+	} else {
+		$("#popupTitle").css("color", "white");
+	}
 	$("#locationPopup").show();
 	$("#map").css("bottom", $("#locationPopup").height());
 }
 
-function hideLocationPopup(point) { 
+function hideLocationPopup() { 
 	$("#locationPopup").hide();
 	$("#map").css("bottom", 0);
 }
