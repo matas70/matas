@@ -195,7 +195,7 @@
 			"type" : "קרב",
 			"icon" : "adir",
 			"image" : "images/adir.jpg",
-			"infoUrl" : "http://m.iaf.org.il/7261-18189-he/IAF.aspx",
+			"infoUrl" : "http://m.iaf.org.il/7261-48795-he/IAF.aspx",
 			"path": [
 				{ "pointId": 2, "time": "11:26:20" },				
 				{ "pointId": 9, "time": "11:44:15" },
@@ -205,7 +205,7 @@
 			]
 		},
 		{
-			"aircraftId": 5,
+			"aircraftId": 6,
 			"name": "ברק",
 			"type" : "קרב",
 			"icon" : "barak",
@@ -242,7 +242,7 @@
 			]
 		},
 		{
-			"aircraftId": 6,
+			"aircraftId": 7,
 			"name": "לביא",
 			"type" : "הדרכה",
 			"icon" : "lavi",			
@@ -281,7 +281,7 @@
 			]
 		},
 		{
-			"aircraftId": 7,
+			"aircraftId": 8,
 			"name": "נחשון",
 			"type" : "סיור ובקרה",
 			"icon" : "nahshon",
@@ -328,7 +328,7 @@
 			]
 		},
 		{
-			"aircraftId": 8,
+			"aircraftId": 9,
 			"name": "קרנף",
 			"type" : "תובלה כבדה",
 			"icon" : "karnaf",
@@ -375,7 +375,7 @@
 			]
 		},
 		{
-			"aircraftId": 9,
+			"aircraftId": 10,
 			"name": "שמשון",
 			"type" : "תובלה כבדה",
 			"icon" : "shimshon",
@@ -422,7 +422,7 @@
 			]
 		},
 		{
-			"aircraftId": 10,
+			"aircraftId": 11,
 			"name": "בז",
 			"type" : "קרב",
 			"icon" : "baz",
@@ -467,7 +467,7 @@
 			]
 		},
 		{
-			"aircraftId": 11,
+			"aircraftId": 12,
 			"name": "ראם",
 			"type" : "תובלה ותדלוק",
 			"icon" : "reem",

@@ -134,6 +134,11 @@ function getNextLocation(path, currentTime) {
 	return {location:getPathLocation(path[nextLocation].pointId),time:nextTime};
 }
 
+function getPredictedLocation(currentPosition, nextPosition, nextTime, time) {
+	var ratio = time / nextTime;
+	return getRelativeLocation(currentPosition, nextPosition, ratio);	  
+}
+
 function getCurrentTime() {
   var now = new Date();
   return now;

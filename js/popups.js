@@ -46,10 +46,11 @@ function hideLocationPopup(callback) {
 	hidePopup("#locationPopup", callback);
 }
 
-function showAircraftInfoPopup(aircraftName, aircraftType, imageName, time, infoUrl) {		
+function showAircraftInfoPopup(aircraftName, aircraftType, iconName, imageName, time, infoUrl) {		
 	$("#aircraftInfoName").text(aircraftName);
 	$("#aircraftInfoType").text(aircraftType);
 	$("#aircraftInfoStartTime").text(time);
+	$("#aircraftInfoIcon").attr("src", "icons/aircrafts/"+iconName+".png");
 	$("#aircraftInfoBanner").attr("src", imageName);
 	$("#aircraftInfoMore").on("click", function() {
 	  window.open(infoUrl,'aircraftMoreInfo');
