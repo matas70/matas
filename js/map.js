@@ -12,185 +12,37 @@ function setAircraftIcon(marker, icon, azimuth) {
             });	
 }
 
-var aircraftPath;
 var selectedAircraft = null;
+var selectedAircraftMarker = null;
+var selectedAircraftMarkerIcon = null;
+
 var aircrafts = null;
-
-function showInfoWindow(aircraft) {
-	infoWindow.setContent('<div id="firstHeading" class="firstHeading">'+ aircraft.name + '</div>' +
-						     '<div id="bodyContent" class="aircraftInfoContent">' +
-							 '<img class="aircraftImage" src="'+aircraft.imageUrl + '"/>' +
-							 'זמן תחילת טיסה: <b>' + aircraft.path[0].time + '</b>' +  
-							 '</div>');
-	infoWindow.open(map, aircraftMarkers[aircraft.aircraftId]);
-}
-
-var pathMarkers = [];
-
-function showAircraftPath(aircraft) {
-	var path = [];
-	pathMarkers = [];
-		
-	// draw the planned path of the aircraft
-	for (var i=0; i<aircraft.path.length; i++) {			
-		var position = convertLocation(aircraft.path[i].N, aircraft.path[i].E);
-		path[i] = position;		
-	}
-
-    // Create the polyline, passing the symbol in the 'icons' property.
-    // Give the line an opacity of 0.
-    // Repeat the symbol at intervals of 20 pixels to create the dashed effect.
-	aircraftPath.setPath(path);
-	aircraftPath.setMap(map);    					
-}
-
-var locationInfoWindow;
 var selectedLocation = null;
 var selectedLocationMarker = null;
 var selectedLocationMarkerIcon = null;
 
-function showLocationInfoWindow(location, marker) {
-	var infoHtml = "<div>";
-	for(var aircraftId in location.aircrafts) {
-		var aircraft = location.aircrafts[aircraftId];
-		infoHtml = infoHtml + "<a href='javascript:void(0)' onclick='showAircraftInfo(" + aircraft.aircraftId + ")'><b>" + aircraft.aircraftName + "</b></a> זמן הגעה : <b>" + aircraft.time + "</b><br>";
-	} 
-	infoHtml = infoHtml + "</div>";	
-	locationInfoWindow.setContent(infoHtml);
-	locationInfoWindow.setPosition(location.position);		
-	locationInfoWindow.open(map, marker);
-}
-
-function showAircraftInfo(aircraftId) {
-	var aircraft = aircrafts[aircraftId-1];
-	// if the location info is displayed - hide it
-	if (selectedLocation != null) {
-		locationInfoWindow.close();							
-				selectedLocation = null; 	
+function deselectAircraft(callback) {
+	if (selectedAircraft != null) {
+		// hide selected location
+		hideAircraftInfoPopup(function() {
+			// set it to the previous marker icon
+			//selectedAircraftMarker.setIcon(selectedAircraftMarkerIcon);
+			// mark it is deselected
+			selectedAircraft = null;
+			if (callback != undefined) 
+				callback.call(this);			
+		});
 	}
-	// if the info already displayed for an aircraft, hide it
-	if (selectedAircraft != aircraft) {
-		infoWindow.close();
-		hideAircraftPath();					
-	}
-	// show an info for the selected aircraft
-	selectedAircraft = aircraft;									
-	showInfoWindow(aircraft);
-	showAircraftPath(aircraft);	
-	map.panTo(aircraftMarkers[aircraftId].getPosition());	
 }
 
-function addAllLocations() {
-	// add a data layer with all of the aircraft paths
-	// map.data.loadGeoJson("data/path.json");
-	// map.data.setStyle();			
-	// map.data.setStyle(function(feature) {
-	//   if (feature.getProperty('type')=="marker") {
-	//     return {
-	// 			icon: {
-	// 		            path: google.maps.SymbolPath.CIRCLE,
-	// 					fillColor: "#89baf2",
-	// 					fillOpacity: 0.8,
-	// 					strokeWeight: 1,
-	// 		            scale: 3.5					
-    //       		  }
-	// 			};
-	//   }
-	//   else {
-	//   return {
-	// 	  		strokeColor: "#89baf2",
-	// 	  		strokeOpacity: 0.3,
-	// 	  		strokeWeight: 1
-	// 		};
-	//   }
-	// });
-	
-	// When the user clicks, set 'isColorful', changing the color of the letters.
-	locationInfoWindow = new google.maps.InfoWindow();
-	
-	// map.data.addListener('click', function(event) {
-	// 	if (event.feature.getProperty("type")=="marker") {
-	// 		var geometry = event.feature.getGeometry().get();							
-	// 		// if the info already displayed for this location, hide it
-	// 		if (selectedLocation == geometry) {
-	// 			locationInfoWindow.close();							
-	// 			selectedLocation = null; 
-	// 			}
-	// 		else {	
-	// 			selectedLocation = geometry;
-	// 			//selectedLocationMarker = marker;	
-	// 			var location = locations[indexOfPosition({lat:geometry.lat(),lng:geometry.lng()}, locations)];													
-	// 			showLocationInfoWindow(location);	
-	// 		}        
-	// 	}	  		
-	// });
-		
-	locations.forEach(function(location) {				
-		//draw a path for this location		
-		for(var fromPos in location.from) {
-			var from = location.from[fromPos];
-						
-			// Define a symbol using SVG path notation, with an opacity of 1.
-	        var lineSymbol = {
-	          path: 'M 0,0.5 0,0.5',
-	          strokeOpacity: 0.75,
-			  strokeColor : "#234477",
-	          scale: 2
-	        };
-						
-	        // Create the polyline, passing the symbol in the 'icons' property.
-	        // Give the line an opacity of 0.
-	        // Repeat the symbol at intervals of 20 pixels to create the dashed effect.
-	        var line = new google.maps.Polyline({
-		          path: [from, location.position],
-		          strokeOpacity: 0,
-		          icons: [{
-		            icon: lineSymbol,
-		            offset: '0',
-		            repeat: '5px'
-		          }],
-		          map: map
-		        });	
-			}
-		
-		// draw marker for this location		
-		var marker = new google.maps.Marker({
-		    position: location.position,
-		    map: map,
-			title: "לחץ כדי להציג את רשימת המטוסים במיקום זה",
-			icon: {
-			            path: google.maps.SymbolPath.CIRCLE,
-						fillColor: "#89baf2",
-						fillOpacity: 0.8,
-						strokeWeight: 1,
-			            scale: 3.5,
-						labelOrigin: new google.maps.Point(2,0)						
-          		  }			
-		});	
-		
-		locationInfoWindow = new google.maps.InfoWindow();
-				
-		// add "clicked" event		
-		marker.addListener('click', function() {
-			// if the info already displayed for this location, hide it
-			if (selectedLocation == location) {
-				locationInfoWindow.close();							
-				selectedLocation = null; 
-				}
-			else {	
-				selectedLocation = location;
-				selectedLocationMarker = marker;										
-				showLocationInfoWindow(location, marker);	
-			}
-        });	
-	}, this); 					
-}
-
-function hideAircraftPath() {
-	aircraftPath.setMap(null);
-	pathMarkers.forEach(function(marker) {
-		marker.setMap(null);		
-	}, this);
+function selectAircraft(aircraft, marker, aircraftName, aircraftType, imageName, time, infoUrl) {
+	deselectLocation();
+	showAircraftInfoPopup(aircraftName, aircraftType, imageName, time, infoUrl);				
+	//map.panTo(location);
+	//marker.setIcon(markerIconClicked);
+	selectedAircraft = aircraft;
+	selectedAircraftMarker = marker;
+	//selectedAircraftMarkerIcon = markerIcon;		
 }
 
 function addAircraftsToMap() {
@@ -217,51 +69,25 @@ function addAircraftsToMap() {
 					
 		// add "clicked" event		
 		aircraftMarker.addListener('click', function() {
-			// if the info already displayed for this aircraft, hide it
 			if (selectedAircraft == aircraft) {
-					infoWindow.close();
-					hideAircraftPath();					
-					selectedAircraft = null; 
-				}
-			else {
-				hideAircraftPath();							
-				showInfoWindow(aircraft);
-				showAircraftPath(aircraft);	
-				selectedAircraft = aircraft;
-			}
+					deselectAircraft();				
+				} else {
+					// first hide the previous popup
+					if (selectedAircraft != null) {
+						deselectAircraft(function() {
+							// then show a new popup
+							selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.image, aircraft.path[0].time.substr(0,5), aircraft.infoUrl);	
+						});
+					} else {								
+						// then show a new popup
+						selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.image, aircraft.path[0].time.substr(0,5), aircraft.infoUrl);
+					}	
+				}				
         });						
 	}, this);
 }
 
-function createCurrentAircraftPath() {
-	// Define a symbol for dashed line
-    var lineSymbol = {
-      path: 'M 0,-1 0,1',
-      strokeOpacity: 0.8,
-	  strokeColor: '#226d20',
-      scale: 2
-    };
-	
-	var arrowSymbol = {
-	          path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
-	          strokeOpacity: 0.5,			 
-			  strokeColor : "#226d20",
-	          scale: 1.5
-	};
-	
-	
-	aircraftPath = new google.maps.Polyline({
-	      path: [],
-	      strokeOpacity: 0,
-	      icons: [{
-	        icon: arrowSymbol,
-	        offset: '0',
-	        repeat: '10px',
-			map: null
-	      }]
-	    });		
-}
-
+//**** currrent location detection - need to see wheter to delete or not
 var currentLocationMarker;
 var currentHeadingMarker;
 var currentPosition;
@@ -353,29 +179,30 @@ function showCurrentLocation() {
     }
 }
 
-function deselectCurrentLocation() {
+//********************
+
+function deselectLocation(callback) {
 	if (selectedLocation != null) {
 		// hide selected location
-		hideLocationPopup();
-		// set it to the previous marker icon
-		selectedLocationMarker.setIcon(selectedLocationMarkerIcon);
-		// mark it is deselected
-		selectedLocation = null;
-		// trigger google maps resized event
-		google.maps.event.trigger(map, "resize");
+		hideLocationPopup(function() {
+			// set it to the previous marker icon
+			selectedLocationMarker.setIcon(selectedLocationMarkerIcon);
+			// mark it is deselected
+			selectedLocation = null;
+			if (callback != undefined) 
+				callback.call(this);			
+		});
 	}
 }
 
-function selectLocation(point, location, marker, markerIcon, markerIconClicked, color) {
-	showLocationPopup(point, color);				
+function selectLocation(point, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor) {
+	deselectAircraft();
+	showLocationPopup(point, color, titleColor, subtitleColor);				
 	map.panTo(location);
 	marker.setIcon(markerIconClicked);
 	selectedLocation = location;
 	selectedLocationMarker = marker;
-	selectedLocationMarkerIcon = markerIcon;
-	
-	// trigger google maps resized event
-	google.maps.event.trigger(map, "resize");
+	selectedLocationMarkerIcon = markerIcon;		
 }
 
 function drawRouteOnMap(route) {
@@ -383,29 +210,27 @@ function drawRouteOnMap(route) {
 	var path = [];
 	for (var i=0; i<route.points.length; i++) {					
 		path[i] = convertLocation(route.points[i].N, route.points[i].E);		
-	}
+	}		
 	
-	var lineShadow = new google.maps.Polyline({
-          path: path,
-		  geodesic: true,
-          strokeOpacity: route.visible?0.1:0.0,
-		  strokeColor: "black",
-		  strokeWeight: 6,          
-          map: map
-        });	
-		
-    var line = new google.maps.Polyline({
-          path: path,
-		  geodesic: true,
-          strokeOpacity: route.visible?1.0:0.0,
-		  strokeColor: "#" + route.color,
-		  strokeWeight: 3,
-		  label: route.name,   
-		  optimized: false,
-      	  zIndex:route.routeId,       
-          map: map
-        });
+	// add lines as data layer	
+	var data = new google.maps.Data.LineString(path);	
+	var dropShadowFeature = new google.maps.Data.Feature();
+	dropShadowFeature.setGeometry(data);
+	dropShadowFeature.setProperty("type", "dropShadow");
+	dropShadowFeature.setProperty("visibile", route.visible);
 	
+	var pathFeature = new google.maps.Data.Feature();	
+	pathFeature.setGeometry(data);
+	pathFeature.setProperty("zIndex", route.routeId);
+	pathFeature.setProperty("color", "#" + route.color);
+	pathFeature.setProperty("type", "path");
+	pathFeature.setProperty("visibile", route.visible);
+	
+	map.data.add(dropShadowFeature);
+	map.data.add(pathFeature);			
+	
+    
+	// add location markers	 	
 	var markerIcon = {
 		    url: "icons/point-"+route.color+".png",		    
 		    // The anchor for this image is the center of the circle
@@ -418,40 +243,93 @@ function drawRouteOnMap(route) {
 		    anchor: new google.maps.Point(20,20)
 	};
   
+  	var markersMap = {};
 	// create the points marker
 	route.points.forEach(function(point) {
-		var location = convertLocation(point.N, point.E);
-		
-		// draw marker for this location		
-		var marker = new google.maps.Marker({
-		    position: location,
-		    map: map,
-			title: "לחץ כדי להציג את רשימת המטוסים במיקום זה",
-			icon: markerIcon,
-			optimized: false,
-      		zIndex:route.routeId		
-		});
-		
-		marker.addListener('click', function() {			
-			if (selectedLocation == location) {
-				deselectCurrentLocation();				
-			} else {
-				// first hide the previous popup
-				if (selectedLocation != null) {
-					deselectCurrentLocation();
-				}
-				
-				// then show a new popup
-				selectLocation(point, location, marker, markerIcon, markerIconClicked, "#" + route.color);								
-			}											
-		});
+		if (!point.hidden) {
+			var location = convertLocation(point.N, point.E);		
+			
+			// draw marker for this location		
+			var marker = new google.maps.Marker({
+			    position: location,
+			    map: null,
+				title: "לחץ כדי להציג את רשימת המטוסים במיקום זה",
+				icon: markerIcon,
+				optimized: false,
+	      		zIndex:route.routeId		
+			});
+			
+			marker.addListener('click', function() {			
+				if (selectedLocation == location) {
+					deselectLocation();				
+				} else {
+					// first hide the previous popup
+					if (selectedLocation != null) {
+						deselectLocation(function() {
+							// then show a new popup
+							selectLocation(point, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);	
+						});
+					} else {								
+						// then show a new popup
+						selectLocation(point, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+					}	
+				}											
+			});		
+			markersMap[point.pointId] = marker;
+		}
 	}, this);
+	
+	var markers = $.map(markersMap, function(value, index) {
+	    return [value];
+	});
+	
+	var markerCluster = new MarkerClusterer(map, markers,
+            {
+				styles: [
+					{url: "icons/point-"+route.color+".png", textColor: "#" + route.primaryTextColor, width: 34, height:34},
+					{url: "icons/point-"+route.color+".png", textColor: "#" + route.primaryTextColor, width: 34, height:34},
+					{url: "icons/point-"+route.color+".png", textColor: "#" + route.primaryTextColor, width: 34, height:34},
+					{url: "icons/point-"+route.color+".png", textColor: "#" + route.primaryTextColor, width: 34, height:34},
+					{url: "icons/point-"+route.color+".png", textColor: "#" + route.primaryTextColor, width: 34, height:34}],
+				zIndex: route.routeId
+			});
 }
 
 function drawRoutesOnMap(routes) {
+	// set style options for routes
+	map.data.setStyle(function(feature) {
+	    var color = feature.getProperty('color');
+		var ftype = feature.getProperty('type');
+		var visible = feature.getProperty('visibile');
+		var zIndex = feature.getProperty('zIndex');
+		
+		if (ftype == "path") {
+		    return {
+			  geodesic: true,
+		      strokeColor: color,
+			  strokeOpacity: visible?1.0:0.2,
+		      strokeWeight: 3,
+			  fillOpacity: 0,
+			  zIndex: zIndex,
+		    };
+		} else if (ftype == "dropShadow") {
+			return {
+				geodesic: true,
+          		strokeOpacity: visible?0.1:0.0,
+		  		strokeColor: "black",
+		  		strokeWeight: 6,
+			  	fillOpacity: 0,
+			  	zIndex: 0
+			};
+		} return {};
+	});	
+	
+	// add all routes
 	routes.forEach(function(route) {
 		drawRouteOnMap(route);
 	}, this);
+	
+		
 }
 
 function animateToNextLocation(aircraft, previousAzimuth) {
@@ -488,6 +366,13 @@ function startAircraftsAnimation() {
 
 var defer = $.Deferred();
 
+function onHomeButtonClick() {
+	map.panTo({lat: 32.00, lng: 35.00});
+	map.setZoom(8);
+	deselectAircraft();
+	deselectLocation();
+} 
+
 function initMap() {	
 	initPopups();
 	map = new google.maps.Map(document.getElementById('map'), 
@@ -498,7 +383,8 @@ function initMap() {
 			});
 			
 	map.addListener('click', function() {
-		deselectCurrentLocation();
+		deselectLocation();
+		deselectAircraft();
 	});
 	
 	// load all routes
@@ -515,7 +401,7 @@ function initMap() {
 		// hide splash screen
 		setTimeout(function() {
 			$(".splash").fadeOut();					
-	 	}, 2500);			 			
+	 	}, 3500);			 			
 	});
 		
 	defer.resolve(map);	 			  

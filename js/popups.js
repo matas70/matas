@@ -1,28 +1,82 @@
-function initPopups() {
-	$("#locationPopup").hide();
+function initPopups() {	
+	$("#locationPopup").hide();  	
+	$("#aircraftInfoPopup").hide();
+  
+	$(window).resize(function() {
+    	$('#content').height($(window).height() - 46);
+	});
+
+	$(window).trigger('resize');
 }
 
-function showLocationPopup(point, color) {
+function showLocationPopup(point, color, titleColor, subtitleColor) {
 	// build popup html
-	html = "";
+	var html = "";
 	point.aircrafts.forEach(function(aircraft) {
 		html += createTableRow(aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time);
 	}, this);
 	$("#aircraftsList").html(html);
 	$("#popupTitle").text(point.pointName);
 	$("#popupHeader").css("background", color);
-	if (color == "#f9ea55") {
-		$("#popupTitle").css("color", "black");
-	} else {
-		$("#popupTitle").css("color", "white");
-	}
+	$("#popupTitle").css("color", titleColor);
+	$("#popupSubTitle").css("color", subtitleColor);	
+	
+	var popupHeight = $("#locationPopup").height();
+	var targetHeight = 200;
+	var targetBottom = 0;
+	if (popupHeight > targetHeight) 
+		targetBottom = -(popupHeight - targetHeight);
+	$("#locationPopup").css("bottom", -popupHeight);
 	$("#locationPopup").show();
-	$("#map").css("bottom", $("#locationPopup").height());
+	$("#locationPopup").animate({
+            bottom: targetBottom + "px"
+        }, "fast");
+		
+	// $("#popupHeader").bind('touchmove', function(event) {
+	//     var touch = event.targetTouches[0];
+	    
+	//     // Place element where the finger is
+	//     $("#locationPopup").style.left = touch.pageX-25 + 'px';
+	//     $("#locationPopup").style.top = touch.pageY-25 + 'px';
+	//     event.preventDefault();
+	//   }, false);
 }
 
-function hideLocationPopup() { 
-	$("#locationPopup").hide();
-	$("#map").css("bottom", 0);
+function hideLocationPopup(callback) { 
+	hidePopup("#locationPopup", callback);
+}
+
+function showAircraftInfoPopup(aircraftName, aircraftType, imageName, time, infoUrl) {		
+	$("#aircraftInfoName").text(aircraftName);
+	$("#aircraftInfoType").text(aircraftType);
+	$("#aircraftInfoStartTime").text(time);
+	$("#aircraftInfoBanner").attr("src", imageName);
+	$("#aircraftInfoMore").on("click", function() {
+	  window.open(infoUrl,'aircraftMoreInfo');
+	});
+	
+	var popupHeight = $("#locationPopup").height();	
+	$("#aircraftInfoPopup").css("bottom", -popupHeight);
+	$("#aircraftInfoPopup").show();
+	$("#aircraftInfoPopup").animate({
+            bottom: "0px"
+        }, "fast");		
+}
+
+function hideAircraftInfoPopup(callback) { 
+	hidePopup("#aircraftInfoPopup", function() {
+			$("#aircraftInfoBanner").attr("src", "");
+			callback.call(this);
+	});
+}
+
+function hidePopup(popup, callback) {
+	$(popup).animate({
+            bottom: -$(popup).height() + "px"
+        }, "fast", "swing", function() {
+			$(popup).hide();
+			callback.call(this);
+	});	
 }
 
 function createTableRow(name, icon, aircraftType, time) {
@@ -30,3 +84,7 @@ function createTableRow(name, icon, aircraftType, time) {
 		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name + 
 		   "</b> " + aircraftType + "</div><div class=\"time\">"+ time.substring(0,5) +"</div></div>";
 }
+
+$(document).ready(function() {
+	//window.scrollTo(0,document.body.scrollHeight);
+});
