@@ -13,6 +13,7 @@
     direction: rtl;  
     background:#08051a ;  
     font-family: 'Heebo', sans-serif;
+    text-rendering: optimizeLegibility;
   }  
   div.aircraftInfoContent {
     width: 150px;
