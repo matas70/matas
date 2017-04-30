@@ -286,11 +286,11 @@ function drawRouteOnMap(route) {
 	var markerCluster = new MarkerClusterer(map, markers,
             {
 				styles: [
-					{url: "icons/point-"+route.color+".png", textColor: "#" + route.primaryTextColor, width: 34, height:34},
-					{url: "icons/point-"+route.color+".png", textColor: "#" + route.primaryTextColor, width: 34, height:34},
-					{url: "icons/point-"+route.color+".png", textColor: "#" + route.primaryTextColor, width: 34, height:34},
-					{url: "icons/point-"+route.color+".png", textColor: "#" + route.primaryTextColor, width: 34, height:34},
-					{url: "icons/point-"+route.color+".png", textColor: "#" + route.primaryTextColor, width: 34, height:34}],
+					{url: "icons/point-"+route.color+".png", textColor: "#" + route.color, width: 34, height:34},
+					{url: "icons/point-"+route.color+".png", textColor: "#" + route.color, width: 34, height:34},
+					{url: "icons/point-"+route.color+".png", textColor: "#" + route.color, width: 34, height:34},
+					{url: "icons/point-"+route.color+".png", textColor: "#" + route.color, width: 34, height:34},
+					{url: "icons/point-"+route.color+".png", textColor: "#" + route.color, width: 34, height:34}],
 				zIndex: route.routeId
 			});
 }
@@ -361,7 +361,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
 		// animation aircraft roation    	
 	    var step = currentAircraftAzimuth-previousAzimuth>=0?5:-5;
 		var angle = previousAzimuth;
-		
+
 		var handle = setInterval(function(){    	
 			if (Math.abs(angle % 360 - currentAircraftAzimuth % 360) < Math.abs(step)) {
 				clearInterval(handle);
@@ -369,7 +369,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
 			} else {
 				setAircraftIcon(marker, aircraft.icon, angle+=step % 360);
 			}
-	    }, 100);
+	    }, updateCurrent?10:100);
 	}
 	
 	// if requested - forcibly update the aircraft to be on current position
