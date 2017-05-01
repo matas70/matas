@@ -43,6 +43,8 @@ Math.degrees = function(radians) {
 };
 
 function calcAzimuth(source, target) {
+	if (source == undefined || target == undefined) return null;
+	
 	var lng1 = Math.radians(source.lng);
 	var lng2 = Math.radians(target.lng);
 	var lat1 = Math.radians(source.lat);
@@ -181,7 +183,8 @@ function updateLocationsMap(aircrafts) {
 					name: aircraft.name,
 					icon: aircraft.icon,
 					aircraftType: aircraft.type,					  
-					time: location.time }; 
+					time: location.time,
+					aerobatic: aircraft.aerobatic }; 
 			var location = locations[location.pointId];
 			location.aircrafts.push(item);
 		}, this);

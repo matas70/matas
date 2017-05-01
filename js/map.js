@@ -358,8 +358,11 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
 		animationTime = nextAircraftStopPosition.time - currentTime;
 	}
 	
-	// calculate the new azimuth
-	var currentAircraftAzimuth = calcAzimuth(currentAircraftPosition, nextAircraftPosition);											
+	// calculate the new azimuth	
+	var currentAircraftAzimuth = calcAzimuth(currentAircraftPosition, nextAircraftPosition);
+	if (currentAircraftAzimuth == null) 
+		currentAircraftAzimuth = previousAzimuth;
+												
 	var marker = aircraftMarkers[aircraft.aircraftId];
 	
 	// change azimuth if needed

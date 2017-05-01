@@ -513,6 +513,26 @@
 				{ "pointId": 39, "time": "12:52:45" },
 				{ "pointId": 95, "time": "12:56:25" }
 			]
+		},
+		{
+			"aircraftId": 13,
+			"name": "עפרוני",
+			"type" : "הדרכה",
+			"hide" : true,
+			"aerobatic": true,
+			"icon" : "efroni",
+			"image" : "images/efroni.jpg",
+			"infoUrl" : "http://m.iaf.org.il/7264-34531-he/IAF.aspx",
+			"path": [
+				{ "pointId": 15, "time": "09:40:00" },
+				{ "pointId": 100, "time": "09:40:00" },
+				{ "pointId": 25, "time": "09:55:00" },
+				{ "pointId": 60, "time": "11:50:00" },
+				{ "pointId": 9, "time": "11:50:00" },
+				{ "pointId": 32, "time": "12:05:00" },
+				{ "pointId": 38, "time": "13:35:00" },
+				{ "pointId": 11, "time": "14:00:00" }				
+			]
 		}
 		]
 }

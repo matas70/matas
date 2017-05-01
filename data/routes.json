@@ -114,7 +114,7 @@
 				{ "pointId": 94, "pointName": "זוהר", "N": 3135.810, "E": 3441.480 },
 				{ "pointId": 36, "pointName": "נתיבות", "N": 3124.960, "E": 3435.31, "hidden":true },
 				{ "pointId": 37, "pointName": "אופקים", "N": 3118.460, "E": 3438.110, "hidden":true },
-				{ "pointId": 38, "pointName": "מוזיאון", "N": 3114.290, "E": 3441.57, "hidden":true },
+				{ "pointId": 38, "pointName": "מוזיאון חיל האוויר", "N": 3114.290, "E": 3441.57, "hidden":true },
 				{ "pointId": 39, "pointName": "רמת חובב", "N": 3108.000, "E": 3448.00, "hidden":true },
 				{ "pointId": 95, "pointName": "בסיס נבטים", "N": 3112.333, "E": 3503.258 }			
 			]

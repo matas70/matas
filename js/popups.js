@@ -13,7 +13,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor) {
 	// build popup html
 	var html = "";
 	point.aircrafts.forEach(function(aircraft) {
-		html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time);
+		html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic);
 	}, this);
 	$("#aircraftsList").html(html);
 	$("#popupTitle").text(point.pointName);
@@ -80,10 +80,15 @@ function hidePopup(popup, callback) {
 	});	
 }
 
-function createTableRow(aircraftId, name, icon, aircraftType, time) {
+function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic) {
+	var aerobaticIcon = "<div/>";
+	if (aerobatic) {
+		aerobaticIcon = "<img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img>";
+		aircraftType = "מופע אווירובטי";
+	}
 	return "<div onclick='onAircraftSelected("+aircraftId+");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon + 
 		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name + 
-		   "</b> " + aircraftType + "</div><div class=\"time\">"+ time.substring(0,5) +"</div></div>";
+		   "</b> " + aircraftType + "</div>"+ aerobaticIcon +"<div class=\"time\">"+ time.substring(0,5) +"</div></div>";
 }
 
 $(document).ready(function() {
