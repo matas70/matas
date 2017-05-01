@@ -73,7 +73,7 @@
     pointer-events: none;
     position:absolute; 
     width:100%;
-    top: 0px; 
+    top: -64px; 
     bottom: 0px; 
     width: 100%;    
     z-index: 99999;
