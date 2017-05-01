@@ -13,7 +13,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor) {
 	// build popup html
 	var html = "";
 	point.aircrafts.forEach(function(aircraft) {
-		html += createTableRow(aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time);
+		html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time);
 	}, this);
 	$("#aircraftsList").html(html);
 	$("#popupTitle").text(point.pointName);
@@ -49,7 +49,7 @@ function hideLocationPopup(callback) {
 function showAircraftInfoPopup(aircraftName, aircraftType, iconName, imageName, time, infoUrl) {		
 	$("#aircraftInfoName").text(aircraftName);
 	$("#aircraftInfoType").text(aircraftType);
-	$("#aircraftInfoStartTime").text(time);
+	$("#aircraftInfoStartTime").text(time.substr(0,5));
 	$("#aircraftInfoIcon").attr("src", "icons/aircrafts/"+iconName+".png");
 	$("#aircraftInfoBanner").attr("src", imageName);
 	$("#aircraftInfoMore").on("click", function() {
@@ -80,8 +80,8 @@ function hidePopup(popup, callback) {
 	});	
 }
 
-function createTableRow(name, icon, aircraftType, time) {
-	return "<div class=\"tableRow\"><img src=\"icons/aircrafts/" + icon + 
+function createTableRow(aircraftId, name, icon, aircraftType, time) {
+	return "<div onclick='onAircraftSelected("+aircraftId+");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon + 
 		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name + 
 		   "</b> " + aircraftType + "</div><div class=\"time\">"+ time.substring(0,5) +"</div></div>";
 }

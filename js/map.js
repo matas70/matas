@@ -45,6 +45,12 @@ function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, 
 	//selectedAircraftMarkerIcon = markerIcon;		
 }
 
+function onAircraftSelected(aircraftId) {
+	var aircraft = aircrafts[aircraftId-1];
+	window.scrollTo(0,1);
+	selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl);
+}
+
 function addAircraftsToMap() {
 	aircrafts.forEach(function(aircraft) {
 		// draw current location of the aircraft
@@ -399,7 +405,7 @@ var defer = $.Deferred();
 
 function onHomeButtonClick() {
 	// hide about if visible
-	if (!aboutVisible) {
+	if (aboutVisible) {
 		onAboutButtonClick();
 	}
 	
