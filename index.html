@@ -23,13 +23,18 @@
   <body>    
     <!-- page header -->
     <header id="headerMobile">
-      <a href="javascript:void(0)" onclick="onMenuButtonClick()">
-        <img id="menuButton" src="icons/menuIcon.png"/>
-      </a>
-      <a href="javascript:void(0)" onclick="onHomeButtonClick()">
-        <img id="homeButton" src="icons/homeIcon.png"/>
-       </a>
-      <img id="headerIcon" src="icons/logo.png"/>                
+      <div id="headerBg">
+        <a href="javascript:void(0)" onclick="onAboutButtonClick()">
+          <img id="aboutButton" src="icons/aboutIcon.png"/>
+        </a>
+        <a href="javascript:void(0)" onclick="onHomeButtonClick()">
+          <img id="homeButton" src="icons/homeIcon.png"/>
+         </a>
+        <div id="headerIconContainer">
+          <img id="headerIcon" src="icons/logo.svg"/>          
+        </div>
+        <div id="aboutMenuTitle" style="display:none">אודות</div>                
+      </div>                
     </header>    
     
     <!-- map overlay -->
@@ -72,6 +77,19 @@
         <div id="aircraftInfoMore">קרא עוד</div>
     </div>
     
+    <!-- about popup -->
+    <div id="aboutPopup" class="infoPopup" style="display:none">      
+      <div id="halfBlue"/>      
+      <img id="aboutLogo" src="icons/bigLogo.png"></img>
+      <div id="aboutTitle">
+        חג עצמאות שמח!
+      </div>       
+      <div id="aboutBody">
+        האתר פותח ע"י <b>יחידת אופק</b> בחיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות. 
+האתר הינו פיילוט לאנשי חיל האוויר לפני הפצה לכלל הציבור לקראת חגיגות 70 שנה למדינת ישראל שיחול בשנה הבאה.
+      </div>
+    </div>
+    
     <!-- aircraft images cache -->
     <div class="imageCache">
       <img id="raam" src="icons/aircrafts/raam.svg" class="imageCache"></img>         
@@ -88,7 +106,7 @@
     <div>
     
     <!-- javascript files -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArnvYMCM_9f7qySlzH3GDyFZ7YBbGqg6M&callback=initMap&language=he&region=IL"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu3IoToXr-ly4nEPpHUbNILj8zKnkXO8Q&callback=initMap&language=he&region=IL"></script>
     <script src="js/slidingMarker/markerAnimate.js"></script>
     <script src="js/slidingMarker/SlidingMarker.min.js"></script>              
 

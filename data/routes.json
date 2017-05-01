@@ -22,9 +22,9 @@
 				{ "pointId": 47, "pointName": "איילון", "N": 3203.280, "E": 3447.083 },
 				{ "pointId": 48, "pointName": "מחלף רוקח", "N": 3206.164, "E": 3448.191 },
 				{ "pointId": 49, "pointName": "מחלף הכפר הירוק", "N": 3208.108, "E": 3450.018 },
-				{ "pointId": 31, "pointName": "הרצליה", "N": 3210.068, "E": 3450.566 },
+				{ "pointId": 101, "pointName": "הרצליה מזרח", "N": 3210.068, "E": 3450.566 },
 				{ "pointId": 50, "pointName": "רעננה", "N": 3210.764, "E": 3452.885 },
-				{ "pointId": 51, "pointName": "אבו יהודה", "N": 3216.362, "E": 3453.329 },
+				{ "pointId": 51, "pointName": "אבן יהודה", "N": 3216.362, "E": 3453.329 },
 				{ "pointId": 52, "pointName": "פרדסיה", "N": 3218.285, "E": 3454.048 },
 				{ "pointId": 53, "pointName": "חדרה", "N": 3226.220, "E": 3455.250 },
 				{ "pointId": 54, "pointName": "בנימינה", "N": 3231.210, "E": 3456.880 },
@@ -35,7 +35,7 @@
 				{ "pointId": 57, "pointName": "רמת ישי", "N": 3242.144, "E": 3510.019 },
 				{ "pointId": 58, "pointName": "כפר חסידים", "N": 3245.028, "E": 3505.808 },
 				{ "pointId": 59, "pointName": "בית זיקוק", "N": 3247.388, "E": 3502.783 },
-				{ "pointId": 25, "pointName": "בח\"א 21", "N": 3248.288, "E": 3502.778 },				
+				{ "pointId": 25, "pointName": "בח\"א 21", "N": 3248.938, "E": 3502.487, "hidden": true},				
 				{ "pointId": 40, "pointName": "ראש כרמל", "N": 3250.116, "E": 3459.110 },
 				{ "pointId": 41, "pointName": "עתלית", "N": 3241.875, "E": 3454.458 },
 				{ "pointId": 28, "pointName": "קיסריה", "N": 3230.782, "E": 3453.522, "hidden":true },
@@ -44,14 +44,14 @@
 				{ "pointId": 31, "pointName": "הרצליה", "N": 3210.006, "E": 3447.549 , "hidden":true},
 				{ "pointId": 32, "pointName": "תל אביב", "N": 3204.480, "E": 3445.710, "hidden":true },
 				{ "pointId": 33, "pointName": "תל יונה", "N": 3200.474, "E": 3443.343, "hidden":true },
-				{ "pointId": 60, "pointName": "תל נוף 15", "N": 3151.014, "E": 3449.126 , "hidden":true}
+				{ "pointId": 60, "pointName": "תל נוף 15", "N": 3151.014, "E": 3449.126 }
 			]
 		},
 		{
 			"routeId": 2,
 			"name": "מסלול דרום",
 			"color": "22fcbb",			
-			"primaryTextColor": "ffffff",
+			"primaryTextColor": "08b581",
 			"secondaryTextColor" : "09956b",
 			"visible": true,
 			"points": [
@@ -88,11 +88,12 @@
 			"routeId": 3,
 			"name": "פיצול - מסלול דרום",
 			"color": "22fcbb",
-			"primaryTextColor": "ffffff",
+			"primaryTextColor": "08b581",
 			"secondaryTextColor" : "09956b",
 			"visible": true,
 			"points": [
-				{ "pointId": 83, "pointName": "שדה בוקר", "N": 3052.413, "E": 3447.592 , "hidden":true},
+				{ "pointId": 83, "pointName": "שדה בוקר", "N": 3052.413, "E": 3447.592 },
+				{ "pointId": 102, "pointName": "משאבי שדה", "N": 3100.194, "E": 3447.200 },
 				{ "pointId": 88, "pointName": "רביבים", "N": 3102.668, "E": 3443.314 },
 				{ "pointId": 89, "pointName": "רתמים", "N": 3103.250, "E": 3441.408 },
 				{ "pointId": 90, "pointName": "אורים", "N": 3118.290, "E": 3431.354 },
@@ -115,7 +116,7 @@
 				{ "pointId": 37, "pointName": "אופקים", "N": 3118.460, "E": 3438.110, "hidden":true },
 				{ "pointId": 38, "pointName": "מוזיאון", "N": 3114.290, "E": 3441.57, "hidden":true },
 				{ "pointId": 39, "pointName": "רמת חובב", "N": 3108.000, "E": 3448.00, "hidden":true },
-				{ "pointId": 95, "pointName": "נבטים", "N": 3112.333, "E": 3503.258 }			
+				{ "pointId": 95, "pointName": "בסיס נבטים", "N": 3112.333, "E": 3503.258 }			
 			]
 		},
 		{

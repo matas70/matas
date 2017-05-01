@@ -54,7 +54,7 @@ function addAircraftsToMap() {
 						 					
 		var aircraftMarker = new SlidingMarker({
 		    position: currentAircraftPosition,
-		    map: map,
+		    map: aircraft.hide?null:map,
 			title: aircraft.name,
 			easing: "linear",
 			optimized: false,
@@ -286,11 +286,11 @@ function drawRouteOnMap(route) {
 	var markerCluster = new MarkerClusterer(map, markers,
             {
 				styles: [
-					{url: "icons/point-"+route.color+".png", textColor: "#" + route.color, width: 34, height:34},
-					{url: "icons/point-"+route.color+".png", textColor: "#" + route.color, width: 34, height:34},
-					{url: "icons/point-"+route.color+".png", textColor: "#" + route.color, width: 34, height:34},
-					{url: "icons/point-"+route.color+".png", textColor: "#" + route.color, width: 34, height:34},
-					{url: "icons/point-"+route.color+".png", textColor: "#" + route.color, width: 34, height:34}],
+					{url: "icons/point-"+route.color+".png", textSize: 1, textColor: "#" + route.color, width: 34, height:34},
+					{url: "icons/point-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 34, height:34},
+					{url: "icons/point-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 34, height:34},
+					{url: "icons/point-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 34, height:34},
+					{url: "icons/point-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 34, height:34}],
 				zIndex: route.routeId
 			});
 }
@@ -398,11 +398,36 @@ function startAircraftsAnimation(updateCurrent) {
 var defer = $.Deferred();
 
 function onHomeButtonClick() {
+	// hide about if visible
+	if (!aboutVisible) {
+		onAboutButtonClick();
+	}
+	
 	map.panTo({lat: 32.00, lng: 35.00});
 	map.setZoom(8);
 	deselectAircraft();
 	deselectLocation();
 } 
+
+var aboutVisible = false;
+
+function onAboutButtonClick() {
+	if (!aboutVisible) {	
+		$("#aboutPopup").fadeIn();		
+		$("#headerIcon").fadeOut("fast", function() {
+			$("#aboutMenuTitle").fadeIn();
+		});
+		$("#aboutButton").attr("src", "icons/aboutIconSelected.png");
+		aboutVisible = true;
+	} else {
+		$("#aboutPopup").fadeOut();
+		$("#aboutMenuTitle").fadeOut("fast", function() {
+			$("#headerIcon").fadeIn();
+		});
+		$("#aboutButton").attr("src", "icons/aboutIcon.png");
+		aboutVisible = false;
+	}	
+}
 
 function initMap() {	
 	initPopups();

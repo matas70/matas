@@ -83,27 +83,27 @@
     background-repeat: no-repeat;
   }
 
-#headerIcon {
-  display: block;
-  width: 90px;   
-  margin: 0 auto;
-  padding-top: 5pt;
+#headerIcon {  
+  width: 90px;  
+  height: 39px;
 }  
 
-#menuButton {
-  display: block;
-  width: 22px;   
-  float: left; 
-  margin-left: 19px;
-  margin-top: 25.6px;
+#headerIconContainer {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#aboutButton {
+    position: absolute;
+    left: 20px;
+    top: 21px;
 }
 
 #homeButton {
-  display: block;
-  width: 24px;   
-  float: right;
-  margin-right: 20px;
-  margin-top: 22.6px;  
+    position: absolute;
+    right: 20px;
+    top: 21px;
 }
 
 #popupTitle {
@@ -245,6 +245,44 @@ div.infoPopup {
     bottom: 0px;         
 }
 
+#aboutPopup {
+  height: 100%;
+  background: white;
+  text-align: center;
+}
+
+#aboutTitle {
+  font-weight: bold;
+  margin-top: 13px;
+  margin-bottom: 13px;
+}
+
+#aboutBody {
+  margin-left: 52px;
+  margin-right: 52px;
+}
+
+#aboutMenuTitle {
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#halfBlue {
+  background: #7bd1fc;
+  width: 100%;
+  height: 50%;
+  position: absolute;
+  z-index: 9999;
+  top:0px;
+}
+
+#aboutLogo {
+  padding-top: 30%;
+}
+
 div.imageCache {
   visibility: hidden;
   height: 0px;
@@ -262,5 +300,17 @@ HEADER
     display:block;      
     position:relative; 
     height:0px;
+    z-index: 10000;    
+}
+
+#headerBg {
+  display: table;
+  background: #08051a;
+  height: 64px;
+  width: 100%;
+  position: absolute;
+  z-index: 10000;
+  text-align: center;
+  vertical-align: middle;
 }
 

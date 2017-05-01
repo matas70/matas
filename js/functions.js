@@ -224,13 +224,7 @@ function loadAircrafts(callback) {
 		aircrafts = routes.aircrafts;
 		startDate = routes.startDate;
 		plannedStartTime = convertTime(routes.plannedStartTime);
-		actualStartTime = convertTime(routes.actualStartTime);
-				
-		// TODO: remove this before production
-		// make the simulation start before 60 minutes
-		actualStartTime = getCurrentTime() - 3645000;
-		//***
-			
+		actualStartTime = convertTime(routes.actualStartTime);			
 		updateLocationsMap(aircrafts);	
 		callback(aircrafts);
 	});
