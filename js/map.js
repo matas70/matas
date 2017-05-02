@@ -412,6 +412,9 @@ function onHomeButtonClick() {
 		onAboutButtonClick();
 	}
 	
+	deselectAircraft();
+	deselectLocation();
+	
 	map.panTo({lat: 32.00, lng: 35.00});
 	map.setZoom(8);
 	deselectAircraft();
@@ -421,6 +424,8 @@ function onHomeButtonClick() {
 var aboutVisible = false;
 
 function onAboutButtonClick() {
+	deselectAircraft();
+	deselectLocation();
 	if (!aboutVisible) {	
 		$("#aboutPopup").fadeIn();		
 		$("#headerIcon").fadeOut("fast", function() {

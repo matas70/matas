@@ -143,11 +143,12 @@ function getPredictedLocation(currentPosition, nextPosition, nextTime, time) {
 
 function getCurrentTime() {
   var now = new Date();
-  return now;
+  return now.getTime();
 }
 
-function convertTime(timeString) {	
-	return Date.parse(startDate+ " " + timeString);
+function convertTime(timeString) {
+	return Date.parse(startDate+ " " + timeString, "yyyy-MM-dd HH:mm:ss").getTime();	
+	//return Date.parse(startDate+ " " + timeString);
 }
 
 function containsPosition(pos, list) {
