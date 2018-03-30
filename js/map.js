@@ -470,7 +470,26 @@ function initMap() {
 		
 		// hide splash screen
 		setTimeout(function() {
-			$(".splash").fadeOut();					
+			$(".splash").fadeOut();
+            document.onclick = function (argument) {
+                var conf = true;
+                var docelem = document.documentElement;
+
+                if (conf == true) {
+                    if (docelem.requestFullscreen) {
+                        docelem.requestFullscreen();
+                    }
+                    else if (docelem.mozRequestFullScreen) {
+                        docelem.mozRequestFullScreen();
+                    }
+                    else if (docelem.webkitRequestFullScreen) {
+                        docelem.webkitRequestFullScreen();
+                    }
+                    else if (docelem.msRequestFullscreen) {
+                        docelem.msRequestFullscreen();
+                    }
+                }
+            }
 	 	}, 3500);
 		 
 		$(window).focus(function() {
