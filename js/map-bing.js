@@ -7,3 +7,11 @@ function loadMapScenario() {
         zoom: 8
     });
 }
+
+function deselectAircraft(callback) {
+// Stub
+}
+
+function deselectLocation(callback) {
+
+}

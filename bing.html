@@ -60,12 +60,24 @@
     <div class="map-dark"></div>
 
     <!-- startup splash screen -->
-    <div class="splash" style="background-image: url('animation/splashAni_V1_alpha_small.gif');"></div>
+    <!--<div class="splash" style="background-image: url('animation/splashAni_V1_alpha_small.gif');"></div>-->
 
     <!-- The map itself -->
     <div id="map"></div>
 
-    <script src="js/functions.js"></script>
+    <!-- about popup -->
+    <div id="aboutPopup" class="infoPopup" style="display:none">
+        <div id="halfBlue"/>
+        <img id="aboutLogo" src="icons/bigLogo.png"></img>
+        <div id="aboutTitle">
+            חג עצמאות שמח!
+        </div>
+        <div id="aboutBody">
+            האתר פותח ע"י <b>יחידת אופק</b> בחיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות.
+            האתר הינו פיילוט לאנשי חיל האוויר לפני הפצה לכלל הציבור לקראת חגיגות 70 שנה למדינת ישראל שיחול בשנה הבאה.
+        </div>
+    </div>
+
     <script src="js/map-bing.js"></script>
     <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=loadMapScenario&setLang=he' async defer></script>
 
