@@ -268,3 +268,25 @@ function compassHeading(alpha, beta, gamma) {
 
   return compassHeading;
 }
+
+var aboutVisible = false;
+
+function onAboutButtonClick() {
+    deselectAircraft();
+    deselectLocation();
+    if (!aboutVisible) {
+        $("#aboutPopup").fadeIn();
+        $("#headerIcon").fadeOut("fast", function() {
+            $("#aboutMenuTitle").fadeIn();
+        });
+        $("#aboutButton").attr("src", "icons/aboutIconSelected.png");
+        aboutVisible = true;
+    } else {
+        $("#aboutPopup").fadeOut();
+        $("#aboutMenuTitle").fadeOut("fast", function() {
+            $("#headerIcon").fadeIn();
+        });
+        $("#aboutButton").attr("src", "icons/aboutIcon.png");
+        aboutVisible = false;
+    }
+}

@@ -419,28 +419,6 @@ function onHomeButtonClick() {
 	map.setZoom(8);
 	deselectAircraft();
 	deselectLocation();
-} 
-
-var aboutVisible = false;
-
-function onAboutButtonClick() {
-	deselectAircraft();
-	deselectLocation();
-	if (!aboutVisible) {	
-		$("#aboutPopup").fadeIn();		
-		$("#headerIcon").fadeOut("fast", function() {
-			$("#aboutMenuTitle").fadeIn();
-		});
-		$("#aboutButton").attr("src", "icons/aboutIconSelected.png");
-		aboutVisible = true;
-	} else {
-		$("#aboutPopup").fadeOut();
-		$("#aboutMenuTitle").fadeOut("fast", function() {
-			$("#headerIcon").fadeIn();
-		});
-		$("#aboutButton").attr("src", "icons/aboutIcon.png");
-		aboutVisible = false;
-	}	
 }
 
 function initMap() {	
