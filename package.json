@@ -1,0 +1,23 @@
+{
+  "name": "matas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matas70/matas.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matas70/matas/issues"
+  },
+  "homepage": "https://github.com/matas70/matas#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
