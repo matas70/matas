@@ -456,8 +456,12 @@ function initMap() {
 		deselectLocation();
 		deselectAircraft();
 	});
-	
-	// load all routes
+
+    // make it larger than screen that when it scrolls it goes full screen
+    $("#map").height(window.screen.availHeight-64);
+    $(".map-dark").height(window.screen.availHeight-64);
+
+    // load all routes
 	loadRoutes(function(routes) {
 		drawRoutesOnMap(routes);
 		
@@ -472,23 +476,21 @@ function initMap() {
 		setTimeout(function() {
 			$(".splash").fadeOut();
             document.onclick = function (argument) {
-                var conf = true;
+                // make the web app full screen on click
                 var docelem = document.documentElement;
-
-                if (conf == true) {
-                    if (docelem.requestFullscreen) {
-                        docelem.requestFullscreen();
-                    }
-                    else if (docelem.mozRequestFullScreen) {
-                        docelem.mozRequestFullScreen();
-                    }
-                    else if (docelem.webkitRequestFullScreen) {
-                        docelem.webkitRequestFullScreen();
-                    }
-                    else if (docelem.msRequestFullscreen) {
-                        docelem.msRequestFullscreen();
-                    }
+                if (docelem.requestFullscreen) {
+                    docelem.requestFullscreen();
                 }
+                else if (docelem.mozRequestFullScreen) {
+                    docelem.mozRequestFullScreen();
+                }
+                else if (docelem.webkitRequestFullScreen) {
+                    docelem.webkitRequestFullScreen();
+                }
+                else if (docelem.msRequestFullscreen) {
+                    docelem.msRequestFullscreen();
+                }
+                //window.scrollTo(0,1);
             }
 	 	}, 3500);
 		 

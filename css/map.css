@@ -1,8 +1,8 @@
   #map {
-    position: absolute;
-       top: 64px; /* Header Height */
-       bottom: 0px; /* Footer Height */
-       width: 100%;           
+    /*position: absolute;*/
+     top: 64px; /* Header Height */
+       /*bottom: 0; /* Footer Height */
+       /*width: 100%;*/
   }
      
    /* hebrew */
@@ -60,6 +60,7 @@
   }
   
   div.map-dark {
+    top: 64px;
     pointer-events: none;
     position:absolute; 
     width:100%;
