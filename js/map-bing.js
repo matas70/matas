@@ -6,6 +6,10 @@ function loadMapScenario() {
         mapTypeId: Microsoft.Maps.MapTypeId.road,
         zoom: 8
     });
+
+    setTimeout(function() {
+        $(".splash").fadeOut();
+    }, 3500);
 }
 
 function deselectAircraft(callback) {
