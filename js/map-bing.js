@@ -274,10 +274,6 @@ function drawMarkersOnMap(route, markersLayer) {
 
                 // draw marker for this location
                 var marker = new Microsoft.Maps.Pushpin(location, markerIcon);
-
-                // Extracted to a method so the cluster can use it aswell
-                addClickEventToMarker(marker);
-
                 markersMap[point.pointId] = marker;
             }
         }, this);
@@ -298,12 +294,11 @@ function drawMarkersOnMap(route, markersLayer) {
                     // Otherwise it will be containedPushpins.length
                     text: ""
                 });
-
-                addClickEventToMarker(clusteredMarker);
             }
         });
 
-
+        // It is more efficient to add an event to an entire layer than to specific shapes
+        addClickEventToMarker(markersLayer);
         map.layers.insert(markersLayer);
     });
 }
@@ -321,8 +316,8 @@ function drawRoutesOnMap(routes) {
 
 // We're working with Bing's location format
 function addClickEventToMarker(marker) {
-    Microsoft.Maps.Events.addHandler(marker, 'click', function() {
-        if (selectedLocation == marker.getLocation()) {
+    Microsoft.Maps.Events.addHandler(marker, 'click', function(event) {
+        if (selectedLocation == event.location) {
             deselectLocation();
         } else {
             // first hide the previous popup
