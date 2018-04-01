@@ -443,13 +443,34 @@ function onAboutButtonClick() {
 	}	
 }
 
+function makeHeaderSticky() {
+    // When the user scrolls the page, execute myFunction
+    window.onscroll = function() {myFunction()};
+
+	// Get the header
+    var header = $("#headerMobile");
+
+	// Get the offset position of the navbar
+    var sticky = header.offset().top;
+
+	// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            header.addClass("sticky");
+        } else {
+            header.removeClass("sticky");
+        }
+    }
+}
+
 function initMap() {	
 	initPopups();
 	map = new google.maps.Map(document.getElementById('map'), 
 		{
 			center: {lat: 32.00, lng: 35.00},  
 			zoom: 8,
-			gestureHandling: 'greedy'
+			gestureHandling: 'greedy',
+            disableDefaultUI: true
 			});
 			
 	map.addListener('click', function() {
@@ -458,8 +479,9 @@ function initMap() {
 	});
 
     // make it larger than screen that when it scrolls it goes full screen
-    $("#map").height(window.screen.availHeight-64);
-    $(".map-dark").height(window.screen.availHeight-64);
+    $("#map").height(window.screen.availHeight-128);
+    $(".map-dark").height(window.screen.availHeight-128);
+    makeHeaderSticky();
 
     // load all routes
 	loadRoutes(function(routes) {
@@ -476,6 +498,7 @@ function initMap() {
 		setTimeout(function() {
 			$(".splash").fadeOut();
             document.onclick = function (argument) {
+            	/*
                 // make the web app full screen on click
                 var docelem = document.documentElement;
                 if (docelem.requestFullscreen) {
@@ -489,8 +512,7 @@ function initMap() {
                 }
                 else if (docelem.msRequestFullscreen) {
                     docelem.msRequestFullscreen();
-                }
-                //window.scrollTo(0,1);
+                }*/
             }
 	 	}, 3500);
 		 

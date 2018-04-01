@@ -4,6 +4,17 @@
        /*bottom: 0; /* Footer Height */
        /*width: 100%;*/
   }
+
+  #headerMobile {
+  }
+
+  .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%
+  }
+
+
      
    /* hebrew */
   @font-face {
