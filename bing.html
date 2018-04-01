@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>יום העצמאות 2017 - מפת מטסים חיל האוויר</title>
+    <title>יום העצמאות 70 למדינת ישראל  - מפת מטס חיל האוויר</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
@@ -33,6 +33,7 @@
     <script src="js/popups.js"></script>
     <script src="js/RotateIcon.js"></script>
     <script src="js/markerclusterer.js"></script>
+    <link rel="manifest" href="/manifest.json">
     <link href='icons/favicon.ico' rel='Shortcut Icon' type='image/x-icon' /><link href='icons/favicon.ico' rel='Icon' type='image/x-icon' />
   </head>
   <body style="overflow: hidden;">
@@ -56,14 +57,14 @@
     <div class="map-dark"></div>
 
     <!-- startup splash screen -->
-    <div class="splash" style="background-image: url('animation/splashAni_V1_alpha_small.gif');"></div>
+    <div class="splash" style="background-image: url('animation/Splash 70.gif');background-size: contain;"></div>
 
     <!-- The map itself -->
     <div id="map"></div>
 
     <!-- about popup -->
     <div id="aboutPopup" class="infoPopup" style="display:none">
-        <img id="aboutLogo" src="icons/bigLogo.png" />
+        <img id="aboutLogo" src="icons/bigLogo.png">
         <div id="aboutTitle">
             חג עצמאות שמח!
         </div>
@@ -73,6 +74,22 @@
         </div>
         <div id="halfBlue">
         </div>
+    </div>
+
+    <!-- aircraft images cache -->
+    <div class="imageCache">
+        <img id="raam" src="icons/aircrafts/raam.svg" class="imageCache"></img>
+        <img id="barak" src="icons/aircrafts/barak.svg" class="imageCache"></img>
+        <img id="tzufit" src="icons/aircrafts/tzufit.svg" class="imageCache"></img>
+        <img id="yasur" src="icons/aircrafts/yasur.svg" class="imageCache"></img>
+        <img id="adir" src="icons/aircrafts/adir.svg" class="imageCache" ></img>
+        <img id="lavi" src="icons/aircrafts/lavi.svg"  class="imageCache"></img>
+        <img id="nahshon" src="icons/aircrafts/nahshon.svg"  class="imageCache"></img>
+        <img id="karnaf" src="icons/aircrafts/karnaf.svg"  class="imageCache"></img>
+        <img id="shimshon" src="icons/aircrafts/shimshon.svg"  class="imageCache"></img>
+        <img id="baz" src="icons/aircrafts/baz.svg"  class="imageCache"></img>
+        <img id="reem" src="icons/aircrafts/reem.svg" class="imageCache"></img>
+        <img id="efroni" src="icons/aircrafts/efroni.svg" class="imageCache"></img>
     </div>
 
     <script src="js/map-bing.js"></script>
