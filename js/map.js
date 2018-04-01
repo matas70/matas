@@ -476,7 +476,16 @@ function registerServiceWorker() {
         });
     }
 }
+
+function redirectToHttps() {
+    var loc = window.location.href+'';
+    if (loc.startsWith('http://') && loc.endsWith(".azurewebsites.net")){
+        window.location.href = loc.replace('http://','https://');
+    }
+}
+
 function initMap() {
+	redirectToHttps();
 	// register service worker (needed for the app to be suggested as wepapp)
     registerServiceWorker();
     // let splash run for a second before start loading the map
