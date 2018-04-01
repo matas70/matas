@@ -421,59 +421,113 @@ function onHomeButtonClick() {
 	deselectLocation();
 }
 
-function initMap() {	
-	initPopups();
-	map = new google.maps.Map(document.getElementById('map'), 
-		{
-			center: {lat: 32.00, lng: 35.00},  
-			zoom: 8,
-			gestureHandling: 'greedy'
-			});
-			
-	map.addListener('click', function() {
-		deselectLocation();
-		deselectAircraft();
-	});
-	
-	// load all routes
-	loadRoutes(function(routes) {
-		drawRoutesOnMap(routes);
-		
-		// load aircrafts 
-		loadAircrafts(function(pAircrafts) {
-			addAircraftsToMap();			
-			aircrafts = pAircrafts;
-			startAircraftsAnimation(false);
-		});
-		
-		// hide splash screen
-		setTimeout(function() {
-			$(".splash").fadeOut();
-            document.onclick = function (argument) {
-                var conf = true;
-                var docelem = document.documentElement;
+function makeHeaderSticky() {
+    // When the user scrolls the page, execute myFunction
+    window.onscroll = function() {myFunction()};
 
-                if (conf == true) {
-                    if (docelem.requestFullscreen) {
-                        docelem.requestFullscreen();
-                    }
-                    else if (docelem.mozRequestFullScreen) {
-                        docelem.mozRequestFullScreen();
-                    }
-                    else if (docelem.webkitRequestFullScreen) {
-                        docelem.webkitRequestFullScreen();
-                    }
-                    else if (docelem.msRequestFullscreen) {
-                        docelem.msRequestFullscreen();
-                    }
+	// Get the header
+    var header = $("#headerMobile");
+
+	// Get the offset position of the navbar
+    var sticky = header.offset().top;
+
+	// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            header.addClass("sticky");
+        } else {
+            header.removeClass("sticky");
+        }
+    }
+}
+
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/js/service-worker.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
+}
+
+function redirectToHttps() {
+    var loc = window.location.href+'';
+    if (loc.startsWith('http://') && loc.endsWith(".azurewebsites.net")){
+        window.location.href = loc.replace('http://','https://');
+    }
+}
+
+function initMap() {
+	redirectToHttps();
+	// register service worker (needed for the app to be suggested as wepapp)
+    registerServiceWorker();
+    // let splash run for a second before start loading the map
+    setTimeout(function() {
+        initPopups();
+        map = new google.maps.Map(document.getElementById('map'),
+            {
+                center: {lat: 32.00, lng: 35.00},
+                zoom: 8,
+                gestureHandling: 'greedy',
+                disableDefaultUI: true
+            });
+
+        map.addListener('click', function() {
+            deselectLocation();
+            deselectAircraft();
+        });
+
+        // make it larger than screen that when it scrolls it goes full screen
+        $("#map").height(window.outerHeight);
+        $(".map-dark").height(window.outerHeight);
+        makeHeaderSticky();
+
+        // load all routes
+        loadRoutes(function(routes) {
+            drawRoutesOnMap(routes);
+
+            // load aircrafts
+            loadAircrafts(function(pAircrafts) {
+                addAircraftsToMap();
+                aircrafts = pAircrafts;
+                startAircraftsAnimation(false);
+            });
+
+            // hide splash screen
+            setTimeout(function() {
+                $(".splash").fadeOut();
+                document.onclick = function (argument) {
+					window.scrollTo(0,1);
                 }
-            }
-	 	}, 3500);
-		 
-		$(window).focus(function() {
-			startAircraftsAnimation(true);
-		});			 			
-	});
-		
-	defer.resolve(map);	 			  
+            }, 3500);
+
+            $(window).focus(function() {
+                startAircraftsAnimation(true);
+            });
+        });
+        defer.resolve(map);
+    }, 1000);
+}
+
+/* unused */
+function requestFullScreen() {
+	// make the web app full screen on click
+	var docelem = document.documentElement;
+	if (docelem.requestFullscreen) {
+		docelem.requestFullscreen();
+	}
+	else if (docelem.mozRequestFullScreen) {
+		docelem.mozRequestFullScreen();
+	}
+	else if (docelem.webkitRequestFullScreen) {
+		docelem.webkitRequestFullScreen();
+	}
+	else if (docelem.msRequestFullscreen) {
+		docelem.msRequestFullscreen();
+	}
 }
