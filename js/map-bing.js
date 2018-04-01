@@ -1,14 +1,26 @@
 var map;
+var selectedAircraft = null;
+var selectedAircraftMarker = null;
+var selectedAircraftMarkerIcon = null;
+
+var aircrafts = null;
+var selectedLocation = null;
+var selectedLocationMarker = null;
+var selectedLocationMarkerIcon = null;
+
 function initMap() {
     initPopups();
     map = new Microsoft.Maps.Map(document.getElementById('map'), {
         credentials: 'Ak2hpoGQttZ2uKASnsJGuVrmv-eRsiXEOujObmNd5gpii6QjviUim4A84_4ODwmT',
         center: new Microsoft.Maps.Location(31.33, 35.20),
         mapTypeId: Microsoft.Maps.MapTypeId.road,
-        zoom: 8
+        zoom: 8,
+        showDashboard: false,
+        showLocateMeButton: false,
+        showMapTypeSelector: false
     });
 
-    map.addListener('click', function () {
+    Microsoft.Maps.Events.addHandler(map, 'click', function () {
         deselectLocation();
         deselectAircraft();
     });
@@ -17,193 +29,189 @@ function initMap() {
     loadRoutes(function (routes) {
         drawRoutesOnMap(routes);
 
-        // load aircrafts
-        loadAircrafts(function (pAircrafts) {
-            addAircraftsToMap();
-            aircrafts = pAircrafts;
-            startAircraftsAnimation(false);
-        });
+//TODO: Implement
+//         // load aircrafts
+//         loadAircrafts(function (pAircrafts) {
+//             addAircraftsToMap();
+//             aircrafts = pAircrafts;
+//             startAircraftsAnimation(false);
+//         });
 
         setTimeout(function () {
             $(".splash").fadeOut();
         }, 3500);
 
-        $(window).focus(function () {
-            startAircraftsAnimation(true);
-        });
+//TODO: Implement
+//         $(window).focus(function () {
+//             startAircraftsAnimation(true);
+//         });
     });
 }
 
-function addAircraftsToMap() {
-    aircrafts.forEach(function(aircraft) {
-        // draw current location of the aircraft
-        var currentAircraftPosition = getCurrentLocation(aircraft.path, getCurrentTime());
-        var nextAircraftPosition = getNextLocation(aircraft.path, getCurrentTime());
-        var currentAircraftAzimuth = calcAzimuth(currentAircraftPosition, nextAircraftPosition.location) % 360;
+// function addAircraftsToMap() {
+//     aircrafts.forEach(function(aircraft) {
+//         // draw current location of the aircraft
+//         var currentAircraftPosition = getCurrentLocation(aircraft.path, getCurrentTime());
+//         var nextAircraftPosition = getNextLocation(aircraft.path, getCurrentTime());
+//         var currentAircraftAzimuth = calcAzimuth(currentAircraftPosition, nextAircraftPosition.location) % 360;
 
-        var aircraftMarker = new SlidingMarker({
-            position: currentAircraftPosition,
-            map: aircraft.hide?null:map,
-            title: aircraft.name,
-            easing: "linear",
-            optimized: false,
-            zIndex:9
-        });
+//         var aircraftMarker = new SlidingMarker({
+//             position: currentAircraftPosition,
+//             map: aircraft.hide?null:map,
+//             title: aircraft.name,
+//             easing: "linear",
+//             optimized: false,
+//             zIndex:9
+//         });
 
-        setAircraftIcon(aircraftMarker, aircraft.icon, currentAircraftAzimuth);
-        aircraftMarker.currentAircraftAzimuth = currentAircraftAzimuth;
-        aircraftMarkers[aircraft.aircraftId] = aircraftMarker;
+//         setAircraftIcon(aircraftMarker, aircraft.icon, currentAircraftAzimuth);
+//         aircraftMarker.currentAircraftAzimuth = currentAircraftAzimuth;
+//         aircraftMarkers[aircraft.aircraftId] = aircraftMarker;
 
-        var infoWindow = new google.maps.InfoWindow();
+//         var infoWindow = new google.maps.InfoWindow();
 
-        // add "clicked" event
-        aircraftMarker.addListener('click', function() {
-            if (selectedAircraft == aircraft) {
-                deselectAircraft();
-            } else {
-                // first hide the previous popup
-                if (selectedAircraft != null) {
-                    deselectAircraft(function() {
-                        // then show a new popup
-                        selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time.substr(0,5), aircraft.infoUrl);
-                    });
-                } else {
-                    // then show a new popup
-                    selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time.substr(0,5), aircraft.infoUrl);
-                }
-            }
-        });
-    }, this);
-}
+//         // add "clicked" event
+//         aircraftMarker.addListener('click', function() {
+//             if (selectedAircraft == aircraft) {
+//                 deselectAircraft();
+//             } else {
+//                 // first hide the previous popup
+//                 if (selectedAircraft != null) {
+//                     deselectAircraft(function() {
+//                         // then show a new popup
+//                         selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time.substr(0,5), aircraft.infoUrl);
+//                     });
+//                 } else {
+//                     // then show a new popup
+//                     selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time.substr(0,5), aircraft.infoUrl);
+//                 }
+//             }
+//         });
+//     }, this);
+// }
 
 //TODO: Implement
 function drawRoutesOnMap(routes) {
-    // set style options for routes
-    map.data.setStyle(function(feature) {
-        var color = feature.getProperty('color');
-        var ftype = feature.getProperty('type');
-        var visible = feature.getProperty('visibile');
-        var zIndex = feature.getProperty('zIndex');
-
-        if (ftype == "path") {
-            return {
-                geodesic: true,
-                strokeColor: color,
-                strokeOpacity: visible?1.0:0.2,
-                strokeWeight: 3,
-                fillOpacity: 0,
-                zIndex: zIndex,
-            };
-        } else if (ftype == "dropShadow") {
-            return {
-                geodesic: true,
-                strokeOpacity: visible?0.1:0.0,
-                strokeColor: "black",
-                strokeWeight: 6,
-                fillOpacity: 0,
-                zIndex: 0
-            };
-        } return {};
-    });
+    // Routes belong in the routes layer
+    var routesLayer = new Microsoft.Maps.Layer("routes");
+    var markersLayer;
 
     // add all routes
     routes.forEach(function(route) {
-        drawRouteOnMap(route);
+        drawRouteOnMap(route, markersLayer, routesLayer);
     }, this);
-
 }
-
-//TODO: Implement
-function drawRouteOnMap(route) {
-    // create the line path
+   
+function drawRouteOnMap(route, markersLayer, routesLayer) {
+    // create the line path 
     var path = [];
-    for (var i=0; i<route.points.length; i++) {
-        path[i] = convertLocation(route.points[i].N, route.points[i].E);
+    for (var i=0; i < route.points.length; i++) {
+        var convertedLocation = convertLocation(route.points[i].N, route.points[i].E);
+
+        // Create an array of locations
+        path[i] = new Microsoft.Maps.Location(convertedLocation.lat, convertedLocation.lng);
     }
 
-    // add lines as data layer
-    var data = new google.maps.Data.LineString(path);
-    var dropShadowFeature = new google.maps.Data.Feature();
-    dropShadowFeature.setGeometry(data);
-    dropShadowFeature.setProperty("type", "dropShadow");
-    dropShadowFeature.setProperty("visibile", route.visible);
+    // Create a bing map polyline
+    var mapRoute = new Microsoft.Maps.Polyline(path, {
+            strokeColor: "#"+route.color,
+            strokeThickness: 3,
+//             strokeDashArray: [4, 4],
+            visible: route.visible,
+        });
 
-    var pathFeature = new google.maps.Data.Feature();
-    pathFeature.setGeometry(data);
-    pathFeature.setProperty("zIndex", route.routeId);
-    pathFeature.setProperty("color", "#" + route.color);
-    pathFeature.setProperty("type", "path");
-    pathFeature.setProperty("visibile", route.visible);
+    // Add each path to the routes layer
+    routesLayer.add(mapRoute);
+    map.layers.insert(routesLayer);
 
-    map.data.add(dropShadowFeature);
-    map.data.add(pathFeature);
+    drawMarkersOnMap(route, markersLayer);
+    
+}
 
-
+function drawMarkersOnMap(route, markersLayer) {
     // add location markers
     var markerIcon = {
-        url: "icons/point-"+route.color+".png",
+        icon: "icons/point-"+route.color+".png",
         // The anchor for this image is the center of the circle
-        anchor: new google.maps.Point(17,17)
+        anchor: new Microsoft.Maps.Point(17,17)
     };
 
     var markerIconClicked = {
-        url: "icons/pointPress-"+route.color+".png",
+        icon: "icons/pointPress-"+route.color+".png",
         // The anchor for this image is the center of the circle
-        anchor: new google.maps.Point(20,20)
+        anchor: new Microsoft.Maps.Point(20,20)
     };
 
     var markersMap = {};
-    // create the points marker
-    route.points.forEach(function(point) {
-        if (!point.hidden) {
-            var location = convertLocation(point.N, point.E);
 
-            // draw marker for this location
-            var marker = new google.maps.Marker({
-                position: location,
-                map: null,
-                title: "לחץ כדי להציג את רשימת המטוסים במיקום זה",
-                icon: markerIcon,
-                optimized: false,
-                zIndex:route.routeId
-            });
+    // Create a clustering layer for the markers
+    Microsoft.Maps.loadModule("Microsoft.Maps.Clustering", function() {
 
-            marker.addListener('click', function() {
-                if (selectedLocation == location) {
-                    deselectLocation();
-                } else {
-                    // first hide the previous popup
-                    if (selectedLocation != null) {
-                        deselectLocation(function() {
-                            // then show a new popup
-                            selectLocation(point, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
-                        });
-                    } else {
-                        // then show a new popup
-                        selectLocation(point, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
-                    }
-                }
-            });
-            markersMap[point.pointId] = marker;
-        }
-    }, this);
+        // The rest of the method depends on the clustering module being loaded, so it's done in the callback
 
-    var markers = $.map(markersMap, function(value, index) {
-        return [value];
-    });
+        // create the points marker
+        route.points.forEach(function(point) {
+            if (!point.hidden) {
+                var convertedLocation = convertLocation(point.N, point.E);
+                var location = new Microsoft.Maps.Location(convertedLocation.lat, convertedLocation.lng);
 
-    var markerCluster = new MarkerClusterer(map, markers,
-        {
-            styles: [
-                {url: "icons/point-"+route.color+".png", textSize: 1, textColor: "#" + route.color, width: 34, height:34},
-                {url: "icons/point-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 34, height:34},
-                {url: "icons/point-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 34, height:34},
-                {url: "icons/point-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 34, height:34},
-                {url: "icons/point-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 34, height:34}],
-            zIndex: route.routeId
+                // draw marker for this location
+                var marker = new Microsoft.Maps.Pushpin(location, markerIcon);
+
+                // Extracted to a method so the cluster can use it aswell
+                addClickEventToMarker(marker);
+
+                markersMap[point.pointId] = marker;
+            }
+        }, this);
+
+        var markers = $.map(markersMap, function(value, index) {
+            return [value];
         });
+        
+        markersLayer = new Microsoft.Maps.ClusterLayer(markers, {
+            // Takes the first marker as the clustered marker, easy on performence, good on the eye
+            clusterPlacementType: Microsoft.Maps.ClusterPlacementType.FirstLocation,
+            gridSize: 90,
+            clusteredPinCallback: function(clusteredMarker) {
+                clusteredMarker.setOptions({
+                    // Guaranteed that containedPushpins is not empty, and it's one of our good markers
+                    icon: clusteredMarker.containedPushpins[0].getIcon(),
+                    anchor: clusteredMarker.containedPushpins[0].getAnchor(),
+                    // Otherwise it will be containedPushpins.length
+                    text: ""
+                });
+
+                addClickEventToMarker(clusteredMarker);
+            }
+        });
+
+
+        map.layers.insert(markersLayer);
+    });
 }
 
+// We're working with Bing's location format
+function addClickEventToMarker(marker) {
+    Microsoft.Maps.Events.addHandler(marker, 'click', function() {
+        if (selectedLocation == marker.getLocation()) {
+            deselectLocation();
+        } else {
+            // first hide the previous popup
+            if (selectedLocation != null) {
+                deselectLocation(function() {
+                    //TODO: Implement
+                    // then show a new popup
+                    selectLocation(point, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                });
+            } else {
+                //TODO: Implement
+                // then show a new popup
+                selectLocation(point, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+            }
+        }
+    });
+}
 
 function deselectAircraft(callback) {
 // Stub
