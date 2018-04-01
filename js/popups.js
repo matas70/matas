@@ -9,7 +9,7 @@ function initPopups() {
 	$(window).trigger('resize');
 }
 
-function showLocationPopup(point, color, titleColor, subtitleColor) {
+function showLocationPopup(point, color, titleColor, subtitleColor, minimized=false) {
 	// build popup html
 	var html = "";
 	point.aircrafts.forEach(function(aircraft) {
@@ -22,7 +22,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor) {
 	$("#popupSubTitle").css("color", subtitleColor);	
 	
 	var popupHeight = $("#locationPopup").height();
-	var targetHeight = 200;
+    var targetHeight = minimized?100:200;
 	var targetBottom = 0;
 	if (popupHeight > targetHeight) 
 		targetBottom = -(popupHeight - targetHeight);
