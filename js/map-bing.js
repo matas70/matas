@@ -230,8 +230,15 @@ function drawRouteOnMap(route, markersLayer, routesLayer) {
         visible: route.visible,
     });
 
+    var shadowRoute = new Microsoft.Maps.Polyline(path, {
+        strokeColor: "#0000000f",
+        strokeThickness: 4,
+        visible: route.visible
+
+    });
+
     // Add each path to the routes layer
-    routesLayer.add(mapRoute);
+    routesLayer.add([mapRoute, shadowRoute]);
     map.layers.insert(routesLayer);
 
     drawMarkersOnMap(route, markersLayer);
