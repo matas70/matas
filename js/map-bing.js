@@ -21,7 +21,8 @@ var selectedLocation = null;
 var selectedLocationMarker = null;
 var selectedLocationMarkerIcon = null;
 
-// function deselectAircraft(callback) {
+// TODO: implement
+function deselectAircraft(callback) {
 // 	if (selectedAircraft != null) {
 // 		// hide selected location
 // 		hideAircraftInfoPopup(function() {
@@ -33,7 +34,7 @@ var selectedLocationMarkerIcon = null;
 // 				callback.call(this);
 // 		});
 // 	}
-// }
+}
 
 // function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl) {
 // 	deselectLocation();
@@ -187,7 +188,8 @@ var selectedLocationMarkerIcon = null;
 
 //********************
 
-// function deselectLocation(callback) {
+// TODO: Implement
+function deselectLocation(callback) {
 //     if (selectedLocation != null) {
 //         // hide selected location
 //         hideLocationPopup(function() {
@@ -199,7 +201,7 @@ var selectedLocationMarkerIcon = null;
 //                 callback.call(this);
 //         });
 //     }
-// }
+}
 //
 // function selectLocation(point, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor) {
 //     deselectAircraft();
