@@ -1,8 +1,8 @@
   #map {
-    /*position: absolute;*/
+     position: absolute;
      top: 64px; /* Header Height */
-       /*bottom: 0; /* Footer Height */
-       /*width: 100%;*/
+     bottom: 0; /* Footer Height */
+     width: 100%;
   }
 
   #headerMobile {

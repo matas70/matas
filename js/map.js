@@ -463,63 +463,84 @@ function makeHeaderSticky() {
     }
 }
 
-function initMap() {	
-	initPopups();
-	map = new google.maps.Map(document.getElementById('map'), 
-		{
-			center: {lat: 32.00, lng: 35.00},  
-			zoom: 8,
-			gestureHandling: 'greedy',
-            disableDefaultUI: true
-			});
-			
-	map.addListener('click', function() {
-		deselectLocation();
-		deselectAircraft();
-	});
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/js/service-worker.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
+}
+function initMap() {
+	// register service worker (needed for the app to be suggested as wepapp)
+    registerServiceWorker();
+    // let splash run for a second before start loading the map
+    setTimeout(function() {
+        initPopups();
+        map = new google.maps.Map(document.getElementById('map'),
+            {
+                center: {lat: 32.00, lng: 35.00},
+                zoom: 8,
+                gestureHandling: 'greedy',
+                disableDefaultUI: true
+            });
 
-    // make it larger than screen that when it scrolls it goes full screen
-    $("#map").height(window.screen.availHeight-128);
-    $(".map-dark").height(window.screen.availHeight-128);
-    makeHeaderSticky();
+        map.addListener('click', function() {
+            deselectLocation();
+            deselectAircraft();
+        });
 
-    // load all routes
-	loadRoutes(function(routes) {
-		drawRoutesOnMap(routes);
-		
-		// load aircrafts 
-		loadAircrafts(function(pAircrafts) {
-			addAircraftsToMap();			
-			aircrafts = pAircrafts;
-			startAircraftsAnimation(false);
-		});
-		
-		// hide splash screen
-		setTimeout(function() {
-			$(".splash").fadeOut();
-            document.onclick = function (argument) {
-            	/*
-                // make the web app full screen on click
-                var docelem = document.documentElement;
-                if (docelem.requestFullscreen) {
-                    docelem.requestFullscreen();
+        // make it larger than screen that when it scrolls it goes full screen
+        $("#map").height(window.outerHeight);
+        $(".map-dark").height(window.outerHeight);
+        makeHeaderSticky();
+
+        // load all routes
+        loadRoutes(function(routes) {
+            drawRoutesOnMap(routes);
+
+            // load aircrafts
+            loadAircrafts(function(pAircrafts) {
+                addAircraftsToMap();
+                aircrafts = pAircrafts;
+                startAircraftsAnimation(false);
+            });
+
+            // hide splash screen
+            setTimeout(function() {
+                $(".splash").fadeOut();
+                document.onclick = function (argument) {
+					window.scrollTo(0,1);
                 }
-                else if (docelem.mozRequestFullScreen) {
-                    docelem.mozRequestFullScreen();
-                }
-                else if (docelem.webkitRequestFullScreen) {
-                    docelem.webkitRequestFullScreen();
-                }
-                else if (docelem.msRequestFullscreen) {
-                    docelem.msRequestFullscreen();
-                }*/
-            }
-	 	}, 3500);
-		 
-		$(window).focus(function() {
-			startAircraftsAnimation(true);
-		});			 			
-	});
-		
-	defer.resolve(map);	 			  
+            }, 3500);
+
+            $(window).focus(function() {
+                startAircraftsAnimation(true);
+            });
+        });
+        defer.resolve(map);
+    }, 1000);
+}
+
+/* unused */
+function requestFullScreen() {
+	// make the web app full screen on click
+	var docelem = document.documentElement;
+	if (docelem.requestFullscreen) {
+		docelem.requestFullscreen();
+	}
+	else if (docelem.mozRequestFullScreen) {
+		docelem.mozRequestFullScreen();
+	}
+	else if (docelem.webkitRequestFullScreen) {
+		docelem.webkitRequestFullScreen();
+	}
+	else if (docelem.msRequestFullscreen) {
+		docelem.msRequestFullscreen();
+	}
 }
