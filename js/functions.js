@@ -290,3 +290,24 @@ function onAboutButtonClick() {
         aboutVisible = false;
     }
 }
+
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/js/service-worker.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
+}
+
+function redirectToHttps() {
+    var loc = window.location.href+'';
+    if (loc.startsWith('http://') && loc.endsWith(".azurewebsites.net")){
+        window.location.href = loc.replace('http://','https://');
+    }
+}
