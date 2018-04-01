@@ -140,6 +140,43 @@ function updateCurrentHeading(heading) {
 	currentHeadingMarker.setMap(map);	
 }
 
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1);
+    var a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d;
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI/180)
+}
+
+function findClosestPoint(position) {
+    var selectedPoint = null;
+    var minDist = Infinity;
+
+    // find the route which the point belongs to
+    routes.forEach(function(route) {
+        route.points.forEach(function(point) {
+            var targetPos = convertLocation(point.N, point.E);
+            var dist = getDistanceFromLatLonInKm(position.lat, position.lng, targetPos.lat, targetPos.lng);
+            if (dist < minDist) {
+                selectedPoint = point;
+                minDist = dist;
+            }
+        }, this);
+    }, this);
+
+    return selectedPoint.pointId;
+}
+
 function showCurrentLocation() {	
 	// Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -166,7 +203,11 @@ function showCurrentLocation() {
 			title: "אתה נמצא כאן",			
 			icon: currentPositionIcon	
 		});	
-        map.setCenter(currentPosition);				
+        map.setCenter(currentPosition);
+
+        // find the closest location and select it
+        selectPoint(findClosestPoint(currentPosition),true);
+        map.setZoom(12);
 		
 		//register to compass heading change event
 		 window.addEventListener('deviceorientation', function(evt) {
@@ -201,15 +242,32 @@ function deselectLocation(callback) {
 	}
 }
 
-function selectLocation(point, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor) {
+function selectLocation(point, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor, minimized=false) {
 	deselectAircraft();
-	showLocationPopup(point, color, titleColor, subtitleColor);				
+	showLocationPopup(point, color, titleColor, subtitleColor,minimized);
 	map.panTo(location);
 	marker.setIcon(markerIconClicked);
 	selectedLocation = location;
 	selectedLocationMarker = marker;
 	selectedLocationMarkerIcon = markerIcon;		
 }
+
+// location markers
+function getMarkerIcon(color, clicked) {
+    if (!clicked)
+        return {
+            url: "icons/point-" + color + ".png",
+            // The anchor for this image is the center of the circle
+            anchor: new google.maps.Point(17, 17)
+        };
+    else return {
+        url: "icons/pointPress-" + color + ".png",
+        // The anchor for this image is the center of the circle
+        anchor: new google.maps.Point(20, 20)
+    };
+}
+
+var markersMap = {};
 
 function drawRouteOnMap(route) {
 	// create the line path
@@ -233,23 +291,11 @@ function drawRouteOnMap(route) {
 	pathFeature.setProperty("visibile", route.visible);
 	
 	map.data.add(dropShadowFeature);
-	map.data.add(pathFeature);			
-	
-    
-	// add location markers	 	
-	var markerIcon = {
-		    url: "icons/point-"+route.color+".png",		    
-		    // The anchor for this image is the center of the circle
-		    anchor: new google.maps.Point(17,17)
-	};
-	
-	var markerIconClicked = {
-		    url: "icons/pointPress-"+route.color+".png",		    
-		    // The anchor for this image is the center of the circle
-		    anchor: new google.maps.Point(20,20)
-	};
-  
-  	var markersMap = {};
+	map.data.add(pathFeature);
+
+	var markerIcon = getMarkerIcon(route.color, false);
+	var markerIconClicked = getMarkerIcon(route.color, true);
+
 	// create the points marker
 	route.points.forEach(function(point) {
 		if (!point.hidden) {
@@ -299,6 +345,33 @@ function drawRouteOnMap(route) {
 					{url: "icons/point-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 34, height:34}],
 				zIndex: route.routeId
 			});
+}
+
+function selectPoint(pointId, minimized=false) {
+    var marker = markersMap[pointId];
+    var selectedRoute = null;
+    var selectedPoint = null;
+
+    // find the route which the point belongs to
+    routes.forEach(function(route) {
+        route.points.forEach(function(point) {
+            if (point.pointId == pointId) {
+                selectedRoute = route;
+                selectedPoint = point;
+            }
+        }, this);
+    }, this);
+
+    // first hide the previous popup
+    if (selectedLocation != null) {
+        deselectLocation(function() {
+            // then show a new popup
+            selectLocation(selectedPoint, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+        });
+    } else {
+        // then show a new popup
+        selectLocation(selectedPoint, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+    }
 }
 
 function drawRoutesOnMap(routes) {
@@ -511,6 +584,7 @@ function initMap() {
 
         // load all routes
         loadRoutes(function(routes) {
+            this.routes = routes;
             drawRoutesOnMap(routes);
 
             // load aircrafts
@@ -523,6 +597,7 @@ function initMap() {
             // hide splash screen
             setTimeout(function() {
                 $(".splash").fadeOut();
+                showCurrentLocation();
                 document.onclick = function (argument) {
 					window.scrollTo(0,1);
                 }
