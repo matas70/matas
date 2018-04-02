@@ -180,16 +180,18 @@ function deselectLocation(callback) {
 //         });
 //     }
 }
-//
-// function selectLocation(point, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor) {
-//     deselectAircraft();
-//     showLocationPopup(point, color, titleColor, subtitleColor);
-//     map.panTo(location);
-//     marker.setIcon(markerIconClicked);
-//     selectedLocation = location;
-//     selectedLocationMarker = marker;
-//     selectedLocationMarkerIcon = markerIcon;
-// }
+
+function selectLocation(point, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor) {
+    deselectAircraft();
+    showLocationPopup(point, color, titleColor, subtitleColor);
+    map.setView({
+        center: location
+    });
+    marker.setIcon(markerIconClicked);
+    selectedLocation = location;
+    selectedLocationMarker = marker;
+    selectedLocationMarkerIcon = markerIcon;
+}
 
 function drawRouteOnMap(route, markersLayer, routesLayer) {
     // create the line path
@@ -237,7 +239,6 @@ function drawMarkersOnMap(route, markersLayer) {
         anchor: new Microsoft.Maps.Point(20,20)
     };
 
-    var markersMap = {};
 
     // Create a clustering layer for the markers
     Microsoft.Maps.loadModule("Microsoft.Maps.Clustering", function() {
@@ -280,6 +281,35 @@ function drawMarkersOnMap(route, markersLayer) {
         map.layers.insert(markersLayer);
     });
 }
+
+function selectPoint(pointId, minimized=false) {
+    var marker = markersMap[pointId];
+    var selectedRoute = null;
+    var selectedPoint = null;
+
+    // find the route which the point belongs to
+    routes.forEach(function(route) {
+        route.points.forEach(function(point) {
+            if (point.pointId == pointId) {
+                selectedRoute = route;
+                selectedPoint = point;
+            }
+        }, this);
+    }, this);
+
+    // first hide the previous popup
+    if (selectedLocation != null) {
+        deselectLocation(function() {
+            // then show a new popup
+            selectLocation(selectedPoint, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+        });
+    } else {
+        // then show a new popup
+        selectLocation(selectedPoint, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+    }
+}
+
+var markersMap = {};
 
 function drawRoutesOnMap(routes) {
     // Routes belong in the routes layer
@@ -428,6 +458,7 @@ function initMap() {
 
         // load all routes
         loadRoutes(function (routes) {
+            this.routes = routes;
             drawRoutesOnMap(routes);
 
             //TODO: Implement
