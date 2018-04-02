@@ -168,8 +168,18 @@ function setAircraftMarkerIcon(marker, url) {
 }
 
 function createAircraftMarker(position, name, hide, clickEvent) {
-    // TODO: Implement
-    return {};
+    // TODO: Complete implementation
+    aircraftMarker =  new Microsoft.Maps.Pushpin(toBingLocation(position), {
+        title: name
+    });
+
+    if (!hide) {
+        map.entities.push(aircraftMarker);
+    }
+    // add "clicked" event
+    Microsoft.Maps.Events.addHandler(aircraftMarker, 'click', clickEvent);
+
+    return aircraftMarker;
 }
 
 /**
@@ -180,13 +190,11 @@ function createAircraftMarker(position, name, hide, clickEvent) {
  * @param shouldUseMap - should the map be
  */
 function drawMarker(position, icon, title, shouldUseMap) {
-    // TODO: Implement
-    // var marker = new google.maps.Marker({
-    //     position: position,
-    //     map: shouldUseMap ? map : null,
-    //     icon: icon,
-    //     title: title != "" ? title : ""
-    // });
+    var marker = new Microsoft.Maps.Pushpin(toBingLocation(position), icon);
+    if (shouldUseMap) {
+        map.entites.push(marker);
+    }
+    // todo: do we need the title?
 }
 
 function createPositionIcon() {
@@ -209,36 +217,34 @@ function createPositionIcon() {
  * @param location
  */
 function focusOnLocation(location) {
-    // TODO: implement
-    // map.setCenter(location);
-    // map.setZoom(12);
+    map.setView({center: toBingLocation(location), zoom:12});
 }
 
 function setMarkerIcon(marker, icon) {
-    // TODO: implement
-    // marker.setIcon(icon);
+    marker.setOptions(icon);
 }
 
 // location markers
 function getMarkerIcon(color, clicked) {
-    // TODO: implement
-    // if (!clicked)
-    //     return {
-    //         url: "icons/point-" + color + ".png",
-    //         // The anchor for this image is the center of the circle
-    //         anchor: new google.maps.Point(17, 17)
-    //     };
-    // else return {
-    //     url: "icons/pointPress-" + color + ".png",
-    //     // The anchor for this image is the center of the circle
-    //     anchor: new google.maps.Point(20, 20)
-    // };
-    return {};
+    if (!clicked)
+        return {
+            icon: "icons/point-" + color + ".png",
+            // The anchor for this image is the center of the circle
+            anchor: new Microsoft.Maps.Point(17, 17)
+        };
+    else return {
+        icon: "icons/pointPress-" + color + ".png",
+        // The anchor for this image is the center of the circle
+        anchor: new Microsoft.Maps.Point(20, 20)
+    };
+}
+
+function toBingLocation(location) {
+    return new Microsoft.Maps.Location(location.lat, location.lng);
 }
 
 function panTo(map, location) {
-    // TODO: implement
-    // map.panTo(location);
+    map.setView({center: toBingLocation(location)});
 }
 
 
