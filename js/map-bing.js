@@ -375,47 +375,6 @@ function onHomeButtonClick() {
     // deselectLocation();
 }
 
-function makeHeaderSticky() {
-    // When the user scrolls the page, execute myFunction
-    window.onscroll = function() {myFunction()};
-
-    // Get the header
-    var header = $("#headerMobile");
-
-    // Get the offset position of the navbar
-    var sticky = header.offset().top;
-
-    // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
-    function myFunction() {
-        if (window.pageYOffset >= sticky) {
-            header.addClass("sticky");
-        } else {
-            header.removeClass("sticky");
-        }
-    }
-}
-
-function registerServiceWorker() {
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/js/service-worker.js').then(function(registration) {
-                // Registration was successful
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }, function(err) {
-                // registration failed :(
-                console.log('ServiceWorker registration failed: ', err);
-            });
-        });
-    }
-}
-
-function redirectToHttps() {
-    var loc = window.location.href+'';
-    if (loc.startsWith('http://') && loc.endsWith(".azurewebsites.net")){
-        window.location.href = loc.replace('http://','https://');
-    }
-}
-
 var map;
 
 function initMap() {

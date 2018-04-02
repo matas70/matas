@@ -388,3 +388,23 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 function deg2rad(deg) {
     return deg * (Math.PI/180)
 }
+
+function makeHeaderSticky() {
+    // When the user scrolls the page, execute myFunction
+    window.onscroll = function() {myFunction()};
+
+    // Get the header
+    var header = $("#headerMobile");
+
+    // Get the offset position of the navbar
+    var sticky = header.offset().top;
+
+    // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            header.addClass("sticky");
+        } else {
+            header.removeClass("sticky");
+        }
+    }
+}
