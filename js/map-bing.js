@@ -147,11 +147,9 @@ function updateCurrentHeading(heading) {
  * @param shouldUseMap - should the map be
  */
 function drawMarker(position, icon, title, shouldUseMap) {
-    var marker = new google.maps.Marker({
-        position: position,
-        map: shouldUseMap ? map : null,
-        icon: icon,
-        title: title ? title : ""
+    var marker = new Microsoft.Maps.Pushpin(position, {
+        icon: icon.icon,
+        text: title ? title : ""
     });
 }
 
@@ -160,8 +158,12 @@ function drawMarker(position, icon, title, shouldUseMap) {
  * @param location
  */
 function focusOnLocation(location) {
-    map.setCenter(location);
-    map.setZoom(12);
+    var bingLocation = new Microsoft.Maps.Location(location.lat, location.lng);
+    map.setView({
+        center: bingLocation,
+        zoom: 12
+    });
+//     map.setZoom(12);
 }
 
 // TODO: Implement
