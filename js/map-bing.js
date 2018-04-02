@@ -193,6 +193,21 @@ function selectLocation(point, location, marker, markerIcon, markerIconClicked, 
     selectedLocationMarkerIcon = markerIcon;
 }
 
+function getMarkerIcon(color, clicked) {
+    if (!clicked) {
+        return {
+            icon: "icons/point-" + route.color + ".png",
+            // The anchor for this image is the center of the circle
+            anchor: new Microsoft.Maps.Point(17, 17)
+        };
+    }
+    else return {
+        icon: "icons/pointPress-"+route.color+".png",
+        // The anchor for this image is the center of the circle
+        anchor: new Microsoft.Maps.Point(20,20)
+    };
+}
+
 function drawRouteOnMap(route, markersLayer, routesLayer) {
     // create the line path
     var path = [];
@@ -227,18 +242,8 @@ function drawRouteOnMap(route, markersLayer, routesLayer) {
 
 function drawMarkersOnMap(route, markersLayer) {
     // add location markers
-    var markerIcon = {
-        icon: "icons/point-"+route.color+".png",
-        // The anchor for this image is the center of the circle
-        anchor: new Microsoft.Maps.Point(17,17)
-    };
-
-    var markerIconClicked = {
-        icon: "icons/pointPress-"+route.color+".png",
-        // The anchor for this image is the center of the circle
-        anchor: new Microsoft.Maps.Point(20,20)
-    };
-
+    var markerIcon = getMarkerIcon(route.color, false);
+    var markerIconClicked = getMarkerIcon(route.color, true);
 
     // Create a clustering layer for the markers
     Microsoft.Maps.loadModule("Microsoft.Maps.Clustering", function() {
