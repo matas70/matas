@@ -8,8 +8,8 @@ function convertPath(path) {
 	}
 	return convertedPath;
 }
-	
-var map;
+
+var loadedRoutes;
 var aircrafts;
 var locations = [];
 var aircraftMarkers = {};
@@ -219,6 +219,7 @@ function loadRoutes(callback) {
 		routes.routes.forEach(function(route) {
 			updateLocations(route.points);
 		}, this);
+		loadedRoutes = routes.routes;
 		callback(routes.routes);		
 	});
 }
@@ -267,4 +268,143 @@ function compassHeading(alpha, beta, gamma) {
   compassHeading *= 180 / Math.PI;
 
   return compassHeading;
+}
+
+var aboutVisible = false;
+
+function onAboutButtonClick() {
+    deselectAircraft();
+    deselectLocation();
+    if (!aboutVisible) {
+        $("#aboutPopup").fadeIn();
+        $("#headerIcon").fadeOut("fast", function() {
+            $("#aboutMenuTitle").fadeIn();
+        });
+        $("#aboutButton").attr("src", "icons/aboutIconSelected.png");
+        aboutVisible = true;
+    } else {
+        $("#aboutPopup").fadeOut();
+        $("#aboutMenuTitle").fadeOut("fast", function() {
+            $("#headerIcon").fadeIn();
+        });
+        $("#aboutButton").attr("src", "icons/aboutIcon.png");
+        aboutVisible = false;
+    }
+}
+
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/js/service-worker.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
+}
+
+function redirectToHttps() {
+    var loc = window.location.href+'';
+    if (loc.startsWith('http://') && loc.endsWith(".azurewebsites.net")){
+        window.location.href = loc.replace('http://','https://');
+    }
+}
+
+function showCurrentLocation() {
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var currentPosition = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+                heading: position.coords.heading,
+                accuracy: position.coords.accuracy
+            };
+            navigator.geolocation.watchPosition(updateCurrentLocation);
+
+            var currentPositionIcon = createPositionIcon();
+            var currentHeadingIcon = createHeadingArea(0);
+
+            drawMarker(currentPosition, currentHeadingIcon, false);
+            drawMarker(currentPosition, currentPositionIcon, true);
+            focusOnLocation(currentPosition);
+
+            // find the closest location and select it
+            selectPoint(findClosestPoint(currentPosition),true);
+
+            //register to compass heading change event
+            window.addEventListener('deviceorientation', function(evt) {
+                var heading = null;
+
+                if(evt.alpha !== null) {
+                    heading = evt.alpha;
+                    updateCurrentHeading(heading);
+                }
+            });
+        }, function() {
+            // no location available
+        }, {enableHighAccuracy: true});
+    } else {
+        // Browser doesn't support Geolocation
+    }
+}
+
+function findClosestPoint(position) {
+    var selectedPoint = null;
+    var minDist = Infinity;
+
+    // find the route which the point belongs to
+    loadedRoutes.forEach(function (route) {
+        route.points.forEach(function (point) {
+            var targetPos = convertLocation(point.N, point.E);
+            var dist = getDistanceFromLatLonInKm(position.lat, position.lng, targetPos.lat, targetPos.lng);
+            if (dist < minDist) {
+                selectedPoint = point;
+                minDist = dist;
+            }
+        }, this);
+    }, this);
+
+    return selectedPoint.pointId;
+}
+
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1);
+    var a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d;
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI/180)
+}
+
+function makeHeaderSticky() {
+    // When the user scrolls the page, execute myFunction
+    window.onscroll = function() {myFunction()};
+
+    // Get the header
+    var header = $("#headerMobile");
+
+    // Get the offset position of the navbar
+    var sticky = header.offset().top;
+
+    // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            header.addClass("sticky");
+        } else {
+            header.removeClass("sticky");
+        }
+    }
 }

@@ -140,93 +140,30 @@ function updateCurrentHeading(heading) {
 	currentHeadingMarker.setMap(map);	
 }
 
-function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-    var R = 6371; // Radius of the earth in km
-    var dLat = deg2rad(lat2-lat1);  // deg2rad below
-    var dLon = deg2rad(lon2-lon1);
-    var a =
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon/2) * Math.sin(dLon/2)
-    ;
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    var d = R * c; // Distance in km
-    return d;
+/**
+ * draws a marker on the map given a location and icon
+ * @param position - the position to draw the marker
+ * @param icon - the icon of the marker
+ * @param title - the text shown on the marker
+ * @param shouldUseMap - should the map be
+ */
+function drawMarker(position, icon, title, shouldUseMap) {
+    var marker = new google.maps.Marker({
+        position: position,
+        map: shouldUseMap ? map : null,
+        icon: icon,
+        title: title != "" ? title : ""
+    });
 }
 
-function deg2rad(deg) {
-    return deg * (Math.PI/180)
+/**
+ * Sets the map's focus on the given location and zooms in on it
+ * @param location
+ */
+function focusOnLocation(location) {
+    map.setCenter(location);
+    map.setZoom(12);
 }
-
-function findClosestPoint(position) {
-    var selectedPoint = null;
-    var minDist = Infinity;
-
-    // find the route which the point belongs to
-    routes.forEach(function(route) {
-        route.points.forEach(function(point) {
-            var targetPos = convertLocation(point.N, point.E);
-            var dist = getDistanceFromLatLonInKm(position.lat, position.lng, targetPos.lat, targetPos.lng);
-            if (dist < minDist) {
-                selectedPoint = point;
-                minDist = dist;
-            }
-        }, this);
-    }, this);
-
-    return selectedPoint.pointId;
-}
-
-function showCurrentLocation() {	
-	// Try HTML5 geolocation.
-    if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(function(position) {
-        currentPosition = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-		  heading: position.coords.heading,
-		  accuracy: position.coords.accuracy
-        };
-		navigator.geolocation.watchPosition(updateCurrentLocation);
-
-		var currentPositionIcon = createPositionIcon();		
-		var currentHeadingIcon = createHeadingArea(0);
-		
-		currentHeadingMarker = new google.maps.Marker({
-		    position: currentPosition,
-		    map: null,			
-			icon: currentHeadingIcon	
-		});	
-		currentLocationMarker = new google.maps.Marker({
-		    position: currentPosition,
-		    map: map,
-			title: "אתה נמצא כאן",			
-			icon: currentPositionIcon	
-		});	
-        map.setCenter(currentPosition);
-
-        // find the closest location and select it
-        selectPoint(findClosestPoint(currentPosition),true);
-        map.setZoom(12);
-		
-		//register to compass heading change event
-		 window.addEventListener('deviceorientation', function(evt) {
-		   var heading = null;
-		
-		   if(evt.alpha !== null) {
-			   heading = evt.alpha;
-			   updateCurrentHeading(heading);	
-			   }
-		 });	
-      }, function() {
-        // no location available
-      }, {enableHighAccuracy: true});
-    } else {
-      // Browser doesn't support Geolocation      
-    }
-}
-
-//********************
 
 function deselectLocation(callback) {
 	if (selectedLocation != null) {
@@ -492,69 +429,6 @@ function onHomeButtonClick() {
 	map.setZoom(8);
 	deselectAircraft();
 	deselectLocation();
-} 
-
-var aboutVisible = false;
-
-function onAboutButtonClick() {
-	deselectAircraft();
-	deselectLocation();
-	if (!aboutVisible) {	
-		$("#aboutPopup").fadeIn();		
-		$("#headerIcon").fadeOut("fast", function() {
-			$("#aboutMenuTitle").fadeIn();
-		});
-		$("#aboutButton").attr("src", "icons/aboutIconSelected.png");
-		aboutVisible = true;
-	} else {
-		$("#aboutPopup").fadeOut();
-		$("#aboutMenuTitle").fadeOut("fast", function() {
-			$("#headerIcon").fadeIn();
-		});
-		$("#aboutButton").attr("src", "icons/aboutIcon.png");
-		aboutVisible = false;
-	}	
-}
-
-function makeHeaderSticky() {
-    // When the user scrolls the page, execute myFunction
-    window.onscroll = function() {myFunction()};
-
-	// Get the header
-    var header = $("#headerMobile");
-
-	// Get the offset position of the navbar
-    var sticky = header.offset().top;
-
-	// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
-    function myFunction() {
-        if (window.pageYOffset >= sticky) {
-            header.addClass("sticky");
-        } else {
-            header.removeClass("sticky");
-        }
-    }
-}
-
-function registerServiceWorker() {
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/js/service-worker.js').then(function(registration) {
-                // Registration was successful
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }, function(err) {
-                // registration failed :(
-                console.log('ServiceWorker registration failed: ', err);
-            });
-        });
-    }
-}
-
-function redirectToHttps() {
-    var loc = window.location.href+'';
-    if (loc.startsWith('http://') && loc.endsWith(".azurewebsites.net")){
-        window.location.href = loc.replace('http://','https://');
-    }
 }
 
 function initMap() {
