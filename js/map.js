@@ -578,8 +578,8 @@ function initMap() {
         });
 
         // make it larger than screen that when it scrolls it goes full screen
-        $("#map").height(window.outerHeight);
-        $(".map-dark").height(window.outerHeight);
+        $("#map").height(window.screen.height-64);
+        $(".map-dark").height(window.screen.height-64);
         makeHeaderSticky();
 
         // load all routes
