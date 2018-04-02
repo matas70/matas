@@ -62,6 +62,37 @@
     <!-- The map itself -->
     <div id="map"></div>
 
+    <!-- location info popup -->
+    <div id="locationPopup" class="infoPopup">
+        <div id="popupHeader">
+            <div id="popupTitle"></div>
+            <div id="popupSubTitle">שעת הגעה</div>
+        </div>
+        <div id="aircraftsList" class="table">          
+        </div>
+    </div>
+    
+    <!-- aircraft info popup -->
+    <div id="aircraftInfoPopup" class="infoPopup">
+        <div id="aircraftInfoBannerContainer">
+          <img id="aircraftInfoBanner" src=""></img>
+        </div>
+        <div id="aircraftInfoContent">
+          <div id="aircraftIconContainer">
+            <img id="aircraftInfoIcon" src="icons/aircrafts/adir.png"></img>
+          </div>
+          <div id="aircraftInfoText">
+            <div id="aircraftInfoName"></div>
+            <div id="aircraftInfoType"></div>                        
+          </div> 
+          <div id="aircraftInfoTime">
+              <div id="aircraftInfoStartTime"></div>
+              <div id="aircraftInfoTimeLabel">זמן המראה</div>            
+          </div>         
+        </div>
+        <div id="aircraftInfoMore">קרא עוד</div>
+    </div>
+
     <!-- about popup -->
     <div id="aboutPopup" class="infoPopup" style="display:none">
         <div id="halfBlue"/>

@@ -166,31 +166,47 @@ function focusOnLocation(location) {
 //     map.setZoom(12);
 }
 
-// TODO: Implement
 function deselectLocation(callback) {
-//     if (selectedLocation != null) {
-//         // hide selected location
-//         hideLocationPopup(function() {
-//             // set it to the previous marker icon
+    if (selectedLocation != null) {
+        // hide selected location
+        hideLocationPopup(function() {
+            // set it to the previous marker icon
 //             selectedLocationMarker.setIcon(selectedLocationMarkerIcon);
-//             // mark it is deselected
-//             selectedLocation = null;
-//             if (callback != undefined)
-//                 callback.call(this);
-//         });
-//     }
+            selectedLocationMarker.setOptions({
+                icon: selectedLocationMarkerIcon.icon
+            });
+
+            // mark it is deselected
+            selectedLocation = null;
+            if (callback != undefined)
+                callback.call(this);
+        });
+    }
 }
 
-function selectLocation(point, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor) {
+function selectLocation(point, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor) {
     deselectAircraft();
     showLocationPopup(point, color, titleColor, subtitleColor);
+    var selectedMarker = marker;
+
+    // The selected marker can be either clusteredMarker or a single marker
+    if (marker.containedPushpins) {
+        selectedMarker = marker.containedPushpins[0];
+        marker.visible = false;
+    }
+
     map.setView({
-        center: location
+        center: selectedMarker.getLocation(),
+        zoom: 12
     });
-    marker.setIcon(markerIconClicked);
-    selectedLocation = location;
-    selectedLocationMarker = marker;
-    selectedLocationMarkerIcon = markerIcon;
+
+    selectedMarker.setOptions({
+       icon: markerIconClicked.icon 
+    });
+
+    this.selectedLocation = selectedMarker.getLocation();
+    this.selectedLocationMarker = selectedMarker;
+    this.selectedLocationMarkerIcon = markerIcon;
 }
 
 function getMarkerIcon(color, clicked) {
@@ -232,9 +248,14 @@ function drawRouteOnMap(route, markersLayer, routesLayer) {
 
     });
 
-    // Add each path to the routes layer
-    routesLayer.add([mapRoute, shadowRoute]);
-    map.layers.insert(routesLayer);
+    
+    // Add each path to the routes layer, checking here so we'll have only one layer of routes
+    if (map.layers.indexOf(routesLayer) != -1) {
+        map.layers[map.layers.indexOf(routesLayer)].add([mapRoute, shadowRoute]);
+    } else {
+        routesLayer.add([mapRoute, shadowRoute]);
+        map.layers.insert(routesLayer);
+    }
 
     drawMarkersOnMap(route, markersLayer);
 
@@ -258,6 +279,11 @@ function drawMarkersOnMap(route, markersLayer) {
 
                 // draw marker for this location
                 var marker = new Microsoft.Maps.Pushpin(location, markerIcon);
+                // For a lack of a better way to pass on the correlated point, each marker has its point in the metadata
+                marker.metadata = {
+                    point: point,
+                    route: route
+                };
                 markersMap[point.pointId] = marker;
             }
         }, this);
@@ -271,6 +297,7 @@ function drawMarkersOnMap(route, markersLayer) {
             clusterPlacementType: Microsoft.Maps.ClusterPlacementType.FirstLocation,
             gridSize: 90,
             clusteredPinCallback: function(clusteredMarker) {
+                // This will customize the clusteredMarker each rendering
                 clusteredMarker.setOptions({
                     // Guaranteed that containedPushpins is not empty, and it's one of our good markers
                     icon: clusteredMarker.containedPushpins[0].getIcon(),
@@ -278,6 +305,7 @@ function drawMarkersOnMap(route, markersLayer) {
                     // Otherwise it will be containedPushpins.length
                     text: ""
                 });
+                clusteredMarker.metadata = clusteredMarker.containedPushpins[0].metadata;
             }
         });
 
@@ -306,11 +334,11 @@ function selectPoint(pointId, minimized=false) {
     if (selectedLocation != null) {
         deselectLocation(function() {
             // then show a new popup
-            selectLocation(selectedPoint, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+            selectLocation(selectedPoint, marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
         });
     } else {
         // then show a new popup
-        selectLocation(selectedPoint, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+        selectLocation(selectedPoint, marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
     }
 }
 
@@ -328,8 +356,12 @@ function drawRoutesOnMap(routes) {
 }
 
 // We're working with Bing's location format
-function addClickEventToMarker(marker) {
-    Microsoft.Maps.Events.addHandler(marker, 'click', function(event) {
+function addClickEventToMarker(layer) {
+    Microsoft.Maps.Events.addHandler(layer, 'click', function(event) {
+        var marker = event.primitive;
+        var point = marker.metadata.point;
+        var route = marker.metadata.route;
+
         if (selectedLocation == event.location) {
             deselectLocation();
         } else {
@@ -338,12 +370,12 @@ function addClickEventToMarker(marker) {
                 deselectLocation(function() {
                     //TODO: Implement
                     // then show a new popup
-                    selectLocation(point, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                    selectLocation(point, marker, getMarkerIcon(route.color, false), getMarkerIcon(route.color, true), "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
                 });
             } else {
                 //TODO: Implement
                 // then show a new popup
-                selectLocation(point, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                selectLocation(point, marker, getMarkerIcon(route.color, false), getMarkerIcon(route.color, true), "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
             }
         }
     });
