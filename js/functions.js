@@ -9,7 +9,7 @@ function convertPath(path) {
 	return convertedPath;
 }
 
-var routes;
+var loadedRoutes;
 var aircrafts;
 var locations = [];
 var aircraftMarkers = {};
@@ -219,7 +219,7 @@ function loadRoutes(callback) {
 		routes.routes.forEach(function(route) {
 			updateLocations(route.points);
 		}, this);
-		this.routes = routes.routes;
+		loadedRoutes = routes.routes;
 		callback(routes.routes);		
 	});
 }
@@ -329,7 +329,7 @@ function showCurrentLocation() {
             var currentHeadingIcon = createHeadingArea(0);
 
             drawMarker(currentPosition, currentHeadingIcon, false);
-            drawMarker(currentPosition, currentPositionIcon, "אתה נמצא כאן", true);
+            drawMarker(currentPosition, currentPositionIcon, true);
             focusOnLocation(currentPosition);
 
             // find the closest location and select it
@@ -357,7 +357,7 @@ function findClosestPoint(position) {
     var minDist = Infinity;
 
     // find the route which the point belongs to
-    routes.forEach(function (route) {
+    loadedRoutes.forEach(function (route) {
         route.points.forEach(function (point) {
             var targetPos = convertLocation(point.N, point.E);
             var dist = getDistanceFromLatLonInKm(position.lat, position.lng, targetPos.lat, targetPos.lng);
