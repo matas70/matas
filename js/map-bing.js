@@ -125,15 +125,16 @@ function deselectAircraft(callback) {
 //     };
 // }
 //
-// function updateCurrentLocation(position) {
-//     currentPosition = {
-//         lat: position.coords.latitude,
-//         lng: position.coords.longitude,
-//         accuracy: position.coords.accuracy
-//     };
-//
-//     currentLocationMarker.setIcon(createPositionIcon());
-// }
+function updateCurrentLocation(position) {
+    // TODO: implement
+    // currentPosition = {
+    //     lat: position.coords.latitude,
+    //     lng: position.coords.longitude,
+    //     accuracy: position.coords.accuracy
+    // };
+    //
+    // currentLocationMarker.setIcon(createPositionIcon());
+}
 //
 // function updateCurrentHeading(heading) {
 //     currentHeading = heading;
@@ -168,6 +169,8 @@ function deselectLocation(callback) {
 //     selectedLocationMarker = marker;
 //     selectedLocationMarkerIcon = markerIcon;
 // }
+
+var markersMap = {};
 
 function drawRouteOnMap(route, markersLayer, routesLayer) {
     // create the line path
@@ -214,8 +217,6 @@ function drawMarkersOnMap(route, markersLayer) {
         // The anchor for this image is the center of the circle
         anchor: new Microsoft.Maps.Point(20,20)
     };
-
-    var markersMap = {};
 
     // Create a clustering layer for the markers
     Microsoft.Maps.loadModule("Microsoft.Maps.Clustering", function() {
@@ -352,12 +353,6 @@ function addClickEventToMarker(marker) {
 //     }, animationTime);
 // }
 //
-// function startAircraftsAnimation(updateCurrent) {
-//     aircrafts.forEach(function(aircraft) {
-//         animateToNextLocation(aircraft, aircraftMarkers[aircraft.aircraftId].currentAircraftAzimuth, updateCurrent);
-//     }, this);
-// }
-
 
 // TODO: Implement
 function onHomeButtonClick() {
@@ -375,61 +370,107 @@ function onHomeButtonClick() {
     // deselectLocation();
 }
 
-var map;
+// TODO: Implement
+function updateMarkerPosition(marker, position, animationDuration) {
+    // marker.setDuration(animationDuration);
+    // marker.setPosition(position);
+}
 
-function initMap() {
-    redirectToHttps();
-    // register service worker (needed for the app to be suggested as wepapp)
-    registerServiceWorker();
-    // let splash run for a second before start loading the map
-    setTimeout(function() {
-        initPopups();
-        map = new Microsoft.Maps.Map(document.getElementById('map'), {
-            credentials: 'Ak2hpoGQttZ2uKASnsJGuVrmv-eRsiXEOujObmNd5gpii6QjviUim4A84_4ODwmT',
-            center: new Microsoft.Maps.Location(31.33, 35.20),
-            mapTypeId: Microsoft.Maps.MapTypeId.road,
-            zoom: 8,
-            showDashboard: false,
-            showLocateMeButton: false,
-            showMapTypeSelector: false
-        });
+function setAircraftMarkerIcon(marker, url) {
+    // TODO: Implement
+    // marker.setIcon({
+    //     url: url,
+    //     scaledSize: new google.maps.Size(70,70),
+    //     anchor: new google.maps.Point(36,36)
+    // });
+}
 
-        Microsoft.Maps.Events.addHandler(map, 'click', function () {
-            deselectLocation();
-            deselectAircraft();
-        });
+function createAircraftMarker(position, name, hide, clickEvent) {
+    // TODO: Implement
+    return {};
+}
 
-        // make it larger than screen that when it scrolls it goes full screen
-        $("#map").height(window.outerHeight);
-        $(".map-dark").height(window.outerHeight);
-        makeHeaderSticky();
+/**
+ * draws a marker on the map given a location and icon
+ * @param position - the position to draw the marker
+ * @param icon - the icon of the marker
+ * @param title - the text shown on the marker
+ * @param shouldUseMap - should the map be
+ */
+function drawMarker(position, icon, title, shouldUseMap) {
+    // TODO: Implement
+    // var marker = new google.maps.Marker({
+    //     position: position,
+    //     map: shouldUseMap ? map : null,
+    //     icon: icon,
+    //     title: title != "" ? title : ""
+    // });
+}
 
-        // load all routes
-        loadRoutes(function (routes) {
-            drawRoutesOnMap(routes);
+function createPositionIcon() {
+    // TODO: Implement
+    //     return  {
+//         path: google.maps.SymbolPath.CIRCLE,
+//         strokeOpacity: 0.8,
+//         strokeColor : "black",
+//         strokeWeight: 1,
+//         fillColor: "#f44242",
+//         fillOpacity: 0.8,
+//         scale: 5,
+//         origin: new google.maps.Point(0,0)
+//     };
+    return {};
+}
 
-            //TODO: Implement
-            //         // load aircrafts
-            //         loadAircrafts(function (pAircrafts) {
-            //             addAircraftsToMap();
-            //             aircrafts = pAircrafts;
-            //             startAircraftsAnimation(false);
-            //         });
+/**
+ * Sets the map's focus on the given location and zooms in on it
+ * @param location
+ */
+function focusOnLocation(location) {
+    // TODO: implement
+    // map.setCenter(location);
+    // map.setZoom(12);
+}
 
-            // hide splash screen
-            setTimeout(function () {
-                $(".splash").fadeOut();
-                showCurrentLocation();
-                document.onclick = function (argument) {
-                    window.scrollTo(0, 1);
-                }
-            }, 3500);
+function setMarkerIcon(marker, icon) {
+    // TODO: implement
+    // marker.setIcon(icon);
+}
 
-            //TODO: Implement
-            //         $(window).focus(function () {
-            //             startAircraftsAnimation(true);
-            //         });
+// location markers
+function getMarkerIcon(color, clicked) {
+    // TODO: implement
+    // if (!clicked)
+    //     return {
+    //         url: "icons/point-" + color + ".png",
+    //         // The anchor for this image is the center of the circle
+    //         anchor: new google.maps.Point(17, 17)
+    //     };
+    // else return {
+    //     url: "icons/pointPress-" + color + ".png",
+    //     // The anchor for this image is the center of the circle
+    //     anchor: new google.maps.Point(20, 20)
+    // };
+    return {};
+}
 
-        });
-    }, 1000);
+function panTo(map, location) {
+    // TODO: implement
+    // map.panTo(location);
+}
+
+
+function createMapObject(clickCallback) {
+    map = new Microsoft.Maps.Map(document.getElementById('map'), {
+        credentials: 'Ak2hpoGQttZ2uKASnsJGuVrmv-eRsiXEOujObmNd5gpii6QjviUim4A84_4ODwmT',
+        center: new Microsoft.Maps.Location(31.33, 35.20),
+        mapTypeId: Microsoft.Maps.MapTypeId.road,
+        zoom: 8,
+        showDashboard: false,
+        showLocateMeButton: false,
+        showMapTypeSelector: false
+    });
+
+    Microsoft.Maps.Events.addHandler(map, 'click', clickCallback);
+    return map;
 }
