@@ -95,11 +95,12 @@ function deselectAircraft(callback) {
 // }
 
 //**** currrent location detection - need to see wheter to delete or not
-// var currentLocationMarker;
-// var currentHeadingMarker;
-// var currentPosition;
-// var currentHeading = null;
-//
+var currentLocationMarker;
+var currentHeadingMarker;
+var currentPosition;
+var currentHeading = null;
+
+//TODO: find out what this is
 // function createHeadingArea(heading) {
 //     return  {
 //         path: "M0 0 L32 -64 L-32 -64 Z",
@@ -111,36 +112,14 @@ function deselectAircraft(callback) {
 //         origin: new google.maps.Point(0,0)
 //     };
 // }
-//
-// function createPositionIcon() {
-//     return  {
-//         path: google.maps.SymbolPath.CIRCLE,
-//         strokeOpacity: 0.8,
-//         strokeColor : "black",
-//         strokeWeight: 1,
-//         fillColor: "#f44242",
-//         fillOpacity: 0.8,
-//         scale: 5,
-//         origin: new google.maps.Point(0,0)
-//     };
-// }
-//
-// function updateCurrentLocation(position) {
-//     currentPosition = {
-//         lat: position.coords.latitude,
-//         lng: position.coords.longitude,
-//         accuracy: position.coords.accuracy
-//     };
-//
-//     currentLocationMarker.setIcon(createPositionIcon());
-// }
-//
-// function updateCurrentHeading(heading) {
-//     currentHeading = heading;
-//     currentHeadingMarker.setIcon(createHeadingArea(currentHeading));
-//     currentHeadingMarker.setMap(map);
-// }
-//
+
+function createPositionIcon() {
+    return {
+        icon: "icons/location.svg",
+        // The anchor for this image is the center of the circle
+        anchor: new Microsoft.Maps.Point(17, 17)
+    };
+}
 
 //********************
 function updateCurrentLocation(position) {
