@@ -6,28 +6,10 @@ function setAircraftMarkerIcon(marker, url) {
     });
 }
 
-var selectedAircraft = null;
-var selectedAircraftMarker = null;
-var selectedAircraftMarkerIcon = null;
-
 var aircrafts = null;
 var selectedLocation = null;
 var selectedLocationMarker = null;
 var selectedLocationMarkerIcon = null;
-
-function deselectAircraft(callback) {
-	if (selectedAircraft != null) {
-		// hide selected location
-		hideAircraftInfoPopup(function() {
-			// set it to the previous marker icon
-			//selectedAircraftMarker.setIcon(selectedAircraftMarkerIcon);
-			// mark it is deselected
-			selectedAircraft = null;
-			if (callback != undefined) 
-				callback.call(this);			
-		});
-	}
-}
 
 function onAircraftSelected(aircraftId) {
 	var aircraft = aircrafts[aircraftId-1];

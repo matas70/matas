@@ -272,6 +272,11 @@ function compassHeading(alpha, beta, gamma) {
 
 var aboutVisible = false;
 
+var selectedAircraft = null;
+var selectedAircraftMarker = null;
+var selectedAircraftMarkerIcon = null;
+
+
 function onAboutButtonClick() {
     deselectAircraft();
     deselectLocation();
@@ -524,6 +529,19 @@ function selectLocation(point, location, marker, markerIcon, markerIconClicked, 
     selectedLocationMarkerIcon = markerIcon;
 }
 
+function deselectAircraft(callback) {
+    if (selectedAircraft != null) {
+        // hide selected location
+        hideAircraftInfoPopup(function() {
+            // set it to the previous marker icon
+            //selectedAircraftMarker.setIcon(selectedAircraftMarkerIcon);
+            // mark it is deselected
+            selectedAircraft = null;
+            if (callback != undefined)
+                callback.call(this);
+        });
+    }
+}
 
 function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl) {
     deselectLocation();
