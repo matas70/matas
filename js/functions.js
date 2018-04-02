@@ -8,8 +8,8 @@ function convertPath(path) {
 	}
 	return convertedPath;
 }
-	
-var map;
+
+var routes;
 var aircrafts;
 var locations = [];
 var aircraftMarkers = {};
@@ -219,6 +219,7 @@ function loadRoutes(callback) {
 		routes.routes.forEach(function(route) {
 			updateLocations(route.points);
 		}, this);
+		this.routes = routes.routes;
 		callback(routes.routes);		
 	});
 }
@@ -310,6 +311,64 @@ function redirectToHttps() {
     if (loc.startsWith('http://') && loc.endsWith(".azurewebsites.net")){
         window.location.href = loc.replace('http://','https://');
     }
+}
+
+function showCurrentLocation() {
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var currentPosition = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+                heading: position.coords.heading,
+                accuracy: position.coords.accuracy
+            };
+            navigator.geolocation.watchPosition(updateCurrentLocation);
+
+            var currentPositionIcon = createPositionIcon();
+            var currentHeadingIcon = createHeadingArea(0);
+
+            drawMarker(currentPosition, currentHeadingIcon, false);
+            drawMarker(currentPosition, currentPositionIcon, true);
+            focusOnLocation(currentPosition);
+
+            // find the closest location and select it
+            selectPoint(findClosestPoint(currentPosition),true);
+
+            //register to compass heading change event
+            window.addEventListener('deviceorientation', function(evt) {
+                var heading = null;
+
+                if(evt.alpha !== null) {
+                    heading = evt.alpha;
+                    updateCurrentHeading(heading);
+                }
+            });
+        }, function() {
+            // no location available
+        }, {enableHighAccuracy: true});
+    } else {
+        // Browser doesn't support Geolocation
+    }
+}
+
+function findClosestPoint(position) {
+    var selectedPoint = null;
+    var minDist = Infinity;
+
+    // find the route which the point belongs to
+    routes.forEach(function (route) {
+        route.points.forEach(function (point) {
+            var targetPos = convertLocation(point.N, point.E);
+            var dist = getDistanceFromLatLonInKm(position.lat, position.lng, targetPos.lat, targetPos.lng);
+            if (dist < minDist) {
+                selectedPoint = point;
+                minDist = dist;
+            }
+        }, this);
+    }, this);
+
+    return selectedPoint.pointId;
 }
 
 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {

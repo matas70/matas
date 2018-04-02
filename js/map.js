@@ -140,75 +140,30 @@ function updateCurrentHeading(heading) {
 	currentHeadingMarker.setMap(map);	
 }
 
-function findClosestPoint(position) {
-    var selectedPoint = null;
-    var minDist = Infinity;
-
-    // find the route which the point belongs to
-    routes.forEach(function(route) {
-        route.points.forEach(function(point) {
-            var targetPos = convertLocation(point.N, point.E);
-            var dist = getDistanceFromLatLonInKm(position.lat, position.lng, targetPos.lat, targetPos.lng);
-            if (dist < minDist) {
-                selectedPoint = point;
-                minDist = dist;
-            }
-        }, this);
-    }, this);
-
-    return selectedPoint.pointId;
+/**
+ * draws a marker on the map given a location and icon
+ * @param position - the position to draw the marker
+ * @param icon - the icon of the marker
+ * @param title - the text shown on the marker
+ * @param shouldUseMap - should the map be
+ */
+function drawMarker(position, icon, title, shouldUseMap) {
+    var marker = new google.maps.Marker({
+        position: position,
+        map: shouldUseMap ? map : null,
+        icon: icon,
+        title: title ? title : ""
+    });
 }
 
-function showCurrentLocation() {	
-	// Try HTML5 geolocation.
-    if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(function(position) {
-        currentPosition = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-		  heading: position.coords.heading,
-		  accuracy: position.coords.accuracy
-        };
-		navigator.geolocation.watchPosition(updateCurrentLocation);
-
-		var currentPositionIcon = createPositionIcon();		
-		var currentHeadingIcon = createHeadingArea(0);
-		
-		currentHeadingMarker = new google.maps.Marker({
-		    position: currentPosition,
-		    map: null,			
-			icon: currentHeadingIcon	
-		});	
-		currentLocationMarker = new google.maps.Marker({
-		    position: currentPosition,
-		    map: map,
-			title: "אתה נמצא כאן",			
-			icon: currentPositionIcon	
-		});	
-        map.setCenter(currentPosition);
-
-        // find the closest location and select it
-        selectPoint(findClosestPoint(currentPosition),true);
-        map.setZoom(12);
-		
-		//register to compass heading change event
-		 window.addEventListener('deviceorientation', function(evt) {
-		   var heading = null;
-		
-		   if(evt.alpha !== null) {
-			   heading = evt.alpha;
-			   updateCurrentHeading(heading);	
-			   }
-		 });	
-      }, function() {
-        // no location available
-      }, {enableHighAccuracy: true});
-    } else {
-      // Browser doesn't support Geolocation      
-    }
+/**
+ * Sets the map's focus on the given location and zooms in on it
+ * @param location
+ */
+function focusOnLocation(location) {
+    map.setCenter(location);
+    map.setZoom(12);
 }
-
-//********************
 
 function deselectLocation(callback) {
 	if (selectedLocation != null) {

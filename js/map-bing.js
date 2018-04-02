@@ -141,50 +141,6 @@ function deselectAircraft(callback) {
 //     currentHeadingMarker.setMap(map);
 // }
 //
-// function showCurrentLocation() {
-//     // Try HTML5 geolocation.
-//     if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition(function(position) {
-//             currentPosition = {
-//                 lat: position.coords.latitude,
-//                 lng: position.coords.longitude,
-//                 heading: position.coords.heading,
-//                 accuracy: position.coords.accuracy
-//             };
-//             navigator.geolocation.watchPosition(updateCurrentLocation);
-//
-//             var currentPositionIcon = createPositionIcon();
-//             var currentHeadingIcon = createHeadingArea(0);
-//
-//             currentHeadingMarker = new google.maps.Marker({
-//                 position: currentPosition,
-//                 map: null,
-//                 icon: currentHeadingIcon
-//             });
-//             currentLocationMarker = new google.maps.Marker({
-//                 position: currentPosition,
-//                 map: map,
-//                 title: "אתה נמצא כאן",
-//                 icon: currentPositionIcon
-//             });
-//             map.setCenter(currentPosition);
-//
-//             //register to compass heading change event
-//             window.addEventListener('deviceorientation', function(evt) {
-//                 var heading = null;
-//
-//                 if(evt.alpha !== null) {
-//                     heading = evt.alpha;
-//                     updateCurrentHeading(heading);
-//                 }
-//             });
-//         }, function() {
-//             // no location available
-//         }, {enableHighAccuracy: true});
-//     } else {
-//         // Browser doesn't support Geolocation
-//     }
-// }
 
 //********************
 
@@ -504,6 +460,7 @@ function initMap() {
             // hide splash screen
             setTimeout(function () {
                 $(".splash").fadeOut();
+                showCurrentLocation();
                 document.onclick = function (argument) {
                     window.scrollTo(0, 1);
                 }
