@@ -143,6 +143,47 @@ function deselectAircraft(callback) {
 //
 
 //********************
+function updateCurrentLocation(position) {
+    currentPosition = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+        accuracy: position.coords.accuracy
+    };
+
+    currentLocationMarker.setIcon(createPositionIcon());
+}
+
+function updateCurrentHeading(heading) {
+    currentHeading = heading;
+    //TODO: Implement for bing
+    currentHeadingMarker.setIcon(createHeadingArea(currentHeading));
+    currentHeadingMarker.setMap(map);
+}
+
+/**
+ * draws a marker on the map given a location and icon
+ * @param position - the position to draw the marker
+ * @param icon - the icon of the marker
+ * @param title - the text shown on the marker
+ * @param shouldUseMap - should the map be
+ */
+function drawMarker(position, icon, title, shouldUseMap) {
+    var marker = new google.maps.Marker({
+        position: position,
+        map: shouldUseMap ? map : null,
+        icon: icon,
+        title: title ? title : ""
+    });
+}
+
+/**
+ * Sets the map's focus on the given location and zooms in on it
+ * @param location
+ */
+function focusOnLocation(location) {
+    map.setCenter(location);
+    map.setZoom(12);
+}
 
 // TODO: Implement
 function deselectLocation(callback) {
