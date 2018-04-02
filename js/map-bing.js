@@ -196,13 +196,13 @@ function selectLocation(point, location, marker, markerIcon, markerIconClicked, 
 function getMarkerIcon(color, clicked) {
     if (!clicked) {
         return {
-            icon: "icons/point-" + route.color + ".png",
+            icon: "icons/point-" + color + ".png",
             // The anchor for this image is the center of the circle
             anchor: new Microsoft.Maps.Point(17, 17)
         };
     }
     else return {
-        icon: "icons/pointPress-"+route.color+".png",
+        icon: "icons/pointPress-" + color + ".png",
         // The anchor for this image is the center of the circle
         anchor: new Microsoft.Maps.Point(20,20)
     };
