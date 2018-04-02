@@ -152,7 +152,7 @@ function drawMarker(position, icon, title, shouldUseMap) {
         position: position,
         map: shouldUseMap ? map : null,
         icon: icon,
-        title: title ? title : ""
+        title: title != "" ? title : ""
     });
 }
 

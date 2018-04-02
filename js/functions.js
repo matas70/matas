@@ -329,7 +329,7 @@ function showCurrentLocation() {
             var currentHeadingIcon = createHeadingArea(0);
 
             drawMarker(currentPosition, currentHeadingIcon, false);
-            drawMarker(currentPosition, currentPositionIcon, true);
+            drawMarker(currentPosition, currentPositionIcon, "אתה נמצא כאן", true);
             focusOnLocation(currentPosition);
 
             // find the closest location and select it
