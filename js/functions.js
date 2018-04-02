@@ -473,8 +473,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
 }
 
 function setAircraftIcon(marker, icon, azimuth) {
-    var imageUrl = RotateIcon
-        .makeIcon("icons/aircrafts/"+ icon + ".svg")
+    var imageUrl = new RotateIcon({url: "icons/aircrafts/"+ icon + ".svg"})
         .setRotation({deg: azimuth})
         .getUrl();
     var domIcon = $('#'+icon);

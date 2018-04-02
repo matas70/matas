@@ -159,12 +159,12 @@ function updateMarkerPosition(marker, position, animationDuration) {
 }
 
 function setAircraftMarkerIcon(marker, url) {
-    // TODO: Implement
-    // marker.setIcon({
-    //     url: url,
-    //     scaledSize: new google.maps.Size(70,70),
-    //     anchor: new google.maps.Point(36,36)
-    // });
+    // TODO: fix the scale of the icons
+    marker.setOptions({
+         icon: url,
+//         scaledSize: new google.maps.Size(70,70),
+         anchor: new Microsoft.Maps.Point(36,36)
+    });
 }
 
 function createAircraftMarker(position, name, hide, clickEvent) {
