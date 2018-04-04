@@ -1,15 +1,18 @@
 var selectedLocation = null;
 var aircrafts = null;
+var currentLocationMarker;
 
 function updateCurrentLocation(position) {
-    // TODO: implement
-    // currentPosition = {
-    //     lat: position.coords.latitude,
-    //     lng: position.coords.longitude,
-    //     accuracy: position.coords.accuracy
-    // };
-    //
-    // currentLocationMarker.setIcon(createPositionIcon());
+     currentPosition = {
+         lat: position.coords.latitude,
+         lng: position.coords.longitude,
+         accuracy: position.coords.accuracy
+     };
+
+    currentLocationMarker.setOptions({
+        // Guaranteed that containedPushpins is not empty, and it's one of our good markers
+        icon: createPositionIcon()
+    });
 }
 
 var markersMap = {};
@@ -135,40 +138,28 @@ function addClickEventToMarker(marker, clickEvent) {
     });
 }
 
-
-// TODO: Implement
-function onHomeButtonClick() {
-    // hide about if visible
-    // if (aboutVisible) {
-    //     onAboutButtonClick();
-    // }
-    //
-    // deselectAircraft();
-    // deselectLocation();
-    //
-    // map.panTo({lat: 32.00, lng: 35.00});
-    // map.setZoom(8);
-    // deselectAircraft();
-    // deselectLocation();
-}
-
-// TODO: Implement
 function updateMarkerPosition(marker, position, animationDuration) {
-    // marker.setDuration(animationDuration);
-    // marker.setPosition(position);
+    prevLocation = marker.getLocation();
+    nextLocation = toBingLocation(position);
+
+    // TODO: make it work
+    // currentAnimation = new PathAnimation([prevLocation, nextLocation], function (coord) {
+    //     marker.setLocation(coord);
+    // }, false, animationDuration);
+    //
+    // currentAnimation.play();
+    // TODO: then remove this
+    marker.setLocation(nextLocation);
 }
 
 function setAircraftMarkerIcon(marker, url) {
-    // TODO: fix the scale of the icons
     marker.setOptions({
          icon: url,
-//         scaledSize: new google.maps.Size(70,70),
          anchor: new Microsoft.Maps.Point(36,36)
     });
 }
 
 function createAircraftMarker(position, name, hide, clickEvent) {
-    // TODO: Complete implementation
     aircraftMarker =  new Microsoft.Maps.Pushpin(toBingLocation(position), {
         title: name
     });
@@ -191,10 +182,10 @@ function createAircraftMarker(position, name, hide, clickEvent) {
  */
 function drawMarker(position, icon, title, shouldUseMap) {
     var marker = new Microsoft.Maps.Pushpin(toBingLocation(position), icon);
+    marker.setOptions({name: title});
     if (shouldUseMap) {
         map.entites.push(marker);
     }
-    // todo: do we need the title?
 }
 
 function createPositionIcon() {
@@ -216,8 +207,8 @@ function createPositionIcon() {
  * Sets the map's focus on the given location and zooms in on it
  * @param location
  */
-function focusOnLocation(location) {
-    map.setView({center: toBingLocation(location), zoom:12});
+function focusOnLocation(location,zoom=12) {
+    map.setView({center: toBingLocation(location), zoom:zoom});
 }
 
 function setMarkerIcon(marker, icon) {
@@ -260,5 +251,10 @@ function createMapObject(clickCallback) {
     });
 
     Microsoft.Maps.Events.addHandler(map, 'click', clickCallback);
+
+    //Load the Animation Module
+    Microsoft.Maps.registerModule('AnimationModule');
+    Microsoft.Maps.loadModule("AnimationModule");
+
     return map;
 }

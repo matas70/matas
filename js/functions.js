@@ -93,7 +93,7 @@ function getCurrentLocation(path, currentTime) {
 	
 	// if not found - the aircraft already landed, return the last location
 	if (!found) {
-		return getPathLocation(path[path.length-1]);
+		return getPathLocation(path[path.length-1].pointId);
 	}
 	
 	// otherwise - calculate the relative position between previous location and current
@@ -592,6 +592,22 @@ function selectPoint(pointId, minimized=false) {
         selectLocation(selectedPoint, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
     }
 }
+
+function onHomeButtonClick() {
+    // hide about if visible
+    if (aboutVisible) {
+        onAboutButtonClick();
+    }
+
+    deselectAircraft();
+    deselectLocation();
+
+    focusOnLocation({lat: 32.00, lng: 35.00},8);
+
+    deselectAircraft();
+    deselectLocation();
+}
+
 
 var defer = $.Deferred();
 
