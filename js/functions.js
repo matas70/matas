@@ -316,24 +316,30 @@ function redirectToHttps() {
 function showCurrentLocation() {
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var currentPosition = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-                heading: position.coords.heading,
-                accuracy: position.coords.accuracy
+//         navigator.geolocation.getCurrentPosition(function(position) {
+//             var currentPosition = {
+//                 lat: position.coords.latitude,
+//                 lng: position.coords.longitude,
+//                 heading: position.coords.heading,
+//                 accuracy: position.coords.accuracy
+//             };
+			var currentPosition = {
+                lat: 31.33,
+                lng: 35.20,
+//                 heading: position.coords.heading,
+//                 accuracy: position.coords.accuracy
             };
-            navigator.geolocation.watchPosition(updateCurrentLocation);
+//             navigator.geolocation.watchPosition(updateCurrentLocation);
 
             var currentPositionIcon = createPositionIcon();
-            var currentHeadingIcon = createHeadingArea(0);
+//             var currentHeadingIcon = createHeadingArea(0);
 
-            drawMarker(currentPosition, currentHeadingIcon, false);
-            drawMarker(currentPosition, currentPositionIcon, true);
+//             drawMarker(currentPosition, currentHeadingIcon, false);
+            drawMarker(currentPosition, currentPositionIcon, "אתה נמצא כאן", true);
             focusOnLocation(currentPosition);
 
             // find the closest location and select it
-            selectPoint(findClosestPoint(currentPosition),true);
+//             selectPoint(findClosestPoint(currentPosition),true);
 
             //register to compass heading change event
             window.addEventListener('deviceorientation', function(evt) {
@@ -344,9 +350,10 @@ function showCurrentLocation() {
                     updateCurrentHeading(heading);
                 }
             });
-        }, function() {
-            // no location available
-        }, {enableHighAccuracy: true});
+//         }, function() {
+//         	console.log("No location");
+//             // no location available
+//         }, {enableHighAccuracy: true});
     } else {
         // Browser doesn't support Geolocation
     }

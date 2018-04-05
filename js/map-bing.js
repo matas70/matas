@@ -117,7 +117,7 @@ function createPositionIcon() {
     return {
         icon: "icons/location.svg",
         // The anchor for this image is the center of the circle
-        anchor: new Microsoft.Maps.Point(17, 17)
+        anchor: new Microsoft.Maps.Point(20, 20)
     };
 }
 
@@ -147,10 +147,17 @@ function updateCurrentHeading(heading) {
  * @param shouldUseMap - should the map be
  */
 function drawMarker(position, icon, title, shouldUseMap) {
-    var marker = new Microsoft.Maps.Pushpin(position, {
+    var bingLocation = new Microsoft.Maps.Location(position.lat, position.lng);
+    var marker = new Microsoft.Maps.Pushpin(bingLocation, {
         icon: icon.icon,
-        text: title ? title : ""
+        anchor: icon.anchor
     });
+
+    map.entities.push(marker);
+    map.setView({
+        center: marker.getLocation(),
+        zoom: 20
+    }); 
 }
 
 /**
@@ -163,7 +170,6 @@ function focusOnLocation(location) {
         center: bingLocation,
         zoom: 12
     });
-//     map.setZoom(12);
 }
 
 function deselectLocation(callback) {
