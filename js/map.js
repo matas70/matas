@@ -1,49 +1,15 @@
-function setAircraftIcon(marker, icon, azimuth) {
-	var imageUrl = RotateIcon
-            .makeIcon("icons/aircrafts/"+ icon + ".svg")
-            .setRotation({deg: azimuth})
-            .getUrl();
-	var domIcon = $('#'+icon);
-	domIcon.attr("src",imageUrl);
-	marker.setIcon({
-              url: domIcon.attr('src'),
-			  scaledSize: new google.maps.Size(70,70),
-			  anchor: new google.maps.Point(36,36) 
-            });	
+function setAircraftMarkerIcon(marker, url) {
+    marker.setIcon({
+        url: url,
+        scaledSize: new google.maps.Size(70,70),
+        anchor: new google.maps.Point(36,36)
+    });
 }
-
-var selectedAircraft = null;
-var selectedAircraftMarker = null;
-var selectedAircraftMarkerIcon = null;
 
 var aircrafts = null;
 var selectedLocation = null;
 var selectedLocationMarker = null;
 var selectedLocationMarkerIcon = null;
-
-function deselectAircraft(callback) {
-	if (selectedAircraft != null) {
-		// hide selected location
-		hideAircraftInfoPopup(function() {
-			// set it to the previous marker icon
-			//selectedAircraftMarker.setIcon(selectedAircraftMarkerIcon);
-			// mark it is deselected
-			selectedAircraft = null;
-			if (callback != undefined) 
-				callback.call(this);			
-		});
-	}
-}
-
-function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl) {
-	deselectLocation();
-	showAircraftInfoPopup(aircraftName, aircraftType, iconName, imageName, time, infoUrl);				
-	//map.panTo(location);
-	//marker.setIcon(markerIconClicked);
-	selectedAircraft = aircraft;
-	selectedAircraftMarker = marker;
-	//selectedAircraftMarkerIcon = markerIcon;		
-}
 
 function onAircraftSelected(aircraftId) {
 	var aircraft = aircrafts[aircraftId-1];
@@ -51,46 +17,20 @@ function onAircraftSelected(aircraftId) {
 	selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl);
 }
 
-function addAircraftsToMap() {
-	aircrafts.forEach(function(aircraft) {
-		// draw current location of the aircraft
-		var currentAircraftPosition = getCurrentLocation(aircraft.path, getCurrentTime());
-		var nextAircraftPosition = getNextLocation(aircraft.path, getCurrentTime());
-		var currentAircraftAzimuth = calcAzimuth(currentAircraftPosition, nextAircraftPosition.location) % 360;						
-						 					
-		var aircraftMarker = new SlidingMarker({
-		    position: currentAircraftPosition,
-		    map: aircraft.hide?null:map,
-			title: aircraft.name,
-			easing: "linear",
-			optimized: false,
-      		zIndex:9			
-		});	
-		
-		setAircraftIcon(aircraftMarker, aircraft.icon, currentAircraftAzimuth);
-		aircraftMarker.currentAircraftAzimuth = currentAircraftAzimuth;																
-		aircraftMarkers[aircraft.aircraftId] = aircraftMarker;
-				
-		infoWindow = new google.maps.InfoWindow();				 
-					
-		// add "clicked" event		
-		aircraftMarker.addListener('click', function() {
-			if (selectedAircraft == aircraft) {
-					deselectAircraft();				
-				} else {
-					// first hide the previous popup
-					if (selectedAircraft != null) {
-						deselectAircraft(function() {
-							// then show a new popup
-							selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time.substr(0,5), aircraft.infoUrl);	
-						});
-					} else {								
-						// then show a new popup
-						selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time.substr(0,5), aircraft.infoUrl);
-					}	
-				}				
-        });						
-	}, this);
+function createAircraftMarker(position, name, hide, clickEvent) {
+	aircraftMarker =  new SlidingMarker({
+        position: position,
+        map: hide?null:map,
+        title: name,
+        easing: "linear",
+        optimized: false,
+        zIndex:9
+    });
+
+	// add "clicked" event
+    aircraftMarker.addListener('click', clickEvent);
+
+    return aircraftMarker;
 }
 
 //**** currrent location detection - need to see wheter to delete or not
@@ -152,7 +92,7 @@ function drawMarker(position, icon, title, shouldUseMap) {
         position: position,
         map: shouldUseMap ? map : null,
         icon: icon,
-        title: title ? title : ""
+        title: title != "" ? title : ""
     });
 }
 
@@ -160,33 +100,13 @@ function drawMarker(position, icon, title, shouldUseMap) {
  * Sets the map's focus on the given location and zooms in on it
  * @param location
  */
-function focusOnLocation(location) {
+function focusOnLocation(location,zoom=12) {
     map.setCenter(location);
-    map.setZoom(12);
+    map.setZoom(zoom);
 }
 
-function deselectLocation(callback) {
-	if (selectedLocation != null) {
-		// hide selected location
-		hideLocationPopup(function() {
-			// set it to the previous marker icon
-			selectedLocationMarker.setIcon(selectedLocationMarkerIcon);
-			// mark it is deselected
-			selectedLocation = null;
-			if (callback != undefined) 
-				callback.call(this);			
-		});
-	}
-}
-
-function selectLocation(point, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor, minimized=false) {
-	deselectAircraft();
-	showLocationPopup(point, color, titleColor, subtitleColor,minimized);
-	map.panTo(location);
-	marker.setIcon(markerIconClicked);
-	selectedLocation = location;
-	selectedLocationMarker = marker;
-	selectedLocationMarkerIcon = markerIcon;		
+function setMarkerIcon(marker, icon) {
+    marker.setIcon(icon);
 }
 
 // location markers
@@ -202,6 +122,10 @@ function getMarkerIcon(color, clicked) {
         // The anchor for this image is the center of the circle
         anchor: new google.maps.Point(20, 20)
     };
+}
+
+function panTo(map, location) {
+    map.panTo(location);
 }
 
 var markersMap = {};
@@ -284,33 +208,6 @@ function drawRouteOnMap(route) {
 			});
 }
 
-function selectPoint(pointId, minimized=false) {
-    var marker = markersMap[pointId];
-    var selectedRoute = null;
-    var selectedPoint = null;
-
-    // find the route which the point belongs to
-    routes.forEach(function(route) {
-        route.points.forEach(function(point) {
-            if (point.pointId == pointId) {
-                selectedRoute = route;
-                selectedPoint = point;
-            }
-        }, this);
-    }, this);
-
-    // first hide the previous popup
-    if (selectedLocation != null) {
-        deselectLocation(function() {
-            // then show a new popup
-            selectLocation(selectedPoint, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
-        });
-    } else {
-        // then show a new popup
-        selectLocation(selectedPoint, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
-    }
-}
-
 function drawRoutesOnMap(routes) {
 	// set style options for routes
 	map.data.setStyle(function(feature) {
@@ -348,141 +245,22 @@ function drawRoutesOnMap(routes) {
 		
 }
 
-var timeoutHandles = {};
-
-function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
-	var animationTime = 2000;
-	
-	var currentTime = getCurrentTime();
-	var currentAircraftPosition = getCurrentLocation(aircraft.path, currentTime);
-	var nextAircraftStopPosition = getNextLocation(aircraft.path, currentTime);
-	var nextAircraftPosition;
-	
-	// if the next stop is more than animationTime millieseconds, calculate where the aircraft should be within animationTime 
-	// milliseconds
-	if (nextAircraftStopPosition.time - currentTime > animationTime) { 
-		nextAircraftPosition = getPredictedLocation(currentAircraftPosition, nextAircraftStopPosition.location, nextAircraftStopPosition.time - currentTime, animationTime);
-	} else {
-		// otherwise, animate to the the next aircraft stop location
-		nextAircraftPosition = nextAircraftStopPosition.location;
-		animationTime = nextAircraftStopPosition.time - currentTime;
-	}
-	
-	// calculate the new azimuth	
-	var currentAircraftAzimuth = calcAzimuth(currentAircraftPosition, nextAircraftPosition);
-	if (currentAircraftAzimuth == null) 
-		currentAircraftAzimuth = previousAzimuth;
-												
-	var marker = aircraftMarkers[aircraft.aircraftId];
-	
-	// change azimuth if needed
-	if (Math.abs(previousAzimuth - currentAircraftAzimuth)>=0.1) {
-		// animation aircraft roation    	
-	    var step = currentAircraftAzimuth-previousAzimuth>=0?5:-5;
-		var angle = previousAzimuth;
-
-		var handle = setInterval(function(){    	
-			if (Math.abs(angle % 360 - currentAircraftAzimuth % 360) < Math.abs(step)) {
-				clearInterval(handle);
-				setAircraftIcon(marker, aircraft.icon, currentAircraftAzimuth % 360);		
-			} else {
-				setAircraftIcon(marker, aircraft.icon, angle+=step % 360);
-			}
-	    }, updateCurrent?10:100);
-	}
-	
-	// if requested - forcibly update the aircraft to be on current position
-	if (updateCurrent) {
-		marker.setDuration(1);
-		marker.setPosition(currentAircraftPosition);
-	}
-	else {
-		// animate to the next position	
-		marker.setDuration(animationTime);		
-		marker.setPosition(nextAircraftPosition);
-	}
-	
-	// set a timeout for the next animation interval
-	timeoutHandles[aircraft.aircraftId] = setTimeout(function () {
-	   animateToNextLocation(aircraft, currentAircraftAzimuth);
-	}, animationTime);
-}
-
-function startAircraftsAnimation(updateCurrent) {
-	aircrafts.forEach(function(aircraft) {
-		animateToNextLocation(aircraft, aircraftMarkers[aircraft.aircraftId].currentAircraftAzimuth, updateCurrent);					
-	}, this);
-}
-
-var defer = $.Deferred();
-
-function onHomeButtonClick() {
-	// hide about if visible
-	if (aboutVisible) {
-		onAboutButtonClick();
-	}
-	
-	deselectAircraft();
-	deselectLocation();
-	
-	map.panTo({lat: 32.00, lng: 35.00});
-	map.setZoom(8);
-	deselectAircraft();
-	deselectLocation();
-}
-
-function initMap() {
-	redirectToHttps();
-	// register service worker (needed for the app to be suggested as wepapp)
-    registerServiceWorker();
-    // let splash run for a second before start loading the map
-    setTimeout(function() {
-        initPopups();
-        map = new google.maps.Map(document.getElementById('map'),
-            {
-                center: {lat: 32.00, lng: 35.00},
-                zoom: 8,
-                gestureHandling: 'greedy',
-                disableDefaultUI: true
-            });
-
-        map.addListener('click', function() {
-            deselectLocation();
-            deselectAircraft();
+function createMapObject(clickCallback) {
+	map = new google.maps.Map(document.getElementById('map'),
+        {
+            center: {lat: 32.00, lng: 35.00},
+            zoom: 8,
+            gestureHandling: 'greedy',
+            disableDefaultUI: true
         });
 
-        // make it larger than screen that when it scrolls it goes full screen
-        $("#map").height(window.outerHeight);
-        $(".map-dark").height(window.outerHeight);
-        makeHeaderSticky();
+    map.addListener('click', clickCallback);
+	return map;
+}
 
-        // load all routes
-        loadRoutes(function(routes) {
-            this.routes = routes;
-            drawRoutesOnMap(routes);
-
-            // load aircrafts
-            loadAircrafts(function(pAircrafts) {
-                addAircraftsToMap();
-                aircrafts = pAircrafts;
-                startAircraftsAnimation(false);
-            });
-
-            // hide splash screen
-            setTimeout(function() {
-                $(".splash").fadeOut();
-                showCurrentLocation();
-                document.onclick = function (argument) {
-					window.scrollTo(0,1);
-                }
-            }, 3500);
-
-            $(window).focus(function() {
-                startAircraftsAnimation(true);
-            });
-        });
-        defer.resolve(map);
-    }, 1000);
+function updateMarkerPosition(marker, position, animationDuration) {
+    marker.setDuration(animationDuration);
+    marker.setPosition(position);
 }
 
 /* unused */
