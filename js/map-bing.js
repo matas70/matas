@@ -17,7 +17,7 @@ function createPositionIcon() {
     return {
         icon: "icons/location.svg",
         // The anchor for this image is the center of the circle
-        anchor: new Microsoft.Maps.Point(20, 20)
+        anchor: new Microsoft.Maps.Point(5, 5)
     };
 }
 
@@ -292,12 +292,13 @@ function createAircraftMarker(position, name, hide, clickEvent) {
  */
 function drawMarker(position, icon, title, shouldUseMap) {
     var marker = new Microsoft.Maps.Pushpin(toBingLocation(position), icon);
-    marker.setOptions({name: title});
+    marker.setOptions({
+        title: title !== "" ? title : "",
+        textOffset: new Microsoft.Maps.Point(5, 0)
+    });
     if (shouldUseMap) {
-//         map.entities.push(marker);
+        map.entities.push(marker);
     }
-
-    map.layers[0].add(marker);
 }
 
 function toBingLocation(location) {
