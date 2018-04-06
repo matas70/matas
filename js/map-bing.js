@@ -13,36 +13,24 @@ function updateCurrentLocation(position) {
     currentLocationMarker.setIcon(createPositionIcon());
 }
 
-/**
- * draws a marker on the map given a location and icon
- * @param position - the position to draw the marker
- * @param icon - the icon of the marker
- * @param title - the text shown on the marker
- * @param shouldUseMap - should the map be
- */
-function drawMarker(position, icon, title, shouldUseMap) {
-    var bingLocation = new Microsoft.Maps.Location(position.lat, position.lng);
-    var marker = new Microsoft.Maps.Pushpin(bingLocation, {
-        icon: icon.icon,
-        anchor: icon.anchor
-    });
-
-    map.entities.push(marker);
-    map.setView({
-        center: marker.getLocation(),
-        zoom: 20
-    });
+function createPositionIcon() {
+    return {
+        icon: "icons/location.svg",
+        // The anchor for this image is the center of the circle
+        anchor: new Microsoft.Maps.Point(20, 20)
+    };
 }
 
 /**
  * Sets the map's focus on the given location and zooms in on it
  * @param location
+ * @param zoomLevel- The map's zoom. Default value is 8
  */
-function focusOnLocation(location) {
-    var bingLocation = new Microsoft.Maps.Location(location.lat, location.lng);
+function focusOnLocation(location, zoomLevel = 8) {
+
     map.setView({
-        center: bingLocation,
-        zoom: 12
+        center: toBingLocation(location),
+        zoom: zoomLevel
     });
 }
 
@@ -112,7 +100,7 @@ function drawRouteOnMap(route, markersLayer, routesLayer) {
         var convertedLocation = convertLocation(route.points[i].N, route.points[i].E);
 
         // Create an array of locations
-        path[i] = new Microsoft.Maps.Location(convertedLocation.lat, convertedLocation.lng);
+        path[i] = toBingLocation(convertedLocation);
     }
 
     // Create a bing map polyline
@@ -156,7 +144,7 @@ function drawMarkersOnMap(route, markersLayer) {
         route.points.forEach(function(point) {
             if (!point.hidden) {
                 var convertedLocation = convertLocation(point.N, point.E);
-                var location = new Microsoft.Maps.Location(convertedLocation.lat, convertedLocation.lng);
+                var location = toBingLocation(convertedLocation);
 
                 // draw marker for this location
                 var marker = new Microsoft.Maps.Pushpin(location, markerIcon);
@@ -249,12 +237,10 @@ function addClickEventToMarker(layer) {
             // first hide the previous popup
             if (selectedLocation != null) {
                 deselectLocation(function() {
-                    //TODO: Implement
                     // then show a new popup
                     selectLocation(point, marker, getMarkerIcon(route.color, false), getMarkerIcon(route.color, true), "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
                 });
             } else {
-                //TODO: Implement
                 // then show a new popup
                 selectLocation(point, marker, getMarkerIcon(route.color, false), getMarkerIcon(route.color, true), "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
             }
@@ -308,24 +294,10 @@ function drawMarker(position, icon, title, shouldUseMap) {
     var marker = new Microsoft.Maps.Pushpin(toBingLocation(position), icon);
     marker.setOptions({name: title});
     if (shouldUseMap) {
-        map.entites.push(marker);
+//         map.entities.push(marker);
     }
-}
 
-// TODO: Implement
-function onHomeButtonClick() {
-    // hide about if visible
-    // if (aboutVisible) {
-    //     onAboutButtonClick();
-    // }
-    //
-    // deselectAircraft();
-    // deselectLocation();
-    //
-    // map.panTo({lat: 32.00, lng: 35.00});
-    // map.setZoom(8);
-    // deselectAircraft();
-    // deselectLocation();
+    map.layers[0].add(marker);
 }
 
 function toBingLocation(location) {
@@ -335,11 +307,6 @@ function toBingLocation(location) {
 function panTo(map, location) {
     map.setView({center: toBingLocation(location)});
 }
-
-function panTo(map, location) {
-    map.setView({center: toBingLocation(location)});
-}
-
 
 function createMapObject(clickCallback) {
     map = new Microsoft.Maps.Map(document.getElementById('map'), {
