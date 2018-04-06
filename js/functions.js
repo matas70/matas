@@ -71,36 +71,36 @@ function getPathLocation(pointId) {
 }
 
 function getCurrentLocation(path, currentTime) {
-    var relativeTime = currentTime - actualStartTime;
-    var prevLocation = 0;
-    var nextLocation = 1;
-    var found = false;
+	var relativeTime = currentTime - actualStartTime;
+	var prevLocation = 0;
+	var nextLocation = 1;
+	var found = false;
 
-    // if the aircraft hasn't start flying yet, return its first location
-    if (plannedStartTime + relativeTime < convertTime(path[prevLocation].time))
-        return getPathLocation(path[0].pointId);
+	// if the aircraft hasn't start flying yet, return its first location
+	if (plannedStartTime + relativeTime < convertTime(path[prevLocation].time))
+		return getPathLocation(path[0].pointId);
 
-    // otherwise - search for the two points where the aircraft suppossed to be between
-    while (nextLocation < path.length && !found) {
-        var nextLocationTime = convertTime(path[nextLocation].time);
-        if (plannedStartTime + relativeTime < nextLocationTime) {
-            found = true;
-        } else {
-            prevLocation++;
-            nextLocation++;
-        }
-    }
+	// otherwise - search for the two points where the aircraft suppossed to be between
+	while (nextLocation < path.length && !found) {
+		var nextLocationTime = convertTime(path[nextLocation].time);
+		if (plannedStartTime + relativeTime < nextLocationTime) {
+			found = true;
+		} else {
+			prevLocation++;
+			nextLocation++;
+		}
+	}
 
-    // if not found - the aircraft already landed, return the last location
-    if (!found) {
-        return getPathLocation(path[path.length - 1]);
-    }
+	// if not found - the aircraft already landed, return the last location
+	if (!found) {
+		return getPathLocation(path[path.length-1].pointId);
+	}
 
-    // otherwise - calculate the relative position between previous location and current
-    var prevLocationTime = convertTime(path[prevLocation].time);
-    var ratio = (plannedStartTime + relativeTime - prevLocationTime) / (nextLocationTime - prevLocationTime);
+	// otherwise - calculate the relative position between previous location and current
+	var prevLocationTime = convertTime(path[prevLocation].time);
+	var ratio = (plannedStartTime + relativeTime - prevLocationTime) / (nextLocationTime - prevLocationTime);
 
-    return getRelativeLocation(getPathLocation(path[prevLocation].pointId), getPathLocation(path[nextLocation].pointId), ratio);
+	return getRelativeLocation(getPathLocation(path[prevLocation].pointId), getPathLocation(path[nextLocation].pointId), ratio);
 }
 
 function getNextLocation(path, currentTime) {
@@ -534,8 +534,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
 }
 
 function setAircraftIcon(marker, icon, azimuth) {
-    var imageUrl = RotateIcon
-        .makeIcon("icons/aircrafts/" + icon + ".svg")
+    var imageUrl = new RotateIcon({url: "icons/aircrafts/"+ icon + ".svg"})
         .setRotation({deg: azimuth})
         .getUrl();
     var domIcon = $('#' + icon);
@@ -655,6 +654,22 @@ function selectPoint(pointId, minimized=false) {
         selectLocation(selectedPoint, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
     }
 }
+
+function onHomeButtonClick() {
+    // hide about if visible
+    if (aboutVisible) {
+        onAboutButtonClick();
+    }
+
+    deselectAircraft();
+    deselectLocation();
+
+    focusOnLocation({lat: 32.00, lng: 35.00},8);
+
+    deselectAircraft();
+    deselectLocation();
+}
+
 
 var defer = $.Deferred();
 

@@ -1,15 +1,18 @@
 var selectedLocation = null;
 var aircrafts = null;
+var currentLocationMarker;
 
 function updateCurrentLocation(position) {
-    // TODO: implement
-    // currentPosition = {
-    //     lat: position.coords.latitude,
-    //     lng: position.coords.longitude,
-    //     accuracy: position.coords.accuracy
-    // };
-    //
-    // currentLocationMarker.setIcon(createPositionIcon());
+     currentPosition = {
+         lat: position.coords.latitude,
+         lng: position.coords.longitude,
+         accuracy: position.coords.accuracy
+     };
+
+    currentLocationMarker.setOptions({
+        // Guaranteed that containedPushpins is not empty, and it's one of our good markers
+        icon: createPositionIcon()
+    });
 }
 
 var markersMap = {};
@@ -135,41 +138,39 @@ function addClickEventToMarker(marker, clickEvent) {
     });
 }
 
-
-// TODO: Implement
-function onHomeButtonClick() {
-    // hide about if visible
-    // if (aboutVisible) {
-    //     onAboutButtonClick();
-    // }
-    //
-    // deselectAircraft();
-    // deselectLocation();
-    //
-    // map.panTo({lat: 32.00, lng: 35.00});
-    // map.setZoom(8);
-    // deselectAircraft();
-    // deselectLocation();
-}
-
-// TODO: Implement
 function updateMarkerPosition(marker, position, animationDuration) {
-    // marker.setDuration(animationDuration);
-    // marker.setPosition(position);
+    prevLocation = marker.getLocation();
+    nextLocation = toBingLocation(position);
+
+    // TODO: make it work
+    // currentAnimation = new PathAnimation([prevLocation, nextLocation], function (coord) {
+    //     marker.setLocation(coord);
+    // }, false, animationDuration);
+    //
+    // currentAnimation.play();
+    // TODO: then remove this
+    marker.setLocation(nextLocation);
 }
 
 function setAircraftMarkerIcon(marker, url) {
-    // TODO: Implement
-    // marker.setIcon({
-    //     url: url,
-    //     scaledSize: new google.maps.Size(70,70),
-    //     anchor: new google.maps.Point(36,36)
-    // });
+    marker.setOptions({
+         icon: url,
+         anchor: new Microsoft.Maps.Point(36,36)
+    });
 }
 
 function createAircraftMarker(position, name, hide, clickEvent) {
-    // TODO: Implement
-    return {};
+    aircraftMarker =  new Microsoft.Maps.Pushpin(toBingLocation(position), {
+        title: name
+    });
+
+    if (!hide) {
+        map.entities.push(aircraftMarker);
+    }
+    // add "clicked" event
+    Microsoft.Maps.Events.addHandler(aircraftMarker, 'click', clickEvent);
+
+    return aircraftMarker;
 }
 
 /**
@@ -180,13 +181,11 @@ function createAircraftMarker(position, name, hide, clickEvent) {
  * @param shouldUseMap - should the map be
  */
 function drawMarker(position, icon, title, shouldUseMap) {
-    // TODO: Implement
-    // var marker = new google.maps.Marker({
-    //     position: position,
-    //     map: shouldUseMap ? map : null,
-    //     icon: icon,
-    //     title: title != "" ? title : ""
-    // });
+    var marker = new Microsoft.Maps.Pushpin(toBingLocation(position), icon);
+    marker.setOptions({name: title});
+    if (shouldUseMap) {
+        map.entites.push(marker);
+    }
 }
 
 function createPositionIcon() {
@@ -208,37 +207,35 @@ function createPositionIcon() {
  * Sets the map's focus on the given location and zooms in on it
  * @param location
  */
-function focusOnLocation(location) {
-    // TODO: implement
-    // map.setCenter(location);
-    // map.setZoom(12);
+function focusOnLocation(location,zoom=12) {
+    map.setView({center: toBingLocation(location), zoom:zoom});
 }
 
 function setMarkerIcon(marker, icon) {
-    // TODO: implement
-    // marker.setIcon(icon);
+    marker.setOptions(icon);
 }
 
 // location markers
 function getMarkerIcon(color, clicked) {
-    // TODO: implement
-    // if (!clicked)
-    //     return {
-    //         url: "icons/point-" + color + ".png",
-    //         // The anchor for this image is the center of the circle
-    //         anchor: new google.maps.Point(17, 17)
-    //     };
-    // else return {
-    //     url: "icons/pointPress-" + color + ".png",
-    //     // The anchor for this image is the center of the circle
-    //     anchor: new google.maps.Point(20, 20)
-    // };
-    return {};
+    if (!clicked)
+        return {
+            icon: "icons/point-" + color + ".png",
+            // The anchor for this image is the center of the circle
+            anchor: new Microsoft.Maps.Point(17, 17)
+        };
+    else return {
+        icon: "icons/pointPress-" + color + ".png",
+        // The anchor for this image is the center of the circle
+        anchor: new Microsoft.Maps.Point(20, 20)
+    };
+}
+
+function toBingLocation(location) {
+    return new Microsoft.Maps.Location(location.lat, location.lng);
 }
 
 function panTo(map, location) {
-    // TODO: implement
-    // map.panTo(location);
+    map.setView({center: toBingLocation(location)});
 }
 
 
@@ -254,5 +251,10 @@ function createMapObject(clickCallback) {
     });
 
     Microsoft.Maps.Events.addHandler(map, 'click', clickCallback);
+
+    //Load the Animation Module
+    Microsoft.Maps.registerModule('AnimationModule');
+    Microsoft.Maps.loadModule("AnimationModule");
+
     return map;
 }

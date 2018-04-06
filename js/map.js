@@ -100,9 +100,9 @@ function drawMarker(position, icon, title, shouldUseMap) {
  * Sets the map's focus on the given location and zooms in on it
  * @param location
  */
-function focusOnLocation(location) {
+function focusOnLocation(location,zoom=12) {
     map.setCenter(location);
-    map.setZoom(12);
+    map.setZoom(zoom);
 }
 
 function setMarkerIcon(marker, icon) {
@@ -243,21 +243,6 @@ function drawRoutesOnMap(routes) {
 	}, this);
 	
 		
-}
-
-function onHomeButtonClick() {
-	// hide about if visible
-	if (aboutVisible) {
-		onAboutButtonClick();
-	}
-	
-	deselectAircraft();
-	deselectLocation();
-	
-	map.panTo({lat: 32.00, lng: 35.00});
-	map.setZoom(8);
-	deselectAircraft();
-	deselectLocation();
 }
 
 function createMapObject(clickCallback) {
