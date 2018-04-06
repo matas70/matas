@@ -11,11 +11,6 @@ var selectedLocation = null;
 var selectedLocationMarker = null;
 var selectedLocationMarkerIcon = null;
 
-function onAircraftSelected(aircraftId) {
-	var aircraft = aircrafts[aircraftId-1];
-	window.scrollTo(0,1);
-	selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl);
-}
 
 function createAircraftMarker(position, name, hide, clickEvent) {
 	aircraftMarker =  new SlidingMarker({

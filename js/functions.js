@@ -603,6 +603,12 @@ function deselectAircraft(callback) {
     }
 }
 
+function onAircraftSelected(aircraftId) {
+    var aircraft = aircrafts[aircraftId-1];
+    window.scrollTo(0,1);
+    selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl);
+}
+
 function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl) {
     deselectLocation();
     showAircraftInfoPopup(aircraftName, aircraftType, iconName, imageName, time, infoUrl);
