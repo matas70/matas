@@ -1,7 +1,7 @@
 {
 	"startDate" : "2018-04-07",
 	"plannedStartTime" : "10:30:00",
-	"actualStartTime": "15:00:00",
+	"actualStartTime": "16:00:00",
 	"aircrafts" : [
 		{
 			"aircraftId": 1,
@@ -380,9 +380,10 @@
 		},
 		{
 			"aircraftId": 10,
-			"name": "שמשון",
+			"name": "שמשון בריטי",
 			"type" : "תובלה כבדה",
-			"icon" : "shimshon",
+			"icon" : "shimshon-dark",
+			"country" : "britian",
 			"image" : "images/shimshon.jpg",
 			"infoUrl" : "http://m.iaf.org.il/7262-41733-he/IAF.aspx",
 			"path" : [
