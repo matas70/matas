@@ -17,6 +17,13 @@ var selectedLocation = null;
 var selectedLocationMarker = null;
 var selectedLocationMarkerIcon = null;
 
+function clusterAircrafts(aircrafts) {
+    var clusteredAircrafts = new MarkerClusterer(map, aircrafts,
+        {
+			// TODO: change barak.svg to the actual grouped aircrafts icon
+            imagePath: "icons/barak.svg"
+        });
+}
 
 function createAircraftMarker(position, name, hide, clickEvent) {
 	aircraftMarker =  new SlidingMarker({
@@ -30,6 +37,7 @@ function createAircraftMarker(position, name, hide, clickEvent) {
 
 	// add "clicked" event
     aircraftMarker.addListener('click', clickEvent);
+
 
     return aircraftMarker;
 }
