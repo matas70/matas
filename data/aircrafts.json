@@ -1,14 +1,14 @@
 {
 	"startDate" : "2018-04-07",
 	"plannedStartTime" : "10:30:00",
-	"actualStartTime": "16:00:00",
+	"actualStartTime": "20:00:00",
 	"aircrafts" : [
 		{
 			"aircraftId": 1,
-			"name": "קנדי C17",
-			"type" : "תובלה כבד",
-			"icon" : "c17",
-			"country" : "canada",
+			"name": "c295",
+			"type" : "תובלה",
+			"icon" : "c295",
+			"country" : "poland",
 			"image" : "images/tbd.jpg",
 			"infoUrl" : "http://m.iaf.org.il/7261-18186-he/IAF.aspx", 
 			"path": [
@@ -57,7 +57,8 @@
 			"aircraftId": 2,
 			"name": "רעם",
 			"type" : "קרב",
-			"icon" : "raam",
+			"icon" : "f16g",
+			"country" : "greece",
 			"image" : "images/raam.jpg",
 			"infoUrl" : "http://m.iaf.org.il/7261-18189-he/IAF.aspx",
 			"path": [
@@ -104,9 +105,9 @@
 		},
 		{
 			"aircraftId": 3,
-			"name": "צופית",
-			"type" : "סיור",
-			"icon" : "tzufit",
+			"name": "בואינג 787",
+			"type" : "אל על",
+			"icon" : "boeing787",
 			"image" : "images/tzufit.jpg",
 			"infoUrl" : "http://m.iaf.org.il/7263-18260-he/IAF.aspx",
 			"path": [
@@ -145,9 +146,9 @@
 		},
 		{
 			"aircraftId": 4,
-			"name": "יסעור",
-			"type" : "מסוק סער",
-			"icon" : "yasur",
+			"name": "סייפן",
+			"type" : "תובלה קל",
+			"icon" : "saifan",
 			"image" : "images/yasur.jpg",
 			"infoUrl" : "http://m.iaf.org.il/7265-18301-he/IAF.aspx",
 			"path": [
@@ -383,7 +384,7 @@
 			"name": "שמשון בריטי",
 			"type" : "תובלה כבדה",
 			"icon" : "shimshon-dark",
-			"country" : "britian",
+			"country" : "austria",
 			"image" : "images/shimshon.jpg",
 			"infoUrl" : "http://m.iaf.org.il/7262-41733-he/IAF.aspx",
 			"path" : [
