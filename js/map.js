@@ -20,9 +20,18 @@ var selectedLocationMarkerIcon = null;
 function clusterAircrafts(aircrafts) {
     var clusteredAircrafts = new MarkerClusterer(map, aircrafts,
         {
-			// TODO: change barak.svg to the actual grouped aircrafts icon
-            imagePath: "icons/barak.svg"
+        	styles: [
+						{url: "icons/aircrafts/barak.png", textSize: 1, width: 34, height:34},
+						{url: "icons/aircrafts/barak.png", textSize: 1, width: 34, height:34},
+						{url: "icons/aircrafts/barak.png", textSize: 1, width: 34, height:34},
+						{url: "icons/aircrafts/barak.png", textSize: 1, width: 34, height:34},
+						{url: "icons/aircrafts/barak.png", textSize: 1, width: 34, height:34}
+					],
+					zIndex: 99999
         });
+	google.maps.event.addListener(clusteredAircrafts, 'clusterclick', function(cluster) {
+			alert(cluster.getMarkers().map(aircraft => aircraft.title));
+	});
 }
 
 function createAircraftMarker(position, name, hide, clickEvent) {

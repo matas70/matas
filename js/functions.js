@@ -710,7 +710,7 @@ function initMap() {
                 addAircraftsToMap();
                 aircrafts = pAircrafts;
                 startAircraftsAnimation(false);
-                clusterAircrafts(aircrafts);
+                clusterAircrafts(aircraftMarkers);
             });
 
             // hide splash screen
