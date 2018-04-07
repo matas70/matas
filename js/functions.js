@@ -176,6 +176,7 @@ function cleanPreviousLocations(aircraft) {
     var currTime = getCurrentTime();
     // aircrafts.forEach(function (aircraft) {
         var currLocation = getCurrentPosLocation(aircraft.path, currTime);
+        var beforeLastPath = aircraft.path[aircraft.path.length - 2];
         var lastPath = aircraft.path[aircraft.path.length - 1];
 
         aircraft.path = aircraft.path.filter(function (path) {
@@ -183,6 +184,7 @@ function cleanPreviousLocations(aircraft) {
         }, this);
 
         if (aircraft.path.length == 0) {
+            aircraft.path.push(beforeLastPath);
             aircraft.path.push(lastPath);
         } else {
             aircraft.path.unshift(currLocation)
