@@ -305,7 +305,9 @@ function clusterAircrafts(aircrafts) {
             }
         });
         Microsoft.Maps.Events.addHandler(aircraftsLayer, 'click', function(event) {
-           alert(event.primitive);
+            if (event.primitive.containedPushpins) {
+                alert(event.primitive.containedPushpins.map(aircraft => aircraft.getTitle()));
+            }
         });
         map.layers.insert(aircraftsLayer);
     });
