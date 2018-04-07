@@ -274,14 +274,43 @@ function createAircraftMarker(position, name, hide, clickEvent) {
         title: name
     });
 
-    if (!hide) {
-        map.entities.push(aircraftMarker);
-    }
+    // if (!hide) {
+    //     map.entities.push(aircraftMarker);
+    // }
     // add "clicked" event
     Microsoft.Maps.Events.addHandler(aircraftMarker, 'click', clickEvent);
 
     return aircraftMarker;
 }
+
+function clusterAircrafts(aircrafts) {
+//     map.entities.push(Object.values(aircrafts));
+//     Create a clustering layer for the markers
+    Microsoft.Maps.loadModule("Microsoft.Maps.Clustering", function() {
+
+        var aircraftsLayer = new Microsoft.Maps.ClusterLayer(Object.values(aircrafts), {
+            // Takes the first marker as the clustered marker, easy on performence, good on the eye
+            clusterPlacementType: Microsoft.Maps.ClusterPlacementType.FirstLocation,
+            gridSize: 45,
+            clusteredPinCallback: function(clusteredMarker) {
+                // This will customize the clusteredMarker each rendering
+                clusteredMarker.setOptions({
+                    // Guaranteed that containedPushpins is not empty, and it's one of our good markers
+                    // TODO: change to grouped aircrafts icon
+                    icon: "icons/aircrafts/barak.png",
+                    anchor: clusteredMarker.containedPushpins[0].getAnchor(),
+                    // TODO: figure out how to display this
+                     title: "קבוצת מטוסים"
+                });
+            }
+        });
+        Microsoft.Maps.Events.addHandler(aircraftsLayer, 'click', function(event) {
+           alert(event.primitive);
+        });
+        map.layers.insert(aircraftsLayer);
+    });
+}
+
 
 /**
  * draws a marker on the map given a location and icon
