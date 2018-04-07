@@ -1,9 +1,15 @@
-function setAircraftMarkerIcon(marker, url) {
-    marker.setIcon({
-        url: url,
-        scaledSize: new google.maps.Size(70,70),
-        anchor: new google.maps.Point(36,36)
-    });
+function setAircraftMarkerIcon(marker, url,anchor=36) {
+    if (anchor!= null) {
+        marker.setIcon({
+            url: url,
+            //scaledSize: new google.maps.Size(scale, scale),
+            anchor: new google.maps.Point(anchor, anchor)
+        });
+    } else {
+        marker.setIcon({
+            url: url
+        });
+    }
 }
 
 var aircrafts = null;

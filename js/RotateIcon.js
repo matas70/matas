@@ -2,6 +2,8 @@ var RotateIcon = function(options){
     this.options = options || {};
     this.rImg = options.img || new Image();
     this.rImg.src = this.rImg.src || this.options.url || '';
+    this.rStaticImg = options.staticImg || new Image();
+    this.rStaticImg.src = this.rStaticImg.src || this.options.staticUrl || '';
     this.options.width = this.options.width || this.rImg.width || 52;
     this.options.height = this.options.height || this.rImg.height || 60;
     var canvas = document.createElement("canvas");
@@ -27,6 +29,7 @@ RotateIcon.prototype.setRotation = function(options){
     canvas.translate(-centerX, -centerY);
     canvas.drawImage(this.rImg, 0, 0);
     canvas.restore();
+    canvas.drawImage(this.rStaticImg, 0, 0);
     return this;
 };
 RotateIcon.prototype.getUrl = function(){
