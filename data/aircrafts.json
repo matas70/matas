@@ -1,14 +1,15 @@
 {
-	"startDate" : "2018-04-19",
+	"startDate" : "2018-04-07",
 	"plannedStartTime" : "10:30:00",
-	"actualStartTime": "10:30:00",
+	"actualStartTime": "15:00:00",
 	"aircrafts" : [
 		{
 			"aircraftId": 1,
-			"name": "ברק",
-			"type" : "קרב",
-			"icon" : "barak",
-			"image" : "images/barak.jpg",
+			"name": "קנדי C17",
+			"type" : "תובלה כבד",
+			"icon" : "c17",
+			"country" : "canada",
+			"image" : "images/tbd.jpg",
 			"infoUrl" : "http://m.iaf.org.il/7261-18186-he/IAF.aspx", 
 			"path": [
 				{ "pointId": 1, "time": "11:22:00" },

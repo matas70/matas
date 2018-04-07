@@ -511,9 +511,9 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
         var handle = setInterval(function () {
             if (Math.abs(angle % 360 - currentAircraftAzimuth % 360) < Math.abs(step)) {
                 clearInterval(handle);
-                setAircraftIcon(marker, aircraft.icon, currentAircraftAzimuth % 360);
+                setAircraftIcon(marker, aircraft.icon, aircraft.country, currentAircraftAzimuth % 360);
             } else {
-                setAircraftIcon(marker, aircraft.icon, angle += step % 360);
+                setAircraftIcon(marker, aircraft.icon, aircraft.country, angle += step % 360);
             }
         }, updateCurrent ? 10 : 100);
     }
@@ -533,8 +533,9 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     }, animationTime);
 }
 
-function setAircraftIcon(marker, icon, azimuth) {
-    var imageUrl = new RotateIcon({url: "icons/aircrafts/"+ icon + ".svg"})
+function setAircraftIcon(marker, icon, country, azimuth) {
+    var imageUrl = new RotateIcon({url: "icons/aircrafts/"+ icon + ".svg",
+                                    staticUrl: country==null?null:"icons/countries/"+ country + ".svg"})
         .setRotation({deg: azimuth})
         .getUrl();
     var domIcon = $('#' + icon);
@@ -556,7 +557,7 @@ function addAircraftsToMap() {
         var nextAircraftPosition = getNextLocation(aircraft.path, getCurrentTime());
         var currentAircraftAzimuth = calcAzimuth(currentAircraftPosition, nextAircraftPosition.location) % 360;
 
-        var aircraftMarker = createAircraftMarker(currentAircraftPosition, aircraft.name, aircraft.hide, function () {
+        var clickCallback = function () {
             if (selectedAircraft == aircraft) {
                 deselectAircraft();
             } else {
@@ -571,9 +572,10 @@ function addAircraftsToMap() {
                     selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time.substr(0, 5), aircraft.infoUrl);
                 }
             }
-        });
+        };
 
-        setAircraftIcon(aircraftMarker, aircraft.icon, currentAircraftAzimuth);
+        var aircraftMarker = createAircraftMarker(currentAircraftPosition, aircraft.name, aircraft.hide, clickCallback);
+        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.country, currentAircraftAzimuth);
         aircraftMarker.currentAircraftAzimuth = currentAircraftAzimuth;
         aircraftMarkers[aircraft.aircraftId] = aircraftMarker;
     }, this);

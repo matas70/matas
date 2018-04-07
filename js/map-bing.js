@@ -262,10 +262,10 @@ function updateMarkerPosition(marker, position, animationDuration) {
     marker.setLocation(nextLocation);
 }
 
-function setAircraftMarkerIcon(marker, url) {
+function setAircraftMarkerIcon(marker, url, anchor=36) {
     marker.setOptions({
          icon: url,
-         anchor: new Microsoft.Maps.Point(36,36)
+         anchor: new Microsoft.Maps.Point(anchor,anchor)
     });
 }
 
@@ -310,7 +310,7 @@ function panTo(map, location) {
 
 function createMapObject(clickCallback) {
     map = new Microsoft.Maps.Map(document.getElementById('map'), {
-        credentials: 'Ak2hpoGQttZ2uKASnsJGuVrmv-eRsiXEOujObmNd5gpii6QjviUim4A84_4ODwmT',
+        credentials: 'AvJRbOsXbeS3WPJHoHp48LsplCqmZCPzojPxHjHoEO0YChSki9auduN_TmLPJQdW',
         center: new Microsoft.Maps.Location(31.33, 35.20),
         mapTypeId: Microsoft.Maps.MapTypeId.road,
         zoom: 8,
