@@ -287,33 +287,33 @@ function updateCluster() {
     // TODO: update clusters to move with the aircrafts
 }
 function clusterAircrafts(aircrafts) {
-//     map.entities.push(Object.values(aircrafts));
-//     Create a clustering layer for the markers
-    Microsoft.Maps.loadModule("Microsoft.Maps.Clustering", function() {
-
-        var aircraftsLayer = new Microsoft.Maps.ClusterLayer(Object.values(aircrafts), {
-            // Takes the first marker as the clustered marker, easy on performence, good on the eye
-            clusterPlacementType: Microsoft.Maps.ClusterPlacementType.FirstLocation,
-            gridSize: 45,
-            clusteredPinCallback: function(clusteredMarker) {
-                // This will customize the clusteredMarker each rendering
-                clusteredMarker.setOptions({
-                    // Guaranteed that containedPushpins is not empty, and it's one of our good markers
-                    // TODO: change to grouped aircrafts icon
-                    icon: "icons/transparent.png",
-                    anchor: clusteredMarker.containedPushpins[0].getAnchor(),
-                    // TODO: figure out how to display this
-                     title: "קבוצת מטוסים"
-                });
-            }
-        });
-        Microsoft.Maps.Events.addHandler(aircraftsLayer, 'click', function(event) {
-            if (event.primitive.containedPushpins) {
-                alert(event.primitive.containedPushpins.map(aircraft => aircraft.getTitle()));
-            }
-        });
-        map.layers.insert(aircraftsLayer);
-    });
+     map.entities.push(Object.values(aircrafts));
+// //     Create a clustering layer for the markers
+//     Microsoft.Maps.loadModule("Microsoft.Maps.Clustering", function() {
+//
+//         var aircraftsLayer = new Microsoft.Maps.ClusterLayer(Object.values(aircrafts), {
+//             // Takes the first marker as the clustered marker, easy on performence, good on the eye
+//             clusterPlacementType: Microsoft.Maps.ClusterPlacementType.FirstLocation,
+//             gridSize: 45,
+//             clusteredPinCallback: function(clusteredMarker) {
+//                 // This will customize the clusteredMarker each rendering
+//                 clusteredMarker.setOptions({
+//                     // Guaranteed that containedPushpins is not empty, and it's one of our good markers
+//                     // TODO: change to grouped aircrafts icon
+//                     icon: "icons/transparent.png",
+//                     anchor: clusteredMarker.containedPushpins[0].getAnchor(),
+//                     // TODO: figure out how to display this
+//                      title: "קבוצת מטוסים"
+//                 });
+//             }
+//         });
+//         Microsoft.Maps.Events.addHandler(aircraftsLayer, 'click', function(event) {
+//             if (event.primitive.containedPushpins) {
+//                 alert(event.primitive.containedPushpins.map(aircraft => aircraft.getTitle()));
+//             }
+//         });
+//         map.layers.insert(aircraftsLayer);
+//     });
 }
 
 
