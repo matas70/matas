@@ -533,6 +533,9 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     timeoutHandles[aircraft.aircraftId] = setTimeout(function () {
         animateToNextLocation(aircraft, currentAircraftAzimuth);
     }, animationTime);
+
+    // update clusters
+    updateCluster();
 }
 
 function setAircraftIcon(marker, icon, country, azimuth) {

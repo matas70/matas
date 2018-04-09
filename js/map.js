@@ -16,21 +16,45 @@ var aircrafts = null;
 var selectedLocation = null;
 var selectedLocationMarker = null;
 var selectedLocationMarkerIcon = null;
+var aircraftCluster = null;
+
+function createAircraftClusterIcon() {
+    return {
+        url: "/icons/transparent.png",
+        textSize: 1,
+        width: 70,
+        height:70,
+        anchor: new google.maps.Point(36, 36)};
+}
+
+function updateCluster() {
+    if (aircraftCluster!=null) {
+        aircraftCluster.repaint();
+        // var markers = aircraftCluster.getMarkers();
+        // for(var i=0; i<markers.length; i++) {
+        	// markers[i].setMap(map);
+		// }
+    }
+}
 
 function clusterAircrafts(aircrafts) {
-    var clusteredAircrafts = new MarkerClusterer(map, aircrafts,
-        {
-        	styles: [
-						{url: "icons/aircrafts/barak.png", textSize: 1, width: 34, height:34},
-						{url: "icons/aircrafts/barak.png", textSize: 1, width: 34, height:34},
-						{url: "icons/aircrafts/barak.png", textSize: 1, width: 34, height:34},
-						{url: "icons/aircrafts/barak.png", textSize: 1, width: 34, height:34},
-						{url: "icons/aircrafts/barak.png", textSize: 1, width: 34, height:34}
-					],
-					zIndex: 99999
-        });
-	google.maps.event.addListener(clusteredAircrafts, 'clusterclick', function(cluster) {
-			alert(cluster.getMarkers().map(aircraft => aircraft.title));
+	// create the new cluster
+	aircraftCluster = new MarkerClusterer(map, aircrafts,
+		{
+			styles: [
+				createAircraftClusterIcon(),
+				createAircraftClusterIcon(),
+				createAircraftClusterIcon(),
+				createAircraftClusterIcon(),
+				createAircraftClusterIcon(),
+			],
+			zIndex: 99999,
+			gridSize: 15
+		});
+
+	// map "on cluster click" event
+	google.maps.event.addListener(aircraftCluster, 'clusterclick', function (cluster) {
+		alert(cluster.getMarkers().map(aircraft => aircraft.title));
 	});
 }
 
