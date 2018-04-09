@@ -283,6 +283,9 @@ function createAircraftMarker(position, name, hide, clickEvent) {
     return aircraftMarker;
 }
 
+function updateCluster() {
+    // TODO: update clusters to move with the aircrafts
+}
 function clusterAircrafts(aircrafts) {
 //     map.entities.push(Object.values(aircrafts));
 //     Create a clustering layer for the markers
@@ -297,7 +300,7 @@ function clusterAircrafts(aircrafts) {
                 clusteredMarker.setOptions({
                     // Guaranteed that containedPushpins is not empty, and it's one of our good markers
                     // TODO: change to grouped aircrafts icon
-                    icon: "icons/aircrafts/barak.png",
+                    icon: "icons/transparent.png",
                     anchor: clusteredMarker.containedPushpins[0].getAnchor(),
                     // TODO: figure out how to display this
                      title: "קבוצת מטוסים"
