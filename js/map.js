@@ -157,7 +157,7 @@ function getMarkerIcon(color, clicked) {
         return {
             url: "icons/point-" + color + ".png",
             // The anchor for this image is the center of the circle
-            anchor: new google.maps.Point(17, 17)
+            anchor: new google.maps.Point(14, 14)
         };
     else return {
         url: "icons/pointPress-" + color + ".png",
@@ -241,11 +241,11 @@ function drawRouteOnMap(route) {
     var markerCluster = new MarkerClusterer(map, markers,
         {
             styles: [
-                {url: "icons/point-"+route.color+".png", textSize: 1, textColor: "#" + route.color, width: 34, height:34},
-                {url: "icons/point-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 34, height:34},
-                {url: "icons/point-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 34, height:34},
-                {url: "icons/point-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 34, height:34},
-                {url: "icons/point-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 34, height:34}],
+                {url: "icons/pointSmall-"+route.color+".png", textSize: 1, textColor: "#" + route.color, width: 27, height:27},
+                {url: "icons/pointSmall-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 27, height:27},
+                {url: "icons/pointSmall-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 27, height:27},
+                {url: "icons/pointSmall-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 27, height:27},
+                {url: "icons/pointSmall-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 27, height:27}],
             zIndex: route.routeId
         });
 }

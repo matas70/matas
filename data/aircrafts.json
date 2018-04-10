@@ -1,14 +1,14 @@
 {
-	"startDate" : "2018-04-09",
+	"startDate" : "2018-04-10",
 	"plannedStartTime" : "10:30:00",
-	"actualStartTime": "21:00:00",
+	"actualStartTime": "22:00:00",
     "aircrafts" : [
         {
           "aircraftId": 1,
           "name": "c295",
           "type" : "תובלה",
           "icon" : "c295",
-          "color" : "cyan",
+          "color" : "white",
           "country" : "poland",
           "image" : "images/tbd.jpg",
           "infoUrl" : "http://m.iaf.org.il/7261-18186-he/IAF.aspx",
@@ -152,6 +152,7 @@
           "name": "סייפן",
           "type" : "תובלה קל",
           "icon" : "saifan",
+          "color" : "white",
           "image" : "images/yasur.jpg",
           "infoUrl" : "http://m.iaf.org.il/7265-18301-he/IAF.aspx",
           "path": [
@@ -198,6 +199,7 @@
           "aircraftId": 5,
           "name": "אדיר",
           "type" : "קרב",
+          "color" : "cyan",
           "icon" : "adir",
           "hide" : true,
           "image" : "images/adir.jpg",
@@ -217,6 +219,7 @@
           "type" : "קרב",
           "icon" : "barak",
           "image" : "images/barak.jpg",
+          "color" : "yellow",
           "infoUrl" : "http://m.iaf.org.il/7261-18186-he/IAF.aspx",
           "path": [
             { "pointId": 61, "time": "11:15:00" },
@@ -253,6 +256,7 @@
           "name": "לביא",
           "type" : "הדרכה",
           "icon" : "lavi",
+          "color" : "cyan",
           "image" : "images/lavi.jpg",
           "infoUrl" : "http://m.iaf.org.il/7264-42124-he/IAF.aspx",
           "path": [
@@ -293,6 +297,7 @@
           "name": "נחשון",
           "type" : "סיור ובקרה",
           "icon" : "nahshon",
+          "color" : "white",
           "image" : "images/nahshon.jpg",
           "infoUrl" : "http://m.iaf.org.il/7263-35416-he/IAF.aspx",
           "path" : [
@@ -340,6 +345,7 @@
           "name": "קרנף",
           "type" : "תובלה כבדה",
           "icon" : "karnaf",
+          "color" : "yellow",
           "image" : "images/karnaf.jpg",
           "infoUrl" : "http://m.iaf.org.il/7262-18240-he/IAF.aspx",
           "path" : [
@@ -387,6 +393,7 @@
           "name": "שמשון בריטי",
           "type" : "תובלה כבדה",
           "icon" : "shimshon-dark",
+          "color" : "darkgray",
           "country" : "austria",
           "image" : "images/shimshon.jpg",
           "infoUrl" : "http://m.iaf.org.il/7262-41733-he/IAF.aspx",
@@ -435,6 +442,7 @@
           "name": "בז",
           "type" : "קרב",
           "icon" : "baz",
+          "color" : "cyan",
           "image" : "images/baz.jpg",
           "infoUrl" : "http://m.iaf.org.il/7261-18181-he/IAF.aspx",
           "path": [
@@ -480,6 +488,7 @@
           "name": "ראם",
           "type" : "תובלה ותדלוק",
           "icon" : "reem",
+          "color" : "white",
           "image" : "images/reem.jpg",
           "infoUrl" : "http://m.iaf.org.il/7262-18238-he/IAF.aspx",
           "path": [
@@ -524,6 +533,7 @@
           "aircraftId": 13,
           "name": "עפרוני",
           "type" : "הדרכה",
+          "color" : "red",
           "hide" : true,
           "aerobatic": true,
           "icon" : "efroni",

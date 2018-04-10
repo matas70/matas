@@ -17,10 +17,6 @@ var aircraftPaths = {};
 var startDate;
 var plannedStartTime;
 var actualStartTime;
-var iconPaths = {
-    "fighter": "M-24 8 L-2 8 L-6 16 L-2 16 L0 14 L2 16 L6 16 L2 8 L24 8 L22 2 L14 -2 L14 -8 L12 -8 L12 -4 L6 -6 L4 -16 L2 -24 L0 -36 L-2 -24 L-4 -16 L-6 -6 L-12 -4 L-12 -8 L-14 -8 L-14 -2 L-22 2 Z",
-    "helicopter": "M2 30 L2 34 L-2 34 L-2 30 L-10 30 L-10 26 L-2 26 L-4 6 L-6 2 L-24 16 L-6 0 L-6 -4 L-24 -22 L-6 -6 L-4 -8 L-4 -16 L-2 -20 L2 -20 L4 -16 L4 -8 L6 -6 L24 -22 L6 -4 L6 0 L24 16 L6 2 L4 6 L2 26 L10 26 L10 30 Z"
-};
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -293,7 +289,7 @@ function loadAircrafts(callback) {
         aircrafts = routes.aircrafts;
         startDate = routes.startDate;
         plannedStartTime = convertTime(routes.plannedStartTime);
-        actualStartTime = (new Date()).getTime() - 60*60*1000; //convertTime(routes.actualStartTime);
+        actualStartTime = /*(new Date()).getTime() - 60*60*1000; //*/convertTime(routes.actualStartTime);
         updateLocationsMap(aircrafts);
         callback(aircrafts);
     });
@@ -506,6 +502,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var currentAircraftAzimuth = calcAzimuth(currentAircraftPosition, nextAircraftPosition);
     if (currentAircraftAzimuth == null)
         currentAircraftAzimuth = previousAzimuth;
+    aircraft.currentAircraftAzimuth = currentAircraftAzimuth;
 
     var marker = aircraftMarkers[aircraft.aircraftId];
 
@@ -518,8 +515,10 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
         var handle = setInterval(function () {
             if (Math.abs(angle % 360 - currentAircraftAzimuth % 360) < Math.abs(step)) {
                 clearInterval(handle);
+                aircraft.currentAircraftAzimuth = currentAircraftAzimuth % 360;
                 setAircraftIcon(marker, aircraft.icon, aircraft.country, currentAircraftAzimuth % 360, aircraft.color, zoomLevel);
             } else {
+                aircraft.currentAircraftAzimuth = angle += step % 360
                 setAircraftIcon(marker, aircraft.icon, aircraft.country, angle += step % 360, aircraft.color, zoomLevel);
             }
         }, updateCurrent ? 10 : 100);
@@ -544,22 +543,18 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
 }
 
 function setAircraftIcon(marker, icon, country, azimuth, color, zoomLevel) {
-    var image;
-    var domIcon;
+    var imgUrl;
+    var staticUrl;
 
     if (zoomLevel >= 10) {
-        image = new RotateIcon({url: "icons/aircrafts/"+ icon + ".svg",
-            staticUrl: country==null?null:"icons/countries/"+ country + ".svg"});
-        domIcon = $('#' + icon);
+        imgUrl = "icons/aircrafts/"+ icon + ".svg";
+        staticUrl = country==null?null:"icons/countries/"+ country + ".svg";
     } else {
-        image = new RotateIcon({url: "icons/groups/group_"+ color + ".svg"});
-        domIcon = $('#' + "group_"+ color);
+        imgUrl = "icons/groups/group_"+ color + ".svg";
+        staticUrl = null;
     }
-    var imageUrl = image.setRotation({deg: azimuth}).getUrl();
-
-    domIcon.attr("src", imageUrl);
-
-    setAircraftMarkerIcon(marker, domIcon.attr('src'));
+    imgUrl = new RotateIcon({url:imgUrl, staticUrl: staticUrl}).setRotation({deg: azimuth}).getUrl();
+    setAircraftMarkerIcon(marker, imgUrl);
 }
 
 function startAircraftsAnimation(updateCurrent) {
@@ -577,6 +572,7 @@ function addAircraftsToMap() {
         var currentAircraftPosition = getCurrentLocation(aircraft.path, getCurrentTime());
         var nextAircraftPosition = getNextLocation(aircraft.path, getCurrentTime());
         var currentAircraftAzimuth = calcAzimuth(currentAircraftPosition, nextAircraftPosition.location) % 360;
+        aircraft.currentAircraftAzimuth = currentAircraftAzimuth;
 
         var clickCallback = function () {
             if (selectedAircraft == aircraft) {
@@ -618,7 +614,7 @@ function updateAircraftIcons() {
     var zoomLevel = getZoomLevel();
     aircrafts.forEach(function (aircraft) {
         var aircraftMarker = aircraftMarkers[aircraft.aircraftId];
-        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.country, aircraftMarker.currentAircraftAzimuth, aircraft.color, zoomLevel);
+        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.country, aircraft.currentAircraftAzimuth, aircraft.color, zoomLevel);
     }, this);
 }
 
