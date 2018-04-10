@@ -289,7 +289,7 @@ function loadAircrafts(callback) {
         aircrafts = routes.aircrafts;
         startDate = routes.startDate;
         plannedStartTime = convertTime(routes.plannedStartTime);
-        actualStartTime = /*(new Date()).getTime() - 60*60*1000; //*/convertTime(routes.actualStartTime);
+        actualStartTime = (new Date()).getTime() - 60*60*1000; //*/convertTime(routes.actualStartTime);
         updateLocationsMap(aircrafts);
         callback(aircrafts);
     });
