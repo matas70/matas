@@ -18,23 +18,32 @@ var selectedLocationMarker = null;
 var selectedLocationMarkerIcon = null;
 var aircraftCluster = null;
 
-function createAircraftClusterIcon() {
+
+function createTransparentMarker(position, hide, clickEvent) {
+    transparentMarker =  new SlidingMarker({
+        position: position,
+        map: hide?null:map,
+        icon: createTransparentIcon(),
+        title: name,
+        easing: "linear",
+        optimized: false,
+        zIndex:10
+    });
+
+    // add "clicked" event
+    transparentMarker.addListener('click', clickEvent);
+
+    return transparentMarker;
+}
+
+function createTransparentIcon() {
     return {
         url: "/icons/transparent.png",
         textSize: 1,
         width: 70,
         height:70,
-        anchor: new google.maps.Point(36, 36)};
-}
-
-function updateCluster() {
-    if (aircraftCluster!=null) {
-        aircraftCluster.repaint();
-        // var markers = aircraftCluster.getMarkers();
-        // for(var i=0; i<markers.length; i++) {
-        // markers[i].setMap(map);
-        // }
-    }
+        anchor: new google.maps.Point(36, 36)
+    };
 }
 
 function clusterAircrafts(aircrafts) {
@@ -42,11 +51,11 @@ function clusterAircrafts(aircrafts) {
     aircraftCluster = new MarkerClusterer(map, aircrafts,
         {
             styles: [
-                createAircraftClusterIcon(),
-                createAircraftClusterIcon(),
-                createAircraftClusterIcon(),
-                createAircraftClusterIcon(),
-                createAircraftClusterIcon(),
+                createTransparentIcon(),
+                createTransparentIcon(),
+                createTransparentIcon(),
+                createTransparentIcon(),
+                createTransparentIcon(),
             ],
             zIndex: 99999,
             gridSize: 15
@@ -56,9 +65,14 @@ function clusterAircrafts(aircrafts) {
     google.maps.event.addListener(aircraftCluster, 'clusterclick', function (cluster) {
         alert(cluster.getMarkers().map(aircraft => aircraft.title));
     });
+
+    setInterval(function () {
+        aircraftCluster.repaint();
+    },1000);
 }
 
-function createAircraftMarker(position, name, hide, clickEvent) {
+
+function createAircraftMarker(position, name, hide) {
     aircraftMarker =  new SlidingMarker({
         position: position,
         map: hide?null:map,
@@ -67,10 +81,6 @@ function createAircraftMarker(position, name, hide, clickEvent) {
         optimized: false,
         zIndex:9
     });
-
-    // add "clicked" event
-    aircraftMarker.addListener('click', clickEvent);
-
 
     return aircraftMarker;
 }

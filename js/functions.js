@@ -13,6 +13,7 @@ var loadedRoutes;
 var aircrafts;
 var locations = [];
 var aircraftMarkers = {};
+var transparentMarkers = {};
 var aircraftPaths = {};
 var startDate;
 var plannedStartTime;
@@ -505,6 +506,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     aircraft.currentAircraftAzimuth = currentAircraftAzimuth;
 
     var marker = aircraftMarkers[aircraft.aircraftId];
+    var transparentMarker = transparentMarkers[aircraft.aircraftId];
 
     // change azimuth if needed
     if (Math.abs(previousAzimuth - currentAircraftAzimuth) >= 0.1) {
@@ -527,19 +529,18 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     // if requested - forcibly update the aircraft to be on current position
     if (updateCurrent) {
         updateMarkerPosition(marker, currentAircraftPosition, 1);
+        updateMarkerPosition(transparentMarker, currentAircraftPosition, 1);
     }
     else {
         // animate to the next position
         updateMarkerPosition(marker, nextAircraftPosition, animationTime);
+        updateMarkerPosition(transparentMarker, nextAircraftPosition, animationTime);
     }
 
     // set a timeout for the next animation interval
     timeoutHandles[aircraft.aircraftId] = setTimeout(function () {
         animateToNextLocation(aircraft, currentAircraftAzimuth);
     }, animationTime);
-
-    // update clusters
-    //updateCluster();
 }
 
 function setAircraftIcon(marker, icon, country, azimuth, color, zoomLevel) {
@@ -591,11 +592,13 @@ function addAircraftsToMap() {
             }
         };
 
-        var aircraftMarker = createAircraftMarker(currentAircraftPosition, aircraft.name, aircraft.hide, clickCallback);
+        var aircraftMarker = createAircraftMarker(currentAircraftPosition, aircraft.name, aircraft.hide);
+        var transparentMarker = createTransparentMarker(currentAircraftPosition, aircraft.hide, clickCallback);
         if (aircraft.color == undefined) aircraft.color = "darkgray";
         setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.country, currentAircraftAzimuth, aircraft.color, zoomLevel);
         aircraftMarker.currentAircraftAzimuth = currentAircraftAzimuth;
         aircraftMarkers[aircraft.aircraftId] = aircraftMarker;
+        transparentMarkers[aircraft.aircraftId] = transparentMarker;
     }, this);
 
     // set zoom callback event
@@ -745,7 +748,7 @@ function initMap() {
                 addAircraftsToMap();
                 aircrafts = pAircrafts;
                 startAircraftsAnimation(false);
-                //clusterAircrafts(aircraftMarkers);
+                clusterAircrafts(transparentMarkers);
             });
 
             // hide splash screen
