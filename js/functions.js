@@ -180,7 +180,7 @@ function cleanPreviousLocations(aircraft) {
     var lastPath = aircraft.path[aircraft.path.length - 1];
 
     aircraft.path = aircraft.path.filter(function (path) {
-        return (currTime < convertTime(path.time));
+        return (currTime < getActualPathTime(path.time));
     }, this);
 
     if (aircraft.path.length == 0) {
@@ -190,6 +190,10 @@ function cleanPreviousLocations(aircraft) {
         aircraft.path.unshift(currLocation)
     }
     // }, this);
+}
+
+function getActualPathTime(time) {
+    return (actualStartTime + (convertTime(time) - plannedStartTime))
 }
 
 function getPredictedLocation(currentPosition, nextPosition, nextTime, time) {
