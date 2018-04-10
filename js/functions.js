@@ -71,36 +71,36 @@ function getPathLocation(pointId) {
 }
 
 function getCurrentLocation(path, currentTime) {
-	var relativeTime = currentTime - actualStartTime;
-	var prevLocation = 0;
-	var nextLocation = 1;
-	var found = false;
+    var relativeTime = currentTime - actualStartTime;
+    var prevLocation = 0;
+    var nextLocation = 1;
+    var found = false;
 
-	// if the aircraft hasn't start flying yet, return its first location
-	if (plannedStartTime + relativeTime < convertTime(path[prevLocation].time))
-		return getPathLocation(path[0].pointId);
+    // if the aircraft hasn't start flying yet, return its first location
+    if (plannedStartTime + relativeTime < convertTime(path[prevLocation].time))
+        return getPathLocation(path[0].pointId);
 
-	// otherwise - search for the two points where the aircraft suppossed to be between
-	while (nextLocation < path.length && !found) {
-		var nextLocationTime = convertTime(path[nextLocation].time);
-		if (plannedStartTime + relativeTime < nextLocationTime) {
-			found = true;
-		} else {
-			prevLocation++;
-			nextLocation++;
-		}
-	}
+    // otherwise - search for the two points where the aircraft suppossed to be between
+    while (nextLocation < path.length && !found) {
+        var nextLocationTime = convertTime(path[nextLocation].time);
+        if (plannedStartTime + relativeTime < nextLocationTime) {
+            found = true;
+        } else {
+            prevLocation++;
+            nextLocation++;
+        }
+    }
 
-	// if not found - the aircraft already landed, return the last location
-	if (!found) {
-		return getPathLocation(path[path.length-1].pointId);
-	}
+    // if not found - the aircraft already landed, return the last location
+    if (!found) {
+        return getPathLocation(path[path.length-1].pointId);
+    }
 
-	// otherwise - calculate the relative position between previous location and current
-	var prevLocationTime = convertTime(path[prevLocation].time);
-	var ratio = (plannedStartTime + relativeTime - prevLocationTime) / (nextLocationTime - prevLocationTime);
+    // otherwise - calculate the relative position between previous location and current
+    var prevLocationTime = convertTime(path[prevLocation].time);
+    var ratio = (plannedStartTime + relativeTime - prevLocationTime) / (nextLocationTime - prevLocationTime);
 
-	return getRelativeLocation(getPathLocation(path[prevLocation].pointId), getPathLocation(path[nextLocation].pointId), ratio);
+    return getRelativeLocation(getPathLocation(path[prevLocation].pointId), getPathLocation(path[nextLocation].pointId), ratio);
 }
 
 function getNextLocation(path, currentTime) {
@@ -175,20 +175,20 @@ function getCurrentPosLocation(path, currentTime) {
 function cleanPreviousLocations(aircraft) {
     var currTime = getCurrentTime();
     // aircrafts.forEach(function (aircraft) {
-        var currLocation = getCurrentPosLocation(aircraft.path, currTime);
-        var beforeLastPath = aircraft.path[aircraft.path.length - 2];
-        var lastPath = aircraft.path[aircraft.path.length - 1];
+    var currLocation = getCurrentPosLocation(aircraft.path, currTime);
+    var beforeLastPath = aircraft.path[aircraft.path.length - 2];
+    var lastPath = aircraft.path[aircraft.path.length - 1];
 
-        aircraft.path = aircraft.path.filter(function (path) {
-            return (currTime < convertTime(path.time));
-        }, this);
+    aircraft.path = aircraft.path.filter(function (path) {
+        return (currTime < convertTime(path.time));
+    }, this);
 
-        if (aircraft.path.length == 0) {
-            aircraft.path.push(beforeLastPath);
-            aircraft.path.push(lastPath);
-        } else {
-            aircraft.path.unshift(currLocation)
-        }
+    if (aircraft.path.length == 0) {
+        aircraft.path.push(beforeLastPath);
+        aircraft.path.push(lastPath);
+    } else {
+        aircraft.path.unshift(currLocation)
+    }
     // }, this);
 }
 
@@ -482,6 +482,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var animationTime = 2000;
 
     var currentTime = getCurrentTime();
+    var zoomLevel = getZoomLevel();
     var currentAircraftPosition = getCurrentLocation(aircraft.path, currentTime);
     var nextAircraftStopPosition = getNextLocation(aircraft.path, currentTime);
     var nextAircraftPosition;
@@ -513,9 +514,9 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
         var handle = setInterval(function () {
             if (Math.abs(angle % 360 - currentAircraftAzimuth % 360) < Math.abs(step)) {
                 clearInterval(handle);
-                setAircraftIcon(marker, aircraft.icon, aircraft.country, currentAircraftAzimuth % 360);
+                setAircraftIcon(marker, aircraft.icon, aircraft.country, currentAircraftAzimuth % 360, aircraft.color, zoomLevel);
             } else {
-                setAircraftIcon(marker, aircraft.icon, aircraft.country, angle += step % 360);
+                setAircraftIcon(marker, aircraft.icon, aircraft.country, angle += step % 360, aircraft.color, zoomLevel);
             }
         }, updateCurrent ? 10 : 100);
     }
@@ -535,15 +536,23 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     }, animationTime);
 
     // update clusters
-    updateCluster();
+    //updateCluster();
 }
 
-function setAircraftIcon(marker, icon, country, azimuth) {
-    var imageUrl = new RotateIcon({url: "icons/aircrafts/"+ icon + ".svg",
-                                    staticUrl: country==null?null:"icons/countries/"+ country + ".svg"})
-        .setRotation({deg: azimuth})
-        .getUrl();
-    var domIcon = $('#' + icon);
+function setAircraftIcon(marker, icon, country, azimuth, color, zoomLevel) {
+    var image;
+    var domIcon;
+
+    if (zoomLevel >= 10) {
+        image = new RotateIcon({url: "icons/aircrafts/"+ icon + ".svg",
+            staticUrl: country==null?null:"icons/countries/"+ country + ".svg"});
+        domIcon = $('#' + icon);
+    } else {
+        image = new RotateIcon({url: "icons/groups/group_"+ color + ".svg"});
+        domIcon = $('#' + "group_"+ color);
+    }
+    var imageUrl = image.setRotation({deg: azimuth}).getUrl();
+
     domIcon.attr("src", imageUrl);
 
     setAircraftMarkerIcon(marker, domIcon.attr('src'));
@@ -555,7 +564,10 @@ function startAircraftsAnimation(updateCurrent) {
     }, this);
 }
 
+var lastZoomLevel = 0;
+
 function addAircraftsToMap() {
+    var zoomLevel = getZoomLevel();
     aircrafts.forEach(function (aircraft) {
         // draw current location of the aircraft
         var currentAircraftPosition = getCurrentLocation(aircraft.path, getCurrentTime());
@@ -580,9 +592,29 @@ function addAircraftsToMap() {
         };
 
         var aircraftMarker = createAircraftMarker(currentAircraftPosition, aircraft.name, aircraft.hide, clickCallback);
-        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.country, currentAircraftAzimuth);
+        if (aircraft.color == undefined) aircraft.color = "darkgray";
+        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.country, currentAircraftAzimuth, aircraft.color, zoomLevel);
         aircraftMarker.currentAircraftAzimuth = currentAircraftAzimuth;
         aircraftMarkers[aircraft.aircraftId] = aircraftMarker;
+    }, this);
+
+    // set zoom callback event
+    setZoomCallback(function() {
+        var zoomLevel = getZoomLevel();
+        if (zoomLevel >= 10 && lastZoomLevel < 10) {
+            updateAircraftIcons();
+        } else if (zoomLevel < 10 && lastZoomLevel >= 10) {
+            updateAircraftIcons();
+        }
+        lastZoomLevel = zoomLevel;
+    });
+}
+
+function updateAircraftIcons() {
+    var zoomLevel = getZoomLevel();
+    aircrafts.forEach(function (aircraft) {
+        var aircraftMarker = aircraftMarkers[aircraft.aircraftId];
+        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.country, aircraftMarker.currentAircraftAzimuth, aircraft.color, zoomLevel);
     }, this);
 }
 
@@ -713,7 +745,7 @@ function initMap() {
                 addAircraftsToMap();
                 aircrafts = pAircrafts;
                 startAircraftsAnimation(false);
-                clusterAircrafts(aircraftMarkers);
+                //clusterAircrafts(aircraftMarkers);
             });
 
             // hide splash screen

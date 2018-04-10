@@ -69,7 +69,7 @@ function selectLocation(point, marker, markerIcon, markerIconClicked, color, tit
     });
 
     selectedMarker.setOptions({
-       icon: markerIconClicked.icon
+        icon: markerIconClicked.icon
     });
 
     this.selectedLocation = selectedMarker.getLocation();
@@ -264,8 +264,8 @@ function updateMarkerPosition(marker, position, animationDuration) {
 
 function setAircraftMarkerIcon(marker, url, anchor=36) {
     marker.setOptions({
-         icon: url,
-         anchor: new Microsoft.Maps.Point(anchor,anchor)
+        icon: url,
+        anchor: new Microsoft.Maps.Point(anchor,anchor)
     });
 }
 
@@ -287,7 +287,7 @@ function updateCluster() {
     // TODO: update clusters to move with the aircrafts
 }
 function clusterAircrafts(aircrafts) {
-     map.entities.push(Object.values(aircrafts));
+    map.entities.push(Object.values(aircrafts));
 // //     Create a clustering layer for the markers
 //     Microsoft.Maps.loadModule("Microsoft.Maps.Clustering", function() {
 //
@@ -361,4 +361,14 @@ function createMapObject(clickCallback) {
     Microsoft.Maps.loadModule("AnimationModule");
 
     return map;
+}
+
+function setZoomCallback(zoomCallback) {
+    // TODO: add zoom changed callback
+    //google.maps.event.addListener(map, 'zoom_changed', zoomCallback);
+}
+
+function getZoomLevel() {
+    // TODO: return the real zoom
+    return 10;
 }

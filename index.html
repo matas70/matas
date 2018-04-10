@@ -1,140 +1,143 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>יום העצמאות 70 למדינת ישראל  - מפת מטס חיל האוויר</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
+<head>
+  <title>יום העצמאות 70 למדינת ישראל  - מפת מטס חיל האוויר</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
 
-    <link rel="stylesheet" href="css/map.css">    
-    <link rel="icon" sizes="192x192" href="icons/logo192x192.png"> 
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="js/slidingMarker/jquery.easing.1.3.js"></script>
-    <script src="js/date.js"></script>
-    <script src="js/functions.js"></script>    
-    <script src="js/popups.js"></script>
-    <script src="js/RotateIcon.js"></script>
-    <script src="js/markerclusterer.js"></script>
-    <script src="js/map.js"></script>
-    <link rel="manifest" href="/manifest.json">
-    <link href='icons/favicon.ico' rel='Shortcut Icon' type='image/x-icon' /><link href='icons/favicon.ico' rel='Icon' type='image/x-icon' />
-    <!--<link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">-->
-  </head>
-  <body>    
-    <!-- page header -->
-    <header id="headerMobile">
-      <div id="headerBg">
-        <a href="javascript:void(0)" onclick="onAboutButtonClick()">
-          <img id="aboutButton" src="icons/aboutIcon.png"/>
-        </a>
-        <a href="javascript:void(0)" onclick="onHomeButtonClick()">
-          <img id="homeButton" src="icons/homeIcon.png"/>
-         </a>
-        <div id="headerIconContainer">
-          <img id="headerIcon" src="icons/headerLogo.png"/>
-        </div>
-        <div id="aboutMenuTitle" style="display:none">אודות</div>                
-      </div>                
-    </header>    
-    
-    <!-- map overlay -->
-    <div class="map-dark"></div>         
-    
-    <!-- startup splash screen -->
-    <div class="splash" style="background-image: url('animation/Splash 70.gif?v=1');background-size: contain;"></div>
-    
-    <!-- the map itself -->
-    <div id="map"></div> 
-    
-    <!-- location info popup -->
-    <div id="locationPopup" class="infoPopup">
-        <div id="popupHeader">
-            <div id="popupTitle"></div>
-            <div id="popupSubTitle">שעת הגעה</div>
-        </div>
-        <div id="aircraftsList" class="table">          
-        </div>
+  <link rel="stylesheet" href="css/map.css">
+  <link rel="icon" sizes="192x192" href="icons/logo192x192.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="js/slidingMarker/jquery.easing.1.3.js"></script>
+  <script src="js/date.js"></script>
+  <script src="js/functions.js"></script>
+  <script src="js/popups.js"></script>
+  <script src="js/RotateIcon.js"></script>
+  <script src="js/markerclusterer.js"></script>
+  <script src="js/map.js"></script>
+  <link rel="manifest" href="/manifest.json">
+  <link href='icons/favicon.ico' rel='Shortcut Icon' type='image/x-icon' /><link href='icons/favicon.ico' rel='Icon' type='image/x-icon' />
+  <!--<link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">-->
+</head>
+<body>
+<!-- page header -->
+<header id="headerMobile">
+  <div id="headerBg">
+    <a href="javascript:void(0)" onclick="onAboutButtonClick()">
+      <img id="aboutButton" src="icons/aboutIcon.png"/>
+    </a>
+    <a href="javascript:void(0)" onclick="onHomeButtonClick()">
+      <img id="homeButton" src="icons/homeIcon.png"/>
+    </a>
+    <div id="headerIconContainer">
+      <img id="headerIcon" src="icons/headerLogo.png"/>
     </div>
-    
-    <!-- aircraft info popup -->
-    <div id="aircraftInfoPopup" class="infoPopup">
-        <div id="aircraftInfoBannerContainer">
-          <img id="aircraftInfoBanner" src=""></img>
-        </div>
-        <div id="aircraftInfoContent">
-          <div id="aircraftIconContainer">
-            <img id="aircraftInfoIcon" src="icons/aircrafts/adir.png"></img>
-          </div>
-          <div id="aircraftInfoText">
-            <div id="aircraftInfoName"></div>
-            <div id="aircraftInfoType"></div>                        
-          </div> 
-          <div id="aircraftInfoTime">
-              <div id="aircraftInfoStartTime"></div>
-              <div id="aircraftInfoTimeLabel">זמן המראה</div>            
-          </div>         
-        </div>
-        <div id="aircraftInfoMore">קרא עוד</div>
+    <div id="aboutMenuTitle" style="display:none">אודות</div>
+  </div>
+</header>
+
+<!-- map overlay -->
+<div class="map-dark"></div>
+
+<!-- startup splash screen -->
+<div class="splash" style="background-image: url('animation/Splash 70.gif?v=1');background-size: contain;"></div>
+
+<!-- the map itself -->
+<div id="map"></div>
+
+<!-- location info popup -->
+<div id="locationPopup" class="infoPopup">
+  <div id="popupHeader">
+    <div id="popupTitle"></div>
+    <div id="popupSubTitle">שעת הגעה</div>
+  </div>
+  <div id="aircraftsList" class="table">
+  </div>
+</div>
+
+<!-- aircraft info popup -->
+<div id="aircraftInfoPopup" class="infoPopup">
+  <div id="aircraftInfoBannerContainer">
+    <img id="aircraftInfoBanner" src=""></img>
+  </div>
+  <div id="aircraftInfoContent">
+    <div id="aircraftIconContainer">
+      <img id="aircraftInfoIcon" src="icons/aircrafts/adir.png"></img>
     </div>
-    
-    <!-- about popup -->
-    <div id="aboutPopup" class="infoPopup" style="display:none">      
-      <div id="halfBlue"/>      
-      <img id="aboutLogo" src="icons/bigLogo.png"></img>
-      <div id="aboutTitle">
-        חג עצמאות שמח!
-      </div>       
-      <div id="aboutBody">
-        האתר פותח ע"י <b>יחידת אופק</b> בחיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות
-לכבוד חגיגות 70 שנה למדינת ישראל.
-      </div>
+    <div id="aircraftInfoText">
+      <div id="aircraftInfoName"></div>
+      <div id="aircraftInfoType"></div>
     </div>
-    
-    <!-- aircraft images cache -->
-    <div class="imageCache">
-      <img id="raam" src="icons/aircrafts/raam.svg" class="imageCache"></img>
-      <img id="barak" src="icons/aircrafts/barak.svg" class="imageCache"></img>
-      <img id="tzufit" src="icons/aircrafts/tzufit.svg" class="imageCache"></img>
-      <img id="yasur" src="icons/aircrafts/yasur.svg" class="imageCache"></img>
-      <img id="adir" src="icons/aircrafts/adir.svg" class="imageCache" ></img>
-      <img id="lavi" src="icons/aircrafts/lavi.svg"  class="imageCache"></img>
-      <img id="nahshon" src="icons/aircrafts/nahshon.svg"  class="imageCache"></img>
-      <img id="karnaf" src="icons/aircrafts/karnaf.svg"  class="imageCache"></img>
-      <img id="shimshon" src="icons/aircrafts/shimshon.svg"  class="imageCache"></img>
-      <img id="baz" src="icons/aircrafts/baz.svg"  class="imageCache"></img>
-      <img id="reem" src="icons/aircrafts/reem.svg" class="imageCache"></img>
-      <img id="efroni" src="icons/aircrafts/efroni.svg" class="imageCache"></img>
-
-        <!-- new aircrafts 2018 -->
-        <img id="airTractor" src="icons/aircrafts/airTractor.svg" class="imageCache"></img>
-        <img id="shimshon-dark" src="icons/aircrafts/shimshon-dark.svg" class="imageCache"></img>
-        <img id="c17" src="icons/aircrafts/c17.svg" class="imageCache"></img>
-        <img id="eurofighter" src="icons/aircrafts/eurofighter.svg" class="imageCache"></img>
-        <img id="f16g" src="icons/aircrafts/f16g.svg" class="imageCache"></img>
-        <img id="c295" src="icons/aircrafts/c295.svg" class="imageCache"></img>
-        <img id="boeing787" src="icons/aircrafts/boeing787.svg" class="imageCache"></img>
-        <img id="boeing747" src="icons/aircrafts/boeing747.svg" class="imageCache"></img>
-        <img id="saifan" src="icons/aircrafts/saifan.svg" class="imageCache"></img>
-
-        <!-- forigen countries -->
-        <img id="canada" src="icons/countries/canada.svg" class="imageCache"></img>
-        <img id="britian" src="icons/countries/britian.svg" class="imageCache"></img>
-        <img id="italian" src="icons/countries/italian.svg" class="imageCache"></img>
-        <img id="greece" src="icons/countries/greece.svg" class="imageCache"></img>
-        <img id="austria" src="icons/countries/austria.svg" class="imageCache"></img>
-        <img id="poland" src="icons/countries/poland.svg" class="imageCache"></img>
-
-        <!-- aircraft clusters -->
-        <img id="group_darkgray" src="icons/groups/group_darkgray.svg" class="imageCache"></img>
-
+    <div id="aircraftInfoTime">
+      <div id="aircraftInfoStartTime"></div>
+      <div id="aircraftInfoTimeLabel">זמן המראה</div>
     </div>
-    
-    <!-- javascript files -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUHnpGpGO0nDr7Hy3nsnk85eIM75jGBd4&callback=initMap&language=he&region=IL"></script>
-    <script src="js/slidingMarker/markerAnimate.js"></script>
-    <script src="js/slidingMarker/SlidingMarker.min.js"></script>              
+  </div>
+  <div id="aircraftInfoMore">קרא עוד</div>
+</div>
 
-  </body>
-</html>
+<!-- about popup -->
+<div id="aboutPopup" class="infoPopup" style="display:none">
+  <div id="halfBlue"/>
+  <img id="aboutLogo" src="icons/bigLogo.png"></img>
+  <div id="aboutTitle">
+    חג עצמאות שמח!
+  </div>
+  <div id="aboutBody">
+    האתר פותח ע"י <b>יחידת אופק</b> בחיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות
+    לכבוד חגיגות 70 שנה למדינת ישראל.
+  </div>
+</div>
+
+<!-- aircraft images cache -->
+<div class="imageCache">
+  <img id="raam" src="icons/aircrafts/raam.svg" class="imageCache"></img>
+  <img id="barak" src="icons/aircrafts/barak.svg" class="imageCache"></img>
+  <img id="tzufit" src="icons/aircrafts/tzufit.svg" class="imageCache"></img>
+  <img id="yasur" src="icons/aircrafts/yasur.svg" class="imageCache"></img>
+  <img id="adir" src="icons/aircrafts/adir.svg" class="imageCache" ></img>
+  <img id="lavi" src="icons/aircrafts/lavi.svg"  class="imageCache"></img>
+  <img id="nahshon" src="icons/aircrafts/nahshon.svg"  class="imageCache"></img>
+  <img id="karnaf" src="icons/aircrafts/karnaf.svg"  class="imageCache"></img>
+  <img id="shimshon" src="icons/aircrafts/shimshon.svg"  class="imageCache"></img>
+  <img id="baz" src="icons/aircrafts/baz.svg"  class="imageCache"></img>
+  <img id="reem" src="icons/aircrafts/reem.svg" class="imageCache"></img>
+  <img id="efroni" src="icons/aircrafts/efroni.svg" class="imageCache"></img>
+
+  <!-- new aircrafts 2018 -->
+  <img id="airTractor" src="icons/aircrafts/airTractor.svg" class="imageCache"></img>
+  <img id="shimshon-dark" src="icons/aircrafts/shimshon-dark.svg" class="imageCache"></img>
+  <img id="c17" src="icons/aircrafts/c17.svg" class="imageCache"></img>
+  <img id="eurofighter" src="icons/aircrafts/eurofighter.svg" class="imageCache"></img>
+  <img id="f16g" src="icons/aircrafts/f16g.svg" class="imageCache"></img>
+  <img id="c295" src="icons/aircrafts/c295.svg" class="imageCache"></img>
+  <img id="boeing787" src="icons/aircrafts/boeing787.svg" class="imageCache"></img>
+  <img id="boeing747" src="icons/aircrafts/boeing747.svg" class="imageCache"></img>
+  <img id="saifan" src="icons/aircrafts/saifan.svg" class="imageCache"></img>
+
+  <!-- forigen countries -->
+  <img id="canada" src="icons/countries/canada.svg" class="imageCache"></img>
+  <img id="britian" src="icons/countries/britian.svg" class="imageCache"></img>
+  <img id="italian" src="icons/countries/italian.svg" class="imageCache"></img>
+  <img id="greece" src="icons/countries/greece.svg" class="imageCache"></img>
+  <img id="austria" src="icons/countries/austria.svg" class="imageCache"></img>
+  <img id="poland" src="icons/countries/poland.svg" class="imageCache"></img>
+
+  <!-- aircraft mini icons -->
+  <img id="group_darkgray" src="icons/groups/group_darkgray.svg" class="imageCache"></img>
+  <img id="group_white" src="icons/groups/group_white.svg" class="imageCache"></img>
+  <img id="group_cyan" src="icons/groups/group_cyan.svg" class="imageCache"></img>
+  <img id="group_yellow" src="icons/groups/group_yellow.svg" class="imageCache"></img>
+
+</div>
+
+<!-- javascript files -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUHnpGpGO0nDr7Hy3nsnk85eIM75jGBd4&callback=initMap&language=he&region=IL"></script>
+<script src="js/slidingMarker/markerAnimate.js"></script>
+<script src="js/slidingMarker/SlidingMarker.min.js"></script>
+
+</body>
+</html>a
