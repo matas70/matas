@@ -1,109 +1,113 @@
-  #map {
+#map {
     position: absolute;
-       top: 64px; /* Header Height */
-       bottom: 0px; /* Footer Height */
-       width: 100%;           
-  }
+    top: 64px; /* Header Height */
+    bottom: 0px; /* Footer Height */
+    width: 100%;
+}
 
-  #headerMobile {
-  }
+#headerMobile {
+}
 
-  .sticky {
+.sticky {
     position: fixed;
     top: 0;
     width: 100%
-  }
+}
 
-
-
-   /* hebrew */
-  @font-face {
+/* hebrew */
+@font-face {
     font-family: 'Heebo';
     font-style: normal;
     font-weight: 400;
-    src: local('Heebo'), local('Heebo-Regular'), 
+    src: local('Heebo'), local('Heebo-Regular'),
     url(https://fonts.gstatic.com/s/heebo/v2/q17xXvwvpCd8fBgEBABP9w.woff2) format('woff2'),
     url('fonts/heebo-regular-webfont.svg') format('svg');
     unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;
-  }
-  /* latin */
-  @font-face {
+}
+
+/* latin */
+@font-face {
     font-family: 'Heebo';
     font-style: normal;
     font-weight: 400;
-    src: local('Heebo'), local('Heebo-Regular'), 
+    src: local('Heebo'), local('Heebo-Regular'),
     url(https://fonts.gstatic.com/s/heebo/v2/Q66imbW5v9YuQMRLd0RXOA.woff2) format('woff2'),
     url('fonts/heebo-regular-webfont.svg') format('svg');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
-  }
-  
-  /* Makes the page fill the window. */
-  html, body {
+}
+
+/* Makes the page fill the window. */
+html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    direction: rtl;  
-    background:white;  
+    direction: rtl;
+    background: white;
     font-family: 'Heebo', sans-serif;
     text-rendering: optimizeLegibility;
-  }  
-  div.aircraftInfoContent {
+}
+
+div.aircraftInfoContent {
     width: 150px;
     height: 150px;
-  }          
-  img.aircraftImage {
+}
+
+img.aircraftImage {
     width: 140px;
-  }
-  div.firstHeading {
+}
+
+div.firstHeading {
     font: normal 1.5em/25px arial;
-  }  
-  
-  div.fullScreenFloating {
-    position:absolute; width:100%; z-index: 9999           
-  }
-  
-  div.topbar-help {
+}
+
+div.fullScreenFloating {
+    position: absolute;
+    width: 100%;
+    z-index: 9999
+}
+
+div.topbar-help {
     background-color: #4286f4;
-    opacity: 0.8;         
-    color: white; 
+    opacity: 0.8;
+    color: white;
     display: inline-block;
     padding: 4px;
-  }
-  
-  div.map-dark {
-    top: 64px;
+}
+
+div.map-dark {
+    /*top: 64px;*/
     pointer-events: none;
-    position:absolute; 
-    width:100%;
-    height:100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
     z-index: 9999;
     background-color: #060606;
-    opacity: 0.1;   
-  }
-  
-  div.splash {
+    opacity: 0.1;
+}
+
+div.splash {
     pointer-events: none;
-    position:absolute; 
-    width:100%;
-    top: -64px; 
-    bottom: 0px; 
-    width: 100%;    
+    position: absolute;
+    width: 100%;
+    top: -64px;
+    bottom: 0px;
+    width: 100%;
     z-index: 99999;
     background-color: #7bd1fc;
-    opacity: 1.0; 
+    opacity: 1.0;
     background-position: center center;
     background-repeat: no-repeat;
-  }
+}
 
-#headerIcon {  
-  width: 90px;  
-  height: 39px;
-}  
+#headerIcon {
+    width: 90px;
+    height: 39px;
+}
 
 #headerIconContainer {
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
 }
 
 #aboutButton {
@@ -119,209 +123,255 @@
 }
 
 #popupTitle {
-  font-size: 17px;
-  color: white;
-  float: right;
+    font-size: 17px;
+    color: white;
+    float: right;
 }
 
 #popupSubTitle {
-  font-size: 12px;
-  padding-top: 2px;
-  color: #187aab;
-  float: left;
+    font-size: 12px;
+    padding-top: 2px;
+    color: #187aab;
+    float: left;
 }
 
-#popupHeader { 
-  background: #3bb5f2;
-  height: 22px;
-  vertical-align: middle;
-  padding-top: 14px;
-  padding-left: 23px;
-  padding-right: 23px;
-  padding-bottom: 14px;
+#popupHeader {
+    background: #3bb5f2;
+    height: 22px;
+    vertical-align: middle;
+    padding-top: 14px;
+    padding-left: 23px;
+    padding-right: 23px;
+    padding-bottom: 14px;
 }
 
 #aircraftInfoBannerContainer {
-  height: 174px;
-  width: 100%;  
-  background: white;
+    height: 174px;
+    width: 100%;
+    background: white;
 }
 
 #aircraftInfoBanner {
-  width: 100%;  
+    width: 100%;
 }
 
 #aircraftIconContainer {
-  display:table-cell;
-  vertical-align: middle;  
+    display: table-cell;
+    vertical-align: middle;
 }
 
-#aircraftInfoIcon {  
-  padding-left: 17px;
-  padding-right: 27.2px;
+#aircraftInfoIcon {
+    padding-left: 17px;
+    padding-right: 27.2px;
 }
 
 #aircraftInfoContent {
-  display: table;
-  width: 100%;  
-  height: 82px;
-  background: white;
-  color: #293b57;  
+    width: 100%;
+    height: 100%;
+    background: white;
+    overflow-y: hidden;
+    color: #293b57;
 }
 
 #aircraftInfoText {
-  display:table-cell;
-  width: 100%;
+    display: table-cell;
+    width: 100%;
 }
 
 #aircraftInfoTime {
-  display:table-cell;
-  text-align:center;
-  font-size: 20px;  
-  padding-left: 57px;
-  padding-right: 57px;
-  vertical-align: middle;
+    display: table-cell;
+    text-align: center;
+    font-size: 20px;
+    padding-left: 57px;
+    padding-right: 57px;
+    vertical-align: middle;
+    background-color: #f7f5f5;
 }
 
 #aircraftInfoTimeLabel {
-  font-size:10px;
-  color: #8696b0;
+    font-size: 10px;
+    color: #8696b0;
 }
 
 #aircraftInfoName {
-  padding-top: 12px;
-  font-size: 26px;
-  font-weight: bold;
+    padding-top: 12px;
+    font-size: 26px;
+    font-weight: bold;
 }
 
 #aircraftInfoType {
-  font-size: 17px;
-  color: #8696b0;
+    font-size: 17px;
+    color: #8696b0;
 }
 
 #aircraftInfoMore {
-  width: 100%;
-  height: 32px; 
-  background: #3bb5f2;
-  text-align: center;
-  color: white;
-  padding-top: 9px;
-  font-size: 15px;
+    width: 100%;
+    height: 32px;
+    background: #3bb5f2;
+    text-align: center;
+    color: white;
+    padding-top: 9px;
+    font-size: 15px;
 }
 
 div.table {
-  display:table;
-  width:100%; 
-  border: none;
-  border-spacing: 0px;
-  border-collapse: collapse;
-  padding: 0px;
+    display: table;
+    width: 100%;
+    border: none;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    padding: 0px;
 }
 
-div.tableRow { 
-  background: white;
-  display: table-row;   
-  width:100%;
-  height: 60px;
+div.tableRow {
+    background: white;
+    display: table-row;
+    width: 100%;
+    height: 60px;
 }
 
-img.aircraftIcon { 
-  display: table-cell;   
-  padding-left: 22px;
-  padding-right: 22px;
-  padding-top: 8px;
-  padding-bottom: 4px;
+img.aircraftIcon {
+    display: table-cell;
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-top: 8px;
+    padding-bottom: 4px;
 }
 
-div.aircraftName { 
-  display: table-cell;
-  color: #293b57;
-  vertical-align: middle;
-  width: 100%; 
+div.aircraftName {
+    display: table-cell;
+    color: #293b57;
+    vertical-align: middle;
+    width: 100%;
 }
 
 div.time {
-  display: table-cell;
-  padding-left: 22px;
-  padding-right: 22px;
-  text-align: center;
-  vertical-align: middle;  
+    display: table-cell;
+    padding-left: 22px;
+    padding-right: 22px;
+    text-align: center;
+    vertical-align: middle;
 }
 
-div.tableRow:nth-child(odd) { background: #f8f6f6; }
+div.tableRow:nth-child(odd) {
+    background: #f8f6f6;
+}
 
 div.infoPopup {
-    position:absolute; 
-    width:100%; 
-    z-index: 9999;
-    bottom: 0px;         
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    z-index: 100000;
+    bottom: 0px;
+    /*transition: height 2s ease-in;*/
 }
 
 #aboutPopup {
-  height: 100%;
-  background: white;
-  text-align: center;
+    height: 100%;
+    background: white;
+    text-align: center;
 }
 
 #aboutTitle {
-  font-weight: bold;
-  margin-top: 13px;
-  margin-bottom: 13px;
+    font-weight: bold;
+    margin-top: 13px;
+    margin-bottom: 13px;
 }
 
 #aboutBody {
-  margin-left: 52px;
-  margin-right: 52px;
+    margin-left: 52px;
+    margin-right: 52px;
 }
 
 #aboutMenuTitle {
-  color: white;
-  font-size: 17px;
-  font-weight: bold;
-  display: table-cell;
-  vertical-align: middle;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #halfBlue {
-  background: #7bd1fc;
-  width: 100%;
-  height: 50%;
-  z-index: 9999;
-  top:0px;
+    background: #7bd1fc;
+    width: 100%;
+    height: 50%;
+    z-index: 9999;
+    top: 0px;
 }
 
 #aboutLogo {
-  padding-top: 17%;
+    padding-top: 17%;
 }
 
 div.imageCache {
-  visibility: hidden;
-  height: 0px;
-  width: 0px;
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
 }
 
 img.imageCache {
-  visibility: hidden;
-  height: 0px;
-  width: 0px;
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
 }
 
-HEADER 
-{ 
-    display:block;      
-    position:relative; 
-    height:0px;
-    z-index: 10000;    
+HEADER {
+    display: block;
+    position: relative;
+    height: 0px;
+    z-index: 10000;
 }
 
 #headerBg {
-  display: table;
-  background: #08051a;
-  height: 64px;
-  width: 100%;
-  position: absolute;
-  z-index: 10000;
-  text-align: center;
-  vertical-align: middle;
+    display: table;
+    background: #08051a;
+    height: 64px;
+    width: 100%;
+    position: absolute;
+    z-index: 10000;
+    text-align: center;
+    vertical-align: middle;
 }
 
+#expandedInfo {
+    display: none;
+    padding-right: 24px;
+    overflow-y: auto;
+    padding-left: 24px;
+    height: 100%;
+}
+
+.aircraftInfoContentRowFlex {
+    display: flex;
+    padding-bottom: 10px;
+}
+
+
+.aircraftDescription {
+    padding-bottom: 8px;
+    border-bottom: 1px rgba(0, 0 ,0, 0.2) solid;
+}
+
+.aircraftInfoContentIcon {
+    padding-top: 5px;
+    padding-left: 10px;
+    height: 24px;
+    width: 24px;
+}
+
+.aircraftInfoContentTitle {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.aircraftInfoContentText {
+    color: #37474f;
+    font-size: 15px;
+}
+
+.aircraftInfoContentGroup {
+    border-bottom: 1px rgba(0, 0 ,0, 0.2) solid;
+    padding-bottom: 8px;
+    width: 100%;
+}

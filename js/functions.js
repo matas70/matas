@@ -730,10 +730,10 @@ function initMap() {
             deselectAircraft();
         });
 
-        // make it larger than screen that when it scrolls it goes full screen
-        $("#map").height(window.screen.height - 64);
-        $(".map-dark").height(window.screen.height - 64);
-        makeHeaderSticky();
+        // // make it larger than screen that when it scrolls it goes full screen
+        // $("#map").height(window.screen.height - 64);
+        // $(".map-dark").height(window.screen.height - 64);
+        // makeHeaderSticky();
 
         // load all routes
         loadRoutes(function (routes) {

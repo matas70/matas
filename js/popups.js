@@ -53,8 +53,26 @@ function showAircraftInfoPopup(aircraftName, aircraftType, iconName, imageName, 
 	$("#aircraftInfoIcon").attr("src", "icons/aircrafts/"+iconName+".png");
 	$("#aircraftInfoBanner").attr("src", imageName);
 	$("#aircraftInfoMore").on("click", function() {
-	  window.open(infoUrl,'aircraftMoreInfo');
+        // $("#aircraftInfoPopup").animate({height: $("#aircraftInfoPopup").get(0).scrollHeight}, 1000 );
+        // window.open(infoUrl,'aircraftMoreInfo');
+		var height = $(window).height();
+        $("#aircraftInfoMore").css("display", "none");
+        $("#aircraftInfoPopup").animate({"height": height + "px"}, 500);
+        $("#shrinkAircraftInfoPopup").css("display", "block");
+        $("#expandedInfo").css("display", "block");
 	});
+
+    $("#shrinkAircraftInfoPopup").on("click", function() {
+        $("#aircraftInfoMore").css("display", "block");
+        $("#aircraftInfoMore").css("height", "32px");
+        $("#expandedInfo").css("display", "none");
+        // $("#aircraftInfoPopup").animate({"height": null}, 500);
+        $("#shrinkAircraftInfoPopup").css("display", "none");
+        var curHeight = $('#aircraftInfoPopup').height();
+        $('#aircraftInfoPopup').css('height', 'auto');
+        var autoHeight = $('#aircraftInfoPopup').height();
+        $('#aircraftInfoPopup').height(curHeight).animate({height: autoHeight}, 500);
+    });
 	
 	var popupHeight = $("#locationPopup").height();	
 	$("#aircraftInfoPopup").css("bottom", -popupHeight);
