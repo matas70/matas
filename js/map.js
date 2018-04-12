@@ -75,6 +75,14 @@ function createAircraftMarker(position, name, hide, clickEvent) {
     return aircraftMarker;
 }
 
+function toggleAircraftMarkerVisibility(marker, shouldShow) {
+    if (!shouldShow) {
+        marker.setMap(null);
+    } else if (!marker.getMap()) {
+        marker.setMap(map);
+    }
+}
+
 //**** currrent location detection - need to see wheter to delete or not
 var currentLocationMarker;
 var currentHeadingMarker;

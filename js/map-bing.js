@@ -335,6 +335,18 @@ function drawMarker(position, icon, title, shouldUseMap) {
     }
 }
 
+function toggleAircraftMarkerVisibility(marker, shouldShow) {
+    if (!shouldShow) {
+        marker.setOptions({
+            visible: false
+        });
+    } else if (!marker.getVisible()) {
+        marker.setOptions({
+            visible: true
+        });
+    }
+}
+
 function toBingLocation(location) {
     return new Microsoft.Maps.Location(location.lat, location.lng);
 }
