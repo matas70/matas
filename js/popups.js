@@ -51,7 +51,7 @@ function showAircraftInfoPopup(aircraft) {
 	$("#aircraftInfoType").text(aircraft.type);
 	$("#aircraftInfoStartTime").text(aircraft.path[0].time.substr(0,5));
 	$("#aircraftInfoIcon").attr("src", "icons/aircrafts/"+aircraft.icon+".png");
-	$("#aircraftDescription").text(aircraft.description);
+	$("#aircraftInfoContentDescription").text(aircraft.description);
 	$("#aircraftInfoContentClassification").text(aircraft.classification);
 	$("#aircraftInfoContentCountry").text(aircraft.manufactured);
 	$("#aircraftInfoContentDimensions").text(aircraft.dimensions);
