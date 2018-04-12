@@ -92,7 +92,7 @@ div.splash {
     top: -64px;
     bottom: 0px;
     width: 100%;
-    z-index: 99999;
+    z-index: 9999999;
     background-color: #7bd1fc;
     opacity: 1.0;
     background-position: center center;
@@ -381,9 +381,6 @@ HEADER {
 
 .aircraftInfoTitle {
     background-color: white;
+    z-index: 1;
     box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.08);
-}
-
-.infoPopup div {
-    /*white-space: pre-line;*/
 }
