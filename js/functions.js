@@ -11,6 +11,7 @@ function convertPath(path) {
 
 var loadedRoutes;
 var aircrafts;
+var groundedAircrafts = new Set();
 var locations = [];
 var aircraftMarkers = {};
 var aircraftPaths = {};
@@ -487,57 +488,62 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var nextAircraftStopPosition = getNextLocation(aircraft.path, currentTime);
     var nextAircraftPosition;
 
-    // if the next stop is more than animationTime millieseconds, calculate where the aircraft should be within animationTime
-    // milliseconds
-    if (nextAircraftStopPosition.time - currentTime > animationTime) {
-        nextAircraftPosition = getPredictedLocation(currentAircraftPosition, nextAircraftStopPosition.location, nextAircraftStopPosition.time - currentTime, animationTime);
+    // Should the current time be larger than the next position's time, that means the aircraft landed
+    if (convertTime(aircraft.path[aircraft.path.length - 1].time) - plannedStartTime + actualStartTime < getCurrentTime()) {
+        toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], false);
+        console.log(aircraft.name + " Has landed");
     } else {
-        // otherwise, animate to the the next aircraft stop location
-        nextAircraftPosition = nextAircraftStopPosition.location;
-        animationTime = nextAircraftStopPosition.time - currentTime;
-        cleanPreviousLocations(aircraft);
+        // if the next stop is more than animationTime millieseconds, calculate where the aircraft should be within animationTime
+        // milliseconds
+        if (nextAircraftStopPosition.time - currentTime > animationTime) {
+            nextAircraftPosition = getPredictedLocation(currentAircraftPosition, nextAircraftStopPosition.location, nextAircraftStopPosition.time - currentTime, animationTime);
+        } else {
+            // otherwise, animate to the the next aircraft stop location
+            nextAircraftPosition = nextAircraftStopPosition.location;
+            animationTime = nextAircraftStopPosition.time - currentTime;
+            cleanPreviousLocations(aircraft);
+        }
+
+        // calculate the new azimuth
+        var currentAircraftAzimuth = calcAzimuth(currentAircraftPosition, nextAircraftPosition);
+        if (currentAircraftAzimuth == null)
+            currentAircraftAzimuth = previousAzimuth;
+        aircraft.currentAircraftAzimuth = currentAircraftAzimuth;
+
+        var marker = aircraftMarkers[aircraft.aircraftId];
+
+        // change azimuth if needed
+        if (Math.abs(previousAzimuth - currentAircraftAzimuth) >= 0.1) {
+            // animation aircraft roation
+            var step = currentAircraftAzimuth - previousAzimuth >= 0 ? 5 : -5;
+            var angle = previousAzimuth;
+
+            var handle = setInterval(function () {
+                if (Math.abs(angle % 360 - currentAircraftAzimuth % 360) < Math.abs(step)) {
+                    clearInterval(handle);
+                    aircraft.currentAircraftAzimuth = currentAircraftAzimuth % 360;
+                    setAircraftIcon(marker, aircraft.icon, aircraft.country, currentAircraftAzimuth % 360, aircraft.color, zoomLevel);
+                } else {
+                    aircraft.currentAircraftAzimuth = angle += step % 360
+                    setAircraftIcon(marker, aircraft.icon, aircraft.country, angle += step % 360, aircraft.color, zoomLevel);
+                }
+            }, updateCurrent ? 10 : 100);
+        }
+
+        // if requested - forcibly update the aircraft to be on current position
+        if (updateCurrent) {
+            updateMarkerPosition(marker, currentAircraftPosition, 1);
+        }
+        else {
+            // animate to the next position
+            updateMarkerPosition(marker, nextAircraftPosition, animationTime);
+        }
+
+        // set a timeout for the next animation interval
+        timeoutHandles[aircraft.aircraftId] = setTimeout(function () {
+            animateToNextLocation(aircraft, currentAircraftAzimuth);
+        }, animationTime);
     }
-
-    // calculate the new azimuth
-    var currentAircraftAzimuth = calcAzimuth(currentAircraftPosition, nextAircraftPosition);
-    if (currentAircraftAzimuth == null)
-        currentAircraftAzimuth = previousAzimuth;
-    aircraft.currentAircraftAzimuth = currentAircraftAzimuth;
-
-    var marker = aircraftMarkers[aircraft.aircraftId];
-
-    // change azimuth if needed
-    if (Math.abs(previousAzimuth - currentAircraftAzimuth) >= 0.1) {
-        // animation aircraft roation
-        var step = currentAircraftAzimuth - previousAzimuth >= 0 ? 5 : -5;
-        var angle = previousAzimuth;
-
-        var handle = setInterval(function () {
-            if (Math.abs(angle % 360 - currentAircraftAzimuth % 360) < Math.abs(step)) {
-                clearInterval(handle);
-                aircraft.currentAircraftAzimuth = currentAircraftAzimuth % 360;
-                setAircraftIcon(marker, aircraft.icon, aircraft.country, currentAircraftAzimuth % 360, aircraft.color, zoomLevel);
-            } else {
-                aircraft.currentAircraftAzimuth = angle += step % 360
-                setAircraftIcon(marker, aircraft.icon, aircraft.country, angle += step % 360, aircraft.color, zoomLevel);
-            }
-        }, updateCurrent ? 10 : 100);
-    }
-
-    // if requested - forcibly update the aircraft to be on current position
-    if (updateCurrent) {
-        updateMarkerPosition(marker, currentAircraftPosition, 1);
-    }
-    else {
-        // animate to the next position
-        updateMarkerPosition(marker, nextAircraftPosition, animationTime);
-    }
-
-    // set a timeout for the next animation interval
-    timeoutHandles[aircraft.aircraftId] = setTimeout(function () {
-        animateToNextLocation(aircraft, currentAircraftAzimuth);
-    }, animationTime);
-
     // update clusters
     //updateCluster();
 }
@@ -559,8 +565,41 @@ function setAircraftIcon(marker, icon, country, azimuth, color, zoomLevel) {
 
 function startAircraftsAnimation(updateCurrent) {
     aircrafts.forEach(function (aircraft) {
-        animateToNextLocation(aircraft, aircraftMarkers[aircraft.aircraftId].currentAircraftAzimuth, updateCurrent);
+        // If the first point's time is in the future - It is still grounded. Hide it
+        if (convertTime(aircraft.path[0].time) - plannedStartTime + actualStartTime > getCurrentTime()) {
+            toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], false);
+//             console.log(aircraft.name + " Has not yet departed");
+            groundedAircrafts.add(aircraft);
+        } else {
+            animateToNextLocation(aircraft, aircraftMarkers[aircraft.aircraftId].currentAircraftAzimuth, updateCurrent);
+        }
     }, this);
+
+    // Scheduling a departure check for each of the grounded aircrafts
+    groundedAircrafts.forEach(aircraft => {
+        if (!departureCheckers[aircraft.aircraftId]) {
+            departureCheckers[aircraft.aircraftId] = setTimeout(function() {
+                checkDeparture(aircraft)
+            }, 10000);
+        }   
+    }, this);
+}
+
+var departureCheckers = {};
+
+// Checks every ten seconds when the aircraft will departure. When a group of aircrafts departure at once - it will separate them
+function checkDeparture(aircraft) {
+    if (convertTime(aircraft.path[0].time) - plannedStartTime + actualStartTime > getCurrentTime()) {
+        departureCheckers[aircraft.aircraftId] = setTimeout(function() {
+            checkDeparture(aircraft)
+        }, 10000);
+        return;
+    } else {
+        console.log(aircraft.name + " Has departed");
+        toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], true);
+        clearTimeout(departureCheckers[aircraft.aircraftId]);
+        animateToNextLocation(aircraft, aircraftMarkers[aircraft.aircraftId].currentAircraftAzimuth, true);        
+    }
 }
 
 var lastZoomLevel = 0;
