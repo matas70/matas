@@ -259,6 +259,7 @@ div.tableRow:nth-child(odd) {
 
 div.infoPopup {
     display: flex;
+    max-height: 1200px;
     flex-direction: column;
     position: absolute;
     width: 100%;
@@ -369,6 +370,7 @@ HEADER {
 .aircraftInfoContentText {
     color: #37474f;
     font-size: 15px;
+    white-space: pre-line;
 }
 
 .aircraftInfoContentGroup {
@@ -379,4 +381,8 @@ HEADER {
 
 .aircraftInfoTitle {
     background-color: white;
+}
+
+.infoPopup div {
+    /*white-space: pre-line;*/
 }

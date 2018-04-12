@@ -689,7 +689,7 @@ function onAircraftSelected(aircraftId) {
 
 function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl) {
     deselectLocation();
-    showAircraftInfoPopup(aircraftName, aircraftType, iconName, imageName, time, infoUrl);
+    showAircraftInfoPopup(aircraft);
     //map.panTo(location);
     //marker.setIcon(markerIconClicked);
     selectedAircraft = aircraft;
