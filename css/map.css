@@ -92,7 +92,7 @@ div.splash {
     top: -64px;
     bottom: 0px;
     width: 100%;
-    z-index: 99999;
+    z-index: 9999999;
     background-color: #7bd1fc;
     opacity: 1.0;
     background-position: center center;

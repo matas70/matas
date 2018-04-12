@@ -59,6 +59,14 @@ function showAircraftInfoPopup(aircraft) {
 	$("#aircraftInfoContentWeight").text(aircraft.weight);
 	$("#aircraftInfoContentEngine").text(aircraft.engine);
 	$("#aircraftInfoBanner").attr("src", aircraft.image);
+
+	if (!aircraft.armament) {
+		$("#aircraftInfoContentArmamentContainer").css("display", "none");
+	} else {
+        $("#aircraftInfoContentArmamentContainer").css("display", "block");
+        $("#aircraftInfoContentArmament").text(aircraft.armament);
+	}
+
 	$("#aircraftInfoMore").on("click", function() {
         // $("#aircraftInfoPopup").animate({height: $("#aircraftInfoPopup").get(0).scrollHeight}, 1000 );
         // window.open(infoUrl,'aircraftMoreInfo');
