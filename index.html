@@ -1,43 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>יום העצמאות 70 למדינת ישראל - מפת מטס חיל האוויר</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
+  <title>יום העצמאות 70 למדינת ישראל  - מפת מטס חיל האוויר</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
 
-    <link rel="stylesheet" href="css/map.css">
-    <link rel="icon" sizes="192x192" href="icons/logo192x192.png">
+  <link rel="stylesheet" href="css/map.css">
+  <link rel="icon" sizes="192x192" href="icons/logo192x192.png">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="js/slidingMarker/jquery.easing.1.3.js"></script>
-    <script src="js/date.js"></script>
-    <script src="js/functions.js"></script>
-    <script src="js/popups.js"></script>
-    <script src="js/RotateIcon.js"></script>
-    <script src="js/markerclusterer.js"></script>
-    <script src="js/map.js"></script>
-    <link rel="manifest" href="/manifest.json">
-    <link href='icons/favicon.ico' rel='Shortcut Icon' type='image/x-icon'/>
-    <link href='icons/favicon.ico' rel='Icon' type='image/x-icon'/>
-    <!--<link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="js/slidingMarker/jquery.easing.1.3.js"></script>
+  <script src="js/date.js"></script>
+  <script src="js/functions.js"></script>
+  <script src="js/popups.js"></script>
+  <script src="js/RotateIcon.js"></script>
+  <script src="js/markerclusterer.js"></script>
+  <script src="js/map.js"></script>
+  <link rel="manifest" href="/manifest.json">
+  <link href='icons/favicon.ico' rel='Shortcut Icon' type='image/x-icon' /><link href='icons/favicon.ico' rel='Icon' type='image/x-icon' />
+  <!--<link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">-->
 </head>
 <body>
 <!-- page header -->
 <header id="headerMobile">
-    <div id="headerBg">
-        <a href="javascript:void(0)" onclick="onAboutButtonClick()">
-            <img id="aboutButton" src="icons/aboutIcon.png"/>
-        </a>
-        <a href="javascript:void(0)" onclick="onHomeButtonClick()">
-            <img id="homeButton" src="icons/homeIcon.png"/>
-        </a>
-        <div id="headerIconContainer">
-            <img id="headerIcon" src="icons/headerLogo.png"/>
-        </div>
-        <div id="aboutMenuTitle" style="display:none">אודות</div>
+  <div id="headerBg">
+    <a href="javascript:void(0)" onclick="onAboutButtonClick()">
+      <img id="aboutButton" src="icons/aboutIcon.png"/>
+    </a>
+    <a href="javascript:void(0)" onclick="onHomeButtonClick()">
+      <img id="homeButton" src="icons/homeIcon.png"/>
+    </a>
+    <div id="headerIconContainer">
+      <img id="headerIcon" src="icons/headerLogo.png"/>
     </div>
+    <div id="aboutMenuTitle" style="display:none">אודות</div>
+  </div>
 </header>
 
 <!-- map overlay -->
@@ -51,126 +50,68 @@
 
 <!-- location info popup -->
 <div id="locationPopup" class="infoPopup">
-    <div id="popupHeader">
-        <div id="popupTitle"></div>
-        <div id="popupSubTitle">שעת הגעה</div>
-    </div>
-    <div id="aircraftsList" class="table">
-    </div>
+  <div id="popupHeader">
+    <div id="popupTitle"></div>
+    <div id="popupSubTitle">שעת הגעה</div>
+  </div>
+  <div id="aircraftsList" class="table">
+  </div>
 </div>
 
 <!-- aircraft info popup -->
 <div id="aircraftInfoPopup" class="infoPopup">
-    <img id="shrinkAircraftInfoPopup" style=" position: absolute; top: 10px; left: 10px;
-     display: none; z-index: 10000000;" src="images/arrowCopy.png">
-    <div id="aircraftInfoBannerContainer">
-        <img id="aircraftInfoBanner" src=""></img>
+  <div id="aircraftInfoBannerContainer">
+    <img id="aircraftInfoBanner" src=""></img>
+  </div>
+  <div id="aircraftInfoContent">
+    <div id="aircraftIconContainer">
+      <img id="aircraftInfoIcon" src="icons/aircrafts/adir.png"></img>
     </div>
-    <div class="aircraftInfoContentRow aircraftInfoTitle">
-        <div id="aircraftIconContainer">
-            <img id="aircraftInfoIcon" src="icons/aircrafts/adir.png"></img>
-        </div>
-        <div id="aircraftInfoText">
-            <div id="aircraftInfoName"></div>
-            <div id="aircraftInfoType"></div>
-        </div>
-        <div id="aircraftInfoTime">
-            <div id="aircraftInfoStartTime"></div>
-            <div id="aircraftInfoTimeLabel">זמן המראה</div>
-        </div>
+    <div id="aircraftInfoText">
+      <div id="aircraftInfoName"></div>
+      <div id="aircraftInfoType"></div>
     </div>
-    <div id="aircraftInfoContent">
-        <div id="expandedInfo">
-            <div class="aircraftInfoContentRow">
-                <p class="aircraftDescription" id="aircraftInfoContentDescription">
-                </p>
-            </div>
-            <div class="aircraftInfoContentRowFlex">
-                <img class="aircraftInfoContentIcon" src="images/group3@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">סוג</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentClassification"></div>
-                </div>
-            </div>
-            <div class="aircraftInfoContentRowFlex">
-                <img class="aircraftInfoContentIcon" src="images/group4@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">ארץ ייצור</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentCountry"></div>
-                </div>
-            </div>
-            <div class="aircraftInfoContentRowFlex">
-                <img class="aircraftInfoContentIcon" src="images/group10@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">מימדים</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentDimensions"></div>
-                </div>
-            </div>
-            <div class="aircraftInfoContentRowFlex">
-                <img class="aircraftInfoContentIcon" src="images/group11@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">ביצועים</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentPerformance"></div>
-                </div>
-            </div>
-            <div class="aircraftInfoContentRowFlex">
-                <img class="aircraftInfoContentIcon" src="images/group12@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">משקל</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentWeight"></div>
-                </div>
-            </div>
-            <div class="aircraftInfoContentRowFlex">
-                <img class="aircraftInfoContentIcon" src="images/group13@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">מנוע</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentEngine"></div>
-                </div>
-            </div>
-            <div class="aircraftInfoContentRowFlex" id="aircraftInfoContentArmamentContainer">
-                <img class="aircraftInfoContentIcon" src="images/armament@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">חימוש</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentArmament"></div>
-                </div>
-            </div>
-        </div>
+    <div id="aircraftInfoTime">
+      <div id="aircraftInfoStartTime"></div>
+      <div id="aircraftInfoTimeLabel">זמן המראה</div>
     </div>
-    <div id="aircraftInfoMore">קרא עוד</div>
+  </div>
+  <div id="aircraftInfoMore">קרא עוד</div>
 </div>
 
 <!-- about popup -->
 <div id="aboutPopup" class="infoPopup" style="display:none">
-    <div id="halfBlue"/>
-    <img id="aboutLogo" src="icons/bigLogo.png"></img>
-    <div id="aboutTitle">
-        חג עצמאות שמח!
-    </div>
-    <div id="aboutBody">
-        האתר פותח ע"י <b>יחידת אופק</b> בחיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות
-        לכבוד חגיגות 70 שנה למדינת ישראל.
-    </div>
+  <div id="halfBlue"/>
+  <img id="aboutLogo" src="icons/bigLogo.png"></img>
+  <div id="aboutTitle">
+    חג עצמאות שמח!
+  </div>
+  <div id="aboutBody">
+    האתר פותח ע"י <b>יחידת אופק</b> בחיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות
+    לכבוד חגיגות 70 שנה למדינת ישראל.
+  </div>
 </div>
 
 <!-- aircraft images cache -->
 <div class="imageCache">
-    <img id="raam" src="icons/aircrafts/raam.svg" class="imageCache"></img>
-    <img id="barak" src="icons/aircrafts/barak.svg" class="imageCache"></img>
-    <img id="tzufit" src="icons/aircrafts/tzufit.svg" class="imageCache"></img>
-    <img id="yasur" src="icons/aircrafts/yasur.svg" class="imageCache"></img>
-    <img id="adir" src="icons/aircrafts/adir.svg" class="imageCache"></img>
-    <img id="lavi" src="icons/aircrafts/lavi.svg" class="imageCache"></img>
-    <img id="nahshon" src="icons/aircrafts/nahshon.svg" class="imageCache"></img>
-    <img id="karnaf" src="icons/aircrafts/karnaf.svg" class="imageCache"></img>
-    <img id="shimshon" src="icons/aircrafts/shimshon.svg" class="imageCache"></img>
-    <img id="baz" src="icons/aircrafts/baz.svg" class="imageCache"></img>
-    <img id="reem" src="icons/aircrafts/reem.svg" class="imageCache"></img>
-    <img id="efroni" src="icons/aircrafts/efroni.svg" class="imageCache"></img>
+  <img id="raam" src="icons/aircrafts/raam.svg" class="imageCache"></img>
+  <img id="barak" src="icons/aircrafts/barak.svg" class="imageCache"></img>
+  <img id="tzufit" src="icons/aircrafts/tzufit.svg" class="imageCache"></img>
+  <img id="yasur" src="icons/aircrafts/yasur.svg" class="imageCache"></img>
+  <img id="adir" src="icons/aircrafts/adir.svg" class="imageCache" ></img>
+  <img id="lavi" src="icons/aircrafts/lavi.svg"  class="imageCache"></img>
+  <img id="nahshon" src="icons/aircrafts/nahshon.svg"  class="imageCache"></img>
+  <img id="karnaf" src="icons/aircrafts/karnaf.svg"  class="imageCache"></img>
+  <img id="shimshon" src="icons/aircrafts/shimshon.svg"  class="imageCache"></img>
+  <img id="baz" src="icons/aircrafts/baz.svg"  class="imageCache"></img>
+  <img id="reem" src="icons/aircrafts/reem.svg" class="imageCache"></img>
+  <img id="efroni" src="icons/aircrafts/efroni.svg" class="imageCache"></img>
 
   <!-- new aircrafts 2018 -->
   <img id="peten" src="icons/aircrafts/peten.svg" class="imageCache"></img>
   <img id="yanshuf" src="icons/aircrafts/yanshuf.svg" class="imageCache"></img>
   <img id="atalef" src="icons/aircrafts/atalef.svg" class="imageCache"></img>
+  <img id="saraf" src="icons/aircrafts/saraf.svg" class="imageCache"></img>
 
   <img id="airTractor" src="icons/aircrafts/airTractor.svg" class="imageCache"></img>
   <img id="shimshon-dark" src="icons/aircrafts/shimshon-dark.svg" class="imageCache"></img>
@@ -181,6 +122,7 @@
   <img id="boeing787" src="icons/aircrafts/boeing787.svg" class="imageCache"></img>
   <img id="boeing747" src="icons/aircrafts/boeing747.svg" class="imageCache"></img>
   <img id="saifan" src="icons/aircrafts/saifan.svg" class="imageCache"></img>
+  <img id="h125" src="icons/aircrafts/h125.svg" class="imageCache"></img>
 
   <!-- forigen countries -->
   <img id="canada" src="icons/countries/canada.svg" class="imageCache"></img>

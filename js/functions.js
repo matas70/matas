@@ -205,7 +205,8 @@ function getCurrentTime() {
 
 function convertTime(timeString) {
     return Date.parse(startDate + " " + timeString, "yyyy-MM-dd HH:mm:ss").getTime();
-    //return Date.parse(startDate+ " " + timeString);
+    // fast forward
+    //return Date.parse(startDate + " " + "00:" + timeString.substr(0,5), "yyyy-MM-dd HH:mm:ss").getTime();
 }
 
 function containsPosition(pos, list) {
@@ -290,7 +291,7 @@ function loadAircrafts(callback) {
         aircrafts = routes.aircrafts;
         startDate = routes.startDate;
         plannedStartTime = convertTime(routes.plannedStartTime);
-        actualStartTime = (new Date()).getTime() - 60*60*1000; //*/convertTime(routes.actualStartTime);
+        actualStartTime = (new Date()).getTime();  - 75*60*1000; // convertTime(routes.actualStartTime);
         updateLocationsMap(aircrafts);
         callback(aircrafts);
     });
