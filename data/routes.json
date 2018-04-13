@@ -3,10 +3,10 @@
 		{
 			"routeId": 1,
 			"name": "משותף - התחלה",
-			"color": "f64b58",
-			"primaryTextColor": "ffffff",
-			"secondaryTextColor" : "187aab",
-			"visible": true,
+            "color": "3bb5f2",
+            "primaryTextColor": "ffffff",
+            "secondaryTextColor" : "187aab",
+          "visible": true,
 			"points":  [
 					{ "pointId": 68, "pointName": "ירושלים", "N": 3146.880, "E": 3512.473},
 					{ "pointId": 37, "pointName": "הרחקה הר בית", "N": 3147.445, "E": 3514.065, "hidden":"true"},
@@ -28,10 +28,10 @@
 		{
 			"routeId": 2,
 			"name": "קרב צפון - נתיב 1",
-			"color": "f64b58",
-			"primaryTextColor": "ffffff",
-			"secondaryTextColor" : "187aab",
-			"visible": false,
+          "color": "3bb5f2",
+          "primaryTextColor": "ffffff",
+          "secondaryTextColor" : "187aab",
+          "visible": true,
 			"points":  [
 				{ "pointId": 53, "pointName": "טבריה", "N": 3247.293, "E": 3532.788, "hidden": "true"},
 				{ "pointId": 25, "pointName": "גינוסר", "N": 3250.892, "E": 3531.273 },
@@ -52,10 +52,10 @@
 		{
 			"routeId": 3,
 			"name": "קרב צפון - נתיב 2",
-			"color": "f64b58",
-			"primaryTextColor": "ffffff",
-			"secondaryTextColor" : "187aab",
-			"visible": false,
+          "color": "3bb5f2",
+          "primaryTextColor": "ffffff",
+          "secondaryTextColor" : "187aab",
+          "visible": true,
 			"points":  [
 			{ "pointId": 120, "pointName": "עכו", "N": 3255.230, "E": 3503.980 },
 			{ "pointId": 36, "pointName": "הנמכה אחרי עכו", "N": 3255.405, "E": 3506.769, "hidden":"true"},
@@ -80,10 +80,10 @@
 		{
 			"routeId": 4,
 			"name": "משותף - חלק 2",
-			"color": "f64b58",
-			"primaryTextColor": "ffffff",
-			"secondaryTextColor" : "187aab",
-			"visible": true,
+          "color": "3bb5f2",
+          "primaryTextColor": "ffffff",
+          "secondaryTextColor" : "187aab",
+          "visible": true,
 			"points":
 			[
 				{ "pointId": 164, "pointName": "תחילת נתיב חוף קרב", "N": 3247.650, "E": 3457.041 },
@@ -106,10 +106,10 @@
 		{
 			"routeId": 5,
 			"name": "קרב צפון - נתיב 3",
-			"color": "f64b58",
-			"primaryTextColor": "ffffff",
-			"secondaryTextColor" : "187aab",
-			"visible": false,
+          "color": "3bb5f2",
+          "primaryTextColor": "ffffff",
+          "secondaryTextColor" : "187aab",
+          "visible": true,
 			"points":
 			[
 				{ "pointId": 9, "pointName": "אשקלון", "N": 3141.025, "E": 3433.261, "hidden":"true"},
@@ -124,10 +124,10 @@
 		{
 			"routeId": 6,
 			"name": "קרב דרום",
-			"color": "f64b58",
-			"primaryTextColor": "ffffff",
-			"secondaryTextColor" : "187aab",
-			"visible": true,
+          "color": "3bb5f2",
+          "primaryTextColor": "ffffff",
+          "secondaryTextColor" : "187aab",
+          "visible": true,
 			"points":  [
 				{ "pointId": 58, "pointName": "יבול, אבשלום, דקל, תלמי יוסף, שדי-אברהם, יתד, פרי-גן", "N": 3112.496, "E": 3421.460 },
 				{ "pointId": 24, "pointName": "גבולות", "N": 3112.810, "E": 3427.930 },
@@ -265,10 +265,10 @@
 		{
 			"routeId": 11,
 			"name": "תובלה מהירה צפוני - חלק 1",
-			"color": "3bb5f2",
-			"primaryTextColor": "ffffff",
-			"secondaryTextColor" : "187aab",
-			"visible": true,
+          "color": "f9ea55",
+          "primaryTextColor": "b3a623",
+          "secondaryTextColor" : "b4a622",
+          "visible": true,
 			"points":  [
 				{ "pointId": 25, "pointName": "גינוסר", "N": 3250.894, "E": 3531.273, "hidden":"true"},
 				{ "pointId": 6, "pointName": "אלמגור", "N": 3254.815, "E": 3535.999 },
@@ -280,10 +280,10 @@
 		{
 			"routeId": 12,
 			"name": "תובלה מהירה צפוני - חלק 2",
-			"color": "3bb5f2",
-			"primaryTextColor": "ffffff",
-			"secondaryTextColor" : "187aab",
-			"visible": true,
+          "color": "f9ea55",
+          "primaryTextColor": "b3a623",
+          "secondaryTextColor" : "b4a622",
+          "visible": true,
 			"points":  [
 				{ "pointId": 161, "pointName": "שיפוט תל נוף תובלה", "N": 3150.443, "E": 3443.601, "hidden" : "true" }
 			]
@@ -291,10 +291,10 @@
 		{
 			"routeId": 13,
 			"name": "תובלה מהירה דרומי - חלק 1",
-			"color": "3bb5f2",
-			"primaryTextColor": "ffffff",
-			"secondaryTextColor" : "187aab",
-			"visible": true,
+          "color": "f9ea55",
+          "primaryTextColor": "b3a623",
+          "secondaryTextColor" : "b4a622",
+          "visible": true,
 			"points":  [
 				{ "pointId": 11, "pointName": "באר שבע", "N": 3115.240, "E": 3447.160, "hidden":"true"},
 				{ "pointId": 168, "pointName": "תל שבע", "N": 3114.858, "E": 3451.429 },
@@ -304,10 +304,10 @@
 		{
 			"routeId": 14,
 			"name": "תובלה מהירה דרומי - חלק 2",
-			"color": "3bb5f2",
-			"primaryTextColor": "ffffff",
-			"secondaryTextColor" : "187aab",
-			"visible": true,
+          "color": "f9ea55",
+          "primaryTextColor": "b3a623",
+          "secondaryTextColor" : "b4a622",
+          "visible": true,
 			"points":  [
 				{ "pointId": 67, "pointName": "ירוחם", "N": 3059.420, "E": 3454.710, "hidden":"true"},
 				{ "pointId": 95, "pointName": "מצפה רמון", "N": 3036.510, "E": 3448.170, "hidden":"true"}
@@ -330,10 +330,10 @@
 		{
 			"routeId": 16,
 			"name": "תובלה צפון",
-			"color": "f9ea55",
-			"primaryTextColor": "b3a623",
-			"secondaryTextColor" : "b4a622",
-			"visible": true,
+          "color": "f64b58",
+          "primaryTextColor": "ffffff",
+          "secondaryTextColor" : "187aab",
+          "visible": true,
 			"points":  [
 				{ "pointId": 139, "pointName": "קצרין", "N": 3259.360, "E": 3542.242, "hidden":"true"},
 				{ "pointId": 135, "pointName": "קדמת צבי", "N": 3301.677, "E": 3541.855 },
