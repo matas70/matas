@@ -105,7 +105,7 @@ div.splash {
 }
 
 #headerIconContainer {
-    display: table-cell;
+    width: 100%;
     text-align: center;
     vertical-align: middle;
 }
@@ -117,9 +117,8 @@ div.splash {
 }
 
 #homeButton {
-    position: absolute;
-    right: 20px;
-    top: 21px;
+    margin-top: 4px;
+    padding: 15px 15px;
 }
 
 #popupTitle {
@@ -267,6 +266,13 @@ div.infoPopup {
     /*transition: height 2s ease-in;*/
 }
 
+div.locationInfoPopup {
+    position:absolute;
+    width:100%;
+    z-index: 9999;
+    bottom: 0px;
+}
+
 #aboutPopup {
     height: 100%;
     background: white;
@@ -327,14 +333,13 @@ HEADER {
 }
 
 #headerBg {
-    display: table;
+    display: flex;
     background: #08051a;
     height: 64px;
     width: 100%;
     position: absolute;
     z-index: 10000;
-    text-align: center;
-    vertical-align: middle;
+    align-items: center;
 }
 
 #expandedInfo {

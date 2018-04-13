@@ -770,6 +770,13 @@ function onHomeButtonClick() {
 
 var defer = $.Deferred();
 
+function initMenu() {
+    var $menuHamburger = $("#menuHamburger");
+    $menuHamburger.on("click", function () {
+     $menuHamburger.toggleClass("is-active");
+ });
+}
+
 function initMap() {
     // onAboutButtonClick();
     // $(".splash").fadeOut();
@@ -779,6 +786,7 @@ function initMap() {
     // let splash run for a second before start loading the map
     setTimeout(function () {
         initPopups();
+        initMenu();
         map = createMapObject(function () {
             deselectLocation();
             deselectAircraft();

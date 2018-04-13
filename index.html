@@ -8,6 +8,7 @@
     <meta name="mobile-web-app-capable" content="yes">
 
     <link rel="stylesheet" href="css/map.css">
+    <link rel="stylesheet" href="css/hamburgers.css">
     <link rel="icon" sizes="192x192" href="icons/logo192x192.png">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -27,16 +28,22 @@
 <!-- page header -->
 <header id="headerMobile">
   <div id="headerBg">
-    <a href="javascript:void(0)" onclick="onAboutButtonClick()">
-      <img id="aboutButton" src="icons/aboutIcon.png"/>
-    </a>
-    <a href="javascript:void(0)" onclick="onHomeButtonClick()">
-      <img id="homeButton" src="icons/homeIcon.png"/>
-    </a>
+
+    <!--<a href="javascript:void(0)" onclick="onAboutButtonClick()">-->
+      <!--<img id="aboutButton" src="icons/aboutIcon.png"/>-->
+    <!--</a>-->
+      <div>
+      <img id="homeButton" src="icons/homeIcon.png" onclick="onHomeButtonClick()"/>
+      </div>
     <div id="headerIconContainer">
       <img id="headerIcon" src="icons/headerLogo.png"/>
     </div>
     <div id="aboutMenuTitle" style="display:none">אודות</div>
+      <button id="menuHamburger" class="hamburger hamburger--spin small" type="button">
+        <span class="hamburger-box">
+             <span class="hamburger-inner"></span>
+        </span>
+      </button>
   </div>
 </header>
 
@@ -50,7 +57,7 @@
 <div id="map"></div>
 
 <!-- location info popup -->
-<div id="locationPopup" class="infoPopup">
+<div id="locationPopup" class="locationInfoPopup">
     <div id="popupHeader">
         <div id="popupTitle"></div>
         <div id="popupSubTitle">שעת הגעה</div>
