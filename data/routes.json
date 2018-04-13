@@ -1,7 +1,7 @@
 {		
 	"routes": [
 		{
-			"routeId": 0,
+			"routeId": 1,
 			"name": "משותף - התחלה",
 			"color": "f64b58",
 			"primaryTextColor": "ffffff",
@@ -26,7 +26,7 @@
 				]
 		},
 		{
-			"routeId": 1,
+			"routeId": 2,
 			"name": "קרב צפון - נתיב 1",
 			"color": "f64b58",
 			"primaryTextColor": "ffffff",
@@ -50,7 +50,7 @@
 			]
 		},
 		{
-			"routeId": 2,
+			"routeId": 3,
 			"name": "קרב צפון - נתיב 2",
 			"color": "f64b58",
 			"primaryTextColor": "ffffff",
@@ -78,7 +78,7 @@
 			]
 		},
 		{
-			"routeId": 3,
+			"routeId": 4,
 			"name": "משותף - חלק 2",
 			"color": "f64b58",
 			"primaryTextColor": "ffffff",
@@ -104,7 +104,7 @@
 			]
 		},
 		{
-			"routeId": 4,
+			"routeId": 5,
 			"name": "קרב צפון - נתיב 3",
 			"color": "f64b58",
 			"primaryTextColor": "ffffff",
@@ -122,7 +122,7 @@
 			]
 		},
 		{
-			"routeId": 5,
+			"routeId": 6,
 			"name": "קרב דרום",
 			"color": "f64b58",
 			"primaryTextColor": "ffffff",
@@ -178,7 +178,7 @@
 			]
 		},
 		{
-			"routeId": 5,
+			"routeId": 7,
 			"name": "מסוקים צפון - חלק 1",
 			"color": "22fcbb",
 			"primaryTextColor": "08b581",
@@ -203,7 +203,7 @@
 				]
 		},
 		{
-			"routeId": 6,
+			"routeId": 8,
 			"name": "מסוקים צפון - חלק 2",
 			"color": "22fcbb",
 			"primaryTextColor": "08b581",
@@ -227,7 +227,7 @@
 			]
 		},
 		{
-			"routeId": 7,
+			"routeId": 9,
 			"name": "מסוקים דרום - חלק 1",
 			"color": "22fcbb",
 			"primaryTextColor": "08b581",
@@ -248,7 +248,7 @@
 				{ "pointId": 158, "pointName": "שיפוט ל090 מוזיאון", "N": 3114.306, "E": 3438.246 , "hidden": "true"}
 				]},
 		{
-			"routeId": 8,
+			"routeId": 10,
 			"name": "מסוקים דרום - חלק 2",
 			"color": "22fcbb",
 			"primaryTextColor": "08b581",
@@ -263,7 +263,7 @@
 			]
 		},
 		{
-			"routeId": 9,
+			"routeId": 11,
 			"name": "תובלה מהירה צפוני - חלק 1",
 			"color": "3bb5f2",
 			"primaryTextColor": "ffffff",
@@ -278,7 +278,7 @@
 				{ "pointId": 134, "pointName": "צפת", "N": 3257.760, "E": 3529.290, "hidden":"true"}
 		]},
 		{
-			"routeId": 10,
+			"routeId": 12,
 			"name": "תובלה מהירה צפוני - חלק 2",
 			"color": "3bb5f2",
 			"primaryTextColor": "ffffff",
@@ -289,7 +289,7 @@
 			]
 		},
 		{
-			"routeId": 11,
+			"routeId": 13,
 			"name": "תובלה מהירה דרומי - חלק 1",
 			"color": "3bb5f2",
 			"primaryTextColor": "ffffff",
@@ -302,7 +302,7 @@
 				]
 		},
 		{
-			"routeId": 12,
+			"routeId": 14,
 			"name": "תובלה מהירה דרומי - חלק 2",
 			"color": "3bb5f2",
 			"primaryTextColor": "ffffff",
@@ -314,7 +314,7 @@
 			]
 		},
 		{
-			"routeId": 13,
+			"routeId": 15,
 			"name": "תובלה מהירה דרומי - חלק 3",
 			"color": "3bb5f2",
 			"primaryTextColor": "ffffff",
@@ -328,7 +328,7 @@
 			]
 		},
 		{
-			"routeId": 14,
+			"routeId": 16,
 			"name": "תובלה צפון",
 			"color": "f9ea55",
 			"primaryTextColor": "b3a623",

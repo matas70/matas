@@ -296,7 +296,7 @@ function loadAircrafts(callback) {
         plannedStartTime = convertTime(routes.plannedStartTime);
         actualStartTime = convertTime(routes.actualStartTime);
         if ($.urlParam("simulation") != null) {
-            actualStartTime = (new Date()).getTime();  - $.urlParam("simulation")*60*1000;
+            actualStartTime = (new Date()).getTime() - $.urlParam("simulation")*60*1000;
         }
 
         updateLocationsMap(aircrafts);
@@ -492,7 +492,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     // Should the current time be larger than the next position's time, that means the aircraft landed
     if (convertTime(aircraft.path[aircraft.path.length - 1].time) - plannedStartTime + actualStartTime < getCurrentTime()) {
         toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], false);
-        console.log(aircraft.name + " Has landed");
+        //console.log(aircraft.name + " Has landed");
     } else {
         // if the next stop is more than animationTime millieseconds, calculate where the aircraft should be within animationTime
         // milliseconds
@@ -562,7 +562,7 @@ function setAircraftIcon(marker, icon, country, azimuth, color, zoomLevel) {
         imgUrl = "icons/aircrafts/"+ icon + ".svg";
         staticUrl = country==null?null:"icons/countries/"+ country + ".svg";
     } else {
-        imgUrl = "icons/groups/group_"+ color + ".svg";
+        imgUrl = "icons/arrow.svg";
         staticUrl = null;
     }
     imgUrl = new RotateIcon({url:imgUrl, staticUrl: staticUrl}).setRotation({deg: azimuth}).getUrl();
@@ -601,7 +601,7 @@ function checkDeparture(aircraft) {
         }, 10000);
         return;
     } else {
-        console.log(aircraft.name + " Has departed");
+        //console.log(aircraft.name + " Has departed");
         toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], true);
         clearTimeout(departureCheckers[aircraft.aircraftId]);
         animateToNextLocation(aircraft, aircraftMarkers[aircraft.aircraftId].currentAircraftAzimuth, true);        
@@ -695,7 +695,7 @@ function onAircraftSelected(aircraftId) {
 
 function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl) {
     deselectLocation();
-    showAircraftInfoPopup(aircraftName, aircraftType, iconName, imageName, time, infoUrl);
+    showAircraftInfoPopup(aircraft);
     //map.panTo(location);
     //marker.setIcon(markerIconClicked);
     selectedAircraft = aircraft;
