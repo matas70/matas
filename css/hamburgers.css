@@ -8,7 +8,6 @@
 .hamburger {
     padding: 15px 15px;
     display: inline-block;
-    cursor: pointer;
     transition-property: opacity, filter;
     transition-duration: 0.15s;
     transition-timing-function: linear;
@@ -16,11 +15,11 @@
     color: inherit;
     text-transform: none;
     background-color: transparent;
-    /*border: 0;*/
     border: none;
     outline:none;
     margin: 0;
-    overflow: visible; }
+    overflow: visible;
+}
 .hamburger:hover {
      }
 
