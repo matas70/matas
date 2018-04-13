@@ -772,6 +772,7 @@ function initMenu() {
     var height = $("#listView").height();
     $("#listView").height(height - 64 + "px");
 
+    // Responsible for opening the side menu
     var $menuHamburger = $("#menuHamburger");
     $menuHamburger.on("click", function () {
         if (canOpenMenu) {
@@ -786,6 +787,7 @@ function initMenu() {
         }
  });
 
+    // Responsible for managing the tabs
     $(".menuLink").on("click", function(elem) {
         $(".menuLink").removeClass("active");
         $(elem.target).addClass("active");
