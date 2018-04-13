@@ -702,7 +702,7 @@ function onAircraftSelected(aircraftId) {
 
 function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl) {
     deselectLocation();
-    showAircraftInfoPopup(aircraftName, aircraftType, iconName, imageName, time, infoUrl);
+    showAircraftInfoPopup(aircraft);
     //map.panTo(location);
     //marker.setIcon(markerIconClicked);
     selectedAircraft = aircraft;
@@ -785,8 +785,8 @@ function initMap() {
         });
 
         // make it larger than screen that when it scrolls it goes full screen
-        $("#map").height(window.screen.height - 64);
-        $(".map-dark").height(window.screen.height - 64);
+        // $("#map").height(window.screen.height - 64);
+        // $(".map-dark").height(window.screen.height - 64);
         makeHeaderSticky();
 
         // load all routes
