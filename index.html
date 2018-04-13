@@ -10,34 +10,34 @@
     <link rel="stylesheet" href="css/map.css">
     <link rel="icon" sizes="192x192" href="icons/logo192x192.png">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="js/slidingMarker/jquery.easing.1.3.js"></script>
-    <script src="js/date.js"></script>
-    <script src="js/functions.js"></script>
-    <script src="js/popups.js"></script>
-    <script src="js/RotateIcon.js"></script>
-    <script src="js/markerclusterer.js"></script>
-    <script src="js/map.js"></script>
-    <link rel="manifest" href="/manifest.json">
-    <link href='icons/favicon.ico' rel='Shortcut Icon' type='image/x-icon'/>
-    <link href='icons/favicon.ico' rel='Icon' type='image/x-icon'/>
-    <!--<link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="js/slidingMarker/jquery.easing.1.3.js"></script>
+  <script src="js/date.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/functions.js"></script>
+  <script src="js/popups.js"></script>
+  <script src="js/RotateIcon.js"></script>
+  <script src="js/markerclusterer.js"></script>
+  <script src="js/map.js"></script>
+  <link rel="manifest" href="/manifest.json">
+  <link href='icons/favicon.ico' rel='Shortcut Icon' type='image/x-icon' /><link href='icons/favicon.ico' rel='Icon' type='image/x-icon' />
+  <!--<link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">-->
 </head>
 <body>
 <!-- page header -->
 <header id="headerMobile">
-    <div id="headerBg">
-        <a href="javascript:void(0)" onclick="onAboutButtonClick()">
-            <img id="aboutButton" src="icons/aboutIcon.png"/>
-        </a>
-        <a href="javascript:void(0)" onclick="onHomeButtonClick()">
-            <img id="homeButton" src="icons/homeIcon.png"/>
-        </a>
-        <div id="headerIconContainer">
-            <img id="headerIcon" src="icons/headerLogo.png"/>
-        </div>
-        <div id="aboutMenuTitle" style="display:none">אודות</div>
+  <div id="headerBg">
+    <a href="javascript:void(0)" onclick="onAboutButtonClick()">
+      <img id="aboutButton" src="icons/aboutIcon.png"/>
+    </a>
+    <a href="javascript:void(0)" onclick="onHomeButtonClick()">
+      <img id="homeButton" src="icons/homeIcon.png"/>
+    </a>
+    <div id="headerIconContainer">
+      <img id="headerIcon" src="icons/headerLogo.png"/>
     </div>
+    <div id="aboutMenuTitle" style="display:none">אודות</div>
+  </div>
 </header>
 
 <!-- map overlay -->
@@ -140,16 +140,21 @@
 </div>
 
 <!-- about popup -->
-<div id="aboutPopup" style="display:none">
-    <div id="halfBlue"/>
-    <img id="aboutLogo" src="icons/bigLogo.png"></img>
-    <div id="aboutTitle">
-        חג עצמאות שמח!
-    </div>
-    <div id="aboutBody">
-        האתר פותח ע"י <b>יחידת אופק</b> בחיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות
-        לכבוד חגיגות 70 שנה למדינת ישראל.
-    </div>
+<div id="aboutPopup" class="infoPopup" style="display:none">
+  <div id="halfBlue"/>
+  <img id="aboutLogo" src="icons/bigLogo.png"></img>
+  <div id="aboutTitle">
+    מטס חיל האוויר
+  </div>
+  <div id="aboutBody">
+    האתר ייפתח לצפיה ביום ראשון הקרוב ויאפשר הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות
+    לכבוד חגיגות 70 שנה למדינת ישראל.
+    <br>
+    <br>
+    <img src="icons/iaf.png" width="96"/>
+    <br>
+    <b>יחידת אופק - חיל האוויר</b>
+  </div>
 </div>
 
 <!-- aircraft images cache -->
