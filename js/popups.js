@@ -46,15 +46,52 @@ function hideLocationPopup(callback) {
 	hidePopup("#locationPopup", callback);
 }
 
-function showAircraftInfoPopup(aircraftName, aircraftType, iconName, imageName, time, infoUrl) {		
-	$("#aircraftInfoName").text(aircraftName);
-	$("#aircraftInfoType").text(aircraftType);
-	$("#aircraftInfoStartTime").text(time.substr(0,5));
-	$("#aircraftInfoIcon").attr("src", "icons/aircrafts/"+iconName+".png");
-	$("#aircraftInfoBanner").attr("src", imageName);
+function showAircraftInfoPopup(aircraft) {
+	$("#aircraftInfoName").text(aircraft.name);
+	$("#aircraftInfoType").text(aircraft.type);
+	$("#aircraftInfoStartTime").text(aircraft.path[0].time.substr(0,5));
+	$("#aircraftInfoIcon").attr("src", "icons/aircrafts/"+aircraft.icon+".png");
+	$("#aircraftInfoContentDescription").text(aircraft.description);
+	$("#aircraftInfoContentClassification").text(aircraft.classification);
+	$("#aircraftInfoContentCountry").text(aircraft.manufactured);
+	$("#aircraftInfoContentDimensions").text(aircraft.dimensions);
+	$("#aircraftInfoContentPerformance").text(aircraft.performance);
+	$("#aircraftInfoContentWeight").text(aircraft.weight);
+	$("#aircraftInfoContentEngine").text(aircraft.engine);
+	$("#aircraftInfoBanner").attr("src", aircraft.image);
+
+	if (!aircraft.armament) {
+		$("#aircraftInfoContentArmamentContainer").css("display", "none");
+	} else {
+        $("#aircraftInfoContentArmamentContainer").css("display", "block");
+        $("#aircraftInfoContentArmament").text(aircraft.armament);
+	}
+
 	$("#aircraftInfoMore").on("click", function() {
-	  window.open(infoUrl,'aircraftMoreInfo');
+        // $("#aircraftInfoPopup").animate({height: $("#aircraftInfoPopup").get(0).scrollHeight}, 1000 );
+        // window.open(infoUrl,'aircraftMoreInfo');
+		var height = $(window).height();
+        $("#aircraftInfoMore").css("display", "none");
+        $("#aircraftInfoPopup").animate({"height": height + "px"}, 500);
+        // $("#aircraftInfoPopup").css("height");
+        // $("#aircraftInfoPopup").css("height", height + "px");
+        $("#shrinkAircraftInfoPopup").css("display", "block");
+        $("#expandedInfo").css("display", "block");
 	});
+
+    $("#shrinkAircraftInfoPopup").on("click", function() {
+        $("#aircraftInfoMore").css("display", "block");
+        $("#aircraftInfoMore").css("height", "32px");
+        $("#expandedInfo").css("display", "none");
+        $("#shrinkAircraftInfoPopup").css("display", "none");
+        // $("#aircraftInfoPopup").animate({"height": "auto"}, 500);
+        // $("#aircraftInfoPopup").animate({height: $("#aircraftInfoPopup").get(0).scrollHeight}, 1000 );
+        var $aircraftInfoPopup = $('#aircraftInfoPopup');
+        var curHeight = $aircraftInfoPopup.height();
+        $aircraftInfoPopup.css('height', 'auto');
+        var autoHeight = $aircraftInfoPopup.height();
+        $aircraftInfoPopup.height(curHeight).animate({height: autoHeight}, 500, function(){ $aircraftInfoPopup.height('auto');});
+    });
 	
 	var popupHeight = $("#locationPopup").height();	
 	$("#aircraftInfoPopup").css("bottom", -popupHeight);

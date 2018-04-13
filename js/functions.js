@@ -768,7 +768,7 @@ function initMap() {
     // $(".splash").fadeOut();
 
     // register service worker (needed for the app to be suggested as wepapp)
-    // registerServiceWorker();
+    //registerServiceWorker();
     // let splash run for a second before start loading the map
     setTimeout(function () {
         initPopups();
@@ -778,8 +778,6 @@ function initMap() {
         });
 
         // make it larger than screen that when it scrolls it goes full screen
-        $("#map").height(window.screen.height - 64);
-        $(".map-dark").height(window.screen.height - 64);
         makeHeaderSticky();
 
         // load all routes
@@ -797,8 +795,8 @@ function initMap() {
 
             // hide splash screen
             setTimeout(function () {
-                showCurrentLocation();
                 $(".splash").fadeOut();
+                showCurrentLocation();
             }, 3500);
 
             $(window).focus(function () {
