@@ -249,7 +249,8 @@ function updateLocationsMap(aircrafts) {
                 icon: aircraft.icon,
                 aircraftType: aircraft.type,
                 time: location.time,
-                aerobatic: aircraft.aerobatic
+                aerobatic: aircraft.aerobatic,
+                parachutist: aircraft.parachutist,
             };
             var location = locations[location.pointId];
             location.aircrafts.push(item);
@@ -663,9 +664,9 @@ function updateAircraftIcons() {
     }, this);
 }
 
-function selectLocation(point, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor, minimized=false) {
+function selectLocation(pointId, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor, minimized=false) {
     deselectAircraft();
-    showLocationPopup(point, color, titleColor, subtitleColor, minimized);
+    showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized);
     panTo(map, location);
     setMarkerIcon(marker, markerIconClicked);
     selectedLocation = location;
