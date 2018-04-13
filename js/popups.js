@@ -10,48 +10,73 @@ function initPopups() {
 }
 
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized=false) {
-	// build popup html
-	var html = "";
-	point.aircrafts.forEach(function(aircraft) {
-		html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist);
-	}, this);
-	$("#aircraftsList").html(html);
-	$("#popupTitle").text(point.pointName);
-	$("#popupHeader").css("background", color);
-	$("#popupTitle").css("color", titleColor);
-	$("#popupSubTitle").css("color", subtitleColor);	
-	
-	var popupHeight = $("#locationPopup").height();
-    var targetHeight = minimized?100:200;
-	var targetBottom = 0;
-	if (popupHeight > targetHeight) 
-		targetBottom = -(popupHeight - targetHeight);
-	$("#locationPopup").css("bottom", -popupHeight);
-	$("#locationPopup").show();
-	$("#locationPopup").animate({
-            bottom: targetBottom + "px"
-        }, "fast");
+    // build popup html
+    var html = "";
+    point.aircrafts.forEach(function (aircraft) {
+        html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist);
+    }, this);
+    $("#aircraftsList").html(html);
+    $("#popupTitle").text(point.pointName);
+    $("#popupHeader").css("background", color);
+    $("#popupTitle").css("color", titleColor);
+    $("#popupSubTitle").css("color", subtitleColor);
 
-    // var dragStartTopY = null;
-    //
-    // $("#popupHeader").mousedown(function(){
-    //     console.info("down");
-	 //    dragStartTopY = event.y;
-    //     event.preventDefault();
-    // });
-    // $("#popupHeader").mousemove(function(){
-    //     console.info("move");
-    //     if (dragStartTopY != null) {
-    //         var delta = event.y - dragStartTopY;
-    //         if (delta > 0) {
-    //             $("#locationPopup").css("bottom", targetBottom + delta + "px");
-    //         } else {
-    //             $("#locationPopup").css("bottom", targetBottom + "px");
-    //         }
-    //     }
-    //
-    //     event.preventDefault();
-    // });
+    var locationPopup = $("#locationPopup");
+
+    var popupHeight = locationPopup.height();
+    var targetHeight = minimized ? 100 : 200;
+    var targetBottom = 0;
+    if (popupHeight > targetHeight)
+        targetBottom = -(popupHeight - targetHeight);
+    locationPopup.css("bottom", -popupHeight);
+    locationPopup.show();
+    locationPopup.animate({
+        bottom: targetBottom + "px"
+    }, "fast");
+
+    // add touch events on the list to allow user expand or collapse it
+    var dragStartTopY = null;
+    var maxDrag = popupHeight - (window.innerHeight - 64);
+    var delta;
+    var popupHeader = $("#popupHeader");
+    var currentBottom = targetBottom;
+
+    popupHeader.on("tapstart", function (event) {
+        dragStartTopY = event.touches[0].clientY;
+        event.preventDefault();
+    });
+
+    popupHeader.on("tapmove", function (event) {
+        if (dragStartTopY != null) {
+            delta = dragStartTopY - event.touches[0].clientY;
+			if (currentBottom + delta < 0) {
+				if (currentBottom + delta > -maxDrag)
+					locationPopup.css("bottom", -maxDrag + "px");
+				else
+					locationPopup.css("bottom", currentBottom + delta + "px");
+			}
+			else
+				locationPopup.css("bottom", "0px");
+            event.preventDefault();
+        }
+    });
+    popupHeader.on("tapend", function (event) {
+        if (dragStartTopY != null) {
+            if (delta > 32) {
+                // animate expand
+                currentBottom = Math.min(-maxDrag, 0);
+                locationPopup.animate({bottom: currentBottom + "px"}, "fast");
+            } else if (delta < 32) {
+                locationPopup.animate({bottom: targetBottom + "px"}, "fast");
+                currentBottom = targetBottom;
+			} else {
+                locationPopup.animate({bottom: currentBottom + "px"}, "fast");
+			}
+
+            event.preventDefault();
+            dragStartTopY = null;
+        }
+    });
 }
 
 function hideLocationPopup(callback) { 
