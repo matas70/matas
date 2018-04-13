@@ -771,48 +771,51 @@ function onHomeButtonClick() {
 var defer = $.Deferred();
 
 function initMap() {
-    redirectToHttps();
-    // register service worker (needed for the app to be suggested as wepapp)
-    registerServiceWorker();
-    // let splash run for a second before start loading the map
-    setTimeout(function () {
-        initPopups();
-        map = createMapObject(function () {
-            deselectLocation();
-            deselectAircraft();
-        });
+    onAboutButtonClick();
+    $(".splash").fadeOut();
+    // redirectToHttps();
+    // // register service worker (needed for the app to be suggested as wepapp)
+    // registerServiceWorker();
+    // // let splash run for a second before start loading the map
+    // setTimeout(function () {
+    //     initPopups();
+    //     map = createMapObject(function () {
+    //         deselectLocation();
+    //         deselectAircraft();
+    //     });
+    //
+    //     // make it larger than screen that when it scrolls it goes full screen
+    //     $("#map").height(window.screen.height - 64);
+    //     $(".map-dark").height(window.screen.height - 64);
+    //     makeHeaderSticky();
+    //
+    //     // load all routes
+    //     loadRoutes(function (routes) {
+    //         this.routes = routes;
+    //         drawRoutesOnMap(routes);
+    //
+    //         // load aircrafts
+    //         loadAircrafts(function (pAircrafts) {
+    //             addAircraftsToMap();
+    //             aircrafts = pAircrafts;
+    //             startAircraftsAnimation(false);
+    //             //clusterAircrafts(aircraftMarkers);
+    //         });
+    //
+    //         // hide splash screen
+    //         setTimeout(function () {
+    //
 
-        // make it larger than screen that when it scrolls it goes full screen
-        $("#map").height(window.screen.height - 64);
-        $(".map-dark").height(window.screen.height - 64);
-        makeHeaderSticky();
-
-        // load all routes
-        loadRoutes(function (routes) {
-            this.routes = routes;
-            drawRoutesOnMap(routes);
-
-            // load aircrafts
-            loadAircrafts(function (pAircrafts) {
-                addAircraftsToMap();
-                aircrafts = pAircrafts;
-                startAircraftsAnimation(false);
-                //clusterAircrafts(aircraftMarkers);
-            });
-
-            // hide splash screen
-            setTimeout(function () {
-                $(".splash").fadeOut();
-                showCurrentLocation();
-                document.onclick = function (argument) {
-                    window.scrollTo(0, 1);
-                }
-            }, 3500);
-
-            $(window).focus(function () {
-                startAircraftsAnimation(true);
-            });
-        });
-        defer.resolve(map);
-    }, 1000);
+    //             showCurrentLocation();
+    //             document.onclick = function (argument) {
+    //                 window.scrollTo(0, 1);
+    //             }
+    //         }, 3500);
+    //
+    //         $(window).focus(function () {
+    //             startAircraftsAnimation(true);
+    //         });
+    //     });
+    //     defer.resolve(map);
+    // }, 1000);
 }
