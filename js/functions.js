@@ -296,7 +296,7 @@ function loadAircrafts(callback) {
         plannedStartTime = convertTime(routes.plannedStartTime);
         actualStartTime = convertTime(routes.actualStartTime);
         if ($.urlParam("simulation") != null) {
-            actualStartTime = (new Date()).getTime();  - $.urlParam("simulation")*60*1000;
+            actualStartTime = (new Date()).getTime() - $.urlParam("simulation")*60*1000;
         }
 
         updateLocationsMap(aircrafts);
@@ -377,13 +377,6 @@ function registerServiceWorker() {
                 console.log('ServiceWorker registration failed: ', err);
             });
         });
-    }
-}
-
-function redirectToHttps() {
-    var loc = window.location.href + '';
-    if (loc.startsWith('http://') && loc.endsWith(".azurewebsites.net")) {
-        window.location.href = loc.replace('http://', 'https://');
     }
 }
 
@@ -499,7 +492,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     // Should the current time be larger than the next position's time, that means the aircraft landed
     if (convertTime(aircraft.path[aircraft.path.length - 1].time) - plannedStartTime + actualStartTime < getCurrentTime()) {
         toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], false);
-        console.log(aircraft.name + " Has landed");
+        //console.log(aircraft.name + " Has landed");
     } else {
         // if the next stop is more than animationTime millieseconds, calculate where the aircraft should be within animationTime
         // milliseconds
@@ -565,11 +558,11 @@ function setAircraftIcon(marker, icon, country, azimuth, color, zoomLevel) {
     var imgUrl;
     var staticUrl;
 
-    if (zoomLevel >= 10) {
+    if (zoomLevel >= 9) {
         imgUrl = "icons/aircrafts/"+ icon + ".svg";
         staticUrl = country==null?null:"icons/countries/"+ country + ".svg";
     } else {
-        imgUrl = "icons/groups/group_"+ color + ".svg";
+        imgUrl = "icons/arrow.svg";
         staticUrl = null;
     }
     imgUrl = new RotateIcon({url:imgUrl, staticUrl: staticUrl}).setRotation({deg: azimuth}).getUrl();
@@ -608,7 +601,7 @@ function checkDeparture(aircraft) {
         }, 10000);
         return;
     } else {
-        console.log(aircraft.name + " Has departed");
+        //console.log(aircraft.name + " Has departed");
         toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], true);
         clearTimeout(departureCheckers[aircraft.aircraftId]);
         animateToNextLocation(aircraft, aircraftMarkers[aircraft.aircraftId].currentAircraftAzimuth, true);        
@@ -653,9 +646,9 @@ function addAircraftsToMap() {
     // set zoom callback event
     setZoomCallback(function() {
         var zoomLevel = getZoomLevel();
-        if (zoomLevel >= 10 && lastZoomLevel < 10) {
+        if (zoomLevel >= 9 && lastZoomLevel < 9) {
             updateAircraftIcons();
-        } else if (zoomLevel < 10 && lastZoomLevel >= 10) {
+        } else if (zoomLevel < 9 && lastZoomLevel >= 9) {
             updateAircraftIcons();
         }
         lastZoomLevel = zoomLevel;
@@ -780,9 +773,9 @@ function initMenu() {
 function initMap() {
     // onAboutButtonClick();
     // $(".splash").fadeOut();
-    redirectToHttps();
+
     // register service worker (needed for the app to be suggested as wepapp)
-    registerServiceWorker();
+    //registerServiceWorker();
     // let splash run for a second before start loading the map
     setTimeout(function () {
         initPopups();
@@ -793,8 +786,6 @@ function initMap() {
         });
 
         // make it larger than screen that when it scrolls it goes full screen
-        // $("#map").height(window.screen.height - 64);
-        // $(".map-dark").height(window.screen.height - 64);
         makeHeaderSticky();
 
         // load all routes
@@ -814,9 +805,6 @@ function initMap() {
             setTimeout(function () {
                 $(".splash").fadeOut();
                 showCurrentLocation();
-                document.onclick = function (argument) {
-                    window.scrollTo(0, 1);
-                }
             }, 3500);
 
             $(window).focus(function () {
