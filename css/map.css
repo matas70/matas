@@ -386,3 +386,45 @@ HEADER {
     z-index: 1;
     box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.08);
 }
+
+#basePopup {
+    height: 96pt;
+}
+
+#baseInfo {
+    background: white;
+    height: 78pt;
+}
+
+.baseData {
+    position: absolute;
+    display: inline;
+    padding-top: 21pt;
+    padding-bottom: 37pt;
+    padding-right: 14pt;
+    font-family: 'Heebo';
+    font-size: 8pt;
+}
+b.baseData {
+    padding: 0;
+    font-size: 12pt;
+}
+
+br.baseData {
+    line-height: 18pt;
+}
+.baseEventIcon {
+    padding-top: 22pt;
+    padding-bottom: 32pt;
+    padding-right: 7pt;
+    width: 54pt;
+    height: 42pt;
+}
+
+.baseExitIcon {
+    width: 30pt;
+    height: 30pt;
+    position :absolute;
+    left: 10pt;
+    padding-top: 61pt;
+}
