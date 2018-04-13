@@ -47,14 +47,14 @@
 <div class="splash" style="background-image: url('animation/Splash 70.gif?v=1');background-size: contain;"></div>
 
 <!-- the map itself -->
-<div id="map"></div>
-
+<div id="map"></div><div class="infoPopup">
+<button class="infoPopup" onclick="basetest()">test</button></div>
 <div id="basePopup" class="infoPopup">
    <div id="headerBase">
     <div id="baseInfo">
         <img src="images/aeroplan.png" class="baseEventIcon">
         <div class="baseData"><b class="baseData">מופע אווירובטי</b><br class="baseData">יחל בבסיס תל נוף בעוד 5 דק'</div>
-    <img src="images/exitBase.png" class="baseExitIcon">
+    <img src="images/exitBase.png" class="baseExitIcon" onclick="hideBasePopup()">
     </div>
    </div>
 </div>

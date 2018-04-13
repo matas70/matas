@@ -263,7 +263,7 @@ div.infoPopup {
     position: fixed;
     width: 100%;
     z-index: 100000;
-    bottom: 0px;
+    bottom: 65px;
     /*transition: height 2s ease-in;*/
 }
 
@@ -389,6 +389,7 @@ HEADER {
 
 #basePopup {
     height: 96pt;
+    top: 64px;
 }
 
 #baseInfo {
@@ -403,15 +404,15 @@ HEADER {
     padding-bottom: 37pt;
     padding-right: 14pt;
     font-family: 'Heebo';
-    font-size: 8pt;
+    font-size: 11pt;
 }
 b.baseData {
     padding: 0;
-    font-size: 12pt;
+    font-size: 15pt;
 }
 
 br.baseData {
-    line-height: 18pt;
+    line-height: 20pt;
 }
 .baseEventIcon {
     padding-top: 22pt;
@@ -426,5 +427,6 @@ br.baseData {
     height: 30pt;
     position :absolute;
     left: 10pt;
-    padding-top: 61pt;
+    top: 61pt;
+    cursor: pointer;
 }

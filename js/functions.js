@@ -809,12 +809,24 @@ function initMap() {
                 document.onclick = function (argument) {
                     window.scrollTo(0, 1);
                 }
-            }, 3500);
+            }, 0500);
 
             $(window).focus(function () {
                 startAircraftsAnimation(true);
             });
         });
         defer.resolve(map);
-    }, 1000);
+        setTimeout(function () {
+            $("#basePopup").show();
+        },5000)
+    }, 0000);
+}
+function basetest() {
+
+    if($('#basePopup').is(':visible')) {
+        hideBasePopup();
+    }
+    else{
+        showBasePopup("Aerobatics",5,"תל נוף");
+    }
 }

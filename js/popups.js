@@ -1,6 +1,7 @@
 function initPopups() {	
 	$("#locationPopup").hide();  	
 	$("#aircraftInfoPopup").hide();
+	$("#basePopup").hide();
   
 	$(window).resize(function() {
     	$('#content').height($(window).height() - 46);
@@ -126,6 +127,22 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic) {
 	return "<div onclick='onAircraftSelected("+aircraftId+");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon + 
 		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name + 
 		   "</b> " + aircraftType + "</div>"+ aerobaticIcon +"<div class=\"time\">"+ time.substring(0,5) +"</div></div>";
+}
+
+function showBasePopup(event,minute,baseName) {
+    $("#basePopup").css("top", -64);
+    $("#basePopup").show();
+    $("#basePopup").animate({
+        top: 64 + "px"
+    }, 600);
+}
+
+function hideBasePopup() {
+    $("#basePopup").animate({
+        top: -64 + "px"
+    }, "fast", "swing", function() {
+        $("#basePopup").hide();
+    });
 }
 
 $(document).ready(function() {
