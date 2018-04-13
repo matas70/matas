@@ -558,7 +558,7 @@ function setAircraftIcon(marker, icon, country, azimuth, color, zoomLevel) {
     var imgUrl;
     var staticUrl;
 
-    if (zoomLevel >= 10) {
+    if (zoomLevel >= 9) {
         imgUrl = "icons/aircrafts/"+ icon + ".svg";
         staticUrl = country==null?null:"icons/countries/"+ country + ".svg";
     } else {
@@ -646,9 +646,9 @@ function addAircraftsToMap() {
     // set zoom callback event
     setZoomCallback(function() {
         var zoomLevel = getZoomLevel();
-        if (zoomLevel >= 10 && lastZoomLevel < 10) {
+        if (zoomLevel >= 9 && lastZoomLevel < 9) {
             updateAircraftIcons();
-        } else if (zoomLevel < 10 && lastZoomLevel >= 10) {
+        } else if (zoomLevel < 9 && lastZoomLevel >= 9) {
             updateAircraftIcons();
         }
         lastZoomLevel = zoomLevel;
