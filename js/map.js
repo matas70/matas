@@ -295,6 +295,12 @@ function drawRoutesOnMap(routes) {
 
 }
 
+function loadMapApi() {
+    $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyCUHnpGpGO0nDr7Hy3nsnk85eIM75jGBd4&callback=initMap&language=he&region=IL", function(){});
+    $.getScript("js/slidingMarker/markerAnimate.js");
+    $.getScript("js/slidingMarker/SlidingMarker.min.js");
+}
+
 function createMapObject(clickCallback) {
     map = new google.maps.Map(document.getElementById('map'),
         {

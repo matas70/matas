@@ -755,10 +755,53 @@ function onHomeButtonClick() {
     deselectLocation();
 }
 
+var mapLoaded = false;
+
+// $("body").onload = onLoad();
+
+function showComponents() {
+    $(".splash").css('visibility', 'visible');
+    $("#headerBg").show();
+//     $(".infoPopup").show();
+}
+
+function loadApp() {
+    showComponents();
+    loadMapApi();
+}
+
+function onLoad() {
+    // $(".splash").hide();
+    $.getJSON("data/aircrafts.json", function (routes) {
+        startDate = routes.startDate;
+        plannedStartTime = convertTime(routes.plannedStartTime);
+    });
+
+    if (getCurrentTime() < plannedStartTime) {
+    // if (true) {
+//         $("#entrancePopup").fadeIn();
+        countdown();
+    } else if (!mapLoaded) {
+        loadApp();
+    }
+}
+
+function countdown() {
+    setTimeout(function() {
+        if (getCurrentTime() < plannedStartTime) {
+
+        }
+    }, 1000)
+
+}
 
 var defer = $.Deferred();
 
 function initMap() {
+    // setTimeout(function() {
+    //     $(".splash").show();
+    // }, 100);
+
     redirectToHttps();
     // register service worker (needed for the app to be suggested as wepapp)
     registerServiceWorker();
@@ -769,7 +812,7 @@ function initMap() {
             deselectLocation();
             deselectAircraft();
         });
-
+        mapLoaded = true;
         // // make it larger than screen that when it scrolls it goes full screen
         // $("#map").height(window.screen.height - 64);
         // $(".map-dark").height(window.screen.height - 64);

@@ -36,9 +36,9 @@
     <link rel="manifest" href="/manifest.json">
     <link href='icons/favicon.ico' rel='Shortcut Icon' type='image/x-icon' /><link href='icons/favicon.ico' rel='Icon' type='image/x-icon' />
   </head>
-  <body>
+  <body onload="onLoad()">
     <header id="headerMobile" class="clearfix">
-        <div id="headerBg">
+        <div id="headerBg" style="display: none;">
             <a href="javascript:void(0)" onclick="onAboutButtonClick()">
                 <img id="aboutButton" src="icons/aboutIcon.png"/>
             </a>
@@ -56,8 +56,8 @@
     <!-- map overlay -->
     <div class="map-dark"></div>
 
-    <!-- startup splash screen -->
-    <div class="splash" style="background-image: url('animation/Splash 70.gif?v=1');background-size: contain;"></div>
+<!-- startup splash screen -->
+<div class="splash" style="background-image: url('animation/Splash 70.gif?v=1');background-size: contain; visibility: hidden;"></div>
 
     <!-- The map itself -->
     <div id="map"></div>
@@ -106,6 +106,27 @@
         </div>
     </div>
 
+    <!-- entrance popup -->
+    <div id="entrancePopup" class="entrancePopup" style="display:none">
+        <div id="backgroundImage">
+
+        </div>
+        <img id="entranceLogo" src="icons/entranceLogo.png"></img>
+        יתחיל בעוד
+        <div id="countdownMeter">
+            <!-- TODO: ADD-->
+        </div>
+        <div id="entranceBody">
+            <b>מטס עצמאות 70 יתקיים ב 19.04.18 בשעה 09:00!</b>
+            ביום המטס ניתן יהיה לצפות במפה בזמן אמת. כעת תוכלו להתעדכן בלוח זמני המטס באזור תצוגת הרשימה
+        </div>
+        <div id="scheduleLink">
+            <!-- link to actual page-->
+            ללוח זמני המטס
+        </div>
+    </div>
+
+
     <!-- aircraft images cache -->
     <div class="imageCache">
         <img id="raam" src="icons/aircrafts/raam.svg" class="imageCache"></img>
@@ -142,7 +163,6 @@
     </div>
 
     <script src="js/map-bing.js"></script>
-    <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=initMap&setLang=he' async defer></script>
     <script type="text/javascript" src="js/AnimationModule.js"></script>
 
   </body>

@@ -86,6 +86,7 @@ div.map-dark {
 }
 
 div.splash {
+    visibility: hidden;
     pointer-events: none;
     position: absolute;
     width: 100%;

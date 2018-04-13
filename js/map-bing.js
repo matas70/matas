@@ -355,6 +355,10 @@ function panTo(map, location) {
     map.setView({center: toBingLocation(location)});
 }
 
+function loadMapApi() {
+    $.getScript("http://www.bing.com/api/maps/mapcontrol?callback=initMap&setLang=he");
+}
+
 function createMapObject(clickCallback) {
     map = new Microsoft.Maps.Map(document.getElementById('map'), {
         credentials: 'AvJRbOsXbeS3WPJHoHp48LsplCqmZCPzojPxHjHoEO0YChSki9auduN_TmLPJQdW',
