@@ -13,7 +13,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
 	// build popup html
 	var html = "";
 	point.aircrafts.forEach(function(aircraft) {
-		html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic);
+		html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist);
 	}, this);
 	$("#aircraftsList").html(html);
 	$("#popupTitle").text(point.pointName);
@@ -31,15 +31,27 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
 	$("#locationPopup").animate({
             bottom: targetBottom + "px"
         }, "fast");
-		
-	// $("#popupHeader").bind('touchmove', function(event) {
-	//     var touch = event.targetTouches[0];
-	    
-	//     // Place element where the finger is
-	//     $("#locationPopup").style.left = touch.pageX-25 + 'px';
-	//     $("#locationPopup").style.top = touch.pageY-25 + 'px';
-	//     event.preventDefault();
-	//   }, false);
+
+    // var dragStartTopY = null;
+    //
+    // $("#popupHeader").mousedown(function(){
+    //     console.info("down");
+	 //    dragStartTopY = event.y;
+    //     event.preventDefault();
+    // });
+    // $("#popupHeader").mousemove(function(){
+    //     console.info("move");
+    //     if (dragStartTopY != null) {
+    //         var delta = event.y - dragStartTopY;
+    //         if (delta > 0) {
+    //             $("#locationPopup").css("bottom", targetBottom + delta + "px");
+    //         } else {
+    //             $("#locationPopup").css("bottom", targetBottom + "px");
+    //         }
+    //     }
+    //
+    //     event.preventDefault();
+    // });
 }
 
 function hideLocationPopup(callback) { 
@@ -117,11 +129,14 @@ function hidePopup(popup, callback) {
 	});	
 }
 
-function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic) {
+function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist) {
 	var aerobaticIcon = "<div/>";
 	if (aerobatic) {
 		aerobaticIcon = "<img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img>";
 		aircraftType = "מופע אווירובטי";
+	} else if (parachutist) {
+        aerobaticIcon = "<img src=\"icons/aircrafts/parachutist.png\" class=\"aerobaticIcon\"></img>";
+        aircraftType = "הצנחת צנחנים";
 	}
 	return "<div onclick='onAircraftSelected("+aircraftId+");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon + 
 		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name + 
