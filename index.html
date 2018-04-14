@@ -33,22 +33,23 @@
 <header id="headerMobile">
     <div id="headerBg">
 
-        <!--<a href="javascript:void(0)" onclick="onAboutButtonClick()">-->
-        <!--<img id="aboutButton" src="icons/aboutIcon.png"/>-->
-        <!--</a>-->
-        <div>
-            <img id="homeButton" src="icons/homeIcon.png" onclick="onHomeButtonClick()"/>
+    <!--<a href="javascript:void(0)" onclick="onAboutButtonClick()">-->
+      <!--<img id="aboutButton" src="icons/aboutIcon.png"/>-->
+    <!--</a>-->
+      <div>
+      <img id="homeButton" src="icons/homeIcon.png" onclick="onHomeButtonClick()"/>
+      </div>
+    <div id="headerIconContainer">
+      <a id="headerIcon" href="javascript:void(0)" onclick="onAboutButtonClick()">
+          <img src="icons/headerLogo.png"/>
+    </a>
+    <div id="aboutMenuTitle" style="display:none">אודות</div></div>
+      <div id="menuHamburger" class="hamburger hamburger--spin small" type="button">
+        <div class="hamburger-box">
+             <div class="hamburger-inner"></div>
         </div>
-        <div id="headerIconContainer">
-            <img id="headerIcon" src="icons/headerLogo.png"/>
-        </div>
-        <div id="aboutMenuTitle" style="display:none">אודות</div>
-        <div id="menuHamburger" class="hamburger hamburger--spin small" type="button">
-            <div class="hamburger-box">
-                <div class="hamburger-inner"></div>
-            </div>
-        </div>
-    </div>
+      </div>
+  </div>
 </header>
 
 <!-- list view -->
@@ -190,21 +191,43 @@
 </div>
 
 <!-- about popup -->
-<div id="aboutPopup" class="infoPopup" style="display:none">
-    <div id="halfBlue"></div>
-    <img id="aboutLogo" src="icons/bigLogo.png"></img>
-    <div id="aboutTitle">
-        מטס חיל האוויר
+<div id="aboutPopup" class="aboutPopup infoPopup" style="display:none">
+  <div class="halfBlue">
+    <img id="aboutLogo" class="aboutLogo" src="icons/bigLogo.png"/>
+    <div id="aboutTitle" class="aboutTitle">
+      חג עצמאות שמח!
     </div>
-    <div id="aboutBody">
-        האתר ייפתח לצפיה ביום ראשון הקרוב ויאפשר הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות
-        לכבוד חגיגות 70 שנה למדינת ישראל.
-        <br>
-        <br>
-        <img src="icons/iaf.png" width="96"/>
-        <br>
-        <b>יחידת אופק - חיל האוויר</b>
+    <div id="aboutBody" class="aboutBody">
+      האתר פותח ע"י <b>יחידת אופק</b> בחיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות
+      לכבוד חגיגות 70 שנה למדינת ישראל.
     </div>
+  </div>
+    <div id="aboutBottom" class="aboutBottom">
+        <img id="iafLogo" src="icons/iaf-small.png" style="padding-bottom: 14px"/>
+        <div class="bottomText">
+            לידיעתכם, לוח הזמנים הינו משוער בלבד
+        </div>
+    </div>
+</div>
+
+<!-- incompatible browser popup -->
+<div id="incompatibleBrowserPopup" class="aboutPopup infoPopup" style="display:none">
+  <div class="halfBlue">
+    <img class="aboutLogo" src="icons/bigLogo.png"/>
+    <img src="screenshots/screenshot1.png" class="screenshot"/>
+    <div class="aboutTitle">
+      אנחנו ממש מתנצלים...!
+    </div>
+    <div class="aboutBody">
+      הצפיה במפת מטס חיל האוויר נתמכת במכשירים סלולריים בלבד.<br>
+      היכנסו מהמכשיר הסלולרי שלכם ותוכלו לצפות בזמן אמת במטס חיל האוויר על גבי מפה ולקבל מידע מפורט על המופעים, הזמנים והמטוסים<br>
+      <br>
+      <b>חג עצמאות שמח!</b>
+      <br>
+      <img src="icons/iaf.png" width="96"><br>
+      <b>יחידת אופק - חיל האוויר</b>
+    </div>
+  </div>
 </div>
 
     <!-- entrance popup -->
