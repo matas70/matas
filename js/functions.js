@@ -315,7 +315,7 @@ function loadAircrafts(callback) {
             plannedStartTime = convertTime(routes.plannedStartTime);
             actualStartTime = convertTime(routes.actualStartTime);
             if ($.urlParam("simulation") != null) {
-                actualStartTime = (new Date()).getTime();  - $.urlParam("simulation")*60*1000;
+                actualStartTime = (new Date()).getTime() - $.urlParam("simulation")*60*1000;
             }
 
             updateLocationsMap(aircrafts);
