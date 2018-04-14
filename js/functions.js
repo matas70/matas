@@ -809,17 +809,14 @@ function initMap() {
                 document.onclick = function (argument) {
                     window.scrollTo(0, 1);
                 }
-            }, 0500);
+            }, 3500);
 
             $(window).focus(function () {
                 startAircraftsAnimation(true);
             });
         });
         defer.resolve(map);
-        setTimeout(function () {
-            $("#basePopup").show();
-        },5000)
-    }, 0000);
+    }, 1000);
 }
 function basetest() {
 
@@ -827,6 +824,6 @@ function basetest() {
         hideBasePopup();
     }
     else{
-        showBasePopup("Aerobatics",5,"תל נוף");
+        showBasePopup(false,10,"פלמחים");
     }
 }
