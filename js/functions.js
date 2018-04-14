@@ -321,8 +321,6 @@ function loadAircrafts(callback) {
         startDate = routes.startDate;
         plannedStartTime = convertTime(routes.plannedStartTime);
         loadActualStartTime(routes);
-
-        updateLocationsMap(aircrafts);
         callback(aircrafts);
     });
 }
@@ -759,11 +757,11 @@ function selectPoint(pointId, minimized=false) {
     if (selectedLocation != null) {
         deselectLocation(function () {
             // then show a new popup
-            selectLocation(selectedPoint, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+            selectLocation(selectedPoint.pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
         });
     } else {
         // then show a new popup
-        selectLocation(selectedPoint, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+        selectLocation(selectedPoint.pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
     }
 }
 
@@ -832,10 +830,15 @@ function countdown() {
 var countdownInterval;
 
 function onLoad() {
+    initMenu();
+
     if (compatibleDevice() && !checkIframe()) {
-        $.getJSON("data/aircrafts.json", function (routes) {
-            startDate = routes.startDate;
-            loadActualStartTime(routes);
+        loadAircrafts(function (pAircrafts) {
+            aircrafts = pAircrafts;
+            loadCategories(function() {
+                fillPopups()
+            });
+
             if (getCurrentTime() < actualStartTime) {
                 countdownInterval = setInterval(function () {
                     countdown();
@@ -868,6 +871,7 @@ function loadMapApi() {
 function showComponents() {
     $(".map-dark").show();
     $(".splash").css('visibility', 'visible');
+    $("#homeButton").show();
 }
 function compatibleDevice() {
     return ((/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())));
@@ -881,8 +885,31 @@ var defer = $.Deferred();
 
 var isMenuOpen = false;
 var canOpenMenu = true;
+var $menuHamburger;
+
+function openListView() {
+    if (aboutVisible) {
+        $("#aboutPopup").fadeOut();
+        $("#aboutMenuTitle").fadeOut("fast", function () {
+            $("#headerIcon").fadeIn();
+        });
+        $("#aboutButton").attr("src", "icons/aboutIcon.png");
+        aboutVisible = false;
+        $menuHamburger.toggleClass("is-active");
+    } else if (canOpenMenu) {
+        canOpenMenu = false;
+        if (isMenuOpen) {
+            $menuHamburger.toggleClass("is-active");
+            closeMenu();
+        } else {
+            $menuHamburger.toggleClass("is-active");
+            openMenu();
+        }
+    }
+}
 
 function initMenu() {
+    $menuHamburger = $("#menuHamburger");
     // ugly code to place about logo correctly related to the half blue
     $("#aboutLogo").css("paddingTop", $(".halfBlue").height() - $(".aboutLogo").height() + 12 + "px");
 
@@ -892,28 +919,7 @@ function initMenu() {
     $(".tabs").height(height - 64 - 52 + "px");
 
     // Responsible for opening the side menu
-    var $menuHamburger = $("#menuHamburger");
-    $menuHamburger.on("click", function () {
-        if (aboutVisible) {
-            $("#aboutPopup").fadeOut();
-            $("#aboutMenuTitle").fadeOut("fast", function () {
-                $("#headerIcon").fadeIn();
-            });
-            $("#aboutButton").attr("src", "icons/aboutIcon.png");
-            aboutVisible = false;
-            $menuHamburger.toggleClass("is-active");
-        } else
-        if (canOpenMenu) {
-            canOpenMenu = false;
-            if (isMenuOpen) {
-                $menuHamburger.toggleClass("is-active");
-                closeMenu();
-            } else {
-                $menuHamburger.toggleClass("is-active");
-                openMenu();
-            }
-        }
- });
+    $menuHamburger.on("click", openListView);
 
     // Responsible for managing the tabs
     $(".menuLink").on("click", function(elem) {
@@ -922,6 +928,8 @@ function initMenu() {
         var currentAttrValue = $(this).attr('href');
         $('.tabs ' + currentAttrValue).show().siblings().hide();
     });
+
+    $("#scheduleLink").on("click", openListView);
 }
 
 function openMenu() {
@@ -982,9 +990,7 @@ function initMap() {
 
     // make it larger than screen that when it scrolls it goes full screen
     makeHeaderSticky();
-
     initPopups();
-    initMenu();
 
     if (compatibleDevice() && !checkIframe()) {
         // let splash run for a second before start loading the map
@@ -1000,16 +1006,10 @@ function initMap() {
                 this.routes = routes;
                 drawRoutesOnMap(routes);
 
-                // load aircrafts
-                loadAircrafts(function (pAircrafts) {
-                    addAircraftsToMap();
-                    aircrafts = pAircrafts;
-                    startAircraftsAnimation(false);
-                    loadCategories(function() {
-                        fillPopups()
-                    });
-                    //clusterAircrafts(aircraftMarkers);
-                });
+                updateLocationsMap(aircrafts);
+                addAircraftsToMap();
+                startAircraftsAnimation(false);
+                //clusterAircrafts(aircraftMarkers);
 
                 // hide splash screen
                 setTimeout(function () {
