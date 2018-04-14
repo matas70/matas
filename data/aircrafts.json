@@ -5,12 +5,7 @@
     "aircrafts" : [
       {
           "aircraftId": 1,
-          "name": "יסעור",
-          "category": "מסוקים",
-          "type" : "מסוק סער",
-          "icon" : "yasur",
-          "color" : "yellow",
-          "image" : "images/yasur.jpg",
+          "aircraftTypeId" : 1,
           "path": [
             { "pointId": 68, "time": "11:31:09" },
             { "pointId": 37, "time": "11:31:57" },
@@ -69,12 +64,7 @@
         },
       {
         "aircraftId": 2,
-        "name": "ינשוף",
-        "type" : "מסוק סער",
-        "category": "מסוקים",
-        "icon" : "yanshuf",
-        "color" : "yellow",
-        "image" : "images/yanshuf.jpg",
+        "aircraftTypeId": 2,
         "path": [
           { "pointId": 68, "time": "11:32:09" },
           { "pointId": 37, "time": "11:32:57" },
@@ -133,12 +123,7 @@
       },
       {
         "aircraftId": 3,
-        "name": "פתן",
-        "type": "מסוק קרב",
-        "category":"מסוקים",
-        "icon": "peten",
-        "color": "yellow",
-        "image": "images/peten.jpg",
+        "aircraftTypeId": 3,
         "path": [
           { "pointId": 68, "time": "11:33:09" },
           { "pointId": 37, "time": "11:33:57" },
@@ -197,12 +182,7 @@
       },
       {
         "aircraftId": 4,
-        "name": "H125",
-        "category": "מסוקים",
-        "type": "מסוק משטרתי",
-        "icon": "h125",
-        "color": "cyan",
-        "image": "images/h125.jpg",
+        "aircraftTypeId": 4,
         "path": [
           { "pointId": 68, "time": "11:34:09" },
           { "pointId": 37, "time": "11:34:57" },
@@ -261,12 +241,7 @@
       },
       {
         "aircraftId": 5,
-        "name": "איירטרקטור",
-        "category": "סיור ובקרה",
-        "type": "כבאות אוויר",
-        "icon": "airTractor",
-        "color": "yellow",
-        "image": "images/airTractor.jpg",
+        "aircraftTypeId": 5,
         "path": [
           { "pointId": 68, "time": "11:41:12" },
           { "pointId": 37, "time": "11:41:52" },
@@ -325,12 +300,7 @@
       },
 		{
           "aircraftId": 6,
-          "name": "צופית",
-          "category": "סיור ובקרה",
-          "type" : "סיור",
-          "icon" : "tzufit",
-          "color" : "cyan",
-          "image" : "images/tzufit.jpg",
+          "aircraftTypeId": 6,
           "path": [
 				{ "pointId": 68, "time": "11:58:55" },
 				{ "pointId": 37, "time": "11:59:30" },
@@ -390,12 +360,7 @@
 		},
 		{
           "aircraftId": 7,
-          "name": "קוקיה",
-          "type" : "סיור",
-          "category": "סיור ובקרה",
-          "icon" : "tzufit",
-          "color" : "cyan",
-          "image" : "images/kukiya.jpg",
+          "aircraftTypeId": 7,
           "path": [
 				{ "pointId": 68, "time": "11:59:55" },
 				{ "pointId": 37, "time": "12:00:30" },
@@ -454,13 +419,8 @@
 		  ]
 		},
 		{
-			"aircraftId": 8,
-          "name": "סופה",
-          "type" : "קרב",
-          "category": "מטוסי קרב",
-          "icon" : "sufa",
-          "color" : "yellow",
-          "image" : "images/sufa.jpg",
+          "aircraftId": 8,
+          "aircraftTypeId": 8,
           "path": [
 				{ "pointId": 68, "time": "12:13:12" },
 				{ "pointId": 37, "time": "12:13:30" },
@@ -531,12 +491,7 @@
 		},
 		{
 		  "aircraftId": 9,
-          "name": "סופה",
-          "type" : "קרב",
-          "category": "מטוסי קרב",
-          "icon" : "sufa",
-          "color" : "yellow",
-          "image" : "images/sufa.jpg",
+          "aircraftTypeId": 8,
           "path": [
 				{ "pointId": 68, "time": "12:14:12" },
 				{ "pointId": 37, "time": "12:14:30" },
@@ -607,12 +562,7 @@
 		},
 		{
 		  "aircraftId": 10,
-          "name": "אדיר",
-          "type" : "קרב",
-          "category": "מטוסי קרב",
-          "icon" : "adir",
-          "color" : "cyan",
-          "image" : "images/adir.jpg",
+          "aircraftTypeId": 9,
           "path": [
 				{ "pointId": 68, "time": "12:15:12" },
 				{ "pointId": 37, "time": "12:15:30" },
@@ -682,12 +632,7 @@
 		},
 		{
           "aircraftId": 11,
-          "name": "ברק",
-          "type" : "קרב",
-          "category": "מטוסי קרב",
-          "icon" : "barak",
-          "color" : "yellow",
-          "image" : "images/barak.jpg",
+          "aircraftTypeId": 10,
           "path": [
 				{ "pointId": 68, "time": "12:16:12" },
 				{ "pointId": 37, "time": "12:16:30" },
@@ -757,12 +702,7 @@
 		},
       {
         "aircraftId": 12,
-        "name": "ברק",
-        "type" : "קרב",
-        "category": "מטוסי קרב",
-        "icon" : "barak",
-        "color" : "yellow",
-        "image" : "images/barak.jpg",
+        "aircraftTypeId": 10,
         "path": [
           { "pointId": 68, "time": "12:17:12" },
           { "pointId": 37, "time": "12:17:30" },
@@ -831,12 +771,7 @@
         ]},
       {
         "aircraftId": 13,
-        "name": "לביא",
-        "type" : "הדרכה",
-        "category": "הדרכה",
-        "icon" : "lavi",
-        "color" : "cyan",
-        "image" : "images/lavi.jpg",
+        "aircraftTypeId": 11,
         "path": [
           { "pointId": 68, "time": "12:18:12" },
           { "pointId": 37, "time": "12:18:30" },
@@ -907,12 +842,7 @@
         ]},
       {
         "aircraftId": 14,
-        "name": "ראם",
-        "category":"תובלה",
-        "type" : "תובלה ותדלוק",
-        "icon" : "reem",
-        "color" : "white",
-        "image" : "images/reem.jpg",
+        "aircraftTypeId": 12,
         "path":
         [
             { "pointId": 164, "time": "13:10:43" },
@@ -937,12 +867,7 @@
       },
       {
         "aircraftId": 15,
-        "name": "סופה",
-        "type" : "קרב",
-        "category": "מטוסי קרב",
-        "icon" : "sufa",
-        "color" : "yellow",
-        "image" : "images/sufa.jpg",
+        "aircraftTypeId": 8,
         "path": [
           { "pointId": 68, "time": "12:19:12" },
           { "pointId": 37, "time": "12:19:30" },
@@ -1014,12 +939,7 @@
       },
       {
         "aircraftId": 16,
-        "name": "סופה",
-        "type": "קרב",
-        "category": "מטוסי קרב",
-        "icon": "sufa",
-        "color": "yellow",
-        "image": "images/sufa.jpg",
+        "aircraftTypeId": 8,
         "path": [
           { "pointId": 58, "time": "11:25:47" },
           { "pointId": 24, "time": "11:26:50" },
@@ -1071,12 +991,7 @@
       },
       {
         "aircraftId": 17,
-        "name": "ברק",
-        "type": "קרב",
-        "category": "מטוסי קרב",
-        "icon": "barak",
-        "color": "yellow",
-        "image": "images/barak.jpg",
+        "aircraftTypeId": 10,
         "path": [
           { "pointId": 58, "time": "11:26:47" },
           { "pointId": 24, "time": "11:27:50" },
@@ -1128,12 +1043,7 @@
       },
       {
         "aircraftId": 18,
-        "name": "ברק",
-        "type": "קרב",
-        "category": "מטוסי קרב",
-        "icon": "barak",
-        "color": "yellow",
-        "image": "images/barak.jpg",
+        "aircraftTypeId": 10,
         "path": [
           { "pointId": 58, "time": "11:27:47" },
           { "pointId": 24, "time": "11:28:50" },
@@ -1185,12 +1095,7 @@
       },
       {
         "aircraftId": 19,
-        "name": "לביא",
-        "type": "הדרכה",
-        "category": "הדרכה",
-        "icon": "lavi",
-        "color": "cyan",
-        "image": "images/lavi.jpg",
+        "aircraftTypeId": 11,
         "path": [
           { "pointId": 58, "time": "11:28:47" },
           { "pointId": 24, "time": "11:29:50" },
@@ -1242,12 +1147,7 @@
       },
       {
         "aircraftId": 20,
-        "name": "אדיר",
-        "type": "קרב",
-        "category": "מטוסי קרב",
-        "icon": "adir",
-        "color": "cyan",
-        "image": "images/adir.jpg",
+        "aircraftTypeId": 9,
         "path": [
           { "pointId": 58, "time": "11:29:47" },
           { "pointId": 24, "time": "11:30:50" },
@@ -1299,12 +1199,7 @@
       },
       {
         "aircraftId": 21,
-        "name": "צופית",
-        "type": "סיור",
-        "category": "סיור ובקרה",
-        "icon": "tzufit",
-        "color": "cyan",
-        "image": "images/tzufit.jpg",
+        "aircraftTypeId": 6,
         "path": [
           { "pointId": 58, "time": "11:22:00" },
           { "pointId": 117, "time": "11:23:57" },
@@ -1356,12 +1251,7 @@
       },
       {
         "aircraftId": 22,
-        "name": "יסעור",
-        "type": "מסוק סער",
-        "category": "מסוקים",
-        "icon": "yasur",
-        "color": "yellow",
-        "image": "images/yasur.jpg",
+        "aircraftTypeId": 1,
         "path": [
           { "pointId": 58, "time": "11:33:00" },
           { "pointId": 117, "time": "11:36:31" },
@@ -1404,12 +1294,7 @@
       },
       {
         "aircraftId": 23,
-        "name": "שרף",
-        "type": "מסוק קרב",
-        "category": "מסוקים",
-        "icon": "saraf",
-        "color": "yellow",
-        "image": "images/saraf.jpg",
+        "aircraftTypeId": 13,
         "path": [
           { "pointId": 58, "time": "11:34:00" },
           { "pointId": 117, "time": "11:37:31" },
@@ -1452,12 +1337,7 @@
       },
       {
         "aircraftId": 24,
-        "name": "ינשוף",
-        "type": "מסוק סער",
-        "category": "מסוקים",
-        "icon": "yanshuf",
-        "color": "yellow",
-        "image": "images/yanshuf.jpg",
+        "aircraftTypeId": 2,
         "path": [
           { "pointId": 140, "time": "11:57:31" },
           { "pointId": 13, "time": "12:03:38" },
@@ -1493,12 +1373,7 @@
       },
       {
         "aircraftId": 25,
-        "name": "נחשון",
-        "type": "סיור ובקרה",
-        "category": "סיור ובקרה",
-        "icon": "nahshon",
-        "color": "white",
-        "image": "images/nahshon.jpg",
+        "aircraftTypeId": 14,
         "path": [
           { "pointId": 68, "time": "12:37:18" },
           { "pointId": 37, "time": "12:37:40" },
@@ -1555,12 +1430,7 @@
       },
       {
         "aircraftId": 26,
-        "name": "שמשון",
-        "type": "תובלה כבדה",
-        "category": "תובלה",
-        "icon": "shimshon",
-        "color": "cyan",
-        "image": "images/shimshon.jpg",
+        "aircraftTypeId": 15,
         "path": [
           { "pointId": 68, "time": "12:38:18" },
           { "pointId": 37, "time": "12:38:40" },
@@ -1617,12 +1487,7 @@
       },
       {
         "aircraftId": 27,
-        "name": "בואינג 787",
-        "type": "אל על",
-        "category": "אזרחי",
-        "icon": "boeing787",
-        "color": "white",
-        "image": "images/boeing787.jpg",
+        "aircraftTypeId": 16,
         "path": [
           { "pointId": 68, "time": "12:46:57" },
           { "pointId": 37, "time": "12:47:20" },
@@ -1670,12 +1535,7 @@
       },
       {
         "aircraftId": 28,
-        "name": "אמברייר 195",
-        "type": "ארקיע",
-        "category": "אזרחי",
-        "icon": "boeing747",
-        "color": "white",
-        "image": "images/ambrear.jpg",
+        "aircraftTypeId": 17,
         "path": [
           { "pointId": 64, "time": "13:20:36" },
           { "pointId": 48, "time": "13:21:32" },
@@ -1697,13 +1557,7 @@
       },
       {
         "aircraftId": 29,
-        "name": "F16 יווני",
-        "type": "קרב",
-        "category": "מטוסי קרב",
-        "icon": "f16g",
-        "color": "darkgray",
-        "country": "greece",
-        "image": "images/f16g.jpg",
+        "aircraftTypeId": 18,
         "path": [
           { "pointId": 64, "time": "13:21:36" },
           { "pointId": 48, "time": "13:22:32" },
@@ -1725,13 +1579,7 @@
       },
       {
         "aircraftId": 30,
-        "name": "יורופייטר איטלקי",
-        "type": "קרב",
-        "category": "מטוסי קרב",
-        "icon": "eurofighter",
-        "color": "cyan",
-        "country": "italian",
-        "image": "images/eurofighter.jpg",
+        "aircraftTypeId": 19,
         "path": [
           { "pointId": 64, "time": "13:23:36" },
           { "pointId": 48, "time": "13:24:32" },
@@ -1753,13 +1601,7 @@
       },
       {
         "aircraftId": 31,
-        "name": "C17 קנדי",
-        "type": "תובלה כבדה",
-        "category": "תובלה",
-        "icon": "c17",
-        "color": "darkgray",
-        "country": "canada",
-        "image": "images/c17.jpg",
+        "aircraftTypeId": 20,
         "path": [
           { "pointId": 64, "time": "13:25:36" },
           { "pointId": 48, "time": "13:26:32" },
@@ -1781,12 +1623,7 @@
       },
       {
         "aircraftId": 32,
-        "name": "שמשון בריטי",
-        "type": "תובלה",
-        "category": "תובלה",
-        "icon": "shimshon-dark",
-        "color": "darkgray",
-        "image": "images/britian-shimshon.jpg",
+        "aircraftTypeId": 21,
         "path": [
           { "pointId": 64, "time": "13:27:36" },
           { "pointId": 48, "time": "13:28:32" },
@@ -1808,13 +1645,7 @@
       },
       {
         "aircraftId": 33,
-        "name": "שמשון אוסטרי",
-        "type": "תובלה",
-        "category": "תובלה",
-        "icon": "shimshon-dark",
-        "color": "darkgray",
-        "country": "austria",
-        "image": "images/austrian-shimshon.jpg",
+        "aircraftTypeId": 22,
         "path": [
           { "pointId": 64, "time": "13:29:36" },
           { "pointId": 48, "time": "13:30:32" },
@@ -1836,13 +1667,7 @@
       },
       {
         "aircraftId": 34,
-        "name": "C295 פולני",
-        "type": "תובלה",
-        "category": "תובלה",
-        "icon": "c295",
-        "color": "white",
-        "country": "poland",
-        "image": "images/c295.jpg",
+        "aircraftTypeId": 23,
         "path": [
           { "pointId": 64, "time": "13:31:36" },
           { "pointId": 48, "time": "13:32:32" },
@@ -1864,12 +1689,7 @@
       },
       {
         "aircraftId": 35,
-        "name": "נחשון",
-        "type": "סיור ובקרה",
-        "category": "סיור ובקרה",
-        "icon": "nahshon",
-        "color": "white",
-        "image": "images/nahshon.jpg",
+        "aircraftTypeId": 14,
         "path": [
           { "pointId": 58, "time": "11:18:55" },
           { "pointId": 117, "time": "11:20:27" },
@@ -1923,13 +1743,8 @@
         ]
       },
       {
-        "aircraftId": 35,
-        "name": "קרנף",
-        "type": "תובלה כבדה",
-        "category": "תובלה",
-        "icon": "karnaf",
-        "color": "yellow",
-        "image": "images/karnaf.jpg",
+        "aircraftId": 36,
+        "aircraftTypeId": 24,
         "path": [
           { "pointId": 58, "time": "11:19:55" },
           { "pointId": 117, "time": "11:21:27" },
@@ -1984,13 +1799,9 @@
       },
       {
         "aircraftId": 36,
-        "name": "עפרוני",
-        "type" : "הדרכה",
-        "category": "הדרכה",
+        "aircraftTypeId": 25,
         "hide" : true,
         "aerobatic": true,
-        "icon" : "efroni",
-        "image" : "images/efroni.jpg",
         "path": [
           { "pointId": 17, "time": "09:36:30" },
           { "pointId": 53, "time": "10:10:00" },
@@ -2005,13 +1816,9 @@
       },
       {
         "aircraftId": 37,
-        "name": "שמשון",
-        "category": "תובלה",
-        "type" : "הצנחת צנחנים",
+        "aircraftTypeId": 15,
         "hide" : true,
         "parachutist": true,
-        "icon" : "shimshon",
-        "image" : "images/shimshon.jpg",
         "path": [
           { "pointId": 53, "time": "10:45:00" },
           { "pointId": 48, "time": "10:45:00" },
