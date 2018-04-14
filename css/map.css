@@ -267,6 +267,12 @@ div.infoPopup {
     /*transition: height 2s ease-in;*/
 }
 
+.screenshot {
+    position: absolute;
+    top: 15%;
+    left: 10%;
+}
+
 div.locationInfoPopup {
     position: absolute;
     width: 100%;
@@ -275,6 +281,9 @@ div.locationInfoPopup {
 }
 
 #aboutPopup {
+    top: 64px;
+}
+.aboutPopup {
     height: 100%;
     background: white;
     text-align: center;
@@ -283,35 +292,45 @@ div.locationInfoPopup {
     width: 100%;
 }
 
-#aboutTitle {
+.aboutTitle {
     font-weight: bold;
     margin-top: 13px;
     margin-bottom: 13px;
 }
 
-#aboutBody {
+.aboutBody {
     margin-left: 52px;
     margin-right: 52px;
+}
+
+.aboutBottom {
+    width: 100%;
+    height: 165px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+.bottomText {
+    font-family: "Heebo Light";
+    font-size: 10pt;
 }
 
 #aboutMenuTitle {
     color: white;
     font-size: 17px;
     font-weight: bold;
-    display: table-cell;
     vertical-align: middle;
 }
 
-#halfBlue {
+.halfBlue {
     background: #7bd1fc;
     width: 100%;
-    height: 50%;
+    height: 40%;
     z-index: 9999;
     top: 0px;
 }
 
-#aboutLogo {
-    padding-top: 17%;
+.aboutLogo {
 }
 
 div.imageCache {
