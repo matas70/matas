@@ -290,8 +290,10 @@ function updateLocationsMap(aircrafts) {
 
 function updateLocations(points) {
     points.forEach(function (point) {
-        locations[point.pointId] = point;
-        locations[point.pointId].aircrafts = [];
+        if (locations[point.pointId] === undefined) {
+            locations[point.pointId] = point;
+            locations[point.pointId].aircrafts = [];
+        }
     }, this);
 }
 
@@ -1041,7 +1043,21 @@ function fillMenu() {
 
     // prepare locations view
     var locationsViewHtml = "";
-    locations.forEach(function(location) {
+
+    // sort locations by name
+    var sortedLocations = locations.slice();
+
+    sortedLocations.sort(function (item1, item2) {
+        var keyA = item1.pointName,
+            keyB = item2.pointName;
+
+        // Compare the 2 times
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+    });
+
+    sortedLocations.forEach(function(location) {
         if (!location.hidden) {
             locationsViewHtml += createLocationRow(location);
         }
