@@ -11,6 +11,7 @@ function convertPath(path) {
 
 var loadedRoutes;
 var aircrafts;
+var aircraftTypesInfo = {};
 var groundedAircrafts = new Set();
 var locations = [];
 var aircraftMarkers = {};
@@ -316,12 +317,30 @@ function loadActualStartTime(routes) {
 }
 
 function loadAircrafts(callback) {
-    $.getJSON("data/aircrafts.json", function (routes) {
-        aircrafts = routes.aircrafts;
-        startDate = routes.startDate;
-        plannedStartTime = convertTime(routes.plannedStartTime);
-        loadActualStartTime(routes);
-        callback(aircrafts);
+    $.getJSON("data/aircrafts-info.json", function(aircraftInfo) {
+        // load aircraft type info into a map
+        aircraftInfo.aircraftTypes.forEach(function (aircraftTypeInfo) {
+            aircraftTypesInfo[aircraftTypeInfo.aircraftTypeId] = aircraftTypeInfo;
+        }, this);
+
+        // load all aircrafts
+        $.getJSON("data/aircrafts.json", function (routes) {
+            aircrafts = routes.aircrafts;
+            // merge info from aircraft type info
+            aircrafts.forEach(function (aircraft) {
+                if (aircraft.aircraftTypeId !== undefined) {
+                    // copy all of the information from aircraft type info
+                    var aircraftTypeInfo = aircraftTypesInfo[aircraft.aircraftTypeId];
+                    for(var field in aircraftTypeInfo)
+                        aircraft[field]=aircraftTypeInfo[field];
+                }
+            }, this);
+
+            startDate = routes.startDate;
+            plannedStartTime = convertTime(routes.plannedStartTime);
+            loadActualStartTime(routes);
+            callback(aircrafts);
+        });
     });
 }
 
@@ -757,11 +776,11 @@ function selectPoint(pointId, minimized=false) {
     if (selectedLocation != null) {
         deselectLocation(function () {
             // then show a new popup
-            selectLocation(selectedPoint.pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+            selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
         });
     } else {
         // then show a new popup
-        selectLocation(selectedPoint.pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+        selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
     }
 }
 
@@ -833,7 +852,7 @@ var countdownInterval;
 function onLoad() {
     initMenu();
 
-//     if (compatibleDevice() && !checkIframe()) {
+     if (compatibleDevice() && !checkIframe()) {
         loadAircrafts(function (pAircrafts) {
             aircrafts = pAircrafts;
             loadCategories(function() {
@@ -851,9 +870,9 @@ function onLoad() {
                 loadApp();
             }
         });
-//     } else {
-//         showIncompatibleDevicePopup();
-//     }
+     } else {
+         showIncompatibleDevicePopup();
+     }
 }
 
 function loadApp() {
@@ -1000,6 +1019,14 @@ function fillMenu() {
     });
     $("#aircraftsListView").html(html);
 
+    // prepare locations view
+    var locationsViewHtml = "";
+    locations.forEach(function(location) {
+        if (!location.hidden) {
+            locationsViewHtml += createLocationRow(location);
+        }
+    }, this);
+    $("#locationsListView").html(locationsViewHtml);
 }
 
 function initMap() {
@@ -1012,7 +1039,7 @@ function initMap() {
     makeHeaderSticky();
     initPopups();
 
-    // if (compatibleDevice() && !checkIframe()) {
+    if (compatibleDevice() && !checkIframe()) {
         // let splash run for a second before start loading the map
         setTimeout(function () {
             map = createMapObject(function () {
@@ -1044,10 +1071,10 @@ function initMap() {
 
             defer.resolve(map);
         }, 1000);
-    // } else {
-    //     setTimeout(function() {
-    //         $(".splash").fadeOut();
-    //         showIncompatibleDevicePopup();
-    //     }, 1500);
-    // }
+     } else {
+         setTimeout(function() {
+             $(".splash").fadeOut();
+             showIncompatibleDevicePopup();
+         }, 1500);
+     }
 }

@@ -184,6 +184,53 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
 		   "</b> " + aircraftType + "</div>"+ aerobaticIcon +"<div class=\"time\">"+ time.substring(0,5) +"</div></div>";
 }
 
+function createLocationRow(location) {
+    return "<a class='locationRow' href='javascript:void(0);'><div id='location"+location.pointId+"' class='locationRow' onclick='expandLocation("+location.pointId+");'>" +
+                "<div class='locationName'>"+location.pointName+"</div>" +
+                "<div class='nextAircraftSection'>"+
+                    "<div class='smallAircraftName'>"+location.aircrafts[0].name+"</div>" +
+                    "<div class='nextAircraftTime'>"+location.aircrafts[0].time.substr(0,5)+"</div>" +
+                    "<div class='expandArrow'><img src='icons/arrowBlack.png'></div>" +
+                    "<div class='collapseArrow'><img src='icons/arrowBlackUp.png'></div>" +
+                "</div>" +
+           "</div></a>" +
+           "<div id='locationSpace"+location.pointId+"' class='locationSpace'></div>" +
+           "<div class='locationPadding'></div>";
+}
+
+function expandLocation(pointId) {
+    var location = locations[pointId];
+    var locationSpace = $("#locationSpace"+pointId);
+    if (locationSpace.html()==="") {
+        var html = "";
+        var lastAircraft = "";
+        location.aircrafts.forEach(function (aircraft) {
+            if (aircraft.name !== lastAircraft) {
+                html += createTableRow(aircraft.aircraftId,
+                    aircraft.name,
+                    aircraft.icon,
+                    aircraft.aircraftType,
+                    aircraft.time,
+                    aircraft.aerobatic,
+                    aircraft.parachutist,
+                    true);
+                lastAircraft = aircraft.name;
+            }
+        }, this);
+        locationSpace.html(html);
+        locationSpace.slideDown();
+        $("#location"+pointId).children(".nextAircraftSection").children(".expandArrow").hide();
+        $("#location"+pointId).children(".nextAircraftSection").children(".collapseArrow").show();
+    } else {
+        locationSpace.slideUp("fast", function() {
+            locationSpace.html("");
+            $("#location"+pointId).children(".nextAircraftSection").children(".expandArrow").show();
+            $("#location"+pointId).children(".nextAircraftSection").children(".collapseArrow").hide();
+        });
+    }
+
+}
+
 function showIncompatibleDevicePopup() {
     $("#aboutButton").hide();
     $("#homeButton").hide();
