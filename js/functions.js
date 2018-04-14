@@ -890,6 +890,7 @@ function onLoad() {
             }
         });
      } else {
+         $(".splash").fadeOut();
          showIncompatibleDevicePopup();
      }
 }
