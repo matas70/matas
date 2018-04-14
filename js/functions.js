@@ -833,7 +833,7 @@ var countdownInterval;
 function onLoad() {
     initMenu();
 
-    if (compatibleDevice() && !checkIframe()) {
+//     if (compatibleDevice() && !checkIframe()) {
         loadAircrafts(function (pAircrafts) {
             aircrafts = pAircrafts;
             loadCategories(function() {
@@ -851,9 +851,9 @@ function onLoad() {
                 loadApp();
             }
         });
-    } else {
-        showIncompatibleDevicePopup();
-    }
+//     } else {
+//         showIncompatibleDevicePopup();
+//     }
 }
 
 function loadApp() {
@@ -1045,7 +1045,9 @@ function initMap() {
             defer.resolve(map);
         }, 1000);
     } else {
-        $(".splash").fadeOut();
-        showIncompatibleDevicePopup();
+        setTimeout(function() {
+            $(".splash").fadeOut();
+            showIncompatibleDevicePopup();
+        }, 1500);
     }
 }
