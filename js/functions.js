@@ -789,7 +789,7 @@ function countdown() {
     var remainingTime = new TimeSpan(actualStartTime - currentTime);
 
     // Load the map two seconds before the countdown finishes
-    if (remainingTime.seconds < 2 && remainingTime.seconds > 0) {
+    if (remainingTime.getTotalMilliseconds() < 2000 && remainingTime.getTotalMilliseconds() > 0) {
         $(".splash").hide();
         // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
         setTimeout(function() {
@@ -806,7 +806,7 @@ function countdown() {
     }
 
     // Time to remove the entrancePopup
-    if (remainingTime.seconds < 1) {
+    if (remainingTime.getTotalMilliseconds() < 1000) {
         $("#minutes").text("00");
         $("#entrancePopup").fadeOut("slow");
         if (countdownInterval) {
@@ -872,7 +872,7 @@ function loadMapApi() {
 function showComponents() {
     $(".map-dark").show();
     $(".splash").css('visibility', 'visible');
-    $("#homeButton").show();
+    $("#homeButton").css('visibility', 'visible');
 }
 function compatibleDevice() {
     return ((/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())));
@@ -1012,7 +1012,7 @@ function initMap() {
     makeHeaderSticky();
     initPopups();
 
-    if (compatibleDevice() && !checkIframe()) {
+    // if (compatibleDevice() && !checkIframe()) {
         // let splash run for a second before start loading the map
         setTimeout(function () {
             map = createMapObject(function () {
@@ -1044,10 +1044,10 @@ function initMap() {
 
             defer.resolve(map);
         }, 1000);
-    } else {
-        setTimeout(function() {
-            $(".splash").fadeOut();
-            showIncompatibleDevicePopup();
-        }, 1500);
-    }
+    // } else {
+    //     setTimeout(function() {
+    //         $(".splash").fadeOut();
+    //         showIncompatibleDevicePopup();
+    //     }, 1500);
+    // }
 }
