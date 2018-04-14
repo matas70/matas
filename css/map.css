@@ -465,3 +465,47 @@ hr {
     text-align: center;
     color: rgba(69, 87, 115, 0.5);
 }
+
+#basePopup {
+    height: 96pt;
+    top: 64px;
+}
+
+#baseInfo {
+    background: white;
+    height: 78pt;
+}
+
+.baseData {
+    position: absolute;
+    display: inline;
+    padding-top: 21pt;
+    padding-bottom: 37pt;
+    padding-right: 14pt;
+    font-family: 'Heebo';
+    font-size: 11pt;
+}
+b.baseData {
+    padding: 0;
+    font-size: 15pt;
+}
+
+br.baseData {
+    line-height: 20pt;
+}
+.baseEventIcon {
+    padding-top: 22pt;
+    padding-bottom: 32pt;
+    padding-right: 7pt;
+    width: 54pt;
+    height: 42pt;
+}
+
+.baseExitIcon {
+    width: 30pt;
+    height: 30pt;
+    position :absolute;
+    left: 10pt;
+    top: 61pt;
+    cursor: pointer;
+}
