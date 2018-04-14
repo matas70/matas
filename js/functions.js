@@ -339,6 +339,7 @@ function loadAircrafts(callback) {
             startDate = routes.startDate;
             plannedStartTime = convertTime(routes.plannedStartTime);
             loadActualStartTime(routes);
+            updateLocationsMap(aircrafts);
             callback(aircrafts);
         });
     });
@@ -852,27 +853,29 @@ var countdownInterval;
 function onLoad() {
     initMenu();
 
-     if (compatibleDevice() && !checkIframe()) {
-        loadAircrafts(function (pAircrafts) {
-            aircrafts = pAircrafts;
-            loadCategories(function() {
-                fillMenu();
-            });
+//      if (compatibleDevice() && !checkIframe()) {
+        loadRoutes(function (routes) {
+            loadAircrafts(function (pAircrafts) {
+                aircrafts = pAircrafts;
+                loadCategories(function () {
+                    fillMenu();
+                });
 
-            if (getCurrentTime() < actualStartTime) {
-                countdownInterval = setInterval(function () {
-                    countdown();
-                }, 1000);
-                setTimeout(function () {
-                    $("#entrancePopup").fadeIn();
-                }, 1000);
-            } else if (!mapLoaded) {
-                loadApp();
-            }
+                if (getCurrentTime() < actualStartTime) {
+                    countdownInterval = setInterval(function () {
+                        countdown();
+                    }, 1000);
+                    setTimeout(function () {
+                        $("#entrancePopup").fadeIn();
+                    }, 1000);
+                } else if (!mapLoaded) {
+                    loadApp();
+                }
+            });
         });
-     } else {
-         showIncompatibleDevicePopup();
-     }
+//      } else {
+//          showIncompatibleDevicePopup();
+//      }
 }
 
 function loadApp() {
@@ -1002,18 +1005,31 @@ function fillMenu() {
     });
 
     categories.forEach(function(category) {
+       
        html += createCategoryRow(category);
-       Array.from(map.values()).filter(function(aircraft) {
-           return aircraft.category == category.category;
-       }).forEach(function (aircraftFromCategory) {
-           html += createTableRow(aircraftFromCategory.aircraftId,
-                                  aircraftFromCategory.name,
-                                  aircraftFromCategory.icon,
-                                  aircraftFromCategory.type,
-                                  aircraftFromCategory.path[0].time,
-                                  aircraftFromCategory.aerobatic,
-                                  aircraftFromCategory.parachutist,
-                                  true);
+       if (category.aerobatic) {
+            var aerobaticLocations = [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic)
+                    .map(aerobatics => aerobatics.path));
+            aerobaticLocations.forEach(location => {
+                    html += createAerobaticRow(locations[location.pointId].name,
+                                               location.time);
+                });
+       }
+
+       Array.from(map.values()).filter(aircraft =>
+                aircraft.category === category.category)
+           .sort((aircraft1, aircraft2) => {
+               return aircraft1.path[0].time - aircraft2.path[0].time
+           })
+           .forEach(function (aircraftFromCategory) {
+                html += createTableRow(aircraftFromCategory.aircraftId,
+                                       aircraftFromCategory.name,
+                                       aircraftFromCategory.icon,
+                                       aircraftFromCategory.type,
+                                       aircraftFromCategory.path[0].time,
+                                       aircraftFromCategory.aerobatic,
+                                       aircraftFromCategory.parachutist,
+                                       true);
 
        });
     });
@@ -1039,42 +1055,40 @@ function initMap() {
     makeHeaderSticky();
     initPopups();
 
-    if (compatibleDevice() && !checkIframe()) {
+//     if (compatibleDevice() && !checkIframe()) {
         // let splash run for a second before start loading the map
         setTimeout(function () {
             map = createMapObject(function () {
                 deselectLocation();
                 deselectAircraft();
             });
+
             $("#map").show();
 
-            // load all routes
-            loadRoutes(function (routes) {
-                this.routes = routes;
-                drawRoutesOnMap(routes);
+            // Draw on map
+            drawRoutesOnMap(loadedRoutes);
+            addAircraftsToMap();
+            startAircraftsAnimation(false);
 
-                updateLocationsMap(aircrafts);
-                addAircraftsToMap();
-                startAircraftsAnimation(false);
-                //clusterAircrafts(aircraftMarkers);
+            //clusterAircrafts(aircraftMarkers);
 
-                // hide splash screen
-                setTimeout(function () {
-                    $(".splash").fadeOut();
-                    showCurrentLocation();
-                }, 3500);
+            // hide splash screen
+            setTimeout(function () {
+                $(".splash").fadeOut();
+                showCurrentLocation();
+            }, 3500);
 
-                $(window).focus(function () {
-                    startAircraftsAnimation(true);
-                });
+            $(window).focus(function () {
+                startAircraftsAnimation(true);
             });
 
-            defer.resolve(map);
+
+             defer.resolve(map);
         }, 1000);
-     } else {
-         setTimeout(function() {
-             $(".splash").fadeOut();
-             showIncompatibleDevicePopup();
-         }, 1500);
-     }
+//      } else {
+//          setTimeout(function() {
+//              $(".splash").fadeOut();
+//              showIncompatibleDevicePopup();
+//          }, 1500);
+//      }
 }
