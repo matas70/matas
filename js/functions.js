@@ -649,11 +649,11 @@ function addAircraftsToMap() {
                 if (selectedAircraft != null) {
                     deselectAircraft(function () {
                         // then show a new popup
-                        selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time.substr(0, 5), aircraft.infoUrl);
+                        selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time.substr(0, 5), aircraft.infoUrl, false);
                     });
                 } else {
                     // then show a new popup
-                    selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time.substr(0, 5), aircraft.infoUrl);
+                    selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time.substr(0, 5), aircraft.infoUrl, false);
                 }
             }
         };
@@ -881,6 +881,7 @@ var defer = $.Deferred();
 
 var isMenuOpen = false;
 var canOpenMenu = true;
+var currTab = "#tab2";
 
 function initMenu() {
     // ugly code to place about logo correctly related to the half blue
@@ -920,6 +921,10 @@ function initMenu() {
         $(".menuLink").removeClass("active");
         $(elem.target).addClass("active");
         var currentAttrValue = $(this).attr('href');
+        if (currTab != currentAttrValue) {
+            $("hr").toggleClass("two")
+        }
+        currTab = currentAttrValue;
         $('.tabs ' + currentAttrValue).show().siblings().hide();
     });
 }

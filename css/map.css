@@ -451,12 +451,16 @@ HEADER {
     font-weight: bold;
 }
 
-.one:hover ~ hr {
-    margin-left: 15%;
-}
+/*.one:hover ~ hr {*/
+    /*margin-left: 15%;*/
+/*}*/
 
-.two:hover ~ hr {
-    margin-left: 60%;
+/*.two:hover ~ hr {*/
+    /*margin-left: 60%;*/
+/*}*/
+
+hr.two {
+    margin-left: 15%;
 }
 
 hr {
