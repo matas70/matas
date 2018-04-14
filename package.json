@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/matas70/matas#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "time-js": "0.0.5"
   }
 }
