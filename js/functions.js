@@ -11,6 +11,7 @@ function convertPath(path) {
 
 var loadedRoutes;
 var aircrafts;
+var aircraftTypesInfo = {};
 var groundedAircrafts = new Set();
 var locations = [];
 var aircraftMarkers = {};
@@ -291,18 +292,35 @@ function loadRoutes(callback) {
 }
 
 function loadAircrafts(callback) {
-    $.getJSON("data/")
-    $.getJSON("data/aircrafts.json", function (routes) {
-        aircrafts = routes.aircrafts;
-        startDate = routes.startDate;
-        plannedStartTime = convertTime(routes.plannedStartTime);
-        actualStartTime = convertTime(routes.actualStartTime);
-        if ($.urlParam("simulation") != null) {
-            actualStartTime = (new Date()).getTime() - $.urlParam("simulation")*60*1000;
-        }
+    $.getJSON("data/aircrafts-info.json", function(aircraftInfo) {
+        // load aircraft type info into a map
+        aircraftInfo.aircraftTypes.forEach(function (aircraftTypeInfo) {
+            aircraftTypesInfo[aircraftTypeInfo.aircraftTypeId] = aircraftTypeInfo;
+        }, this);
 
-        updateLocationsMap(aircrafts);
-        callback(aircrafts);
+        // load all aircrafts
+        $.getJSON("data/aircrafts.json", function (routes) {
+            aircrafts = routes.aircrafts;
+            // merge info from aircraft type info
+            aircrafts.forEach(function (aircraft) {
+                if (aircraft.aircraftTypeId !== undefined) {
+                    // copy all of the information from aircraft type info
+                    var aircraftTypeInfo = aircraftTypesInfo[aircraft.aircraftTypeId];
+                    for(var field in aircraftTypeInfo)
+                        aircraft[field]=aircraftTypeInfo[field];
+                }
+            }, this);
+
+            startDate = routes.startDate;
+            plannedStartTime = convertTime(routes.plannedStartTime);
+            actualStartTime = convertTime(routes.actualStartTime);
+            if ($.urlParam("simulation") != null) {
+                actualStartTime = (new Date()).getTime();  - $.urlParam("simulation")*60*1000;
+            }
+
+            updateLocationsMap(aircrafts);
+            callback(aircrafts);
+        });
     });
 }
 

@@ -5,11 +5,7 @@
     "aircrafts" : [
       {
           "aircraftId": 1,
-          "name": "יסעור",
-          "type" : "מסוק סער",
-          "icon" : "yasur",
-          "color" : "yellow",
-          "image" : "images/yasur.jpg",
+          "aircraftTypeId" : 1,
           "path": [
             { "pointId": 68, "time": "11:31:09" },
             { "pointId": 37, "time": "11:31:57" },
@@ -68,11 +64,7 @@
         },
       {
         "aircraftId": 2,
-        "name": "ינשוף",
-        "type" : "מסוק סער",
-        "icon" : "yanshuf",
-        "color" : "yellow",
-        "image" : "images/yanshuf.jpg",
+        "aircraftTypeId": 2,
         "path": [
           { "pointId": 68, "time": "11:32:09" },
           { "pointId": 37, "time": "11:32:57" },
