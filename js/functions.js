@@ -290,6 +290,7 @@ function loadRoutes(callback) {
 }
 
 function loadAircrafts(callback) {
+    $.getJSON("data/")
     $.getJSON("data/aircrafts.json", function (routes) {
         aircrafts = routes.aircrafts;
         startDate = routes.startDate;

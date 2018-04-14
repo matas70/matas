@@ -10,36 +10,77 @@ function initPopups() {
 }
 
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized=false) {
-	// build popup html
-	var html = "";
-	point.aircrafts.forEach(function(aircraft) {
-		html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic);
-	}, this);
-	$("#aircraftsList").html(html);
-	$("#popupTitle").text(point.pointName);
-	$("#popupHeader").css("background", color);
-	$("#popupTitle").css("color", titleColor);
-	$("#popupSubTitle").css("color", subtitleColor);	
-	
-	var popupHeight = $("#locationPopup").height();
-    var targetHeight = minimized?100:200;
-	var targetBottom = 0;
-	if (popupHeight > targetHeight) 
-		targetBottom = -(popupHeight - targetHeight);
-	$("#locationPopup").css("bottom", -popupHeight);
-	$("#locationPopup").show();
-	$("#locationPopup").animate({
-            bottom: targetBottom + "px"
-        }, "fast");
-		
-	// $("#popupHeader").bind('touchmove', function(event) {
-	//     var touch = event.targetTouches[0];
-	    
-	//     // Place element where the finger is
-	//     $("#locationPopup").style.left = touch.pageX-25 + 'px';
-	//     $("#locationPopup").style.top = touch.pageY-25 + 'px';
-	//     event.preventDefault();
-	//   }, false);
+    // build popup html
+    var html = "";
+    var lastAircraftType = "";
+    point.aircrafts.forEach(function (aircraft) {
+        if (aircraft.icon != lastAircraftType) {
+            html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist);
+            lastAircraftType = aircraft.icon;
+        }
+    }, this);
+    $("#aircraftsList").html(html);
+    $("#popupTitle").text(point.pointName);
+    $("#popupHeader").css("background", color);
+    $("#popupTitle").css("color", titleColor);
+    $("#popupSubTitle").css("color", subtitleColor);
+
+    var locationPopup = $("#locationPopup");
+
+    var popupHeight = locationPopup.height();
+    var targetHeight = minimized ? 100 : 200;
+    var targetBottom = 0;
+    if (popupHeight > targetHeight)
+        targetBottom = -(popupHeight - targetHeight);
+    locationPopup.css("bottom", -popupHeight);
+    locationPopup.show();
+    locationPopup.animate({
+        bottom: targetBottom + "px"
+    }, "fast");
+
+    // add touch events on the list to allow user expand or collapse it
+    var dragStartTopY = null;
+    var maxDrag = popupHeight - (window.innerHeight - 64);
+    var delta;
+    var popupHeader = $("#popupHeader");
+    var currentBottom = targetBottom;
+
+    popupHeader.on("tapstart", function (event) {
+        dragStartTopY = event.touches[0].clientY;
+        event.preventDefault();
+    });
+
+    popupHeader.on("tapmove", function (event) {
+        if (dragStartTopY != null) {
+            delta = dragStartTopY - event.touches[0].clientY;
+			if (currentBottom + delta < 0) {
+				if (currentBottom + delta > -maxDrag)
+					locationPopup.css("bottom", -maxDrag + "px");
+				else
+					locationPopup.css("bottom", currentBottom + delta + "px");
+			}
+			else
+				locationPopup.css("bottom", "0px");
+            event.preventDefault();
+        }
+    });
+    popupHeader.on("tapend", function (event) {
+        if (dragStartTopY != null) {
+            if (delta > 32) {
+                // animate expand
+                currentBottom = Math.min(-maxDrag, 0);
+                locationPopup.animate({bottom: currentBottom + "px"}, "fast");
+            } else if (delta < 32) {
+                locationPopup.animate({bottom: targetBottom + "px"}, "fast");
+                currentBottom = targetBottom;
+			} else {
+                locationPopup.animate({bottom: currentBottom + "px"}, "fast");
+			}
+
+            event.preventDefault();
+            dragStartTopY = null;
+        }
+    });
 }
 
 function hideLocationPopup(callback) { 
@@ -117,11 +158,14 @@ function hidePopup(popup, callback) {
 	});	
 }
 
-function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic) {
+function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist) {
 	var aerobaticIcon = "<div/>";
 	if (aerobatic) {
 		aerobaticIcon = "<img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img>";
 		aircraftType = "מופע אווירובטי";
+	} else if (parachutist) {
+        aerobaticIcon = "<img src=\"icons/aircrafts/parachutist.png\" class=\"aerobaticIcon\"></img>";
+        aircraftType = "הצנחת צנחנים";
 	}
 	return "<div onclick='onAircraftSelected("+aircraftId+");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon + 
 		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name + 
