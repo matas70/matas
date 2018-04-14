@@ -170,10 +170,12 @@ function hidePopup(popup, callback) {
 	});	
 }
 
-function createAerobaticRow(aircraftId, name, time, collapse) {
-    return "<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");' class=\"tableRow\"> +" +
-        "<img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img>" +
-        "<div class=\"time\">"+ time.substring(0,5) +"</div></div>";
+function createAerobaticRow(name, time) {
+    return "<div class=\"tableRow\"><img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>\" "+ name +
+        "</b></div><div class=\"time\">"+ time.substring(0,5) +"</div></div>";
+
+    // Figure this out
+    //<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");'
 }
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse) {

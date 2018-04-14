@@ -1011,7 +1011,8 @@ function fillMenu() {
             var aerobaticLocations = [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic)
                     .map(aerobatics => aerobatics.path));
             aerobaticLocations.forEach(location => {
-                    html += createAerobaticRow(locations[location.pointId].name,
+                    html += createAerobaticRow(
+                                               locations[location.pointId].pointName,
                                                location.time);
                 });
        }
