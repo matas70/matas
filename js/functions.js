@@ -588,7 +588,7 @@ function startAircraftsAnimation(updateCurrent) {
             departureCheckers[aircraft.aircraftId] = setTimeout(function() {
                 checkDeparture(aircraft)
             }, 10000);
-        }   
+        }
     }, this);
 }
 
@@ -605,7 +605,7 @@ function checkDeparture(aircraft) {
         //console.log(aircraft.name + " Has departed");
         toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], true);
         clearTimeout(departureCheckers[aircraft.aircraftId]);
-        animateToNextLocation(aircraft, aircraftMarkers[aircraft.aircraftId].currentAircraftAzimuth, true);        
+        animateToNextLocation(aircraft, aircraftMarkers[aircraft.aircraftId].currentAircraftAzimuth, true);
     }
 }
 
@@ -764,6 +764,56 @@ function onHomeButtonClick() {
 
 var defer = $.Deferred();
 
+var isMenuOpen = false;
+var canOpenMenu = true;
+
+function initMenu() {
+
+    $("#listView").height("100%");
+    var height = $("#listView").height();
+    $("#listView").height(height - 64 + "px");
+
+    // Responsible for opening the side menu
+    var $menuHamburger = $("#menuHamburger");
+    $menuHamburger.on("click", function () {
+        if (canOpenMenu) {
+            canOpenMenu = false;
+            if (isMenuOpen) {
+                $menuHamburger.toggleClass("is-active");
+                closeMenu();
+            } else {
+                $menuHamburger.toggleClass("is-active");
+                openMenu();
+            }
+        }
+ });
+
+    // Responsible for managing the tabs
+    $(".menuLink").on("click", function(elem) {
+        $(".menuLink").removeClass("active");
+        $(elem.target).addClass("active");
+        var currentAttrValue = $(this).attr('href');
+        $('.tabs ' + currentAttrValue).show().siblings().hide();
+    });
+}
+
+function openMenu() {
+    $("#listView").css("display", "block");
+    $("#listView").animate({"width": "100%"}, 300);
+    isMenuOpen = true;
+    setTimeout(function() {
+        canOpenMenu = true
+    }, 300);
+}
+
+function closeMenu() {
+    $("#listView").animate({"width": "0"}, 300, function() {$("#listView").css("display", "none"); isMenuOpen = false;});
+    setTimeout(function() {
+        canOpenMenu = true
+    }, 300);
+
+}
+
 function initMap() {
     // onAboutButtonClick();
     // $(".splash").fadeOut();
@@ -773,6 +823,7 @@ function initMap() {
     // let splash run for a second before start loading the map
     setTimeout(function () {
         initPopups();
+        initMenu();
         map = createMapObject(function () {
             deselectLocation();
             deselectAircraft();

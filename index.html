@@ -7,8 +7,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
 
-  <link rel="stylesheet" href="css/map.css">
-  <link rel="icon" sizes="192x192" href="icons/logo192x192.png">
+    <link rel="stylesheet" href="css/map.css">
+    <link rel="stylesheet" href="css/hamburgers.css">
+    <link rel="icon" sizes="192x192" href="icons/logo192x192.png">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -32,18 +33,47 @@
 <!-- page header -->
 <header id="headerMobile">
   <div id="headerBg">
-     <a href="javascript:void(0)" onclick="onAboutButtonClick()">
-      <img id="aboutButton" src="icons/aboutIcon.png"/>
-    </a>
-    <a href="javascript:void(0)" onclick="onHomeButtonClick()">
-      <img id="homeButton" src="icons/homeIcon.png"/>
-    </a>
-     <div id="headerIconContainer">
-       <img id="headerIcon" src="icons/headerLogo.png"/>
-     </div>
-     <div id="aboutMenuTitle" style="display:none">אודות</div>
+
+    <!--<a href="javascript:void(0)" onclick="onAboutButtonClick()">-->
+      <!--<img id="aboutButton" src="icons/aboutIcon.png"/>-->
+    <!--</a>-->
+      <div>
+      <img id="homeButton" src="icons/homeIcon.png" onclick="onHomeButtonClick()"/>
+      </div>
+    <div id="headerIconContainer">
+      <img id="headerIcon" src="icons/headerLogo.png"/>
+    </div>
+    <div id="aboutMenuTitle" style="display:none">אודות</div>
+      <div id="menuHamburger" class="hamburger hamburger--spin small" type="button">
+        <div class="hamburger-box">
+             <div class="hamburger-inner"></div>
+        </div>
+      </div>
   </div>
 </header>
+
+<!-- list view -->
+<div id="listView" class="listViewContainer">
+    <div class="container">
+        <ul class="menuHeader">
+            <li class="one" class="menuItem" style="padding-right: 20%;"><a class="menuLink" href="#tab1">כלי טיס</a></li>
+            <li class="two" class="menuItem"><a class="menuLink" href="#tab2">מקומות</a></li>
+            <hr />
+        </ul>
+    </div>
+  <div class="tabs">
+    <!-- Aircrafts -->
+    <div class="tab-content.active" id="tab1">
+      <p class="timeline-warning">לידיעתכם, לוח הזמנים הינו משוער בלבד</p>
+      <div id="aircraftsListView">מטוסים</div>
+    </div>
+    <!-- Locations -->
+    <div class="tab-content" id="tab2">
+      <p class="timeline-warning">לידיעתכם, לוח הזמנים הינו משוער בלבד</p>
+      <div>מקומות</div>
+    </div>
+  </div>
+</div>
 
 <!-- map overlay -->
 <div class="map-dark"></div>
