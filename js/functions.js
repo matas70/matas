@@ -18,6 +18,7 @@ var aircraftPaths = {};
 var startDate;
 var plannedStartTime;
 var actualStartTime;
+var displayArircraftShows = true;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -253,6 +254,18 @@ function updateLocationsMap(aircrafts) {
                 parachutist: aircraft.parachutist,
             };
             var location = locations[location.pointId];
+            if (displayArircraftShows&&(item.aerobatic||item.parachutist)) {
+                var timeout = convertTime(item.time) - getCurrentTime() + actualStartTime - plannedStartTime;
+                var timeBefore = 5 * 60 * 1000;
+                if (timeout - timeBefore > 0) {
+                    setTimeout(function () {
+                        showBasePopup(item.aerobatic, 5, location.pointName);
+                        setTimeout(function () {
+                            hideBasePopup();
+                        },10000);
+                    }, timeout - timeBefore);
+                }
+            }
             location.aircrafts.push(item);
         }, this);
     }, this);
