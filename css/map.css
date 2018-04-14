@@ -263,7 +263,7 @@ div.infoPopup {
     position: fixed;
     width: 100%;
     z-index: 100000;
-    bottom: 65px;
+    bottom: 0px;
     /*transition: height 2s ease-in;*/
 }
 

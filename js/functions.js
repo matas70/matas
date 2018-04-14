@@ -820,12 +820,3 @@ function initMap() {
         defer.resolve(map);
     }, 1000);
 }
-function basetest() {
-
-    if($('#basePopup').is(':visible')) {
-        hideBasePopup();
-    }
-    else{
-        showBasePopup(false,10,"פלמחים");
-    }
-}
