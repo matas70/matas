@@ -3,6 +3,7 @@
     {
       "aircraftTypeId": 1,
       "name": "יסעור",
+      "category": "מסוקים",
       "type": "מסוק סער",
       "icon": "yasur",
       "image": "images/yasur.jpg",
@@ -17,6 +18,7 @@
     {
       "aircraftTypeId": 2,
       "name": "ינשוף",
+      "category": "מסוקים",
       "type" : "מסוק סער",
       "icon" : "yanshuf",
       "image" : "images/yanshuf.jpg",
@@ -31,6 +33,7 @@
     {
       "aircraftTypeId": 3,
       "name": "פתן",
+      "category": "מסוקים",
       "type": "מסוק קרב",
       "icon": "peten",
       "image": "images/peten.jpg",
@@ -46,6 +49,7 @@
     {
       "aircraftTypeId": 4,
       "name": "H125",
+      "category": "מסוקים",
       "type": "מסוק משטרתי",
       "icon": "h125",
       "image": "images/h125.jpg",
@@ -60,6 +64,7 @@
     {
       "aircraftTypeId": 5,
       "name": "איירטרקטור",
+      "category": "סיור ובקרה",
       "type": "כבאות אוויר",
       "icon": "airTractor",
       "image": "images/airTractor.jpg",
@@ -74,6 +79,7 @@
     {
       "aircraftTypeId": 6,
       "name": "צופית",
+      "category": "סיור ובקרה",
       "type" : "סיור",
       "icon" : "tzufit",
       "image" : "images/tzufit.jpg",
@@ -88,6 +94,7 @@
     {
       "aircraftTypeId": 7,
       "name": "קוקיה",
+      "category": "סיור ובקרה",
       "type" : "סיור",
       "icon" : "tzufit",
       "image" : "images/kukiya.jpg",
@@ -102,6 +109,7 @@
     {
       "aircraftTypeId": 8,
       "name": "סופה",
+      "category": "מטוסי קרב",
       "type" : "קרב",
       "icon" : "sufa",
       "image" : "images/sufa.jpg",
@@ -117,6 +125,7 @@
     {
       "aircraftTypeId": 9,
       "name": "אדיר",
+      "category": "מטוסי קרב",
       "type" : "קרב",
       "icon" : "adir",
       "image" : "images/adir.jpg",
@@ -132,6 +141,7 @@
     {
       "aircraftTypeId": 10,
       "name": "ברק",
+      "category": "מטוסי קרב",
       "type" : "קרב",
       "icon" : "barak",
       "image" : "images/barak.jpg",
@@ -147,6 +157,7 @@
     {
       "aircraftTypeId": 11,
       "name": "לביא",
+      "category": "הדרכה",
       "type" : "הדרכה",
       "icon" : "lavi",
       "image" : "images/lavi.jpg",
@@ -161,6 +172,7 @@
     {
       "aircraftTypeId": 12,
       "name": "ראם",
+      "category":"תובלה",
       "type" : "תובלה ותדלוק",
       "icon" : "reem",
       "image" : "images/reem.jpg",
@@ -175,6 +187,7 @@
     {
       "aircraftTypeId": 13,
       "name": "שרף",
+      "category": "מסוקים",
       "type": "מסוק קרב",
       "icon": "saraf",
       "image": "images/saraf.jpg",
@@ -190,6 +203,7 @@
     {
       "aircraftTypeId": 14,
       "name": "נחשון",
+      "category": "סיור ובקרה",
       "type": "סיור ובקרה",
       "icon": "nahshon",
       "image": "images/nahshon.jpg",
@@ -204,6 +218,7 @@
     {
       "aircraftTypeId": 15,
       "name": "שמשון",
+      "category": "תובלה",
       "type": "תובלה כבדה",
       "icon": "shimshon",
       "image": "images/shimshon.jpg",
@@ -218,6 +233,7 @@
     {
       "aircraftTypeId": 16,
       "name": "בואינג 787",
+      "category": "אזרחי",
       "type": "אל על",
       "icon": "boeing787",
       "image": "images/boeing787.jpg",
@@ -232,6 +248,7 @@
     {
       "aircraftTypeId": 17,
       "name": "אמברייר 195",
+      "category": "אזרחי",
       "type": "ארקיע",
       "icon": "boeing747",
       "image": "images/ambraer.jpg",
@@ -246,6 +263,7 @@
     {
       "aircraftTypeId": 18,
       "name": "F16 יווני",
+      "category": "מטוסי קרב",
       "type": "קרב",
       "icon": "f16g",
       "country": "greece",
@@ -262,6 +280,7 @@
     {
       "aircraftTypeId": 19,
       "name": "יורופייטר איטלקי",
+      "category": "מטוסי קרב",
       "type": "קרב",
       "icon": "eurofighter",
       "country": "italian",
@@ -278,6 +297,7 @@
     {
       "aircraftTypeId": 20,
       "name": "C17 קנדי",
+      "category": "תובלה",
       "type": "תובלה כבדה",
       "icon": "c17",
       "country": "canada",
@@ -293,6 +313,7 @@
     {
       "aircraftTypeId": 21,
       "name": "שמשון בריטי",
+      "category": "תובלה",
       "type": "תובלה",
       "icon": "shimshon-dark",
       "country": "britian",
@@ -308,6 +329,7 @@
     {
       "aircraftTypeId": 22,
       "name": "שמשון אוסטרי",
+      "category": "תובלה",
       "type": "תובלה",
       "icon": "shimshon-dark",
       "country": "austria",
@@ -323,6 +345,7 @@
     {
       "aircraftTypeId": 23,
       "name": "C295 פולני",
+      "category": "תובלה",
       "type": "תובלה",
       "icon": "c295",
       "country": "poland",
@@ -338,6 +361,7 @@
     {
       "aircraftTypeId": 24,
       "name": "קרנף",
+      "category": "תובלה",
       "type": "תובלה כבדה",
       "icon": "karnaf",
       "image": "images/karnaf.jpg",
@@ -345,13 +369,14 @@
       "description": "מטוס תובלה רב-משימתי למשימות צבאיות. למטוס שמורות זכויות רבות בחיל-האוויר הישראלי כמטוס, שהשתתף בחילוץ החטופים מאנטבה ובמבצע \"שלמה\" - להעלאת יהודי אתיופיה.\n\nהמטוס יוצר ביותר מ-100 דגמים שונים מאוגוסט 1954 ועד היום, ומשמש למטרות שונות. ב-1992 מסרה \"לוקהיד\" את ההרקולס ה-2,500, ובכך הפך ההרקולס למטוס התובלה הנמכר ביותר בהיסטוריה, מלבד הדקוטה. בין המשימות השונות של ההרקולס ברחבי העולם: תידלוק מטוסים ומסוקים, חילוץ, הצנחת מטען ואנשים, סיור, ביון, מפקדות מעופפות, כיבוי שריפות, לכידת לוויינים, סיור מזג-אוויר, ומחקר.\n\nהתאמתו של ההרקולס למגוון רחב של משימות נובעת בעיקר מביצועיו הטובים, ומיכולתו לשאת כמות גדולה יחסית של מטען, כשהוא פועל ממינחתים קצרים.",
       "manufactured" : "ארה\"ב",
       "dimensions" : "אורך - 29.79 מטר\nגובה - 11.66 מטר\nמוטת כנף - 40.41 מטר\nשטח כנף - 162.12 מ\"ר",
-      "performance" : "מהירות מרבית - 618 קמ\"ש\סייג רום – כ-10 ק\"מ\nטווח מרבי - 7,876 ק\"מ",
+      "performance" : "מהירות מרבית - 618 קמ\"ש\nסייג רום – כ-10 ק\"מ\nטווח מרבי - 7,876 ק\"מ",
       "weight" : "ריק - 34,827 ק\"ג\nמרבי - 79,379 ק\"ג",
       "engine" : "ארבעה, \"אליסון\" T56-A-15 בעלי הספק של 4,508 כ\"ס כל-אחד"
     },
     {
       "aircraftTypeId": 25,
       "name": "עפרוני",
+      "category": "הדרכה",
       "type" : "הדרכה",
       "icon" : "efroni",
       "image" : "images/efroni.jpg",
