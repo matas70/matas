@@ -1,3 +1,5 @@
+const MAP_URL = "http://www.bing.com/api/maps/mapcontrol?callback=initMap&setLang=he";
+
 var selectedLocation = null;
 var aircrafts = null;
 var currentLocationMarker;
@@ -75,6 +77,10 @@ function selectLocation(point, marker, markerIcon, markerIconClicked, color, tit
     this.selectedLocation = selectedMarker.getLocation();
     this.selectedLocationMarker = selectedMarker;
     this.selectedLocationMarkerIcon = markerIcon;
+}
+
+function loadPlugins() {
+    
 }
 
 function getMarkerIcon(color, clicked) {
