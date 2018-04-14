@@ -837,7 +837,7 @@ function onLoad() {
         loadAircrafts(function (pAircrafts) {
             aircrafts = pAircrafts;
             loadCategories(function() {
-                fillMenu()
+                fillMenu();
             });
 
             if (getCurrentTime() < actualStartTime) {
@@ -888,10 +888,6 @@ var isMenuOpen = false;
 var canOpenMenu = true;
 var currTab = "#tab2";
 var $menuHamburger;
-
-function initMenu() {
-    // ugly code to place about logo correctly related to the half blue
-    $("#aboutLogo").css("paddingTop", $(".halfBlue").height() - $(".aboutLogo").height() + 12 + "px");
 
 function openListView() {
     if (aboutVisible) {
@@ -1023,7 +1019,7 @@ function initMap() {
                 deselectLocation();
                 deselectAircraft();
             });
-        $("#map").show();
+            $("#map").show();
 
             // load all routes
             loadRoutes(function (routes) {
@@ -1045,6 +1041,7 @@ function initMap() {
                     startAircraftsAnimation(true);
                 });
             });
+
             defer.resolve(map);
         }, 1000);
     } else {
