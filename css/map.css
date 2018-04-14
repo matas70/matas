@@ -105,7 +105,7 @@ div.splash {
 }
 
 #headerIconContainer {
-    display: table-cell;
+    width: 100%;
     text-align: center;
     vertical-align: middle;
 }
@@ -117,9 +117,8 @@ div.splash {
 }
 
 #homeButton {
-    position: absolute;
-    right: 20px;
-    top: 21px;
+    margin-top: 4px;
+    padding: 15px 15px;
 }
 
 #popupTitle {
@@ -267,6 +266,13 @@ div.infoPopup {
     /*transition: height 2s ease-in;*/
 }
 
+div.locationInfoPopup {
+    position: absolute;
+    width: 100%;
+    z-index: 9999;
+    bottom: 0px;
+}
+
 #aboutPopup {
     height: 100%;
     background: white;
@@ -327,14 +333,13 @@ HEADER {
 }
 
 #headerBg {
-    display: table;
+    display: flex;
     background: #08051a;
     height: 64px;
     width: 100%;
     position: absolute;
     z-index: 10000;
-    text-align: center;
-    vertical-align: middle;
+    align-items: center;
 }
 
 #expandedInfo {
@@ -350,11 +355,10 @@ HEADER {
     padding-bottom: 10px;
 }
 
-
 .aircraftDescription {
     padding-bottom: 8px;
     white-space: pre-line;
-    border-bottom: 1px rgba(0, 0 ,0, 0.2) solid;
+    border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
 }
 
 .aircraftInfoContentIcon {
@@ -376,7 +380,7 @@ HEADER {
 }
 
 .aircraftInfoContentGroup {
-    border-bottom: 1px rgba(0, 0 ,0, 0.2) solid;
+    border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
     padding-bottom: 8px;
     width: 100%;
 }
@@ -385,6 +389,81 @@ HEADER {
     background-color: white;
     z-index: 1;
     box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.08);
+}
+
+.listViewContainer {
+    direction: ltr;
+    background-color: white;
+    height: 100%;
+    position: absolute;
+    z-index: 10000;
+    display: none;
+    bottom: 0;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.12);
+}
+
+.menuHeader li {
+    display: inline;
+    text-align: center;
+}
+
+.menuLink {
+    display: inline-block;
+    width: 25%;
+    padding: .75rem 0;
+    margin: 0;
+    text-decoration: none;
+    color: #333;
+}
+
+.menuLink.active{
+    font-weight: bold;
+}
+
+.two:hover ~ hr {
+    margin-left: 60%;
+}
+
+hr {
+    height: .25rem;
+    width: 25%;
+    margin: 0 0 0 15%;
+    background: rgb(59, 181, 242);
+    border: none;
+    transition: .3s ease-in-out;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.menuHeader {
+    width: 100%;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+.menuItem {
+
+}
+
+.tab-content {
+    display:none;
+}
+.tab-content.active {
+    display:block;
+}
+
+.timeline-warning {
+    font-size: 13px;
+    text-align: center;
+    color: rgba(69, 87, 115, 0.5);
 }
 
 #basePopup {
