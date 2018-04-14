@@ -18,6 +18,7 @@ var aircraftPaths = {};
 var startDate;
 var plannedStartTime;
 var actualStartTime;
+var categories;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -688,15 +689,15 @@ function deselectAircraft(callback) {
     }
 }
 
-function onAircraftSelected(aircraftId) {
+function onAircraftSelected(aircraftId, collapse) {
     var aircraft = aircrafts[aircraftId-1];
     window.scrollTo(0,1);
-    selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl);
+    selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse);
 }
 
-function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl) {
+function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl, collapse) {
     deselectLocation();
-    showAircraftInfoPopup(aircraft);
+    showAircraftInfoPopup(aircraft, collapse);
     //map.panTo(location);
     //marker.setIcon(markerIconClicked);
     selectedAircraft = aircraft;
@@ -772,6 +773,7 @@ function initMenu() {
     $("#listView").height("100%");
     var height = $("#listView").height();
     $("#listView").height(height - 64 + "px");
+    $(".tabs").height(height - 64 - 52 + "px");
 
     // Responsible for opening the side menu
     var $menuHamburger = $("#menuHamburger");
@@ -798,8 +800,10 @@ function initMenu() {
 }
 
 function openMenu() {
-    $("#listView").css("display", "block");
-    $("#listView").animate({"width": "100%"}, 300);
+    // $("#listView").css("display", "block");
+    // $("#listView").animate({"width": "100%"}, 300);
+    $("#listView").css({"transform": "translateX(0)"});
+    // $(".listContainer").addClass("hide");
     isMenuOpen = true;
     setTimeout(function() {
         canOpenMenu = true
@@ -807,10 +811,45 @@ function openMenu() {
 }
 
 function closeMenu() {
-    $("#listView").animate({"width": "0"}, 300, function() {$("#listView").css("display", "none"); isMenuOpen = false;});
+    $("#listView").css({"transform": "translateX(100%)"});
+    // $("#listView").css("display", "none");
+    isMenuOpen = false;
     setTimeout(function() {
         canOpenMenu = true
     }, 300);
+
+}
+
+function loadCategories(callback) {
+    $.getJSON("data/categories.json", function(pCategories) {
+        categories = pCategories;
+        callback();
+    });
+}
+
+function createCategoryRow(category) {
+    return "<div class='aircraftCategory'>" + category.category + "</div>"
+}
+
+function fillPopups() {
+    var html = "";
+    categories.forEach(function(category) {
+       html += createCategoryRow(category);
+       aircrafts.filter(function(aircraft) {
+           return aircraft.category == category.category;
+       }).forEach(function (aircraftFromCategory) {
+           html += createTableRow(aircraftFromCategory.aircraftId,
+                                  aircraftFromCategory.name,
+                                  aircraftFromCategory.icon,
+                                  aircraftFromCategory.type,
+                                  aircraftFromCategory.path[0].time,
+                                  aircraftFromCategory.aerobatic,
+                                  aircraftFromCategory.parachutist,
+                                  true);
+
+       });
+    });
+    $("#aircraftsListView").html(html);
 
 }
 
@@ -842,6 +881,9 @@ function initMap() {
                 addAircraftsToMap();
                 aircrafts = pAircrafts;
                 startAircraftsAnimation(false);
+                loadCategories(function() {
+                   fillPopups()
+                });
                 //clusterAircrafts(aircraftMarkers);
             });
 
