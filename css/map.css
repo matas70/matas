@@ -459,9 +459,9 @@ hr {
     transition: .3s ease-in-out;
 }
 
-* {
+/** {
     box-sizing: border-box;
-}
+}*/
 
 .menuHeader {
     width: 100%;
