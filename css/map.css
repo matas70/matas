@@ -450,6 +450,10 @@ HEADER {
     font-weight: bold;
 }
 
+.one:hover ~ hr {
+    margin-left: 15%;
+}
+
 .two:hover ~ hr {
     margin-left: 60%;
 }
@@ -457,7 +461,7 @@ HEADER {
 hr {
     height: .25rem;
     width: 25%;
-    margin: 0 0 0 15%;
+    margin: 0 0 0 60%;
     background: rgb(59, 181, 242);
     border: none;
     transition: .3s ease-in-out;
