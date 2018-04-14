@@ -418,7 +418,11 @@ HEADER {
     height: 100%;
     position: absolute;
     z-index: 10000;
-    display: none;
+    width: 100%;
+    /*display: none;*/
+    overflow: hidden;
+    transform: translateX(100%);
+    transition: transform 0.3s;
     bottom: 0;
 }
 
@@ -460,10 +464,6 @@ hr {
     transition: .3s ease-in-out;
 }
 
-/** {
-    box-sizing: border-box;
-}*/
-
 .menuHeader {
     width: 100%;
     margin: 0 0 0 0;
@@ -485,6 +485,29 @@ hr {
     font-size: 13px;
     text-align: center;
     color: rgba(69, 87, 115, 0.5);
+}
+
+.aircraftCategory {
+    width: 100%;
+    height: 25px;
+    background-color: rgb(229, 229, 230);
+    font-size: 15px;
+    color: rgb(55, 71, 79);
+}
+
+.tabs {
+    direction: rtl;
+    overflow-y: auto;
+}
+
+.listContainer {
+    transform: translateX(100%);
+    transition: translate 1s;
+}
+
+.listContainer.hide {
+    position:absolute;
+    transform: translateX(0%);
 }
 
 #basePopup {
