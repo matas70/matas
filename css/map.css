@@ -228,6 +228,75 @@ div.tableRow {
     display: table-row;
     width: 100%;
     height: 60px;
+    margin-bottom: 2px;
+}
+
+div.locationsTable {
+    display: table;
+    width: 100%;
+}
+
+a.locationRow {
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    display: table;
+}
+
+div.locationRow {
+    background: rgb(247, 245, 245);
+    display: table-row;
+    width: 100%;
+    height: 56px;
+}
+div.locationSpace {
+    display: none;
+    width: 100%;
+}
+div.locationPadding {
+    display: table-row;
+    height: 4px;
+}
+div.locationName {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    padding-right: 22px;
+    font-family: "Heebo Medium";
+    font-size: 13pt;
+}
+
+div.nextAircraftSection {
+    display: inline-flex;
+    margin-left: 28px;
+    float: left;
+}
+
+div.expandArrow {
+    margin-right: 23px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+div.collapseArrow {
+    margin-right: 23px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: none;
+}
+
+div.nextAircraftTime {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 23px;
+}
+
+div.smallAircraftName {
+    vertical-align: middle;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    font-family: "Heebo Light";
+    font-size: 12pt;
 }
 
 img.aircraftIcon {
@@ -451,14 +520,26 @@ HEADER {
     font-weight: bold;
 }
 
-.two:hover ~ hr {
-    margin-left: 60%;
+/*.one:hover ~ hr {*/
+    /*margin-left: 15%;*/
+/*}*/
+
+/*.two:hover ~ hr {*/
+    /*margin-left: 60%;*/
+/*}*/
+
+hr.two {
+    margin-left: 15%;
+}
+
+.one:hover ~ hr {
+    margin-left: 15%;
 }
 
 hr {
     height: .25rem;
     width: 25%;
-    margin: 0 0 0 15%;
+    margin: 0 0 0 60%;
     background: rgb(59, 181, 242);
     border: none;
     transition: .3s ease-in-out;

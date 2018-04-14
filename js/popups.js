@@ -13,77 +13,6 @@ function initPopups() {
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized=false) {
     // build popup html
     var html = "";
-    var lastAircraftType = "";
-    point.aircrafts.forEach(function (aircraft) {
-        if (aircraft.icon != lastAircraftType) {
-            html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist);
-            lastAircraftType = aircraft.icon;
-        }
-    }, this);
-    $("#aircraftsList").html(html);
-    $("#popupTitle").text(point.pointName);
-    $("#popupHeader").css("background", color);
-    $("#popupTitle").css("color", titleColor);
-    $("#popupSubTitle").css("color", subtitleColor);
-
-    var locationPopup = $("#locationPopup");
-
-    var popupHeight = locationPopup.height();
-    var targetHeight = minimized ? 100 : 200;
-    var targetBottom = 0;
-    if (popupHeight > targetHeight)
-        targetBottom = -(popupHeight - targetHeight);
-    locationPopup.css("bottom", -popupHeight);
-    locationPopup.show();
-    locationPopup.animate({
-        bottom: targetBottom + "px"
-    }, "fast");
-
-    // add touch events on the list to allow user expand or collapse it
-    var dragStartTopY = null;
-    var maxDrag = popupHeight - (window.innerHeight - 64);
-    var delta;
-    var popupHeader = $("#popupHeader");
-    var currentBottom = targetBottom;
-
-    popupHeader.on("tapstart", function (event) {
-        dragStartTopY = event.touches[0].clientY;
-        event.preventDefault();
-    });
-
-    popupHeader.on("tapmove", function (event) {
-        if (dragStartTopY != null) {
-            delta = dragStartTopY - event.touches[0].clientY;
-			if (currentBottom + delta < 0) {
-				if (currentBottom + delta > -maxDrag)
-					locationPopup.css("bottom", -maxDrag + "px");
-				else
-					locationPopup.css("bottom", currentBottom + delta + "px");
-			}
-			else
-				locationPopup.css("bottom", "0px");
-            event.preventDefault();
-        }
-    });
-    popupHeader.on("tapend", function (event) {
-        if (dragStartTopY != null) {
-            if (delta > 32) {
-                // animate expand
-                currentBottom = Math.min(-maxDrag, 0);
-                locationPopup.animate({bottom: currentBottom + "px"}, "fast");
-            } else if (delta < 32) {
-                locationPopup.animate({bottom: targetBottom + "px"}, "fast");
-                currentBottom = targetBottom;
-			} else {
-                locationPopup.animate({bottom: currentBottom + "px"}, "fast");
-			}
-
-            event.preventDefault();
-            dragStartTopY = null;
-        }
-    });
-    // build popup html
-    var html = "";
     point.aircrafts.forEach(function (aircraft) {
         html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist, false);
     }, this);
@@ -176,6 +105,10 @@ function showAircraftInfoPopup(aircraft, collapse) {
         $("#aircraftInfoContentArmament").text(aircraft.armament);
 	}
 
+	// Clears event handlers
+    $("#aircraftInfoMore").off("click");
+    $("#shrinkAircraftInfoPopup").off("click")
+
 	if (!collapse) {
         $("#aircraftInfoMore").on("click", function () {
             var height = $(window).height();
@@ -249,6 +182,53 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
 	return "<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon +
 		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name + 
 		   "</b> " + aircraftType + "</div>"+ aerobaticIcon +"<div class=\"time\">"+ time.substring(0,5) +"</div></div>";
+}
+
+function createLocationRow(location) {
+    return "<a class='locationRow' href='javascript:void(0);'><div id='location"+location.pointId+"' class='locationRow' onclick='expandLocation("+location.pointId+");'>" +
+                "<div class='locationName'>"+location.pointName+"</div>" +
+                "<div class='nextAircraftSection'>"+
+                    "<div class='smallAircraftName'>"+location.aircrafts[0].name+"</div>" +
+                    "<div class='nextAircraftTime'>"+location.aircrafts[0].time.substr(0,5)+"</div>" +
+                    "<div class='expandArrow'><img src='icons/arrowBlack.png'></div>" +
+                    "<div class='collapseArrow'><img src='icons/arrowBlackUp.png'></div>" +
+                "</div>" +
+           "</div></a>" +
+           "<div id='locationSpace"+location.pointId+"' class='locationSpace'></div>" +
+           "<div class='locationPadding'></div>";
+}
+
+function expandLocation(pointId) {
+    var location = locations[pointId];
+    var locationSpace = $("#locationSpace"+pointId);
+    if (locationSpace.html()==="") {
+        var html = "";
+        var lastAircraft = "";
+        location.aircrafts.forEach(function (aircraft) {
+            if (aircraft.name !== lastAircraft) {
+                html += createTableRow(aircraft.aircraftId,
+                    aircraft.name,
+                    aircraft.icon,
+                    aircraft.aircraftType,
+                    aircraft.time,
+                    aircraft.aerobatic,
+                    aircraft.parachutist,
+                    true);
+                lastAircraft = aircraft.name;
+            }
+        }, this);
+        locationSpace.html(html);
+        locationSpace.slideDown();
+        $("#location"+pointId).children(".nextAircraftSection").children(".expandArrow").hide();
+        $("#location"+pointId).children(".nextAircraftSection").children(".collapseArrow").show();
+    } else {
+        locationSpace.slideUp("fast", function() {
+            locationSpace.html("");
+            $("#location"+pointId).children(".nextAircraftSection").children(".expandArrow").show();
+            $("#location"+pointId).children(".nextAircraftSection").children(".collapseArrow").hide();
+        });
+    }
+
 }
 
 function showIncompatibleDevicePopup() {
