@@ -419,6 +419,18 @@ function registerServiceWorker() {
     }
 }
 
+var currentLocationMarker;
+
+function updateCurrentLocation(position) {
+    currentPosition = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+        accuracy: position.coords.accuracy
+    };
+
+    updateMarkerPosition(currentLocationMarker, currentPosition, 200);
+}
+
 function showCurrentLocation() {
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -435,7 +447,7 @@ function showCurrentLocation() {
             //var currentHeadingIcon = createHeadingArea(0);
 
             //drawMarker(currentPosition, currentHeadingIcon, false);
-            drawMarker(currentPosition, currentPositionIcon, true);
+            currentLocationMarker = drawMarker(currentPosition, currentPositionIcon, true);
             focusOnLocation(currentPosition);
 
             // find the closest location and select it
@@ -855,6 +867,12 @@ function onLoad() {
      if (compatibleDevice() && !checkIframe()) {
         loadAircrafts(function (pAircrafts) {
             aircrafts = pAircrafts;
+            // load all routes
+            loadRoutes(function (routes) {
+                this.routes = routes;
+                updateLocationsMap(aircrafts);
+            }, this);
+
             loadCategories(function() {
                 fillMenu();
             });
@@ -864,6 +882,7 @@ function onLoad() {
                     countdown();
                 }, 1000);
                 setTimeout(function () {
+                    $(".splash").fadeOut();
                     $("#entrancePopup").fadeIn();
                 }, 1000);
             } else if (!mapLoaded) {
@@ -1048,25 +1067,20 @@ function initMap() {
             });
             $("#map").show();
 
-            // load all routes
-            loadRoutes(function (routes) {
-                this.routes = routes;
-                drawRoutesOnMap(routes);
+            drawRoutesOnMap(routes);
 
-                updateLocationsMap(aircrafts);
-                addAircraftsToMap();
-                startAircraftsAnimation(false);
-                //clusterAircrafts(aircraftMarkers);
+            addAircraftsToMap();
+            startAircraftsAnimation(false);
+            //clusterAircrafts(aircraftMarkers);
 
-                // hide splash screen
-                setTimeout(function () {
-                    $(".splash").fadeOut();
-                    showCurrentLocation();
-                }, 3500);
+            // hide splash screen
+            setTimeout(function () {
+                $(".splash").fadeOut();
+                showCurrentLocation();
+            }, 3500);
 
-                $(window).focus(function () {
-                    startAircraftsAnimation(true);
-                });
+            $(window).focus(function () {
+                startAircraftsAnimation(true);
             });
 
             defer.resolve(map);
