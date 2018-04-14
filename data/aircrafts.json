@@ -1923,7 +1923,7 @@
         ]
       },
       {
-        "aircraftId": 35,
+        "aircraftId": 36,
         "name": "קרנף",
         "type": "תובלה כבדה",
         "category": "תובלה",
@@ -1983,7 +1983,7 @@
         ]
       },
       {
-        "aircraftId": 36,
+        "aircraftId": 37,
         "name": "עפרוני",
         "type" : "הדרכה",
         "category": "הדרכה",
@@ -2004,7 +2004,7 @@
         ]
       },
       {
-        "aircraftId": 37,
+        "aircraftId": 38,
         "name": "שמשון",
         "category": "תובלה",
         "type" : "הצנחת צנחנים",
