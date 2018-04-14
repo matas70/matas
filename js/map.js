@@ -1,3 +1,5 @@
+const MAP_URL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCUHnpGpGO0nDr7Hy3nsnk85eIM75jGBd4&callback=initMap&language=he&region=IL";
+
 function setAircraftMarkerIcon(marker, url,anchor=36) {
     if (anchor!= null) {
         marker.setIcon({
@@ -134,15 +136,13 @@ function updateCurrentHeading(heading) {
  * draws a marker on the map given a location and icon
  * @param position - the position to draw the marker
  * @param icon - the icon of the marker
- * @param title - the text shown on the marker
  * @param shouldUseMap - should the map be
  */
-function drawMarker(position, icon, title, shouldUseMap) {
+function drawMarker(position, icon, shouldUseMap) {
     var marker = new google.maps.Marker({
         position: position,
         map: shouldUseMap ? map : null,
-        icon: icon,
-        title: title != "" ? title : ""
+        icon: icon
     });
 }
 
@@ -293,6 +293,13 @@ function drawRoutesOnMap(routes) {
     }, this);
 
 
+}
+
+function loadPlugins() {
+    $.getScript("js/slidingMarker/jquery.easing.1.3.js");
+    $.getScript("js/slidingMarker/markerAnimate.js");
+    $.getScript("js/markerclusterer.js");
+    $.getScript("js/slidingMarker/SlidingMarker.min.js");
 }
 
 function createMapObject(clickCallback) {
