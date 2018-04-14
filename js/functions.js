@@ -793,17 +793,18 @@ function countdown() {
     // Load the map two seconds before the countdown finishes
     if (remainingTime.seconds < 2 && remainingTime.seconds > 0) {
         $(".splash").hide();
+        // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
+        setTimeout(function() {
+            $(".splash").css("background-image", "url(icons/stillSplash.png)");
+        }, 3500);
+
         setTimeout(function() {
             $(".splash").fadeIn();
             $(".splash").css("visibility", "visible");
         }, 1000);
 
-        // Stops the gif from running more than once
-        setTimeout(function() {
-            $(".splash").css("background-image", "url(icons/stillSplash.png)");
-        }, 2500);
-
-        loadApp();
+        loadApp();   
+        
     }
 
     // Time to remove the entrancePopup
