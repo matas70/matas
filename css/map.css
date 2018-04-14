@@ -351,11 +351,10 @@ HEADER {
     padding-bottom: 10px;
 }
 
-
 .aircraftDescription {
     padding-bottom: 8px;
     white-space: pre-line;
-    border-bottom: 1px rgba(0, 0 ,0, 0.2) solid;
+    border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
 }
 
 .aircraftInfoContentIcon {
@@ -377,7 +376,7 @@ HEADER {
 }
 
 .aircraftInfoContentGroup {
-    border-bottom: 1px rgba(0, 0 ,0, 0.2) solid;
+    border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
     padding-bottom: 8px;
     width: 100%;
 }
@@ -386,4 +385,162 @@ HEADER {
     background-color: white;
     z-index: 1;
     box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.08);
+}
+
+#backgroundImage {
+    top: 62px;
+    display: inline-block;
+    background: #7bd1fc;
+    width: 100%;
+    height: 100%;
+    max-height: 120%;
+    position: absolute;
+    -webkit-filter: blur(2px) brightness(75%); /* Safari 6.0 - 9.0 */
+    filter: blur(4px) brightness(75%);
+    /* display: flex; */
+    /* flex-direction:  column; */
+}
+
+#entranceLogo {
+    display: flex;
+    flex-shrink: 4;
+    /* flex: 1; */
+    margin-top: 15pt;
+    /* max-height: 50%; */
+    align-self: self-end;
+    margin-bottom: auto;
+    max-width: 50%;
+    align-self: center;
+}
+
+#countdownMeter {
+    background-color: rgb(59 181 242);
+    color: white;
+    border-radius: 7pt;
+    flex-grow: 5;
+    width: 122pt;
+    display: flex;
+    direction: ltr;
+    min-height: 38pt;
+    flex: 1;
+    align-items: center;
+    flex-direction: row;
+}
+
+.entranceBody {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin: auto;
+    flex: none;
+}
+
+b.entranceBody {
+}
+
+#scheduleLink {
+    padding-top: 16pt;
+    margin-top: 10pt;
+    padding-bottom: 17pt;
+    color: white;
+    font-size: 13pt;
+    box-shadow: 0px 1px 5px black;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    width: 100%;
+    flex: none;
+    justify-content: flex-end;
+    position: relative;
+    background: rgb(59 181 242);
+}
+
+#entrancePopup {
+    height: 100%;
+    background: white;
+    text-align: center;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+#countdownContainer {
+    width: 80%;
+    height: 120%;
+    flex-direction: column;
+    display: flex;
+    box-shadow: 0px 0px 15px 0px;
+    border-radius: 30px;
+    background: white;
+    margin-right: auto;
+    margin-top: 22%;
+    align-items: center;
+    margin-bottom: 5%;
+    margin-left: auto;
+    z-index: 2;
+}
+
+#days {
+    order: 1;
+    flex-grow: 1;
+    padding-top: 12pt;
+    padding-bottom: 8pt;
+    border-right: 20px white;
+    display: flex;
+    justify-content: center;
+}
+
+#hours {
+    order: 1;
+    border-right: 1pt solid white;
+    border-left: 1pt solid white;
+    flex-grow: 1;
+    padding-top: 12pt;
+    padding-bottom: 8pt;
+    display: flex;
+    justify-content: center;
+}
+
+#minutes {
+    order: 3;
+    flex-grow: 1;
+    padding-top: 12pt;
+    padding-bottom: 8pt;
+    display: flex;
+    justify-content: center;
+}
+
+#daysText {
+    flex-grow: 1;
+}
+
+#hoursText {
+    flex-grow: 1;
+}
+
+#minutesText {
+    flex-grow: 1;
+}
+
+#countdownText {
+    /* font-size: 13pt; */
+    width: 122pt;
+    display: inline-flex;
+    direction: ltr;
+    align-items: center;
+    color: rgb(55, 71, 79);
+    flex-direction: row;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.countdown {
+    display: flex;
+    align-content: space-around;
+    justify-content: space-between;
+    flex-direction: column;
+    flex: none;
 }
