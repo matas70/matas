@@ -804,7 +804,6 @@ function countdown() {
         }, 1000);
 
         loadApp();
-
     }
 
     // Time to remove the entrancePopup
@@ -833,23 +832,24 @@ function countdown() {
 var countdownInterval;
 
 function onLoad() {
-    $.getJSON("data/aircrafts.json", function (routes) {
-        startDate = routes.startDate;
-        loadActualStartTime(routes);
-
-        if (getCurrentTime() < actualStartTime) {
-            countdownInterval = setInterval(function () {
-                countdown();
-            }, 1000);
-            setTimeout(function() {
-                $("#entrancePopup").fadeIn();
-            }, 1000);
-
-        } else if (!mapLoaded) {
-            loadApp();
-        }
-    });
-
+    if (compatibleDevice() && !checkIframe()) {
+        $.getJSON("data/aircrafts.json", function (routes) {
+            startDate = routes.startDate;
+            loadActualStartTime(routes);
+            if (getCurrentTime() < actualStartTime) {
+                countdownInterval = setInterval(function () {
+                    countdown();
+                }, 1000);
+                setTimeout(function () {
+                    $("#entrancePopup").fadeIn();
+                }, 1000);
+            } else if (!mapLoaded) {
+                loadApp();
+            }
+        });
+    } else {
+        showIncompatibleDevicePopup();
+    }
 }
 
 function loadApp() {
@@ -1024,7 +1024,7 @@ function initMap() {
             defer.resolve(map);
         }, 1000);
     } else {
-        $(".splash").fadeOut();
+//         $(".splash").fadeOut();
         showIncompatibleDevicePopup();
     }
 }
