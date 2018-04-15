@@ -529,17 +529,17 @@ HEADER {
 /*}*/
 
 hr.two {
-    margin-left: 15%;
+    margin-left: 11%;
 }
 
-.one:hover ~ hr {
-    margin-left: 15%;
-}
+/*.one:hover ~ hr {*/
+    /*margin-left: 15%;*/
+/*}*/
 
 hr {
     height: .25rem;
-    width: 25%;
-    margin: 0 0 0 60%;
+    width: 33%;
+    margin: 0 0 0 57%;
     background: rgb(59, 181, 242);
     border: none;
     transition: .3s ease-in-out;
