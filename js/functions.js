@@ -819,10 +819,10 @@ var mapLoaded = false;
 
 function countdown() {
     var currentTime = getCurrentTime();
-    var remainingTime = new TimeSpan(actualStartTime - currentTime);
+    var remainingTime = new Date(actualStartTime - currentTime);
 
     // Load the map two seconds before the countdown finishes
-    if (remainingTime.getTotalMilliseconds() < 2000 && remainingTime.getTotalMilliseconds() > 0) {
+    if (remainingTime  < 2000 && remainingTime  > 0) {
         $(".splash").hide();
         // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
         setTimeout(function() {
@@ -839,27 +839,46 @@ function countdown() {
     }
 
     // Time to remove the entrancePopup
-    if (remainingTime.getTotalMilliseconds() < 1000) {
+    if (remainingTime  < 1000) {
         $("#minutes").text("00");
         $("#entrancePopup").fadeOut("slow");
         if (countdownInterval) {
             clearInterval(countdownInterval);
         }
     } else {
-        $("#days").text(remainingTime.days < 1 ? (remainingTime.hours < 10 ? "0" + remainingTime.hours : remainingTime.hours)
-            : (remainingTime.days < 10 ? "0" + remainingTime.days : remainingTime.days));
-        $("#hours").text(remainingTime.days < 1 ? (remainingTime.minutes < 10 ? "0" + remainingTime.minutes : remainingTime.minutes)
-            : (remainingTime.hours < 10 ? "0" + remainingTime.hours : remainingTime.hours));
-        $("#minutes").text(remainingTime.days < 1 ? (remainingTime.seconds < 10 ? "0" + remainingTime.seconds : remainingTime.seconds)
-            : (remainingTime.minutes < 10 ? "0" + remainingTime.minutes : remainingTime.minutes));
+        $("#days").text(getRemainingDays(remainingTime) < 1 ? (getRemainingHours(remainingTime) < 10 ? "0" + getRemainingHours(remainingTime) : getRemainingHours(remainingTime))
+            : (getRemainingDays(remainingTime) < 10 ? "0" + getRemainingDays(remainingTime) : getRemainingDays(remainingTime)));
+        $("#hours").text(getRemainingDays(remainingTime) < 1 ? (getRemainingMinutes(remainingTime) < 10 ? "0" + getRemainingMinutes(remainingTime) : getRemainingMinutes(remainingTime))
+            : (getRemainingHours(remainingTime) < 10 ? "0" + getRemainingHours(remainingTime) : getRemainingHours(remainingTime)));
+        $("#minutes").text(getRemainingDays(remainingTime) < 1 ? (getRemainingSeconds(remainingTime) < 10 ? "0" + getRemainingSeconds(remainingTime) : getRemainingSeconds(remainingTime))
+            : (getRemainingMinutes(remainingTime) < 10 ? "0" + getRemainingMinutes(remainingTime) : getRemainingMinutes(remainingTime)));
 
-        if (remainingTime.days < 1) {
+        if (getRemainingDays(remainingTime) < 1) {
             $("#daysText").text("שעות");
             $("#hoursText").text("דקות");
             $("#minutesText").text("שניות");
         }
     }
 }
+
+function getRemainingDays(date) {
+//     return date.getTime() / 1000 / 60 / 60
+    return Math.floor(date.getTime() / (1000 * 60 * 60 * 24));
+}
+
+function getRemainingHours(date) {
+    return Math.floor(date.getTime() / (1000 * 60 * 60));
+}
+
+
+function getRemainingMinutes(date) {
+    return Math.floor(date.getTime() / (1000 * 60));
+}
+
+function getRemainingSeconds(date) {
+    return Math.floor(date.getTime() / 1000);
+}
+
 
 var countdownInterval;
 

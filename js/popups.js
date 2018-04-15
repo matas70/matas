@@ -105,7 +105,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
         $("#aircraftInfoContentArmament").text(aircraft.armament);
 	}
 
-	// Clears event handlers
+	// Clears event handlersh
     $("#aircraftInfoMore").off("click");
     $("#shrinkAircraftInfoPopup").off("click")
 
@@ -170,18 +170,26 @@ function hidePopup(popup, callback) {
 	});	
 }
 
+function createAerobaticRow(name, time) {
+    return "<div class=\"tableRow\"><img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>\" "+ name +
+        "</b></div><div class=\"time\">"+ time.substring(0,5) +"</div></div>";
+
+    // Figure this out
+    //<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");'
+}
+
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse) {
-	var aerobaticIcon = "<div/>";
-	if (aerobatic) {
-		aerobaticIcon = "<img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img>";
-		aircraftType = "מופע אווירובטי";
-	} else if (parachutist) {
-        aerobaticIcon = "<img src=\"icons/aircrafts/parachutist.png\" class=\"aerobaticIcon\"></img>";
-        aircraftType = "הצנחת צנחנים";
-	}
+	// var aerobaticIcon = "<div/>";
+	// if (aerobatic) {
+	// 	aerobaticIcon = "<img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img>";
+	// 	aircraftType = "מופע אווירובטי";
+	// } else if (parachutist) {
+     //    aerobaticIcon = "<img src=\"icons/aircrafts/parachutist.png\" class=\"aerobaticIcon\"></img>";
+     //    aircraftType = "הצנחת צנחנים";
+	// }
 	return "<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon +
 		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name + 
-		   "</b> " + aircraftType + "</div>"+ aerobaticIcon +"<div class=\"time\">"+ time.substring(0,5) +"</div></div>";
+		   "</b> " + aircraftType + "</div>" +"<div class=\"time\">"+ time.substring(0,5) +"</div></div>";
 }
 
 function createLocationRow(location) {
