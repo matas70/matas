@@ -821,27 +821,26 @@ function countdown() {
     var currentTime = getCurrentTime();
     var remainingTime = new Date(actualStartTime - currentTime);
 
-    // Load the map two seconds before the countdown finishes
-    if (remainingTime  < 2000 && remainingTime  > 0) {
+    // Load the map three seconds before the countdown finishes
+    if (remainingTime  < 3500 && remainingTime  > 2500) {
+        $(".splash").css("background-image", "url('animation/Splash 70.gif?v=1')");
         $(".splash").hide();
-        // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
-        setTimeout(function() {
-            $(".splash").css("background-image", "url(icons/stillSplash.png)");
-        }, 3500);
 
+        // Stops the gif from running more than once
         setTimeout(function() {
             $(".splash").fadeIn();
-            $(".splash").css("visibility", "visible");
-        }, 1000);
-
-        loadApp();
-
+            $(".loading").css("background-image", "url(animation/loading.gif)");
+            loadApp();
+        }, 1800);
     }
 
     // Time to remove the entrancePopup
-    if (remainingTime  < 1000) {
+    if (remainingTime  < 500) {
         $("#minutes").text("00");
-        $("#entrancePopup").fadeOut("slow");
+        $("#entrancePopup").fadeOut("slow", function() {
+            $(".splash").css("background-image", "url(icons/stillSplash.png)");
+            $(".loading").css("background-image", "url(animation/loading.gif)");
+        });
         if (countdownInterval) {
             clearInterval(countdownInterval);
         }
@@ -888,30 +887,41 @@ function onLoad() {
     initMenu();
 
      if (compatibleDevice() && !checkIframe()) {
-        loadAircrafts(function (pAircrafts) {
-            aircrafts = pAircrafts;
-            // load all routes
-            loadRoutes(function (routes) {
-                this.routes = routes;
-                updateLocationsMap(aircrafts);
-            }, this);
+        setTimeout(function() {
+            //TODO: Change to loading gif
+            $(".splash").css("background-image", "url(icons/stillSplash.png)");
+            $(".loading").show();
+        }, 2100);
 
-            loadCategories(function() {
-                // fillMenu();
+        setTimeout(function() {
+            loadAircrafts(function (pAircrafts) {
+                aircrafts = pAircrafts;
+                // load all routes
+                loadRoutes(function (routes) {
+                    this.routes = routes;
+                    updateLocationsMap(aircrafts);
+                    loadCategories(function() {
+                        // fillMenu();
+                    });
+                }, this);
+
+
+                if (getCurrentTime() < actualStartTime) {
+                    countdownInterval = setInterval(function () {
+                        countdown();
+                    }, 1000);
+                    setTimeout(function () {
+                        $(".splash").fadeOut();
+                        $("#entrancePopup").fadeIn();
+                    }, 1000);
+                } else if (!mapLoaded) {
+                    // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
+                    setTimeout(function() {
+                        loadApp();
+                    }, 1500);
+                }
             });
-
-            if (getCurrentTime() < actualStartTime) {
-                countdownInterval = setInterval(function () {
-                    countdown();
-                }, 1000);
-                setTimeout(function () {
-                    $(".splash").fadeOut();
-                    $("#entrancePopup").fadeIn();
-                }, 1000);
-            } else if (!mapLoaded) {
-                loadApp();
-            }
-        });
+        }, 2120);
      } else {
          $(".splash").fadeOut();
          showIncompatibleDevicePopup();
@@ -924,11 +934,12 @@ function loadApp() {
 }
 
 function loadMapApi() {
-    mapLoaded = true;
-    $.getScript(MAP_URL, function() {
-        mapLoaded=true;
-        }
-    );
+    if (!mapLoaded) {
+        $.getScript(MAP_URL, function() {
+            mapLoaded=true;
+            }
+        );
+    }
 }
 
 function showComponents() {
@@ -1047,18 +1058,17 @@ function fillMenu() {
     });
 
     categories.forEach(function(category) {
-
+       var categorizedAircrafts = [].concat(aircrafts);
        html += createCategoryRow(category);
        if (category.aerobatic) {
-            var aerobaticLocations = [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic)
+            var aerobaticLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aerobatic)
                     .map(aerobatics => aerobatics.path));
             aerobaticLocations.forEach(location => {
-                    html += createAerobaticRow(
-                                               locations[location.pointId].pointName,
+                    html += createAerobaticRow(locations[location.pointId].pointName,
                                                location.time);
                 });
        } else if (category.parachutist) {
-           var parachutistLocations = [].concat.apply([], aircrafts.filter(aircraft => aircraft.parachutist)
+           var parachutistLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.parachutist)
                .map(parachutist => parachutist.path));
            parachutistLocations.forEach(location =>
                 html += createParachutistRow(locations[location.pointId].pointName,
