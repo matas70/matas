@@ -263,7 +263,7 @@
     {
       "aircraftTypeId": 18,
       "name": "F16 יווני",
-      "category": "מטוסי קרב",
+      "category": "צבאות זרים",
       "type": "קרב",
       "icon": "f16g",
       "country": "greece",
@@ -280,7 +280,7 @@
     {
       "aircraftTypeId": 19,
       "name": "יורופייטר איטלקי",
-      "category": "מטוסי קרב",
+      "category": "צבאות זרים",
       "type": "קרב",
       "icon": "eurofighter",
       "country": "italian",
@@ -297,7 +297,7 @@
     {
       "aircraftTypeId": 20,
       "name": "C17 קנדי",
-      "category": "תובלה",
+      "category": "צבאות זרים",
       "type": "תובלה כבדה",
       "icon": "c17",
       "country": "canada",
@@ -313,7 +313,7 @@
     {
       "aircraftTypeId": 21,
       "name": "שמשון בריטי",
-      "category": "תובלה",
+      "category": "צבאות זרים",
       "type": "תובלה",
       "icon": "shimshon-dark",
       "country": "britian",
@@ -329,7 +329,7 @@
     {
       "aircraftTypeId": 22,
       "name": "שמשון אוסטרי",
-      "category": "תובלה",
+      "category": "צבאות זרים",
       "type": "תובלה",
       "icon": "shimshon-dark",
       "country": "austria",
@@ -345,7 +345,7 @@
     {
       "aircraftTypeId": 23,
       "name": "C295 פולני",
-      "category": "תובלה",
+      "category": "צבאות זרים",
       "type": "תובלה",
       "icon": "c295",
       "country": "poland",
