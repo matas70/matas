@@ -1015,7 +1015,13 @@ function fillMenu() {
                                                locations[location.pointId].pointName,
                                                location.time);
                 });
-       }
+       } else if (category.parachutist) {
+           var parachutistLocations = [].concat.apply([], aircrafts.filter(aircraft => aircraft.parachutist)
+               .map(parachutist => parachutist.path));
+           parachutistLocations.forEach(location =>
+                html += createParachutistRow(locations[location.pointId].pointName,
+                                             location.time));
+           }
 
        Array.from(map.values()).filter(aircraft =>
                 aircraft.category === category.category)
