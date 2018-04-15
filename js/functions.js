@@ -847,7 +847,6 @@ function countdown() {
             clearInterval(countdownInterval);
         }
     } else {
-        console.log(getRemainingSeconds(remainingTime));
         $("#days").text(getRemainingDays(remainingTime) < 1 ? (getRemainingHours(remainingTime) < 10 ? "0" + getRemainingHours(remainingTime) : getRemainingHours(remainingTime))
             : (getRemainingDays(remainingTime) < 10 ? "0" + getRemainingDays(remainingTime) : getRemainingDays(remainingTime)));
         $("#hours").text(getRemainingDays(remainingTime) < 1 ? (getRemainingMinutes(remainingTime) < 10 ? "0" + getRemainingMinutes(remainingTime) : getRemainingMinutes(remainingTime))
