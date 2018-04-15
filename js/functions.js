@@ -1101,9 +1101,11 @@ function fillMenu() {
         return 0;
     });
 
+    var currTime = getCurrentTime();
+
     sortedLocations.forEach(function(location) {
         if (!location.hidden) {
-            locationsViewHtml += createLocationRow(location);
+            locationsViewHtml += (currTime > actualStartTime) ? createLocationRow(location, true) : createLocationRow(location, false);
         }
     }, this);
     $("#locationsListView").html(locationsViewHtml);

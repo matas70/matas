@@ -291,19 +291,19 @@ div.nextAircraftSection {
 
 div.expandArrow {
     margin-right: 23px;
-    margin-top: auto;
+    margin-top: 16px;
     margin-bottom: auto;
 }
 
 div.collapseArrow {
     margin-right: 23px;
-    margin-top: auto;
+    margin-top: 16px;
     margin-bottom: auto;
     display: none;
 }
 
 div.nextAircraftTime {
-    margin-top: auto;
+    margin-top: 16px;
     margin-bottom: auto;
     margin-right: 23px;
 }
@@ -567,9 +567,11 @@ hr {
 }
 
 .timeline-warning {
-    font-size: 13px;
+    font-size: 14px;
     text-align: center;
     color: rgba(69, 87, 115, 0.5);
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .aircraftCategory {
