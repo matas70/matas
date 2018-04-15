@@ -846,6 +846,7 @@ function countdown() {
             clearInterval(countdownInterval);
         }
     } else {
+        console.log(getRemainingSeconds(remainingTime));
         $("#days").text(getRemainingDays(remainingTime) < 1 ? (getRemainingHours(remainingTime) < 10 ? "0" + getRemainingHours(remainingTime) : getRemainingHours(remainingTime))
             : (getRemainingDays(remainingTime) < 10 ? "0" + getRemainingDays(remainingTime) : getRemainingDays(remainingTime)));
         $("#hours").text(getRemainingDays(remainingTime) < 1 ? (getRemainingMinutes(remainingTime) < 10 ? "0" + getRemainingMinutes(remainingTime) : getRemainingMinutes(remainingTime))
@@ -867,16 +868,18 @@ function getRemainingDays(date) {
 }
 
 function getRemainingHours(date) {
-    return Math.floor(date.getTime() / (1000 * 60 * 60));
+    return Math.floor(date.getTime() / (1000 * 60 * 60)) - (24 * getRemainingDays(date));
 }
 
 
 function getRemainingMinutes(date) {
-    return Math.floor(date.getTime() / (1000 * 60));
+    return Math.floor(date.getTime() / (1000 * 60)) - getRemainingHours(date)*60 - getRemainingDays(date) * 24 * 60;
 }
 
 function getRemainingSeconds(date) {
-    return Math.floor(date.getTime() / 1000);
+    return Math.round((date.getTime() - ((((((getRemainingDays(date) * 24) +
+         getRemainingHours(date)) * 60) +
+         getRemainingMinutes(date)) * 60) * 1000)) / 1000)
 }
 
 
