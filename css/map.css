@@ -20,8 +20,8 @@
     font-style: normal;
     font-weight: 300;
     src: local('Heebo Light'), local('Heebo-Light'),
-    url('../fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
-    url('../fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg'); /* Legacy iOS */
+    url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg'); /* Legacy iOS */
 }
 /* heebo-regular - hebrew_latin */
 @font-face {
@@ -29,8 +29,8 @@
     font-style: normal;
     font-weight: 400;
     src: local('Heebo'), local('Heebo-Regular'),
-    url('../fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-    url('../fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg'); /* Legacy iOS */
+    url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg'); /* Legacy iOS */
 }
 /* heebo-700 - hebrew_latin */
 @font-face {
@@ -38,8 +38,8 @@
     font-style: normal;
     font-weight: 700;
     src: local('Heebo Bold'), local('Heebo-Bold'),
-    url('../fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
-    url('../fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg'); /* Legacy iOS */
+    url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg'); /* Legacy iOS */
 }
 
 /* Makes the page fill the window. */
