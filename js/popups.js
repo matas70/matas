@@ -196,11 +196,11 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
             "<img class='aboutImage' src='images/aboutblack@2x.png'/>" + aerobaticIcon + "</div></div>");
 }
 
-function createLocationRow(location) {
+function createLocationRow(location, displayFirstAircraft) {
     return "<a class='locationRow' href='javascript:void(0);'><div id='location"+location.pointId+"' class='locationRow' onclick='expandLocation("+location.pointId+");'>" +
                 "<div class='locationName'>"+location.pointName+"</div>" +
                 "<div class='nextAircraftSection'>"+
-                    "<div class='smallAircraftName'>"+location.aircrafts[0].name+"</div>" +
+                    (displayFirstAircraft ? "<div class='smallAircraftName'>"+location.aircrafts[0].name+"</div>" : "") +
                     "<div class='nextAircraftTime'>"+location.aircrafts[0].time.substr(0,5)+"</div>" +
                     "<div class='expandArrow'><img src='icons/arrowBlack.png'></div>" +
                     "<div class='collapseArrow'><img src='icons/arrowBlackUp.png'></div>" +
@@ -226,7 +226,7 @@ function expandLocation(pointId) {
                     aircraft.aerobatic,
                     aircraft.parachutist,
                     true,
-                    false);
+                    true);
                 lastAircraft = aircraft.name;
             }
         }, this);

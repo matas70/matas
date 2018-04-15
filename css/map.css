@@ -14,27 +14,33 @@
     width: 100%
 }
 
-/* hebrew */
-@font-face {
-    font-family: 'Heebo';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Heebo'), local('Heebo-Regular'),
-    url(https://fonts.gstatic.com/s/heebo/v2/q17xXvwvpCd8fBgEBABP9w.woff2) format('woff2'),
-    url('/fonts/heebo-regular-webfont.svg') format('svg');
-    unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;
-}
-
-/* latin */
-@font-face {
-    font-family: 'Heebo';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Heebo'), local('Heebo-Regular'),
-    url(https://fonts.gstatic.com/s/heebo/v2/Q66imbW5v9YuQMRLd0RXOA.woff2) format('woff2'),
-    url('/fonts/heebo-regular-webfont.svg') format('svg');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
-}
+/*!* heebo-300 - hebrew_latin *!*/
+/*@font-face {*/
+    /*font-family: 'Heebo-Light';*/
+    /*font-style: normal;*/
+    /*font-weight: 300;*/
+    /*src: local('Heebo Light'), local('Heebo-Light'),*/
+    /*url('../fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), !* Super Modern Browsers *!*/
+    /*url('../fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg'); !* Legacy iOS *!*/
+/*}*/
+/*!* heebo-regular - hebrew_latin *!*/
+/*@font-face {*/
+    /*font-family: 'Heebo-Regular';*/
+    /*font-style: normal;*/
+    /*font-weight: 400;*/
+    /*src: local('Heebo'), local('Heebo-Regular'),*/
+    /*url('../fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), !* Super Modern Browsers *!*/
+    /*url('../fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg'); !* Legacy iOS *!*/
+/*}*/
+/*!* heebo-700 - hebrew_latin *!*/
+/*@font-face {*/
+    /*font-family: 'Heebo-Bold';*/
+    /*font-style: normal;*/
+    /*font-weight: 700;*/
+    /*src: local('Heebo Bold'), local('Heebo-Bold'),*/
+    /*url('../fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), !* Super Modern Browsers *!*/
+    /*url('../fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg'); !* Legacy iOS *!*/
+/*}*/
 
 /* Makes the page fill the window. */
 html, body {
@@ -234,12 +240,13 @@ div.splash {
 
 #aircraftInfoName {
     padding-top: 12px;
-    font-size: 26px;
-    font-weight: bold;
+    font-size: 17px;
+    font-family: Heebo-Bold, sans-serif;
 }
 
 #aircraftInfoType {
-    font-size: 17px;
+    font-weight: lighter;
+    font-size: 12px;
     color: #8696b0;
 }
 
@@ -283,7 +290,7 @@ a.locationRow {
 }
 
 div.locationRow {
-    background: rgb(247, 245, 245);
+    background: #f7f5f5;
     display: table-row;
     width: 100%;
     height: 56px;
@@ -301,8 +308,8 @@ div.locationName {
     vertical-align: middle;
     width: 100%;
     padding-right: 22px;
-    font-family: "Heebo Medium";
-    font-size: 13pt;
+    font-weight: bold;
+    font-size: 12pt;
 }
 
 div.nextAircraftSection {
@@ -313,19 +320,19 @@ div.nextAircraftSection {
 
 div.expandArrow {
     margin-right: 23px;
-    margin-top: auto;
+    margin-top: 16px;
     margin-bottom: auto;
 }
 
 div.collapseArrow {
     margin-right: 23px;
-    margin-top: auto;
+    margin-top: 16px;
     margin-bottom: auto;
     display: none;
 }
 
 div.nextAircraftTime {
-    margin-top: auto;
+    margin-top: 16px;
     margin-bottom: auto;
     margin-right: 23px;
 }
@@ -334,7 +341,7 @@ div.smallAircraftName {
     vertical-align: middle;
     margin-top: 16px;
     margin-bottom: 16px;
-    font-family: "Heebo Light";
+    font-weight: lighter;
     font-size: 12pt;
 }
 
@@ -402,6 +409,7 @@ div.locationInfoPopup {
 
 .aboutTitle {
     font-weight: bold;
+    font-size: 17px;
     margin-top: 13px;
     margin-bottom: 13px;
 }
@@ -566,7 +574,7 @@ hr {
     height: .25rem;
     width: 33%;
     margin: 0 0 0 57%;
-    background: rgb(59, 181, 242);
+    background: #3bb5f2;
     border: none;
     transition: .3s ease-in-out;
 }
@@ -589,17 +597,19 @@ hr {
 }
 
 .timeline-warning {
-    font-size: 13px;
+    font-size: 14px;
     text-align: center;
     color: rgba(69, 87, 115, 0.5);
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .aircraftCategory {
     width: 100%;
     height: 25px;
-    background-color: rgb(229, 229, 230);
+    background-color: #e5e5e6;
     font-size: 15px;
-    color: rgb(55, 71, 79);
+    color: #37474f;
 }
 
 .tabs {
@@ -633,12 +643,12 @@ hr {
     padding-top: 21pt;
     padding-bottom: 37pt;
     padding-right: 14pt;
-    font-family: 'Heebo';
     font-size: 11pt;
 }
 b.baseData {
     padding: 0;
-    font-size: 15pt;
+    font-size: 12pt;
+    font-weight: bold;
 }
 
 br.baseData {
@@ -686,7 +696,7 @@ br.baseData {
 }
 
 #countdownMeter {
-    background-color: rgb(59 181 242);
+    background-color: #3bb5f2;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     color: white;
     border-radius: 7pt;
@@ -728,7 +738,7 @@ b.entranceBody {
     align-self: flex-end;
     position: relative;
     height: 48px;
-    background: rgb(59 181 242);
+    background: #3bb5f2;
 }
 
 .scheduleText {
@@ -751,6 +761,11 @@ b.entranceBody {
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
+    background: url(/images/landingBackground2.PNG) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #countdownContainer {
@@ -771,8 +786,8 @@ b.entranceBody {
 .countdownLabel {
     vertical-align: middle;
     flex-grow: 1;
-    font-family: "Heebo Medium";
-    font-size: 12pt;
+    font-weight: bold;
+    font-size: 17pt;
     display: flex;
     justify-content: center;
     height: 100%;
@@ -812,7 +827,7 @@ b.entranceBody {
     display: inline-flex;
     direction: ltr;
     align-items: center;
-    color: rgb(55, 71, 79);
+    color: #37474f;
     flex-direction: row;
     flex: 1;
     font-size: 10pt;
