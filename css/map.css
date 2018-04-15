@@ -664,7 +664,7 @@ br.baseData {
 }
 
 #countdownMeter {
-    background-color: rgb(59 181 242);
+    background-color: #3bb5f2;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     color: white;
     border-radius: 7pt;
@@ -729,6 +729,11 @@ b.entranceBody {
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
+    background: url(/images/landingBackground2.PNG) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #countdownContainer {
