@@ -170,8 +170,13 @@ function hidePopup(popup, callback) {
 	});	
 }
 
+function createParachutistRow(name, time) {
+    return "<div class=\"tableRow\"><img src=\"icons/aircrafts/parachutist.png\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>" + name +
+        "</b></div><div class=\"time\">" + time.substring(0, 5) + "</div></div>";
+}
+
 function createAerobaticRow(name, time) {
-    return "<div class=\"tableRow\"><img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>\" "+ name +
+    return "<div class=\"tableRow\"><img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"+ name +
         "</b></div><div class=\"time\">"+ time.substring(0,5) +"</div></div>";
 
     // Figure this out
