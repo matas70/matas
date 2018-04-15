@@ -64,6 +64,13 @@ img.aerobaticIcon {
     padding-bottom: 4px;
 }
 
+img.aerobaticTableIcon {
+    display: flex;
+    justify-content: flex-end;
+    align-self: right;
+    margin-left: 10px;
+}
+
 img.parachutistIcon {
     display: table-cell;
     padding-left: 30px;
@@ -820,6 +827,15 @@ b.entranceBody {
 }
 
 .aboutImage {
+    display: flex;
     padding-left: 14px;
     padding-bottom: 2px;
+    align-self:  left;
+}
+
+.tableIcons {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    flex-direction: row-reverse;
 }

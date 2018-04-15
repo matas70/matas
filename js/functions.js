@@ -1061,17 +1061,17 @@ function fillMenu() {
     });
 
     categories.forEach(function(category) {
-
+       var categorizedAircrafts = [].concat(aircrafts);
        html += createCategoryRow(category);
        if (category.aerobatic) {
-            var aerobaticLocations = [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic)
+            var aerobaticLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aerobatic)
                     .map(aerobatics => aerobatics.path));
             aerobaticLocations.forEach(location => {
                     html += createAerobaticRow(locations[location.pointId].pointName,
                                                location.time);
                 });
        } else if (category.parachutist) {
-           var parachutistLocations = [].concat.apply([], aircrafts.filter(aircraft => aircraft.parachutist)
+           var parachutistLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.parachutist)
                .map(parachutist => parachutist.path));
            parachutistLocations.forEach(location =>
                 html += createParachutistRow(locations[location.pointId].pointName,

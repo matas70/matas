@@ -178,23 +178,22 @@ function createParachutistRow(name, time) {
 function createAerobaticRow(name, time) {
     return "<div class=\"tableRow\"><img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"+ name +
         "</b></div><div class=\"time\">"+ time.substring(0,5) +"</div></div>";
-
-    // Figure this out
-    //<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");'
 }
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime) {
-	// var aerobaticIcon = "<div/>";
-	// if (aerobatic) {
-	// 	aerobaticIcon = "<img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img>";
-	// 	aircraftType = "מופע אווירובטי";
-	// } else if (parachutist) {
-     //    aerobaticIcon = "<img src=\"icons/aircrafts/parachutist.png\" class=\"aerobaticIcon\"></img>";
-     //    aircraftType = "הצנחת צנחנים";
-	// }
+	var aerobaticIcon = "<div/>";
+	if (aerobatic) {
+		aerobaticIcon = "<img src=\"icons/aerobatic.png\" class=\"aerobaticTableIcon\"></img>";
+		aircraftType = "מופע אווירובטי";
+	} else if (parachutist) {
+        aerobaticIcon = "<img src=\"icons/aircrafts/parachutist.png\" class=\"aerobaticTableIcon\"></img>";
+        aircraftType = "הצנחת צנחנים";
+	}
+
 	return "<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon +
 		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name + 
-		   "</b> " + aircraftType + "</div>" + (displayTime ? "<div class=\"time\">"+ time.substring(0,5) +"</div></div>" : "<img class='aboutImage' src='images/aboutblack@2x.png'/></div>");
+		   "</b> " + aircraftType + "</div>" + (displayTime ? "<div class=\"time\">"+ time.substring(0,5) +"</div></div>" : "<div class='tableIcons'> " +
+            "<img class='aboutImage' src='images/aboutblack@2x.png'/>" + aerobaticIcon + "</div></div>");
 }
 
 function createLocationRow(location) {
