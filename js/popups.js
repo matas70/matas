@@ -105,7 +105,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
         $("#aircraftInfoContentArmament").text(aircraft.armament);
 	}
 
-	// Clears event handlers
+	// Clears event handlersh
     $("#aircraftInfoMore").off("click");
     $("#shrinkAircraftInfoPopup").off("click")
 
