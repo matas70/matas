@@ -824,6 +824,11 @@ function countdown() {
     // Load the map two seconds before the countdown finishes
     if (remainingTime  < 2000 && remainingTime  > 0) {
         $(".splash").hide();
+        // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
+        setTimeout(function() {
+            $(".splash").css("background-image", "url(icons/stillSplash.png)");
+        }, 3500);
+
         setTimeout(function() {
             $(".splash").fadeIn();
             $(".splash").css("visibility", "visible");
@@ -900,7 +905,7 @@ function onLoad() {
                     this.routes = routes;
                     updateLocationsMap(aircrafts);
                     loadCategories(function() {
-                        fillMenu();
+                        // fillMenu();
                     });
                 }, this);
 
@@ -977,6 +982,7 @@ function openListView() {
         } else {
             $menuHamburger.toggleClass("is-active");
             openMenu();
+            fillMenu();
         }
     }
 }
@@ -1044,17 +1050,18 @@ function fillMenu() {
     // Creates a map that maps an aircraft's name (which is basically a group for all the aircraft's with the same name)
     // to it's object which is the first of its kind. For example, if we have four F15, the map will contain the first one only.
     aircrafts.forEach(function(aircraft) {
-        if (map.get(aircraft.name)) {
-            if (convertTime(aircraft.path[0].time) < convertTime(map.get(aircraft.name).path[0].time)) {
-                map.set(aircraft.name, aircraft);
-            }
-        } else {
+        // if (map.get(aircraft.name)) {
+        //     if (convertTime(aircraft.path[0].time) < convertTime(map.get(aircraft.name).path[0].time)) {
+        //         map.set(aircraft.name, aircraft);
+        //     }
+        // } else {
+        //     map.set(aircraft.name, aircraft);
+        // }
             map.set(aircraft.name, aircraft);
-        }
     });
 
     categories.forEach(function(category) {
-       
+
        html += createCategoryRow(category);
        if (category.aerobatic) {
             var aerobaticLocations = [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic)
@@ -1084,7 +1091,8 @@ function fillMenu() {
                                        aircraftFromCategory.path[0].time,
                                        aircraftFromCategory.aerobatic,
                                        aircraftFromCategory.parachutist,
-                                       true);
+                                       true,
+                                       false);
 
        });
     });
