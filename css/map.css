@@ -56,6 +56,22 @@ img.aircraftImage {
     width: 140px;
 }
 
+img.aerobaticIcon {
+    display: table-cell;
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-top: 18px;
+    padding-bottom: 4px;
+}
+
+img.parachutistIcon {
+    display: table-cell;
+    padding-left: 30px;
+    padding-right: 24px;
+    padding-top: 16px;
+    padding-bottom: 4px;
+}
+
 div.firstHeading {
     font: normal 1.5em/25px arial;
 }
@@ -488,7 +504,7 @@ HEADER {
     position: absolute;
     z-index: 10000;
     width: 100%;
-    /*display: none;*/
+    /* display: none; */
     overflow: hidden;
     transform: translateX(100%);
     transition: transform 0.3s;
@@ -529,17 +545,17 @@ HEADER {
 /*}*/
 
 hr.two {
-    margin-left: 15%;
+    margin-left: 11%;
 }
 
-.one:hover ~ hr {
-    margin-left: 15%;
-}
+/*.one:hover ~ hr {*/
+    /*margin-left: 15%;*/
+/*}*/
 
 hr {
     height: .25rem;
-    width: 25%;
-    margin: 0 0 0 60%;
+    width: 33%;
+    margin: 0 0 0 57%;
     background: rgb(59, 181, 242);
     border: none;
     transition: .3s ease-in-out;

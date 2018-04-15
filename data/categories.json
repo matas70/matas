@@ -1,5 +1,13 @@
 [
   {
+    "category": "מופעים אווירובטיים",
+    "aerobatic": true
+  },
+  {
+    "category": "הצנחות",
+    "parachutist": true
+  },
+  {
     "category": "מטוסי קרב"
   },
   {
