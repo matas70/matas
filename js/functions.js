@@ -821,30 +821,26 @@ function countdown() {
     var currentTime = getCurrentTime();
     var remainingTime = new Date(actualStartTime - currentTime);
 
-    // Load the map two seconds before the countdown finishes
-    if (remainingTime  < 2000 && remainingTime  > 0) {
+    // Load the map three seconds before the countdown finishes
+    if (remainingTime  < 3500 && remainingTime  > 2500) {
+        $(".splash").css("background-image", "url('animation/Splash 70.gif?v=1')");
         $(".splash").hide();
-        // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
-        setTimeout(function() {
-            $(".splash").css("background-image", "url(icons/stillSplash.png)");
-        }, 3500);
 
+        // Stops the gif from running more than once
         setTimeout(function() {
             $(".splash").fadeIn();
-            $(".splash").css("visibility", "visible");
-        }, 1000);
-
-        // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
-        setTimeout(function() {
-            $(".splash").css("background-image", "url(icons/loading.gif)");
+            $(".loading").css("background-image", "url(animation/loading.gif)");
             loadApp();
-        }, 2500);
+        }, 1800);
     }
 
     // Time to remove the entrancePopup
-    if (remainingTime  < 1000) {
+    if (remainingTime  < 500) {
         $("#minutes").text("00");
-        $("#entrancePopup").fadeOut("slow");
+        $("#entrancePopup").fadeOut("slow", function() {
+            $(".splash").css("background-image", "url(icons/stillSplash.png)");
+            $(".loading").css("background-image", "url(animation/loading.gif)");
+        });
         if (countdownInterval) {
             clearInterval(countdownInterval);
         }
@@ -938,11 +934,12 @@ function loadApp() {
 }
 
 function loadMapApi() {
-    mapLoaded = true;
-    $.getScript(MAP_URL, function() {
-        mapLoaded=true;
-        }
-    );
+    if (!mapLoaded) {
+        $.getScript(MAP_URL, function() {
+            mapLoaded=true;
+            }
+        );
+    }
 }
 
 function showComponents() {
