@@ -14,33 +14,33 @@
     width: 100%
 }
 
-/*!* heebo-300 - hebrew_latin *!*/
-/*@font-face {*/
-    /*font-family: 'Heebo-Light';*/
-    /*font-style: normal;*/
-    /*font-weight: 300;*/
-    /*src: local('Heebo Light'), local('Heebo-Light'),*/
-    /*url('../fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), !* Super Modern Browsers *!*/
-    /*url('../fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg'); !* Legacy iOS *!*/
-/*}*/
-/*!* heebo-regular - hebrew_latin *!*/
-/*@font-face {*/
-    /*font-family: 'Heebo-Regular';*/
-    /*font-style: normal;*/
-    /*font-weight: 400;*/
-    /*src: local('Heebo'), local('Heebo-Regular'),*/
-    /*url('../fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), !* Super Modern Browsers *!*/
-    /*url('../fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg'); !* Legacy iOS *!*/
-/*}*/
-/*!* heebo-700 - hebrew_latin *!*/
-/*@font-face {*/
-    /*font-family: 'Heebo-Bold';*/
-    /*font-style: normal;*/
-    /*font-weight: 700;*/
-    /*src: local('Heebo Bold'), local('Heebo-Bold'),*/
-    /*url('../fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), !* Super Modern Browsers *!*/
-    /*url('../fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg'); !* Legacy iOS *!*/
-/*}*/
+/* heebo-300 - hebrew_latin */
+@font-face {
+    font-family: 'Heebo-Light';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Heebo Light'), local('Heebo-Light'),
+    url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg'); /* Legacy iOS */
+}
+/* heebo-regular - hebrew_latin */
+@font-face {
+    font-family: 'Heebo-Regular';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Heebo'), local('Heebo-Regular'),
+    url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg'); /* Legacy iOS */
+}
+/* heebo-700 - hebrew_latin */
+@font-face {
+    font-family: 'Heebo-Bold';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Heebo Bold'), local('Heebo-Bold'),
+    url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg'); /* Legacy iOS */
+}
 
 /* Makes the page fill the window. */
 html, body {
@@ -49,7 +49,7 @@ html, body {
     padding: 0;
     direction: rtl;
     background: white;
-    font-family: 'Heebo', sans-serif;
+    font-family: 'Heebo-Regular', sans-serif;
     text-rendering: optimizeLegibility;
 }
 
@@ -245,7 +245,7 @@ div.splash {
 }
 
 #aircraftInfoType {
-    font-weight: lighter;
+    font-family: "Heebo-Light", sans-serif;
     font-size: 12px;
     color: #8696b0;
 }
@@ -308,7 +308,7 @@ div.locationName {
     vertical-align: middle;
     width: 100%;
     padding-right: 22px;
-    font-weight: bold;
+    font-family: "Heebo-Bold", sans-serif;
     font-size: 12pt;
 }
 
@@ -341,7 +341,7 @@ div.smallAircraftName {
     vertical-align: middle;
     margin-top: 16px;
     margin-bottom: 16px;
-    font-weight: lighter;
+    font-family: "Heebo-Light", sans-serif;
     font-size: 12pt;
 }
 
@@ -408,7 +408,7 @@ div.locationInfoPopup {
 }
 
 .aboutTitle {
-    font-weight: bold;
+    font-family: "Heebo-Bold", sans-serif;
     font-size: 17px;
     margin-top: 13px;
     margin-bottom: 13px;
@@ -433,7 +433,7 @@ div.locationInfoPopup {
 #aboutMenuTitle {
     color: white;
     font-size: 17px;
-    font-weight: bold;
+    font-family: "Heebo-Bold", sans-serif;
     vertical-align: middle;
 }
 
@@ -506,7 +506,7 @@ HEADER {
 
 .aircraftInfoContentTitle {
     font-size: 17px;
-    font-weight: bold;
+    font-family: "Heebo-Bold", sans-serif;
 }
 
 .aircraftInfoContentText {
@@ -648,7 +648,7 @@ hr {
 b.baseData {
     padding: 0;
     font-size: 12pt;
-    font-weight: bold;
+    font-family: Heebo-Bold, sans-serif;
 }
 
 br.baseData {
@@ -786,7 +786,7 @@ b.entranceBody {
 .countdownLabel {
     vertical-align: middle;
     flex-grow: 1;
-    font-weight: bold;
+    font-family: "Heebo-Bold", sans-serif;
     font-size: 17pt;
     display: flex;
     justify-content: center;
