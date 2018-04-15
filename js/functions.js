@@ -209,7 +209,7 @@ function getCurrentTime() {
 function convertTime(timeString) {
     // if fast forward - every minute is parsed as a second
     if ($.urlParam("ff") === "true") {
-        return Date.parse(startDate + " " + "00:" + timeString.substr(0,5), "yyyy-MM-dd HH:mm:ss").getTime();
+        return Date.parse(startDate + " " + "00:" + roundToMinute(timeString), "yyyy-MM-dd HH:mm:ss").getTime();
     } else {
         return Date.parse(startDate + " " + timeString, "yyyy-MM-dd HH:mm:ss").getTime();
     }
@@ -680,11 +680,11 @@ function addAircraftsToMap() {
                 if (selectedAircraft != null) {
                     deselectAircraft(function () {
                         // then show a new popup
-                        selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time.substr(0, 5), aircraft.infoUrl, false);
+                        selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image,roundToMinute( aircraft.path[0].time), aircraft.infoUrl, false);
                     });
                 } else {
                     // then show a new popup
-                    selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time.substr(0, 5), aircraft.infoUrl, false);
+                    selectAircraft(aircraft, aircraftMarker, aircraft.name, aircraft.type, aircraft.icon, aircraft.image,roundToMinute( aircraft.path[0].time), aircraft.infoUrl, false);
                 }
             }
         };
