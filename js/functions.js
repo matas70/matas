@@ -290,8 +290,10 @@ function updateLocationsMap(aircrafts) {
 
 function updateLocations(points) {
     points.forEach(function (point) {
-        locations[point.pointId] = point;
-        locations[point.pointId].aircrafts = [];
+        if (locations[point.pointId] === undefined) {
+            locations[point.pointId] = point;
+            locations[point.pointId].aircrafts = [];
+        }
     }, this);
 }
 
@@ -339,7 +341,6 @@ function loadAircrafts(callback) {
             startDate = routes.startDate;
             plannedStartTime = convertTime(routes.plannedStartTime);
             loadActualStartTime(routes);
-            updateLocationsMap(aircrafts);
             callback(aircrafts);
         });
     });
@@ -420,6 +421,18 @@ function registerServiceWorker() {
     }
 }
 
+var currentLocationMarker;
+
+function updateCurrentLocation(position) {
+    currentPosition = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+        accuracy: position.coords.accuracy
+    };
+
+    updateMarkerPosition(currentLocationMarker, currentPosition, 200);
+}
+
 function showCurrentLocation() {
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -436,7 +449,7 @@ function showCurrentLocation() {
             //var currentHeadingIcon = createHeadingArea(0);
 
             //drawMarker(currentPosition, currentHeadingIcon, false);
-            drawMarker(currentPosition, currentPositionIcon, true);
+            currentLocationMarker = drawMarker(currentPosition, currentPositionIcon, true);
             focusOnLocation(currentPosition);
 
             // find the closest location and select it
@@ -853,29 +866,35 @@ var countdownInterval;
 function onLoad() {
     initMenu();
 
-//      if (compatibleDevice() && !checkIframe()) {
-        loadRoutes(function (routes) {
-            loadAircrafts(function (pAircrafts) {
-                aircrafts = pAircrafts;
-                loadCategories(function () {
-                    fillMenu();
-                });
+     if (compatibleDevice() && !checkIframe()) {
+        loadAircrafts(function (pAircrafts) {
+            aircrafts = pAircrafts;
+            // load all routes
+            loadRoutes(function (routes) {
+                this.routes = routes;
+                updateLocationsMap(aircrafts);
+            }, this);
 
-                if (getCurrentTime() < actualStartTime) {
-                    countdownInterval = setInterval(function () {
-                        countdown();
-                    }, 1000);
-                    setTimeout(function () {
-                        $("#entrancePopup").fadeIn();
-                    }, 1000);
-                } else if (!mapLoaded) {
-                    loadApp();
-                }
+            loadCategories(function() {
+                fillMenu();
             });
+
+            if (getCurrentTime() < actualStartTime) {
+                countdownInterval = setInterval(function () {
+                    countdown();
+                }, 1000);
+                setTimeout(function () {
+                    $(".splash").fadeOut();
+                    $("#entrancePopup").fadeIn();
+                }, 1000);
+            } else if (!mapLoaded) {
+                loadApp();
+            }
         });
-//      } else {
-//          showIncompatibleDevicePopup();
-//      }
+     } else {
+         $(".splash").fadeOut();
+         showIncompatibleDevicePopup();
+     }
 }
 
 function loadApp() {
@@ -1005,32 +1024,18 @@ function fillMenu() {
     });
 
     categories.forEach(function(category) {
-       
        html += createCategoryRow(category);
-       if (category.aerobatic) {
-            var aerobaticLocations = [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic)
-                    .map(aerobatics => aerobatics.path));
-            aerobaticLocations.forEach(location => {
-                    html += createAerobaticRow(
-                                               locations[location.pointId].pointName,
-                                               location.time);
-                });
-       }
-
-       Array.from(map.values()).filter(aircraft =>
-                aircraft.category === category.category)
-           .sort((aircraft1, aircraft2) => {
-               return aircraft1.path[0].time - aircraft2.path[0].time
-           })
-           .forEach(function (aircraftFromCategory) {
-                html += createTableRow(aircraftFromCategory.aircraftId,
-                                       aircraftFromCategory.name,
-                                       aircraftFromCategory.icon,
-                                       aircraftFromCategory.type,
-                                       aircraftFromCategory.path[0].time,
-                                       aircraftFromCategory.aerobatic,
-                                       aircraftFromCategory.parachutist,
-                                       true);
+       Array.from(map.values()).filter(function(aircraft) {
+           return aircraft.category == category.category;
+       }).forEach(function (aircraftFromCategory) {
+           html += createTableRow(aircraftFromCategory.aircraftId,
+                                  aircraftFromCategory.name,
+                                  aircraftFromCategory.icon,
+                                  aircraftFromCategory.type,
+                                  aircraftFromCategory.path[0].time,
+                                  aircraftFromCategory.aerobatic,
+                                  aircraftFromCategory.parachutist,
+                                  true);
 
        });
     });
@@ -1038,7 +1043,21 @@ function fillMenu() {
 
     // prepare locations view
     var locationsViewHtml = "";
-    locations.forEach(function(location) {
+
+    // sort locations by name
+    var sortedLocations = locations.slice();
+
+    sortedLocations.sort(function (item1, item2) {
+        var keyA = item1.pointName,
+            keyB = item2.pointName;
+
+        // Compare the 2 times
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+    });
+
+    sortedLocations.forEach(function(location) {
         if (!location.hidden) {
             locationsViewHtml += createLocationRow(location);
         }
@@ -1056,21 +1075,19 @@ function initMap() {
     makeHeaderSticky();
     initPopups();
 
-//     if (compatibleDevice() && !checkIframe()) {
+    if (compatibleDevice() && !checkIframe()) {
         // let splash run for a second before start loading the map
         setTimeout(function () {
             map = createMapObject(function () {
                 deselectLocation();
                 deselectAircraft();
             });
-
             $("#map").show();
 
-            // Draw on map
-            drawRoutesOnMap(loadedRoutes);
+            drawRoutesOnMap(routes);
+
             addAircraftsToMap();
             startAircraftsAnimation(false);
-
             //clusterAircrafts(aircraftMarkers);
 
             // hide splash screen
@@ -1083,13 +1100,12 @@ function initMap() {
                 startAircraftsAnimation(true);
             });
 
-
-             defer.resolve(map);
+            defer.resolve(map);
         }, 1000);
-//      } else {
-//          setTimeout(function() {
-//              $(".splash").fadeOut();
-//              showIncompatibleDevicePopup();
-//          }, 1500);
-//      }
+     } else {
+         setTimeout(function() {
+             $(".splash").fadeOut();
+             showIncompatibleDevicePopup();
+         }, 1500);
+     }
 }
