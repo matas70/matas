@@ -824,18 +824,16 @@ function countdown() {
     // Load the map two seconds before the countdown finishes
     if (remainingTime  < 2000 && remainingTime  > 0) {
         $(".splash").hide();
-        // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
-        setTimeout(function() {
-            $(".splash").css("background-image", "url(icons/stillSplash.png)");
-        }, 3500);
-
         setTimeout(function() {
             $(".splash").fadeIn();
             $(".splash").css("visibility", "visible");
         }, 1000);
 
-        loadApp();
-
+        // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
+        setTimeout(function() {
+            $(".splash").css("background-image", "url(icons/loading.gif)");
+            loadApp();
+        }, 2500);
     }
 
     // Time to remove the entrancePopup
@@ -888,30 +886,41 @@ function onLoad() {
     initMenu();
 
      if (compatibleDevice() && !checkIframe()) {
-        loadAircrafts(function (pAircrafts) {
-            aircrafts = pAircrafts;
-            // load all routes
-            loadRoutes(function (routes) {
-                this.routes = routes;
-                updateLocationsMap(aircrafts);
-            }, this);
+        setTimeout(function() {
+            //TODO: Change to loading gif
+            $(".splash").css("background-image", "url(icons/stillSplash.png)");
+            $(".loading").show();
+        }, 2100);
 
-            loadCategories(function() {
-                fillMenu();
+        setTimeout(function() {
+            loadAircrafts(function (pAircrafts) {
+                aircrafts = pAircrafts;
+                // load all routes
+                loadRoutes(function (routes) {
+                    this.routes = routes;
+                    updateLocationsMap(aircrafts);
+                    loadCategories(function() {
+                        fillMenu();
+                    });
+                }, this);
+
+
+                if (getCurrentTime() < actualStartTime) {
+                    countdownInterval = setInterval(function () {
+                        countdown();
+                    }, 1000);
+                    setTimeout(function () {
+                        $(".splash").fadeOut();
+                        $("#entrancePopup").fadeIn();
+                    }, 1000);
+                } else if (!mapLoaded) {
+                    // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
+                    setTimeout(function() {
+                        loadApp();
+                    }, 1500);
+                }
             });
-
-            if (getCurrentTime() < actualStartTime) {
-                countdownInterval = setInterval(function () {
-                    countdown();
-                }, 1000);
-                setTimeout(function () {
-                    $(".splash").fadeOut();
-                    $("#entrancePopup").fadeIn();
-                }, 1000);
-            } else if (!mapLoaded) {
-                loadApp();
-            }
-        });
+        }, 2120);
      } else {
          $(".splash").fadeOut();
          showIncompatibleDevicePopup();
@@ -1051,8 +1060,7 @@ function fillMenu() {
             var aerobaticLocations = [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic)
                     .map(aerobatics => aerobatics.path));
             aerobaticLocations.forEach(location => {
-                    html += createAerobaticRow(
-                                               locations[location.pointId].pointName,
+                    html += createAerobaticRow(locations[location.pointId].pointName,
                                                location.time);
                 });
        } else if (category.parachutist) {

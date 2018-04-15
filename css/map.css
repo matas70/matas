@@ -105,15 +105,30 @@ div.splash {
     visibility: hidden;
     pointer-events: none;
     position: absolute;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     top: -64px;
     bottom: 0px;
+    text-align: center;
     width: 100%;
     z-index: 9999999;
     background-color: #7bd1fc;
     opacity: 1.0;
     background-position: center center;
     background-repeat: no-repeat;
+}
+
+.loading {
+    pointer-events: none;
+    bottom: 0px;
+    z-index: 99999999;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 32px;
+    position: relative;
+    top: 75%;
+    justify-content: center;
 }
 
 #headerIcon {
