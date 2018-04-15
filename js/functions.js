@@ -1120,6 +1120,14 @@ function fillMenu() {
     }, this);
     $("#locationsListView").html(locationsViewHtml);
 }
+function makeTwoDigitTime(t) {
+    if (t<10){
+        return "0"+t.toString();
+    }
+    else{
+        return t.toString();
+    }
+}
 function roundToMinute(time) {
     var hour=time.substr(0,2);
     var minute=time.substr(3,2);
@@ -1134,7 +1142,7 @@ function roundToMinute(time) {
             m=m-60;
         }
     }
-    return h.toString()+":"+m.toString();
+    return makeTwoDigitTime(h)+":"+makeTwoDigitTime(m);
 }
 function initMap() {
     loadPlugins();
