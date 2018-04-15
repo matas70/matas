@@ -14,7 +14,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
     // build popup html
     var html = "";
     point.aircrafts.forEach(function (aircraft) {
-        html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist, false);
+        html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist, false, false);
     }, this);
     $("#aircraftsList").html(html);
     $("#popupTitle").text(point.pointName);
@@ -178,7 +178,7 @@ function createAerobaticRow(name, time) {
     //<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");'
 }
 
-function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse) {
+function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime) {
 	// var aerobaticIcon = "<div/>";
 	// if (aerobatic) {
 	// 	aerobaticIcon = "<img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img>";
@@ -189,7 +189,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
 	// }
 	return "<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon +
 		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name + 
-		   "</b> " + aircraftType + "</div>" +"<div class=\"time\">"+ time.substring(0,5) +"</div></div>";
+		   "</b> " + aircraftType + "</div>" + (displayTime ? "<div class=\"time\">"+ time.substring(0,5) +"</div></div>" : "<img class='aboutImage' src='images/aboutblack@2x.png'/></div>");
 }
 
 function createLocationRow(location) {
@@ -221,7 +221,8 @@ function expandLocation(pointId) {
                     aircraft.time,
                     aircraft.aerobatic,
                     aircraft.parachutist,
-                    true);
+                    true,
+                    false);
                 lastAircraft = aircraft.name;
             }
         }, this);
