@@ -9,7 +9,7 @@ function convertPath(path) {
     return convertedPath;
 }
 
-var loadedMenu = false;
+//var loadedMenu = false;
 var loadedRoutes;
 var aircrafts;
 var aircraftTypesInfo = {};
@@ -895,9 +895,9 @@ function onLoad() {
                 updateLocationsMap(aircrafts);
             }, this);
 
-            /*loadCategories(function() {
+            loadCategories(function() {
                 fillMenu();
-            });*/
+            });
 
             if (getCurrentTime() < actualStartTime) {
                 countdownInterval = setInterval(function () {
@@ -960,12 +960,6 @@ function openListView() {
         aboutVisible = false;
         $menuHamburger.toggleClass("is-active");
     } else if (canOpenMenu) {
-        if (!loadedMenu) {
-            loadCategories(function() {
-                fillMenu();
-            });
-            loadedMenu = true;
-        }
         canOpenMenu = false;
         if (isMenuOpen) {
             $menuHamburger.toggleClass("is-active");
