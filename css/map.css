@@ -706,7 +706,7 @@ b.entranceBody {
     align-self: flex-end;
     position: relative;
     height: 48px;
-    background: rgb(59 181 242);
+    background: #3bb5f2;
 }
 
 .scheduleText {
