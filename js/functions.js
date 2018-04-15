@@ -1120,7 +1120,22 @@ function fillMenu() {
     }, this);
     $("#locationsListView").html(locationsViewHtml);
 }
-
+function roundToMinute(time) {
+    var hour=time.substr(0,2);
+    var minute=time.substr(3,2);
+    var second=time.substr(6,2);
+    var h=parseInt(hour);
+    var m=parseInt(minute);
+    var s=parseInt(second);
+    if (s>39){
+        m=m+1;
+        if (m>=60){
+            h=h+1;
+            m=m-60;
+        }
+    }
+    return h.toString()+":"+m.toString();
+}
 function initMap() {
     loadPlugins();
 
