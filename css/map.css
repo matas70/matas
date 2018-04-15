@@ -536,21 +536,9 @@ HEADER {
     font-weight: bold;
 }
 
-/*.one:hover ~ hr {*/
-/*margin-left: 15%;*/
-/*}*/
-
-/*.two:hover ~ hr {*/
-/*margin-left: 60%;*/
-/*}*/
-
 hr.two {
     margin-left: 11%;
 }
-
-/*.one:hover ~ hr {*/
-    /*margin-left: 15%;*/
-/*}*/
 
 hr {
     height: .25rem;
@@ -814,4 +802,9 @@ b.entranceBody {
     justify-content: space-between;
     flex-direction: column;
     flex: none;
+}
+
+.aboutImage {
+    padding-left: 14px;
+    padding-bottom: 2px;
 }

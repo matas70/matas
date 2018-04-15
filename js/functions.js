@@ -897,7 +897,7 @@ function onLoad() {
             }, this);
 
             loadCategories(function() {
-                fillMenu();
+                // fillMenu();
             });
 
             if (getCurrentTime() < actualStartTime) {
@@ -968,6 +968,7 @@ function openListView() {
         } else {
             $menuHamburger.toggleClass("is-active");
             openMenu();
+            fillMenu();
         }
     }
 }
@@ -1035,17 +1036,18 @@ function fillMenu() {
     // Creates a map that maps an aircraft's name (which is basically a group for all the aircraft's with the same name)
     // to it's object which is the first of its kind. For example, if we have four F15, the map will contain the first one only.
     aircrafts.forEach(function(aircraft) {
-        if (map.get(aircraft.name)) {
-            if (convertTime(aircraft.path[0].time) < convertTime(map.get(aircraft.name).path[0].time)) {
-                map.set(aircraft.name, aircraft);
-            }
-        } else {
+        // if (map.get(aircraft.name)) {
+        //     if (convertTime(aircraft.path[0].time) < convertTime(map.get(aircraft.name).path[0].time)) {
+        //         map.set(aircraft.name, aircraft);
+        //     }
+        // } else {
+        //     map.set(aircraft.name, aircraft);
+        // }
             map.set(aircraft.name, aircraft);
-        }
     });
 
     categories.forEach(function(category) {
-       
+
        html += createCategoryRow(category);
        if (category.aerobatic) {
             var aerobaticLocations = [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic)
@@ -1076,7 +1078,8 @@ function fillMenu() {
                                        aircraftFromCategory.path[0].time,
                                        aircraftFromCategory.aerobatic,
                                        aircraftFromCategory.parachutist,
-                                       true);
+                                       true,
+                                       false);
 
        });
     });
