@@ -9,7 +9,6 @@ function convertPath(path) {
     return convertedPath;
 }
 
-//var loadedMenu = false;
 var loadedRoutes;
 var aircrafts;
 var aircraftTypesInfo = {};
@@ -1046,18 +1045,38 @@ function fillMenu() {
     });
 
     categories.forEach(function(category) {
+       
        html += createCategoryRow(category);
-       Array.from(map.values()).filter(function(aircraft) {
-           return aircraft.category == category.category;
-       }).forEach(function (aircraftFromCategory) {
-           html += createTableRow(aircraftFromCategory.aircraftId,
-                                  aircraftFromCategory.name,
-                                  aircraftFromCategory.icon,
-                                  aircraftFromCategory.type,
-                                  aircraftFromCategory.path[0].time,
-                                  aircraftFromCategory.aerobatic,
-                                  aircraftFromCategory.parachutist,
-                                  true);
+       if (category.aerobatic) {
+            var aerobaticLocations = [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic)
+                    .map(aerobatics => aerobatics.path));
+            aerobaticLocations.forEach(location => {
+                    html += createAerobaticRow(
+                                               locations[location.pointId].pointName,
+                                               location.time);
+                });
+       } else if (category.parachutist) {
+           var parachutistLocations = [].concat.apply([], aircrafts.filter(aircraft => aircraft.parachutist)
+               .map(parachutist => parachutist.path));
+           parachutistLocations.forEach(location =>
+                html += createParachutistRow(locations[location.pointId].pointName,
+                                             location.time));
+           }
+
+       Array.from(map.values()).filter(aircraft =>
+                aircraft.category === category.category)
+           .sort((aircraft1, aircraft2) => {
+               return aircraft1.path[0].time - aircraft2.path[0].time
+           })
+           .forEach(function (aircraftFromCategory) {
+                html += createTableRow(aircraftFromCategory.aircraftId,
+                                       aircraftFromCategory.name,
+                                       aircraftFromCategory.icon,
+                                       aircraftFromCategory.type,
+                                       aircraftFromCategory.path[0].time,
+                                       aircraftFromCategory.aerobatic,
+                                       aircraftFromCategory.parachutist,
+                                       true);
 
        });
     });
