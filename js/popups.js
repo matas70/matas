@@ -101,11 +101,11 @@ function showAircraftInfoPopup(aircraft, collapse) {
 	if (!aircraft.armament) {
 		$("#aircraftInfoContentArmamentContainer").css("display", "none");
 	} else {
-        $("#aircraftInfoContentArmamentContainer").css("display", "block");
+        $("#aircraftInfoContentArmamentContainer").css("display", "flex");
         $("#aircraftInfoContentArmament").text(aircraft.armament);
 	}
 
-	// Clears event handlers
+	// Clears event handlersh
     $("#aircraftInfoMore").off("click");
     $("#shrinkAircraftInfoPopup").off("click")
 

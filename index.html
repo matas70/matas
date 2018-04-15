@@ -18,7 +18,6 @@
 
     <script src="js/map.js"></script>
     <script src="js/date.js"></script>
-    <script src="js/time.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/functions.js"></script>
     <script src="js/popups.js"></script>
@@ -89,7 +88,7 @@
 
 <!-- startup splash screen -->
 <div class="splash"
-     style="background-image: url('animation/Splash 70.gif?v=1');background-size: contain; visibility: hidden;"></div>
+     style="background-image: url('animation/Splash 70.gif?v=1');background-size: contain; visibility: visible;"></div>
 
 <!-- the map itself -->
 <div id="map" style="display: none;"></div>
@@ -186,7 +185,7 @@
                     <div class="aircraftInfoContentText" id="aircraftInfoContentEngine"></div>
                 </div>
             </div>
-            <div class="aircraftInfoContentRowFlex">
+            <div class="aircraftInfoContentRowFlex" id="aircraftInfoContentArmamentContainer">
                 <img class="aircraftInfoContentIcon" src="images/armament@2x.png">
                 <div class="aircraftInfoContentGroup">
                     <div class="aircraftInfoContentTitle">חימוש</div>

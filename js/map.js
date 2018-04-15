@@ -16,6 +16,10 @@ function setAircraftMarkerIcon(marker, url,anchor=36) {
     }
 }
 
+function setMarkerIcon(marker, icon) {
+    marker.setIcon(icon);
+}
+
 var aircrafts = null;
 var selectedLocation = null;
 var selectedLocationMarker = null;
@@ -87,8 +91,6 @@ function toggleAircraftMarkerVisibility(marker, shouldShow) {
     }
 }
 
-//**** currrent location detection - need to see wheter to delete or not
-var currentLocationMarker;
 var currentHeadingMarker;
 var currentPosition;
 var currentHeading = null;
@@ -118,16 +120,6 @@ function createPositionIcon() {
     };
 }
 
-function updateCurrentLocation(position) {
-    currentPosition = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-        accuracy: position.coords.accuracy
-    };
-
-    currentLocationMarker.setIcon(createPositionIcon());
-}
-
 function updateCurrentHeading(heading) {
     currentHeading = heading;
     currentHeadingMarker.setIcon(createHeadingArea(currentHeading));
@@ -141,11 +133,12 @@ function updateCurrentHeading(heading) {
  * @param shouldUseMap - should the map be
  */
 function drawMarker(position, icon, shouldUseMap) {
-    var marker = new google.maps.Marker({
+    var marker = new SlidingMarker({
         position: position,
         map: shouldUseMap ? map : null,
         icon: icon
     });
+    return marker;
 }
 
 /**
