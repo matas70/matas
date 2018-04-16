@@ -66,14 +66,13 @@ img.aerobaticIcon {
     display: table-cell;
     padding-left: 22px;
     padding-right: 22px;
-    padding-top: 18px;
-    padding-bottom: 4px;
+    /*padding-top: 18px;*/
+    /*padding-bottom: 4px;*/
 }
 
 img.aerobaticTableIcon {
     display: flex;
     justify-content: flex-end;
-    align-self: right;
     margin-left: 10px;
 }
 
@@ -81,8 +80,8 @@ img.parachutistIcon {
     display: table-cell;
     padding-left: 30px;
     padding-right: 24px;
-    padding-top: 16px;
-    padding-bottom: 4px;
+    /*padding-top: 16px;*/
+    /*padding-bottom: 4px;*/
 }
 
 div.firstHeading {
@@ -269,12 +268,18 @@ div.table {
     padding: 0px;
 }
 
-div.tableRow {
+.tableRow {
     background: white;
-    display: table-row;
-    width: 100%;
+    display: flex;
+    align-items: center;
     height: 60px;
-    margin-bottom: 2px;
+}
+
+.aerobatic {
+    height: 48px;
+    background-color: white !important;
+    margin: 0 25px 0 25px;
+    border-bottom: solid 1px #F4F5F5;
 }
 
 div.locationsTable {
@@ -291,7 +296,8 @@ a.locationRow {
 
 div.locationRow {
     background: #f7f5f5;
-    display: table-row;
+    display: flex;
+    align-items: center;
     width: 100%;
     height: 56px;
 }
@@ -304,7 +310,7 @@ div.locationPadding {
     height: 4px;
 }
 div.locationName {
-    display: table-cell;
+    /*display: table-cell;*/
     vertical-align: middle;
     width: 100%;
     padding-right: 22px;
@@ -320,33 +326,33 @@ div.nextAircraftSection {
 
 div.expandArrow {
     margin-right: 23px;
-    margin-top: 16px;
+    /*margin-top: 16px;*/
     margin-bottom: auto;
 }
 
 div.collapseArrow {
     margin-right: 23px;
-    margin-top: 16px;
+    /*margin-top: 16px;*/
     margin-bottom: auto;
     display: none;
 }
 
 div.nextAircraftTime {
-    margin-top: 16px;
+    /*margin-top: 16px;*/
     margin-bottom: auto;
     margin-right: 23px;
 }
 
 div.smallAircraftName {
     vertical-align: middle;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    /*margin-top: 16px;*/
+    /*margin-bottom: 16px;*/
     font-family: "Heebo-Light", sans-serif;
     font-size: 12pt;
 }
 
 img.aircraftIcon {
-    display: table-cell;
+    /*display: table-cell;*/
     padding-left: 22px;
     padding-right: 22px;
     padding-top: 8px;
@@ -354,8 +360,8 @@ img.aircraftIcon {
 }
 
 div.aircraftName {
-    display: table-cell;
-    color: #293b57;
+    /*display: table-cell;*/
+    color: #37474F;
     vertical-align: middle;
     width: 100%;
 }
@@ -606,10 +612,17 @@ hr {
 
 .aircraftCategory {
     width: 100%;
-    height: 25px;
+    height: 32px;
+    /*padding-right: 14px;*/
+    line-height: 32px;
     background-color: #e5e5e6;
     font-size: 15px;
     color: #37474f;
+}
+
+.categoryBlue {
+    background-color: #3BB5F2;
+    color: white;
 }
 
 .tabs {

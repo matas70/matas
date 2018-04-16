@@ -87,7 +87,7 @@ function hideLocationPopup(callback) {
 function showAircraftInfoPopup(aircraft, collapse) {
 	$("#aircraftInfoName").text(aircraft.name);
 	$("#aircraftInfoType").text(aircraft.type);
-	$("#aircraftInfoStartTime").text(aircraft.path[0].time.substr(0,5));
+	$("#aircraftInfoStartTime").text(roundToMinute(aircraft.path[0].time));
 	$("#aircraftInfoIcon").attr("src", "icons/aircrafts/"+aircraft.icon+".png");
 	$("#aircraftInfoContentDescription").text(aircraft.description);
 	$("#aircraftInfoContentClassification").text(aircraft.classification);
@@ -171,13 +171,13 @@ function hidePopup(popup, callback) {
 }
 
 function createParachutistRow(name, time) {
-    return "<div class=\"tableRow\"><img src=\"icons/aircrafts/parachutist.png\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>" + name +
-        "</b></div><div class=\"time\">" + time.substring(0, 5) + "</div></div>";
+    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aircrafts/parachutist.png\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>" + name +
+        "</b></div><div class=\"time\">" +roundToMinute(time)+ "</div></div>";
 }
 
 function createAerobaticRow(name, time) {
-    return "<div class=\"tableRow\"><img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"+ name +
-        "</b></div><div class=\"time\">"+ time.substring(0,5) +"</div></div>";
+    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"+ name +
+        "</b></div><div class=\"time\">"+ roundToMinute(time) +"</div></div>";
 }
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime) {
@@ -192,8 +192,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
 
 	return "<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon +
 		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name + 
-		   "</b> " + aircraftType + "</div>" + (displayTime ? "<div class=\"time\">"+ time.substring(0,5) +"</div></div>" : "<div class='tableIcons'> " +
-            "<img class='aboutImage' src='images/aboutblack@2x.png'/>" + aerobaticIcon + "</div></div>");
+		   "</b> " + aircraftType + "</div>" + (displayTime ? "<div class=\"time\">"+roundToMinute(time) +"</div></div>" : "" + aerobaticIcon + "</div></div>");
 }
 
 function createLocationRow(location, displayFirstAircraft) {
@@ -201,7 +200,7 @@ function createLocationRow(location, displayFirstAircraft) {
                 "<div class='locationName'>"+location.pointName+"</div>" +
                 "<div class='nextAircraftSection'>"+
                     (displayFirstAircraft ? "<div class='smallAircraftName'>"+location.aircrafts[0].name+"</div>" : "") +
-                    "<div class='nextAircraftTime'>"+location.aircrafts[0].time.substr(0,5)+"</div>" +
+                    "<div class='nextAircraftTime'>"+roundToMinute(location.aircrafts[0].time)+"</div>" +
                     "<div class='expandArrow'><img src='icons/arrowBlack.png'></div>" +
                     "<div class='collapseArrow'><img src='icons/arrowBlackUp.png'></div>" +
                 "</div>" +
