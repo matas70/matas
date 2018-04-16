@@ -176,7 +176,7 @@ function createParachutistRow(name, time) {
 }
 
 function createAerobaticRow(name, time) {
-    return "<div class=\"tableRow\"><img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"+ name +
+    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"+ name +
         "</b></div><div class=\"time\">"+ roundToMinute(time) +"</div></div>";
 }
 

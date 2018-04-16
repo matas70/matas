@@ -127,7 +127,7 @@
           "secondaryTextColor" : "187aab",
           "visible": true,
 			"points":  [
-				{ "pointId": 58, "pointName": "יבול, אבשלום, דקל, תלמי יוסף, שדי-אברהם, יתד, פרי-גן", "N": 3112.496, "E": 3421.460 },
+				{ "pointId": 58, "pointName": "יבול", "N": 3112.496, "E": 3421.460 },
 				{ "pointId": 24, "pointName": "גבולות", "N": 3112.810, "E": 3427.930 },
 				{ "pointId": 131, "pointName": "צאלים", "N": 3112.510, "E": 3432.090 },
 				{ "pointId": 157, "pointName": "שיפוט ל090 למוזיאון", "N": 3114.300, "E": 3438.247, "hidden":"true"},
@@ -232,7 +232,7 @@
 			"secondaryTextColor" : "09956b",
 			"visible": true,
 			"points":  [
-				{ "pointId": 58, "pointName": "יבול, אבשלום, דקל, תלמי יוסף, שדי-אברהם, יתד, פרי-גן", "N": 3112.496, "E": 3421.460, "hidden":"true"},
+				{ "pointId": 58, "pointName": "יבול", "N": 3112.496, "E": 3421.460, "hidden":"true"},
 				{ "pointId": 117, "pointName": "עין הבשור", "N": 3116.907, "E": 3425.975 },
 				{ "pointId": 149, "pointName": "רעים", "N": 3122.770, "E": 3427.620 },
 				{ "pointId": 108, "pointName": "נתיבות", "N": 3125.800, "E": 3435.990 },

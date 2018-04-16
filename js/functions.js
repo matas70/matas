@@ -1036,8 +1036,8 @@ function loadCategories(callback) {
     });
 }
 
-function createCategoryRow(category) {
-    return "<div class='aircraftCategory'>" + category.category + "</div>"
+function createCategoryRow(category, isBlue) {
+    return "<div class='aircraftCategory " + (isBlue ? "categoryBlue" : "") + "'>" + category.category + "</div>"
 }
 
 function fillMenu() {
@@ -1059,7 +1059,8 @@ function fillMenu() {
 
     categories.forEach(function(category) {
        var categorizedAircrafts = [].concat(aircrafts);
-       html += createCategoryRow(category);
+       html += createCategoryRow(category,
+           ((category == "מופעים אווירובטיים") || (category == "הצנחות")) ? true : false);
        if (category.aerobatic) {
             var aerobaticLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aerobatic)
                     .map(aerobatics => aerobatics.path));
