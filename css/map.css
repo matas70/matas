@@ -703,7 +703,6 @@ br.baseData {
     display: flex;
     flex-shrink: 4;
     /* flex: 1; */
-    margin-top: 15pt;
     /* max-height: 50%; */
     align-self: self-end;
     margin-bottom: auto;
@@ -728,7 +727,6 @@ br.baseData {
 }
 
 .entranceBody {
-    margin-top: 12px;
     display: flex;
     align-self: center;
     align-items: center;
@@ -743,7 +741,6 @@ b.entranceBody {
 
 #scheduleLink {
     justify-content: center;
-    margin-top: 18px;
     display: flex;
     cursor: pointer;
     color: white;
@@ -753,6 +750,7 @@ b.entranceBody {
     width: 100%;
     align-self: flex-end;
     position: relative;
+    min-height: 32px;
     height: 48px;
     background: #3bb5f2;
 }
