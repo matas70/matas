@@ -149,7 +149,11 @@ function showAircraftInfoPopup(aircraft, collapse) {
 	$("#aircraftInfoPopup").show();
 	$("#aircraftInfoPopup").animate({
             bottom: "0px"
-        }, "fast");		
+        }, "fast");
+
+    setTimeout(function() {
+        $("#listView").hide();
+    }, 1000);
 }
 
 function hideAircraftInfoPopup(callback) { 
@@ -159,6 +163,7 @@ function hideAircraftInfoPopup(callback) {
                 callback.call(this);
             }
 	});
+    $("#listView").show();
 }
 
 function hidePopup(popup, callback) {

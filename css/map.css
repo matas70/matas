@@ -210,7 +210,8 @@ div.splash {
 }
 
 #aircraftInfoContent {
-    overflow-y: auto;
+    overflow-y: scroll; /* has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
     width: 100%;
     height: 100%;
     background: white;
@@ -487,7 +488,8 @@ HEADER {
 #expandedInfo {
     display: none;
     padding-right: 24px;
-    overflow-y: auto;
+    overflow-y: scroll; /* has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
     padding-left: 24px;
     height: 100%;
 }
