@@ -192,8 +192,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
 
 	return "<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon +
 		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name + 
-		   "</b> " + aircraftType + "</div>" + (displayTime ? "<div class=\"time\">"+roundToMinute(time) +"</div></div>" : "<div class='tableIcons'> " +
-            "<img class='aboutImage' src='images/aboutblack@2x.png'/>" + aerobaticIcon + "</div></div>");
+		   "</b> " + aircraftType + "</div>" + (displayTime ? "<div class=\"time\">"+roundToMinute(time) +"</div></div>" : "" + aerobaticIcon + "</div></div>");
 }
 
 function createLocationRow(location, displayFirstAircraft) {
