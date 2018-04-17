@@ -4,7 +4,6 @@
     bottom: 0px; /* Footer Height */
     width: 100%;
 }
-
 #headerMobile {
 }
 
@@ -20,26 +19,25 @@
     font-style: normal;
     font-weight: 300;
     src: local('Heebo Light'), local('Heebo-Light'),
-    url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg'); /* Legacy iOS */
+    url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg'); /* Legacy iOS */
 }
+
 /* heebo-regular - hebrew_latin */
 @font-face {
     font-family: 'Heebo-Regular';
     font-style: normal;
     font-weight: 400;
     src: local('Heebo'), local('Heebo-Regular'),
-    url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg'); /* Legacy iOS */
+    url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg'); /* Legacy iOS */
 }
+
 /* heebo-700 - hebrew_latin */
 @font-face {
     font-family: 'Heebo-Bold';
     font-style: normal;
     font-weight: 700;
     src: local('Heebo Bold'), local('Heebo-Bold'),
-    url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg'); /* Legacy iOS */
+    url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg'); /* Legacy iOS */
 }
 
 /* Makes the page fill the window. */
@@ -103,14 +101,14 @@ div.topbar-help {
 }
 
 div.map-dark {
-    /*top: 64px;*/
+    top: 64px;
     pointer-events: none;
     position: absolute;
     width: 100%;
-    height: 100%;
-    z-index: 9999;
+    z-index: 1;
     background-color: #060606;
-    opacity: 0.1;
+    opacity: 0.4;
+    bottom: 0;
 }
 
 div.splash {
@@ -162,7 +160,7 @@ div.splash {
 
 #homeButton {
     margin-top: 4px;
-    cursor:  pointer;
+    cursor: pointer;
     padding: 15px 15px;
 }
 
@@ -180,13 +178,23 @@ div.splash {
 }
 
 #popupHeader {
-    background: #3bb5f2;
+    width: 100%;
     height: 22px;
+    background: #3bb5f2;
     vertical-align: middle;
     padding-top: 14px;
     padding-left: 23px;
     padding-right: 23px;
     padding-bottom: 14px;
+}
+
+#aircraftsList {
+}
+
+#aircraftListContainer {
+    height: 150px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 #aircraftInfoBannerContainer {
@@ -207,6 +215,8 @@ div.splash {
 #aircraftInfoIcon {
     padding-left: 17px;
     padding-right: 27.2px;
+    padding-top: 13px;
+    padding-bottom: 10px;
 }
 
 #aircraftInfoContent {
@@ -231,6 +241,7 @@ div.splash {
     padding-right: 57px;
     vertical-align: middle;
     background-color: #f7f5f5;
+    color: #293b57;
 }
 
 #aircraftInfoTimeLabel {
@@ -239,15 +250,18 @@ div.splash {
 }
 
 #aircraftInfoName {
-    padding-top: 12px;
-    font-size: 17px;
-    font-family: Heebo-Bold, sans-serif;
+    padding-top: 4px;
+    font-size: 18pt;
+    font-weight: bold;
+    font-family: "Heebo-Bold";
+    color: #293b57;
 }
 
 #aircraftInfoType {
-    font-family: "Heebo-Light", sans-serif;
-    font-size: 12px;
-    color: #8696b0;
+    font-size: 18px;
+    color: #455773;
+    font-weight: lighter;
+    margin-top: -12px;
 }
 
 #aircraftInfoMore {
@@ -302,14 +316,17 @@ div.locationRow {
     width: 100%;
     height: 56px;
 }
+
 div.locationSpace {
     display: none;
     width: 100%;
 }
+
 div.locationPadding {
     display: table-row;
     height: 4px;
 }
+
 div.locationName {
     /*display: table-cell;*/
     vertical-align: middle;
@@ -376,7 +393,6 @@ div.time {
 }
 
 div.tableRow:nth-child(odd) {
-    background: #f8f6f6;
 }
 
 div.infoPopup {
@@ -385,8 +401,8 @@ div.infoPopup {
     position: fixed;
     width: 100%;
     z-index: 100000;
-    bottom: 0px;
-    /*transition: height 2s ease-in;*/
+    bottom: 0;
+    background: #37474f;
 }
 
 .screenshot {
@@ -405,13 +421,19 @@ div.locationInfoPopup {
 #aboutPopup {
     top: 64px;
 }
+
 .aboutPopup {
-    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    top: 64px;
     background: white;
     text-align: center;
     position: absolute;
     z-index: 9999;
     width: 100%;
+    bottom: 0px;
+    justify-content: space-between;
 }
 
 .aboutTitle {
@@ -428,13 +450,12 @@ div.locationInfoPopup {
 
 .aboutBottom {
     width: 100%;
-    height: 165px;
-    margin-top: auto;
-    margin-bottom: 0;
 }
 
 .bottomText {
     font-size: 10pt;
+    align-self: flex-end;
+    padding-bottom: 14px;
 }
 
 #aboutMenuTitle {
@@ -447,13 +468,14 @@ div.locationInfoPopup {
 .halfBlue {
     background: #7bd1fc;
     width: 100%;
-    height: 40%;
+    bottom: 52%;
     z-index: 9999;
-    top: 0px;
+    top: 64px;
+    position: fixed;
+    z-index: -1;
 }
 
 .aboutLogo {
-    padding-top: 10%;
 }
 
 div.imageCache {
@@ -571,7 +593,7 @@ HEADER {
     color: #333;
 }
 
-.menuLink.active{
+.menuLink.active {
     font-weight: bold;
 }
 
@@ -599,10 +621,11 @@ hr {
 }
 
 .tab-content {
-    display:none;
+    display: none;
 }
+
 .tab-content.active {
-    display:block;
+    display: block;
 }
 
 .timeline-warning {
@@ -640,7 +663,7 @@ hr {
 }
 
 .listContainer.hide {
-    position:absolute;
+    position: absolute;
     transform: translateX(0%);
 }
 
@@ -662,6 +685,7 @@ hr {
     padding-right: 14pt;
     font-size: 11pt;
 }
+
 b.baseData {
     padding: 0;
     font-size: 12pt;
@@ -671,6 +695,7 @@ b.baseData {
 br.baseData {
     line-height: 20pt;
 }
+
 .baseEventIcon {
     padding-top: 22pt;
     padding-bottom: 32pt;
@@ -682,7 +707,7 @@ br.baseData {
 .baseExitIcon {
     width: 30pt;
     height: 30pt;
-    position :absolute;
+    position: absolute;
     left: 10pt;
     top: 61pt;
     cursor: pointer;
@@ -767,9 +792,8 @@ b.entranceBody {
 }
 
 #entrancePopup {
-    height: 100%;
     width: 100%;
-    background: white;
+    top: 64px;
     text-align: center;
     position: absolute;
     display: flex;
@@ -781,6 +805,12 @@ b.entranceBody {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    transition: background-image 5s ease-in-out;
+    bottom: 0px;
+}
+
+#entrancePopup.mapLoaded {
+    background: transparent;
 }
 
 #countdownContainer {
@@ -790,11 +820,8 @@ b.entranceBody {
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
     border-radius: 16px;
     background: white;
-    margin-right: auto;
-    margin-top: 22%;
+    margin: auto;
     align-items: center;
-    margin-bottom: 5%;
-    margin-left: auto;
     z-index: 2;
 }
 
@@ -809,6 +836,7 @@ b.entranceBody {
     margin: auto;
     align-items: center;
 }
+
 #days {
     border-right: 20px white;
     display: flex;
@@ -860,7 +888,7 @@ b.entranceBody {
     display: flex;
     padding-left: 14px;
     padding-bottom: 2px;
-    align-self:  left;
+    align-self: left;
 }
 
 .tableIcons {
@@ -868,4 +896,30 @@ b.entranceBody {
     flex-direction: row;
     justify-content: left;
     flex-direction: row-reverse;
+}
+
+#closeIcon {
+    display: block;
+    position: fixed;
+    padding-top: 20px;
+    height: 30px;
+    padding-left: 25px;
+    direction: ltr;
+    width: 30px;
+    margin: auto;
+}
+
+#closeIcon img {
+    position: relative;
+    /* top: 5px; */
+    display: block;
+    right: 5px;
+}
+
+#closeIconContainer {
+    position: fixed;
+    margin: auto;
+    width: 296px;
+    direction: ltr;
+    height: 18px;
 }

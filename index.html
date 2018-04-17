@@ -100,7 +100,7 @@ automatically in just a few seconds.
 </div>
 
 <!-- map overlay -->
-<div class="map-dark" style="display: none"></div>
+<div class="map-dark" onclick="closeAllPopups();" style="display: none"></div>
 
 <!-- startup splash screen -->
 <div class="splash"
@@ -129,9 +129,10 @@ automatically in just a few seconds.
 <div id="locationPopup" class="infoPopup" style="display: none">
     <div id="popupHeader">
         <div id="popupTitle"></div>
-        <div id="popupSubTitle">שעת הגעה</div>
+        <div id="popupSubTitle"></div>
     </div>
-    <div id="aircraftsList" class="table">
+    <div id="aircraftListContainer">
+        <div id="aircraftsList" class="table"></div>
     </div>
 </div>
 
@@ -216,28 +217,28 @@ automatically in just a few seconds.
 </div>
 
 <!-- about popup -->
-<div id="aboutPopup" class="aboutPopup infoPopup" style="display:none">
-    <div class="halfBlue">
-        <img id="aboutLogo" class="aboutLogo" src="icons/bigLogo.png"/>
-        <div id="aboutTitle" class="aboutTitle">
+<div id="aboutPopup" class="aboutPopup" style="display:none">
+    <!--<div class="halfBlue">-->
+    <img id="aboutLogo" class="aboutLogo" src="icons/bigLogo.png"/>
+    <div id="aboutTitle" class="aboutTitle">
             חג עצמאות שמח!
-        </div>
-        <div id="aboutBody" class="aboutBody">
+     </div>
+     <div id="aboutBody" class="aboutBody">
             האתר פותח ע"י <b>יחידת אופק</b> בחיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום
             העצמאות
             לכבוד חגיגות 70 שנה למדינת ישראל.
-        </div>
-    </div>
-    <div id="aboutBottom" class="aboutBottom">
-        <img id="iafLogo" src="icons/iaf-small.png" style="padding-bottom: 14px"/>
-        <div class="bottomText">
-            שימו לב, ייתכנו שינוים בלוחות הזמנים
-        </div>
-    </div>
+     </div>
+        <!--</div>-->
+     <div id="aboutBottom" class="aboutBottom">
+            <img id="iafLogo" src="icons/iaf-small.png" style="padding-bottom: 14px"/>
+            <div class="bottomText">
+                שימו לב, ייתכנו שינוים בלוחות הזמנים
+            </div>
+     </div>
 </div>
 
 <!-- incompatible browser popup -->
-<div id="incompatibleBrowserPopup" class="aboutPopup infoPopup" style="display:none">
+<div id="incompatibleBrowserPopup" class="aboutPopup" style="display:none">
     <div class="halfBlue">
         <img class="aboutLogo" src="icons/bigLogo.png"/>
         <img src="screenshots/screenshot1.png" class="screenshot"/>
@@ -248,9 +249,6 @@ automatically in just a few seconds.
             אנחנו מתנצלים, הצפיה במפת מטס חיל האוויר נתמכת במכשירים סלולריים בלבד.<br>
             היכנסו מהמכשיר הסלולרי שלכם ותוכלו לצפות בזמן אמת במטס חיל האוויר על גבי מפה ולקבל מידע מפורט על המופעים,
             הזמנים והמטוסים<br>
-            <br>
-            <b>חג עצמאות שמח!</b>
-            <br>
             <img src="icons/iaf.png" width="96"><br>
             <b>יחידת אופק - חיל האוויר</b>
         </div>
@@ -260,6 +258,11 @@ automatically in just a few seconds.
 <!-- entrance popup -->
 <div id="entrancePopup" class="entrancePopup" style="display:none">
     <div id="countdownContainer">
+        <div id="closeIconContainer" >
+            <div id="closeIcon" onclick="closeEntrancePopup()">
+                <img src="icons/closeIcon.png"/>
+            </div>
+        </div>
         <div style="height:15px"></div>
         <img id="entranceLogo" src="icons/entranceLogo.png">
         <div class="entranceBody">
