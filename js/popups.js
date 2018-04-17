@@ -167,7 +167,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
 
     setTimeout(function() {
         $("#listView").hide();
-    }, 1000);
+    }, 500);
 }
 
 function hideAircraftInfoPopup(callback) { 

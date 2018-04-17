@@ -1,5 +1,6 @@
 window.gm_authFailure = function() {
     mapFail = true;
+    $("#closeIcon").hide();
 };
 
 var mapFail = false;
@@ -1000,6 +1001,7 @@ function openListView() {
             closeMenu();
         } else {
             $menuHamburger.toggleClass("is-active");
+            closeAllPopups();
             openMenu();
             fillMenu();
         }
