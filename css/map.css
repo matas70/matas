@@ -194,6 +194,7 @@ div.splash {
 #aircraftListContainer {
     height: 150px;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 #aircraftInfoBannerContainer {
@@ -396,7 +397,6 @@ div.infoPopup {
     width: 100%;
     z-index: 100000;
     bottom: 0;
-     /* has to be scroll, not auto */
     background: #37474f;
 }
 
