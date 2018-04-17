@@ -100,7 +100,7 @@ automatically in just a few seconds.
 </div>
 
 <!-- map overlay -->
-<div class="map-dark" style="display: none"></div>
+<div class="map-dark" onclick="closeAllPopups();" style="display: none"></div>
 
 <!-- startup splash screen -->
 <div class="splash"
@@ -129,9 +129,10 @@ automatically in just a few seconds.
 <div id="locationPopup" class="infoPopup" style="display: none">
     <div id="popupHeader">
         <div id="popupTitle"></div>
-        <div id="popupSubTitle">שעת הגעה</div>
+        <div id="popupSubTitle"></div>
     </div>
-    <div id="aircraftsList" class="table">
+    <div id="aircraftListContainer">
+        <div id="aircraftsList" class="table"></div>
     </div>
 </div>
 
@@ -216,7 +217,7 @@ automatically in just a few seconds.
 </div>
 
 <!-- about popup -->
-<div id="aboutPopup" class="aboutPopup infoPopup" style="display:none">
+<div id="aboutPopup" class="aboutPopup" style="display:none">
     <div class="halfBlue">
         <img id="aboutLogo" class="aboutLogo" src="icons/bigLogo.png"/>
         <div id="aboutTitle" class="aboutTitle">
@@ -237,7 +238,7 @@ automatically in just a few seconds.
 </div>
 
 <!-- incompatible browser popup -->
-<div id="incompatibleBrowserPopup" class="aboutPopup infoPopup" style="display:none">
+<div id="incompatibleBrowserPopup" class="aboutPopup" style="display:none">
     <div class="halfBlue">
         <img class="aboutLogo" src="icons/bigLogo.png"/>
         <img src="screenshots/screenshot1.png" class="screenshot"/>

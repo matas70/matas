@@ -1550,42 +1550,21 @@
       "aircraftId": 29,
       "aircraftTypeId": 18,
       "path": [
-        { "pointId": 48, "time": "12:21:41" },
-        { "pointId": 125, "time": "12:22:51" },
-        { "pointId": 91, "time": "12:24:25" },
-        { "pointId": 137, "time": "12:24:55" },
-        { "pointId": 45, "time": "12:25:41" },
-        { "pointId": 87, "time": "12:26:10" },
-        { "pointId": 109, "time": "12:27:00" },
-        { "pointId": 27, "time": "12:28:11" },
-        { "pointId": 43, "time": "12:28:57" },
-        { "pointId": 165, "time": "12:30:00" },
-        { "pointId": 66, "time": "12:30:21" },
-        { "pointId": 22, "time": "12:30:37" },
-        { "pointId": 166, "time": "12:30:58" },
-        { "pointId": 8, "time": "12:33:27" },
-        { "pointId": 9, "time": "12:34:54" }
-      ]
-    },
-    {
-      "aircraftId": 30,
-      "aircraftTypeId": 19,
-      "path": [
-        { "pointId": 48, "time": "12:23:41" },
-        { "pointId": 125, "time": "12:24:51" },
-        { "pointId": 91, "time": "12:26:25" },
-        { "pointId": 137, "time": "12:26:55" },
-        { "pointId": 45, "time": "12:27:41" },
-        { "pointId": 87, "time": "12:28:10" },
-        { "pointId": 109, "time": "12:29:00" },
-        { "pointId": 27, "time": "12:30:11" },
-        { "pointId": 43, "time": "12:30:57" },
-        { "pointId": 165, "time": "12:32:00" },
-        { "pointId": 66, "time": "12:32:21" },
-        { "pointId": 22, "time": "12:32:37" },
-        { "pointId": 166, "time": "12:32:58" },
-        { "pointId": 8, "time": "12:35:27" },
-        { "pointId": 9, "time": "12:36:54" }
+        { "pointId": 48, "time": "12:22:41" },
+        { "pointId": 125, "time": "12:23:51" },
+        { "pointId": 91, "time": "12:25:25" },
+        { "pointId": 137, "time": "12:25:55" },
+        { "pointId": 45, "time": "12:26:41" },
+        { "pointId": 87, "time": "12:27:10" },
+        { "pointId": 109, "time": "12:28:00" },
+        { "pointId": 27, "time": "12:29:11" },
+        { "pointId": 43, "time": "12:29:57" },
+        { "pointId": 165, "time": "12:31:00" },
+        { "pointId": 66, "time": "12:31:21" },
+        { "pointId": 22, "time": "12:31:37" },
+        { "pointId": 166, "time": "12:31:58" },
+        { "pointId": 8, "time": "12:34:27" },
+        { "pointId": 9, "time": "12:35:54" }
       ]
     },
     {
@@ -1804,8 +1783,8 @@
       "hide" : true,
       "parachutist": true,
       "path": [
+        { "pointId": 48, "time": "10:35:00" },
         { "pointId": 53, "time": "10:45:00" },
-        { "pointId": 48, "time": "10:45:00" },
         { "pointId": 165, "time": "10:45:00" }
       ]
     },
@@ -1816,6 +1795,24 @@
       "path": [
         { "pointId": 8, "time": "12:28:30" },
         { "pointId": 9, "time": "12:31:00" }
+      ]
+    },
+    {
+      "aircraftId": 39,
+      "aircraftTypeId": 25,
+      "hide" : true,
+      "path": [
+        { "pointId": 8, "time": "12:28:30" },
+        { "pointId": 9, "time": "12:31:00" }
+      ]
+    },
+    {
+      "aircraftId": 40,
+      "aircraftTypeId": 26,
+      "hide" : true,
+      "path": [
+        { "pointId": 165, "time": "12:12:00" },
+        { "pointId": 165, "time": "12:12:00", "hidden":"true"}
       ]
     }
   ]

