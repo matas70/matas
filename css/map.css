@@ -418,12 +418,17 @@ div.locationInfoPopup {
 }
 
 .aboutPopup {
-    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    top: 64px;
     background: white;
     text-align: center;
     position: absolute;
     z-index: 9999;
     width: 100%;
+    bottom: 0px;
+    justify-content: space-between;
 }
 
 .aboutTitle {
@@ -440,13 +445,12 @@ div.locationInfoPopup {
 
 .aboutBottom {
     width: 100%;
-    height: 165px;
-    margin-top: auto;
-    margin-bottom: 0;
 }
 
 .bottomText {
     font-size: 10pt;
+    align-self: flex-end;
+    padding-bottom: 14px;
 }
 
 #aboutMenuTitle {
@@ -459,13 +463,14 @@ div.locationInfoPopup {
 .halfBlue {
     background: #7bd1fc;
     width: 100%;
-    height: 40%;
+    bottom: 52%;
     z-index: 9999;
-    top: 0px;
+    top: 64px;
+    position: fixed;
+    z-index: -1;
 }
 
 .aboutLogo {
-    padding-top: 10%;
 }
 
 div.imageCache {
