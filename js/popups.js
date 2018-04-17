@@ -47,6 +47,8 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
     var popupHeader = $("#popupHeader");
     var currentBottom = targetBottom;
 
+    $("#aircraftListContainer").scrollTop(0);
+
     // popupHeader.on("click", function(event) {
     //     currentBottom = Math.min(-maxDrag, 0);
     //     locationPopup.animate({bottom: currentBottom + "px"}, "fast");

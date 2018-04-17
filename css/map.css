@@ -215,6 +215,8 @@ div.splash {
 #aircraftInfoIcon {
     padding-left: 17px;
     padding-right: 27.2px;
+    padding-top: 13px;
+    padding-bottom: 10px;
 }
 
 #aircraftInfoContent {
@@ -239,6 +241,7 @@ div.splash {
     padding-right: 57px;
     vertical-align: middle;
     background-color: #f7f5f5;
+    color: #293b57;
 }
 
 #aircraftInfoTimeLabel {
@@ -247,15 +250,18 @@ div.splash {
 }
 
 #aircraftInfoName {
-    padding-top: 12px;
-    font-size: 17px;
-    font-family: Heebo-Bold, sans-serif;
+    padding-top: 4px;
+    font-size: 18pt;
+    font-weight: bold;
+    font-family: "Heebo-Bold";
+    color: #293b57;
 }
 
 #aircraftInfoType {
-    font-family: "Heebo-Light", sans-serif;
-    font-size: 12px;
-    color: #8696b0;
+    font-size: 18px;
+    color: #455773;
+    font-weight: lighter;
+    margin-top: -12px;
 }
 
 #aircraftInfoMore {
@@ -393,7 +399,6 @@ div.infoPopup {
     display: flex;
     flex-direction: column;
     position: fixed;
-    height: 200px;
     width: 100%;
     z-index: 100000;
     bottom: 0;
