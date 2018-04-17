@@ -815,12 +815,16 @@ function onHomeButtonClick() {
 
     if (mapLoaded) {
         $("#entrancePopup").fadeOut();
-        showCurrentLocation();
-        focusOnLocation({lat: 32.00, lng: 35.00}, 8);
+        if (!currentLocationMarker) {
+            focusOnLocation({lat: 32.00, lng: 35.00}, 8);
+            showCurrentLocation();
+        } else {
+            selectPoint(findClosestPoint({lat: currentLocationMarker.position.lat(),
+                                          lng: currentLocationMarker.position.lng()
+                                          }), true);
+        }
+        
     }
-
-    deselectAircraft();
-    deselectLocation();
 }
 
 var mapLoaded = false;
@@ -1187,14 +1191,13 @@ function initMap() {
                 startAircraftsAnimation(true);
             });
 
-            
             setTimeout(function () {
                 if (!mapFail) {
                     $("#entrancePopup").addClass("mapLoaded");
                     $("#closeIcon").fadeIn();
                     $("#homeButton").css('visibility', 'visible');
                 }
-            }, 2000);
+            }, 2500);
             
             
             defer.resolve(map);
