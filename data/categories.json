@@ -1,0 +1,31 @@
+[
+  {
+    "category": "מופעים אווירובטיים",
+    "aerobatic": true
+  },
+  {
+    "category": "הצנחות",
+    "parachutist": true
+  },
+  {
+    "category": "מטוסי קרב"
+  },
+  {
+    "category": "מסוקים"
+  },
+  {
+    "category": "תובלה"
+  },
+  {
+    "category": "הדרכה"
+  },
+  {
+    "category": "סיור ובקרה"
+  },
+  {
+    "category": "אזרחי"
+  },
+  {
+    "category": "צבאות זרים"
+  }
+]

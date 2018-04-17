@@ -1,3 +1,7 @@
+const MAP_URL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCUHnpGpGO0nDr7Hy3nsnk85eIM75jGBd4&callback=initMap&language=he&region=IL";
+// new production key
+//const MAP_URL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyC9SvKqEi2KwCecVLbG6257Xuu9SZf0azk&callback=initMap&language=he&region=IL";
+
 function setAircraftMarkerIcon(marker, url,anchor=36) {
     if (anchor!= null) {
         marker.setIcon({
@@ -10,6 +14,10 @@ function setAircraftMarkerIcon(marker, url,anchor=36) {
             url: url
         });
     }
+}
+
+function setMarkerIcon(marker, icon) {
+    marker.setIcon(icon);
 }
 
 var aircrafts = null;
@@ -85,8 +93,14 @@ function createAircraftMarker(position, name, hide) {
     return aircraftMarker;
 }
 
-//**** currrent location detection - need to see wheter to delete or not
-var currentLocationMarker;
+function toggleAircraftMarkerVisibility(marker, shouldShow) {
+    if (!shouldShow) {
+        marker.setMap(null);
+    } else if (!marker.getMap()) {
+        marker.setMap(map);
+    }
+}
+
 var currentHeadingMarker;
 var currentPosition;
 var currentHeading = null;
@@ -116,16 +130,6 @@ function createPositionIcon() {
     };
 }
 
-function updateCurrentLocation(position) {
-    currentPosition = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-        accuracy: position.coords.accuracy
-    };
-
-    currentLocationMarker.setIcon(createPositionIcon());
-}
-
 function updateCurrentHeading(heading) {
     currentHeading = heading;
     currentHeadingMarker.setIcon(createHeadingArea(currentHeading));
@@ -136,16 +140,15 @@ function updateCurrentHeading(heading) {
  * draws a marker on the map given a location and icon
  * @param position - the position to draw the marker
  * @param icon - the icon of the marker
- * @param title - the text shown on the marker
  * @param shouldUseMap - should the map be
  */
-function drawMarker(position, icon, title, shouldUseMap) {
-    var marker = new google.maps.Marker({
+function drawMarker(position, icon, shouldUseMap) {
+    var marker = new SlidingMarker({
         position: position,
         map: shouldUseMap ? map : null,
-        icon: icon,
-        title: title != "" ? title : ""
+        icon: icon
     });
+    return marker;
 }
 
 /**
@@ -165,7 +168,7 @@ function setMarkerIcon(marker, icon) {
 function getMarkerIcon(color, clicked) {
     if (!clicked)
         return {
-            url: "icons/point-" + color + ".png",
+            url: "icons/pointSmall-" + color + ".png",
             // The anchor for this image is the center of the circle
             anchor: new google.maps.Point(14, 14)
         };
@@ -232,11 +235,11 @@ function drawRouteOnMap(route) {
                     if (selectedLocation != null) {
                         deselectLocation(function() {
                             // then show a new popup
-                            selectLocation(point, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                            selectLocation(point.pointId, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
                         });
                     } else {
                         // then show a new popup
-                        selectLocation(point, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                        selectLocation(point.pointId, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
                     }
                 }
             });
@@ -297,6 +300,13 @@ function drawRoutesOnMap(routes) {
 
 }
 
+function loadPlugins() {
+    $.getScript("js/slidingMarker/jquery.easing.1.3.js");
+    $.getScript("js/slidingMarker/markerAnimate.js");
+    $.getScript("js/markerclusterer.js");
+    $.getScript("js/slidingMarker/SlidingMarker.min.js");
+}
+
 function createMapObject(clickCallback) {
     map = new google.maps.Map(document.getElementById('map'),
         {
@@ -304,7 +314,7 @@ function createMapObject(clickCallback) {
             zoom: 8,
             gestureHandling: 'greedy',
             disableDefaultUI: true
-        });
+    });
 
     map.addListener('click', clickCallback);
     return map;
