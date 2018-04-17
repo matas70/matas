@@ -14,7 +14,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
     // build popup html
     var html = "";
     point.aircrafts.forEach(function (aircraft) {
-        html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist, false, false);
+        html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist, false, true);
     }, this);
     $("#aircraftsList").html(html);
     $("#popupTitle").text(point.pointName);
@@ -197,7 +197,7 @@ function createAerobaticRow(name, time) {
         "</b></div><div class=\"time\">"+ roundToMinute(time) +"</div></div>";
 }
 
-function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime) {
+function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime=true) {
 	var aerobaticIcon = "<div/>";
 	if (aerobatic) {
 		aerobaticIcon = "<img src=\"icons/aerobatic.png\" class=\"aerobaticTableIcon\"></img>";
