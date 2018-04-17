@@ -33,7 +33,8 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
     if (popupHeight > targetHeight)
         targetBottom = -(popupHeight - targetHeight);
     locationPopup.css("bottom", -popupHeight);
-    locationPopup.css("height", popupHeight);
+    locationPopup.height(targetHeight);
+    $("#aircraftListContainer").height(targetHeight-50);
     locationPopup.show();
     locationPopup.animate({
         bottom: targetBottom + "px"
@@ -304,13 +305,22 @@ function hideBasePopup() {
 }
 
 function getMapDarker() {
-    $(".map-dark").animate({
-        opacity: 0.5},200);
+    $mapDark = $(".map-dark");
+    $mapDark .animate({
+        opacity: 0.4},200);
+    $mapDark .css("pointer-events","all");
 }
 
 function getMapUndark() {
-    $(".map-dark").animate({
+    $mapDark = $(".map-dark");
+    $mapDark.animate({
         opacity: 0.1},200);
+    $mapDark.css("pointer-events","none");
+}
+
+function closeAllPopups() {
+    deselectLocation();
+    deselectAircraft();
 }
 
 $(document).ready(function() {

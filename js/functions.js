@@ -814,7 +814,7 @@ function onHomeButtonClick() {
     deselectLocation();
 
     if (mapLoaded) {
-        $("#entrancePopup").fadeOut();
+        closeEntrancePopup();
         showCurrentLocation();
         focusOnLocation({lat: 32.00, lng: 35.00}, 8);
     }
@@ -1176,11 +1176,9 @@ function initMap() {
     if (compatibleDevice() && !checkIframe()) {
         // let splash run for a second before start loading the map
         setTimeout(function () {
-            map = createMapObject(function () {
-                deselectLocation();
-                deselectAircraft();
+            map = createMapObject(function() {
+                closeAllPopups();
             });
-
             $("#map").show();
 
             drawRoutesOnMap(routes);
@@ -1220,4 +1218,5 @@ function initMap() {
 
 function closeEntrancePopup() {
     $("#entrancePopup").fadeOut();
+    getMapUndark();
 }

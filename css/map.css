@@ -101,14 +101,14 @@ div.topbar-help {
 }
 
 div.map-dark {
-    /*top: 64px;*/
+    top: 64px;
     pointer-events: none;
     position: absolute;
     width: 100%;
-    height: 100%;
-    z-index: 9999;
+    z-index: 1;
     background-color: #060606;
-    opacity: 0.1;
+    opacity: 0.4;
+    bottom: 0;
 }
 
 div.splash {
@@ -178,7 +178,6 @@ div.splash {
 }
 
 #popupHeader {
-    position: fixed;
     width: 100%;
     height: 22px;
     background: #3bb5f2;
@@ -190,7 +189,11 @@ div.splash {
 }
 
 #aircraftsList {
-    margin-top: 50px;
+}
+
+#aircraftListContainer {
+    height: 150px;
+    overflow-y: scroll;
 }
 
 #aircraftInfoBannerContainer {
@@ -383,7 +386,6 @@ div.time {
 }
 
 div.tableRow:nth-child(odd) {
-    background: #f8f6f6;
 }
 
 div.infoPopup {
@@ -394,8 +396,8 @@ div.infoPopup {
     width: 100%;
     z-index: 100000;
     bottom: 0;
-    overflow-y: scroll; /* has to be scroll, not auto */
-    -webkit-overflow-scrolling: touch;
+     /* has to be scroll, not auto */
+    background: #37474f;
 }
 
 .screenshot {

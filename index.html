@@ -100,7 +100,7 @@ automatically in just a few seconds.
 </div>
 
 <!-- map overlay -->
-<div class="map-dark" style="display: none"></div>
+<div class="map-dark" onclick="closeAllPopups();" style="display: none"></div>
 
 <!-- startup splash screen -->
 <div class="splash"
@@ -131,7 +131,8 @@ automatically in just a few seconds.
         <div id="popupTitle"></div>
         <div id="popupSubTitle"></div>
     </div>
-    <div id="aircraftsList" class="table">
+    <div id="aircraftListContainer">
+        <div id="aircraftsList" class="table"></div>
     </div>
 </div>
 
