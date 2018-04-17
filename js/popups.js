@@ -295,11 +295,13 @@ function hideBasePopup() {
 }
 
 function getMapDarker() {
-    $(".map-dark").css("opacity",0.5);
+    $(".map-dark").animate({
+        opacity: 0.5},200);
 }
 
 function getMapUndark() {
-    $(".map-dark").css("opacity",0.1);
+    $(".map-dark").animate({
+        opacity: 0.1},200);
 }
 
 $(document).ready(function() {
