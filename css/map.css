@@ -781,6 +781,11 @@ b.entranceBody {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    transition: background-image 5s ease-in-out;
+}
+
+#entrancePopup.mapLoaded {
+    background: none;
 }
 
 #countdownContainer {

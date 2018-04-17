@@ -1,3 +1,9 @@
+window.gm_authFailure = function() {
+    mapFail = true;
+};
+
+var mapFail = false;
+
 function convertPath(path) {
     var convertedPath = [];
     for (var i = 0; i < path.length; i++) {
@@ -905,7 +911,6 @@ function onLoad() {
                     });
                 }, this);
 
-
                 if (getCurrentTime() < actualStartTime) {
                     countdownInterval = setInterval(function () {
                         countdown();
@@ -913,6 +918,7 @@ function onLoad() {
                     setTimeout(function () {
                         $(".splash").fadeOut();
                         $("#entrancePopup").fadeIn();
+                        loadApp();
                     }, 1000);
                 } else if (!mapLoaded) {
                     // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
@@ -929,8 +935,8 @@ function onLoad() {
 }
 
 function loadApp() {
-    showComponents();
     loadMapApi();
+    showComponents();
 }
 
 function loadMapApi() {
@@ -1162,10 +1168,10 @@ function initMap() {
                 deselectLocation();
                 deselectAircraft();
             });
+
             $("#map").show();
 
             drawRoutesOnMap(routes);
-
             addAircraftsToMap();
             startAircraftsAnimation(false);
             //clusterAircrafts(aircraftMarkers);
@@ -1173,13 +1179,21 @@ function initMap() {
             // hide splash screen
             setTimeout(function () {
                 $(".splash").fadeOut();
-                showCurrentLocation();
+//                 showCurrentLocation();
             }, 3500);
 
             $(window).focus(function () {
                 startAircraftsAnimation(true);
             });
 
+            
+            setTimeout(function () {
+                if (!mapFail) {
+                    $("#entrancePopup").addClass("mapLoaded");
+                }
+            }, 2000);
+            
+            
             defer.resolve(map);
         }, 1000);
      } else {
