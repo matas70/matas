@@ -304,7 +304,7 @@ function createMapObject(clickCallback) {
             zoom: 8,
             gestureHandling: 'greedy',
             disableDefaultUI: true
-        });
+    });
 
     map.addListener('click', clickCallback);
     return map;

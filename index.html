@@ -248,9 +248,6 @@ automatically in just a few seconds.
             אנחנו מתנצלים, הצפיה במפת מטס חיל האוויר נתמכת במכשירים סלולריים בלבד.<br>
             היכנסו מהמכשיר הסלולרי שלכם ותוכלו לצפות בזמן אמת במטס חיל האוויר על גבי מפה ולקבל מידע מפורט על המופעים,
             הזמנים והמטוסים<br>
-            <br>
-            <b>חג עצמאות שמח!</b>
-            <br>
             <img src="icons/iaf.png" width="96"><br>
             <b>יחידת אופק - חיל האוויר</b>
         </div>
@@ -260,6 +257,11 @@ automatically in just a few seconds.
 <!-- entrance popup -->
 <div id="entrancePopup" class="entrancePopup" style="display:none">
     <div id="countdownContainer">
+        <div id="closeIconContainer" >
+            <div id="closeIcon" style="display: none;" onclick="closeEntrancePopup()">
+                <img src="icons/closeIcon.png"/>
+            </div>
+        </div>
         <div style="height:15px"></div>
         <img id="entranceLogo" src="icons/entranceLogo.png">
         <div class="entranceBody">
