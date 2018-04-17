@@ -46,7 +46,7 @@
 				{ "pointId": 120, "pointName": "עכו", "N": 3255.230, "E": 3503.980 },
 				{ "pointId": 142, "pointName": "קריית ים", "N": 3250.983, "E": 3503.550 },
 				{ "pointId": 17, "pointName": "בסיס טכני", "N": 3248.535, "E": 3502.572 },
-				{ "pointId": 33, "pointName": "דלית אל כרמל", "N": 3241.627, "E": 3502.790}
+				{ "pointId": 33, "pointName": "דלית אל כרמל", "N": 3241.627, "E": 3502.790, "hideAircrafts":"true"}
 			]
 		},
 		{
@@ -72,7 +72,7 @@
 				{ "pointId": 20, "pointName": "בסיס רמת דוד", "N": 3239.999, "E": 3511.052 },
 				{ "pointId": 76, "pointName": "כפר קרע", "N": 3229.88, "E": 3503.8328 },
 				{ "pointId": 130, "pointName": "פרדס חנה", "N": 3228.5552, "E": 3458.608 },
-				{ "pointId": 175, "pointName": "סיום טיפוס", "N": 3227.8238, "E": 3456.3622, "hidden":"true"}
+				{ "pointId": 175, "pointName": "סיום טיפוס", "N": 3227.8238, "E": 3456.3622, "hidden":"true", "hideAircrafts":"true"}
 			]
 		},
 		{
