@@ -810,7 +810,7 @@ b.entranceBody {
 }
 
 #entrancePopup.mapLoaded {
-    background: none;
+    background: transparent;
 }
 
 #countdownContainer {

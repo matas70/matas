@@ -816,11 +816,15 @@ function onHomeButtonClick() {
     if (mapLoaded) {
         closeEntrancePopup();
         showCurrentLocation();
-        focusOnLocation({lat: 32.00, lng: 35.00}, 8);
+        if (!currentLocationMarker) {
+            focusOnLocation({lat: 32.00, lng: 35.00}, 8);
+            showCurrentLocation();
+        } else {
+            selectPoint(findClosestPoint({lat: currentLocationMarker.position.lat(),
+                                          lng: currentLocationMarker.position.lng()
+                                          }), true);
+        }
     }
-
-    deselectAircraft();
-    deselectLocation();
 }
 
 var mapLoaded = false;
