@@ -158,7 +158,7 @@ function setMarkerIcon(marker, icon) {
 function getMarkerIcon(color, clicked) {
     if (!clicked)
         return {
-            url: "icons/point-" + color + ".png",
+            url: "icons/pointSmall-" + color + ".png",
             // The anchor for this image is the center of the circle
             anchor: new google.maps.Point(14, 14)
         };
