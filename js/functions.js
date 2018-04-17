@@ -936,6 +936,7 @@ function onLoad() {
                     setTimeout(function () {
                         $(".splash").fadeOut();
                         $("#entrancePopup").fadeIn();
+                        getMapDarker();
                         loadApp();
                     }, 1000);
                 } else if (!mapLoaded) {
@@ -1004,6 +1005,9 @@ function openListView() {
             closeAllPopups();
             openMenu();
             fillMenu();
+            if (mapLoaded) {
+                closeEntrancePopup();
+            }
         }
     }
 }
@@ -1223,6 +1227,9 @@ function initMap() {
 }
 
 function closeEntrancePopup() {
-    $("#entrancePopup").fadeOut();
-    getMapUndark();
+    var ep = $("#entrancePopup");
+    if (ep.css("display") !== "none") {
+        ep.fadeOut();
+        getMapUndark();
+    }
 }
