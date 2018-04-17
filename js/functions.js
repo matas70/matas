@@ -76,6 +76,35 @@ function getPathLocation(pointId) {
         return convertLocation(loc.N, loc.E);
 }
 
+function getCurrentIndexLocation(path, currentTime) {
+    var relativeTime = currentTime - actualStartTime;
+    var prevLocation = 0;
+    var nextLocation = 1;
+    var found = false;
+
+    // if the aircraft hasn't start flying yet, return its first location
+    if (plannedStartTime + relativeTime < convertTime(path[prevLocation].time))
+        return -1;
+
+    // otherwise - search for the two points where the aircraft suppossed to be between
+    while (nextLocation < path.length && !found) {
+        var nextLocationTime = convertTime(path[nextLocation].time);
+        if (plannedStartTime + relativeTime < nextLocationTime) {
+            found = true;
+        } else {
+            prevLocation++;
+            nextLocation++;
+        }
+    }
+
+    // if not found - the aircraft already landed, return the last location
+    if (!found) {
+        return path.length;
+    }
+
+    return prevLocation;
+}
+
 function getCurrentLocation(path, currentTime) {
     var relativeTime = currentTime - actualStartTime;
     var prevLocation = 0;
@@ -584,6 +613,19 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
         aircraft.currentAircraftAzimuth = currentAircraftAzimuth;
 
         var marker = aircraftMarkers[aircraft.aircraftId];
+        var curIndexLocation = getCurrentIndexLocation(aircraft.path,currentTime);
+        if (curIndexLocation>=0&&curIndexLocation<aircraft.path.length&&aircraft.path[curIndexLocation].hideAircrafts){
+            if (marker.getMap()!=null) {
+                toggleAircraftMarkerVisibility(marker, false);
+                console.log(aircraft.path[curIndexLocation].pointId);
+            }
+        }
+        else if(marker.getMap()===null){
+            toggleAircraftMarkerVisibility(marker,true);
+            if (aircraft.path[curIndexLocation].pointId===33){
+                console.log("up" + aircraft.path[curIndexLocation].pointId);
+            }
+        }
 
         var rotationInterval = 100;
         if (updateCurrent || $.urlParam("ff")==="true") {
@@ -675,7 +717,7 @@ function checkDeparture(aircraft) {
     } else {
         //console.log(aircraft.name + " Has departed");
         var nextLocation = getIndexOfNextLocation(aircraft.path,getCurrentTime());
-        if (aircraft.path[nextLocation].hideAircrafts){
+        if (nextLocation>=0&&nextLocation<aircraft.path.length&&aircraft.path[nextLocation].hideAircrafts){
             toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], false);
         }
         else{
