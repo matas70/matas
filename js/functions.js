@@ -1,3 +1,9 @@
+window.gm_authFailure = function() {
+    mapFail = true;
+};
+
+var mapFail = false;
+
 function convertPath(path) {
     var convertedPath = [];
     for (var i = 0; i < path.length; i++) {
@@ -481,7 +487,7 @@ function findClosestPoint(position) {
         route.points.forEach(function (point) {
             var targetPos = convertLocation(point.N, point.E);
             var dist = getDistanceFromLatLonInKm(position.lat, position.lng, targetPos.lat, targetPos.lng);
-            if (dist < minDist) {
+            if (dist < minDist && !point.hidden) {
                 selectedPoint = point;
                 minDist = dist;
             }
@@ -808,6 +814,8 @@ function onHomeButtonClick() {
     deselectLocation();
 
     if (mapLoaded) {
+        $("#entrancePopup").fadeOut();
+        showCurrentLocation();
         focusOnLocation({lat: 32.00, lng: 35.00}, 8);
     }
 
@@ -905,7 +913,6 @@ function onLoad() {
                     });
                 }, this);
 
-
                 if (getCurrentTime() < actualStartTime) {
                     countdownInterval = setInterval(function () {
                         countdown();
@@ -913,6 +920,7 @@ function onLoad() {
                     setTimeout(function () {
                         $(".splash").fadeOut();
                         $("#entrancePopup").fadeIn();
+                        loadApp();
                     }, 1000);
                 } else if (!mapLoaded) {
                     // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
@@ -929,8 +937,8 @@ function onLoad() {
 }
 
 function loadApp() {
-    showComponents();
     loadMapApi();
+    showComponents();
 }
 
 function loadMapApi() {
@@ -945,7 +953,6 @@ function loadMapApi() {
 function showComponents() {
     $(".map-dark").show();
     $(".splash").css('visibility', 'visible');
-    $("#homeButton").css('visibility', 'visible');
 }
 function compatibleDevice() {
     return ((/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())));
@@ -1162,10 +1169,10 @@ function initMap() {
                 deselectLocation();
                 deselectAircraft();
             });
+
             $("#map").show();
 
             drawRoutesOnMap(routes);
-
             addAircraftsToMap();
             startAircraftsAnimation(false);
             //clusterAircrafts(aircraftMarkers);
@@ -1173,13 +1180,23 @@ function initMap() {
             // hide splash screen
             setTimeout(function () {
                 $(".splash").fadeOut();
-                showCurrentLocation();
+//                 showCurrentLocation();
             }, 3500);
 
             $(window).focus(function () {
                 startAircraftsAnimation(true);
             });
 
+            
+            setTimeout(function () {
+                if (!mapFail) {
+                    $("#entrancePopup").addClass("mapLoaded");
+                    $("#closeIcon").fadeIn();
+                    $("#homeButton").css('visibility', 'visible');
+                }
+            }, 2000);
+            
+            
             defer.resolve(map);
         }, 1000);
      } else {
@@ -1188,4 +1205,8 @@ function initMap() {
              showIncompatibleDevicePopup();
          }, 1500);
      }
+}
+
+function closeEntrancePopup() {
+    $("#entrancePopup").fadeOut();
 }
