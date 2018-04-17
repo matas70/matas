@@ -20,26 +20,25 @@
     font-style: normal;
     font-weight: 300;
     src: local('Heebo Light'), local('Heebo-Light'),
-    url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg'); /* Legacy iOS */
+    url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg'); /* Legacy iOS */
 }
+
 /* heebo-regular - hebrew_latin */
 @font-face {
     font-family: 'Heebo-Regular';
     font-style: normal;
     font-weight: 400;
     src: local('Heebo'), local('Heebo-Regular'),
-    url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg'); /* Legacy iOS */
+    url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg'); /* Legacy iOS */
 }
+
 /* heebo-700 - hebrew_latin */
 @font-face {
     font-family: 'Heebo-Bold';
     font-style: normal;
     font-weight: 700;
     src: local('Heebo Bold'), local('Heebo-Bold'),
-    url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg'); /* Legacy iOS */
+    url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg'); /* Legacy iOS */
 }
 
 /* Makes the page fill the window. */
@@ -162,7 +161,7 @@ div.splash {
 
 #homeButton {
     margin-top: 4px;
-    cursor:  pointer;
+    cursor: pointer;
     padding: 15px 15px;
 }
 
@@ -302,14 +301,17 @@ div.locationRow {
     width: 100%;
     height: 56px;
 }
+
 div.locationSpace {
     display: none;
     width: 100%;
 }
+
 div.locationPadding {
     display: table-row;
     height: 4px;
 }
+
 div.locationName {
     /*display: table-cell;*/
     vertical-align: middle;
@@ -405,6 +407,7 @@ div.locationInfoPopup {
 #aboutPopup {
     top: 64px;
 }
+
 .aboutPopup {
     height: 100%;
     background: white;
@@ -571,7 +574,7 @@ HEADER {
     color: #333;
 }
 
-.menuLink.active{
+.menuLink.active {
     font-weight: bold;
 }
 
@@ -599,10 +602,11 @@ hr {
 }
 
 .tab-content {
-    display:none;
+    display: none;
 }
+
 .tab-content.active {
-    display:block;
+    display: block;
 }
 
 .timeline-warning {
@@ -640,7 +644,7 @@ hr {
 }
 
 .listContainer.hide {
-    position:absolute;
+    position: absolute;
     transform: translateX(0%);
 }
 
@@ -662,6 +666,7 @@ hr {
     padding-right: 14pt;
     font-size: 11pt;
 }
+
 b.baseData {
     padding: 0;
     font-size: 12pt;
@@ -671,6 +676,7 @@ b.baseData {
 br.baseData {
     line-height: 20pt;
 }
+
 .baseEventIcon {
     padding-top: 22pt;
     padding-bottom: 32pt;
@@ -682,7 +688,7 @@ br.baseData {
 .baseExitIcon {
     width: 30pt;
     height: 30pt;
-    position :absolute;
+    position: absolute;
     left: 10pt;
     top: 61pt;
     cursor: pointer;
@@ -814,6 +820,7 @@ b.entranceBody {
     margin: auto;
     align-items: center;
 }
+
 #days {
     border-right: 20px white;
     display: flex;
@@ -865,7 +872,7 @@ b.entranceBody {
     display: flex;
     padding-left: 14px;
     padding-bottom: 2px;
-    align-self:  left;
+    align-self: left;
 }
 
 .tableIcons {
@@ -873,4 +880,30 @@ b.entranceBody {
     flex-direction: row;
     justify-content: left;
     flex-direction: row-reverse;
+}
+
+#closeIcon {
+    display: block;
+    position: fixed;
+    padding-top: 20px;
+    height: 30px;
+    padding-left: 25px;
+    direction: ltr;
+    width: 30px;
+    margin: auto;
+}
+
+#closeIcon img {
+    position: relative;
+    /* top: 5px; */
+    display: block;
+    right: 5px;
+}
+
+#closeIconContainer {
+    position: fixed;
+    margin: auto;
+    width: 296px;
+    direction: ltr;
+    height: 18px;
 }

@@ -487,7 +487,7 @@ function findClosestPoint(position) {
         route.points.forEach(function (point) {
             var targetPos = convertLocation(point.N, point.E);
             var dist = getDistanceFromLatLonInKm(position.lat, position.lng, targetPos.lat, targetPos.lng);
-            if (dist < minDist) {
+            if (dist < minDist && !point.hidden) {
                 selectedPoint = point;
                 minDist = dist;
             }
@@ -814,6 +814,8 @@ function onHomeButtonClick() {
     deselectLocation();
 
     if (mapLoaded) {
+        $("#entrancePopup").fadeOut();
+        showCurrentLocation();
         focusOnLocation({lat: 32.00, lng: 35.00}, 8);
     }
 
@@ -951,7 +953,6 @@ function loadMapApi() {
 function showComponents() {
     $(".map-dark").show();
     $(".splash").css('visibility', 'visible');
-    $("#homeButton").css('visibility', 'visible');
 }
 function compatibleDevice() {
     return ((/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())));
@@ -1190,6 +1191,8 @@ function initMap() {
             setTimeout(function () {
                 if (!mapFail) {
                     $("#entrancePopup").addClass("mapLoaded");
+                    $("#closeIcon").fadeIn();
+                    $("#homeButton").css('visibility', 'visible');
                 }
             }, 2000);
             
@@ -1202,4 +1205,8 @@ function initMap() {
              showIncompatibleDevicePopup();
          }, 1500);
      }
+}
+
+function closeEntrancePopup() {
+    $("#entrancePopup").fadeOut();
 }
