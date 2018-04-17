@@ -210,10 +210,11 @@ div.splash {
 }
 
 #aircraftInfoContent {
+    overflow-y: scroll; /* has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
     width: 100%;
     height: 100%;
     background: white;
-    overflow-y: hidden;
     color: #293b57;
 }
 
@@ -487,7 +488,8 @@ HEADER {
 #expandedInfo {
     display: none;
     padding-right: 24px;
-    overflow-y: auto;
+    overflow-y: scroll; /* has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
     padding-left: 24px;
     height: 100%;
 }
@@ -552,6 +554,7 @@ HEADER {
     width: 100%;
     margin: 0 auto;
     box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.12);
+    position: relative;
 }
 
 .menuHeader li {
@@ -627,7 +630,8 @@ hr {
 
 .tabs {
     direction: rtl;
-    overflow-y: auto;
+    overflow-y: scroll; /* has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
 }
 
 .listContainer {
@@ -700,7 +704,6 @@ br.baseData {
     display: flex;
     flex-shrink: 4;
     /* flex: 1; */
-    margin-top: 15pt;
     /* max-height: 50%; */
     align-self: self-end;
     margin-bottom: auto;
@@ -725,7 +728,6 @@ br.baseData {
 }
 
 .entranceBody {
-    margin-top: 12px;
     display: flex;
     align-self: center;
     align-items: center;
@@ -740,7 +742,6 @@ b.entranceBody {
 
 #scheduleLink {
     justify-content: center;
-    margin-top: 18px;
     display: flex;
     cursor: pointer;
     color: white;
@@ -750,6 +751,7 @@ b.entranceBody {
     width: 100%;
     align-self: flex-end;
     position: relative;
+    min-height: 32px;
     height: 48px;
     background: #3bb5f2;
 }
