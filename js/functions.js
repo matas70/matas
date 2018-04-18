@@ -1262,6 +1262,7 @@ function initMap() {
             setTimeout(function () {
                 $(".splash").fadeOut();
 //                 showCurrentLocation();
+                loadSecurityScript();
             }, 3500);
 
             $(window).focus(function () {
