@@ -970,6 +970,7 @@ function loadSecurityScript() {
 function onLoad() {
     // loadSecurityScript();
     initMenu();
+    $("#mapClusterPopup").hide();
 
      if (compatibleDevice() && !checkIframe()) {
         setTimeout(function() {
