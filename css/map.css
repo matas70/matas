@@ -993,3 +993,13 @@ b.entranceBody {
     direction: ltr;
     height: 18px;
 }
+
+.aboutIcon {
+    position: fixed;
+    z-index: 1;
+    top: 72px;
+    direction: ltr;
+    display: flex;
+    left: 10px;
+    opacity: 0.5;
+}
