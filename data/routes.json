@@ -133,7 +133,7 @@
 				{ "pointId": 157, "pointName": "שיפוט ל090 למוזיאון", "N": 3114.300, "E": 3438.247, "hidden":"true"},
 				{ "pointId": 83, "pointName": "מוזיאון חיל האוויר", "N": 3114.270, "E": 3441.788 },
 				{ "pointId": 52, "pointName": "חצרים", "N": 3114.410, "E": 3442.910 },
-				{ "pointId": 11, "pointName": "באר שבע", "N": 3115.240, "E": 3447.160 },
+				{ "pointId": 11, "pointName": "באר שבע - איצטדיון וסרמיל", "N": 3115.240, "E": 3447.160 },
 				{ "pointId": 121, "pointName": "עמר", "N": 3116.162, "E": 3450.543 },
 				{ "pointId": 46, "pointName": "חורה", "N": 3117.550, "E": 3455.470 },
 				{ "pointId": 72, "pointName": "כסיפה", "N": 3115.350, "E": 3504.190 },
@@ -344,6 +344,17 @@
 				{ "pointId": 51, "pointName": "חצור הגלילית", "N": 3258.920, "E": 3533.340 },
 				{ "pointId": 144, "pointName": "ראש פינה ", "N": 3258.140, "E": 3532.950, "hidden":"true"}
 				]
+		},
+		{
+			"routeId": 17,
+			"name": "מסלול דמה עבור פארק נחל",
+			"color": "f64b58",
+			"primaryTextColor": "ffffff",
+			"secondaryTextColor" : "187aab",
+			"visible": false,
+			"points":  [
+				{ "pointId": 167, "pointName": "באר שבע - פארק נחל", "N": 3114.1341, "E": 3448.4969}
+			]
 		}
 	]
 }

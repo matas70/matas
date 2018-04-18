@@ -178,7 +178,7 @@ function getItemsInCircle(pixel, radius) {
     var aircraftsInCircle = $.map(aircrafts, function(aircraft, index) {
         var aircraftMarker = aircraftMarkers[aircraft.aircraftId];
         var aircraftPixel = getMarkerPixelPosition(aircraftMarker);
-        if (distanceBetweenPixels(pixel, aircraftPixel) < radius) {
+        if (aircraftMarker.map != null && distanceBetweenPixels(pixel, aircraftPixel) < radius) {
             return [aircraft];
         } else {
             return [];

@@ -1774,7 +1774,7 @@
         { "pointId": 21, "time": "12:39:30" },
         { "pointId": 83, "time": "12:58:30" },
         { "pointId": 68, "time": "14:05:00" },
-        { "pointId": 11, "time": "14:24:00" }
+        { "pointId": 167, "time": "14:24:00" }
       ]
     },
     {
@@ -1802,7 +1802,7 @@
       "aircraftTypeId": 26,
       "hide" : true,
       "path": [
-        { "pointId": 165, "time": "12:12:00" },
+        { "pointId": 165, "time": "12:10:00" },
         { "pointId": 165, "time": "12:12:00", "hidden":"true"}
       ]
     }

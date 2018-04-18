@@ -628,7 +628,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
             }
         }
         else if(marker.getMap()===null){
-            toggleAircraftMarkerVisibility(marker,true);
+            toggleAircraftMarkerVisibility(marker,!aircraft.hide);
             // if (aircraft.path[curIndexLocation].pointId===33){
             //     console.log("up" + aircraft.path[curIndexLocation].pointId);
             // }
@@ -728,7 +728,7 @@ function checkDeparture(aircraft) {
             toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], false);
         }
         else{
-            toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], true);
+            toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], !aircraft.hide);
         }
         clearTimeout(departureCheckers[aircraft.aircraftId]);
         animateToNextLocation(aircraft, aircraftMarkers[aircraft.aircraftId].currentAircraftAzimuth, true);
