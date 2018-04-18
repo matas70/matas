@@ -63,7 +63,6 @@ img.aircraftImage {
 img.aerobaticIcon {
     display: table-cell;
     padding-left: 22px;
-    padding-right: 22px;
     /*padding-top: 18px;*/
     /*padding-bottom: 4px;*/
 }
@@ -77,7 +76,6 @@ img.aerobaticTableIcon {
 img.parachutistIcon {
     display: table-cell;
     padding-left: 30px;
-    padding-right: 24px;
     /*padding-top: 16px;*/
     /*padding-bottom: 4px;*/
 }
@@ -107,7 +105,7 @@ div.map-dark {
     width: 100%;
     z-index: 1;
     background-color: #060606;
-    opacity: 0.4;
+    opacity: 0.1;
     bottom: 0;
 }
 
@@ -649,6 +647,7 @@ hr {
 .categoryBlue {
     background-color: #3BB5F2;
     color: white;
+    padding-right: 14px;
 }
 
 .tabs {
@@ -726,12 +725,7 @@ br.baseData {
 }
 
 #entranceLogo {
-    display: flex;
     flex-shrink: 4;
-    /* flex: 1; */
-    /* max-height: 50%; */
-    align-self: self-end;
-    margin-bottom: auto;
     max-width: 50%;
     align-self: center;
 }
@@ -756,10 +750,9 @@ br.baseData {
     display: flex;
     align-self: center;
     align-items: center;
-    padding-right: 25px;
-    padding-left: 25px;
     font-size: 12pt;
     flex: none;
+    flex-shrink: 2;
 }
 
 b.entranceBody {
@@ -771,24 +764,35 @@ b.entranceBody {
     cursor: pointer;
     color: white;
     font-size: 13pt;
-    border-bottom-right-radius: 16px;
-    border-bottom-left-radius: 16px;
     width: 100%;
     align-self: flex-end;
     position: relative;
     min-height: 32px;
     height: 48px;
-    background: #3bb5f2;
+    flex-shrink: 0;
 }
 
 .scheduleText {
-    display: flex;
-    align-self: center;
     align-items: center;
     padding-right: 15px;
     padding-left: 15px;
-    flex: none;
+    flex-grow: 1;
     height: 48px;
+    align-self: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    background: #3bb5f2;
+}
+
+.showMapButton {
+    margin-right: 1px;
+    border-bottom-left-radius: 16px;
+}
+
+.showScheduleButton {
+    margin-left: 1px;
+    border-bottom-right-radius: 16px;
 }
 
 .mapClusterPopup {

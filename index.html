@@ -27,26 +27,28 @@
     <link href='icons/favicon.ico' rel='Icon' type='image/x-icon'/>
     <!--<link href="https://fonts.googleapis.com/css?family=Heebo:300,400,700&amp;subset=hebrew" rel="stylesheet">-->
     <!--<link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">-->
-    <!--
-To collect end-user usage analytics about your application,
-insert the following script into each page you want to track.
-Place this code immediately before the closing </head> tag,
-and before any other scripts. Your first data will appear
-automatically in just a few seconds.
--->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-98360124-1');
+    </script>
 </head>
 <body onload="onLoad()">
 
-<!-- azure analytics -->
-<script type="text/javascript">
-    var appInsights=window.appInsights||function(a){
-        function b(a){c[a]=function(){var b=arguments;c.queue.push(function(){c[a].apply(c,b)})}}var c={config:a},d=document,e=window;setTimeout(function(){var b=d.createElement("script");b.src=a.url||"https://az416426.vo.msecnd.net/scripts/a/ai.0.js",d.getElementsByTagName("script")[0].parentNode.appendChild(b)});try{c.cookie=d.cookie}catch(a){}c.queue=[];for(var f=["Event","Exception","Metric","PageView","Trace","Dependency"];f.length;)b("track"+f.pop());if(b("setAuthenticatedUserContext"),b("clearAuthenticatedUserContext"),b("startTrackEvent"),b("stopTrackEvent"),b("startTrackPage"),b("stopTrackPage"),b("flush"),!a.disableExceptionTracking){f="onerror",b("_"+f);var g=e[f];e[f]=function(a,b,d,e,h){var i=g&&g(a,b,d,e,h);return!0!==i&&c["_"+f](a,b,d,e,h),i}}return c
-    }({
-        instrumentationKey:"e42a2c2a-61e5-40c9-86b6-2bd006646ac6"
-    });
+<!--&lt;!&ndash; azure analytics &ndash;&gt;-->
+<!--<script type="text/javascript">-->
+    <!--var appInsights=window.appInsights||function(a){-->
+        <!--function b(a){c[a]=function(){var b=arguments;c.queue.push(function(){c[a].apply(c,b)})}}var c={config:a},d=document,e=window;setTimeout(function(){var b=d.createElement("script");b.src=a.url||"https://az416426.vo.msecnd.net/scripts/a/ai.0.js",d.getElementsByTagName("script")[0].parentNode.appendChild(b)});try{c.cookie=d.cookie}catch(a){}c.queue=[];for(var f=["Event","Exception","Metric","PageView","Trace","Dependency"];f.length;)b("track"+f.pop());if(b("setAuthenticatedUserContext"),b("clearAuthenticatedUserContext"),b("startTrackEvent"),b("stopTrackEvent"),b("startTrackPage"),b("stopTrackPage"),b("flush"),!a.disableExceptionTracking){f="onerror",b("_"+f);var g=e[f];e[f]=function(a,b,d,e,h){var i=g&&g(a,b,d,e,h);return!0!==i&&c["_"+f](a,b,d,e,h),i}}return c-->
+    <!--}({-->
+        <!--instrumentationKey:"e42a2c2a-61e5-40c9-86b6-2bd006646ac6"-->
+    <!--});-->
 
-    window.appInsights=appInsights,appInsights.queue&&0===appInsights.queue.length&&appInsights.trackPageView();
-</script>
+    <!--window.appInsights=appInsights,appInsights.queue&&0===appInsights.queue.length&&appInsights.trackPageView();-->
+<!--</script>-->
 
 <!-- page header -->
 <header id="headerMobile">
@@ -224,9 +226,8 @@ automatically in just a few seconds.
             חג עצמאות שמח!
      </div>
      <div id="aboutBody" class="aboutBody">
-            האתר פותח ע"י <b>יחידת אופק</b> בחיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום
-            העצמאות
-            לכבוד חגיגות 70 שנה למדינת ישראל.
+            האתר פותח ע"י <b>יחידת אופק</b>, היחידה הטכנולוגית של חיל האוויר, האתר מציג את מיקום כלי הטיס בזמן אמת במהלך מטס יום
+            העצמאות ה-70 למדינת ישראל.
      </div>
         <!--</div>-->
      <div id="aboutBottom" class="aboutBottom">
@@ -304,12 +305,15 @@ automatically in just a few seconds.
         </b>
         <div style="height:12px"></div> <!-- space filler -->
         <div class="entranceBody">
-            ביום המטס ניתן יהיה לצפות במפה בזמן אמת. כעת תוכלו להתעדכן בלוחות הזמנים ובפרטי המטוסים
+            בזמן המטס תוכלו לצפות בכלי הטיס על גבי המפה, כעת תוכלו להתעדכן במסלולים, לוחות הזמנים ופרטי המטוסים
         </div>
         <div style="height:18px"></div> <!-- space filler -->
         <div id="scheduleLink">
-            <div class="scheduleText">
-                ללוח זמני המטס
+            <div id="showScheduleButton" class="scheduleText showScheduleButton">
+                לוח זמנים
+            </div>
+            <div id="showMapButton" class="scheduleText showMapButton">
+                הצג מפה
             </div>
         </div>
     </div>
@@ -360,6 +364,5 @@ automatically in just a few seconds.
     <img id="arrow" src="icons/arrow.svg" class="imageCache"></img>
 
 </div>
-
 </body>
 </html>
