@@ -632,7 +632,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
         if (curIndexLocation>=0&&curIndexLocation<aircraft.path.length&&aircraft.path[curIndexLocation].hideAircrafts){
             if (marker.getMap()!=null) {
                 toggleAircraftMarkerVisibility(marker, false);
-                console.log(aircraft.path[curIndexLocation].pointId);
+//                 console.log(aircraft.path[curIndexLocation].pointId);
             }
         }
         else if(marker.getMap()===null){
