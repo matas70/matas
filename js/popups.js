@@ -100,7 +100,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
 	$("#aircraftInfoName").text(aircraft.name);
 	$("#aircraftInfoType").text(aircraft.type);
 	$("#aircraftInfoStartTime").text(roundToMinute(aircraft.path[0].time));
-	$("#aircraftInfoIcon").attr("src", "icons/aircrafts/"+aircraft.icon+".png");
+	$("#aircraftInfoIcon").attr("src", "icons/aircraft-menu/"+aircraft.icon+".svg");
 	$("#aircraftInfoContentDescription").text(aircraft.description);
 	$("#aircraftInfoContentClassification").text(aircraft.classification);
 	$("#aircraftInfoContentCountry").text(aircraft.manufactured);
@@ -210,8 +210,8 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
         aircraftType = "הצנחת צנחנים";
 	}
 
-	return "<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon +
-		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name +
+	return "<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
+		   ".svg\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name +
 		   "</b> " + aircraftType + "</div>" + (displayTime ? "<div class=\"time\">"+roundToMinute(time) +"</div></div>" : "" + aerobaticIcon + "</div></div>");
 }
 
