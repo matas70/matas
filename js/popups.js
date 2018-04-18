@@ -331,14 +331,16 @@ function openMapClusterPopup(arrayOfObjects) {
 
     var contentDiv = $("#mapClusterPopupContent");
     var html = "";
+    var lastAircraft = "";
 
     contentDiv.on("click", "*", () => closeMapClusterPopup(false));
 
     // Populating the popup
     arrayOfObjects.forEach((obj) => {
         // In the case of aircraft
-       if (obj.aircraftId) {
+       if (obj.aircraftId && obj.name != lastAircraft) {
            html += createTableRow(obj.aircraftId, obj.name, obj.icon, obj.type, obj.path[0].time, obj.aerobatic, obj.parachutist, false, false);
+           lastAircraft = obj.name;
        } else if (obj.pointId) {
            html += createClusterLocationRow(obj)
        }
