@@ -1098,7 +1098,8 @@ function initMenu() {
         $('.tabs ' + currentAttrValue).show().siblings().hide();
     });
 
-    $("#scheduleLink").on("click", openListView);
+    $("#showScheduleButton").on("click", openListView);
+    $("#showMapButton").on("click", closeEntrancePopup);
 }
 
 function openMenu() {
