@@ -216,6 +216,16 @@ function getCurrentPosLocation(path, currentTime) {
     return path[prevLocation];
 }
 
+function removeAircraftsFromLocation() {
+    var currTime = getCurrentTime();
+    locations.forEach(function (location) {
+        location.aircrafts=location.aircrafts.filter(function (aircraft) {
+            return (currTime < getActualPathTime(aircraft.time));
+        })
+    });
+    setTimeout(removeAircraftsFromLocation,1000);
+}
+
 /**
  * Clears the previous points in the path of all the aircrafts
  */
@@ -226,16 +236,9 @@ function cleanPreviousLocations(aircraft) {
     var beforeLastPath = aircraft.path[aircraft.path.length - 2];
     var lastPath = aircraft.path[aircraft.path.length - 1];
 
-    var newAircraftPath = aircraft.path.filter(function (path) {
+    aircraft.path = aircraft.path.filter(function (path) {
         return (currTime < getActualPathTime(path.time));
     }, this);
-    for (i=0; i<aircraft.path.length-newAircraftPath.length;i++){
-        locations[aircraft.path[i].pointId].aircrafts=
-            locations[aircraft.path[i].pointId].aircrafts.filter(function (lAircraft){
-                return lAircraft.aircraftId!=aircraft.aircraftId;
-            });
-    }
-    aircraft.path = newAircraftPath;
     if (aircraft.path.length == 0) {
         aircraft.path.push(beforeLastPath);
         aircraft.path.push(lastPath);
@@ -1024,6 +1027,7 @@ function onLoad() {
 function loadApp() {
     loadMapApi();
     showComponents();
+    setTimeout(removeAircraftsFromLocation,1000);
 }
 
 function loadMapApi() {
