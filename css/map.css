@@ -647,7 +647,7 @@ hr {
 .aircraftCategory {
     width: 100%;
     height: 32px;
-    /*padding-right: 14px;*/
+    padding-right: 14px;
     line-height: 32px;
     background-color: #e5e5e6;
     font-size: 15px;
