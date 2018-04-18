@@ -784,16 +784,9 @@ function updateAircraftIcons() {
     }, this);
 }
 
-var first = true;
-
 function selectLocation(pointId, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor, minimized=false) {
     deselectAircraft();
-    if (first) {
-        first = false;
-        openMapClusterPopup([aircrafts[0], locations[1], aircrafts[10], aircrafts[12], aircrafts[7]]);
-    } else {
-        showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized);
-    }
+    showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized);
     panTo(map, location);
     setMarkerIcon(marker, markerIconClicked);
     selectedLocation = location;
