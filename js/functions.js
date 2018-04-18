@@ -623,9 +623,9 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
         }
         else if(marker.getMap()===null){
             toggleAircraftMarkerVisibility(marker,true);
-            if (aircraft.path[curIndexLocation].pointId===33){
-                console.log("up" + aircraft.path[curIndexLocation].pointId);
-            }
+            // if (aircraft.path[curIndexLocation].pointId===33){
+            //     console.log("up" + aircraft.path[curIndexLocation].pointId);
+            // }
         }
 
         var rotationInterval = 100;
@@ -1155,6 +1155,8 @@ function fillMenu() {
        if (category.aerobatic) {
             var aerobaticLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aerobatic)
                     .map(aerobatics => aerobatics.path));
+            var aerobaticAircrafts = categorizedAircrafts.filter(aircraft => aircraft.aerobatic);
+            html+= createTableRow(aerobaticAircrafts[0].aircraftId, aerobaticAircrafts[0].name,aerobaticAircrafts[0].icon,aerobaticAircrafts[0].type,aerobaticAircrafts[0].time,false,false,true,false);
             aerobaticLocations.forEach(location => {
                     html += createAerobaticRow(locations[location.pointId].pointName,
                                                location.time);
@@ -1162,6 +1164,9 @@ function fillMenu() {
        } else if (category.parachutist) {
            var parachutistLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.parachutist)
                .map(parachutist => parachutist.path));
+           var parachutistAircrafts = categorizedAircrafts.filter(aircraft => aircraft.parachutist);
+           html+= createTableRow(parachutistAircrafts[0].aircraftId, parachutistAircrafts[0].name,parachutistAircrafts[0].icon,parachutistAircrafts[0].type,parachutistAircrafts[0].time,false,false,true,false);
+
            parachutistLocations.forEach(location =>
                 html += createParachutistRow(locations[location.pointId].pointName,
                                              location.time));
@@ -1267,7 +1272,7 @@ function initMap() {
             }, 3500);
 
             $(window).focus(function () {
-                startAircraftsAnimation(true);
+                //startAircraftsAnimation(true);
             });
 
             
