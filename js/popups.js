@@ -49,10 +49,10 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
 
     $("#aircraftListContainer").scrollTop(0);
 
-    popupHeader.on("click", function(event) {
-        currentBottom = Math.min(-maxDrag, 0);
-        locationPopup.animate({bottom: currentBottom + "px"}, "fast");
-    })
+    // popupHeader.on("click", function(event) {
+    //     currentBottom = Math.min(-maxDrag, 0);
+    //     locationPopup.animate({height: maxHeight + "px"}, "fast");
+    // })
 
     // popupHeader.on("tapstart", function (event) {
     //     dragStartTopY = event.touches[0].clientY;
