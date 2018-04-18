@@ -403,6 +403,15 @@ div.infoPopup {
     background: #37474f;
 }
 
+div.infoBasePopup {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 100%;
+    z-index: 100000;
+    bottom: 0;
+}
+
 .screenshot {
     position: absolute;
     top: 12%;
