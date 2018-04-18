@@ -347,6 +347,7 @@ function openMapClusterPopup(arrayOfObjects) {
     });
 
     contentDiv.html(html);
+    contentDiv.scrollTop(0);
 
     $("#mapClusterPopupFooter").on("click", () => closeMapClusterPopup(true))
     $("#mapClusterPopup").fadeIn();

