@@ -226,10 +226,16 @@ function cleanPreviousLocations(aircraft) {
     var beforeLastPath = aircraft.path[aircraft.path.length - 2];
     var lastPath = aircraft.path[aircraft.path.length - 1];
 
-    aircraft.path = aircraft.path.filter(function (path) {
+    var newAircraftPath = aircraft.path.filter(function (path) {
         return (currTime < getActualPathTime(path.time));
     }, this);
-
+    for (i=0; i<aircraft.path.length-newAircraftPath.length;i++){
+        locations[aircraft.path[i].pointId].aircrafts=
+            locations[aircraft.path[i].pointId].aircrafts.filter(function (lAircraft){
+                return lAircraft.aircraftId!=aircraft.aircraftId;
+            });
+    }
+    aircraft.path = newAircraftPath;
     if (aircraft.path.length == 0) {
         aircraft.path.push(beforeLastPath);
         aircraft.path.push(lastPath);
