@@ -1,5 +1,5 @@
-function initPopups() {	
-	$("#locationPopup").hide();  	
+function initPopups() {
+	$("#locationPopup").hide();
 	$("#aircraftInfoPopup").hide();
 	$("#basePopup").hide();
 
@@ -157,8 +157,8 @@ function showAircraftInfoPopup(aircraft, collapse) {
            hideAircraftInfoPopup();
         });
     }
-	
-	var popupHeight = $("#locationPopup").height();	
+
+	var popupHeight = $("#locationPopup").height();
 	$("#aircraftInfoPopup").css("bottom", -popupHeight);
 	$("#aircraftInfoPopup").show();
 	$("#aircraftInfoPopup").animate({
@@ -170,7 +170,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     }, 500);
 }
 
-function hideAircraftInfoPopup(callback) { 
+function hideAircraftInfoPopup(callback) {
 	hidePopup("#aircraftInfoPopup", function() {
 			$("#aircraftInfoBanner").attr("src", "");
 			if (callback) {
@@ -187,7 +187,7 @@ function hidePopup(popup, callback) {
         }, "fast", "swing", function() {
 			$(popup).hide();
 			callback.call(this);
-	});	
+	});
 }
 
 function createParachutistRow(name, time) {
@@ -211,7 +211,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
 	}
 
 	return "<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon +
-		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name + 
+		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name +
 		   "</b> " + aircraftType + "</div>" + (displayTime ? "<div class=\"time\">"+roundToMinute(time) +"</div></div>" : "" + aerobaticIcon + "</div></div>");
 }
 
@@ -320,9 +320,51 @@ function getMapUndark() {
     $mapDark.css("pointer-events","none");
 }
 
+function createClusterLocationRow(location) {
+    return "<div onclick='selectPoint(" + location.pointId + ");' class=\"tableRow\"><img src=\"icons/group2.png\" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
+        + location.pointName + "</b></div></div></div>";
+}
+
+function openMapClusterPopup(arrayOfObjects) {
+    console.log("opened")
+    getMapDarker();
+
+    var contentDiv = $("#mapClusterPopupContent");
+    var html = "";
+    var lastAircraft = "";
+
+    contentDiv.on("click", "*", () => closeMapClusterPopup(false));
+
+    // Populating the popup
+    arrayOfObjects.forEach((obj) => {
+        // In the case of aircraft
+       if (obj.aircraftId && obj.name != lastAircraft) {
+           html += createTableRow(obj.aircraftId, obj.name, obj.icon, obj.type, obj.path[0].time, obj.aerobatic, obj.parachutist, false, false);
+           lastAircraft = obj.name;
+       } else if (obj.pointId) {
+           html += createClusterLocationRow(obj)
+       }
+    });
+
+    contentDiv.html(html);
+    contentDiv.scrollTop(0);
+
+    $("#mapClusterPopupFooter").on("click", () => closeMapClusterPopup(true))
+    $("#mapClusterPopup").fadeIn();
+}
+
+function closeMapClusterPopup(clearMap) {
+    // deselectLocation();
+    if (clearMap) {
+        getMapUndark();
+    }
+    $("#mapClusterPopup").fadeOut();
+}
+
 function closeAllPopups() {
     deselectLocation();
     deselectAircraft();
+    closeMapClusterPopup(true);
 }
 
 $(document).ready(function() {
