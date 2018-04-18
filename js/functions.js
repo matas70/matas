@@ -877,7 +877,7 @@ function onHomeButtonClick() {
 
     if (mapLoaded) {
         closeEntrancePopup();
-        showCurrentLocation();
+        
         if (!currentLocationMarker) {
             focusOnLocation({lat: 32.00, lng: 35.00}, 8);
             showCurrentLocation();
