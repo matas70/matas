@@ -227,7 +227,6 @@ function removeAircraftsFromLocation() {
             return (currTime < getActualPathTime(aircraft.time));
         })
     });
-    setTimeout(removeAircraftsFromLocation,1000);
 }
 
 /**
@@ -240,6 +239,22 @@ function cleanPreviousLocations(aircraft) {
     var beforeLastPath = aircraft.path[aircraft.path.length - 2];
     var lastPath = aircraft.path[aircraft.path.length - 1];
 
+    // find all of the locations that already visited
+    var pathPassed = aircraft.path.filter(function (path) {
+        return (currTime >= getActualPathTime(path.time))
+    });
+
+    // remove aircraft from locations that it already visited
+    pathPassed.forEach(function(path) {
+        var location = locations[path.pointId];
+        location.aircrafts = location.aircrafts.filter(function(aircraftInPath) {
+            return (aircraftInPath.aircraftId !== aircraft.aircraftId ||
+                    aircraftInPath.aircraftId === aircraft.aircraftId && currTime < getActualPathTime(aircraftInPath.time))
+        });
+    });
+    
+
+    // remove them from the aircraft path
     aircraft.path = aircraft.path.filter(function (path) {
         return (currTime < getActualPathTime(path.time));
     }, this);
@@ -250,6 +265,8 @@ function cleanPreviousLocations(aircraft) {
     } else {
         aircraft.path.unshift(currLocation)
     }
+
+    
     // }, this);
 }
 
@@ -1058,7 +1075,8 @@ function onLoad() {
 function loadApp() {
     loadMapApi();
     showComponents();
-    setTimeout(removeAircraftsFromLocation,1000);
+    removeAircraftsFromLocation();
+    //setTimeout(removeAircraftsFromLocation,1000);
 }
 
 function loadMapApi() {
@@ -1303,7 +1321,6 @@ function initMap() {
             drawRoutesOnMap(routes);
             addAircraftsToMap();
             startAircraftsAnimation(false);
-            //clusterAircrafts(aircraftMarkers);
 
             // hide splash screen
             setTimeout(function () {
@@ -1312,9 +1329,9 @@ function initMap() {
                 loadSecurityScript();
             }, 3500);
 
-            $(window).focus(function () {
-//                 startAircraftsAnimation(true);
-            });
+//             $(window).focus(function () {
+// //                 startAircraftsAnimation(true);
+//             });
 
             
             setTimeout(function () {
@@ -1337,6 +1354,7 @@ function initMap() {
 }
 
 function closeEntrancePopup() {
+    clearInterval(countdownInterval);
     var ep = $("#entrancePopup");
     if (ep.css("display") !== "none") {
         ep.fadeOut();
