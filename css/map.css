@@ -65,12 +65,14 @@ img.aerobaticIcon {
     padding-left: 22px;
     /*padding-top: 18px;*/
     /*padding-bottom: 4px;*/
+    height: 29px;
 }
 
 img.aerobaticTableIcon {
     display: flex;
     justify-content: flex-end;
     margin-left: 10px;
+    height: 29px;
 }
 
 img.parachutistIcon {
@@ -78,6 +80,7 @@ img.parachutistIcon {
     padding-left: 30px;
     /*padding-top: 16px;*/
     /*padding-bottom: 4px;*/
+    height: 29px;
 }
 
 div.firstHeading {
@@ -999,9 +1002,9 @@ b.entranceBody {
 .aboutIcon {
     position: fixed;
     z-index: 1;
-    top: 72px;
+    bottom: 18px;
     direction: ltr;
     display: flex;
-    left: 10px;
-    opacity: 0.5;
+    right: 6px;
+    opacity: 0.4;
 }

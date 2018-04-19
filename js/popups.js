@@ -191,28 +191,28 @@ function hidePopup(popup, callback) {
 }
 
 function createParachutistRow(name, time) {
-    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aircrafts/parachutist.png\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>" + name +
+    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/parachutist.svg\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>" + name +
         "</b></div><div class=\"time\">" +roundToMinute(time)+ "</div></div>";
 }
 
 function createAerobaticRow(name, time) {
-    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aerobatic.png\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"+ name +
+    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"+ name +
         "</b></div><div class=\"time\">"+ roundToMinute(time) +"</div></div>";
 }
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime=true) {
 	var aerobaticIcon = "<div/>";
 	if (aerobatic) {
-		aerobaticIcon = "<img src=\"icons/aerobatic.png\" class=\"aerobaticTableIcon\"></img>";
+		aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
 		aircraftType = "מופע אווירובטי";
 	} else if (parachutist) {
-        aerobaticIcon = "<img src=\"icons/aircrafts/parachutist.png\" class=\"aerobaticTableIcon\"></img>";
+        aerobaticIcon = "<img src=\"icons/aircraft-menu/parachutist.svg\" class=\"aerobaticTableIcon\"></img>";
         aircraftType = "הצנחת צנחנים";
 	}
 
 	return "<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
 		   ".svg\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name +
-		   "</b> " + aircraftType + "</div>" + (displayTime ? "<div class=\"time\">"+roundToMinute(time) +"</div></div>" : "" + aerobaticIcon + "</div></div>");
+		   "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class=\"time\">"+(displayTime?roundToMinute(time):"") + "</div></div></div></div>";
 }
 
 function createLocationRow(location, displayFirstAircraft) {
