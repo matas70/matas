@@ -285,12 +285,27 @@ function getCurrentTime() {
 }
 
 function convertTime(timeString) {
-    // if fast forward - every minute is parsed as a second
-    if ($.urlParam("ff") === "true") {
-        return Date.parse(startDate + " " + "00:" + roundToMinute(timeString), "yyyy-MM-dd HH:mm:ss").getTime();
-    } else {
-        return Date.parse(startDate + " " + timeString, "yyyy-MM-dd HH:mm:ss").getTime();
-    }
+    var year = startDate.substr(0,4);
+    var month = startDate.substr(5,2);
+    var day = startDate.substr(8,2);
+    var hours = timeString.substr(0,2);
+    var minutes = timeString.substr(3,2);
+    var seconds = timeString.substr(6,2);
+
+    // TODO: test if this conversation is accurate
+    return  seconds * 1000 +
+            minutes * 60 * 1000 +
+            hours * 60 * 60 * 1000 +
+            day * 24 * 60 * 60 * 1000 +
+            month * (365 / 12) * 24 * 60 * 60 * 1000 +
+            (year - 1970) * 365 * 24 * 60 * 60 * 1000;
+
+    // // if fast forward - every minute is parsed as a second
+    // if ($.urlParam("ff") === "true") {
+    //     return Date.parse(startDate + " " + "00:" + roundToMinute(timeString), "yyyy-MM-dd HH:mm:ss").getTime();
+    // } else {
+    //     return Date.parse(startDate + " " + timeString, "yyyy-MM-dd HH:mm:ss").getTime();
+    // }
 }
 
 function containsPosition(pos, list) {
@@ -1065,7 +1080,7 @@ function onLoad() {
                     }, 1500);
                 }
             });
-        }, 2120);
+        }, 0);
      } else {
          $(".splash").fadeOut();
          showIncompatibleDevicePopup();
