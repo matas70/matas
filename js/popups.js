@@ -51,7 +51,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
 
     // popupHeader.on("click", function(event) {
     //     currentBottom = Math.min(-maxDrag, 0);
-    //     locationPopup.animate({bottom: currentBottom + "px"}, "fast");
+    //     locationPopup.animate({height: maxHeight + "px"}, "fast");
     // })
 
     // popupHeader.on("tapstart", function (event) {
@@ -100,7 +100,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
 	$("#aircraftInfoName").text(aircraft.name);
 	$("#aircraftInfoType").text(aircraft.type);
 	$("#aircraftInfoStartTime").text(roundToMinute(aircraft.path[0].time));
-	$("#aircraftInfoIcon").attr("src", "icons/aircrafts/"+aircraft.icon+".png");
+	$("#aircraftInfoIcon").attr("src", "icons/aircraft-menu/"+aircraft.icon+".svg");
 	$("#aircraftInfoContentDescription").text(aircraft.description);
 	$("#aircraftInfoContentClassification").text(aircraft.classification);
 	$("#aircraftInfoContentCountry").text(aircraft.manufactured);
@@ -210,17 +210,20 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
         aircraftType = "הצנחת צנחנים";
 	}
 
-	return "<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");' class=\"tableRow\"><img src=\"icons/aircrafts/" + icon +
-		   ".png\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name +
+	return "<div onclick='onAircraftSelected("+aircraftId+ "," + collapse.toString() + ");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
+		   ".svg\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>"+ name +
 		   "</b> " + aircraftType + "</div>" + (displayTime ? "<div class=\"time\">"+roundToMinute(time) +"</div></div>" : "" + aerobaticIcon + "</div></div>");
 }
 
 function createLocationRow(location, displayFirstAircraft) {
+	if (location.aircrafts.length == 0)
+		displayFirstAircraft = false;
+				
     return "<a class='locationRow' href='javascript:void(0);'><div id='location"+location.pointId+"' class='locationRow' onclick='expandLocation("+location.pointId+");'>" +
                 "<div class='locationName'>"+location.pointName+"</div>" +
                 "<div class='nextAircraftSection'>"+
                     (displayFirstAircraft ? "<div class='smallAircraftName'>"+location.aircrafts[0].name+"</div>" : "") +
-                    "<div class='nextAircraftTime'>"+roundToMinute(location.aircrafts[0].time)+"</div>" +
+                    "<div class='nextAircraftTime'>"+(displayFirstAircraft ? roundToMinute(location.aircrafts[0].time) : "") +"</div>" +
                     "<div class='expandArrow'><img src='icons/arrowBlack.png'></div>" +
                     "<div class='collapseArrow'><img src='icons/arrowBlackUp.png'></div>" +
                 "</div>" +

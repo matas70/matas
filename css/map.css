@@ -215,6 +215,7 @@ div.splash {
     padding-right: 27.2px;
     padding-top: 13px;
     padding-bottom: 10px;
+    width: 35px;
 }
 
 #aircraftInfoContent {
@@ -373,6 +374,7 @@ img.aircraftIcon {
     padding-right: 22px;
     padding-top: 8px;
     padding-bottom: 4px;
+    width: 35px;
 }
 
 div.aircraftName {
@@ -401,6 +403,15 @@ div.infoPopup {
     z-index: 100000;
     bottom: 0;
     background: #37474f;
+}
+
+div.infoBasePopup {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 100%;
+    z-index: 100000;
+    bottom: 0;
 }
 
 .screenshot {
@@ -637,7 +648,7 @@ hr {
 .aircraftCategory {
     width: 100%;
     height: 32px;
-    /*padding-right: 14px;*/
+    padding-right: 14px;
     line-height: 32px;
     background-color: #e5e5e6;
     font-size: 15px;
@@ -983,4 +994,14 @@ b.entranceBody {
     width: 296px;
     direction: ltr;
     height: 18px;
+}
+
+.aboutIcon {
+    position: fixed;
+    z-index: 1;
+    top: 72px;
+    direction: ltr;
+    display: flex;
+    left: 10px;
+    opacity: 0.5;
 }
