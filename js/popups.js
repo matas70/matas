@@ -1,18 +1,88 @@
+var locationPopupExpanded = false;
+var locationPopupCloseCallback = null;
+
 function initPopups() {
 	$("#locationPopup").hide();
 	$("#aircraftInfoPopup").hide();
 	$("#basePopup").hide();
 
-	$(window).resize(function() {
-    	$('#content').height($(window).height() - 46);
-	});
+    // handle touch events on popups
+    var popupHeader = $("#popupHeader");
+    var locationPopup = $("#locationPopup");
+    var aircraftListContainer = $("#aircraftListContainer");
+    var normalHeight = 200;
 
-	$(window).trigger('resize');
+    // popupHeader.on("click", function(event) {
+    //     if (!locationPopupExpanded) {
+    //         var maxHeight = Math.min($("#map").height(), $("#aircraftsList").height() + 50);
+    //
+    //         aircraftListContainer.animate({height: maxHeight - 50 + "px"}, "fast");
+    //         locationPopup.animate({height: maxHeight + "px"}, "fast");
+    //         locationPopupExpanded = true;
+    //     } else {
+    //         var maxHeight = normalHeight;
+    //
+    //         aircraftListContainer.animate({height: maxHeight - 50 + "px"}, "fast");
+    //         locationPopup.animate({height: maxHeight + "px"}, "fast");
+    //         locationPopupExpanded = false;
+    //     }
+    //     event.preventDefault();
+    // });
+
+    var dragStartTopY;
+    var currHeight;
+    var maxHeight;
+    var delta;
+
+    popupHeader.on("tapstart", function (event) {
+        dragStartTopY = event.touches[0].clientY;
+        currHeight = locationPopup.height();
+        maxHeight = Math.min($("#aircraftsList").height()+50, $("#map").height());
+        event.preventDefault();
+    });
+
+    popupHeader.on("tapmove", function (event) {
+        if (dragStartTopY != null) {
+            delta = dragStartTopY - event.touches[0].clientY;
+            var targetHeight = currHeight + delta;
+            if (targetHeight >= maxHeight)
+                targetHeight = maxHeight;
+
+            locationPopup.height(targetHeight);
+            aircraftListContainer.height(targetHeight - 50);
+            event.preventDefault();
+        }
+    });
+
+    popupHeader.on("tapend", function (event) {
+        if (dragStartTopY != null) {
+            var targetHeight = currHeight + delta;
+            if (targetHeight < 100) {
+                hideLocationPopup(null);
+                getMapUndark();
+                if (locationPopupCloseCallback != null)
+                    locationPopupCloseCallback.call(this);
+            }
+            else if (targetHeight >= 0.5 * maxHeight) {
+                locationPopup.animate({height: maxHeight + "px"}, "fast");
+                aircraftListContainer.animate({height: maxHeight - 50 + "px"}, "fast");
+            } else {
+                locationPopup.animate({height: normalHeight + "px"}, "fast");
+                aircraftListContainer.animate({height: normalHeight - 50 + "px"}, "fast");
+            }
+            dragStartTopY = null;
+        }
+    });
+
 }
 
-function showLocationPopup(point, color, titleColor, subtitleColor, minimized=false) {
+function showLocationPopup(point, color, titleColor, subtitleColor, minimized=false, closeCallback) {
+    locationPopupCloseCallback = closeCallback;
+
     // build popup html
     var html = "";
+    locationPopupExpanded = false;
+
     point.aircrafts.forEach(function (aircraft) {
         html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist, false, true);
     }, this);
@@ -27,73 +97,28 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
 
     var locationPopup = $("#locationPopup");
 
-    var popupHeight = locationPopup.height();
+    // animate popup coming from bottom
     var targetHeight = minimized ? 100 : 200;
-    var targetBottom = 0;
-    if (popupHeight > targetHeight)
-        targetBottom = -(popupHeight - targetHeight);
-    locationPopup.css("bottom", -popupHeight);
-    locationPopup.height(targetHeight);
-    $("#aircraftListContainer").height(targetHeight-50);
+
+    locationPopup.height(0);
     locationPopup.show();
     locationPopup.animate({
-        bottom: targetBottom + "px"
+        height: targetHeight + "px"
     }, "fast");
 
-    // add touch events on the list to allow user expand or collapse it
-    var dragStartTopY = null;
-    var maxDrag = (popupHeight - $("#map").height());
-    var delta;
-    var popupHeader = $("#popupHeader");
-    var currentBottom = targetBottom;
-
+    // // add touch events on the list to allow user expand or collapse it
     $("#aircraftListContainer").scrollTop(0);
 
-    // popupHeader.on("click", function(event) {
-    //     currentBottom = Math.min(-maxDrag, 0);
-    //     locationPopup.animate({height: maxHeight + "px"}, "fast");
-    // })
-
-    // popupHeader.on("tapstart", function (event) {
-    //     dragStartTopY = event.touches[0].clientY;
-    //     event.preventDefault();
-    // });
-    //
-    // popupHeader.on("tapmove", function (event) {
-    //     if (dragStartTopY != null) {
-    //         delta = dragStartTopY - event.touches[0].clientY;
-		// 	if (currentBottom + delta < 0) {
-		// 		if (currentBottom + delta > -maxDrag)
-		// 			locationPopup.css("bottom", -maxDrag + "px");
-		// 		else
-		// 			locationPopup.css("bottom", currentBottom + delta + "px");
-		// 	}
-		// 	else
-		// 		locationPopup.css("bottom", "0px");
-    //         event.preventDefault();
-    //     }
-    // });
-    // popupHeader.on("tapend", function (event) {
-    //     if (dragStartTopY != null) {
-    //         if (delta > 32) {
-    //             // animate expand
-    //             currentBottom = Math.min(-maxDrag, 0);
-    //             locationPopup.animate({bottom: currentBottom + "px"}, "fast");
-    //         } else if (delta < 32) {
-    //             locationPopup.animate({bottom: targetBottom + "px"}, "fast");
-    //             currentBottom = targetBottom;
-		// 	} else {
-    //             locationPopup.animate({bottom: currentBottom + "px"}, "fast");
-		// 	}
-    //
-    //         event.preventDefault();
-    //         dragStartTopY = null;
-    //     }
-    // });
 }
 
 function hideLocationPopup(callback) {
-	hidePopup("#locationPopup", callback);
+    var locationPopup = $("#locationPopup");
+    locationPopup.animate({height: "0px"}, "fast", function() {
+        locationPopup.hide();
+        if (callback != null)
+            callback.call(this);
+    });
+    $("#aircraftListContainer").animate({height:"150px"}, "fast");
 }
 
 function showAircraftInfoPopup(aircraft, collapse) {

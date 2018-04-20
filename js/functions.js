@@ -848,12 +848,18 @@ function updateAircraftIcons() {
 
 function selectLocation(pointId, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor, minimized=false) {
     deselectAircraft();
-    showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized);
-    panTo(map, location);
+
     setMarkerIcon(marker, markerIconClicked);
     selectedLocation = location;
     selectedLocationMarker = marker;
     selectedLocationMarkerIcon = markerIcon;
+    panTo(map, location);
+
+    showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, function() {
+        setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
+        // mark it is deselected
+        selectedLocation = null;
+    });
 }
 
 function deselectAircraft(callback) {
