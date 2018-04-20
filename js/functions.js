@@ -292,20 +292,11 @@ function convertTime(timeString) {
     var minutes = timeString.substr(3,2);
     var seconds = timeString.substr(6,2);
 
-    // TODO: test if this conversation is accurate
-    return  seconds * 1000 +
-            minutes * 60 * 1000 +
-            hours * 60 * 60 * 1000 +
-            day * 24 * 60 * 60 * 1000 +
-            month * (365 / 12) * 24 * 60 * 60 * 1000 +
-            (year - 1970) * 365 * 24 * 60 * 60 * 1000;
-
-    // // if fast forward - every minute is parsed as a second
-    // if ($.urlParam("ff") === "true") {
-    //     return Date.parse(startDate + " " + "00:" + roundToMinute(timeString), "yyyy-MM-dd HH:mm:ss").getTime();
-    // } else {
-    //     return Date.parse(startDate + " " + timeString, "yyyy-MM-dd HH:mm:ss").getTime();
-    // }
+    if ($.urlParam("ff") === "true") {
+        return new Date(year, month - 1, day, 0, hours, minutes, seconds/60*1000).getTime();
+    } else {
+        return new Date(year, month - 1, day, hours, minutes, seconds).getTime();
+    }
 }
 
 function containsPosition(pos, list) {
