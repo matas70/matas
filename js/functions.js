@@ -285,11 +285,17 @@ function getCurrentTime() {
 }
 
 function convertTime(timeString) {
-    // if fast forward - every minute is parsed as a second
+    var year = startDate.substr(0,4);
+    var month = startDate.substr(5,2);
+    var day = startDate.substr(8,2);
+    var hours = timeString.substr(0,2);
+    var minutes = timeString.substr(3,2);
+    var seconds = timeString.substr(6,2);
+
     if ($.urlParam("ff") === "true") {
-        return Date.parse(startDate + " " + "00:" + roundToMinute(timeString), "yyyy-MM-dd HH:mm:ss").getTime();
+        return new Date(year, month - 1, day, 0, hours, minutes, seconds/60*1000).getTime();
     } else {
-        return Date.parse(startDate + " " + timeString, "yyyy-MM-dd HH:mm:ss").getTime();
+        return new Date(year, month - 1, day, hours, minutes, seconds).getTime();
     }
 }
 
@@ -842,12 +848,18 @@ function updateAircraftIcons() {
 
 function selectLocation(pointId, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor, minimized=false) {
     deselectAircraft();
-    showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized);
-    panTo(map, location);
+
     setMarkerIcon(marker, markerIconClicked);
     selectedLocation = location;
     selectedLocationMarker = marker;
     selectedLocationMarkerIcon = markerIcon;
+    panTo(map, location);
+
+    showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, function() {
+        setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
+        // mark it is deselected
+        selectedLocation = null;
+    });
 }
 
 function deselectAircraft(callback) {
@@ -1025,7 +1037,9 @@ function loadSecurityScript() {
 }
 
 function onLoad() {
-    // loadSecurityScript();
+    // register service worker (needed for the app to be suggested as webapp)
+    registerServiceWorker();
+
     initMenu();
     $("#mapClusterPopup").hide();
 
@@ -1065,7 +1079,7 @@ function onLoad() {
                     }, 1500);
                 }
             });
-        }, 2120);
+        }, 0);
      } else {
          $(".splash").fadeOut();
          showIncompatibleDevicePopup();
@@ -1302,9 +1316,6 @@ function roundToMinute(time) {
 }
 function initMap() {
     loadPlugins();
-
-    // register service worker (needed for the app to be suggested as wepapp)
-    //registerServiceWorker();
 
     // make it larger than screen that when it scrolls it goes full screen
     makeHeaderSticky();
