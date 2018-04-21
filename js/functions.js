@@ -1037,7 +1037,9 @@ function loadSecurityScript() {
 }
 
 function onLoad() {
-    // loadSecurityScript();
+    // register service worker (needed for the app to be suggested as webapp)
+    registerServiceWorker();
+
     initMenu();
     $("#mapClusterPopup").hide();
 
@@ -1314,9 +1316,6 @@ function roundToMinute(time) {
 }
 function initMap() {
     loadPlugins();
-
-    // register service worker (needed for the app to be suggested as wepapp)
-    //registerServiceWorker();
 
     // make it larger than screen that when it scrolls it goes full screen
     makeHeaderSticky();
