@@ -252,7 +252,7 @@ function cleanPreviousLocations(aircraft) {
                     aircraftInPath.aircraftId === aircraft.aircraftId && currTime < getActualPathTime(aircraftInPath.time))
         });
     });
-    
+
 
     // remove them from the aircraft path
     aircraft.path = aircraft.path.filter(function (path) {
@@ -266,7 +266,7 @@ function cleanPreviousLocations(aircraft) {
         aircraft.path.unshift(currLocation)
     }
 
-    
+
     // }, this);
 }
 
@@ -339,6 +339,7 @@ function updateLocationsMap(aircrafts) {
                 aerobatic: aircraft.aerobatic,
                 parachutist: aircraft.parachutist,
             };
+
             location.hideAircrafts=locations[location.pointId].hideAircrafts;
             var location = locations[location.pointId];
             if (displayArircraftShows&&(item.aerobatic||item.parachutist)) {
@@ -943,7 +944,7 @@ function onHomeButtonClick() {
 
     if (mapLoaded) {
         closeEntrancePopup();
-        
+
         if (!currentLocationMarker) {
             focusOnLocation({lat: 32.00, lng: 35.00}, 8);
             showCurrentLocation();
@@ -1095,7 +1096,9 @@ function showComponents() {
     $(".splash").css('visibility', 'visible');
 }
 function compatibleDevice() {
-    return ((/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())));
+    //TODO: REVERT
+    // return ((/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())));
+    return true;
 }
 
 function checkIframe() {
@@ -1302,8 +1305,21 @@ function roundToMinute(time) {
     }
     return makeTwoDigitTime(h)+":"+makeTwoDigitTime(m);
 }
+
+function scheduleConfirmationPopup() {
+    var messageBody = 'אם ברצונך לקבל הודעה בדבר זמני המופעים הקרובים עליך לאשר את ההתראות';
+
+    // Getting permissions for notifications if we haven't gotten them yet
+    // if (Notification.permission !== "granted") {
+        setTimeout(function () {
+            showConfirmationPopup("הישארו מעודכנים!", messageBody);
+        }, 15000);
+    // }
+}
+
 function initMap() {
     loadPlugins();
+    scheduleConfirmationPopup();
 
     // make it larger than screen that when it scrolls it goes full screen
     makeHeaderSticky();
@@ -1331,7 +1347,7 @@ function initMap() {
 // //                 startAircraftsAnimation(true);
 //             });
 
-            
+
             setTimeout(function () {
                 if (!mapFail) {
                     $("#entrancePopup").addClass("mapLoaded");
@@ -1339,8 +1355,8 @@ function initMap() {
                     $("#homeButton").css('visibility', 'visible');
                 }
             }, 2000);
-            
-            
+
+
             defer.resolve(map);
         }, 1000);
      } else {

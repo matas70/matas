@@ -243,7 +243,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
 function createLocationRow(location, displayFirstAircraft) {
 	if (location.aircrafts.length == 0)
 		displayFirstAircraft = false;
-				
+
     return "<a class='locationRow' href='javascript:void(0);'><div id='location"+location.pointId+"' class='locationRow' onclick='expandLocation("+location.pointId+");'>" +
                 "<div class='locationName'>"+location.pointName+"</div>" +
                 "<div class='nextAircraftSection'>"+
@@ -297,27 +297,61 @@ function showIncompatibleDevicePopup() {
     $("#incompatibleBrowserPopup").show();
 }
 
-function showBasePopup(isAerobatics,minute,baseName) {
+function showConfirmationPopup(title, messageBody) {
+    getMapDarker();
+    closeAllPopups();
+    $('#confirmationPopup').show();
+}
+
+function hideConfirmationPopup() {
+    $('#confirmationPopup').fadeOut();
+    getMapUndark();
+    Notification.requestPermission().then(function(result) {
+        if (result === 'granted') {
+            Notification.permission = result;
+            scheduleAllNotifications();
+        }
+    });
+}
+
+var flightStartNotificationFuture;
+
+function scheduleAllNotifications() {
+    var notificationTitle = 'מטס עצמאות 71';
+    var FIVE_MINUTES_IN_MILLISECONDS = 5 * 60 * 1000;
+
+    // Five minutes before flight start
+    var remainingTime = actualStartTime - FIVE_MINUTES_IN_MILLISECONDS - getCurrentTime();
+
+    // Only display the message when we have 5 minutes or less remaining
+    if (remainingTime > FIVE_MINUTES_IN_MILLISECONDS && !flightStartNotificationFuture) {
+        console.log(remainingTime);
+        flightStartNotificationFuture = setTimeout(() => {
+            var flightStartNotification = new Notification(notificationTitle, { body: 'המטס יתחיל בעוד 5 דקות!', icon: '../icons/logo192x192.png' });
+        }, 5000);//remainingTime);
+    }
+}
+
+function showBasePopup(isAerobatics, minute, baseName) {
 	var html="<b class=\"baseData\">";
 	var desc;
-	if (isAerobatics){
-	    html+="מופע אווירובטי";
+	if (isAerobatics) {
+	    html += "מופע אווירובטי";
         $("#showAeroplanIcon").show();
         $("#showParachutingIcon").hide();
-        desc="יחל ב";
-    }
-    else{
-	    html+="הצנחות";
+        desc = "יחל ב";
+    } else {
+	    html += "הצנחות";
         $("#showAeroplanIcon").hide();
         $("#showParachutingIcon").show();
-        desc="יחלו ב";
+        desc = "יחלו ב";
     }
-    html+="</b><br class=\"baseData\">";
-	html+=desc;
-	html+=baseName;
-	html+=" בעוד ";
-	html+=minute;
-	html+=" דק'";
+    html += "</b><br class=\"baseData\">";
+	html += desc;
+	html += baseName;
+	html += " בעוד ";
+	html += minute;
+	html += " דק'";
     $("#showData").html(html);
     $("#basePopup").css("top", -64);
     $("#basePopup").show();

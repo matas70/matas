@@ -169,8 +169,8 @@ function getPixelPosition(position) {
     return pixelOffset;
 }
 
-function getMarkerPixelPosition(marker) {    
-    return getPixelPosition(marker.getPosition());   
+function getMarkerPixelPosition(marker) {
+    return getPixelPosition(marker.getPosition());
 }
 
 function getItemsInCircle(pixel, radius) {
@@ -187,7 +187,7 @@ function getItemsInCircle(pixel, radius) {
 
     var locationsInCircle = $.map(locations, function(location, index) {
         if (location !== undefined && markersMap[location.pointId] !== undefined) {
-            var locationMarker = markersMap[location.pointId];            
+            var locationMarker = markersMap[location.pointId];
             var aircraftPixel = getMarkerPixelPosition(locationMarker);
             if (distanceBetweenPixels(pixel, aircraftPixel) < radius) {
                 return [location];
