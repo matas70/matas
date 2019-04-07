@@ -1083,10 +1083,15 @@ function loadApp() {
 
 function loadMapApi() {
     if (!mapLoaded) {
-        $.getScript(MAP_URL, function() {
-            mapLoaded=true;
-            }
-        );
+        if (MAP_URL !== "") {
+            $.getScript(MAP_URL, function () {
+                    mapLoaded = true;
+                }
+            );
+        } else {
+            mapLoaded = true;
+            initMap();
+        }
     }
 }
 

@@ -28,7 +28,7 @@ function createCacheBustedRequest(url) {
   return new Request(bustedUrl);
 }
 
-var cacheFileListShort = [
+var cacheFileList = [
     '/',
     '/index.html',
     'js/slidingMarker/jquery.easing.1.3.js',
@@ -49,7 +49,7 @@ var cacheFileListShort = [
     'animation/splashAni_V1_alpha_small.gif',
     'images/landingBackground2.png',
     'animation/splashAni_V1_small.gif',
-    '/animation/Splash%2070.gif?v=1',
+    'animation/Splash%2070.gif?v=1',
     'images/lavi.jpg',
     'css/hamburgers.css',
     'images/nahshon.jpg',
@@ -129,6 +129,7 @@ var cacheFileListShort = [
     'js/functions.js',
     'images/group13.png',
     'js/map.js',
+    'js/leaflet-map.js',
     'images/group13@2x.png',
     'js/map-azure.js',
     'images/group13@3x.png',
@@ -292,23 +293,25 @@ var cacheFileListShort = [
     'icons/stillSplash.png',
     'icons/transparent.png',
     'screenshots/screenshot1.png',
-    'manifest.json'
-    ];
+    'manifest.json',
+    'js/leaflet/leaflet.css',
+    'js/leaflet/leaflet-src.esm.js.map',
+    'js/leaflet/leaflet.js',
+    'js/leaflet/leaflet-src.js',
+    'js/leaflet/leaflet.js.map',
+    'js/leaflet/leaflet-src.js.map',
+    'js/leaflet/leaflet-src.esm.js',
+    'js/leaflet/images/layers.png',
+    'js/leaflet/images/marker-icon-2x.png',
+    'js/leaflet/images/layers-2x.png',
+    'js/leaflet/images/marker-shadow.png',
+    'js/leaflet/images/marker-icon.png'
+];
 
 self.addEventListener('install', function(e) {
     e.waitUntil(
         caches.open('matas').then(function(cache) {
-            // cache site static content
-            var c = cache.addAll(cacheFileListShort);
-
-            // cache external google apis
-            var googlemapsApiRequest = "https://maps.googleapis.com/maps/api/js?key=AIzaSyC9SvKqEi2KwCecVLbG6257Xuu9SZf0azk&callback=initMap&language=he&region=IL&_=1554637994435";
-
-            fetch(googlemapsApiRequest, {"credentials":"omit","headers":{"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3","accept-language":"en-US,en;q=0.9,he-IL;q=0.8,he;q=0.7","cache-control":"max-age=0","upgrade-insecure-requests":"1","x-client-data":"CKm1yQEIl7bJAQiitskBCMS2yQEIqZ3KAQioo8oBCKqkygEIsafKAQjiqMoBCPCpygEIzKrKAQ=="},"referrerPolicy":"no-referrer-when-downgrade","body":null,"method":"GET","mode":"no-cors"})
-                .then(function(response) {
-                    cache.put(googlemapsApiRequest, response);
-                });
-            return c;
+            return cache.addAll(cacheFileList);
         })
     );
 });
