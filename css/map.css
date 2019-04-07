@@ -4,8 +4,6 @@
     bottom: 0px; /* Footer Height */
     width: 100%;
 }
-#headerMobile {
-}
 
 .sticky {
     position: fixed;
@@ -187,9 +185,6 @@ div.splash {
     padding-left: 23px;
     padding-right: 23px;
     padding-bottom: 14px;
-}
-
-#aircraftsList {
 }
 
 #aircraftListContainer {
@@ -395,9 +390,6 @@ div.time {
     vertical-align: middle;
 }
 
-div.tableRow:nth-child(odd) {
-}
-
 div.infoPopup {
     display: flex;
     flex-direction: column;
@@ -485,9 +477,6 @@ div.locationInfoPopup {
     top: 64px;
     position: fixed;
     z-index: -1;
-}
-
-.aboutLogo {
 }
 
 div.imageCache {
@@ -628,10 +617,6 @@ hr {
     padding: 0 0 0 0;
 }
 
-.menuItem {
-
-}
-
 .tab-content {
     display: none;
 }
@@ -744,22 +729,6 @@ br.baseData {
     align-self: center;
 }
 
-#countdownMeter {
-    background-color: #3bb5f2;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
-    color: white;
-    border-radius: 7pt;
-    flex-grow: 5;
-    width: 122px;
-    display: flex;
-    direction: ltr;
-    height: 40px;
-    flex: 1;
-    align-items: center;
-    flex-direction: row;
-    font-size: 10pt;
-}
-
 .entranceBody {
     display: flex;
     align-self: center;
@@ -767,9 +736,8 @@ br.baseData {
     font-size: 12pt;
     flex: none;
     flex-shrink: 2;
-}
-
-b.entranceBody {
+    margin-top: 5px;
+    margin-bottom: 2px;
 }
 
 #scheduleLink {
@@ -881,20 +849,17 @@ b.entranceBody {
     -o-background-size: cover;
     background-size: cover;
     transition: background-image 5s ease-in-out;
-    bottom: 0px;
 }
 
 #entrancePopup.mapLoaded {
-    background: transparent;
+    background: rgba(255,255,255,0.6);
 }
 
 #countdownContainer {
-    width: 296px;
+    width: 100%;
     flex-direction: column;
     display: flex;
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
-    border-radius: 16px;
-    background: white;
     margin: auto;
     align-items: center;
     z-index: 2;
@@ -903,28 +868,21 @@ b.entranceBody {
 .countdownLabel {
     vertical-align: middle;
     flex-grow: 1;
-    font-family: "Heebo-Bold", sans-serif;
-    font-size: 17pt;
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    margin: auto;
-    align-items: center;
+    padding-top: 6px;
+    padding-bottom: 2px;
 }
 
-#days {
-    border-right: 20px white;
-    display: flex;
-}
-
-#hours {
-    border-right: 1pt solid white;
+.countdownLabel:not(:first-child) {
     border-left: 1pt solid white;
 }
 
-#minutes {
-    vertical-align: middle;
+.countdownText {
+    font-family: "Heebo-Bold", sans-serif;
+    font-size: 15pt;
+    align-items: center;
+    display: flex;
     justify-content: center;
+    height: 20px;
 }
 
 #daysText {
@@ -955,8 +913,18 @@ b.entranceBody {
     display: flex;
     align-content: space-around;
     justify-content: space-between;
-    flex-direction: column;
-    flex: none;
+    background-color: #3bb5f2;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    color: white;
+    border-radius: 7pt;
+    flex-grow: 5;
+    width: 122px;
+    direction: ltr;
+    flex: 1;
+    align-items: center;
+    flex-direction: row;
+    font-size: 8pt;
+    margin-top: 7px;
 }
 
 .aboutImage {
