@@ -983,15 +983,15 @@ br.baseData {
 .alert-header {
     background: rgb(255, 97, 97);
     color: white;
-    padding-right: 14px;
+    padding: 6px;
 }
 
-.icon {
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
+.alert-header > img {
     display: inline-block;
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    line-height: 1
+    vertical-align: middle;
+}
+
+.alert-header > span {
+    font-size: 10pt;
+    font-weight: bold;
 }
