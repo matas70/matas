@@ -964,7 +964,7 @@ function countdown() {
 
     // Load the map three seconds before the countdown finishes
     if (remainingTime < 3500 && remainingTime > 2500) {
-        $(".splash").css("background-image", "url('animation/Splash 70.gif?v=1')");
+        $(".splash").css("background-image", "url('animation/Splash.gif')");
         $(".splash").hide();
 
         // Stops the gif from running more than once
@@ -979,7 +979,7 @@ function countdown() {
     if (remainingTime < 500) {
         $("#minutes").text("00");
         $("#entrancePopup").fadeOut("slow", function () {
-            $(".splash").css("background-image", "url(icons/stillSplash.png)");
+            // $(".splash").css("background-image", "url(animation/Splash.gif)");
             $(".loading").css("background-image", "url(animation/loading.gif)");
             $(".map-dark").hide();
         });
@@ -1034,8 +1034,7 @@ function onLoad() {
 
     if (compatibleDevice() && !checkIframe()) {
         setTimeout(function () {
-            //TODO: Change to loading gif
-            $(".splash").css("background-image", "url(icons/stillSplash.png)");
+            $(".splash").css("background-image", "url(animation/Splash.jpg)");
             $(".loading").show();
         }, 2100);
 

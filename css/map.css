@@ -142,6 +142,21 @@ div.splash {
     justify-content: center;
 }
 
+.years {
+    pointer-events: none;
+    bottom: 0px;
+    z-index: 99999999;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 32px;
+    position: relative;
+    top: 55%;
+    justify-content: center;
+    color: #E7F3F7;
+    font-size: 42pt;
+    opacity: 0;
+}
+
 #headerIcon {
     width: 90px;
     height: 39px;
