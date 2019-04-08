@@ -89,7 +89,6 @@ function updateCurrentHeading(heading) {
  * @param shouldUseMap - should the map be
  */
 function drawMarker(position, icon, isVisible) {
-    debugger
     var marker = L.marker(position, {
         title: name,
         opacity: isVisible ? 0 : 1,
@@ -211,7 +210,7 @@ function drawRouteOnMap(route) {
     route.points.forEach(function (point) {
         if (!point.hidden) {
             // draw marker for this location
-            var marker = L.marker({ lat: point.N, lng: point.E }, { icon: markerIcon, riseOffset: route.routeId, title: "לחץ כדי להציג את רשימת המטוסים במיקום זה" });
+            var marker = L.marker(convertLocation(point.N, point.E), { icon: markerIcon, riseOffset: route.routeId, title: "לחץ כדי להציג את רשימת המטוסים במיקום זה" });
 
             marker.on('click', function (event) {
                 var items = { locations: [point], aircrafts: [] }; //TODO - support multiple items in circle : getItemsInCircle(getPixelPosition(event.latLng), 32);
@@ -285,6 +284,9 @@ function createMapObject(clickCallback) {
     }).addTo(map);
 
     map.on('click', clickCallback);
+
+    addOfflineMap(map);
+
     return map;
 }
 
@@ -305,4 +307,8 @@ function getZoomLevel() {
 
 function getMapFromMarker(marker) {
     return map;
+}
+
+function addOfflineMap(map) {
+    L.imageOverlay('/images/Matas_vector_map.svg', [[26.7, 30.7], [36, 39.48]]).addTo(map)
 }
