@@ -360,3 +360,7 @@ function setZoomCallback(zoomCallback) {
 function getZoomLevel() {
     //return map.getZoom();
 }
+
+function getMapFromMarker(marker) {
+    return null;
+}
