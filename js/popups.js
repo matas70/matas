@@ -315,7 +315,18 @@ function hideConfirmationPopup() {
 }
 
 var notificationTitle = 'מטס עצמאות 71';
-var notificationOptions = { body: '', icon: '../icons/logo192x192.png', dir: "rtl", lang: 'he'};
+var notificationOptions =
+    {
+        body: '',
+        icon: '../icons/logo192x192.png',
+        dir: "rtl",
+        lang: 'he',
+        //TODO: add badge here
+        badge: '../icons/logo192x192.png',
+        vibrate: [300, 100, 400],
+        data: { url: 'https://matas-iaf.com', sentNotifications: [] }
+    };
+
 var notificationMessage =
     {
         "notificationTitle": notificationTitle,
@@ -343,10 +354,10 @@ function scheduleFlightStartNotification() {
         notificationOptions.icon = '../icons/logo192x192.png';
 
         // We only schedule if we haven't already
-        if (!sessionStorage.getItem(notificationOptions.body)) {
-            sessionStorage.setItem(notificationOptions.body, notificationOptions.body);
-
+        if (!localStorage.getItem(notificationOptions.body)) {
+            localStorage.setItem(notificationOptions.body, notificationOptions.body);
             navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, remainingTime));
+            notificationOptions.data.sentNotifications.push(notificationOptions.body);
         }
     }
 }

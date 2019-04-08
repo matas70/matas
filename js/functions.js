@@ -349,13 +349,13 @@ function updateLocationsMap(aircrafts) {
 
                 if (timeout - timeBefore > 0) {
                     // Only if notifications are allowed
-                    if (Notification.permission === 'granted' && !sessionStorage.getItem(notificationBody)) {
-                        sessionStorage.setItem(notificationBody, notificationBody);
+                    if (Notification.permission === 'granted' && !localStorage.getItem(notificationBody)) {
+                        localStorage.setItem(notificationBody, notificationBody);
                         notificationOptions.body = notificationBody;
                         notificationOptions.icon = getEventIcon(item.aerobatic);
 
-                        // Submitting the notification
                         navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, timeout - timeBefore));
+                        notificationOptions.data.sentNotifications.push(notificationOptions.body);
                     }
 
                     setTimeout(function () {
@@ -1109,8 +1109,7 @@ function showComponents() {
 }
 
 function compatibleDevice() {
-    //TODO: REVERT
-    // return ((/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())));
+    return ((/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())));
     return true;
 }
 

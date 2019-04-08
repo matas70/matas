@@ -1,7 +1,7 @@
 {
   "startDate" : "2019-04-07",
   "plannedStartTime" : "09:30:00",
-  "actualStartTime": "17:40:00",
+  "actualStartTime": "20:05:00",
   "aircrafts" : [
     {
       "aircraftId": 1,

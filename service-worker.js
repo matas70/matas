@@ -109,12 +109,29 @@ self.addEventListener('fetch', event => {
  * Riding on onMessage event to schedule notifications when browser is closed
  */
 self.addEventListener('message', event => {
-    console.log(event.data);
-    event.waitUntil(new Promise(function(resolve, reject) {
-        setTimeout(function() {
-            self.registration.showNotification(event.data.notificationTitle, event.data.notificationOptions);
-            resolve();
-        }, event.data.notificationTime);
-    }));
+    var sentNotifications = event.data.notificationOptions.data.sentNotifications;
+    console.log(sentNotifications);
+
+    if (!sentNotifications.includes(event.data.notificationOptions.body)) {
+        console.log(event.data);
+        event.waitUntil(new Promise(function (resolve) {
+            setTimeout(function () {
+                self.registration.showNotification(event.data.notificationTitle, event.data.notificationOptions);
+                resolve();
+            }, event.data.notificationTime);
+        }));
+    } else {
+        console.log(event.data.notificationOptions.body);
+    }
+
+    return;
 });
 
+self.addEventListener('notificationclick', function(event) {
+    event.notification.close();
+    event.waitUntil(new Promise(resolve => {
+        clients.openWindow(event.notification.data.url).then(x => {
+            resolve();
+        });
+    }));
+});
