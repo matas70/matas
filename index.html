@@ -111,6 +111,10 @@
 <!-- shows popup -->
 <div id="basePopup" class="infoBasePopup" style="display: none">
     <div id="headerBase">
+        <div class="alert-header">
+            <img src="/images/drone.png" />
+            <span>חל איסור על הטסת רחפנים בכל האירועים!</span>
+        </div>
         <div id="baseInfo">
             <img id="showAeroplanIcon" src="images/aeroplan.png" class="baseEventIcon">
             <img id="showParachutingIcon" src="images/parachuting.png" class="baseEventIcon">
@@ -224,7 +228,6 @@
             האתר פותח ע"י <b>יחידת אופק</b>, היחידה הטכנולוגית של חיל האוויר, האתר מציג את מיקום כלי הטיס בזמן אמת במהלך מטס יום
             העצמאות ה-70 למדינת ישראל.
      </div>
-        <!--</div>-->
      <div id="aboutBottom" class="aboutBottom">
             <img id="iafLogo" src="icons/iaf-small.png" style="padding-bottom: 14px"/>
             <div class="bottomText">
@@ -260,56 +263,21 @@
 <!-- entrance popup -->
 <div id="entrancePopup" class="entrancePopup" style="display:none">
     <div id="countdownContainer">
-        <div id="closeIconContainer" >
-            <div id="closeIcon" onclick="closeEntrancePopup()">
-                <img src="icons/closeIcon.png"/>
-            </div>
-        </div>
-        <div style="height:15px"></div>
-        <img id="entranceLogo" src="icons/entranceLogo.png">
-        <div class="entranceBody">
-            יתחיל בעוד
-        </div>
-        <div class="countdown">
-            <div id="countdownMeter">
-                <div id="days" class="countdownLabel">
-                    05
+            <div id="countdownMeter" class="countdown">
+                <div class="countdownLabel">
+                    <div id="days" class="countdownText">05</div>
+                    <div id="daysText">ימים</div>
                 </div>
-                <div id="hours" class="countdownLabel">
-                    13
+                <div class="countdownLabel">
+                    <div id="hours" class="countdownText">13</div>
+                    <div id="hoursText">שעות</div>
                 </div>
-                <div id="minutes" class="countdownLabel">
-                    54
+                <div class="countdownLabel">
+                    <div id="minutes" class="countdownText">54</div>
+                    <div id="minutesText">דקות</div>
                 </div>
             </div>
-            <div id="countdownText">
-                <div id="daysText">
-                    ימים
-                </div>
-                <div id="hoursText">
-                    שעות
-                </div>
-                <div id="minutesText">
-                    דקות
-                </div>
-            </div>
-        </div>
-        <div style="height:12px"></div> <!-- space filler -->
-        <b class="entranceBody">
-            מטס עצמאות 70 יתקיים ב-19.04.18
-        </b>
-        <div style="height:12px"></div> <!-- space filler -->
-        <div class="entranceBody">
-            בזמן המטס תוכלו לצפות בכלי הטיס על גבי המפה, כעת תוכלו להתעדכן במסלולים, לוחות הזמנים ופרטי המטוסים
-        </div>
-        <div style="height:18px"></div> <!-- space filler -->
-        <div id="scheduleLink">
-            <div id="showScheduleButton" class="scheduleText showScheduleButton">
-                לוח זמנים
-            </div>
-            <div id="showMapButton" class="scheduleText showMapButton">
-                הצג מפה
-            </div>
+            <div class="entranceBody">לתחילת אירועי חיל האוויר - עצמאות 71</div>
         </div>
     </div>
 </div>

@@ -1096,9 +1096,9 @@ function loadMapApi() {
 }
 
 function showComponents() {
-    $(".map-dark").show();
     $(".splash").css('visibility', 'visible');
 }
+
 function compatibleDevice() {
     return ((/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())));
 }
