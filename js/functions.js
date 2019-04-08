@@ -17,7 +17,7 @@ function convertPath(path) {
 }
 
 var loadedRoutes;
-var aircrafts;
+//var aircrafts; -- keep the aircrafts in the window
 var aircraftTypesInfo = {};
 var groundedAircrafts = new Set();
 var locations = [];
@@ -529,11 +529,7 @@ function showCurrentLocation() {
             };
             navigator.geolocation.watchPosition(updateCurrentLocation);
 
-            var currentPositionIcon = createPositionIcon();
-            //var currentHeadingIcon = createHeadingArea(0);
-
-            //drawMarker(currentPosition, currentHeadingIcon, false);
-            currentLocationMarker = drawMarker(currentPosition, currentPositionIcon, true);
+            currentLocationMarker = createPositionMarker(currentPosition)
             focusOnLocation(currentPosition);
 
             // find the closest location and select it
@@ -948,10 +944,7 @@ function onHomeButtonClick() {
             focusOnLocation({ lat: 32.00, lng: 35.00 }, 8);
             showCurrentLocation();
         } else {
-            selectPoint(findClosestPoint({
-                lat: currentLocationMarker.position.lat(),
-                lng: currentLocationMarker.position.lng()
-            }), true);
+            selectPoint(findClosestPoint(getMarkerPosition(currentLocationMarker)), true);
         }
     }
 }
@@ -1083,17 +1076,28 @@ function loadApp() {
 }
 
 function loadMapApi() {
+    $.ajaxSetup({ cache: true });
+
     if (!mapLoaded) {
-        if (MAP_URL !== "") {
-            $.getScript(MAP_URL, function () {
+        // check if an internet connection is available (by fetching non-cache file)
+        fetch("/test-connection").then((response)=> {
+            // if there is a connection - load google maps            
+            $.getScript("js/google-map.js", function() {
+                $.getScript(MAP_URL, function () {
+                        mapLoaded = true;
+                    });                
+            }, true);
+        }).catch((err) => {
+            // if there is no connection - load leaflet maps (offline)
+            console.warn("no internet connection - working offline");
+            $.getScript("js/leaflet-map.js", function() {
                 mapLoaded = true;
-            }
-            );
-        } else {
-            mapLoaded = true;
-            initMap();
-        }
+                initMap();
+            }, true);
+        });
     }
+
+    $.ajaxSetup({ cache: false });
 }
 
 function showComponents() {
@@ -1318,7 +1322,7 @@ function initMap() {
     if (compatibleDevice() && !checkIframe()) {
         // let splash run for a second before start loading the map
         setTimeout(function () {
-            map = createMapObject(function () {
+            map = createMapObject(function (e) {
                 closeAllPopups();
             });
             $("#map").show();
