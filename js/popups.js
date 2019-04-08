@@ -309,55 +309,82 @@ function hideConfirmationPopup() {
     Notification.requestPermission().then(function(result) {
         if (result === 'granted') {
             Notification.permission = result;
-            scheduleAllNotifications();
+            scheduleFlightStartNotification();
         }
     });
 }
 
-var flightStartNotificationFuture;
+var notificationTitle = 'מטס עצמאות 71';
+var notificationOptions = { body: '', icon: '../icons/logo192x192.png', dir: "rtl", lang: 'he'};
+var notificationMessage =
+    {
+        "notificationTitle": notificationTitle,
+        "notificationOptions": notificationOptions,
+        "notificationTime": 500
+    };
 
-function scheduleAllNotifications() {
-    var notificationTitle = 'מטס עצמאות 71';
+function createNotificationMessage(title, options, time) {
+    notificationMessage.notificationTitle = title;
+    notificationMessage.notificationOptions = options;
+    notificationMessage.notificationTime = time;
+
+    return notificationMessage;
+}
+
+function scheduleFlightStartNotification() {
     var FIVE_MINUTES_IN_MILLISECONDS = 5 * 60 * 1000;
 
     // Five minutes before flight start
     var remainingTime = actualStartTime - FIVE_MINUTES_IN_MILLISECONDS - getCurrentTime();
 
-    // Only display the message when we have 5 minutes or less remaining
-    if (remainingTime > FIVE_MINUTES_IN_MILLISECONDS && !flightStartNotificationFuture) {
-        console.log(remainingTime);
-        flightStartNotificationFuture = setTimeout(() => {
-            var flightStartNotification = new Notification(notificationTitle, { body: 'המטס יתחיל בעוד 5 דקות!', icon: '../icons/logo192x192.png' });
-        }, 5000);//remainingTime);
+    // Only display the message when we have 5 minutes or more remaining
+    if (remainingTime >= 0 && Notification.permission === 'granted') {
+        notificationOptions.body = 'המטס יתחיל בעוד 5 דקות!';
+        notificationOptions.icon = '../icons/logo192x192.png';
+
+        // We only schedule if we haven't already
+        if (!sessionStorage.getItem(notificationOptions.body)) {
+            sessionStorage.setItem(notificationOptions.body, notificationOptions.body);
+
+            navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, remainingTime));
+        }
     }
 }
 
-function showBasePopup(isAerobatics, minute, baseName) {
-	var html="<b class=\"baseData\">";
-	var desc;
+function getEventName(isAerobatics) {
+    return isAerobatics ? 'מופע אווירובטי' : 'הצנחות';
+}
+
+function getEventDescription(isAerobatics, locationName, minutes) {
+    var desc = isAerobatics ? 'יחל ב' : 'יחלו ב';
+    return `${desc}${locationName} בעוד ${minutes} דקות`;
+}
+
+function showBasePopup(isAerobatics, minutes, locationName) {
+	var html = "<b class=\"baseData\">";
+    html += getEventName(isAerobatics);
+
 	if (isAerobatics) {
-	    html += "מופע אווירובטי";
         $("#showAeroplanIcon").show();
         $("#showParachutingIcon").hide();
-        desc = "יחל ב";
     } else {
-	    html += "הצנחות";
         $("#showAeroplanIcon").hide();
         $("#showParachutingIcon").show();
-        desc = "יחלו ב";
     }
+
     html += "</b><br class=\"baseData\">";
-	html += desc;
-	html += baseName;
-	html += " בעוד ";
-	html += minute;
-	html += " דק'";
+	// var eventDetails = `${desc}${baseName} בעוד ${minute} דקות`;
+	html += getEventDescription(isAerobatics, locationName, minutes);
     $("#showData").html(html);
     $("#basePopup").css("top", -64);
     $("#basePopup").show();
     $("#basePopup").animate({
         top: 64 + "px"
     }, 600);
+}
+
+function getEventIcon(isAerobatics) {
+    return isAerobatics ? 'images/aeroplan.png' : 'images/parachuting.png';
 }
 
 function hideBasePopup() {

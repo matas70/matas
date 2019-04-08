@@ -329,7 +329,7 @@ function loadPlugins() {
 
 function createMapObject(clickCallback) {
     map = new google.maps.Map(document.getElementById('map'),
-        {
+    {
             center: {lat: 32.00, lng: 35.00},
             zoom: 8,
             gestureHandling: 'greedy',

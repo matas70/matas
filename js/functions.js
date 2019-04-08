@@ -340,12 +340,24 @@ function updateLocationsMap(aircrafts) {
                 parachutist: aircraft.parachutist,
             };
 
-            location.hideAircrafts=locations[location.pointId].hideAircrafts;
+            location.hideAircrafts = locations[location.pointId].hideAircrafts;
             var location = locations[location.pointId];
-            if (displayArircraftShows&&(item.aerobatic||item.parachutist)) {
+            if (displayAircraftShows && (item.aerobatic || item.parachutist)) {
                 var timeout = convertTime(item.time) - getCurrentTime() + actualStartTime - plannedStartTime;
                 var timeBefore = 5 * 60 * 1000;
+                var notificationBody = `${getEventName(item.aerobatic)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
+
                 if (timeout - timeBefore > 0) {
+                    // Only if notifications are allowed
+                    if (Notification.permission === 'granted' && !sessionStorage.getItem(notificationBody)) {
+                        sessionStorage.setItem(notificationBody, notificationBody);
+                        notificationOptions.body = notificationBody;
+                        notificationOptions.icon = getEventIcon(item.aerobatic);
+
+                        // Submitting the notification
+                        navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, timeout - timeBefore));
+                    }
+
                     setTimeout(function () {
                         showBasePopup(item.aerobatic, 5, location.pointName);
                         setTimeout(function () {
@@ -354,6 +366,7 @@ function updateLocationsMap(aircrafts) {
                     }, timeout - timeBefore);
                 }
             }
+
             location.aircrafts.push(item);
         }, this);
     }, this);
@@ -1310,11 +1323,11 @@ function scheduleConfirmationPopup() {
     var messageBody = 'אם ברצונך לקבל הודעה בדבר זמני המופעים הקרובים עליך לאשר את ההתראות';
 
     // Getting permissions for notifications if we haven't gotten them yet
-    // if (Notification.permission !== "granted") {
+    if (Notification.permission !== "granted") {
         setTimeout(function () {
             showConfirmationPopup("הישארו מעודכנים!", messageBody);
         }, 15000);
-    // }
+    }
 }
 
 function initMap() {
