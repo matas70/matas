@@ -27,7 +27,7 @@ var startDate;
 var plannedStartTime;
 var actualStartTime;
 var categories;
-var displayArircraftShows = true;
+var displayAircraftShows = true;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -1105,9 +1105,9 @@ function loadMapApi() {
 }
 
 function showComponents() {
-    $(".map-dark").show();
     $(".splash").css('visibility', 'visible');
 }
+
 function compatibleDevice() {
     //TODO: REVERT
     // return ((/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())));
