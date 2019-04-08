@@ -116,8 +116,8 @@ function drawMarker(position, icon, shouldUseMap) {
  * @param location
  */
 function focusOnLocation(location,zoom=12) {
-    // map.setCenter(location);
-    // map.setZoom(zoom);
+    map.panTo(location,{animate:false})
+    map.setZoom(zoom);
 }
 
 // location markers
@@ -134,7 +134,7 @@ function getMarkerIcon(color, clicked) {
 }
 
 function panTo(map, location) {
-    // map.panTo(location);
+    map.panTo(location);
 }
 
 var markersMap = {};
@@ -205,25 +205,13 @@ function drawRouteOnMap(route) {
     }
 
     // add lines as data layer
-    if (route.visible)
-        var polyline = L.polyline(path, {color: "#"+route.color, riseOffset: route.routeId}).addTo(map);
+    if (route.visible) {
+        var pathLine = L.polyline(path, {color: "#" + route.color, weight: 4, riseOffset: route.routeId});
+        var pathShadow = L.polyline(path, {color: "black", weight: 5, opacity: 0.5, riseOffset: 0});
+        pathShadow.addTo(map);
+        pathLine.addTo(map);
+    }
 
-    // var data = new google.maps.Data.LineString(path);
-    // var dropShadowFeature = new google.maps.Data.Feature();
-    // dropShadowFeature.setGeometry(data);
-    // dropShadowFeature.setProperty("type", "dropShadow");
-    // dropShadowFeature.setProperty("visibile", route.visible);
-    //
-    // var pathFeature = new google.maps.Data.Feature();
-    // pathFeature.setGeometry(data);
-    // pathFeature.setProperty("zIndex", route.routeId);
-    // pathFeature.setProperty("color", "#" + route.color);
-    // pathFeature.setProperty("type", "path");
-    // pathFeature.setProperty("visibile", route.visible);
-    //
-    // map.data.add(dropShadowFeature);
-    // map.data.add(pathFeature);
-    //
     var markerIcon = getMarkerIcon(route.color, false);
     var markerIconClicked = getMarkerIcon(route.color, true);
     //
@@ -232,45 +220,38 @@ function drawRouteOnMap(route) {
         if (!point.hidden) {
             var location = convertLocation(point.N, point.E);
 
+            // draw marker for this location
             var marker = L.marker(location, {icon:markerIcon, riseOffset:route.routeId, title: "לחץ כדי להציג את רשימת המטוסים במיקום זה"});
+
+            marker.on('click', function(event) {
+                var items = {locations: [point], aircrafts: []}; //TODO - support multiple items in circle : getItemsInCircle(getPixelPosition(event.latLng), 32);
+                if (items.locations.length == 1 && items.aircrafts == 0) {
+                    if (selectedLocation == location) {
+                        deselectLocation();
+                    } else {
+                        // first hide the previous popup
+                        if (selectedLocation != null) {
+                            deselectLocation(function () {
+                                // then show a new popup
+                                selectLocation(point.pointId, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                            });
+                        } else {
+                            // then show a new popup
+                            selectLocation(point.pointId, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                        }
+                    }
+                } else {
+                    openMapClusterPopup($.merge(items.aircrafts, items.locations));
+                }
+            });
+
             marker.addTo(map);
 
-            // draw marker for this location
-    //         var marker = new google.maps.Marker({
-    //             position: location,
-    //             map: null,
-    //             title: "לחץ כדי להציג את רשימת המטוסים במיקום זה",
-    //             icon: markerIcon,
-    //             optimized: false,
-    //             zIndex:route.routeId
-    //         });
-    //
-    //         marker.addListener('click', function(event) {
-    //             var items = getItemsInCircle(getPixelPosition(event.latLng), 32);
-    //             if (items.locations.length == 1 && items.aircrafts == 0) {
-    //                 if (selectedLocation == location) {
-    //                     deselectLocation();
-    //                 } else {
-    //                     // first hide the previous popup
-    //                     if (selectedLocation != null) {
-    //                         deselectLocation(function () {
-    //                             // then show a new popup
-    //                             selectLocation(point.pointId, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
-    //                         });
-    //                     } else {
-    //                         // then show a new popup
-    //                         selectLocation(point.pointId, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
-    //                     }
-    //                 }
-    //             } else {
-    //                 openMapClusterPopup($.merge(items.aircrafts, items.locations));
-    //                 // alert("found multiple items, aircrafts:"+items.aircrafts.length+" locations:"+items.locations.length);
-    //             }
-    //         });
             markersMap[point.pointId] = marker;
         }
     }, this);
-    //
+
+    // TODO: support clusters
     // var markers = $.map(markersMap, function(value, index) {
     //     return [value];
     // });
@@ -289,33 +270,6 @@ function drawRouteOnMap(route) {
 
 function drawRoutesOnMap(routes) {
     map.invalidateSize();
-    // set style options for routes
-    // map.data.setStyle(function(feature) {
-    //     var color = feature.getProperty('color');
-    //     var ftype = feature.getProperty('type');
-    //     var visible = feature.getProperty('visibile');
-    //     var zIndex = feature.getProperty('zIndex');
-    //
-    //     if (ftype == "path") {
-    //         return {
-    //             geodesic: true,
-    //             strokeColor: color,
-    //             strokeOpacity: visible?1.0:0.2,
-    //             strokeWeight: 3,
-    //             fillOpacity: 0,
-    //             zIndex: zIndex,
-    //         };
-    //     } else if (ftype == "dropShadow") {
-    //         return {
-    //             geodesic: true,
-    //             strokeOpacity: visible?0.1:0.0,
-    //             strokeColor: "black",
-    //             strokeWeight: 6,
-    //             fillOpacity: 0,
-    //             zIndex: 0
-    //         };
-    //     } return {};
-    // });
 
     // add all routes
     routes.forEach(function(route) {
@@ -340,21 +294,23 @@ function createMapObject(clickCallback) {
         accessToken: 'pk.eyJ1IjoibGVvMjEyIiwiYSI6ImNqdTc5b2c2bjFta2c0M25yYTM4Mzl4cmYifQ.2WIyCJuvt3ErquZS1A3tCg'
     }).addTo(map);
 
-    //map.addListener('click', clickCallback);
+    map.on('click', clickCallback);
     return map;
 }
 
 function updateMarkerPosition(marker, position, animationDuration) {
-    // marker.setDuration(animationDuration);
-    // marker.setPosition(position);
+    // TODO: set duration of animation when using sliding marker - marker.setDuration(animationDuration);
+    marker.setLatLng(position);
 }
 
 function setZoomCallback(zoomCallback) {
-    //google.maps.event.addListener(map, 'zoom_changed', zoomCallback);
+    map.on('zoomend', function() {
+        zoomCallback;
+    });
 }
 
 function getZoomLevel() {
-    //return map.getZoom();
+    return map.getZoom();
 }
 
 function getMapFromMarker(marker) {
