@@ -708,9 +708,9 @@ br.baseData {
 .baseExitIcon {
     width: 30pt;
     height: 30pt;
-    position: relative;
-    left: -135pt;
-    top: -3pt;
+    position: absolute;
+    left: 10pt;
+    top: 88.5pt;
     cursor: pointer;
 }
 
