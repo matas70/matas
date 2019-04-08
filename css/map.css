@@ -16,8 +16,9 @@
     font-family: 'Heebo-Light';
     font-style: normal;
     font-weight: 300;
-    src: local('Heebo Light'), local('Heebo-Light'),
-    url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg'); /* Legacy iOS */
+    src: local('Heebo Light'), local('Heebo-Light'), url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg');
+    /* Legacy iOS */
 }
 
 /* heebo-regular - hebrew_latin */
@@ -25,8 +26,9 @@
     font-family: 'Heebo-Regular';
     font-style: normal;
     font-weight: 400;
-    src: local('Heebo'), local('Heebo-Regular'),
-    url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg'); /* Legacy iOS */
+    src: local('Heebo'), local('Heebo-Regular'), url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg');
+    /* Legacy iOS */
 }
 
 /* heebo-700 - hebrew_latin */
@@ -34,8 +36,9 @@
     font-family: 'Heebo-Bold';
     font-style: normal;
     font-weight: 700;
-    src: local('Heebo Bold'), local('Heebo-Bold'),
-    url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg'); /* Legacy iOS */
+    src: local('Heebo Bold'), local('Heebo-Bold'), url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg');
+    /* Legacy iOS */
 }
 
 /* Makes the page fill the window. */
@@ -705,9 +708,9 @@ br.baseData {
 .baseExitIcon {
     width: 30pt;
     height: 30pt;
-    position: absolute;
-    left: 10pt;
-    top: 61pt;
+    position: relative;
+    left: -135pt;
+    top: -3pt;
     cursor: pointer;
 }
 
@@ -852,7 +855,7 @@ br.baseData {
 }
 
 #entrancePopup.mapLoaded {
-    background: rgba(255,255,255,0.6);
+    background: rgba(255, 255, 255, 0.6);
 }
 
 #countdownContainer {
@@ -975,4 +978,20 @@ br.baseData {
     display: flex;
     right: 6px;
     opacity: 0.4;
+}
+
+.alert-header {
+    background: rgb(255, 97, 97);
+    color: white;
+    padding: 6px;
+}
+
+.alert-header > img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.alert-header > span {
+    font-size: 10pt;
+    font-weight: bold;
 }
