@@ -118,10 +118,6 @@ function focusOnLocation(location,zoom=12) {
     map.setZoom(zoom);
 }
 
-function setMarkerIcon(marker, icon) {
-    marker.setIcon(icon);
-}
-
 // location markers
 function getMarkerIcon(color, clicked) {
     if (!clicked)
