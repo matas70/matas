@@ -1008,3 +1008,10 @@ b.entranceBody {
     right: 6px;
     opacity: 0.4;
 }
+
+.marker-fix {
+    margin-left: -35px !important;
+    margin-top: -35px !important;
+    width: auto !important;
+    height: auto !important;
+}

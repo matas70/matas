@@ -1,20 +1,15 @@
 const MAP_URL = "";
 
-function setAircraftMarkerIcon(marker, url,anchor=36) {
-    // if (anchor!= null) {
-    //     marker.setIcon({
-    //         url: url,
-    //         //scaledSize: new google.maps.Size(scale, scale),
-    //         anchor: new google.maps.Point(anchor, anchor)
-    //     });
-    // } else {
-    //     marker.setIcon({
-    //         url: url
-    //     });
-    // }
+function setAircraftMarkerIcon(marker, url, anchor = 36) {
+    marker.setIcon(L.icon({
+        iconUrl: url,
+        iconAnchor: anchor != null ? undefined : [anchor, anchor],
+        className: "marker-fix"
+    }));
 }
 
 function setMarkerIcon(marker, icon) {
+    console.log('setMarkerIcon: unimplemented');
     // marker.setIcon(icon);
 }
 
@@ -24,38 +19,27 @@ var selectedLocationMarker = null;
 var selectedLocationMarkerIcon = null;
 
 function createAircraftMarker(position, name, hide, clickEvent) {
-    // aircraftMarker =  new SlidingMarker({
-    //     position: position,
-    //     map: hide?null:map,
-    //     title: name,
-    //     easing: "linear",
-    //     optimized: false,
-    //     zIndex:9
-    // });
-    //
-    // // add "clicked" event
-    // aircraftMarker.addListener('click', function(event) {
-    //     var items = getItemsInCircle(getPixelPosition(event.latLng), 32);
-    //     if (items.locations.length == 0 && items.aircrafts.length == 1) {
-    //         clickEvent();
-    //     }
-    //     else {
-    //         openMapClusterPopup($.merge(items.aircrafts, items.locations));
-    //         //alert("found multiple items, aircrafts:"+items.aircrafts.length+" locations:"+items.locations.length);
-    //     }
-    // });
-    //
-    //
-    // return aircraftMarker;
-    return {}
+    var marker = L.marker(position, {
+        title: name,
+        opacity: hide ? 1 : 0,
+        click: (event) => {
+            var items = getItemsInCircle(getPixelPosition(event.latLng), 32);
+            if (items.locations.length == 0 && items.aircrafts.length == 1) {
+                clickEvent();
+            }
+            else {
+                openMapClusterPopup($.merge(items.aircrafts, items.locations));
+            }
+        }
+    });
+
+    marker.addTo(map);
+
+    return marker;
 }
 
 function toggleAircraftMarkerVisibility(marker, shouldShow) {
-    // if (!shouldShow) {
-    //     marker.setMap(null);
-    // } else if (!marker.getMap()) {
-    //     marker.setMap(map);
-    // }
+    marker.setOpacity(shouldShow ? 0 : 1.0);
 }
 
 var currentHeadingMarker;
@@ -63,6 +47,7 @@ var currentPosition;
 var currentHeading = null;
 
 function createHeadingArea(heading) {
+    console.log('createHeadingArea: unimplemented');
     return {}
     // return  {
     //     path: "M0 0 L32 -64 L-32 -64 Z",
@@ -76,6 +61,7 @@ function createHeadingArea(heading) {
 }
 
 function createPositionIcon() {
+    console.log('createPositionIcon: unimplemented');
     return {}
     // return  {
     //     path: google.maps.SymbolPath.CIRCLE,
@@ -90,6 +76,7 @@ function createPositionIcon() {
 }
 
 function updateCurrentHeading(heading) {
+    console.log('updateCurrentHeading: unimplemented');
     // currentHeading = heading;
     // currentHeadingMarker.setIcon(createHeadingArea(currentHeading));
     // currentHeadingMarker.setMap(map);
@@ -101,22 +88,25 @@ function updateCurrentHeading(heading) {
  * @param icon - the icon of the marker
  * @param shouldUseMap - should the map be
  */
-function drawMarker(position, icon, shouldUseMap) {
-    // var marker = new SlidingMarker({
-    //     position: position,
-    //     map: shouldUseMap ? map : null,
-    //     icon: icon
-    // });
-    // return marker;
-    return {}
+function drawMarker(position, icon, isVisible) {
+    debugger
+    var marker = L.marker(position, {
+        title: name,
+        opacity: isVisible ? 0 : 1,
+        icon: L.icon({ iconUrl: icon })
+    });
+
+    marker.addTo(map);
+
+    return marker;
 }
 
 /**
  * Sets the map's focus on the given location and zooms in on it
  * @param location
  */
-function focusOnLocation(location,zoom=12) {
-    map.panTo(location,{animate:false})
+function focusOnLocation(location, zoom = 12) {
+    map.panTo(location, { animate: false })
     map.setZoom(zoom);
 }
 
@@ -128,9 +118,9 @@ function getMarkerIcon(color, clicked) {
             iconAnchor: [14, 14]
         });
     else return L.icon({
-            iconUrl: "icons/pointPress-" + color + ".png",
-            iconAnchor: [20, 20]
-        });
+        iconUrl: "icons/pointPress-" + color + ".png",
+        iconAnchor: [20, 20]
+    });
 }
 
 function panTo(map, location) {
@@ -139,18 +129,19 @@ function panTo(map, location) {
 
 var markersMap = {};
 
-var rad = function(x) {
+var rad = function (x) {
     return x * Math.PI / 180;
 };
 
-var distanceBetweenPixels = function(p1, p2) {
+var distanceBetweenPixels = function (p1, p2) {
     var a = p1.x - p2.x;
     var b = p1.y - p2.y;
-    var c = Math.sqrt( a*a + b*b );
+    var c = Math.sqrt(a * a + b * b);
     return c;
 };
 
 function getPixelPosition(position) {
+    console.log('getPixelPosition: unimplemented');
     // var scale = Math.pow(2, map.getZoom());
     // var nw = new google.maps.LatLng(
     //     map.getBounds().getNorthEast().lat(),
@@ -171,6 +162,7 @@ function getMarkerPixelPosition(marker) {
 }
 
 function getItemsInCircle(pixel, radius) {
+    console.log('getItemsInCircle: unimplemented');
     // items = [];
     // var aircraftsInCircle = $.map(aircrafts, function(aircraft, index) {
     //     var aircraftMarker = aircraftMarkers[aircraft.aircraftId];
@@ -200,14 +192,14 @@ function getItemsInCircle(pixel, radius) {
 function drawRouteOnMap(route) {
     // create the line path
     var path = [];
-    for (var i=0; i<route.points.length; i++) {
+    for (var i = 0; i < route.points.length; i++) {
         path[i] = convertLocation(route.points[i].N, route.points[i].E);
     }
 
     // add lines as data layer
     if (route.visible) {
-        var pathLine = L.polyline(path, {color: "#" + route.color, weight: 4, riseOffset: route.routeId});
-        var pathShadow = L.polyline(path, {color: "black", weight: 5, opacity: 0.5, riseOffset: 0});
+        var pathLine = L.polyline(path, { color: "#" + route.color, weight: 4, riseOffset: route.routeId });
+        var pathShadow = L.polyline(path, { color: "black", weight: 5, opacity: 0.5, riseOffset: 0 });
         pathShadow.addTo(map);
         pathLine.addTo(map);
     }
@@ -216,15 +208,13 @@ function drawRouteOnMap(route) {
     var markerIconClicked = getMarkerIcon(route.color, true);
     //
     // // create the points marker
-    route.points.forEach(function(point) {
+    route.points.forEach(function (point) {
         if (!point.hidden) {
-            var location = convertLocation(point.N, point.E);
-
             // draw marker for this location
-            var marker = L.marker(location, {icon:markerIcon, riseOffset:route.routeId, title: "לחץ כדי להציג את רשימת המטוסים במיקום זה"});
+            var marker = L.marker({ lat: point.N, lng: point.E }, { icon: markerIcon, riseOffset: route.routeId, title: "לחץ כדי להציג את רשימת המטוסים במיקום זה" });
 
-            marker.on('click', function(event) {
-                var items = {locations: [point], aircrafts: []}; //TODO - support multiple items in circle : getItemsInCircle(getPixelPosition(event.latLng), 32);
+            marker.on('click', function (event) {
+                var items = { locations: [point], aircrafts: [] }; //TODO - support multiple items in circle : getItemsInCircle(getPixelPosition(event.latLng), 32);
                 if (items.locations.length == 1 && items.aircrafts == 0) {
                     if (selectedLocation == location) {
                         deselectLocation();
@@ -272,7 +262,7 @@ function drawRoutesOnMap(routes) {
     map.invalidateSize();
 
     // add all routes
-    routes.forEach(function(route) {
+    routes.forEach(function (route) {
         drawRouteOnMap(route);
     }, this);
 }
@@ -304,7 +294,7 @@ function updateMarkerPosition(marker, position, animationDuration) {
 }
 
 function setZoomCallback(zoomCallback) {
-    map.on('zoomend', function() {
+    map.on('zoomend', function () {
         zoomCallback;
     });
 }
@@ -314,5 +304,5 @@ function getZoomLevel() {
 }
 
 function getMapFromMarker(marker) {
-    return null;
+    return map;
 }
