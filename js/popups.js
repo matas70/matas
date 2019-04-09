@@ -88,11 +88,9 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
     }, this);
     $("#aircraftsList").html(html);
     $("#popupTitle").text(point.pointName);
-    $("#popupSubTitle").text(point.pointLocation);
-    $("#popupHeader").css("background", "#F7F5F5");
-    $("#popupTitle").css("color", "#2b2b2b");
-    $("#popupSubTitle").css("color", "#2b2b2b");
-
+    $("#popupHeader").css("background", color);
+    $("#popupTitle").css("color", titleColor);
+    $("#popupSubTitle").css("color", subtitleColor);
 
     if (!minimized)
     	getMapDarker();
