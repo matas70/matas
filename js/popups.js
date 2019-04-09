@@ -248,6 +248,8 @@ function hideAircraftInfoPopup(callback) {
 	});
     $("#listView").show();
 	$("#expandedInfo").css("display", "none");
+	$("#aircraftInfoMore").css("display", "block");
+	$("#shrinkAircraftInfoPopup").css("display", "none");
 	$("#aircraftInfoPopup").css('height', 'auto');
 }
 
