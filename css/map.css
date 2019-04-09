@@ -675,13 +675,13 @@ hr {
 
 #baseInfo {
     background: white;
-    height: 78pt;
+    height: 54pt;
 }
 
 .baseData {
     position: absolute;
     display: inline;
-    padding-top: 21pt;
+    padding-top: 10pt;
     padding-bottom: 37pt;
     padding-right: 14pt;
     font-size: 11pt;
@@ -698,7 +698,7 @@ br.baseData {
 }
 
 .baseEventIcon {
-    padding-top: 22pt;
+    padding-top: 10pt;
     padding-bottom: 32pt;
     padding-right: 7pt;
     width: 54pt;
@@ -707,10 +707,10 @@ br.baseData {
 
 .baseExitIcon {
     width: 30pt;
-    height: 30pt;
+    height: 33pt;
     position: absolute;
     left: 10pt;
-    top: 88.5pt;
+    top: 63pt;
     cursor: pointer;
 }
 
