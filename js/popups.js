@@ -76,6 +76,7 @@ function initPopups() {
 
 }
 
+
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized=false, closeCallback) {
     locationPopupCloseCallback = closeCallback;
 
@@ -91,6 +92,17 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
     $("#popupHeader").css("background", color);
     $("#popupTitle").css("color", titleColor);
     $("#popupSubTitle").css("color", subtitleColor);
+    //if (point.waze){
+
+    //$("#wazeLink").click(function() {
+    //    alert("work?");
+    //    console.log("work?")
+    //});
+    //$("#wazeImage").click(function() {
+    //    alert("work?");
+    //    console.log("work?")
+    //});
+    //}
 
     if (!minimized)
     	getMapDarker();
@@ -109,6 +121,10 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
     // // add touch events on the list to allow user expand or collapse it
     $("#aircraftListContainer").scrollTop(0);
 
+}
+
+function handleClick() {
+    
 }
 
 function hideLocationPopup(callback) {
