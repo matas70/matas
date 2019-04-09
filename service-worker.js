@@ -14,18 +14,18 @@
 'use strict';
 
 function createCacheBustedRequest(url) {
-  let request = new Request(url, {cache: 'reload'});
-  // See https://fetch.spec.whatwg.org/#concept-request-mode
-  // This is not yet supported in Chrome as of M48, so we need to explicitly check to see
-  // if the cache: 'reload' option had any effect.
-  if ('cache' in request) {
-    return request;
-  }
+    let request = new Request(url, {cache: 'reload'});
+    // See https://fetch.spec.whatwg.org/#concept-request-mode
+    // This is not yet supported in Chrome as of M48, so we need to explicitly check to see
+    // if the cache: 'reload' option had any effect.
+    if ('cache' in request) {
+        return request;
+    }
 
-  // If {cache: 'reload'} didn't have any effect, append a cache-busting URL parameter instead.
-  let bustedUrl = new URL(url, self.location.href);
-  bustedUrl.search += (bustedUrl.search ? '&' : '') + 'cachebust=' + Date.now();
-  return new Request(bustedUrl);
+    // If {cache: 'reload'} didn't have any effect, append a cache-busting URL parameter instead.
+    let bustedUrl = new URL(url, self.location.href);
+    bustedUrl.search += (bustedUrl.search ? '&' : '') + 'cachebust=' + Date.now();
+    return new Request(bustedUrl);
 }
 
 var cacheFileList = [
@@ -305,6 +305,8 @@ var cacheFileList = [
 ];
 
 self.addEventListener('install', function(e) {
+    e.waitUntil(self.skipWaiting()); // Activate worker immediately
+
     e.waitUntil(
         caches.open('matas').then(function(cache) {
             return cache.addAll(cacheFileList);
@@ -312,13 +314,20 @@ self.addEventListener('install', function(e) {
     );
 });
 
-self.addEventListener('install', function(e) {
-    e.waitUntil(
-        caches.open('matas').then(function(cache) {
-            return cache.addAll(cacheFileList);
+self.addEventListener('fetch', function(event) {
+    // console.log(event.request.url);
+
+    event.respondWith(
+        caches.match(event.request).then(function(response) {
+            return response || fetch(event.request);
         })
     );
 });
+
+self.addEventListener('activate', event => {
+    event.waitUntil(self.clients.claim()); // Become available to all pages
+});
+
 
 /**
  * Riding on onMessage event to schedule notifications when browser is closed
