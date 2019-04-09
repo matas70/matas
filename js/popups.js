@@ -251,6 +251,7 @@ function hideAircraftInfoPopup(callback) {
 	$("#aircraftInfoMore").css("display", "block");
 	$("#shrinkAircraftInfoPopup").css("display", "none");
 	$("#aircraftInfoPopup").css('height', 'auto');
+	$('.aircraftTabs #aircraftInfoContent').show().siblings().hide();
 }
 
 function hidePopup(popup, callback) {
@@ -264,12 +265,12 @@ function hidePopup(popup, callback) {
 }
 
 function createParachutistRow(location, time) {
-    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/parachutist.svg\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>"
+    return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ", true)\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/parachutist.svg\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>"
         + location.pointName + "</b></div><div class=\"time\">" +roundToMinute(time)+ "</div></div>";
 }
 
 function createAerobaticRow(location, time) {
-    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"
+    return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ", true)\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"
         + location.pointName + "</b></div><div class=\"time\">"+ roundToMinute(time) +"</div></div>";
 }
 
@@ -280,6 +281,7 @@ function createLocationScheduleRow(aircraft, location, time) {
 
 function selectPointFromSchedule(pointId, minimized = false) {
     closeAllPopups();
+    toggleListView(null, true);
     selectPoint(pointId, minimized);
 }
 

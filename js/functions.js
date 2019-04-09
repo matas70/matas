@@ -1125,7 +1125,7 @@ var canOpenMenu = true;
 var currTab = "#tab2";
 var $menuHamburger;
 
-function openListView() {
+function toggleListView(event, shouldOnlyToggleClose = false) {
     if (aboutVisible) {
         $("#aboutPopup").fadeOut();
         $("#aboutMenuTitle").fadeOut("fast", function () {
@@ -1140,6 +1140,10 @@ function openListView() {
             $menuHamburger.toggleClass("is-active");
             closeMenu();
         } else {
+          if (shouldOnlyToggleClose) {
+              canOpenMenu = true;
+              return;
+          } else {
             $menuHamburger.toggleClass("is-active");
             closeAllPopups();
             openMenu();
@@ -1147,6 +1151,7 @@ function openListView() {
             if (mapLoaded) {
                 closeEntrancePopup();
             }
+          }
         }
     }
 }
@@ -1162,7 +1167,7 @@ function initMenu() {
     $(".tabs").height(height - 64 - 52 + "px");
 
     // Responsible for opening the side menu
-    $menuHamburger.on("click", openListView);
+    $menuHamburger.on("click", toggleListView);
 
     // Responsible for managing the tabs
     $(".menuLink").on("click", function(elem) {
@@ -1182,7 +1187,7 @@ function initMenu() {
         manageAircraftTabs(elem);
     });
 
-    $("#showScheduleButton").on("click", openListView);
+    $("#showScheduleButton").on("click", toggleListView);
     $("#showMapButton").on("click", closeEntrancePopup);
 }
 
