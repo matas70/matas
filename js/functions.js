@@ -531,12 +531,12 @@ function showCurrentLocation() {
             };
             navigator.geolocation.watchPosition(updateCurrentLocation);
 
-            var currentPositionIcon = createPositionIcon();
+            var currentPositionIcon = mapAPI.createPositionIcon();
             //var currentHeadingIcon = createHeadingArea(0);
 
             //drawMarker(currentPosition, currentHeadingIcon, false);
-            currentLocationMarker = drawMarker(currentPosition, currentPositionIcon, true);
-            focusOnLocation(currentPosition);
+            currentLocationMarker = mapAPI.drawMarker(currentPosition, currentPositionIcon, true);
+            mapAPI.focusOnLocation(currentPosition);
 
             // find the closest location and select it
             selectPoint(findClosestPoint(currentPosition), true);
