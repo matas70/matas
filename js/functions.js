@@ -921,11 +921,11 @@ function selectPoint(pointId, minimized = false) {
     if (selectedLocation != null) {
         deselectLocation(function () {
             // then show a new popup
-            selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, leafletMaps.getMarkerIcon(selectedRoute.color, false), leafletMaps.getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+            selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, mapAPI.getMarkerIcon(selectedRoute.color, false), mapAPI.getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
         });
     } else {
         // then show a new popup
-        selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, leafletMaps.getMarkerIcon(selectedRoute.color, false), leafletMaps.getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+        selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, mapAPI.getMarkerIcon(selectedRoute.color, false), mapAPI.getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
     }
 }
 
