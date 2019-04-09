@@ -942,7 +942,7 @@ function onHomeButtonClick() {
         closeEntrancePopup();
 
         if (!currentLocationMarker) {
-            focusOnLocation({ lat: 32.00, lng: 35.00 }, 8);
+            mapAPI.focusOnLocation({ lat: 32.00, lng: 35.00 }, 8);
             showCurrentLocation();
         } else {
             selectPoint(findClosestPoint(getMarkerPosition(currentLocationMarker)), true);
