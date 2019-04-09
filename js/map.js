@@ -255,7 +255,7 @@ googleMaps = {
                     var items = googleMaps.getItemsInCircle(googleMaps.getPixelPosition(event.latLng), 32);
                     if (items.locations.length == 1 && items.aircrafts == 0) {
                         if (selectedLocation == location) {
-                            mapAPI.deselectLocation();
+                            deselectLocation();
                         } else {
                             // first hide the previous popup
                             if (selectedLocation != null) {
