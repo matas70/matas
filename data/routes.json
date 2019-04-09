@@ -93,7 +93,7 @@
 				{ "pointId": 109, "pointName": "נתניה", "N": 3219.963, "E": 3450.764 },
 				{ "pointId": 27, "pointName": "געש", "N": 3213.912, "E": 3449.023 },
 				{ "pointId": 43, "pointName": "הרצליה", "N": 3209.980, "E": 3447.643 },
-				{ "pointId": 165, "pointName": "תל אביב", "N": 3204.651, "E": 3445.758 },
+				{ "pointId": 165, "pointName": "תל אביב", "N": 3204.651, "E": 3445.75 , "pointLocation" : "חוף גורדון", "wazeLink" : "https://www.waze.com/ul?ll=32.08395628%2C34.76833820&navigate=yes", "activeTimes" : "09:30-13:00"},
 				{ "pointId": 66, "pointName": "יפו", "N": 3203.005, "E": 3444.684 },
 				{ "pointId": 22, "pointName": "בת ים", "N": 3201.582, "E": 3444.206 },
 				{ "pointId": 166, "pointName": "תל יונה", "N": 3159.754, "E": 3443.613 },

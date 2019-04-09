@@ -400,7 +400,20 @@ div.infoPopup {
     width: 100%;
     z-index: 100000;
     bottom: 0;
-    background: #37474f;
+    background: #F7F5F5;
+}
+#popupDisplay{
+    display: block;
+}
+
+#waze{
+    padding-top: 8px;
+}
+#popupIcon{
+    position: absolute;
+    top: 8px;
+    left: 0px;
+    height: 100%;
 }
 
 div.infoBasePopup {
