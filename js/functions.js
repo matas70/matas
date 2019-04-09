@@ -1080,7 +1080,7 @@ function loadMapApi() {
     $.ajaxSetup({ cache: true });
     if (!mapLoaded) {
         // check if an internet connection is available (by fetching non-cache file)
-        fetch("/test-connection").then((response)=> {
+        fetch("/data/test-connection").then((response)=> {
             // if there is a connection - load google maps
             $.getScript(mapAPI.MAP_URL, function () {
                         mapLoaded = true;
