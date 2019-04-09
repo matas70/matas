@@ -35,7 +35,6 @@ var cacheFileList = [
     'js/slidingMarker/jquery.easing.1.3.js',
     'js/slidingMarker/markerAnimate.js',
     'js/slidingMarker/SlidingMarker.min.js',
-    'animation/aerodynamics-alert.gif',
     'images/group4@2x.png',
     'animation/loading.gif',
     'images/group4@3x.png',
@@ -126,9 +125,7 @@ var cacheFileList = [
     'js/map.js',
     'js/leaflet-map.js',
     'images/group13@2x.png',
-    'js/map-azure.js',
     'images/group13@3x.png',
-    'js/map-bing.js',
     'images/group3.png',
     'js/markerclusterer.js',
     'images/group3@2x.png',
@@ -274,7 +271,6 @@ var cacheFileList = [
     'icons/logo192x192.png',
     'icons/menuIcon.png',
     'icons/point-22fcbb.png',
-    'icons/point-3bb5f2.png',
     'icons/point-f64b58.png',
     'icons/point-f9ea55.png',
     'icons/pointPress-22fcbb.png',
@@ -334,7 +330,6 @@ self.addEventListener('activate', event => {
  */
 self.addEventListener('message', event => {
     var sentNotifications = event.data.notificationOptions.data.sentNotifications;
-    console.log(sentNotifications);
 
     if (!sentNotifications.includes(event.data.notificationOptions.body)) {
         console.log(event.data);
@@ -344,8 +339,6 @@ self.addEventListener('message', event => {
                 resolve();
             }, event.data.notificationTime);
         }));
-    } else {
-        console.log(event.data.notificationOptions.body);
     }
 
     return;
