@@ -1027,10 +1027,16 @@ function onLoad() {
     $("#mapClusterPopup").hide();
 
     if (compatibleDevice() && !checkIframe()) {
+        // start "loading icon" after 2 seconds
         setTimeout(function () {
-            $(".splash").css("background-image", "url(animation/Splash.jpg)");
+            //$(".splash").css("background-image", "url(animation/Splash.jpg)");
             $(".loading").show();
         }, 2100);
+
+        // replace animation with still image after 5 seconds
+        setTimeout(function () {
+            $(".splash").css("background-image", "url(animation/Splash.jpg)");
+        }, 5000);
 
         setTimeout(function () {
             loadAircrafts(function (pAircrafts) {
