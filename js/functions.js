@@ -973,7 +973,7 @@ function countdown() {
     if (remainingTime < 500) {
         $("#minutes").text("00");
         $("#entrancePopup").fadeOut("slow", function () {
-            // $(".splash").css("background-image", "url(animation/Splash.gif)");
+            $(".splash").css("background-image", "url(animation/Splash.jpg)");
             $(".loading").css("background-image", "url(animation/loading.gif)");
             $(".map-dark").hide();
         });
