@@ -234,6 +234,7 @@ div.splash {
 
 #aircraftInfoContent {
     overflow-y: scroll; /* has to be scroll, not auto */
+    display: block;
     -webkit-overflow-scrolling: touch;
     width: 100%;
     height: 100%;

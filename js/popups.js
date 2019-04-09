@@ -189,9 +189,8 @@ function showAircraftInfoPopup(aircraft, collapse) {
 
 	if (!collapse) {
         $("#aircraftInfoMore").on("click", function () {
-            currTab = "#aircraftInfoContent";
+//             currTab = "#aircraftInfoContent";
             $("#aircraftInfoButton").click();
-
             var height = $(window).height();
             $("#aircraftInfoMore").css("display", "none");
             $("#aircraftInfoPopup").animate({"height": height + "px"}, 500);
@@ -207,10 +206,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
             var $aircraftInfoPopup = $('#aircraftInfoPopup');
             var curHeight = $aircraftInfoPopup.height();
             $aircraftInfoPopup.css('height', 'auto');
-            // selectInfoButtonWithoutClicking();
             $('.aircraftTabs #aircraftInfoContent').show().siblings().hide();
-//             $("#aircraftInfoButton").click();
-//             $("#aircraftInfoContent").height(0);
 
             var autoHeight = $aircraftInfoPopup.height();
             $aircraftInfoPopup.height(curHeight).animate({height: autoHeight}, 500, function () {
@@ -227,6 +223,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
 
         $("#shrinkAircraftInfoPopup").on("click", function () {
            hideAircraftInfoPopup();
+// 		   $("#expandedInfo").css("display", "none");
         });
     }
 
@@ -250,6 +247,8 @@ function hideAircraftInfoPopup(callback) {
             }
 	});
     $("#listView").show();
+	$("#expandedInfo").css("display", "none");
+	$("#aircraftInfoPopup").css('height', 'auto');
 }
 
 function hidePopup(popup, callback) {
@@ -273,13 +272,13 @@ function createAerobaticRow(location, time) {
 }
 
 function createLocationScheduleRow(aircraft, location, time) {
-    return `<div onclick="focusOnAircraftLocation(${location})" class=\"tableRow\"><img src=\"icons/group2@2x.png\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+    return `<div onclick="selectPointFromSchedule(${location.pointId}, true)" class=\"tableRow\"><img src=\"icons/group2@2x.png\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
             ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} </div></div>`;
 }
 
-function focusOnAircraftLocation(location) {
+function selectPointFromSchedule(pointId, minimized = false) {
     closeAllPopups();
-    focusOnLocation(location);
+    selectPoint(pointId, minimized);
 }
 
 function createScheduleRow(aircraft, location) {
