@@ -128,7 +128,7 @@ function getMarkerIcon(color, clicked) {
         return {
             url: "icons/pointSmall-" + color + ".png",
             // The anchor for this image is the center of the circle
-            anchor: new google.maps.Point(14, 14)
+            anchor: new google.maps.Point(19, 19)
         };
     else return {
         url: "icons/pointPress-" + color + ".png",
@@ -238,7 +238,9 @@ function drawRouteOnMap(route) {
                 title: "לחץ כדי להציג את רשימת המטוסים במיקום זה",
                 icon: markerIcon,
                 optimized: false,
-                zIndex:route.routeId
+                zIndex:route.routeId,
+                label: {text: point.pointId, color:'#2b2b2b', fontSize:"10px"}
+
             });
 
             marker.addListener('click', function(event) {

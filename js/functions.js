@@ -25,6 +25,7 @@ var aircraftMarkers = {};
 var aircraftPaths = {};
 var startDate;
 var plannedStartTime;
+var plannedEndTime;
 var actualStartTime;
 var categories;
 var displayArircraftShows = true;
@@ -426,6 +427,7 @@ function loadAircrafts(callback) {
 
             startDate = routes.startDate;
             plannedStartTime = convertTime(routes.plannedStartTime);
+            plannedEndTime = convertTime(routes.plannedEndTime);
             loadActualStartTime(routes);
             callback(aircrafts);
         });

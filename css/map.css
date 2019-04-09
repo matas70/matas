@@ -4,8 +4,6 @@
     bottom: 0px; /* Footer Height */
     width: 100%;
 }
-#headerMobile {
-}
 
 .sticky {
     position: fixed;
@@ -18,8 +16,9 @@
     font-family: 'Heebo-Light';
     font-style: normal;
     font-weight: 300;
-    src: local('Heebo Light'), local('Heebo-Light'),
-    url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg'); /* Legacy iOS */
+    src: local('Heebo Light'), local('Heebo-Light'), url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg');
+    /* Legacy iOS */
 }
 
 /* heebo-regular - hebrew_latin */
@@ -27,8 +26,9 @@
     font-family: 'Heebo-Regular';
     font-style: normal;
     font-weight: 400;
-    src: local('Heebo'), local('Heebo-Regular'),
-    url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg'); /* Legacy iOS */
+    src: local('Heebo'), local('Heebo-Regular'), url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg');
+    /* Legacy iOS */
 }
 
 /* heebo-700 - hebrew_latin */
@@ -36,8 +36,9 @@
     font-family: 'Heebo-Bold';
     font-style: normal;
     font-weight: 700;
-    src: local('Heebo Bold'), local('Heebo-Bold'),
-    url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg'); /* Legacy iOS */
+    src: local('Heebo Bold'), local('Heebo-Bold'), url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg');
+    /* Legacy iOS */
 }
 
 /* Makes the page fill the window. */
@@ -142,6 +143,21 @@ div.splash {
     justify-content: center;
 }
 
+.years {
+    pointer-events: none;
+    bottom: 0px;
+    z-index: 99999999;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 32px;
+    position: relative;
+    top: 55%;
+    justify-content: center;
+    color: #E7F3F7;
+    font-size: 42pt;
+    opacity: 0;
+}
+
 #headerIcon {
     width: 90px;
     height: 39px;
@@ -165,31 +181,52 @@ div.splash {
     padding: 15px 15px;
 }
 
+#popupBody {
+    padding-right: 10pt;
+    display: inline-flex;
+    flex-direction: column;
+}
 #popupTitle {
-    font-size: 17px;
-    color: white;
+    font-family: "Heebo-Bold";
+    font-size: 15pt;
+    color: #2b2b2b ;
+    float: right;
+    padding-left: 10pt;
+}
+#popupTime{
+    font-family: "Heebo-Regular";
+    font-size: 10pt;
+    color: #2b2b2b;
     float: right;
 }
-
 #popupSubTitle {
-    font-size: 12px;
-    padding-top: 2px;
-    color: #187aab;
-    float: left;
+    font-family: "Heebo-Light";
+    font-size: 13pt;
+    color: #2b2b2b ;
+    float: right;
+    padding-right: 5px;
+    padding-right: 0px;
+
 }
 
+#slide{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#popupIcon{
+    float: left;
+    padding-left: 14.5pt;
+}
 #popupHeader {
     width: 100%;
-    height: 22px;
+    height: 50px;
     background: #3bb5f2;
     vertical-align: middle;
-    padding-top: 14px;
-    padding-left: 23px;
-    padding-right: 23px;
-    padding-bottom: 14px;
-}
-
-#aircraftsList {
+    padding-top: 3pt;
+    /*padding-left: 10px;*/
+    /*padding-right: 10px;*/
+    padding-bottom: 10px;
 }
 
 #aircraftListContainer {
@@ -395,9 +432,6 @@ div.time {
     vertical-align: middle;
 }
 
-div.tableRow:nth-child(odd) {
-}
-
 div.infoPopup {
     display: flex;
     flex-direction: column;
@@ -405,7 +439,16 @@ div.infoPopup {
     width: 100%;
     z-index: 100000;
     bottom: 0;
-    background: #37474f;
+    background: #F7F5F5;
+}
+#popupDisplay{
+    display: block;
+}
+#waze{
+    padding-top: 8px;
+}
+#popupIcon{
+    height: 100%
 }
 
 div.infoBasePopup {
@@ -485,9 +528,6 @@ div.locationInfoPopup {
     top: 64px;
     position: fixed;
     z-index: -1;
-}
-
-.aboutLogo {
 }
 
 div.imageCache {
@@ -628,10 +668,6 @@ hr {
     padding: 0 0 0 0;
 }
 
-.menuItem {
-
-}
-
 .tab-content {
     display: none;
 }
@@ -720,9 +756,9 @@ br.baseData {
 .baseExitIcon {
     width: 30pt;
     height: 30pt;
-    position: absolute;
-    left: 10pt;
-    top: 61pt;
+    position: relative;
+    left: -135pt;
+    top: -3pt;
     cursor: pointer;
 }
 
@@ -744,22 +780,6 @@ br.baseData {
     align-self: center;
 }
 
-#countdownMeter {
-    background-color: #3bb5f2;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
-    color: white;
-    border-radius: 7pt;
-    flex-grow: 5;
-    width: 122px;
-    display: flex;
-    direction: ltr;
-    height: 40px;
-    flex: 1;
-    align-items: center;
-    flex-direction: row;
-    font-size: 10pt;
-}
-
 .entranceBody {
     display: flex;
     align-self: center;
@@ -767,9 +787,8 @@ br.baseData {
     font-size: 12pt;
     flex: none;
     flex-shrink: 2;
-}
-
-b.entranceBody {
+    margin-top: 5px;
+    margin-bottom: 2px;
 }
 
 #scheduleLink {
@@ -881,20 +900,17 @@ b.entranceBody {
     -o-background-size: cover;
     background-size: cover;
     transition: background-image 5s ease-in-out;
-    bottom: 0px;
 }
 
 #entrancePopup.mapLoaded {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.6);
 }
 
 #countdownContainer {
-    width: 296px;
+    width: 100%;
     flex-direction: column;
     display: flex;
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
-    border-radius: 16px;
-    background: white;
     margin: auto;
     align-items: center;
     z-index: 2;
@@ -903,28 +919,21 @@ b.entranceBody {
 .countdownLabel {
     vertical-align: middle;
     flex-grow: 1;
-    font-family: "Heebo-Bold", sans-serif;
-    font-size: 17pt;
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    margin: auto;
-    align-items: center;
+    padding-top: 6px;
+    padding-bottom: 2px;
 }
 
-#days {
-    border-right: 20px white;
-    display: flex;
-}
-
-#hours {
-    border-right: 1pt solid white;
+.countdownLabel:not(:first-child) {
     border-left: 1pt solid white;
 }
 
-#minutes {
-    vertical-align: middle;
+.countdownText {
+    font-family: "Heebo-Bold", sans-serif;
+    font-size: 15pt;
+    align-items: center;
+    display: flex;
     justify-content: center;
+    height: 20px;
 }
 
 #daysText {
@@ -955,8 +964,18 @@ b.entranceBody {
     display: flex;
     align-content: space-around;
     justify-content: space-between;
-    flex-direction: column;
-    flex: none;
+    background-color: #3bb5f2;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    color: white;
+    border-radius: 7pt;
+    flex-grow: 5;
+    width: 122px;
+    direction: ltr;
+    flex: 1;
+    align-items: center;
+    flex-direction: row;
+    font-size: 8pt;
+    margin-top: 7px;
 }
 
 .aboutImage {
@@ -1007,4 +1026,20 @@ b.entranceBody {
     display: flex;
     right: 6px;
     opacity: 0.4;
+}
+
+.alert-header {
+    background: rgb(255, 97, 97);
+    color: white;
+    padding: 6px;
+}
+
+.alert-header > img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.alert-header > span {
+    font-size: 10pt;
+    font-weight: bold;
 }
