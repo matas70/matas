@@ -1365,3 +1365,7 @@ function closeEntrancePopup() {
         getMapUndark();
     }
 }
+
+function getAerobaticsPoints(){
+    return aircrafts.filter(aircraft => aircraft.aerobatic).map(aircraftObj => aircraftObj.path.map(point => point.pointId)).flat();
+}
