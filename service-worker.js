@@ -31,6 +31,7 @@ function createCacheBustedRequest(url) {
 var cacheFileList = [
     '/',
     '/index.html',
+    '/?simulation=120',
     'js/slidingMarker/jquery.easing.1.3.js',
     'js/slidingMarker/markerAnimate.js',
     'js/slidingMarker/SlidingMarker.min.js',
@@ -299,7 +300,8 @@ var cacheFileList = [
     'js/leaflet/images/marker-icon-2x.png',
     'js/leaflet/images/layers-2x.png',
     'js/leaflet/images/marker-shadow.png',
-    'js/leaflet/images/marker-icon.png'
+    'js/leaflet/images/marker-icon.png',
+    'images/Matas_vector_map.svg',
 ];
 
 self.addEventListener('install', function(e) {
@@ -310,33 +312,8 @@ self.addEventListener('install', function(e) {
     );
 });
 
-
-// self.addEventListener('activate', event => {
-//   // Delete all caches that aren't named in CURRENT_CACHES.
-//   // While there is only one cache in this example, the same logic will handle the case where
-//   // there are multiple versioned caches.
-//   let expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
-//     return CURRENT_CACHES[key];
-//   });
-//
-//   event.waitUntil(
-//     caches.keys().then(cacheNames => {
-//       return Promise.all(
-//         cacheNames.map(cacheName => {
-//           if (expectedCacheNames.indexOf(cacheName) === -1) {
-//             // If this cache name isn't present in the array of "expected" cache names,
-//             // then delete it.
-//             console.log('Deleting out of date cache:', cacheName);
-//             return caches.delete(cacheName);
-//           }
-//         })
-//       );
-//     })
-//   );
-// });
-
 self.addEventListener('fetch', function(event) {
-    console.log(event.request.url);
+    // console.log(event.request.url);
 
     event.respondWith(
         caches.match(event.request).then(function(response) {
