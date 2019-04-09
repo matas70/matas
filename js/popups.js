@@ -88,11 +88,29 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
     }, this);
     $("#aircraftsList").html(html);
     $("#popupTitle").text(point.pointName);
-    $("#popupSubTitle").text(point.pointLocation);
+
+    // show a description of the location
+    if (point.pointLocation)
+    	$("#popupSubTitle").text(point.pointLocation);
+    else
+    	$("#popupSubTitle").text("");
+
+    // show times of the activity (aircraft times or base activity times)
+    if (point.activeTimes)
+        $("#popupTime").text(point.activeTimes);
+    else
+        $("#popupTime").text(point.aircrafts[0].time.substr(0, 5) + "-" + point.aircrafts[point.aircrafts.length - 1].time.substr(0, 5));
+
+    // enable waze link if available
+    if (point.wazeLink) {
+        $("#wazeLink").attr("href", point.wazeLink);
+        $("#wazeLink").show();
+    } else {
+        $("#wazeLink").hide();
+    }
     $("#popupHeader").css("background", "#F7F5F5");
     $("#popupTitle").css("color", "#2b2b2b");
     $("#popupSubTitle").css("color", "#2b2b2b");
-
 
     if (!minimized)
     	getMapDarker();
