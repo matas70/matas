@@ -879,11 +879,11 @@ function onAircraftSelected(aircraftId, collapse) {
     window.scrollTo(0,1);
 
     // Manages selected tab in aircraft view
-    $("#aircraftInfoButton").click();
+    // $("#aircraftInfoButton").click();
     $("hr.aircraftLineSeparator").removeClass("two");
     $(".aircraftScheduleButton").removeClass("active");
     $(".aircraftInfoButton").addClass("active");
-//     currTab = "#aircraftInfoContent";
+    currTab = "#aircraftInfoContent";
 
     selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse);
 }
