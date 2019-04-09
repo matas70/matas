@@ -137,25 +137,10 @@ div.splash {
     z-index: 99999999;
     background-position: center center;
     background-repeat: no-repeat;
-    height: 32px;
+    height: 48px;
     position: relative;
     top: 75%;
     justify-content: center;
-}
-
-.years {
-    pointer-events: none;
-    bottom: 0px;
-    z-index: 99999999;
-    background-position: center center;
-    background-repeat: no-repeat;
-    height: 32px;
-    position: relative;
-    top: 55%;
-    justify-content: center;
-    color: #E7F3F7;
-    font-size: 42pt;
-    opacity: 0;
 }
 
 #headerIcon {
@@ -202,11 +187,10 @@ div.splash {
 #popupSubTitle {
     font-family: "Heebo-Light";
     font-size: 13pt;
-    color: #2b2b2b ;
+    color: #2b2b2b;
     float: right;
-    padding-right: 5px;
     padding-right: 0px;
-
+    padding-top: 2px;
 }
 
 #slide{
