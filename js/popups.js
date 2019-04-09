@@ -140,12 +140,11 @@ function manageAircraftTabs(elem) {
 
     if (!globalCollapse) {
         // $("aircraftScheduleContent").height(0);
-        $("#aircraftInfoMore").css("display", "none");
-        var height = $(window).height();
-        $("#aircraftInfoPopup").animate({"height": height + "px"}, 500);
-        $("#shrinkAircraftInfoPopup").css("display", "block");
-        $("#expandedInfo").css("display", "block");
-        $("aircraftScheduleContent").height('auto');
+//         $("#aircraftInfoMore").css("display", "none");
+//         var height = $(window).height();
+//         $("#aircraftInfoPopup").animate({"height": height + "px"}, 500);
+//         $("#expandedInfo").css("display", "block");
+//         $("aircraftScheduleContent").height('auto');
     }
 
     currTab = currentAttrValue;
