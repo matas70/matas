@@ -979,6 +979,13 @@ br.baseData {
     opacity: 0.4;
 }
 
+.marker-fix {
+    margin-left: -35px !important;
+    margin-top: -35px !important;
+    width: auto !important;
+    height: auto !important;
+}
+
 .alert-header {
     background: rgb(255, 97, 97);
     color: white;
