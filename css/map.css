@@ -41,6 +41,20 @@
     /* Legacy iOS */
 }
 
+/* heebo-500 - latin */
+@font-face {
+    font-family: 'Heebo-Medium';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/heebo-v4-latin-500.eot'); /* IE9 Compat Modes */
+    src: local('Heebo Medium'), local('Heebo-Medium'),
+    url('../fonts/heebo-v4-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/heebo-v4-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/heebo-v4-latin-500.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/heebo-v4-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/heebo-v4-latin-500.svg#Heebo') format('svg'); /* Legacy iOS */
+}
+
 /* Makes the page fill the window. */
 html, body {
     height: 100%;
@@ -242,14 +256,13 @@ div.splash {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    flex: 2;
-    font-size: 20px;
-    background-color: white;
-    color: #293b57;
+    padding-left: 30px;
+    font-size: 18px;
+    background: white;
 }
 
 #aircraftInfoTimeLabel {
-    font-size: 10px;
+    font-size: 11px;
     color: #8696b0;
 }
 
@@ -1023,5 +1036,17 @@ br.baseData {
 hr.aircraftLineSeparator {width: 50%;}
 
 hr.aircraftLineSeparator.two {
-margin-right: 50%;
+
+margin-right: 50%;
 }
+
+#aircraftInfoStartTime {
+    font-family: "Heebo-Medium";
+}
+
+#aircraftInfoEventIcon {
+    display: none;
+    width: 34px;
+}
+
+#aircraftInfoEventIconContainer {background: white;display: flex;padding-right: 10px;width: 34px;padding-left: 4px;align-items: center;}

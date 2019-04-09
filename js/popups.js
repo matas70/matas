@@ -124,6 +124,14 @@ function hideLocationPopup(callback) {
 function showAircraftInfoPopup(aircraft, collapse) {
 	$("#aircraftInfoName").text(aircraft.name);
 	$("#aircraftInfoType").text(aircraft.type);
+	if (aircraft.aerobatic) {
+	    $("#aircraftInfoTimeLabel").text("תחילת מופע");
+        $("#aircraftInfoEventIcon").show();
+    } else {
+        $("#aircraftInfoTimeLabel").text("זמן המראה");
+        $("#aircraftInfoEventIcon").hide();
+    }
+
 	$("#aircraftInfoStartTime").text(roundToMinute(aircraft.path[0].time));
 	$("#aircraftInfoIcon").attr("src", "icons/aircraft-menu/"+aircraft.icon+".svg");
 	$("#aircraftInfoContentDescription").text(aircraft.description);
@@ -243,7 +251,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
 function createLocationRow(location, displayFirstAircraft) {
 	if (location.aircrafts.length == 0)
 		displayFirstAircraft = false;
-				
+
     return "<a class='locationRow' href='javascript:void(0);'><div id='location"+location.pointId+"' class='locationRow' onclick='expandLocation("+location.pointId+");'>" +
                 "<div class='locationName'>"+location.pointName+"</div>" +
                 "<div class='nextAircraftSection'>"+
