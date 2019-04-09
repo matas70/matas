@@ -252,7 +252,7 @@ function cleanPreviousLocations(aircraft) {
                     aircraftInPath.aircraftId === aircraft.aircraftId && currTime < getActualPathTime(aircraftInPath.time))
         });
     });
-    
+
 
     // remove them from the aircraft path
     aircraft.path = aircraft.path.filter(function (path) {
@@ -266,7 +266,7 @@ function cleanPreviousLocations(aircraft) {
         aircraft.path.unshift(currLocation)
     }
 
-    
+
     // }, this);
 }
 
@@ -877,6 +877,13 @@ function deselectAircraft(callback) {
 function onAircraftSelected(aircraftId, collapse) {
     var aircraft = aircrafts[aircraftId-1];
     window.scrollTo(0,1);
+
+    // Manages selected tab in aircraft view
+    $("hr.aircraftLineSeparator").removeClass("two");
+    $(".aircraftScheduleButton").removeClass("active");
+    $(".aircraftInfoButton").addClass("active");
+    currTab = "#aircraftInfoContent";
+
     selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse);
 }
 
@@ -943,7 +950,7 @@ function onHomeButtonClick() {
 
     if (mapLoaded) {
         closeEntrancePopup();
-        
+
         if (!currentLocationMarker) {
             focusOnLocation({lat: 32.00, lng: 35.00}, 8);
             showCurrentLocation();
@@ -1160,6 +1167,18 @@ function initMenu() {
         $('.tabs ' + currentAttrValue).show().siblings().hide();
     });
 
+    // Responsible for managing aircraft info tabs
+    $(".aircraftMenuLink").on("click", function(elem) {
+        $(".aircraftMenuLink").removeClass("active");
+        $(elem.target).addClass("active");
+        var currentAttrValue = $(this).attr('href');
+        if (currTab != currentAttrValue) {
+            $("hr.aircraftLineSeparator").toggleClass("two")
+        }
+        currTab = currentAttrValue;
+        $('.tabs ' + currentAttrValue).show().siblings().hide();
+    });
+
     $("#showScheduleButton").on("click", openListView);
     $("#showMapButton").on("click", closeEntrancePopup);
 }
@@ -1331,7 +1350,7 @@ function initMap() {
 // //                 startAircraftsAnimation(true);
 //             });
 
-            
+
             setTimeout(function () {
                 if (!mapFail) {
                     $("#entrancePopup").addClass("mapLoaded");
@@ -1339,8 +1358,8 @@ function initMap() {
                     $("#homeButton").css('visibility', 'visible');
                 }
             }, 2000);
-            
-            
+
+
             defer.resolve(map);
         }, 1000);
      } else {

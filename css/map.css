@@ -207,16 +207,17 @@ div.splash {
 }
 
 #aircraftIconContainer {
-    display: table-cell;
-    vertical-align: middle;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1.6;
+    margin-left: 7px;
 }
 
 #aircraftInfoIcon {
-    padding-left: 17px;
-    padding-right: 27.2px;
-    padding-top: 13px;
-    padding-bottom: 10px;
-    width: 35px;
+    display: flex;
+    width: 40px;
 }
 
 #aircraftInfoContent {
@@ -229,18 +230,21 @@ div.splash {
 }
 
 #aircraftInfoText {
-    display: table-cell;
-    width: 100%;
+    display: flex;
+    flex: 4;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
 }
 
 #aircraftInfoTime {
-    display: table-cell;
-    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 2;
     font-size: 20px;
-    padding-left: 57px;
-    padding-right: 57px;
-    vertical-align: middle;
-    background-color: #f7f5f5;
+    background-color: white;
     color: #293b57;
 }
 
@@ -250,7 +254,6 @@ div.splash {
 }
 
 #aircraftInfoName {
-    padding-top: 4px;
     font-size: 18pt;
     font-weight: bold;
     font-family: "Heebo-Bold";
@@ -261,7 +264,6 @@ div.splash {
     font-size: 18px;
     color: #455773;
     font-weight: lighter;
-    margin-top: -12px;
 }
 
 #aircraftInfoMore {
@@ -400,7 +402,7 @@ div.infoPopup {
     width: 100%;
     z-index: 100000;
     bottom: 0;
-    background: #37474f;
+    background: white;
 }
 
 div.infoBasePopup {
@@ -556,7 +558,10 @@ HEADER {
 }
 
 .aircraftInfoTitle {
-    background-color: white;
+    display: flex;
+    flex: 5;
+    justify-content: space-around;
+    background-color: #f7f5f5;
     z-index: 1;
     box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.08);
 }
@@ -581,6 +586,7 @@ HEADER {
     margin: 0 auto;
     box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.12);
     position: relative;
+    background: white;
 }
 
 .menuHeader li {
@@ -606,7 +612,7 @@ hr.two {
 }
 
 hr {
-    height: .25rem;
+    height: 0.4em;
     width: 33%;
     margin: 0 0 0 57%;
     background: #3bb5f2;
@@ -994,4 +1000,28 @@ br.baseData {
 .alert-header > span {
     font-size: 10pt;
     font-weight: bold;
+}
+
+.aircraftScheduleContent {
+}
+
+.aircraftInfoButton {width: 100%;/* color: rgb(59, 181, 242); */}
+
+.aircraftScheduleButton {
+    width: 100%;
+}
+
+.aircraftContentSeparator {display: flex;font-size: 15pt;justify-content: space-evenly;background: white;}
+
+.aircraftMenuLink {display: flex;justify-content: center;padding: .75rem 0;margin: 0;text-decoration: none;color: black;}
+
+.aircraftMenuLink.active {
+    color: rgb(59, 181, 242);
+    font-family: "Heebo-Bold";
+}
+
+hr.aircraftLineSeparator {width: 50%;}
+
+hr.aircraftLineSeparator.two {
+margin-right: 50%;
 }
