@@ -137,7 +137,7 @@ div.splash {
     z-index: 99999999;
     background-position: center center;
     background-repeat: no-repeat;
-    height: 32px;
+    height: 48px;
     position: relative;
     top: 75%;
     justify-content: center;
@@ -166,28 +166,51 @@ div.splash {
     padding: 15px 15px;
 }
 
+#popupBody {
+    padding-right: 10pt;
+    display: inline-flex;
+    flex-direction: column;
+}
 #popupTitle {
-    font-size: 17px;
-    color: white;
+    font-family: "Heebo-Bold";
+    font-size: 15pt;
+    color: #2b2b2b ;
+    float: right;
+    padding-left: 10pt;
+}
+#popupTime{
+    font-family: "Heebo-Regular";
+    font-size: 10pt;
+    color: #2b2b2b;
     float: right;
 }
-
 #popupSubTitle {
-    font-size: 12px;
+    font-family: "Heebo-Light";
+    font-size: 13pt;
+    color: #2b2b2b;
+    float: right;
+    padding-right: 0px;
     padding-top: 2px;
-    color: #187aab;
-    float: left;
 }
 
+#slide{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#popupIcon{
+    float: left;
+    padding-left: 14.5pt;
+}
 #popupHeader {
     width: 100%;
-    height: 22px;
+    height: 50px;
     background: #3bb5f2;
     vertical-align: middle;
-    padding-top: 14px;
-    padding-left: 23px;
-    padding-right: 23px;
-    padding-bottom: 14px;
+    padding-top: 3pt;
+    /*padding-left: 10px;*/
+    /*padding-right: 10px;*/
+    padding-bottom: 10px;
 }
 
 #aircraftListContainer {
@@ -400,7 +423,20 @@ div.infoPopup {
     width: 100%;
     z-index: 100000;
     bottom: 0;
-    background: #37474f;
+    background: #F7F5F5;
+}
+#popupDisplay{
+    display: block;
+}
+
+#waze{
+    padding-top: 8px;
+}
+#popupIcon{
+    position: absolute;
+    top: 8px;
+    left: 0px;
+    height: 100%;
 }
 
 div.infoBasePopup {
@@ -993,6 +1029,13 @@ br.baseData {
     display: flex;
     right: 6px;
     opacity: 0.4;
+}
+
+.marker-fix {
+    margin-left: -35px !important;
+    margin-top: -35px !important;
+    width: auto !important;
+    height: auto !important;
 }
 
 .alert-header {
