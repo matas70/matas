@@ -874,16 +874,20 @@ function deselectAircraft(callback) {
     }
 }
 
+function selectInfoButtonWithoutClicking() {
+    $("hr.aircraftLineSeparator").removeClass("two");
+    $(".aircraftScheduleButton").removeClass("active");
+    $(".aircraftInfoButton").addClass("active");
+    currTab = "#aircraftInfoContent";
+}
+
 function onAircraftSelected(aircraftId, collapse) {
     var aircraft = aircrafts[aircraftId-1];
     window.scrollTo(0,1);
 
     // Manages selected tab in aircraft view
     // $("#aircraftInfoButton").click();
-    $("hr.aircraftLineSeparator").removeClass("two");
-    $(".aircraftScheduleButton").removeClass("active");
-    $(".aircraftInfoButton").addClass("active");
-    currTab = "#aircraftInfoContent";
+    selectInfoButtonWithoutClicking();
 
     selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse);
 }
@@ -1168,6 +1172,7 @@ function initMenu() {
         if (currTab != currentAttrValue) {
             $("hr").toggleClass("two")
         }
+
         currTab = currentAttrValue;
         $('.tabs ' + currentAttrValue).show().siblings().hide();
     });

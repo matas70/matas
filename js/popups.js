@@ -207,6 +207,11 @@ function showAircraftInfoPopup(aircraft, collapse) {
             var $aircraftInfoPopup = $('#aircraftInfoPopup');
             var curHeight = $aircraftInfoPopup.height();
             $aircraftInfoPopup.css('height', 'auto');
+            // selectInfoButtonWithoutClicking();
+            $('.aircraftTabs #aircraftInfoContent').show().siblings().hide();
+//             $("#aircraftInfoButton").click();
+//             $("#aircraftInfoContent").height(0);
+
             var autoHeight = $aircraftInfoPopup.height();
             $aircraftInfoPopup.height(curHeight).animate({height: autoHeight}, 500, function () {
                 $aircraftInfoPopup.height('auto');
