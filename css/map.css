@@ -216,7 +216,10 @@ div.splash {
     background: white;
 }
 
-#aircraftInfoBanner {height: 100%;width: 100%;}
+#aircraftInfoBanner {
+    width: 100%;
+    height: 100%;
+}
 
 #aircraftIconContainer {
     display: flex;
@@ -392,7 +395,9 @@ img.aircraftIcon {
     width: 35px;
 }
 
-.aircraftSchedule img.aircraftIcon {padding: 7.5px 5px 7.5px 10px;}
+.aircraftSchedule img.aircraftIcon {
+    padding: 7.5px 5px 7.5px 10px;
+}
 
 div.aircraftName {
     /*display: table-cell;*/
@@ -640,7 +645,9 @@ hr {
     padding: 0 0 0 0;
 }
 
-.tab-content {display: none;}
+.tab-content {
+    display: none;
+}
 
 .tab-content.active {
     display: block;
@@ -996,6 +1003,13 @@ br.baseData {
     display: flex;
     right: 6px;
     opacity: 0.4;
+}
+
+.marker-fix {
+    margin-left: -35px !important;
+    margin-top: -35px !important;
+    width: auto !important;
+    height: auto !important;
 }
 
 .alert-header {
