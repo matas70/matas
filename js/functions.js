@@ -26,6 +26,7 @@ var aircraftMarkers = {};
 var aircraftPaths = {};
 var startDate;
 var plannedStartTime;
+var plannedEndTime;
 var actualStartTime;
 var categories;
 var displayArircraftShows = true;
@@ -406,7 +407,7 @@ function loadActualStartTime(routes) {
 }
 
 function loadAircrafts(callback) {
-    $.getJSON("data/aircrafts-info.json", function (aircraftInfo) {
+    $.getJSON("data/aircrafts-info.json", function(aircraftInfo) {
         // load aircraft type info into a map
         aircraftInfo.aircraftTypes.forEach(function (aircraftTypeInfo) {
             aircraftTypesInfo[aircraftTypeInfo.aircraftTypeId] = aircraftTypeInfo;
@@ -420,8 +421,8 @@ function loadAircrafts(callback) {
                 if (aircraft.aircraftTypeId !== undefined) {
                     // copy all of the information from aircraft type info
                     var aircraftTypeInfo = aircraftTypesInfo[aircraft.aircraftTypeId];
-                    for (var field in aircraftTypeInfo)
-                        aircraft[field] = aircraftTypeInfo[field];
+                    for(var field in aircraftTypeInfo)
+                        aircraft[field]=aircraftTypeInfo[field];
                 }
             }, this);
 
@@ -487,7 +488,7 @@ function onAboutButtonClick() {
         $("#menuHamburger").toggleClass("is-active");
 
         // hide IAF logo if there is no room - this is very ugly code but we don't have much time to mess around with this
-        var requiredHeight = 64 + $("#headerMobile").height() + $("#aboutLogo").height() + $("#aboutTitle").height() + $("#aboutBody").height() + $("#aboutBottom").height();
+        var requiredHeight = 64 + $("#headerMobile").height() + $("#aboutLogo").height() +  $("#aboutTitle").height() + $("#aboutBody").height() + $("#aboutBottom").height();
         if (window.innerHeight < requiredHeight) {
             $("#aboutBottom").hide();
         }
@@ -496,14 +497,14 @@ function onAboutButtonClick() {
 
 function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
-            // Registration was successful
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, function (err) {
-            // registration failed :(
-            console.log('ServiceWorker registration failed: ', err);
-        });
-    }
+            navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function (err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        }
 }
 
 var currentLocationMarker;
@@ -530,7 +531,11 @@ function showCurrentLocation() {
             };
             navigator.geolocation.watchPosition(updateCurrentLocation);
 
-            currentLocationMarker = createPositionMarker(currentPosition)
+            var currentPositionIcon = createPositionIcon();
+            //var currentHeadingIcon = createHeadingArea(0);
+
+            //drawMarker(currentPosition, currentHeadingIcon, false);
+            currentLocationMarker = drawMarker(currentPosition, currentPositionIcon, true);
             focusOnLocation(currentPosition);
 
             // find the closest location and select it
@@ -547,7 +552,7 @@ function showCurrentLocation() {
             // });
         }, function () {
             // no location available
-        }, { enableHighAccuracy: true });
+        }, {enableHighAccuracy: true});
     } else {
         // Browser doesn't support Geolocation
     }
