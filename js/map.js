@@ -133,12 +133,12 @@ googleMaps = {
             return {
                 url: "icons/pointSmall-" + color + ".png",
                 // The anchor for this image is the center of the circle
-                anchor: new google.maps.Point(19, 19)
+                anchor: new google.maps.Point(14, 14)
             };
         else return {
             url: "icons/pointPress-" + color + ".png",
             // The anchor for this image is the center of the circle
-            anchor: new google.maps.Point(22, 22)
+            anchor: new google.maps.Point(20, 20)
         };
     },
 
@@ -288,36 +288,36 @@ googleMaps = {
                         url: "icons/pointSmall-" + route.color + ".png",
                         textSize: 1,
                         textColor: "#" + route.color,
-                        width: 38,
-                        height: 38
+                        width: 27,
+                        height: 27
                     },
                     {
                         url: "icons/pointSmall-" + route.color + ".png",
                         textSize: 1,
                         textColor: "#" + route.color,
-                        width: 38,
-                        height: 38
+                        width: 27,
+                        height: 27
                     },
                     {
                         url: "icons/pointSmall-" + route.color + ".png",
                         textSize: 1,
                         textColor: "#" + route.color,
-                        width: 38,
-                        height: 38
+                        width: 27,
+                        height: 27
                     },
                     {
                         url: "icons/pointSmall-" + route.color + ".png",
                         textSize: 1,
                         textColor: "#" + route.color,
-                        width: 38,
-                        height: 38
+                        width: 27,
+                        height: 27
                     },
                     {
                         url: "icons/pointSmall-" + route.color + ".png",
                         textSize: 1,
                         textColor: "#" + route.color,
-                        width: 38,
-                        height: 38
+                        width: 27,
+                        height: 27
                     }],
                 zIndex: route.routeId
             });
