@@ -129,7 +129,7 @@ var cacheFileList = [
     'images/group12@3x.png',
     'js/functions.js',
     'images/group13.png',
-    'js/google-map.js',
+    'js/map.js',
     'js/leaflet-map.js',
     'images/group13@2x.png',
     'js/map-azure.js',
