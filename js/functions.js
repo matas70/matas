@@ -4,6 +4,7 @@ window.gm_authFailure = function () {
 };
 
 var mapFail = false;
+var mapAPI = googleMaps;
 
 function convertPath(path) {
     var convertedPath = [];
@@ -617,14 +618,14 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var animationTime = 2000;
 
     var currentTime = getCurrentTime();
-    var zoomLevel = getZoomLevel();
+    var zoomLevel = mapAPI.getZoomLevel();
     var currentAircraftPosition = getCurrentLocation(aircraft.path, currentTime);
     var nextAircraftStopPosition = getNextLocation(aircraft.path, currentTime);
     var nextAircraftPosition;
 
     // Should the current time be larger than the next position's time, that means the aircraft landed
     if (convertTime(aircraft.path[aircraft.path.length - 1].time) - plannedStartTime + actualStartTime < getCurrentTime()) {
-        toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], false);
+        mapAPI.toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], false);
         //console.log(aircraft.name + " Has landed");
     } else {
         // if the next stop is more than animationTime millieseconds, calculate where the aircraft should be within animationTime
@@ -647,13 +648,13 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
         var marker = aircraftMarkers[aircraft.aircraftId];
         var curIndexLocation = getCurrentIndexLocation(aircraft.path, currentTime);
         if (curIndexLocation >= 0 && curIndexLocation < aircraft.path.length && aircraft.path[curIndexLocation].hideAircrafts) {
-            if (getMapFromMarker(marker) != null) {
-                toggleAircraftMarkerVisibility(marker, false);
+            if (mapAPI.isMarkerVisible(marker)) {
+                mapAPI.toggleAircraftMarkerVisibility(marker, false);
                 // console.log(aircraft.path[curIndexLocation].pointId);
             }
         }
-        else if (getMapFromMarker(marker) === null) {
-            toggleAircraftMarkerVisibility(marker, !aircraft.hide);
+        else if (!mapAPI.isMarkerVisible(marker)) {
+            mapAPI.toggleAircraftMarkerVisibility(marker, !aircraft.hide);
             // if (aircraft.path[curIndexLocation].pointId===33){
             //     console.log("up" + aircraft.path[curIndexLocation].pointId);
             // }
@@ -687,11 +688,11 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
 
         // if requested - forcibly update the aircraft to be on current position
         if (updateCurrent) {
-            updateMarkerPosition(marker, currentAircraftPosition, 1);
+            mapAPI.updateMarkerPosition(marker, currentAircraftPosition, 1);
         }
         else {
             // animate to the next position
-            updateMarkerPosition(marker, nextAircraftPosition, animationTime);
+            mapAPI.updateMarkerPosition(marker, nextAircraftPosition, animationTime);
         }
 
         // set a timeout for the next animation interval
@@ -737,14 +738,14 @@ function setAircraftIcon(marker, icon, country, azimuth, color, zoomLevel) {
         staticUrl = null;
     }
     imgUrl = new RotateIcon({ url: imgUrl, staticUrl: staticUrl }).setRotation({ deg: azimuth }).getUrl();
-    setAircraftMarkerIcon(marker, imgUrl);
+    mapAPI.setAircraftMarkerIcon(marker, imgUrl);
 }
 
 function startAircraftsAnimation(updateCurrent) {
     aircrafts.forEach(function (aircraft) {
         // If the first point's time is in the future - It is still grounded. Hide it
         if (convertTime(aircraft.path[0].time) - plannedStartTime + actualStartTime > getCurrentTime()) {
-            toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], false);
+            mapAPI.toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], false);
             //             console.log(aircraft.name + " Has not yet departed");
             groundedAircrafts.add(aircraft);
         } else {
@@ -775,10 +776,10 @@ function checkDeparture(aircraft) {
         //console.log(aircraft.name + " Has departed");
         var nextLocation = getIndexOfNextLocation(aircraft.path, getCurrentTime());
         if (nextLocation >= 0 && nextLocation < aircraft.path.length && aircraft.path[nextLocation].hideAircrafts) {
-            toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], false);
+            mapAPI.toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], false);
         }
         else {
-            toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], !aircraft.hide);
+            mapAPI.toggleAircraftMarkerVisibility(aircraftMarkers[aircraft.aircraftId], !aircraft.hide);
         }
         clearTimeout(departureCheckers[aircraft.aircraftId]);
         animateToNextLocation(aircraft, aircraftMarkers[aircraft.aircraftId].currentAircraftAzimuth, true);
@@ -788,7 +789,7 @@ function checkDeparture(aircraft) {
 var lastZoomLevel = 0;
 
 function addAircraftsToMap() {
-    var zoomLevel = getZoomLevel();
+    var zoomLevel = mapAPI.getZoomLevel();
     aircrafts.forEach(function (aircraft) {
         // draw current location of the aircraft
         var currentAircraftPosition = getCurrentLocation(aircraft.path, getCurrentTime());
@@ -813,7 +814,7 @@ function addAircraftsToMap() {
             }
         };
 
-        var aircraftMarker = createAircraftMarker(currentAircraftPosition, aircraft.name, aircraft.hide, clickCallback);
+        var aircraftMarker = mapAPI.createAircraftMarker(currentAircraftPosition, aircraft.name, aircraft.hide, clickCallback);
         if (aircraft.color == undefined) aircraft.color = "darkgray";
         setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.country, currentAircraftAzimuth, aircraft.color, zoomLevel);
         aircraftMarker.currentAircraftAzimuth = currentAircraftAzimuth;
@@ -821,8 +822,8 @@ function addAircraftsToMap() {
     }, this);
 
     // set zoom callback event
-    setZoomCallback(function () {
-        var zoomLevel = getZoomLevel();
+    mapAPI.setZoomCallback(function () {
+        var zoomLevel = mapAPI.getZoomLevel();
         if (zoomLevel >= 9 && lastZoomLevel < 9) {
             updateAircraftIcons();
         } else if (zoomLevel < 9 && lastZoomLevel >= 9) {
@@ -833,7 +834,7 @@ function addAircraftsToMap() {
 }
 
 function updateAircraftIcons() {
-    var zoomLevel = getZoomLevel();
+    var zoomLevel = mapAPI.getZoomLevel();
     aircrafts.forEach(function (aircraft) {
         var aircraftMarker = aircraftMarkers[aircraft.aircraftId];
         setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.country, aircraft.currentAircraftAzimuth, aircraft.color, zoomLevel);
@@ -843,14 +844,14 @@ function updateAircraftIcons() {
 function selectLocation(pointId, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor, minimized = false) {
     deselectAircraft();
 
-    setMarkerIcon(marker, markerIconClicked);
+    mapAPI.setMarkerIcon(marker, markerIconClicked);
     selectedLocation = location;
     selectedLocationMarker = marker;
     selectedLocationMarkerIcon = markerIcon;
-    panTo(map, location);
+    mapAPI.panTo(map, location);
 
     showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, function () {
-        setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
+        mapAPI.setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
         // mark it is deselected
         selectedLocation = null;
     });
@@ -891,7 +892,7 @@ function deselectLocation(callback) {
         // hide selected location
         hideLocationPopup(function () {
             // set it to the previous marker icon
-            setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
+            mapAPI.setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
 
             // mark it is deselected
             selectedLocation = null;
@@ -920,11 +921,11 @@ function selectPoint(pointId, minimized = false) {
     if (selectedLocation != null) {
         deselectLocation(function () {
             // then show a new popup
-            selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+            selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, leafletMaps.getMarkerIcon(selectedRoute.color, false), leafletMaps.getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
         });
     } else {
         // then show a new popup
-        selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, getMarkerIcon(selectedRoute.color, false), getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+        selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, leafletMaps.getMarkerIcon(selectedRoute.color, false), leafletMaps.getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
     }
 }
 
@@ -1077,23 +1078,19 @@ function loadApp() {
 
 function loadMapApi() {
     $.ajaxSetup({ cache: true });
-
     if (!mapLoaded) {
         // check if an internet connection is available (by fetching non-cache file)
         fetch("/test-connection").then((response)=> {
-            // if there is a connection - load google maps            
-            $.getScript("js/google-map.js", function() {
-                $.getScript(MAP_URL, function () {
+            // if there is a connection - load google maps
+            $.getScript(mapAPI.MAP_URL, function () {
                         mapLoaded = true;
-                    });                
-            }, true);
-        }).catch((err) => {
-            // if there is no connection - load leaflet maps (offline)
-            console.warn("no internet connection - working offline");
-            $.getScript("js/leaflet-map.js", function() {
+                    });
+            }).catch((err) => {
+                console.warn("no internet connection - working offline");
+                // if there is no connection - load leaflet maps (offline)
+                mapAPI = leafletMaps;
                 mapLoaded = true;
                 initMap();
-            }, true);
         });
     }
 
@@ -1313,7 +1310,7 @@ function roundToMinute(time) {
     return makeTwoDigitTime(h) + ":" + makeTwoDigitTime(m);
 }
 function initMap() {
-    loadPlugins();
+    mapAPI.loadPlugins();
 
     // make it larger than screen that when it scrolls it goes full screen
     makeHeaderSticky();
@@ -1322,19 +1319,18 @@ function initMap() {
     if (compatibleDevice() && !checkIframe()) {
         // let splash run for a second before start loading the map
         setTimeout(function () {
-            map = createMapObject(function (e) {
+            map = mapAPI.createMapObject(function (e) {
                 closeAllPopups();
             });
             $("#map").show();
 
-            drawRoutesOnMap(routes);
+            mapAPI.drawRoutesOnMap(routes);
             addAircraftsToMap();
             startAircraftsAnimation(false);
 
             // hide splash screen
             setTimeout(function () {
                 $(".splash").fadeOut();
-                //                 showCurrentLocation();
             }, 3500);
 
             //             $(window).focus(function () {
