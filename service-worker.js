@@ -265,13 +265,11 @@ var cacheFileList = [
     'icons/groups/group_red.svg',
     'icons/groups/group_white.svg',
     'icons/groups/group_yellow.svg',
-    'icons/headerLogo.png',
     'icons/headerLogo.svg',
     'icons/homeIcon.png',
     'icons/iaf.png',
     'icons/iaf-small.png',
     'icons/location.svg',
-    'icons/logo.svg',
     'icons/logo192x192.png',
     'icons/menuIcon.png',
     'icons/point-22fcbb.png',
@@ -303,8 +301,6 @@ var cacheFileList = [
     'js/leaflet/images/marker-shadow.png',
     'js/leaflet/images/marker-icon.png',
     'images/Matas_vector_map.svg',
-    'icons/slidepopup.png',
-    'icons/waze.png',
     'images/drone.svg'
 ];
 
