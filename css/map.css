@@ -994,3 +994,11 @@ br.baseData {
     font-size: 10pt;
     font-weight: bold;
 }
+
+.hamburger-box {
+    direction: ltr;
+}
+
+div.hamburger-inner {
+    width: 50%;
+}
