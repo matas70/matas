@@ -1043,6 +1043,7 @@ br.baseData {
 .alert-header > img {
     display: inline-block;
     vertical-align: middle;
+    height: 13px;
 }
 
 .alert-header > span {
