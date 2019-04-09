@@ -121,9 +121,41 @@ function hideLocationPopup(callback) {
     $("#aircraftListContainer").animate({height:"150px"}, "fast");
 }
 
+function fillAircraftSchedule(aircraft, collapse) {
+    var html = "";
+    aircraft.path.forEach(location => {
+        html += createScheduleRow(aircraft, location);
+    });
+
+    $("#aircraftSchedule").html(html);
+}
+
+function manageAircraftTabs(elem) {
+    $(".aircraftMenuLink").removeClass("active");
+    $(elem.target).addClass("active");
+    var currentAttrValue = $(elem.currentTarget).attr('href');
+    if (currTab != currentAttrValue) {
+        $("hr.aircraftLineSeparator").toggleClass("two")
+    }
+
+    if (!globalCollapse) {
+        // $("aircraftScheduleContent").height(0);
+        $("#aircraftInfoMore").css("display", "none");
+        var height = $(window).height();
+        $("#aircraftInfoPopup").animate({"height": height + "px"}, 500);
+        $("#shrinkAircraftInfoPopup").css("display", "block");
+        $("#expandedInfo").css("display", "block");
+        $("aircraftScheduleContent").height('auto');
+    }
+
+    currTab = currentAttrValue;
+    $('.aircraftTabs ' + currentAttrValue).show().siblings().hide();
+}
+
 function showAircraftInfoPopup(aircraft, collapse) {
 	$("#aircraftInfoName").text(aircraft.name);
 	$("#aircraftInfoType").text(aircraft.type);
+
 	if (aircraft.aerobatic) {
 	    $("#aircraftInfoTimeLabel").text("תחילת מופע");
         $("#aircraftInfoEventIcon").show();
@@ -152,12 +184,15 @@ function showAircraftInfoPopup(aircraft, collapse) {
         $("#aircraftInfoContentArmament").text(aircraft.armament);
 	}
 
-	// Clears event handlersh
+	// Clears event handlers
     $("#aircraftInfoMore").off("click");
     $("#shrinkAircraftInfoPopup").off("click")
 
 	if (!collapse) {
         $("#aircraftInfoMore").on("click", function () {
+            currTab = "#aircraftInfoContent";
+            $("#aircraftInfoButton").click();
+
             var height = $(window).height();
             $("#aircraftInfoMore").css("display", "none");
             $("#aircraftInfoPopup").animate({"height": height + "px"}, 500);
@@ -223,14 +258,39 @@ function hidePopup(popup, callback) {
 	});
 }
 
-function createParachutistRow(name, time) {
-    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/parachutist.svg\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>" + name +
-        "</b></div><div class=\"time\">" +roundToMinute(time)+ "</div></div>";
+function createParachutistRow(location, time) {
+    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/parachutist.svg\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>"
+        + location.pointName + "</b></div><div class=\"time\">" +roundToMinute(time)+ "</div></div>";
 }
 
-function createAerobaticRow(name, time) {
-    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"+ name +
-        "</b></div><div class=\"time\">"+ roundToMinute(time) +"</div></div>";
+function createAerobaticRow(location, time) {
+    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"
+        + location.pointName + "</b></div><div class=\"time\">"+ roundToMinute(time) +"</div></div>";
+}
+
+function createLocationScheduleRow(aircraft, location, time) {
+    return `<div onclick="focusOnAircraftLocation(${location})" class=\"tableRow\"><img src=\"icons/group2@2x.png\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+            ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} </div></div>`;
+}
+
+function focusOnAircraftLocation(location) {
+    closeAllPopups();
+    focusOnLocation(location);
+}
+
+function createScheduleRow(aircraft, location) {
+	var fullPoint = locations[location.pointId];
+    if (aircraft.aerobatic) {
+        return createAerobaticRow(fullPoint, location.time);
+    } else if (aircraft.parachutist) {
+        return createParachutistRow(fullPoint, location.time);
+    }
+                // later
+        return createLocationScheduleRow(aircraft, fullPoint, location.time);
+    // html+= createTableRow(aerobaticAircrafts[0].aircraftId, aerobaticAircrafts[0].name,aerobaticAircrafts[0].icon,aerobaticAircrafts[0].type,aerobaticAircrafts[0].time,false,false,true,false);
+    // aerobaticLocations.forEach(location => {
+    //     html += createAerobaticRow(locations[location.pointId].pointName,
+    //         location.time);
 }
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime=true) {

@@ -211,14 +211,12 @@ div.splash {
 }
 
 #aircraftInfoBannerContainer {
-    height: 174px;
+    max-height: 154px;
     width: 100%;
     background: white;
 }
 
-#aircraftInfoBanner {
-    width: 100%;
-}
+#aircraftInfoBanner {height: 100%;width: 100%;}
 
 #aircraftIconContainer {
     display: flex;
@@ -392,6 +390,8 @@ img.aircraftIcon {
     padding-bottom: 4px;
     width: 35px;
 }
+
+.aircraftSchedule img.aircraftIcon {padding: 7.5px 5px 7.5px 10px;}
 
 div.aircraftName {
     /*display: table-cell;*/
@@ -572,11 +572,11 @@ HEADER {
 
 .aircraftInfoTitle {
     display: flex;
-    flex: 5;
     justify-content: space-around;
     background-color: #f7f5f5;
     z-index: 1;
     box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.08);
+    max-height: 4em;
 }
 
 .listViewContainer {
@@ -639,9 +639,7 @@ hr {
     padding: 0 0 0 0;
 }
 
-.tab-content {
-    display: none;
-}
+.tab-content {display: none;}
 
 .tab-content.active {
     display: block;
@@ -1033,7 +1031,7 @@ br.baseData {
     font-family: "Heebo-Bold";
 }
 
-hr.aircraftLineSeparator {width: 50%;}
+hr.aircraftLineSeparator {width: 50%;padding: 0.2em;height: 0;}
 
 hr.aircraftLineSeparator.two {
 
@@ -1050,3 +1048,12 @@ margin-right: 50%;
 }
 
 #aircraftInfoEventIconContainer {background: white;display: flex;padding-right: 10px;width: 34px;padding-left: 4px;align-items: center;}
+
+.aircraftTabs {direction: rtl;overflow-y: scroll; /* has to be scroll, not auto */-webkit-overflow-scrolling: touch;}
+
+.aircraftSchedule {
+    display: flex;
+    max-height: 800px;
+    flex-direction: column;
+    overflow-y: scroll;
+}

@@ -879,17 +879,22 @@ function onAircraftSelected(aircraftId, collapse) {
     window.scrollTo(0,1);
 
     // Manages selected tab in aircraft view
+    $("#aircraftInfoButton").click();
     $("hr.aircraftLineSeparator").removeClass("two");
     $(".aircraftScheduleButton").removeClass("active");
     $(".aircraftInfoButton").addClass("active");
-    currTab = "#aircraftInfoContent";
+//     currTab = "#aircraftInfoContent";
 
     selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse);
 }
 
+var globalCollapse;
+
 function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl, collapse) {
+    globalCollapse = collapse;
     deselectLocation();
     showAircraftInfoPopup(aircraft, collapse);
+    fillAircraftSchedule(aircraft, collapse);
     //map.panTo(location);
     //marker.setIcon(markerIconClicked);
     selectedAircraft = aircraft;
@@ -1169,14 +1174,7 @@ function initMenu() {
 
     // Responsible for managing aircraft info tabs
     $(".aircraftMenuLink").on("click", function(elem) {
-        $(".aircraftMenuLink").removeClass("active");
-        $(elem.target).addClass("active");
-        var currentAttrValue = $(this).attr('href');
-        if (currTab != currentAttrValue) {
-            $("hr.aircraftLineSeparator").toggleClass("two")
-        }
-        currTab = currentAttrValue;
-        $('.tabs ' + currentAttrValue).show().siblings().hide();
+        manageAircraftTabs(elem);
     });
 
     $("#showScheduleButton").on("click", openListView);
@@ -1211,6 +1209,18 @@ function createCategoryRow(category, isBlue) {
     return "<div class='aircraftCategory " + (isBlue ? "categoryBlue" : "") + "'>" + category.category + "</div>"
 }
 
+// function getAircraftScheduleHtml(categorizedAircrafts, html) {
+//     var aerobaticLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aerobatic)
+//         .map(aerobatics => aerobatics.path));
+//     var aerobaticAircrafts = categorizedAircrafts.filter(aircraft => aircraft.aerobatic);
+//     html += createTableRow(aerobaticAircrafts[0].aircraftId, aerobaticAircrafts[0].name, aerobaticAircrafts[0].icon, aerobaticAircrafts[0].type, aerobaticAircrafts[0].time, false, false, true, false);
+//     aerobaticLocations.forEach(location => {
+//         html += createAerobaticRow(locations[location.pointId].pointName,
+//             location.time);
+//     });
+//     return html;
+// }
+
 function fillMenu() {
     var html = "";
     var map  = new Map();
@@ -1238,9 +1248,9 @@ function fillMenu() {
             var aerobaticAircrafts = categorizedAircrafts.filter(aircraft => aircraft.aerobatic);
             html+= createTableRow(aerobaticAircrafts[0].aircraftId, aerobaticAircrafts[0].name,aerobaticAircrafts[0].icon,aerobaticAircrafts[0].type,aerobaticAircrafts[0].time,false,false,true,false);
             aerobaticLocations.forEach(location => {
-                    html += createAerobaticRow(locations[location.pointId].pointName,
+                    html += createAerobaticRow(locations[location.pointId],
                                                location.time);
-                });
+            });
        } else if (category.parachutist) {
            var parachutistLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.parachutist)
                .map(parachutist => parachutist.path));
@@ -1248,9 +1258,9 @@ function fillMenu() {
            html+= createTableRow(parachutistAircrafts[0].aircraftId, parachutistAircrafts[0].name,parachutistAircrafts[0].icon,parachutistAircrafts[0].type,parachutistAircrafts[0].time,false,false,true,false);
 
            parachutistLocations.forEach(location =>
-                html += createParachutistRow(locations[location.pointId].pointName,
+                html += createParachutistRow(locations[location.pointId],
                                              location.time));
-           }
+       }
 
        Array.from(map.values()).filter(aircraft =>
                 aircraft.category === category.category)
