@@ -101,6 +101,7 @@ var cacheFileList = [
     'images/eurofighter.jpg',
     'images/rectangle8@2x.png',
     'images/exitBase.png',
+    'images/exitBase.svg',
     'images/rectangle8@3x.png',
     'images/f16g.jpg',
     'images/reem.jpg',
@@ -302,6 +303,9 @@ var cacheFileList = [
     'js/leaflet/images/marker-shadow.png',
     'js/leaflet/images/marker-icon.png',
     'images/Matas_vector_map.svg',
+    'icons/slidepopup.png',
+    'icons/waze.png',
+    'images/drone.svg'
 ];
 
 self.addEventListener('install', function(e) {
