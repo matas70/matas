@@ -96,10 +96,12 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
     	$("#popupSubTitle").text("");
 
     // show times of the activity (aircraft times or base activity times)
-    if (point.activeTimes)
+    if (!point.activeTimes && point.aircrafts.length > 0)
+        $("#popupTime").text(point.aircrafts[0].time.substr(0, 5) + "-" + point.aircrafts[point.aircrafts.length - 1].time.substr(0, 5));
+    else if (point.activeTimes)
         $("#popupTime").text(point.activeTimes);
     else
-        $("#popupTime").text(point.aircrafts[0].time.substr(0, 5) + "-" + point.aircrafts[point.aircrafts.length - 1].time.substr(0, 5));
+        $("#popupTime").text("");
 
     // enable waze link if available
     if (point.wazeLink) {
