@@ -35,7 +35,6 @@ var cacheFileList = [
     'js/slidingMarker/jquery.easing.1.3.js',
     'js/slidingMarker/markerAnimate.js',
     'js/slidingMarker/SlidingMarker.min.js',
-    'animation/aerodynamics-alert.gif',
     'images/group4@2x.png',
     'animation/loading.gif',
     'images/group4@3x.png',
@@ -43,6 +42,7 @@ var cacheFileList = [
     'images/h125.jpg',
     'animation/Splash.gif?v=1',
     'animation/Splash.gif',
+    'animation/Splash.jpg',
     'images/karnaf.jpg',
     'images/kukiya.jpg',
     'images/lavi.jpg',
@@ -287,6 +287,8 @@ var cacheFileList = [
     'icons/pointSmall-f9ea55.png',
     'icons/stillSplash.png',
     'icons/transparent.png',
+    'icons/waze.png',
+    'icons/slidepopup.png',
     'screenshots/screenshot1.png',
     'manifest.json',
     'js/leaflet/leaflet.css',
@@ -301,10 +303,12 @@ var cacheFileList = [
     'js/leaflet/images/layers-2x.png',
     'js/leaflet/images/marker-shadow.png',
     'js/leaflet/images/marker-icon.png',
-    'images/Matas_vector_map.svg',
+    'images/Matas_vector_map.svg'
 ];
 
+// increase this number every time you want the cache to updated - 3
 self.addEventListener('install', function(e) {
+    console.log("First time install. Loading all files into cache.");
     e.waitUntil(
         caches.open('matas').then(function(cache) {
             return cache.addAll(cacheFileList);
@@ -312,12 +316,12 @@ self.addEventListener('install', function(e) {
     );
 });
 
-self.addEventListener('fetch', function(event) {
-    // console.log(event.request.url);
-
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            return response || fetch(event.request);
-        })
-    );
+self.addEventListener('fetch', (event) => {
+    event.respondWith(async function() {
+        try {
+            return await fetch(event.request);
+        } catch (err) {
+            return caches.match(event.request);
+        }
+    }());
 });
