@@ -96,10 +96,12 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized=fa
     	$("#popupSubTitle").text("");
 
     // show times of the activity (aircraft times or base activity times)
-    if (point.activeTimes)
+    if (!point.activeTimes && point.aircrafts.length > 0)
+        $("#popupTime").text(point.aircrafts[0].time.substr(0, 5) + "-" + point.aircrafts[point.aircrafts.length - 1].time.substr(0, 5));
+    else if (point.activeTimes)
         $("#popupTime").text(point.activeTimes);
     else
-        $("#popupTime").text(point.aircrafts[0].time.substr(0, 5) + "-" + point.aircrafts[point.aircrafts.length - 1].time.substr(0, 5));
+        $("#popupTime").text("");
 
     // enable waze link if available
     if (point.wazeLink) {
@@ -141,9 +143,58 @@ function hideLocationPopup(callback) {
     $("#aircraftListContainer").animate({height:"150px"}, "fast");
 }
 
+function fillAircraftSchedule(aircraft, collapse) {
+    var html = "";
+    aircraft.path.forEach(location => {
+        html += createScheduleRow(aircraft, location);
+    });
+
+    $("#aircraftSchedule").html(html);
+}
+
+function manageAircraftTabs(elem) {
+    $(".aircraftMenuLink").removeClass("active");
+    $(elem.target).addClass("active");
+    var currentAttrValue = $(elem.currentTarget).attr('href');
+    if (currTab != currentAttrValue) {
+        $("hr.aircraftLineSeparator").toggleClass("two")
+    }
+
+    if (!globalCollapse) {
+        $("#aircraftInfoMore").css("display", "none");
+        var height = $(window).height();
+        $("#aircraftInfoPopup").animate({"height": height + "px"}, 500);
+        $("#shrinkAircraftInfoPopup").css("display", "block");
+        $("#expandedInfo").css("display", "block");
+        $("aircraftScheduleContent").height('auto');
+    }
+
+    currTab = currentAttrValue;
+    $('.aircraftTabs ' + currentAttrValue).show().siblings().hide();
+}
+
+function toggleAircraftContentSeparator(shouldShow) {
+    if (shouldShow) {
+        $(".aircraftContentSeparator").show();
+        $("hr.aircraftLineSeparator").show();
+    } else {
+        $(".aircraftContentSeparator").hide();
+        $("hr.aircraftLineSeparator").hide();
+    }
+}
+
 function showAircraftInfoPopup(aircraft, collapse) {
 	$("#aircraftInfoName").text(aircraft.name);
 	$("#aircraftInfoType").text(aircraft.type);
+
+	if (aircraft.aerobatic) {
+	    $("#aircraftInfoTimeLabel").text("תחילת מופע");
+        $("#aircraftInfoEventIcon").show();
+    } else {
+        $("#aircraftInfoTimeLabel").text("זמן המראה");
+        $("#aircraftInfoEventIcon").hide();
+    }
+
 	$("#aircraftInfoStartTime").text(roundToMinute(aircraft.path[0].time));
 	$("#aircraftInfoIcon").attr("src", "icons/aircraft-menu/"+aircraft.icon+".svg");
 	$("#aircraftInfoContentDescription").text(aircraft.description);
@@ -164,12 +215,18 @@ function showAircraftInfoPopup(aircraft, collapse) {
         $("#aircraftInfoContentArmament").text(aircraft.armament);
 	}
 
-	// Clears event handlersh
+	// Clears event handlers
     $("#aircraftInfoMore").off("click");
     $("#shrinkAircraftInfoPopup").off("click")
 
+    // Collapse==true <=> The info popup is not extended.
+    // I know it's confusing but I'm too lazy to fix it.
 	if (!collapse) {
+        // Lots of code to set the correct state of html elements according to collapse/extended
+        toggleAircraftContentSeparator(false);
         $("#aircraftInfoMore").on("click", function () {
+			toggleAircraftContentSeparator(true);
+            $("#aircraftInfoButton").click();
             var height = $(window).height();
             $("#aircraftInfoMore").css("display", "none");
             $("#aircraftInfoPopup").animate({"height": height + "px"}, 500);
@@ -178,6 +235,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
         });
 
         $("#shrinkAircraftInfoPopup").on("click", function () {
+			toggleAircraftContentSeparator(false);
             $("#aircraftInfoMore").css("display", "block");
             $("#aircraftInfoMore").css("height", "32px");
             $("#expandedInfo").css("display", "none");
@@ -185,12 +243,16 @@ function showAircraftInfoPopup(aircraft, collapse) {
             var $aircraftInfoPopup = $('#aircraftInfoPopup');
             var curHeight = $aircraftInfoPopup.height();
             $aircraftInfoPopup.css('height', 'auto');
+            $('.aircraftTabs #aircraftInfoContent').show().siblings().hide();
+
             var autoHeight = $aircraftInfoPopup.height();
             $aircraftInfoPopup.height(curHeight).animate({height: autoHeight}, 500, function () {
                 $aircraftInfoPopup.height('auto');
             });
         });
     } else {
+        // Lots of code to set the correct state of html elements according to collapse/extended
+        toggleAircraftContentSeparator(true);
         var height = $(window).height();
         $("#aircraftInfoMore").css("display", "none");
         $("#aircraftInfoPopup").height("0px");
@@ -223,6 +285,11 @@ function hideAircraftInfoPopup(callback) {
             }
 	});
     $("#listView").show();
+	$("#expandedInfo").css("display", "none");
+	$("#aircraftInfoMore").css("display", "block");
+	$("#shrinkAircraftInfoPopup").css("display", "none");
+	$("#aircraftInfoPopup").css('height', 'auto');
+	$('.aircraftTabs #aircraftInfoContent').show().siblings().hide();
 }
 
 function hidePopup(popup, callback) {
@@ -235,14 +302,38 @@ function hidePopup(popup, callback) {
 	});
 }
 
-function createParachutistRow(name, time) {
-    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/parachutist.svg\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>" + name +
-        "</b></div><div class=\"time\">" +roundToMinute(time)+ "</div></div>";
+function createParachutistRow(location, time) {
+    return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ", true)\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/parachutist.svg\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>"
+        + location.pointName + "</b></div><div class=\"time\">" +roundToMinute(time)+ "</div></div>";
 }
 
-function createAerobaticRow(name, time) {
-    return "<div class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"+ name +
-        "</b></div><div class=\"time\">"+ roundToMinute(time) +"</div></div>";
+function createAerobaticRow(location, time) {
+    return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ", true)\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"
+        + location.pointName + "</b></div><div class=\"time\">"+ roundToMinute(time) +"</div></div>";
+}
+
+function createLocationScheduleRow(aircraft, location, time) {
+    return `<div onclick="selectPointFromSchedule(${location.pointId}, true)" class=\"tableRow\"><img src=\"icons/group2@2x.png\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+            ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} </div></div>`;
+}
+
+function selectPointFromSchedule(pointId, minimized = false) {
+    closeAllPopups();
+    toggleListView(null, true);
+    selectPoint(pointId, minimized);
+}
+
+function createScheduleRow(aircraft, location) {
+	var fullPoint = locations[location.pointId];
+    if (aircraft.aerobatic) {
+        return createAerobaticRow(fullPoint, location.time);
+    } else if (aircraft.parachutist) {
+        return createParachutistRow(fullPoint, location.time);
+    } else if (!fullPoint.hidden) {
+        return createLocationScheduleRow(aircraft, fullPoint, location.time);
+    }
+
+    return "";
 }
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime=true) {

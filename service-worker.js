@@ -14,18 +14,18 @@
 'use strict';
 
 function createCacheBustedRequest(url) {
-    let request = new Request(url, {cache: 'reload'});
-    // See https://fetch.spec.whatwg.org/#concept-request-mode
-    // This is not yet supported in Chrome as of M48, so we need to explicitly check to see
-    // if the cache: 'reload' option had any effect.
-    if ('cache' in request) {
-        return request;
-    }
+  let request = new Request(url, {cache: 'reload'});
+  // See https://fetch.spec.whatwg.org/#concept-request-mode
+  // This is not yet supported in Chrome as of M48, so we need to explicitly check to see
+  // if the cache: 'reload' option had any effect.
+  if ('cache' in request) {
+    return request;
+  }
 
-    // If {cache: 'reload'} didn't have any effect, append a cache-busting URL parameter instead.
-    let bustedUrl = new URL(url, self.location.href);
-    bustedUrl.search += (bustedUrl.search ? '&' : '') + 'cachebust=' + Date.now();
-    return new Request(bustedUrl);
+  // If {cache: 'reload'} didn't have any effect, append a cache-busting URL parameter instead.
+  let bustedUrl = new URL(url, self.location.href);
+  bustedUrl.search += (bustedUrl.search ? '&' : '') + 'cachebust=' + Date.now();
+  return new Request(bustedUrl);
 }
 
 var cacheFileList = [
@@ -35,6 +35,7 @@ var cacheFileList = [
     'js/slidingMarker/jquery.easing.1.3.js',
     'js/slidingMarker/markerAnimate.js',
     'js/slidingMarker/SlidingMarker.min.js',
+    'animation/aerodynamics-alert.gif',
     'images/group4@2x.png',
     'animation/loading.gif',
     'images/group4@3x.png',
@@ -42,6 +43,7 @@ var cacheFileList = [
     'images/h125.jpg',
     'animation/Splash.gif?v=1',
     'animation/Splash.gif',
+    'animation/Splash.jpg',
     'images/karnaf.jpg',
     'images/kukiya.jpg',
     'images/lavi.jpg',
@@ -136,6 +138,10 @@ var cacheFileList = [
     'js/utils.js',
     'fonts/heebo-v3-hebrew_latin-300.svg',
     'fonts/heebo-v3-hebrew_latin-300.woff2',
+    'heebo-v4-latin-500.eot',
+    'heebo-v4-latin-500.ttf',
+    'heebo-v4-latin-500.woff',
+    'heebo-v4-latin-500.woff2',
     'fonts/heebo-v3-hebrew_latin-700.svg',
     'fonts/heebo-v3-hebrew_latin-700.woff2',
     'fonts/heebo-v3-hebrew_latin-regular.svg',
@@ -271,6 +277,7 @@ var cacheFileList = [
     'icons/logo192x192.png',
     'icons/menuIcon.png',
     'icons/point-22fcbb.png',
+    'icons/point-3bb5f2.png',
     'icons/point-f64b58.png',
     'icons/point-f9ea55.png',
     'icons/pointPress-22fcbb.png',
@@ -283,6 +290,8 @@ var cacheFileList = [
     'icons/pointSmall-f9ea55.png',
     'icons/stillSplash.png',
     'icons/transparent.png',
+    'icons/waze.png',
+    'icons/slidepopup.png',
     'screenshots/screenshot1.png',
     'manifest.json',
     'js/leaflet/leaflet.css',
@@ -297,10 +306,12 @@ var cacheFileList = [
     'js/leaflet/images/layers-2x.png',
     'js/leaflet/images/marker-shadow.png',
     'js/leaflet/images/marker-icon.png',
-    'images/Matas_vector_map.svg',
+    'images/Matas_vector_map.svg'
 ];
 
+// increase this number every time you want the cache to updated - 3
 self.addEventListener('install', function(e) {
+    console.log("First time install. Loading all files into cache.");
     e.waitUntil(self.skipWaiting()); // Activate worker immediately
 
     e.waitUntil(
@@ -310,14 +321,14 @@ self.addEventListener('install', function(e) {
     );
 });
 
-self.addEventListener('fetch', function(event) {
-    // console.log(event.request.url);
-
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            return response || fetch(event.request);
-        })
-    );
+self.addEventListener('fetch', (event) => {
+    event.respondWith(async function() {
+        try {
+            return await fetch(event.request);
+        } catch (err) {
+            return caches.match(event.request);
+        }
+    }());
 });
 
 self.addEventListener('activate', event => {
