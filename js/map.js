@@ -37,7 +37,7 @@ googleMaps = {
         });
 
         // add "clicked" event
-        aircraftMarker.addListener('click', (event) => {            
+        aircraftMarker.addListener('click', (event) => {
             var items = googleMaps.getItemsInCircle(googleMaps.getPixelPosition(event.latLng), 32);
             if (items.locations.length == 0 && items.aircrafts.length == 1) {
                 clickEvent();
@@ -250,7 +250,7 @@ googleMaps = {
                     optimized: false,
                     zIndex: route.routeId
                 });
-                
+
                 marker.addListener('click', (event) => {
                     var items = googleMaps.getItemsInCircle(googleMaps.getPixelPosition(event.latLng), 32);
                     if (items.locations.length == 1 && items.aircrafts == 0) {

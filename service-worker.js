@@ -35,6 +35,7 @@ var cacheFileList = [
     'js/slidingMarker/jquery.easing.1.3.js',
     'js/slidingMarker/markerAnimate.js',
     'js/slidingMarker/SlidingMarker.min.js',
+    'animation/aerodynamics-alert.gif',
     'images/group4@2x.png',
     'animation/loading.gif',
     'images/group4@3x.png',
@@ -126,9 +127,7 @@ var cacheFileList = [
     'js/map.js',
     'js/leaflet-map.js',
     'images/group13@2x.png',
-    'js/map-azure.js',
     'images/group13@3x.png',
-    'js/map-bing.js',
     'images/group3.png',
     'js/markerclusterer.js',
     'images/group3@2x.png',
@@ -313,6 +312,8 @@ var cacheFileList = [
 // increase this number every time you want the cache to updated - 3
 self.addEventListener('install', function(e) {
     console.log("First time install. Loading all files into cache.");
+    e.waitUntil(self.skipWaiting()); // Activate worker immediately
+
     e.waitUntil(
         caches.open('matas').then(function(cache) {
             return cache.addAll(cacheFileList);
@@ -328,4 +329,37 @@ self.addEventListener('fetch', (event) => {
             return caches.match(event.request);
         }
     }());
+});
+
+self.addEventListener('activate', event => {
+    event.waitUntil(self.clients.claim()); // Become available to all pages
+});
+
+
+/**
+ * Riding on onMessage event to schedule notifications when browser is closed
+ */
+self.addEventListener('message', event => {
+    var sentNotifications = event.data.notificationOptions.data.sentNotifications;
+
+    if (!sentNotifications.includes(event.data.notificationOptions.body)) {
+        console.log(event.data);
+        event.waitUntil(new Promise(function (resolve) {
+            setTimeout(function () {
+                self.registration.showNotification(event.data.notificationTitle, event.data.notificationOptions);
+                resolve();
+            }, event.data.notificationTime);
+        }));
+    }
+
+    return;
+});
+
+self.addEventListener('notificationclick', function(event) {
+    event.notification.close();
+    event.waitUntil(new Promise(resolve => {
+        clients.openWindow(event.notification.data.url).then(x => {
+            resolve();
+        });
+    }));
 });

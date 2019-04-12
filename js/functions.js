@@ -29,7 +29,7 @@ var plannedStartTime;
 var plannedEndTime;
 var actualStartTime;
 var categories;
-var displayArircraftShows = true;
+var displayAircraftShows = true;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -341,12 +341,25 @@ function updateLocationsMap(aircrafts) {
                 aerobatic: aircraft.aerobatic,
                 parachutist: aircraft.parachutist,
             };
+
             location.hideAircrafts = locations[location.pointId].hideAircrafts;
             var location = locations[location.pointId];
-            if (displayArircraftShows && (item.aerobatic || item.parachutist)) {
+            if (displayAircraftShows && (item.aerobatic || item.parachutist)) {
                 var timeout = convertTime(item.time) - getCurrentTime() + actualStartTime - plannedStartTime;
                 var timeBefore = 5 * 60 * 1000;
+                var notificationBody = `${getEventName(item.aerobatic)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
+
                 if (timeout - timeBefore > 0) {
+                    // Only if notifications are allowed
+                    if (Notification.permission === 'granted' && !localStorage.getItem(notificationBody)) {
+                        localStorage.setItem(notificationBody, notificationBody);
+                        notificationOptions.body = notificationBody;
+                        notificationOptions.icon = getEventIcon(item.aerobatic);
+
+                        navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, timeout - timeBefore));
+                        notificationOptions.data.sentNotifications.push(notificationOptions.body);
+                    }
+
                     setTimeout(function () {
                         showBasePopup(item.aerobatic, 5, location.pointName);
                         setTimeout(function () {
@@ -355,6 +368,7 @@ function updateLocationsMap(aircrafts) {
                     }, timeout - timeBefore);
                 }
             }
+
             location.aircrafts.push(item);
         }, this);
     }, this);
@@ -1347,8 +1361,21 @@ function roundToMinute(time) {
     }
     return makeTwoDigitTime(h) + ":" + makeTwoDigitTime(m);
 }
+
+function scheduleConfirmationPopup() {
+    var messageBody = 'אם ברצונך לקבל הודעה בדבר זמני המופעים הקרובים עליך לאשר את ההתראות';
+
+    // Getting permissions for notifications if we haven't gotten them yet
+    if (Notification.permission !== "granted") {
+        setTimeout(function () {
+            showConfirmationPopup("הישארו מעודכנים!", messageBody);
+        }, 15000);
+    }
+}
+
 function initMap() {
     mapAPI.loadPlugins();
+    scheduleConfirmationPopup();
 
     // make it larger than screen that when it scrolls it goes full screen
     makeHeaderSticky();
