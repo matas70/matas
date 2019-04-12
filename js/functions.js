@@ -26,9 +26,10 @@ var aircraftMarkers = {};
 var aircraftPaths = {};
 var startDate;
 var plannedStartTime;
+var plannedEndTime;
 var actualStartTime;
 var categories;
-var displayArircraftShows = true;
+var displayAircraftShows = true;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -340,12 +341,25 @@ function updateLocationsMap(aircrafts) {
                 aerobatic: aircraft.aerobatic,
                 parachutist: aircraft.parachutist,
             };
+
             location.hideAircrafts = locations[location.pointId].hideAircrafts;
             var location = locations[location.pointId];
-            if (displayArircraftShows && (item.aerobatic || item.parachutist)) {
+            if (displayAircraftShows && (item.aerobatic || item.parachutist)) {
                 var timeout = convertTime(item.time) - getCurrentTime() + actualStartTime - plannedStartTime;
                 var timeBefore = 5 * 60 * 1000;
+                var notificationBody = `${getEventName(item.aerobatic)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
+
                 if (timeout - timeBefore > 0) {
+                    // Only if notifications are allowed
+                    if (Notification.permission === 'granted' && !localStorage.getItem(notificationBody)) {
+                        localStorage.setItem(notificationBody, notificationBody);
+                        notificationOptions.body = notificationBody;
+                        notificationOptions.icon = getEventIcon(item.aerobatic);
+
+                        navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, timeout - timeBefore));
+                        notificationOptions.data.sentNotifications.push(notificationOptions.body);
+                    }
+
                     setTimeout(function () {
                         showBasePopup(item.aerobatic, 5, location.pointName);
                         setTimeout(function () {
@@ -354,6 +368,7 @@ function updateLocationsMap(aircrafts) {
                     }, timeout - timeBefore);
                 }
             }
+
             location.aircrafts.push(item);
         }, this);
     }, this);
@@ -406,7 +421,7 @@ function loadActualStartTime(routes) {
 }
 
 function loadAircrafts(callback) {
-    $.getJSON("data/aircrafts-info.json", function (aircraftInfo) {
+    $.getJSON("data/aircrafts-info.json", function(aircraftInfo) {
         // load aircraft type info into a map
         aircraftInfo.aircraftTypes.forEach(function (aircraftTypeInfo) {
             aircraftTypesInfo[aircraftTypeInfo.aircraftTypeId] = aircraftTypeInfo;
@@ -420,8 +435,8 @@ function loadAircrafts(callback) {
                 if (aircraft.aircraftTypeId !== undefined) {
                     // copy all of the information from aircraft type info
                     var aircraftTypeInfo = aircraftTypesInfo[aircraft.aircraftTypeId];
-                    for (var field in aircraftTypeInfo)
-                        aircraft[field] = aircraftTypeInfo[field];
+                    for(var field in aircraftTypeInfo)
+                        aircraft[field]=aircraftTypeInfo[field];
                 }
             }, this);
 
@@ -487,7 +502,7 @@ function onAboutButtonClick() {
         $("#menuHamburger").toggleClass("is-active");
 
         // hide IAF logo if there is no room - this is very ugly code but we don't have much time to mess around with this
-        var requiredHeight = 64 + $("#headerMobile").height() + $("#aboutLogo").height() + $("#aboutTitle").height() + $("#aboutBody").height() + $("#aboutBottom").height();
+        var requiredHeight = 64 + $("#headerMobile").height() + $("#aboutLogo").height() +  $("#aboutTitle").height() + $("#aboutBody").height() + $("#aboutBottom").height();
         if (window.innerHeight < requiredHeight) {
             $("#aboutBottom").hide();
         }
@@ -496,14 +511,14 @@ function onAboutButtonClick() {
 
 function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
-            // Registration was successful
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, function (err) {
-            // registration failed :(
-            console.log('ServiceWorker registration failed: ', err);
-        });
-    }
+            navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function (err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        }
 }
 
 var currentLocationMarker;
@@ -530,8 +545,12 @@ function showCurrentLocation() {
             };
             navigator.geolocation.watchPosition(updateCurrentLocation);
 
-            currentLocationMarker = createPositionMarker(currentPosition)
-            focusOnLocation(currentPosition);
+            var currentPositionIcon = mapAPI.createPositionIcon();
+            //var currentHeadingIcon = createHeadingArea(0);
+
+            //drawMarker(currentPosition, currentHeadingIcon, false);
+            currentLocationMarker = mapAPI.drawMarker(currentPosition, currentPositionIcon, true);
+            mapAPI.focusOnLocation(currentPosition);
 
             // find the closest location and select it
             selectPoint(findClosestPoint(currentPosition), true);
@@ -547,7 +566,7 @@ function showCurrentLocation() {
             // });
         }, function () {
             // no location available
-        }, { enableHighAccuracy: true });
+        }, {enableHighAccuracy: true});
     } else {
         // Browser doesn't support Geolocation
     }
@@ -871,15 +890,32 @@ function deselectAircraft(callback) {
     }
 }
 
-function onAircraftSelected(aircraftId, collapse) {
-    var aircraft = aircrafts[aircraftId - 1];
-    window.scrollTo(0, 1);
-    selectAircraft(aircraft, aircraftMarkers[aircraftId - 1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse);
+function selectInfoButtonWithoutClicking() {
+    $("hr.aircraftLineSeparator").removeClass("two");
+    $(".aircraftScheduleButton").removeClass("active");
+    $(".aircraftInfoButton").addClass("active");
+
+    currTab = "#aircraftInfoContent";
 }
 
+function onAircraftSelected(aircraftId, collapse) {
+    var aircraft = aircrafts[aircraftId-1];
+    window.scrollTo(0,1);
+
+    // Manages selected tab in aircraft view
+    // $("#aircraftInfoButton").click();
+    selectInfoButtonWithoutClicking();
+
+    selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse);
+}
+
+var globalCollapse;
+
 function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl, collapse) {
+    globalCollapse = collapse;
     deselectLocation();
     showAircraftInfoPopup(aircraft, collapse);
+    fillAircraftSchedule(aircraft, collapse);
     //map.panTo(location);
     //marker.setIcon(markerIconClicked);
     selectedAircraft = aircraft;
@@ -958,7 +994,7 @@ function countdown() {
 
     // Load the map three seconds before the countdown finishes
     if (remainingTime < 3500 && remainingTime > 2500) {
-        $(".splash").css("background-image", "url('animation/Splash 70.gif?v=1')");
+        $(".splash").css("background-image", "url('animation/Splash.gif')");
         $(".splash").hide();
 
         // Stops the gif from running more than once
@@ -973,7 +1009,7 @@ function countdown() {
     if (remainingTime < 500) {
         $("#minutes").text("00");
         $("#entrancePopup").fadeOut("slow", function () {
-            $(".splash").css("background-image", "url(icons/stillSplash.png)");
+            $(".splash").css("background-image", "url(animation/Splash.jpg)");
             $(".loading").css("background-image", "url(animation/loading.gif)");
             $(".map-dark").hide();
         });
@@ -1027,11 +1063,16 @@ function onLoad() {
     $("#mapClusterPopup").hide();
 
     if (compatibleDevice() && !checkIframe()) {
+        // start "loading icon" after 2 seconds
         setTimeout(function () {
-            //TODO: Change to loading gif
-            $(".splash").css("background-image", "url(icons/stillSplash.png)");
+            //$(".splash").css("background-image", "url(animation/Splash.jpg)");
             $(".loading").show();
         }, 2100);
+
+        // replace animation with still image after 5 seconds
+        setTimeout(function () {
+            $(".splash").css("background-image", "url(animation/Splash.jpg)");
+        }, 5000);
 
         setTimeout(function () {
             loadAircrafts(function (pAircrafts) {
@@ -1080,7 +1121,7 @@ function loadMapApi() {
     $.ajaxSetup({ cache: true });
     if (!mapLoaded) {
         // check if an internet connection is available (by fetching non-cache file)
-        fetch("/test-connection").then((response)=> {
+        fetch("/data/test-connection").then((response)=> {
             // if there is a connection - load google maps
             $.getScript(mapAPI.MAP_URL, function () {
                         mapLoaded = true;
@@ -1116,7 +1157,7 @@ var canOpenMenu = true;
 var currTab = "#tab2";
 var $menuHamburger;
 
-function openListView() {
+function toggleListView(event, shouldOnlyToggleClose = false) {
     if (aboutVisible) {
         $("#aboutPopup").fadeOut();
         $("#aboutMenuTitle").fadeOut("fast", function () {
@@ -1131,6 +1172,10 @@ function openListView() {
             $menuHamburger.toggleClass("is-active");
             closeMenu();
         } else {
+          if (shouldOnlyToggleClose) {
+              canOpenMenu = true;
+              return;
+          } else {
             $menuHamburger.toggleClass("is-active");
             closeAllPopups();
             openMenu();
@@ -1138,6 +1183,7 @@ function openListView() {
             if (mapLoaded) {
                 closeEntrancePopup();
             }
+          }
         }
     }
 }
@@ -1153,7 +1199,7 @@ function initMenu() {
     $(".tabs").height(height - 64 - 52 + "px");
 
     // Responsible for opening the side menu
-    $menuHamburger.on("click", openListView);
+    $menuHamburger.on("click", toggleListView);
 
     // Responsible for managing the tabs
     $(".menuLink").on("click", function (elem) {
@@ -1163,11 +1209,17 @@ function initMenu() {
         if (currTab != currentAttrValue) {
             $("hr").toggleClass("two")
         }
+
         currTab = currentAttrValue;
         $('.tabs ' + currentAttrValue).show().siblings().hide();
     });
 
-    $("#showScheduleButton").on("click", openListView);
+    // Responsible for managing aircraft info tabs
+    $(".aircraftMenuLink").on("click", function(elem) {
+        manageAircraftTabs(elem);
+    });
+
+    $("#showScheduleButton").on("click", toggleListView);
     $("#showMapButton").on("click", closeEntrancePopup);
 }
 
@@ -1226,7 +1278,7 @@ function fillMenu() {
             var aerobaticAircrafts = categorizedAircrafts.filter(aircraft => aircraft.aerobatic);
             html += createTableRow(aerobaticAircrafts[0].aircraftId, aerobaticAircrafts[0].name, aerobaticAircrafts[0].icon, aerobaticAircrafts[0].type, aerobaticAircrafts[0].time, false, false, true, false);
             aerobaticLocations.forEach(location => {
-                html += createAerobaticRow(locations[location.pointId].pointName,
+                html += createAerobaticRow(locations[location.pointId],
                     location.time);
             });
         } else if (category.parachutist) {
@@ -1236,7 +1288,7 @@ function fillMenu() {
             html += createTableRow(parachutistAircrafts[0].aircraftId, parachutistAircrafts[0].name, parachutistAircrafts[0].icon, parachutistAircrafts[0].type, parachutistAircrafts[0].time, false, false, true, false);
 
             parachutistLocations.forEach(location =>
-                html += createParachutistRow(locations[location.pointId].pointName,
+                html += createParachutistRow(locations[location.pointId],
                     location.time));
         }
 
@@ -1309,8 +1361,21 @@ function roundToMinute(time) {
     }
     return makeTwoDigitTime(h) + ":" + makeTwoDigitTime(m);
 }
+
+function scheduleConfirmationPopup() {
+    var messageBody = 'אם ברצונך לקבל הודעה בדבר זמני המופעים הקרובים עליך לאשר את ההתראות';
+
+    // Getting permissions for notifications if we haven't gotten them yet
+    if (Notification.permission !== "granted") {
+        setTimeout(function () {
+            showConfirmationPopup("הישארו מעודכנים!", messageBody);
+        }, 15000);
+    }
+}
+
 function initMap() {
     mapAPI.loadPlugins();
+    scheduleConfirmationPopup();
 
     // make it larger than screen that when it scrolls it goes full screen
     makeHeaderSticky();

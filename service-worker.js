@@ -41,16 +41,11 @@ var cacheFileList = [
     'images/group4@3x.png',
     'animation/parachute-alert.gif',
     'images/h125.jpg',
-    'animation/Splash 70.gif',
+    'animation/Splash.gif?v=1',
+    'animation/Splash.gif',
+    'animation/Splash.jpg',
     'images/karnaf.jpg',
-    'animation/splashAni_V1.gif',
     'images/kukiya.jpg',
-    'animation/splashAni_V1_alpha.gif',
-    'images/landingBackground1.png',
-    'animation/splashAni_V1_alpha_small.gif',
-    'images/landingBackground2.png',
-    'animation/splashAni_V1_small.gif',
-    'animation/Splash%2070.gif?v=1',
     'images/lavi.jpg',
     'css/hamburgers.css',
     'images/nahshon.jpg',
@@ -132,9 +127,7 @@ var cacheFileList = [
     'js/map.js',
     'js/leaflet-map.js',
     'images/group13@2x.png',
-    'js/map-azure.js',
     'images/group13@3x.png',
-    'js/map-bing.js',
     'images/group3.png',
     'js/markerclusterer.js',
     'images/group3@2x.png',
@@ -145,6 +138,10 @@ var cacheFileList = [
     'js/utils.js',
     'fonts/heebo-v3-hebrew_latin-300.svg',
     'fonts/heebo-v3-hebrew_latin-300.woff2',
+    'heebo-v4-latin-500.eot',
+    'heebo-v4-latin-500.ttf',
+    'heebo-v4-latin-500.woff',
+    'heebo-v4-latin-500.woff2',
     'fonts/heebo-v3-hebrew_latin-700.svg',
     'fonts/heebo-v3-hebrew_latin-700.woff2',
     'fonts/heebo-v3-hebrew_latin-regular.svg',
@@ -293,6 +290,8 @@ var cacheFileList = [
     'icons/pointSmall-f9ea55.png',
     'icons/stillSplash.png',
     'icons/transparent.png',
+    'icons/waze.png',
+    'icons/slidepopup.png',
     'screenshots/screenshot1.png',
     'manifest.json',
     'js/leaflet/leaflet.css',
@@ -307,10 +306,14 @@ var cacheFileList = [
     'js/leaflet/images/layers-2x.png',
     'js/leaflet/images/marker-shadow.png',
     'js/leaflet/images/marker-icon.png',
-    'images/Matas_vector_map.svg',
+    'images/Matas_vector_map.svg'
 ];
 
+// increase this number every time you want the cache to updated - 3
 self.addEventListener('install', function(e) {
+    console.log("First time install. Loading all files into cache.");
+    e.waitUntil(self.skipWaiting()); // Activate worker immediately
+
     e.waitUntil(
         caches.open('matas').then(function(cache) {
             return cache.addAll(cacheFileList);
@@ -318,12 +321,45 @@ self.addEventListener('install', function(e) {
     );
 });
 
-self.addEventListener('fetch', function(event) {
-    // console.log(event.request.url);
+self.addEventListener('fetch', (event) => {
+    event.respondWith(async function() {
+        try {
+            return await fetch(event.request);
+        } catch (err) {
+            return caches.match(event.request);
+        }
+    }());
+});
 
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            return response || fetch(event.request);
-        })
-    );
+self.addEventListener('activate', event => {
+    event.waitUntil(self.clients.claim()); // Become available to all pages
+});
+
+
+/**
+ * Riding on onMessage event to schedule notifications when browser is closed
+ */
+self.addEventListener('message', event => {
+    var sentNotifications = event.data.notificationOptions.data.sentNotifications;
+
+    if (!sentNotifications.includes(event.data.notificationOptions.body)) {
+        console.log(event.data);
+        event.waitUntil(new Promise(function (resolve) {
+            setTimeout(function () {
+                self.registration.showNotification(event.data.notificationTitle, event.data.notificationOptions);
+                resolve();
+            }, event.data.notificationTime);
+        }));
+    }
+
+    return;
+});
+
+self.addEventListener('notificationclick', function(event) {
+    event.notification.close();
+    event.waitUntil(new Promise(resolve => {
+        clients.openWindow(event.notification.data.url).then(x => {
+            resolve();
+        });
+    }));
 });
