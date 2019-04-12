@@ -311,13 +311,11 @@ function createScheduleRow(aircraft, location) {
         return createAerobaticRow(fullPoint, location.time);
     } else if (aircraft.parachutist) {
         return createParachutistRow(fullPoint, location.time);
-    }
-                // later
+    } else if (!fullPoint.hidden) {
         return createLocationScheduleRow(aircraft, fullPoint, location.time);
-    // html+= createTableRow(aerobaticAircrafts[0].aircraftId, aerobaticAircrafts[0].name,aerobaticAircrafts[0].icon,aerobaticAircrafts[0].type,aerobaticAircrafts[0].time,false,false,true,false);
-    // aerobaticLocations.forEach(location => {
-    //     html += createAerobaticRow(locations[location.pointId].pointName,
-    //         location.time);
+    }
+
+    return "";
 }
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime=true) {

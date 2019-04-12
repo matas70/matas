@@ -1076,14 +1076,15 @@ br.baseData {
 
 .aircraftContentSeparator {display: flex;font-size: 15pt;justify-content: space-evenly;background: white;}
 
-.aircraftMenuLink {display: flex;justify-content: center;padding: .75rem 0;margin: 0;text-decoration: none;color: black;}
+.aircraftMenuLink {display: flex;font-size: 13.5pt;justify-content: center;padding: .75rem 0;margin: 0;text-decoration: none;color: black;}
 
 .aircraftMenuLink.active {
     color: rgb(59, 181, 242);
+    font-size: 13.5pt;
     font-family: "Heebo-Bold";
 }
 
-hr.aircraftLineSeparator {width: 50%;padding: 0.2em;height: 0;}
+hr.aircraftLineSeparator {width: 50%;padding: 0.13em;height: 0;}
 
 hr.aircraftLineSeparator.two {
 
