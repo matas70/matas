@@ -880,6 +880,7 @@ function selectInfoButtonWithoutClicking() {
     $("hr.aircraftLineSeparator").removeClass("two");
     $(".aircraftScheduleButton").removeClass("active");
     $(".aircraftInfoButton").addClass("active");
+
     currTab = "#aircraftInfoContent";
 }
 
