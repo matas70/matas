@@ -156,75 +156,93 @@
     </div>
     <div class="aircraftInfoContentRow aircraftInfoTitle">
         <div id="aircraftIconContainer">
-            <img id="aircraftInfoIcon" src="icons/aircrafts/adir.png"></img>
+            <img id="aircraftInfoIcon" src="icons/aircrafts/adir.png"/>
         </div>
         <div id="aircraftInfoText">
             <div id="aircraftInfoName"></div>
             <div id="aircraftInfoType"></div>
         </div>
+            <div id="aircraftInfoEventIconContainer">
+                <img id="aircraftInfoEventIcon" src="icons/aircraft-menu/aerobatic.svg"/>
+            </div>
         <div id="aircraftInfoTime">
             <div id="aircraftInfoStartTime"></div>
             <div id="aircraftInfoTimeLabel">זמן המראה</div>
         </div>
     </div>
-    <div id="aircraftInfoContent">
-        <div id="expandedInfo">
-            <div class="aircraftInfoContentRow">
-                <p class="aircraftDescription" id="aircraftInfoContentDescription">
-                </p>
-            </div>
-            <div class="aircraftInfoContentRowFlex">
-                <img class="aircraftInfoContentIcon" src="images/group3@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">סוג</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentClassification"></div>
+    <div id="aircraftContentSeparator" class="aircraftContentSeparator">
+        <a id="aircraftInfoButton" class="aircraftMenuLink active aircraftInfoButton" href="#aircraftInfoContent">
+            מידע
+        </a>
+        <a id="aircraftScheduleButton" class="aircraftMenuLink aircraftScheduleButton" href="#aircraftScheduleContent">
+            מקומות וזמנים
+        </a>
+    </div>
+    <hr class="aircraftLineSeparator">
+    <div id="aircraftInfoMore">קרא עוד</div>
+    <div class="aircraftTabs">
+        <div id="aircraftInfoContent" class="tab-content">
+            <div id="expandedInfo">
+                <div class="aircraftInfoContentRow">
+                    <p class="aircraftDescription" id="aircraftInfoContentDescription">
+                    </p>
                 </div>
-            </div>
-            <div class="aircraftInfoContentRowFlex">
-                <img class="aircraftInfoContentIcon" src="images/group4@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">ארץ ייצור</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentCountry"></div>
+                <div class="aircraftInfoContentRowFlex">
+                    <img class="aircraftInfoContentIcon" src="images/group3@2x.png">
+                    <div class="aircraftInfoContentGroup">
+                        <div class="aircraftInfoContentTitle">סוג</div>
+                        <div class="aircraftInfoContentText" id="aircraftInfoContentClassification"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="aircraftInfoContentRowFlex">
-                <img class="aircraftInfoContentIcon" src="images/group10@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">מימדים</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentDimensions"></div>
+                <div class="aircraftInfoContentRowFlex">
+                    <img class="aircraftInfoContentIcon" src="images/group4@2x.png">
+                    <div class="aircraftInfoContentGroup">
+                        <div class="aircraftInfoContentTitle">ארץ ייצור</div>
+                        <div class="aircraftInfoContentText" id="aircraftInfoContentCountry"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="aircraftInfoContentRowFlex">
-                <img class="aircraftInfoContentIcon" src="images/group11@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">ביצועים</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentPerformance"></div>
+                <div class="aircraftInfoContentRowFlex">
+                    <img class="aircraftInfoContentIcon" src="images/group10@2x.png">
+                    <div class="aircraftInfoContentGroup">
+                        <div class="aircraftInfoContentTitle">מימדים</div>
+                        <div class="aircraftInfoContentText" id="aircraftInfoContentDimensions"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="aircraftInfoContentRowFlex">
-                <img class="aircraftInfoContentIcon" src="images/group12@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">משקל</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentWeight"></div>
+                <div class="aircraftInfoContentRowFlex">
+                    <img class="aircraftInfoContentIcon" src="images/group11@2x.png">
+                    <div class="aircraftInfoContentGroup">
+                        <div class="aircraftInfoContentTitle">ביצועים</div>
+                        <div class="aircraftInfoContentText" id="aircraftInfoContentPerformance"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="aircraftInfoContentRowFlex">
-                <img class="aircraftInfoContentIcon" src="images/group13@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">מנוע</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentEngine"></div>
+                <div class="aircraftInfoContentRowFlex">
+                    <img class="aircraftInfoContentIcon" src="images/group12@2x.png">
+                    <div class="aircraftInfoContentGroup">
+                        <div class="aircraftInfoContentTitle">משקל</div>
+                        <div class="aircraftInfoContentText" id="aircraftInfoContentWeight"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="aircraftInfoContentRowFlex" id="aircraftInfoContentArmamentContainer">
-                <img class="aircraftInfoContentIcon" src="images/armament@2x.png">
-                <div class="aircraftInfoContentGroup">
-                    <div class="aircraftInfoContentTitle">חימוש</div>
-                    <div class="aircraftInfoContentText" id="aircraftInfoContentArmament"></div>
+                <div class="aircraftInfoContentRowFlex">
+                    <img class="aircraftInfoContentIcon" src="images/group13@2x.png">
+                    <div class="aircraftInfoContentGroup">
+                        <div class="aircraftInfoContentTitle">מנוע</div>
+                        <div class="aircraftInfoContentText" id="aircraftInfoContentEngine"></div>
+                    </div>
+                </div>
+                <div class="aircraftInfoContentRowFlex" id="aircraftInfoContentArmamentContainer">
+                    <img class="aircraftInfoContentIcon" src="images/armament@2x.png">
+                    <div class="aircraftInfoContentGroup">
+                        <div class="aircraftInfoContentTitle">חימוש</div>
+                        <div class="aircraftInfoContentText" id="aircraftInfoContentArmament"></div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div id="aircraftScheduleContent" class="tab-content">
+            <div id="aircraftSchedule" class="aircraftSchedule">
+            </div>
+        </div>
     </div>
-    <div id="aircraftInfoMore">קרא עוד</div>
 </div>
 
 <!-- about popup -->
