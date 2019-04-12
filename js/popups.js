@@ -217,10 +217,12 @@ function showAircraftInfoPopup(aircraft, collapse) {
     $("#aircraftInfoMore").off("click");
     $("#shrinkAircraftInfoPopup").off("click")
 
+    // Collapse==true <=> The info popup is not extended.
+    // I know it's confusing but I'm too lazy to fix it.
 	if (!collapse) {
+        // Lots of code to set the correct state of html elements according to collapse/extended
         toggleAircraftContentSeparator(false);
         $("#aircraftInfoMore").on("click", function () {
-//             currTab = "#aircraftInfoContent";
 			toggleAircraftContentSeparator(true);
             $("#aircraftInfoButton").click();
             var height = $(window).height();
@@ -247,7 +249,8 @@ function showAircraftInfoPopup(aircraft, collapse) {
             });
         });
     } else {
-    	toggleAircraftContentSeparator(true);
+        // Lots of code to set the correct state of html elements according to collapse/extended
+        toggleAircraftContentSeparator(true);
         var height = $(window).height();
         $("#aircraftInfoMore").css("display", "none");
         $("#aircraftInfoPopup").height("0px");
@@ -257,7 +260,6 @@ function showAircraftInfoPopup(aircraft, collapse) {
 
         $("#shrinkAircraftInfoPopup").on("click", function () {
            hideAircraftInfoPopup();
-// 		   $("#expandedInfo").css("display", "none");
         });
     }
 
