@@ -2,6 +2,7 @@ markersMap = {};
 selectedLocation = null;
 selectedLocationMarker = null;
 selectedLocationMarkerIcon = null;
+aerobaticPoints = null;
 
 googleMaps = {
     //const MAP_URL : "https://maps.googleapis.com/maps/api/js?key=AIzaSyCUHnpGpGO0nDr7Hy3nsnk85eIM75jGBd4&callback=initMap&language=he&region=IL";
@@ -128,18 +129,36 @@ googleMaps = {
     },
 
     // location markers
-    getMarkerIcon : (color, clicked) => {
-        if (!clicked)
-            return {
-                url: "icons/pointSmall-" + color + ".png",
-                // The anchor for this image is the center of the circle
-                anchor: new google.maps.Point(19, 19)
-            };
-        else return {
-            url: "icons/pointPress-" + color + ".png",
-            // The anchor for this image is the center of the circle
-            anchor: new google.maps.Point(22, 22)
-        };
+    getMarkerIcon : (color, clicked, aerobatic) => {
+        if (!clicked){
+            if(!aerobatic) {
+                return {
+                    url: "icons/pointSmall-" + color + ".png",
+                    // The anchor for this image is the center of the circle
+                    anchor: new google.maps.Point(19, 19)
+                };
+            } else {
+                return {
+                    url: "icons/show@2x" + ".png",
+                    // The anchor for this image is the center of the circle
+                    anchor: new google.maps.Point(22, 19)
+                };
+            }
+        } else {
+            if(!aerobatic){
+                return {
+                    url: "icons/pointPress-" + color + ".png",
+                    // The anchor for this image is the center of the circle
+                    anchor: new google.maps.Point(22, 22)
+                };
+            } else {
+                return {
+                    url: "icons/showSelected@2x" + ".png",
+                    // The anchor for this image is the center of the circle
+                    anchor: new google.maps.Point(22, 19)
+                };
+            }
+        }
     },
 
     panTo : (map, location) => {
@@ -233,12 +252,18 @@ googleMaps = {
         map.data.add(dropShadowFeature);
         map.data.add(pathFeature);
 
-        var markerIcon = googleMaps.getMarkerIcon(route.color, false);
-        var markerIconClicked = googleMaps.getMarkerIcon(route.color, true);
-
         // create the points marker
         route.points.forEach((point) => {
             if (!point.hidden) {
+                var markerIcon;
+                var markerIconClicked;
+                if (aerobaticPoints.includes(point.pointId)) {
+                    markerIcon = googleMaps.getMarkerIcon(route.color, false, true);
+                    markerIconClicked = googleMaps.getMarkerIcon(route.color, true, true);
+                } else {
+                    markerIcon = googleMaps.getMarkerIcon(route.color, false, false);
+                    markerIconClicked = googleMaps.getMarkerIcon(route.color, true, false);
+                }
                 var location = convertLocation(point.N, point.E);
 
                 // draw marker for this location
@@ -352,6 +377,7 @@ googleMaps = {
             }
             return {};
         });
+        aerobaticPoints = getAerobaticsPoints();
 
         // add all routes
         routes.forEach((route) => {
