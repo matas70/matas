@@ -133,13 +133,13 @@ googleMaps = {
         if (!clicked){
             if(!aerobatic) {
                 return {
-                    url: "icons/pointSmall-" + color + ".png",
+                    url: "icons/point-" + color + ".svg",
                     // The anchor for this image is the center of the circle
                     anchor: new google.maps.Point(19, 19)
                 };
             } else {
                 return {
-                    url: "icons/show@2x" + ".png",
+                    url: "icons/show-" + color + ".svg",
                     // The anchor for this image is the center of the circle
                     anchor: new google.maps.Point(22, 19)
                 };
@@ -147,13 +147,13 @@ googleMaps = {
         } else {
             if(!aerobatic){
                 return {
-                    url: "icons/pointPress-" + color + ".png",
+                    url: "icons/pointPress-" + color + ".svg",
                     // The anchor for this image is the center of the circle
                     anchor: new google.maps.Point(22, 22)
                 };
             } else {
                 return {
-                    url: "icons/showSelected@2x" + ".png",
+                    url: "icons/showSelected-" + color + ".svg",
                     // The anchor for this image is the center of the circle
                     anchor: new google.maps.Point(22, 19)
                 };
@@ -310,35 +310,35 @@ googleMaps = {
             {
                 styles: [
                     {
-                        url: "icons/pointSmall-" + route.color + ".png",
+                        url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
                         textColor: "#" + route.color,
                         width: 38,
                         height: 38
                     },
                     {
-                        url: "icons/pointSmall-" + route.color + ".png",
+                        url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
                         textColor: "#" + route.color,
                         width: 38,
                         height: 38
                     },
                     {
-                        url: "icons/pointSmall-" + route.color + ".png",
+                        url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
                         textColor: "#" + route.color,
                         width: 38,
                         height: 38
                     },
                     {
-                        url: "icons/pointSmall-" + route.color + ".png",
+                        url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
                         textColor: "#" + route.color,
                         width: 38,
                         height: 38
                     },
                     {
-                        url: "icons/pointSmall-" + route.color + ".png",
+                        url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
                         textColor: "#" + route.color,
                         width: 38,

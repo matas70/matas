@@ -87,17 +87,35 @@ leafletMaps = {
         map.setZoom(zoom);
     },
 
-    // location markers
-    getMarkerIcon : (color, clicked) => {
-        if (!clicked)
-            return L.icon({
-                iconUrl: "icons/pointSmall-" + color + ".png",
-                iconAnchor: [19, 19]
-            });
-        else return L.icon({
-            iconUrl: "icons/pointPress-" + color + ".png",
-            iconAnchor: [22, 22]
-        });
+    getMarkerIcon : (color, clicked, aerobatic) => {
+        color = color.toLowerCase();
+        if (!clicked){
+            if(!aerobatic) {
+                return L.icon({
+                    iconUrl: "icons/point-" + color + ".svg",
+                    iconAnchor: [19, 19]
+                });
+            } else {
+                return L.icon({
+                    iconUrl: "icons/show-" + color + ".svg",
+                    iconAnchor: [21, 19]
+                });
+            }
+        } else {
+            if(!aerobatic){
+                return L.icon({
+                    iconUrl: "icons/pointPress-" + color + ".svg",
+                    // The anchor for this image is the center of the circle
+                    iconAnchor: [22, 22]
+                });
+            } else {
+                return L.icon({
+                    iconUrl: "icons/showSelected-" + color + ".svg",
+                    // The anchor for this image is the center of the circle
+                    iconAnchor: [22, 19]
+                });
+            }
+        }
     },
 
     panTo : (map, location) => {
