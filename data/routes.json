@@ -178,7 +178,7 @@
 		{
 			"routeId": 7,
 			"name": "מסוקים צפון - חלק 1",
-			"color": "64E1A5",
+			"color": "64e1a5",
 			"primaryTextColor": "08b581",
 			"secondaryTextColor" : "09956b",
 			"visible": true,
@@ -204,7 +204,7 @@
 		{
 			"routeId": 8,
 			"name": "מסוקים צפון - חלק 2",
-			"color": "64E1A5",
+			"color": "64e1a5",
 			"primaryTextColor": "08b581",
 			"secondaryTextColor" : "09956b",
 			"visible": true,
@@ -228,7 +228,7 @@
 		{
 			"routeId": 9,
 			"name": "מסוקים דרום - חלק 1",
-			"color": "64E1A5",
+			"color": "64e1a5",
 			"primaryTextColor": "08b581",
 			"secondaryTextColor" : "09956b",
 			"visible": true,
@@ -249,7 +249,7 @@
 		{
 			"routeId": 10,
 			"name": "מסוקים דרום - חלק 2",
-			"color": "64E1A5",
+			"color": "64e1a5",
 			"primaryTextColor": "08b581",
 			"secondaryTextColor" : "09956b",
 			"visible": true,
@@ -264,7 +264,7 @@
 		{
 			"routeId": 11,
 			"name": "תובלה מהירה צפוני - חלק 1",
-          "color": "F64B58",
+          "color": "f64b58",
           "primaryTextColor": "b3a623",
           "secondaryTextColor" : "b4a622",
           "visible": true,
@@ -279,7 +279,7 @@
 		{
 			"routeId": 12,
 			"name": "תובלה מהירה צפוני - חלק 2",
-          "color": "F64B58",
+          "color": "f64b58",
           "primaryTextColor": "b3a623",
           "secondaryTextColor" : "b4a622",
           "visible": true,
@@ -290,7 +290,7 @@
 		{
 			"routeId": 13,
 			"name": "תובלה מהירה דרומי - חלק 1",
-          "color": "F64B58",
+          "color": "f64b58",
           "primaryTextColor": "b3a623",
           "secondaryTextColor" : "b4a622",
           "visible": true,
@@ -303,7 +303,7 @@
 		{
 			"routeId": 14,
 			"name": "תובלה מהירה דרומי - חלק 2",
-          "color": "F64B58",
+          "color": "f64b58",
           "primaryTextColor": "b3a623",
           "secondaryTextColor" : "b4a622",
           "visible": true,
@@ -315,7 +315,7 @@
 		{
 			"routeId": 15,
 			"name": "תובלה מהירה דרומי - חלק 3",
-			"color": "BB7AFF",
+			"color": "bb7aff",
 			"primaryTextColor": "ffffff",
 			"secondaryTextColor" : "187aab",
 			"visible": true,
@@ -329,7 +329,7 @@
 		{
 			"routeId": 16,
 			"name": "תובלה צפון",
-          "color": "F64B58",
+          "color": "f64b58",
           "primaryTextColor": "ffffff",
           "secondaryTextColor" : "187aab",
           "visible": true,
@@ -348,7 +348,7 @@
 		{
 			"routeId": 17,
 			"name": "מסלול דמה עבור פארק נחל",
-			"color": "F64B58",
+			"color": "f64b58",
 			"primaryTextColor": "ffffff",
 			"secondaryTextColor" : "187aab",
 			"visible": false,

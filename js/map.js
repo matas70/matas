@@ -130,6 +130,8 @@ googleMaps = {
 
     // location markers
     getMarkerIcon : (color, clicked, aerobatic) => {
+        color = color.toLowerCase();
+
         if (!clicked){
             if(!aerobatic) {
                 return {
@@ -245,7 +247,7 @@ googleMaps = {
         var pathFeature = new google.maps.Data.Feature();
         pathFeature.setGeometry(data);
         pathFeature.setProperty("zIndex", route.routeId);
-        pathFeature.setProperty("color", "#" + route.color);
+        pathFeature.setProperty("color", "#" + route.color.toLowerCase());
         pathFeature.setProperty("type", "path");
         pathFeature.setProperty("visibile", route.visible);
 
@@ -258,11 +260,11 @@ googleMaps = {
                 var markerIcon;
                 var markerIconClicked;
                 if (aerobaticPoints.includes(point.pointId)) {
-                    markerIcon = googleMaps.getMarkerIcon(route.color, false, true);
-                    markerIconClicked = googleMaps.getMarkerIcon(route.color, true, true);
+                    markerIcon = googleMaps.getMarkerIcon(route.color.toLowerCase(), false, true);
+                    markerIconClicked = googleMaps.getMarkerIcon(route.color.toLowerCase(), true, true);
                 } else {
-                    markerIcon = googleMaps.getMarkerIcon(route.color, false, false);
-                    markerIconClicked = googleMaps.getMarkerIcon(route.color, true, false);
+                    markerIcon = googleMaps.getMarkerIcon(route.color.toLowerCase(), false, false);
+                    markerIconClicked = googleMaps.getMarkerIcon(route.color.toLowerCase(), true, false);
                 }
                 var location = convertLocation(point.N, point.E);
 
@@ -286,11 +288,11 @@ googleMaps = {
                             if (selectedLocation != null) {
                                 deselectLocation(() => {
                                     // then show a new popup
-                                    selectLocation(point.pointId, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                                    selectLocation(point.pointId, location, marker, markerIcon, markerIconClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
                                 });
                             } else {
                                 // then show a new popup
-                                selectLocation(point.pointId, location, marker, markerIcon, markerIconClicked, "#" + route.color, "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                                selectLocation(point.pointId, location, marker, markerIcon, markerIconClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
                             }
                         }
                     } else {
@@ -312,35 +314,35 @@ googleMaps = {
                     {
                         url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
-                        textColor: "#" + route.color,
+                        textColor: "#" + route.color.toLowerCase(),
                         width: 38,
                         height: 38
                     },
                     {
                         url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
-                        textColor: "#" + route.color,
+                        textColor: "#" + route.color.toLowerCase(),
                         width: 38,
                         height: 38
                     },
                     {
                         url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
-                        textColor: "#" + route.color,
+                        textColor: "#" + route.color.toLowerCase(),
                         width: 38,
                         height: 38
                     },
                     {
                         url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
-                        textColor: "#" + route.color,
+                        textColor: "#" + route.color.toLowerCase(),
                         width: 38,
                         height: 38
                     },
                     {
                         url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
-                        textColor: "#" + route.color,
+                        textColor: "#" + route.color.toLowerCase(),
                         width: 38,
                         height: 38
                     }],

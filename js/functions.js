@@ -356,7 +356,8 @@ function updateLocationsMap(aircrafts) {
                         notificationOptions.body = notificationBody;
                         notificationOptions.icon = getEventIcon(item.aerobatic);
 
-                        navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, timeout - timeBefore));
+                        if (navigator.serviceWorker.controller)
+                            navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, timeout - timeBefore));
                         notificationOptions.data.sentNotifications.push(notificationOptions.body);
                     }
 
