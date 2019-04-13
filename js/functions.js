@@ -324,6 +324,28 @@ function indexOfPosition(pos, list) {
     return -1;
 }
 
+function scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify) {
+    // Only if notifications are allowed
+    if (Notification.permission === 'granted' && !localStorage.getItem(notificationBody)) {
+        localStorage.setItem(notificationBody, notificationBody);
+        notificationOptions.body = notificationBody;
+        notificationOptions.icon = getEventIcon(item.aerobatic);
+
+        if (navigator.serviceWorker.controller)
+            navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, timeToNotify));
+        notificationOptions.data.sentNotifications.push(notificationOptions.body);
+    }
+
+    setTimeout(function () {
+        showBasePopup(item.aerobatic, 5, location.pointName);
+        setTimeout(function () {
+            hideBasePopup();
+        }, 10000);
+    }, timeToNotify);
+}
+
+var aerobaticNotificationsHandler = null;
+
 function updateLocationsMap(aircrafts) {
 
     var current = getCurrentTime();
@@ -348,25 +370,16 @@ function updateLocationsMap(aircrafts) {
                 var timeout = convertTime(item.time) - getCurrentTime() + actualStartTime - plannedStartTime;
                 var timeBefore = 5 * 60 * 1000;
                 var notificationBody = `${getEventName(item.aerobatic)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
-
-                if (timeout - timeBefore > 0) {
-                    // Only if notifications are allowed
-                    if (Notification.permission === 'granted' && !localStorage.getItem(notificationBody)) {
-                        localStorage.setItem(notificationBody, notificationBody);
-                        notificationOptions.body = notificationBody;
-                        notificationOptions.icon = getEventIcon(item.aerobatic);
-
-                        if (navigator.serviceWorker.controller)
-                            navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, timeout - timeBefore));
-                        notificationOptions.data.sentNotifications.push(notificationOptions.body);
+                var timeToNotify = timeout - timeBefore;
+                if (timeToNotify > 0) {
+                    if (!Notification.permission && timeToNotify > 30000) {
+                        // Since this happens as we draw the routes,
+                        // We need to give the user 30 more seconds to accept notifications
+                        aerobaticNotificationsHandler =
+                            setTimeout(() => scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify), 30000);
+                    } else {
+                        scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify);
                     }
-
-                    setTimeout(function () {
-                        showBasePopup(item.aerobatic, 5, location.pointName);
-                        setTimeout(function () {
-                            hideBasePopup();
-                        }, 10000);
-                    }, timeout - timeBefore);
                 }
             }
 
@@ -937,30 +950,26 @@ function deselectLocation(callback) {
 
 function selectPoint(pointId, minimized = false) {
     var marker = markersMap[pointId];
-    var selectedRoute = null;
-    var selectedPoint = null;
-
-    // find the route which the point belongs to
-    routes.forEach(function (route) {
-        route.points.forEach(function (point) {
-            if (point.pointId == pointId) {
-                selectedRoute = route;
-                selectedPoint = point;
-            }
-        }, this);
-    }, this);
-
-    var aerobatic = aerobaticPoints.includes(selectedPoint.pointId);
+    var selectedPoint = locations[pointId];
+    var selectedRoute = routes.find(route => route.points.includes(selectedPoint));
 
     // first hide the previous popup
     if (selectedLocation != null) {
         deselectLocation(function () {
             // then show a new popup
-            selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, mapAPI.getMarkerIcon(selectedRoute.color, false, aerobatic, selectedPoint.pointName), mapAPI.getMarkerIcon(selectedRoute.color, true, aerobatic, selectedPoint.pointName), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+            selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker,
+                mapAPI.getMarkerIcon(selectedRoute.color, false, isPointAerobatic(pointId), selectedPoint.pointName),
+                mapAPI.getMarkerIcon(selectedRoute.color, true, isPointAerobatic(pointId), selectedPoint.pointName),
+                "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor,
+                "#" + selectedRoute.secondaryTextColor, minimized);
         });
     } else {
         // then show a new popup
-        selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, mapAPI.getMarkerIcon(selectedRoute.color, false, aerobatic, selectedPoint.pointName), mapAPI.getMarkerIcon(selectedRoute.color, true, aerobatic, selectedPoint.pointName), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+        selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker,
+            mapAPI.getMarkerIcon(selectedRoute.color, false, isPointAerobatic(pointId), selectedPoint.pointName),
+            mapAPI.getMarkerIcon(selectedRoute.color, true, isPointAerobatic(pointId), selectedPoint.pointName),
+            "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor,
+            "#" + selectedRoute.secondaryTextColor, minimized);
     }
 }
 
@@ -974,8 +983,6 @@ function onHomeButtonClick() {
     deselectLocation();
 
     if (mapLoaded) {
-        closeEntrancePopup();
-
         if (!currentLocationMarker) {
             mapAPI.focusOnLocation({ lat: 32.00, lng: 35.00 }, 8);
             showCurrentLocation();
@@ -1122,10 +1129,10 @@ function loadMapApi() {
         // check if an internet connection is available (by fetching non-cache file)
         fetch("/data/test-connection").then((response)=> {
             // if there is a connection - load google maps
-             $.getScript(mapAPI.MAP_URL, function () {
-                         mapLoaded = true;
-                     });
-             }).catch((err) => {
+            $.getScript(mapAPI.MAP_URL, function () {
+                        mapLoaded = true;
+                    });
+            }).catch((err) => {
                 console.warn("no internet connection - working offline");
                 // if there is no connection - load leaflet maps (offline)
                 mapAPI = leafletMaps;
@@ -1432,4 +1439,12 @@ function closeEntrancePopup() {
 
 function getAerobaticsPoints(){
     return aircrafts.filter(aircraft => aircraft.aerobatic).map(aircraftObj => aircraftObj.path.map(point => point.pointId)).flat();
+}
+
+function isPointAerobatic(pointId) {
+    if (!aerobaticPoints) {
+        aerobaticPoints = getAerobaticsPoints();
+    }
+
+    return aerobaticPoints.includes(pointId);
 }

@@ -259,7 +259,7 @@ googleMaps = {
             if (!point.hidden) {
                 var markerIcon;
                 var markerIconClicked;
-                if (aerobaticPoints.includes(point.pointId)) {
+                if (isPointAerobatic(point.pointId)) {
                     markerIcon = googleMaps.getMarkerIcon(route.color.toLowerCase(), false, true);
                     markerIconClicked = googleMaps.getMarkerIcon(route.color.toLowerCase(), true, true);
                 } else {
