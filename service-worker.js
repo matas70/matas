@@ -280,6 +280,7 @@ var cacheFileList = [
     'icons/transparent.png',
     'icons/waze.png',
     'icons/slidepopup.png',
+    'icons/drone.png',
     'screenshots/screenshot1.png',
     'manifest.json',
     'js/leaflet/leaflet.css',
