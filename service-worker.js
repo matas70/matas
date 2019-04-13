@@ -315,7 +315,7 @@ self.addEventListener('fetch', (event) => {
         try {
             return await fetch(event.request);
         } catch (err) {
-            return caches.match(event.request);
+            return caches.match(event.request,{ignoreSearch: true});
         }
     }());
 });
