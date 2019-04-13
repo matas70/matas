@@ -559,11 +559,7 @@ function showCurrentLocation() {
             };
             navigator.geolocation.watchPosition(updateCurrentLocation);
 
-            var currentPositionIcon = mapAPI.createPositionIcon();
-            //var currentHeadingIcon = createHeadingArea(0);
-
-            //drawMarker(currentPosition, currentHeadingIcon, false);
-            currentLocationMarker = mapAPI.drawMarker(currentPosition, currentPositionIcon, true);
+            currentLocationMarker = mapAPI.createPositionMarker(currentPosition);
             mapAPI.focusOnLocation(currentPosition);
 
             // find the closest location and select it
