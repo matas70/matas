@@ -537,7 +537,6 @@ function createClusterLocationRow(location) {
 }
 
 function openMapClusterPopup(arrayOfObjects) {
-    console.log("opened")
     getMapDarker();
 
     var contentDiv = $("#mapClusterPopupContent");
