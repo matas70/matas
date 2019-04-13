@@ -87,34 +87,40 @@ leafletMaps = {
         map.setZoom(zoom);
     },
 
-    getMarkerIcon : (color, clicked, aerobatic) => {
+    getMarkerIcon : (color, clicked, aerobatic, label) => {
         color = color.toLowerCase();
+        iconUrl = "icons/point-" + color + ".svg";
+        iconAnchor = [19,19];
+
         if (!clicked){
             if(!aerobatic) {
-                return L.icon({
-                    iconUrl: "icons/point-" + color + ".svg",
-                    iconAnchor: [19, 19]
-                });
+                iconUrl =  "icons/point-" + color + ".svg";
+                iconAnchor = [19, 19];
             } else {
-                return L.icon({
-                    iconUrl: "icons/show-" + color + ".svg",
-                    iconAnchor: [21, 19]
-                });
+                iconUrl =  "icons/show-" + color + ".svg";
+                iconAnchor = [21, 19];
             }
         } else {
             if(!aerobatic){
-                return L.icon({
-                    iconUrl: "icons/pointPress-" + color + ".svg",
-                    // The anchor for this image is the center of the circle
-                    iconAnchor: [22, 22]
-                });
+                iconUrl = "icons/pointPress-" + color + ".svg";
+                iconAnchor = [22, 22];
             } else {
-                return L.icon({
-                    iconUrl: "icons/showSelected-" + color + ".svg",
-                    // The anchor for this image is the center of the circle
-                    iconAnchor: [22, 19]
-                });
+                iconUrl = "icons/showSelected-" + color + ".svg";
+                iconAnchor = [22, 19];
             }
+        }
+
+        if (label) {
+            return new L.DivIcon({
+                className: 'locationMarkerOuterDiv',
+                html: '<div class="locationMarkerDiv"><div class="locationIconContainer"><img class="locationMarkerIcon" src="' + iconUrl + '"/></div>' +
+                '<span class="locationMarkerLabel">' + label + '</span></div>'
+            });
+        } else {
+            return new L.DivIcon({
+                className: 'locationMarkerOuterDiv',
+                html: '<div class="locationMarkerDiv"><div class="locationIconContainer"><img class="locationMarkerIcon" src="' + iconUrl + '"/></div></div>'
+            });
         }
     },
 
@@ -191,15 +197,30 @@ leafletMaps = {
             pathLine.addTo(map);
         }
 
-        var markerIcon = leafletMaps.getMarkerIcon(route.color, false);
-        var markerIconClicked = leafletMaps.getMarkerIcon(route.color, true);
-        //
+        var routeMarkers = [];
+
+        // create a cluster for the route
+        var markerCluster = L.markerClusterGroup({
+            iconCreateFunction: function(cluster) {
+                return leafletMaps.getMarkerIcon(route.color, false, false);
+            }});
+
         // // create the points marker
         route.points.forEach((point) => {
+            if (aerobaticPoints.includes(point.pointId))
+                aerobatic = true;
+            else
+                aerobatic = false;
+            var markerIcon = leafletMaps.getMarkerIcon(route.color, false, aerobatic, point.pointName);
+            var markerIconClicked = leafletMaps.getMarkerIcon(route.color, true, aerobatic, point.pointName);
+
             if (!point.hidden) {
                 // draw marker for this location
                 var location = convertLocation(point.N, point.E);
-                var marker = L.marker(location, {
+                var marker = L.marker(L.latLng(
+                    parseFloat(location.lat),
+                    parseFloat(location.lng)
+                ), {
                     icon: markerIcon,
                     riseOffset: route.routeId,
                     title: "לחץ כדי להציג את רשימת המטוסים במיקום זה"
@@ -227,31 +248,19 @@ leafletMaps = {
                     }
                 });
 
-                marker.addTo(map);
-
+                // marker.addTo(map);
                 markersMap[point.pointId] = marker;
+                markerCluster.addLayer(marker);
             }
         }, this);
 
-        // TODO: support clusters
-        // var markers = $.map(markersMap, function(value, index) {
-        //     return [value];
-        // });
-        //
-        // var markerCluster = new MarkerClusterer(map, markers,
-        //     {
-        //         styles: [
-        //             {url: "icons/pointSmall-"+route.color+".png", textSize: 1, textColor: "#" + route.color, width: 27, height:27},
-        //             {url: "icons/pointSmall-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 27, height:27},
-        //             {url: "icons/pointSmall-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 27, height:27},
-        //             {url: "icons/pointSmall-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 27, height:27},
-        //             {url: "icons/pointSmall-"+route.color+".png", textSize: 1,  textColor: "#" + route.color, width: 27, height:27}],
-        //         zIndex: route.routeId
-        //     });
+        map.addLayer(markerCluster);
     },
 
     drawRoutesOnMap : (routes) => {
         map.invalidateSize();
+
+        aerobaticPoints = getAerobaticsPoints();
 
         // add all routes
         routes.forEach((route) => {
@@ -260,6 +269,7 @@ leafletMaps = {
     },
 
     loadPlugins : () => {
+        $.getScript("js/leaflet/leaflet.markercluster.js");
         // $.getScript("js/slidingMarker/jquery.easing.1.3.js");
         // $.getScript("js/slidingMarker/markerAnimate.js");
         // $.getScript("js/markerclusterer.js");
@@ -272,6 +282,7 @@ leafletMaps = {
     
     createMapObject : (clickCallback) => {
         var map = L.map('map').setView([32.00, 35.00], 8);
+        map.setMaxZoom(18);
 
         // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGVvMjEyIiwiYSI6ImNqdTc5b2c2bjFta2c0M25yYTM4Mzl4cmYifQ.2WIyCJuvt3ErquZS1A3tCg', {
         //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',

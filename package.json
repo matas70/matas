@@ -19,6 +19,8 @@
   "homepage": "https://github.com/matas70/matas#readme",
   "dependencies": {
     "express": "^4.16.3",
+    "leaflet": "^1.4.0",
+    "leaflet.markercluster": "^1.4.1",
     "time-js": "0.0.5"
   }
 }
