@@ -531,7 +531,7 @@ function updateCurrentLocation(position) {
         accuracy: position.coords.accuracy
     };
 
-    updateMarkerPosition(currentLocationMarker, currentPosition, 200);
+    mapAPI.updateMarkerPosition(currentLocationMarker, currentPosition, 200);
 }
 
 function showCurrentLocation() {
@@ -546,11 +546,7 @@ function showCurrentLocation() {
             };
             navigator.geolocation.watchPosition(updateCurrentLocation);
 
-            var currentPositionIcon = mapAPI.createPositionIcon();
-            //var currentHeadingIcon = createHeadingArea(0);
-
-            //drawMarker(currentPosition, currentHeadingIcon, false);
-            currentLocationMarker = mapAPI.drawMarker(currentPosition, currentPositionIcon, true);
+            currentLocationMarker = mapAPI.createPositionMarker(currentPosition);
             mapAPI.focusOnLocation(currentPosition);
 
             // find the closest location and select it
@@ -954,15 +950,17 @@ function selectPoint(pointId, minimized = false) {
         }, this);
     }, this);
 
+    var aerobatic = aerobaticPoints.includes(selectedPoint.pointId);
+
     // first hide the previous popup
     if (selectedLocation != null) {
         deselectLocation(function () {
             // then show a new popup
-            selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, mapAPI.getMarkerIcon(selectedRoute.color, false), mapAPI.getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+            selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, mapAPI.getMarkerIcon(selectedRoute.color, false, aerobatic, selectedPoint.pointName), mapAPI.getMarkerIcon(selectedRoute.color, true, aerobatic, selectedPoint.pointName), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
         });
     } else {
         // then show a new popup
-        selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, mapAPI.getMarkerIcon(selectedRoute.color, false), mapAPI.getMarkerIcon(selectedRoute.color, true), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
+        selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker, mapAPI.getMarkerIcon(selectedRoute.color, false, aerobatic, selectedPoint.pointName), mapAPI.getMarkerIcon(selectedRoute.color, true, aerobatic, selectedPoint.pointName), "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor, "#" + selectedRoute.secondaryTextColor, minimized);
     }
 }
 
@@ -982,7 +980,7 @@ function onHomeButtonClick() {
             mapAPI.focusOnLocation({ lat: 32.00, lng: 35.00 }, 8);
             showCurrentLocation();
         } else {
-            selectPoint(findClosestPoint(getMarkerPosition(currentLocationMarker)), true);
+            selectPoint(findClosestPoint(mapAPI.getMarkerPosition(currentLocationMarker)), true);
         }
     }
 }
@@ -1124,10 +1122,10 @@ function loadMapApi() {
         // check if an internet connection is available (by fetching non-cache file)
         fetch("/data/test-connection").then((response)=> {
             // if there is a connection - load google maps
-            $.getScript(mapAPI.MAP_URL, function () {
-                        mapLoaded = true;
-                    });
-            }).catch((err) => {
+             $.getScript(mapAPI.MAP_URL, function () {
+                         mapLoaded = true;
+                     });
+             }).catch((err) => {
                 console.warn("no internet connection - working offline");
                 // if there is no connection - load leaflet maps (offline)
                 mapAPI = leafletMaps;
