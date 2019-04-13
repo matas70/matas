@@ -1,4 +1,4 @@
-// ServiceWorker version : 10 (increase this number every time you want the cache to updated)
+// ServiceWorker version : 11 (increase this number every time you want the cache to updated)
 
 'use strict';
 
@@ -295,6 +295,7 @@ var cacheFileList = [
     'js/leaflet/images/layers-2x.png',
     'js/leaflet/images/marker-shadow.png',
     'js/leaflet/images/marker-icon.png',
+    'js/leaflet/leaflet.markercluster.js',
     'images/Matas_vector_map.svg'
 ];
 
