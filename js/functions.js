@@ -331,9 +331,10 @@ function scheduleAerobaticNotifications(notificationBody, item, location, timeTo
         notificationOptions.body = notificationBody;
         notificationOptions.icon = getEventIcon(item.aerobatic);
 
-        if (navigator.serviceWorker.controller)
-            navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, timeToNotify));
-        notificationOptions.data.sentNotifications.push(notificationOptions.body);
+        // TODO: push notifications
+        // if (navigator.serviceWorker.controller)
+        //     navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, timeToNotify));
+        // notificationOptions.data.sentNotifications.push(notificationOptions.body);
     }
 
     setTimeout(function () {

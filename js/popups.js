@@ -420,7 +420,7 @@ function hideConfirmationPopup() {
     Notification.requestPermission().then(function(result) {
         if (result === 'granted') {
             Notification.permission = result;
-            scheduleFlightStartNotification();
+            // scheduleFlightStartNotification();
         }
     });
 }
@@ -464,12 +464,13 @@ function scheduleFlightStartNotification() {
         notificationOptions.body = 'המטס יתחיל בעוד 5 דקות!';
         notificationOptions.icon = '../icons/logo192x192.png';
 
-        // We only schedule if we haven't already
-        if (!localStorage.getItem(notificationOptions.body)) {
-            localStorage.setItem(notificationOptions.body, notificationOptions.body);
-            navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, remainingTime));
-            notificationOptions.data.sentNotifications.push(notificationOptions.body);
-        }
+        // TODO: push notifications
+        // // We only schedule if we haven't already
+        // if (!localStorage.getItem(notificationOptions.body)) {
+        //     localStorage.setItem(notificationOptions.body, notificationOptions.body);
+        //     navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, remainingTime));
+        //     notificationOptions.data.sentNotifications.push(notificationOptions.body);
+        // }
     }
 }
 
