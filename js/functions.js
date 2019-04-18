@@ -363,6 +363,7 @@ function updateLocationsMap(aircrafts) {
                 time: location.time,
                 aerobatic: aircraft.aerobatic,
                 parachutist: aircraft.parachutist,
+                category: aircraft.category
             };
 
             location.hideAircrafts = locations[location.pointId].hideAircrafts;
@@ -1002,7 +1003,7 @@ function countdown() {
 
     // Load the map three seconds before the countdown finishes
     if (remainingTime < 3500 && remainingTime > 2500) {
-        $(".splash").css("background-image", "url('animation/Splash.gif')");
+        $(".splash").css("background-image", "url('animation/Splash-optimized.gif')");
         $(".splash").hide();
 
         // Stops the gif from running more than once
@@ -1257,6 +1258,10 @@ function loadCategories(callback) {
 
 function createCategoryRow(category, isBlue) {
     return "<div class='aircraftCategory " + (isBlue ? "categoryBlue" : "") + "'>" + category.category + "</div>"
+}
+
+function createLocationPopupCategoryRow(category) {
+    return "<div class='aircraftLocationCategory'>" + category.category + "</div>"
 }
 
 function fillMenu() {
