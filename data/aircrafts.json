@@ -1395,7 +1395,6 @@
       "aircraftId": 14,
       "aircraftTypeId": 9,
       "hide": true,
-      "aerobatic": true,
       "rehearsal": true
     }
   ]
