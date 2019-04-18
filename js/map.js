@@ -305,8 +305,13 @@ googleMaps = {
         }, this);
 
         var markers = $.map(markersMap, (value, index) => {
-            return [value];
+            if (!isPointAerobatic(Number.parseInt(index))) return [value];
+            else {
+                value.setMap(map);
+                return null;
+            }
         });
+
 
         var markerCluster = new MarkerClusterer(map, markers,
             {
