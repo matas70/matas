@@ -1397,7 +1397,7 @@ function scheduleConfirmationPopup() {
 
 function initMap() {
     mapAPI.loadPlugins();
-    scheduleConfirmationPopup();
+    // scheduleConfirmationPopup();
 
     // make it larger than screen that when it scrolls it goes full screen
     makeHeaderSticky();
