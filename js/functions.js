@@ -1356,11 +1356,23 @@ function fillMenu() {
 
     var currTime = getCurrentTime();
 
+    // add bases
+    locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
+
     sortedLocations.forEach(function (location) {
-        if (!location.hidden) {
+        if (!location.hidden && location.type && location.type==="base") {
             locationsViewHtml += (currTime > actualStartTime) ? createLocationRow(location, true) : createLocationRow(location, false);
         }
     }, this);
+
+    // add cities
+    locationsViewHtml += createCategoryRow({category: "יישובים"}, true);
+    sortedLocations.forEach(function (location) {
+        if (!location.hidden && (!location.type || location.type !== "base")) {
+            locationsViewHtml += (currTime > actualStartTime) ? createLocationRow(location, true) : createLocationRow(location, false);
+        }
+    }, this);
+
     $("#locationsListView").html(locationsViewHtml);
 }
 function makeTwoDigitTime(t) {
