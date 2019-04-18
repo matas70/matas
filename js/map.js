@@ -94,8 +94,8 @@ googleMaps = {
         //var currentHeadingIcon = createHeadingArea(0);
         //drawMarker(currentPosition, currentHeadingIcon, false);
 
-        var currentPositionIcon = createPositionIcon();
-        return drawMarker(currentPosition, currentPositionIcon, true);
+        var currentPositionIcon = mapAPI.createPositionIcon();
+        return mapAPI.drawMarker(currentPosition, currentPositionIcon, true);
     },
 
     updateCurrentHeading : (heading) => {
