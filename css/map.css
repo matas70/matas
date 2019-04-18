@@ -655,11 +655,14 @@ HEADER {
     padding: .75rem 0;
     margin: 0;
     text-decoration: none;
-    color: #333;
+    font-size: 13.5pt;
+    color: black;
 }
 
 .menuLink.active {
-    font-weight: bold;
+    color: rgb(59, 181, 242);
+    font-size: 13.5pt;
+    font-family: "Heebo-Bold";
 }
 
 hr.two {
