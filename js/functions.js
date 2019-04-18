@@ -1015,11 +1015,15 @@ function countdown() {
             $(".splash").fadeIn();
             $(".loading").css("background-image", "url(animation/loading.gif)");
             loadApp();
-        }, 1800);
+            setTimeout(() => {
+                $(".splash").fadeOut();
+                $(".loading").fadeOut();
+            }, 2500);
+        }, 2800);
     }
 
     // Time to remove the entrancePopup
-    if (remainingTime < 500) {
+    if (remainingTime < 0) {
         $("#minutes").text("00");
         $("#entrancePopup").fadeOut("slow", function () {
             $(".splash").css("background-image", "url(animation/Splash.jpg)");
@@ -1361,11 +1365,23 @@ function fillMenu() {
 
     var currTime = getCurrentTime();
 
+    // add bases
+    locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
+
     sortedLocations.forEach(function (location) {
-        if (!location.hidden) {
+        if (!location.hidden && location.type && location.type==="base") {
             locationsViewHtml += (currTime > actualStartTime) ? createLocationRow(location, true) : createLocationRow(location, false);
         }
     }, this);
+
+    // add cities
+    locationsViewHtml += createCategoryRow({category: "יישובים"}, true);
+    sortedLocations.forEach(function (location) {
+        if (!location.hidden && (!location.type || location.type !== "base")) {
+            locationsViewHtml += (currTime > actualStartTime) ? createLocationRow(location, true) : createLocationRow(location, false);
+        }
+    }, this);
+
     $("#locationsListView").html(locationsViewHtml);
 }
 function makeTwoDigitTime(t) {
@@ -1406,7 +1422,7 @@ function scheduleConfirmationPopup() {
 
 function initMap() {
     mapAPI.loadPlugins();
-    scheduleConfirmationPopup();
+    // scheduleConfirmationPopup();
 
     // make it larger than screen that when it scrolls it goes full screen
     makeHeaderSticky();
