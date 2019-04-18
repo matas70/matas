@@ -1,12 +1,10 @@
 [
   {
     "category": "מופעים אווירובטיים",
-    "aerobatic": true,
-    "special": "מופעים אווירובטיים"
+    "aerobatic": true
   },
   {
-    "category": "תערוכה",
-    "special": "תערוכה"
+    "category": "תערוכה"
   },
   {
     "category": "מטוסי קרב"

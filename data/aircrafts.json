@@ -1354,7 +1354,8 @@
       "aircraftId": 13,
       "aircraftTypeId": 25,
       "hide": true,
-      "aerobatic": true
+      "aerobatic": true,
+      "special": "מופעים אווירובטיים"
     }
   ]
 }

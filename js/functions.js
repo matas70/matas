@@ -363,7 +363,9 @@ function updateLocationsMap(aircrafts) {
                 time: location.time,
                 aerobatic: aircraft.aerobatic,
                 parachutist: aircraft.parachutist,
-                category: aircraft.category
+                category: aircraft.category,
+                specialInPath: location.special,
+                specialInAircraft: aircraft.special
             };
 
             location.hideAircrafts = locations[location.pointId].hideAircrafts;
@@ -1260,8 +1262,8 @@ function createCategoryRow(category, isBlue) {
     return "<div class='aircraftCategory " + (isBlue ? "categoryBlue" : "") + "'>" + category.category + "</div>"
 }
 
-function createLocationPopupCategoryRow(category) {
-    return "<div class='aircraftLocationCategory'>" + category.category + "</div>"
+function createLocationPopupCategoryRow(name) {
+    return "<div class='aircraftLocationCategory'>" + name + "</div>"
 }
 
 function fillMenu() {

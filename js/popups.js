@@ -82,32 +82,70 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     var html = "";
     locationPopupExpanded = false;
 
+    var specials = new Map();
+    specials.set("מטס", []);
+    // let specialCats = categories.filter((cat) => cat.special);
+    //
+    // specialCats.forEach(specialCat => {
+    //     let matchingAcs = point.aircrafts.filter((ac) => ac.category === specialCat.category);
+    //     if (matchingAcs.length > 0) {
+    //         html += createLocationPopupCategoryRow(specialCat);
+    //
+    //         matchingAcs.forEach((matchingAc) => {
+    //             html += createTableRow(matchingAc.aircraftId,
+    //                 matchingAc.name,
+    //                 matchingAc.icon,
+    //                 matchingAc.aircraftType,
+    //                 matchingAc.time,
+    //                 matchingAc.aerobatic,
+    //                 matchingAc.parachutist, false, true);
+    //
+    //         });
+    //     }
+    // });
+    // html += createLocationPopupCategoryRow({category: "מטס"});
 
-    let specialCats = categories.filter((cat) => cat.special);
+    point.aircrafts.forEach((ac) => {
+       if (ac.specialInAircraft) {
+           if (!specials.has(ac.specialInAircraft)) {
+               specials.set(ac.specialInAircraft, []);
+           }
 
-    specialCats.forEach(specialCat => {
-        let matchingAcs = point.aircrafts.filter((ac) => ac.category === specialCat.category);
-        if (matchingAcs.length > 0) {
-            html += createLocationPopupCategoryRow(specialCat);
+           specials.get(ac.specialInAircraft).push(ac);
+       } else if (ac.specialInPath) {
+           if (!specials.has(ac.specialInPath)) {
+               specials.set(ac.specialInPath, []);
+           }
 
-            matchingAcs.forEach((matchingAc) => {
-                html += createTableRow(matchingAc.aircraftId,
-                    matchingAc.name,
-                    matchingAc.icon,
-                    matchingAc.aircraftType,
-                    matchingAc.time,
-                    matchingAc.aerobatic,
-                    matchingAc.parachutist, false, true);
-
-            });
-        }
+           specials.get(ac.specialInPath).push(ac);
+       } else {
+           specials.get("מטס").push(ac);
+       }
     });
-    html += createLocationPopupCategoryRow({category: "מטס"});
 
-    point.aircrafts.filter(ac => !specialCats.find((cat) => cat.category === ac.category)).forEach(function (aircraft) {
+    var tmp = specials.get("מטס");
+    specials.delete("מטס");
+    specials.set("מטס", tmp);
 
-        html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist, false, true);
-    }, this);
+    specials.forEach((value, key) => {
+       html += createLocationPopupCategoryRow(key);
+       value.forEach((ac) => {
+           html += createTableRow(ac.aircraftId,
+               ac.name,
+               ac.icon,
+               ac.aircraftType,
+               ac.time,
+               ac.aerobatic || key === "מופעים אווירובטיים" || key === "חזרות" ,
+               ac.parachutist,
+               false,
+               true);
+       });
+    });
+
+    // point.aircrafts.forEach(function (aircraft) {
+    //
+    //     html += createTableRow(aircraft.aircraftId, aircraft.name, aircraft.icon, aircraft.aircraftType, aircraft.time, aircraft.aerobatic, aircraft.parachutist, false, true);
+    // }, this);
     $("#aircraftsList").html(html);
     $("#popupTitle").text(point.pointName);
 
