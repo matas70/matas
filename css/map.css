@@ -719,6 +719,7 @@ hr {
 .tabs {
     direction: rtl;
     overflow-y: scroll; /* has to be scroll, not auto */
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -1172,3 +1173,6 @@ margin-right: 50%;
 }
 
 .locationMarkerDiv {display: flex;flex-direction: column;align-items: center;justify-content: center;margin-top: -18px;}
+
+#search-bar {
+}

@@ -1224,6 +1224,10 @@ function initMenu() {
 
         currTab = currentAttrValue;
         $('.tabs ' + currentAttrValue).show().siblings().hide();
+        
+        setTimeout(() => {
+            $('.tabs').animate({scrollTop:0}, 300);
+        }, 0);
     });
 
     // Responsible for managing aircraft info tabs
