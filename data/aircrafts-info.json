@@ -391,7 +391,7 @@
       "aircraftTypeId": 26,
       "name": "בז",
       "category": "מטוסי קרב",
-      "type" : "מופע",
+      "type" : "קרב",
       "icon" : "baz",
       "image" : "images/baz.jpg",
       "classification": "מטוס קרב רב-משימתי",

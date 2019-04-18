@@ -1,6 +1,6 @@
 {
-  "short_name": "מטס יום העצמאות",
-  "name": "הצגת מטס יום העצמאות ה-70 למדינת ישראל בזמן אמת",
+  "short_name": "אירועי יום העצמאות",
+  "name": "הצגת מטס יום העצמאות ה-71 למדינת ישראל בזמן אמת",
   "icons": [
     {
       "src": "icons/logo192x192.png",
@@ -20,5 +20,7 @@
   ],
   "start_url": "/index.html",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "background_color": "#7cd2fc",
+  "theme_color": "#7cd2fc"
 }
