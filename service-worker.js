@@ -299,26 +299,26 @@ var cacheFileList = [
     'images/Matas_vector_map.svg'
 ];
 
-self.addEventListener('install', function(e) {
-    console.log("First time install. Loading all files into cache.");
-    e.waitUntil(self.skipWaiting()); // Activate worker immediately
+// self.addEventListener('install', function(e) {
+//     console.log("First time install. Loading all files into cache.");
+//     e.waitUntil(self.skipWaiting()); // Activate worker immediately
+//
+//     e.waitUntil(
+//         caches.open('matas').then(function(cache) {
+//             return cache.addAll(cacheFileList);
+//         })
+//     );
+// });
 
-    e.waitUntil(
-        caches.open('matas').then(function(cache) {
-            return cache.addAll(cacheFileList);
-        })
-    );
-});
-
-self.addEventListener('fetch', (event) => {
-    event.respondWith(async function() {
-        try {
-            return await fetch(event.request);
-        } catch (err) {
-            return caches.match(event.request,{ignoreSearch: true});
-        }
-    }());
-});
+// self.addEventListener('fetch', (event) => {
+//     event.respondWith(async function() {
+//         try {
+//             return await fetch(event.request);
+//         } catch (err) {
+//             return caches.match(event.request,{ignoreSearch: true});
+//         }
+//     }());
+// });
 
 self.addEventListener('activate', event => {
     event.waitUntil(self.clients.claim()); // Become available to all pages
