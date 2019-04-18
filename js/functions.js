@@ -537,6 +537,7 @@ function registerServiceWorker() {
 }
 
 var currentLocationMarker;
+var currentPosition;
 
 function updateCurrentLocation(position) {
     currentPosition = {

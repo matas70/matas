@@ -145,7 +145,7 @@ function hideLocationPopup(callback) {
 
 function fillAircraftSchedule(aircraft, collapse) {
     var html = "";
-    aircraft.path.forEach(location => {
+    aircraft.path.sort((point1, point2) => Date.parse(point1.time) - Date.parse(point2.time)).forEach(location => {
         html += createScheduleRow(aircraft, location);
     });
 
