@@ -432,7 +432,7 @@ div.aircraftName {
 div.time {
     display: table-cell;
     padding-left: 22px;
-    padding-right: 22px;
+    padding-right: 10px;
     text-align: center;
     vertical-align: middle;
 }
@@ -706,6 +706,10 @@ hr {
     background-color: #e5e5e6;
     font-size: 15px;
     color: #37474f;
+}
+
+.date {
+    font-size: 12px;
 }
 
 .aircraftLocationCategory {

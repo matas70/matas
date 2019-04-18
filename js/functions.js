@@ -366,7 +366,8 @@ function updateLocationsMap(aircrafts) {
                 parachutist: aircraft.parachutist,
                 category: aircraft.category,
                 specialInPath: location.special,
-                specialInAircraft: aircraft.special
+                specialInAircraft: aircraft.special,
+                date: location.date
             };
 
             location.hideAircrafts = locations[location.pointId].hideAircrafts;

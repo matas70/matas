@@ -130,6 +130,12 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     specials.forEach((value, key) => {
        html += createLocationPopupCategoryRow(key);
        value.forEach((ac) => {
+           var date = undefined;
+
+           if (ac.date) {
+               var split = ac.date.split('-');
+               date = split[1] + "/" + split[2] + "/" + split[0].substr(2 , 2);
+           }
            html += createTableRow(ac.aircraftId,
                ac.name,
                ac.icon,
@@ -138,7 +144,8 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
                ac.aerobatic || key === "מופעים אווירובטיים" || key === "חזרות" ,
                ac.parachutist,
                false,
-               true);
+               true,
+               date);
        });
     });
 
@@ -396,7 +403,7 @@ function createScheduleRow(aircraft, location) {
     return "";
 }
 
-function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime = true) {
+function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime = true, date) {
     var aerobaticIcon = "<div/>";
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
@@ -408,7 +415,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
 
     return "<div onclick='onAircraftSelected(" + aircraftId + "," + collapse.toString() + ");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
         ".svg\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>" + name +
-        "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class=\"time\">" + (displayTime ? roundToMinute(time) : "") + "</div></div></div></div>";
+        "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class='date'>" + (date ? date : '') + "</div>" + "<div class=\"time\">" + (displayTime ? roundToMinute(time) : "") + "</div></div></div></div>";
 }
 
 function createLocationRow(location, displayFirstAircraft) {
