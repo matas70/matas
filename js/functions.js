@@ -1010,11 +1010,15 @@ function countdown() {
             $(".splash").fadeIn();
             $(".loading").css("background-image", "url(animation/loading.gif)");
             loadApp();
-        }, 1800);
+            setTimeout(() => {
+                $(".splash").fadeOut();
+                $(".loading").fadeOut();
+            }, 2500);
+        }, 2800);
     }
 
     // Time to remove the entrancePopup
-    if (remainingTime < 500) {
+    if (remainingTime < 0) {
         $("#minutes").text("00");
         $("#entrancePopup").fadeOut("slow", function () {
             $(".splash").css("background-image", "url(animation/Splash.jpg)");
