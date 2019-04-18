@@ -1,3 +1,4 @@
 .idea*
 .vscode*
 Thumbs*
+node_modules/*
