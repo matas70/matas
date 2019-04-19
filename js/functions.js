@@ -1175,7 +1175,9 @@ var currTab = "#tab2";
 var $menuHamburger;
 
 function toggleListView(event, shouldOnlyToggleClose = false) {
+    alert("toggleListView clicked");
     if (aboutVisible) {
+        alert("here 1");
         $("#aboutPopup").fadeOut();
         $("#aboutMenuTitle").fadeOut("fast", function () {
             $("#headerIcon").fadeIn();
@@ -1183,16 +1185,22 @@ function toggleListView(event, shouldOnlyToggleClose = false) {
         $("#aboutButton").attr("src", "icons/aboutIcon.png");
         aboutVisible = false;
         $menuHamburger.toggleClass("is-active");
+        alert("there 1");
     } else if (canOpenMenu) {
+        alert("here 2");
         canOpenMenu = false;
         if (isMenuOpen) {
+            alert("here 3");
             $menuHamburger.toggleClass("is-active");
             closeMenu();
+            alert("there 3");
         } else {
+            alert("here 4");
           if (shouldOnlyToggleClose) {
               canOpenMenu = true;
               return;
           } else {
+              alert("here 5");
             $menuHamburger.toggleClass("is-active");
             closeAllPopups();
             openMenu();
@@ -1200,9 +1208,13 @@ function toggleListView(event, shouldOnlyToggleClose = false) {
             if (mapLoaded) {
                 closeEntrancePopup();
             }
+            alert("there 5");
           }
+          alert("there 4");
         }
+        alert("there 2");
     }
+    alert("toggleListView ended");
 }
 
 function initMenu() {
@@ -1273,6 +1285,7 @@ function createLocationPopupCategoryRow(name) {
 }
 
 function fillMenu() {
+    alert("fill menu started");
     var html = "";
     var map = new Map();
 
@@ -1289,6 +1302,7 @@ function fillMenu() {
         map.set(aircraft.name, aircraft);
     });
 
+    alert("1");
     categories.forEach(function (category) {
         var categorizedAircrafts = [].concat(aircrafts);
         html += createCategoryRow(category,
@@ -1353,6 +1367,7 @@ function fillMenu() {
     // sort locations by name
     var sortedLocations = locations.slice();
 
+    alert("2");
     sortedLocations.sort(function (item1, item2) {
         var keyA = item1.pointName,
             keyB = item2.pointName;
@@ -1365,6 +1380,7 @@ function fillMenu() {
 
     var currTime = getCurrentTime();
 
+    alert("3");
     // add bases
     locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
 
@@ -1383,6 +1399,8 @@ function fillMenu() {
     }, this);
 
     $("#locationsListView").html(locationsViewHtml);
+
+    alert("fill menu ended");
 }
 function makeTwoDigitTime(t) {
     if (t < 10) {
@@ -1413,11 +1431,11 @@ function scheduleConfirmationPopup() {
     var messageBody = 'אם ברצונך לקבל הודעה בדבר זמני המופעים הקרובים עליך לאשר את ההתראות';
 
     // Getting permissions for notifications if we haven't gotten them yet
-    if (Notification.permission !== "granted") {
-        setTimeout(function () {
-            showConfirmationPopup("הישארו מעודכנים!", messageBody);
-        }, 15000);
-    }
+    // if (Notification.permission !== "granted") {
+    //     setTimeout(function () {
+    //         showConfirmationPopup("הישארו מעודכנים!", messageBody);
+    //     }, 15000);
+    // }
 }
 
 function initMap() {
