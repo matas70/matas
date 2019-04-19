@@ -1289,6 +1289,7 @@ function fillMenu() {
         map.set(aircraft.name, aircraft);
     });
 
+    alert("0");
     categories.forEach(function (category) {
         alert("1");
         var categorizedAircrafts = [].concat(aircrafts);
