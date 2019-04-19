@@ -1175,9 +1175,7 @@ var currTab = "#tab2";
 var $menuHamburger;
 
 function toggleListView(event, shouldOnlyToggleClose = false) {
-    alert("toggleListView clicked");
     if (aboutVisible) {
-        alert("here 1");
         $("#aboutPopup").fadeOut();
         $("#aboutMenuTitle").fadeOut("fast", function () {
             $("#headerIcon").fadeIn();
@@ -1185,22 +1183,16 @@ function toggleListView(event, shouldOnlyToggleClose = false) {
         $("#aboutButton").attr("src", "icons/aboutIcon.png");
         aboutVisible = false;
         $menuHamburger.toggleClass("is-active");
-        alert("there 1");
     } else if (canOpenMenu) {
-        alert("here 2");
         canOpenMenu = false;
         if (isMenuOpen) {
-            alert("here 3");
             $menuHamburger.toggleClass("is-active");
             closeMenu();
-            alert("there 3");
         } else {
-            alert("here 4");
           if (shouldOnlyToggleClose) {
               canOpenMenu = true;
               return;
           } else {
-              alert("here 5");
             $menuHamburger.toggleClass("is-active");
             closeAllPopups();
             openMenu();
@@ -1208,13 +1200,9 @@ function toggleListView(event, shouldOnlyToggleClose = false) {
             if (mapLoaded) {
                 closeEntrancePopup();
             }
-            alert("there 5");
           }
-          alert("there 4");
         }
-        alert("there 2");
     }
-    alert("toggleListView ended");
 }
 
 function initMenu() {
@@ -1285,7 +1273,6 @@ function createLocationPopupCategoryRow(name) {
 }
 
 function fillMenu() {
-    alert("fill menu started");
     var html = "";
     var map = new Map();
 
@@ -1302,12 +1289,13 @@ function fillMenu() {
         map.set(aircraft.name, aircraft);
     });
 
-    alert("1");
     categories.forEach(function (category) {
+        alert("1");
         var categorizedAircrafts = [].concat(aircrafts);
         html += createCategoryRow(category,
             ((category.aerobatic) || (category.parachutist)) ? true : false);
         if (category.aerobatic) {
+            alert("1.1");
             var aerobaticLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aerobatic)
                 .map(aerobatics => aerobatics.path));
             var aerobaticAircrafts = categorizedAircrafts.filter(aircraft => aircraft.aerobatic);
@@ -1324,6 +1312,7 @@ function fillMenu() {
                     location.time);
             });
         } else if (category.parachutist) {
+            alert("1.2");
             var parachutistLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.parachutist)
                 .map(parachutist => parachutist.path));
             var parachutistAircrafts = categorizedAircrafts.filter(aircraft => aircraft.parachutist);
@@ -1341,6 +1330,7 @@ function fillMenu() {
                     location.time));
         }
 
+        alert("2");
         Array.from(map.values()).filter(aircraft =>
             aircraft.category === category.category)
             .sort((aircraft1, aircraft2) => {
@@ -1367,7 +1357,6 @@ function fillMenu() {
     // sort locations by name
     var sortedLocations = locations.slice();
 
-    alert("2");
     sortedLocations.sort(function (item1, item2) {
         var keyA = item1.pointName,
             keyB = item2.pointName;
@@ -1380,7 +1369,6 @@ function fillMenu() {
 
     var currTime = getCurrentTime();
 
-    alert("3");
     // add bases
     locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
 
@@ -1399,8 +1387,6 @@ function fillMenu() {
     }, this);
 
     $("#locationsListView").html(locationsViewHtml);
-
-    alert("fill menu ended");
 }
 function makeTwoDigitTime(t) {
     if (t < 10) {
