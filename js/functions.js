@@ -1289,14 +1289,11 @@ function fillMenu() {
         map.set(aircraft.name, aircraft);
     });
 
-    alert("0");
     categories.forEach(function (category) {
-        alert("1");
         var categorizedAircrafts = [].concat(aircrafts);
         html += createCategoryRow(category,
             ((category.aerobatic) || (category.parachutist)) ? true : false);
         if (category.aerobatic) {
-            alert("1.1");
             var aerobaticLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aerobatic)
                 .map(aerobatics => aerobatics.path));
             var aerobaticAircrafts = categorizedAircrafts.filter(aircraft => aircraft.aerobatic);
@@ -1313,7 +1310,6 @@ function fillMenu() {
                     location.time);
             });
         } else if (category.parachutist) {
-            alert("1.2");
             var parachutistLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.parachutist)
                 .map(parachutist => parachutist.path));
             var parachutistAircrafts = categorizedAircrafts.filter(aircraft => aircraft.parachutist);
@@ -1331,7 +1327,6 @@ function fillMenu() {
                     location.time));
         }
 
-        alert("2");
         Array.from(map.values()).filter(aircraft =>
             aircraft.category === category.category)
             .sort((aircraft1, aircraft2) => {
