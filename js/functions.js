@@ -1099,7 +1099,7 @@ function onLoad() {
                     this.routes = routes;
                     updateLocationsMap(aircrafts);
                     loadCategories(function () {
-                        // fillMenu();
+                        fillMenu();
                     });
                 }, this);
 
