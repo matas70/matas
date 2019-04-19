@@ -1092,13 +1092,18 @@ function onLoad() {
         }, 5000);
 
         setTimeout(function () {
+            aircrafts = [];
+            alert("Loading Aircrafts...");
             loadAircrafts(function (pAircrafts) {
                 aircrafts = pAircrafts;
+                alert("Aircrafts Loaded. Loading Routes...");
                 // load all routes
                 loadRoutes(function (routes) {
+                    alert("Routes Loaded.");
                     this.routes = routes;
                     updateLocationsMap(aircrafts);
                     loadCategories(function () {
+                        alert("Populating Menu...");
                         fillMenu();
                     });
                 }, this);
@@ -1258,8 +1263,10 @@ function closeMenu() {
 }
 
 function loadCategories(callback) {
+    alert("Loading Categories...");
     $.getJSON("data/categories.json", function (pCategories) {
         categories = pCategories;
+        alert("Categories Loaded.");
         callback();
     });
 }
@@ -1288,6 +1295,11 @@ function fillMenu() {
         // }
         map.set(aircraft.name, aircraft);
     });
+
+    if (categories.length === 0) {
+        alert("Categories not loaded yet");
+        return;
+    }
 
     categories.forEach(function (category) {
         var categorizedAircrafts = [].concat(aircrafts);
@@ -1326,8 +1338,7 @@ function fillMenu() {
                 html += createParachutistRow(locations[location.pointId],
                     location.time));
         }
-
-        alert("hello");
+        alert("Category " + category.category + " populated, populating aircrafts for it...");
 
         Array.from(map.values()).filter(aircraft =>
             aircraft.category === category.category)
@@ -1346,8 +1357,9 @@ function fillMenu() {
                     false);
 
             });
-          alert("world");
+          alert("Aircrafts Populated. Menu is ready for " + category.category);
     });
+    alert("Menu is ready");
     $("#aircraftsListView").html(html);
 
     // prepare locations view
