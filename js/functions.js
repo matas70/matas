@@ -1327,6 +1327,8 @@ function fillMenu() {
                     location.time));
         }
 
+        alert("hello");
+
         Array.from(map.values()).filter(aircraft =>
             aircraft.category === category.category)
             .sort((aircraft1, aircraft2) => {
@@ -1344,6 +1346,7 @@ function fillMenu() {
                     false);
 
             });
+          alert("world");
     });
     $("#aircraftsListView").html(html);
 
