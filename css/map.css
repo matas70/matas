@@ -16,8 +16,7 @@
     font-family: 'Heebo-Light';
     font-style: normal;
     font-weight: 300;
-    src: local('Heebo Light'), local('Heebo-Light'), url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg');
+    src: local('Heebo Light'), local('Heebo-Light'), url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg');
     /* Legacy iOS */
 }
 
@@ -26,8 +25,7 @@
     font-family: 'Heebo-Regular';
     font-style: normal;
     font-weight: 400;
-    src: local('Heebo'), local('Heebo-Regular'), url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg');
+    src: local('Heebo'), local('Heebo-Regular'), url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg');
     /* Legacy iOS */
 }
 
@@ -36,8 +34,7 @@
     font-family: 'Heebo-Bold';
     font-style: normal;
     font-weight: 700;
-    src: local('Heebo Bold'), local('Heebo-Bold'), url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg');
+    src: local('Heebo Bold'), local('Heebo-Bold'), url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg');
     /* Legacy iOS */
 }
 
@@ -48,11 +45,7 @@
     font-weight: 500;
     src: url('../fonts/heebo-v4-latin-500.eot'); /* IE9 Compat Modes */
     src: local('Heebo Medium'), local('Heebo-Medium'),
-    url('../fonts/heebo-v4-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('../fonts/heebo-v4-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
-    url('../fonts/heebo-v4-latin-500.woff') format('woff'), /* Modern Browsers */
-    url('../fonts/heebo-v4-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
-    url('../fonts/heebo-v4-latin-500.svg#Heebo') format('svg'); /* Legacy iOS */
+    url('../fonts/heebo-v4-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/heebo-v4-latin-500.woff2') format('woff2'), /* Super Modern Browsers */ url('../fonts/heebo-v4-latin-500.woff') format('woff'), /* Modern Browsers */ url('../fonts/heebo-v4-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */ url('../fonts/heebo-v4-latin-500.svg#Heebo') format('svg'); /* Legacy iOS */
 }
 
 /* Makes the page fill the window. */
@@ -185,19 +178,22 @@ div.splash {
     display: inline-flex;
     flex-direction: column;
 }
+
 #popupTitle {
     font-family: "Heebo-Bold";
     font-size: 15pt;
-    color: #2b2b2b ;
+    color: #2b2b2b;
     float: right;
     padding-left: 10pt;
 }
-#popupTime{
+
+#popupTime {
     font-family: "Heebo-Regular";
     font-size: 10pt;
     color: #2b2b2b;
     float: right;
 }
+
 #popupSubTitle {
     font-family: "Heebo-Light";
     font-size: 13pt;
@@ -207,15 +203,17 @@ div.splash {
     padding-top: 2px;
 }
 
-#slide{
+#slide {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
-#popupIcon{
+
+#popupIcon {
     float: left;
     padding-left: 14.5pt;
 }
+
 #popupHeader {
     width: 100%;
     height: 50px;
@@ -446,14 +444,15 @@ div.infoPopup {
     background: white;
 }
 
-#popupDisplay{
+#popupDisplay {
     display: block;
 }
 
-#waze{
+#waze {
     padding-top: 8px;
 }
-#popupIcon{
+
+#popupIcon {
     position: absolute;
     top: 8px;
     left: 0px;
@@ -1095,23 +1094,50 @@ br.baseData {
     margin: 1em;
 }
 
-.confirmationMessageBody {margin-bottom: 1em;}
+.confirmationMessageBody {
+    margin-bottom: 1em;
+}
 
-.confirmButton {align-items: center;min-height: 48px;margin: auto;width: 100%;display: flex;justify-content: center;background: #3bb5f2;color: white;border-radius: 0 0 8pt 8pt;}
+.confirmButton {
+    align-items: center;
+    min-height: 48px;
+    margin: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #3bb5f2;
+    color: white;
+    border-radius: 0 0 8pt 8pt;
+}
 
 
 .aircraftScheduleContent {
 }
 
-.aircraftInfoButton {width: 100%;/* color: rgb(59, 181, 242); */}
+.aircraftInfoButton {
+    width: 100%; /* color: rgb(59, 181, 242); */
+}
 
 .aircraftScheduleButton {
     width: 100%;
 }
 
-.aircraftContentSeparator {display: flex;font-size: 15pt;justify-content: space-evenly;background: white;}
+.aircraftContentSeparator {
+    display: flex;
+    font-size: 15pt;
+    justify-content: space-evenly;
+    background: white;
+}
 
-.aircraftMenuLink {display: flex;font-size: 13.5pt;justify-content: center;padding: .75rem 0;margin: 0;text-decoration: none;color: black;}
+.aircraftMenuLink {
+    display: flex;
+    font-size: 13.5pt;
+    justify-content: center;
+    padding: .75rem 0;
+    margin: 0;
+    text-decoration: none;
+    color: black;
+}
 
 .aircraftMenuLink.active {
     color: rgb(59, 181, 242);
@@ -1119,11 +1145,15 @@ br.baseData {
     font-family: "Heebo-Bold";
 }
 
-hr.aircraftLineSeparator {width: 50%;padding: 0.13em;height: 0;}
+hr.aircraftLineSeparator {
+    width: 50%;
+    padding: 0.13em;
+    height: 0;
+}
 
 hr.aircraftLineSeparator.two {
 
-margin-right: 50%;
+    margin-right: 50%;
 }
 
 #aircraftInfoStartTime {
@@ -1135,9 +1165,20 @@ margin-right: 50%;
     width: 34px;
 }
 
-#aircraftInfoEventIconContainer {background: white;display: flex;padding-right: 10px;width: 34px;padding-left: 4px;align-items: center;}
+#aircraftInfoEventIconContainer {
+    background: white;
+    display: flex;
+    padding-right: 10px;
+    width: 34px;
+    padding-left: 4px;
+    align-items: center;
+}
 
-.aircraftTabs {direction: rtl;overflow-y: scroll; /* has to be scroll, not auto */-webkit-overflow-scrolling: touch;}
+.aircraftTabs {
+    direction: rtl;
+    overflow-y: scroll; /* has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
+}
 
 .aircraftSchedule {
     display: flex;
@@ -1162,7 +1203,7 @@ margin-right: 50%;
     text-align: center;
     font-family: Heebo;
     font-size: 9pt;
-    background-color: rgba(0,0,0,.6);
+    background-color: rgba(0, 0, 0, .6);
     color: white;
     border-radius: 13px;
     padding: 4px;
@@ -1172,7 +1213,83 @@ margin-right: 50%;
     padding-right: 10px;
 }
 
-.locationMarkerDiv {display: flex;flex-direction: column;align-items: center;justify-content: center;margin-top: -18px;}
+.locationMarkerDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -18px;
+}
 
 #search-bar {
+    display: flex;
+    padding: 22px 25px 22px 25px;
+    color: black;
+    background: black;
+    font-family: "Heebo-Regular";
+    direction: rtl;
+    position: sticky;
+}
+
+.search-input {
+    background: #1b223a;
+    border-radius: 30px;
+    width: 100%;
+    height: 25px;
+    font-size: 13pt;
+    padding: 10px 36px 10px 20px;
+    border: 0px;
+    outline: none;
+    caret-color: #3bb5f2;
+    position: sticky;
+    transition: width 0.3s;
+}
+
+.search-input::placeholder {
+    color: #9595af;
+    font-family: "Heebo-Regular";
+}
+
+.search-input:focus {
+    background: white;
+}
+
+input:not(:placeholder-shown) {
+    background: #1b223a;
+}
+
+input:valid {
+    background: white;
+    font-family: "Heebo-Regular";
+    font-weight: 600;
+}
+
+.search-icon {
+    background: url('../icons/search.svg') no-repeat;
+    height: 25px;
+    position: absolute;
+    top: 30px;
+    z-index: 1;
+    width: 25px;
+    right: 38px;
+}
+
+#search-clear-button {
+    background: url('../icons/clear-button.svg') no-repeat;
+    height: 35px;
+    display: none;
+    width: 35px;
+    position: absolute;
+    left: 98px;
+    top: 26px;
+}
+
+#search-back-button {
+font-size: 15pt;
+color: #3bb5f2;
+font-family: "Heebo-Regular";
+font-weight: 600;
+margin-right: 20px;
+display: none;
+margin-top: 7px;
 }

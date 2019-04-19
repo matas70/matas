@@ -1200,6 +1200,53 @@ function toggleListView(event, shouldOnlyToggleClose = false) {
     }
 }
 
+function displaySearchView() {
+    $(".search-input").width("70%");
+    setTimeout(() => {
+        $("#search-back-button").show();
+    }, 200)
+}
+
+function hideSearchView() {
+    $(".search-input").val("");
+    $("#search-back-button").hide();
+    $(".search-input").width("100%");
+    $("#search-clear-button").hide();
+}
+
+function initSearchBar() {
+    // Search bar code
+    $(".search-input").focus(function() {
+        displaySearchView();
+    });
+
+    $(".search-input").keyup(function () {
+        displaySearchView();
+        var value = $(this).val();
+
+        if (value.length > 0) {
+            // Display relevant search view
+            $("#search-clear-button").show();
+        }
+    });
+
+    $(".search-input").focusout(function() {
+        if ($(this).val().length === 0) {
+            hideSearchView();
+        }
+    });
+
+    $("#search-clear-button").click(function() {
+       $(".search-input").val(''); 
+       $(".search-input").focus();
+       $("#search-clear-button").hide();
+    });
+
+    $("#search-back-button").click(function() {
+        hideSearchView(); 
+    });
+}
+
 function initMenu() {
     $menuHamburger = $("#menuHamburger");
     // ugly code to place about logo correctly related to the half blue
@@ -1213,6 +1260,8 @@ function initMenu() {
     // Responsible for opening the side menu
     $menuHamburger.on("click", toggleListView);
 
+    initSearchBar();
+
     // Responsible for managing the tabs
     $(".menuLink").on("click", function (elem) {
         $(".menuLink").removeClass("active");
@@ -1224,7 +1273,7 @@ function initMenu() {
 
         currTab = currentAttrValue;
         $('.tabs ' + currentAttrValue).show().siblings().hide();
-        
+
         setTimeout(() => {
             $('.tabs').animate({scrollTop:0}, 300);
         }, 0);
