@@ -28,7 +28,7 @@ var startDate;
 var plannedStartTime;
 var plannedEndTime;
 var actualStartTime;
-var categories;
+var categories = [];
 var displayAircraftShows = true;
 
 function convertLocation(north, east) {
