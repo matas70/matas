@@ -1352,7 +1352,10 @@ function initSearchBar() {
             }, this);
         }
 
-        aircraftResults = Array.from(aircraftMap.values()).filter(aircraft => aircraft.name.includes(searchInput));
+        aircraftResults = Array.from(aircraftMap.values()).
+            filter(aircraft => aircraft.name.includes(searchInput) ||
+                               aircraft.type.includes(searchInput) ||
+                               (aircraft.special && aircraft.special.includes(searchInput)));
 
         if (aircraftResults.length > 0) {
             // Create location category only if we have location results
