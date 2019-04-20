@@ -1327,6 +1327,7 @@ hr.aircraftLineSeparator.two {
     font-size: 15pt;
     text-align: center;
     margin-top: 40px;
+    display: none;
 }
 
 .search-sorry {

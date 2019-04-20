@@ -223,7 +223,7 @@ function manageAircraftTabs(elem) {
     $(".aircraftMenuLink").removeClass("active");
     $(elem.target).addClass("active");
     var currentAttrValue = $(elem.currentTarget).attr('href');
-    if (currTab != currentAttrValue) {
+    if (currAircraftTab != currentAttrValue) {
         $("hr.aircraftLineSeparator").toggleClass("two")
     }
 
@@ -236,7 +236,7 @@ function manageAircraftTabs(elem) {
         $("aircraftScheduleContent").height('auto');
     }
 
-    currTab = currentAttrValue;
+    currAircraftTab = currentAttrValue;
     $('.aircraftTabs ' + currentAttrValue).show().siblings().hide();
 }
 

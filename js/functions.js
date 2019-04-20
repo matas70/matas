@@ -914,7 +914,7 @@ function selectInfoButtonWithoutClicking() {
     $(".aircraftScheduleButton").removeClass("active");
     $(".aircraftInfoButton").addClass("active");
 
-    currTab = "#aircraftInfoContent";
+    currAircraftTab = "#aircraftInfoContent";
 }
 
 function onAircraftSelected(aircraftId, collapse) {
@@ -1178,7 +1178,8 @@ var defer = $.Deferred();
 
 var isMenuOpen = false;
 var canOpenMenu = true;
-var currTab = "#locations";
+var currMenuTab = "#locations";
+var currAircraftTab = "#aircraftInfoContent";
 var $menuHamburger;
 
 function toggleListView(event, shouldOnlyToggleClose = false) {
@@ -1225,6 +1226,7 @@ function displaySearchView() {
         $(".search-input").css({"background": "white",
                                 "font-family": "Heebo-Regular",
                                 "font-weight": 600});
+        $("#search-prompt").hide();
         $('.tabs #search').show().siblings().hide();
         $("#listHeader #search-bar").show().siblings().hide("fast");
 
@@ -1259,6 +1261,7 @@ function displaySearchView() {
             });
 
         $("#search-view").html(searchViewHtml);
+        $("#search-view").show();
 
         // Don't know where the 20 came. But we need it
         $(".tabs").height($("#listView").height() - $("#search-bar").height() + 20);
@@ -1275,10 +1278,10 @@ function hideSearchView() {
         $("#search-back-button").hide();
         $(".search-input").width("100%");
         $("#search-clear-button").hide();
-        $('.tabs ' + currTab).show().siblings().hide();
         $("#listHeader #search-bar").siblings().show();
         $("#listView").animate({height: $("#listView").height() - $("#headerBg").height() + "px"}, "fast");
         $(".tabs").height(tabsHeight);
+        $('.tabs ' + currMenuTab).show().siblings().hide();
     }
 
 }
@@ -1291,24 +1294,72 @@ function initSearchBar() {
 
     $(".search-input").keyup(function () {
         displaySearchView();
-        var value = $(this).val();
+        var searchInput = $(this).val();
 
-        if (value.length > 0) {
+        if (searchInput.length > 0) {
             // Display relevant search view
             $("#search-clear-button").show();
         }
-    });
 
-    $(".search-input").focusout(function() {
-        // if ($(this).val().length === 0) {
-        //     hideSearchView();
-        // }
+        var resultsHtml = "";
+        var locationResults;
+        var aircraftResults;
+
+        // Filtering relevant locations
+        locationResults = sortedLocations.filter(location => {
+            return !location.hidden && location.pointName.includes(searchInput)
+        });
+
+        if (locationResults.length > 0) {
+            // Create location category only if we have location results
+            resultsHtml += createCategoryRow({category: "מקומות"}, true);
+
+            // Populate location results
+            locationResults.forEach(function (location) {
+                resultsHtml +=
+                    createLocationRow(location, true, true);
+            }, this);
+        }
+
+        aircraftResults = Array.from(aircraftMap.values()).filter(aircraft => aircraft.name.includes(searchInput));
+
+        if (aircraftResults.length > 0) {
+            // Create location category only if we have location results
+            resultsHtml += createCategoryRow({category: "כלי טיס"}, true);
+
+            // Populate aircraft results
+            aircraftResults.sort((aircraft1, aircraft2) => {
+                return aircraft1.name.localeCompare(aircraft2.name);
+            })
+            .forEach(function (aircraft) {
+                resultsHtml += createTableRow(aircraft.aircraftId,
+                    aircraft.name,
+                    aircraft.icon,
+                    aircraft.type,
+                    aircraft.path[0].time,
+                    aircraft.aerobatic,
+                    aircraft.parachutist,
+                    true,
+                    false);
+            });
+        }
+
+        if (aircraftResults.length > 0 || locationResults.length > 0) {
+            $("#search-prompt").hide();
+            $("#search-view").show();
+            $("#search-view").html(resultsHtml);
+        } else {
+            $("#search-prompt").show();
+            $("#search-view").hide();
+        }
+
     });
 
     $("#search-clear-button").click(function() {
        $(".search-input").val('');
        $(".search-input").focus();
        $("#search-clear-button").hide();
+       $(".search-input").keyup();
     });
 
     $("#search-back-button").click(function() {
@@ -1344,11 +1395,11 @@ function initMenu() {
         $(".menuLink").removeClass("active");
         $(elem.target).addClass("active");
         currentAttrValue = $(this).attr('href');
-        if (currTab != currentAttrValue) {
+        if (currMenuTab != currentAttrValue) {
             $("hr").toggleClass("two")
         }
 
-        currTab = currentAttrValue;
+        currMenuTab = currentAttrValue;
         $('.tabs ' + currentAttrValue).show().siblings().hide();
     });
 
