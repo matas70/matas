@@ -268,12 +268,15 @@ leafletMaps = {
         }, this);
     },
 
-    loadPlugins : () => {
-        $.getScript("js/leaflet/leaflet.markercluster.js");
-        // $.getScript("js/slidingMarker/jquery.easing.1.3.js");
-        // $.getScript("js/slidingMarker/markerAnimate.js");
-        // $.getScript("js/markerclusterer.js");
-        // $.getScript("js/slidingMarker/SlidingMarker.min.js");
+    loadPlugins : (callback) => {
+        $.when(
+            $.getScript("js/leaflet/leaflet.markercluster.js"),
+        $.Deferred(function( deferred ){
+            $( deferred.resolve );
+        })
+        ).done(function(){
+            callback.call(this);
+        });
     },
 
     addOfflineMap : (map) => {
