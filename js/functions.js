@@ -1229,13 +1229,23 @@ function displaySearchView() {
 
         var searchViewHtml = "";
 
-        // add locations category
-        searchViewHtml += createCategoryRow({category: "מקומות"}, true);
+        // add bases
+        searchViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
 
-        sortedLocations.filter(location => !location.hidden).forEach(function (location) {
-            searchViewHtml +=
-                createLocationRow(location, true, true);
+        sortedLocations.forEach(function (location) {
+            if (!location.hidden && location.type && location.type==="base") {
+                searchViewHtml += createLocationRow(location, true, true);
+            }
         }, this);
+
+        // add other locations category
+        searchViewHtml += createCategoryRow({category: "יישובים"}, true);
+        sortedLocations.forEach(function (location) {
+            if (!location.hidden && (!location.type || location.type !== "base")) {
+                searchViewHtml += createLocationRow(location, true, true);
+            }
+        }, this);
+
         // add aircrafts category
         searchViewHtml += createCategoryRow({category: "כלי טיס"}, true);
         Array.from(aircraftMap.values())
@@ -1272,21 +1282,21 @@ function hideSearchView() {
         $(".search-input").val("");
         $("#search-back-button").hide();
         $("#search-clear-button").hide();
-        
+
         setTimeout(() => {
-            $(".tabs").height(tabsHeight); 
+            $(".tabs").height(tabsHeight);
             $("#listHeader #search-bar").siblings().show();
-            $('.tabs ' + currMenuTab).show().siblings().hide(); 
+            $('.tabs ' + currMenuTab).show().siblings().hide();
         }, 10)
-        
+
         setTimeout(() => {
-            $(".search-input").width("100%");    
+            $(".search-input").width("100%");
         }, 100)
 
         setTimeout(() => {
             $("#listView").animate({height: listViewHeight + "px"});
         }, 200);
-        
+
     }
 }
 
@@ -1306,20 +1316,37 @@ function initSearchBar() {
         }
 
         var resultsHtml = "";
-        var locationResults;
+        var basesResults;
+        var citiesResults;
         var aircraftResults;
 
-        // Filtering relevant locations
-        locationResults = sortedLocations.filter(location => {
-            return !location.hidden && location.pointName.includes(searchInput)
+        // Filtering relevant bases
+        basesResults = sortedLocations.filter(location => {
+            return !location.hidden && location.type && location.type === "base" && location.pointName.includes(searchInput)
         });
 
-        if (locationResults.length > 0) {
+        if (basesResults.length > 0) {
             // Create location category only if we have location results
-            resultsHtml += createCategoryRow({category: "מקומות"}, true);
+            resultsHtml += createCategoryRow({category: "בסיסים"}, true);
 
             // Populate location results
-            locationResults.forEach(function (location) {
+            basesResults.forEach(function (location) {
+                resultsHtml +=
+                    createLocationRow(location, true, true);
+            }, this);
+        }
+
+        // Filtering relevant locations
+        citiesResults = sortedLocations.filter(location => {
+            return !location.hidden && (!location.type || location.type !== "base") && location.pointName.includes(searchInput)
+        });
+
+        if (citiesResults.length > 0) {
+            // Create location category only if we have location results
+            resultsHtml += createCategoryRow({category: "יישובים"}, true);
+
+            // Populate location results
+            citiesResults.forEach(function (location) {
                 resultsHtml +=
                     createLocationRow(location, true, true);
             }, this);
@@ -1348,7 +1375,7 @@ function initSearchBar() {
             });
         }
 
-        if (aircraftResults.length > 0 || locationResults.length > 0) {
+        if (aircraftResults.length > 0 || citiesResults.length > 0 || basesResults.length > 0) {
             $("#search-prompt").hide();
             $("#search-view").show();
             $("#search-view").html(resultsHtml);
@@ -1549,10 +1576,10 @@ function fillMenu() {
     var currTime = getCurrentTime();
 
     // add bases
-    locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
+    locationsViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
 
     sortedLocations.forEach(function (location) {
-        if (!location.hidden && location.type && location.type==="base") {
+        if (!location.hidden && location.type && location.type === "base") {
             locationsViewHtml += createLocationRow(location, true);
         }
     }, this);
