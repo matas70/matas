@@ -407,7 +407,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
     var aerobaticIcon = "<div/>";
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
-        aircraftType = "מופע אווירובטי";
+        //aircraftType = "מופע אווירובטי";
     } else if (parachutist) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/parachutist.svg\" class=\"aerobaticTableIcon\"></img>";
         aircraftType = "הצנחת צנחנים";

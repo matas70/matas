@@ -174,18 +174,22 @@ function getIndexOfNextLocation(path, currentTime) {
 }
 
 function getNextLocation(path, currentTime) {
-    var nextLocation;
-    nextLocation = getIndexOfNextLocation(path, currentTime);
-    if (nextLocation === -1) {
-        var nextTime = convertTime(path[1].date, path[1].time) - plannedStartTime + actualStartTime;
-        return { location: getPathLocation(path[1].pointId), time: nextTime };
-    }
-    else if (nextLocation == path.length) {
-        return { location: getPathLocation(path[path.length - 1].pointId), time: currentTime };
-    }
-    else {
-        var nextTime = convertTime(path[nextLocation].date,  path[nextLocation].time) - plannedStartTime + actualStartTime;
-        return { location: getPathLocation(path[nextLocation].pointId), time: nextTime };
+    if (path.length > 1) {
+        var nextLocation;
+        nextLocation = getIndexOfNextLocation(path, currentTime);
+        if (nextLocation === -1) {
+            var nextTime = convertTime(path[1].date, path[1].time) - plannedStartTime + actualStartTime;
+            return {location: getPathLocation(path[1].pointId), time: nextTime};
+        }
+        else if (nextLocation == path.length) {
+            return {location: getPathLocation(path[path.length - 1].pointId), time: currentTime};
+        }
+        else {
+            var nextTime = convertTime(path[nextLocation].date, path[nextLocation].time) - plannedStartTime + actualStartTime;
+            return {location: getPathLocation(path[nextLocation].pointId), time: nextTime};
+        }
+    } else {
+        return {location: getPathLocation(path[0].pointId), time: path[0].time};
     }
 }
 
