@@ -1207,7 +1207,7 @@ function toggleListView(event, shouldOnlyToggleClose = false) {
 }
 
 var searchOpen = false;
-
+var listViewHeight;
 function displaySearchView() {
     if (!searchOpen) {
         searchOpen = true;
@@ -1222,6 +1222,8 @@ function displaySearchView() {
         $("#search-prompt").hide();
         $('.tabs #search').show().siblings().hide();
         $("#listHeader #search-bar").show().siblings().hide("fast");
+
+        listViewHeight = $("#listView").height();
 
         $("#listView").animate({height: "100%"}, "fast");
 
@@ -1272,11 +1274,10 @@ function hideSearchView() {
         $(".search-input").width("100%");
         $("#search-clear-button").hide();
         $("#listHeader #search-bar").siblings().show();
-        $("#listView").animate({height: $("#listView").height() - $("#headerBg").height() + "px"}, "fast");
+        $("#listView").animate({height: listViewHeight + "px"}, "fast");
         $(".tabs").height(tabsHeight);
         $('.tabs ' + currMenuTab).show().siblings().hide();
     }
-
 }
 
 function initSearchBar() {
