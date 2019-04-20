@@ -1288,7 +1288,7 @@ hr.aircraftLineSeparator.two {
     outline: none;
     caret-color: #3bb5f2;
     position: sticky;
-    transition: width 0.3s;
+    transition: width 0.6s;
 }
 
 .search-input::placeholder {
