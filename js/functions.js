@@ -1270,7 +1270,8 @@ function initMenu() {
     var listHeaderHeight = $("#listHeader").height();
 
     $("#listView").height(listViewHeight - headerHeight + "px");
-    $(".tabs").height(listViewHeight - headerHeight - listHeaderHeight + "px");
+    // 5 is shadow box height
+    $(".tabs").height(listViewHeight - headerHeight - listHeaderHeight - 5 + "px");
 
     // Responsible for opening the side menu
     $menuHamburger.on("click", toggleListView);
