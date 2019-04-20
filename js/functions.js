@@ -1211,7 +1211,7 @@ var listViewHeight;
 function displaySearchView() {
     if (!searchOpen) {
         searchOpen = true;
-        $(".search-input").width("60%");
+        $(".search-input").width("65%");
         setTimeout(() => {
             $("#search-back-button").show();
         }, 400);
