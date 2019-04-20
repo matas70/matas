@@ -1104,10 +1104,10 @@ function onLoad() {
                     alert("Routes Loaded.");
                     this.routes = routes;
                     loadCategories(function () {
+                        updateLocationsMap(aircrafts);
                         alert("Populating Menu...");
                         fillMenu();
                     });
-                    updateLocationsMap(aircrafts);
                 }, this);
 
                 if (getCurrentTime() < actualStartTime) {
