@@ -67,13 +67,24 @@
 
 <!-- list view -->
 <div id="listView" class="listViewContainer">
-    <div class="container">
+    <div id="listHeader" class="container">
+        <div id="search-bar" class="search-bar">
+            <span class="search-icon" >
+            </span>
+            <input class="search-input" type="text" placeholder="חיפוש" spellcheck="false" name="input" id="input" required pattern=".*">
+            <span id="search-clear-button">
+            </span>
+            <div id="search-back-button">
+                ביטול
+            </div>
+        </div>
         <ul class="menuHeader">
             <li class="one" class="menuItem" style="padding-right: 20%;"><a class="menuLink" href="#aircrafts">כלי
                 טיס</a></li>
             <li class="two" class="menuItem"><a class="menuLink active" href="#locations">מקומות</a></li>
             <hr/>
         </ul>
+        <p class="timeline-warning">שימו לב, ייתכנו שינוים בלוחות הזמנים</p>
     </div>
     <div class="tabs">
         <!-- Aircrafts -->
@@ -84,8 +95,19 @@
         </div>
         <!-- Locations -->
         <div class="tab-content.active" id="locations">
-            <p class="timeline-warning">שימו לב, ייתכנו שינוים בלוחות הזמנים</p>
             <div id="locationsListView" class="locationsTable">
+            </div>
+        </div>
+        <!-- Search View -->
+        <div class="tab-content" id="search">
+            <div id="search-prompt">
+                <b class="search-sorry">מצטערים,</b>
+                <br/>
+                השנה המטס לא עובר מעל הישוב שחיפשתם,
+                <br/>
+                נסו לחפש ישובים סמוכים גדולים.
+            </div>
+            <div id="search-view" class="search-view">
             </div>
         </div>
     </div>
