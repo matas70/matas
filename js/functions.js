@@ -1227,23 +1227,41 @@ function displaySearchView() {
                                 "font-weight": 600});
         $('.tabs #search').show().siblings().hide();
         $("#listHeader #search-bar").show().siblings().hide("fast");
+
         $("#listView").animate({height: "100%"}, "fast");
 
-//         var searchViewHtml = "";
+        var searchViewHtml = "";
 
-//         // add locations category
-//         searchViewHtml += createCategoryRow({category: "מקומות"}, true);
+        // add locations category
+        searchViewHtml += createCategoryRow({category: "מקומות"}, true);
 
-//         sortedLocations.filter(location => !location.hidden).forEach(function (location) {
-//             searchViewHtml += (getCurrentTime() > actualStartTime) ?
-//                 createLocationRow(location, true, true) :
-//                 createLocationRow(location, false, true);
-//         }, this);
+        sortedLocations.filter(location => !location.hidden).forEach(function (location) {
+            searchViewHtml +=
+                createLocationRow(location, true, true);
+        }, this);
+        // add aircrafts category
+        searchViewHtml += createCategoryRow({category: "כלי טיס"}, true);
+        Array.from(aircraftMap.values())
+            .sort((aircraft1, aircraft2) => {
+                return aircraft1.name.localeCompare(aircraft2.name);
+            })
+            .forEach(function (aircraft) {
+                searchViewHtml += createTableRow(aircraft.aircraftId,
+                    aircraft.name,
+                    aircraft.icon,
+                    aircraft.type,
+                    aircraft.path[0].time,
+                    aircraft.aerobatic,
+                    aircraft.parachutist,
+                    true,
+                    false);
 
-//         // add aircrafts category
-//         searchViewHtml += createCategoryRow({category: "כלי טיס"}, true);
-//         $("#search-view").html(searchViewHtml);
-//         $(".tabs").height(100 + "%");
+            });
+
+        $("#search-view").html(searchViewHtml);
+
+        // Don't know where the 20 came. But we need it
+        $(".tabs").height($("#listView").height() - $("#search-bar").height() + 20);
     }
 }
 
@@ -1378,10 +1396,11 @@ function createLocationPopupCategoryRow(name) {
 }
 
 var sortedLocations;
+var aircraftMap;
 
 function fillMenu() {
     var html = "";
-    var map = new Map();
+    aircraftMap = new Map();
 
     // Creates a map that maps an aircraft's name (which is basically a group for all the aircraft's with the same name)
     // to it's object which is the first of its kind. For example, if we have four F15, the map will contain the first one only.
@@ -1393,7 +1412,7 @@ function fillMenu() {
         // } else {
         //     map.set(aircraft.name, aircraft);
         // }
-        map.set(aircraft.name, aircraft);
+        aircraftMap.set(aircraft.name, aircraft);
     });
 
     if (categories.length === 0) {
@@ -1440,7 +1459,7 @@ function fillMenu() {
         }
         alert("Category " + category.category + " populated, populating aircrafts for it...");
 
-        Array.from(map.values()).filter(aircraft =>
+        Array.from(aircraftMap.values()).filter(aircraft =>
             aircraft.category === category.category)
             .sort((aircraft1, aircraft2) => {
                 return aircraft1.path[0].time - aircraft2.path[0].time
@@ -1485,7 +1504,7 @@ function fillMenu() {
 
     sortedLocations.forEach(function (location) {
         if (!location.hidden && location.type && location.type==="base") {
-            locationsViewHtml += (currTime > actualStartTime) ? createLocationRow(location, true) : createLocationRow(location, false);
+            locationsViewHtml += createLocationRow(location, true);
         }
     }, this);
 

@@ -1314,6 +1314,8 @@ hr.aircraftLineSeparator.two {
 }
 
 #search-view {
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .search-view {
