@@ -37,7 +37,7 @@ function initPopups() {
     popupHeader.on("tapstart", function (event) {
         dragStartTopY = event.touches[0].clientY;
         currHeight = locationPopup.height();
-        maxHeight = Math.min($("#aircraftsList").height() + 50, $("#map").height());
+        maxHeight = Math.min($("#aircraftsList").height() + 70, $("#map").height());
         event.preventDefault();
     });
 
@@ -370,17 +370,17 @@ function hidePopup(popup, callback) {
 }
 
 function createParachutistRow(location, time) {
-    return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ", true)\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/parachutist.svg\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>"
+    return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ")\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/parachutist.svg\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>"
         + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + "</div></div>";
 }
 
 function createAerobaticRow(location, time) {
-    return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ", true)\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"
+    return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ")\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"
         + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + "</div></div>";
 }
 
 function createLocationScheduleRow(aircraft, location, time) {
-    return `<div onclick="selectPointFromSchedule(${location.pointId}, true)" class=\"tableRow\"><img src=\"icons/group2@2x.png\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+    return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"tableRow\"><img src=\"icons/group2@2x.png\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
             ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} </div></div>`;
 }
 
