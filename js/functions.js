@@ -28,7 +28,7 @@ var startDate;
 var plannedStartTime;
 var plannedEndTime;
 var actualStartTime;
-var categories;
+var categories = [];
 var displayAircraftShows = true;
 
 function convertLocation(north, east) {
@@ -349,7 +349,6 @@ function scheduleAerobaticNotifications(notificationBody, item, location, timeTo
 var aerobaticNotificationsHandler = null;
 
 function updateLocationsMap(aircrafts) {
-
     var current = getCurrentTime();
 
     // build locations map for all of the aircraft paths
@@ -376,17 +375,17 @@ function updateLocationsMap(aircrafts) {
                 var timeout = convertTime(item.date, item.time) - getCurrentTime() + actualStartTime - plannedStartTime;
                 var timeBefore = 5 * 60 * 1000;
                 var notificationBody = `${getEventName(item.aerobatic)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
-                var timeToNotify = timeout - timeBefore;
-                if (timeToNotify > 0) {
-                    if (!Notification.permission && timeToNotify > 30000) {
-                        // Since this happens as we draw the routes,
-                        // We need to give the user 30 more seconds to accept notifications
-                        aerobaticNotificationsHandler =
-                            setTimeout(() => scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify), 30000);
-                    } else {
-                        scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify);
-                    }
-                }
+                // var timeToNotify = timeout - timeBefore;
+                // if (timeToNotify > 0) {
+                //     if (!Notification.permission && timeToNotify > 30000) {
+                //         // Since this happens as we draw the routes,
+                //         // We need to give the user 30 more seconds to accept notifications
+                //         aerobaticNotificationsHandler =
+                //             setTimeout(() => scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify), 30000);
+                //     } else {
+                //         scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify);
+                //     }
+                // }
             }
 
             location.aircrafts.push(item);
@@ -1092,14 +1091,15 @@ function onLoad() {
         }, 5000);
 
         setTimeout(function () {
+            aircrafts = [];
             loadAircrafts(function (pAircrafts) {
                 aircrafts = pAircrafts;
                 // load all routes
                 loadRoutes(function (routes) {
                     this.routes = routes;
-                    updateLocationsMap(aircrafts);
                     loadCategories(function () {
-                        // fillMenu();
+                        updateLocationsMap(aircrafts);
+                        fillMenu();
                     });
                 }, this);
 
@@ -1289,6 +1289,10 @@ function fillMenu() {
         map.set(aircraft.name, aircraft);
     });
 
+    if (categories.length === 0) {
+        return;
+    }
+
     categories.forEach(function (category) {
         var categorizedAircrafts = [].concat(aircrafts);
         html += createCategoryRow(category,
@@ -1413,60 +1417,60 @@ function scheduleConfirmationPopup() {
     var messageBody = 'אם ברצונך לקבל הודעה בדבר זמני המופעים הקרובים עליך לאשר את ההתראות';
 
     // Getting permissions for notifications if we haven't gotten them yet
-    if (Notification.permission !== "granted") {
-        setTimeout(function () {
-            showConfirmationPopup("הישארו מעודכנים!", messageBody);
-        }, 15000);
-    }
+    // if (Notification.permission !== "granted") {
+    //     setTimeout(function () {
+    //         showConfirmationPopup("הישארו מעודכנים!", messageBody);
+    //     }, 15000);
+    // }
 }
 
 function initMap() {
-    mapAPI.loadPlugins();
-    // scheduleConfirmationPopup();
+    mapAPI.loadPlugins(() =>
+    {
+        // make it larger than screen that when it scrolls it goes full screen
+        makeHeaderSticky();
+        initPopups();
 
-    // make it larger than screen that when it scrolls it goes full screen
-    makeHeaderSticky();
-    initPopups();
+        if (compatibleDevice() && !checkIframe()) {
+            // let splash run for a second before start loading the map
+            setTimeout(function () {
+                map = mapAPI.createMapObject(function (e) {
+                    closeAllPopups();
+                });
+                $("#map").show();
 
-    if (compatibleDevice() && !checkIframe()) {
-        // let splash run for a second before start loading the map
-        setTimeout(function () {
-            map = mapAPI.createMapObject(function (e) {
-                closeAllPopups();
-            });
-            $("#map").show();
+                mapAPI.drawRoutesOnMap(routes);
+                addAircraftsToMap();
+                startAircraftsAnimation(false);
 
-            mapAPI.drawRoutesOnMap(routes);
-            addAircraftsToMap();
-            startAircraftsAnimation(false);
+                // hide splash screen
+                setTimeout(function () {
+                    $(".splash").fadeOut();
+                }, 3500);
 
-            // hide splash screen
+                //             $(window).focus(function () {
+                // //                 startAircraftsAnimation(true);
+                //             });
+
+
+                setTimeout(function () {
+                    if (!mapFail) {
+                        $("#entrancePopup").addClass("mapLoaded");
+                        $("#closeIcon").fadeIn();
+                        $("#homeButton").css('visibility', 'visible');
+                    }
+                }, 2000);
+
+
+                defer.resolve(map);
+            }, 1000);
+        } else {
             setTimeout(function () {
                 $(".splash").fadeOut();
-            }, 3500);
-
-            //             $(window).focus(function () {
-            // //                 startAircraftsAnimation(true);
-            //             });
-
-
-            setTimeout(function () {
-                if (!mapFail) {
-                    $("#entrancePopup").addClass("mapLoaded");
-                    $("#closeIcon").fadeIn();
-                    $("#homeButton").css('visibility', 'visible');
-                }
-            }, 2000);
-
-
-            defer.resolve(map);
-        }, 1000);
-    } else {
-        setTimeout(function () {
-            $(".splash").fadeOut();
-            showIncompatibleDevicePopup();
-        }, 1500);
-    }
+                showIncompatibleDevicePopup();
+            }, 1500);
+        }
+    });
 }
 
 function closeEntrancePopup() {
