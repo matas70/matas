@@ -349,7 +349,7 @@ function scheduleAerobaticNotifications(notificationBody, item, location, timeTo
 var aerobaticNotificationsHandler = null;
 
 function updateLocationsMap(aircrafts) {
-    alert("Building Locations Map - Step 1");
+    //alert("Building Locations Map - Step 1");
     var current = getCurrentTime();
 
     // build locations map for all of the aircraft paths
@@ -393,7 +393,7 @@ function updateLocationsMap(aircrafts) {
         }, this);
     }, this);
 
-    alert("Building Locations Map - Step 2");
+    //alert("Building Locations Map - Step 2");
     // sort each location points by time
     locations.forEach(function (loc) {
         loc.aircrafts.sort(function (item1, item2) {
@@ -407,7 +407,7 @@ function updateLocationsMap(aircrafts) {
         });
     }, this);
 
-    alert("Building Locations Map - Done");
+    //alert("Building Locations Map - Done");
     return locations;
 }
 
@@ -1095,17 +1095,17 @@ function onLoad() {
 
         setTimeout(function () {
             aircrafts = [];
-            alert("Loading Aircrafts...");
+            //alert("Loading Aircrafts...");
             loadAircrafts(function (pAircrafts) {
                 aircrafts = pAircrafts;
-                alert("Aircrafts Loaded. Loading Routes...");
+                //alert("Aircrafts Loaded. Loading Routes...");
                 // load all routes
                 loadRoutes(function (routes) {
-                    alert("Routes Loaded.");
+                    //alert("Routes Loaded.");
                     this.routes = routes;
                     loadCategories(function () {
                         updateLocationsMap(aircrafts);
-                        alert("Populating Menu...");
+                        //alert("Populating Menu...");
                         fillMenu();
                     });
                 }, this);
@@ -1317,10 +1317,10 @@ function closeMenu() {
 }
 
 function loadCategories(callback) {
-    alert("Loading Categories...");
+    //alert("Loading Categories...");
     $.getJSON("data/categories.json", function (pCategories) {
         categories = pCategories;
-        alert("Categories Loaded.");
+        //alert("Categories Loaded.");
         callback();
     });
 }
@@ -1351,7 +1351,7 @@ function fillMenu() {
     });
 
     if (categories.length === 0) {
-        alert("Categories not loaded yet");
+        //alert("Categories not loaded yet");
         return;
     }
 
@@ -1392,7 +1392,7 @@ function fillMenu() {
                 html += createParachutistRow(locations[location.pointId],
                     location.time));
         }
-        alert("Category " + category.category + " populated, populating aircrafts for it...");
+        //alert("Category " + category.category + " populated, populating aircrafts for it...");
 
         Array.from(map.values()).filter(aircraft =>
             aircraft.category === category.category)
@@ -1411,9 +1411,9 @@ function fillMenu() {
                     false);
 
             });
-          alert("Aircrafts Populated. Menu is ready for " + category.category);
+          //alert("Aircrafts Populated. Menu is ready for " + category.category);
     });
-    alert("Menu is ready");
+    //alert("Menu is ready");
     $("#aircraftsListView").html(html);
 
     // prepare locations view

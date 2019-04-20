@@ -45,7 +45,7 @@ googleMaps = {
             }
             else {
                 openMapClusterPopup($.merge(items.aircrafts, items.locations));
-                //alert("found multiple items, aircrafts:"+items.aircrafts.length+" locations:"+items.locations.length);
+                ////alert("found multiple items, aircrafts:"+items.aircrafts.length+" locations:"+items.locations.length);
             }
         });
 
@@ -297,7 +297,7 @@ googleMaps = {
                         }
                     } else {
                         openMapClusterPopup($.merge(items.aircrafts, items.locations));
-                        // alert("found multiple items, aircrafts:"+items.aircrafts.length+" locations:"+items.locations.length);
+                        // //alert("found multiple items, aircrafts:"+items.aircrafts.length+" locations:"+items.locations.length);
                     }
                 });
                 markersMap[point.pointId] = marker;
