@@ -1237,13 +1237,13 @@ function initSearchBar() {
     });
 
     $("#search-clear-button").click(function() {
-       $(".search-input").val(''); 
+       $(".search-input").val('');
        $(".search-input").focus();
        $("#search-clear-button").hide();
     });
 
     $("#search-back-button").click(function() {
-        hideSearchView(); 
+        hideSearchView();
     });
 }
 
@@ -1253,9 +1253,12 @@ function initMenu() {
     $("#aboutLogo").css("paddingTop", $(".halfBlue").height() - $(".aboutLogo").height() + 12 + "px");
 
     $("#listView").height("100%");
-    var height = $("#listView").height();
-    $("#listView").height(height - 64 + "px");
-    $(".tabs").height(height - 64 - 52 + "px");
+    var listViewHeight = $("#listView").height();
+    var headerHeight = $("#headerBg").height();
+    var listHeaderHeight = $("#listHeader").height();
+
+    $("#listView").height(listViewHeight - headerHeight + "px");
+    $(".tabs").height(listViewHeight - headerHeight - listHeaderHeight + "px");
 
     // Responsible for opening the side menu
     $menuHamburger.on("click", toggleListView);
@@ -1273,10 +1276,6 @@ function initMenu() {
 
         currTab = currentAttrValue;
         $('.tabs ' + currentAttrValue).show().siblings().hide();
-
-        setTimeout(() => {
-            $('.tabs').animate({scrollTop:0}, 300);
-        }, 0);
     });
 
     // Responsible for managing aircraft info tabs
