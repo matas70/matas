@@ -1178,7 +1178,7 @@ var defer = $.Deferred();
 
 var isMenuOpen = false;
 var canOpenMenu = true;
-var currTab = "#tab2";
+var currTab = "#locations";
 var $menuHamburger;
 
 function toggleListView(event, shouldOnlyToggleClose = false) {
@@ -1212,18 +1212,57 @@ function toggleListView(event, shouldOnlyToggleClose = false) {
     }
 }
 
+var searchOpen = false;
+
 function displaySearchView() {
-    $(".search-input").width("70%");
-    setTimeout(() => {
-        $("#search-back-button").show();
-    }, 200)
+    if (!searchOpen) {
+        searchOpen = true;
+        $(".search-input").width("70%");
+        setTimeout(() => {
+            $("#search-back-button").show();
+        }, 200);
+
+        $(".search-input").css({"background": "white",
+                                "font-family": "Heebo-Regular",
+                                "font-weight": 600});
+        $('.tabs #search').show().siblings().hide();
+        $("#listHeader #search-bar").show().siblings().hide("fast");
+        $("#listView").animate({height: "100%"}, "fast");
+
+//         var searchViewHtml = "";
+
+//         // add locations category
+//         searchViewHtml += createCategoryRow({category: "מקומות"}, true);
+
+//         sortedLocations.filter(location => !location.hidden).forEach(function (location) {
+//             searchViewHtml += (getCurrentTime() > actualStartTime) ?
+//                 createLocationRow(location, true, true) :
+//                 createLocationRow(location, false, true);
+//         }, this);
+
+//         // add aircrafts category
+//         searchViewHtml += createCategoryRow({category: "כלי טיס"}, true);
+//         $("#search-view").html(searchViewHtml);
+//         $(".tabs").height(100 + "%");
+    }
 }
 
 function hideSearchView() {
-    $(".search-input").val("");
-    $("#search-back-button").hide();
-    $(".search-input").width("100%");
-    $("#search-clear-button").hide();
+    if (searchOpen) {
+        searchOpen = false;
+        $(".search-input").css({"background": "#1b223a",
+                                "font-family": "Heebo-Regular",
+                                "font-weight": 600});
+        $(".search-input").val("");
+        $("#search-back-button").hide();
+        $(".search-input").width("100%");
+        $("#search-clear-button").hide();
+        $('.tabs ' + currTab).show().siblings().hide();
+        $("#listHeader #search-bar").siblings().show();
+        $("#listView").animate({height: $("#listView").height() - $("#headerBg").height() + "px"}, "fast");
+        $(".tabs").height(tabsHeight);
+    }
+
 }
 
 function initSearchBar() {
@@ -1243,9 +1282,9 @@ function initSearchBar() {
     });
 
     $(".search-input").focusout(function() {
-        if ($(this).val().length === 0) {
-            hideSearchView();
-        }
+        // if ($(this).val().length === 0) {
+        //     hideSearchView();
+        // }
     });
 
     $("#search-clear-button").click(function() {
@@ -1259,6 +1298,9 @@ function initSearchBar() {
     });
 }
 
+var currentAttrValue;
+var tabsHeight;
+
 function initMenu() {
     $menuHamburger = $("#menuHamburger");
     // ugly code to place about logo correctly related to the half blue
@@ -1271,7 +1313,8 @@ function initMenu() {
 
     $("#listView").height(listViewHeight - headerHeight + "px");
     // 5 is shadow box height
-    $(".tabs").height(listViewHeight - headerHeight - listHeaderHeight - 5 + "px");
+    tabsHeight = listViewHeight - headerHeight - listHeaderHeight - 5;
+    $(".tabs").height(tabsHeight + "px");
 
     // Responsible for opening the side menu
     $menuHamburger.on("click", toggleListView);
@@ -1282,7 +1325,7 @@ function initMenu() {
     $(".menuLink").on("click", function (elem) {
         $(".menuLink").removeClass("active");
         $(elem.target).addClass("active");
-        var currentAttrValue = $(this).attr('href');
+        currentAttrValue = $(this).attr('href');
         if (currTab != currentAttrValue) {
             $("hr").toggleClass("two")
         }
@@ -1333,6 +1376,8 @@ function createCategoryRow(category, isBlue) {
 function createLocationPopupCategoryRow(name) {
     return "<div class='aircraftLocationCategory'>" + name + "</div>"
 }
+
+var sortedLocations;
 
 function fillMenu() {
     var html = "";
@@ -1421,7 +1466,7 @@ function fillMenu() {
     var locationsViewHtml = "";
 
     // sort locations by name
-    var sortedLocations = locations.slice();
+    sortedLocations = locations.slice();
 
     sortedLocations.sort(function (item1, item2) {
         var keyA = item1.pointName,
@@ -1454,6 +1499,7 @@ function fillMenu() {
 
     $("#locationsListView").html(locationsViewHtml);
 }
+
 function makeTwoDigitTime(t) {
     if (t < 10) {
         return "0" + t.toString();

@@ -418,11 +418,11 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, p
         "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class='date'>" + (date ? date : '') + "</div>" + "<div class=\"time\">" + (displayTime ? roundToMinute(time) : "") + "</div></div></div></div>";
 }
 
-function createLocationRow(location, displayFirstAircraft) {
+function createLocationRow(location, displayFirstAircraft, isSearchBar = false) {
     if (location.aircrafts.length == 0)
         displayFirstAircraft = false;
 
-    return "<a class='locationRow' href='javascript:void(0);'><div id='location" + location.pointId + "' class='locationRow' onclick='expandLocation(" + location.pointId + ");'>" +
+    return "<a class='locationRow' href='javascript:void(0);'><div id='location" + location.pointId + "' class='locationRow' onclick='expandLocation(" + location.pointId + "," + isSearchBar + ");'>" +
         "<div class='locationName'>" + location.pointName + "</div>" +
         "<div class='nextAircraftSection'>" +
         (displayFirstAircraft ? "<div class='smallAircraftName'>" + location.aircrafts[0].name + "</div>" : "") +
@@ -435,9 +435,9 @@ function createLocationRow(location, displayFirstAircraft) {
         "<div class='locationPadding'></div>";
 }
 
-function expandLocation(pointId) {
+function expandLocation(pointId, isSearchBar = false) {
     var location = locations[pointId];
-    var locationSpace = $("#locationSpace" + pointId);
+    var locationSpace = isSearchBar ? $("#search-view #locationSpace" + pointId) : $("#locationSpace" + pointId);
     if (locationSpace.html() === "") {
         var html = "";
         var lastAircraft = "";
@@ -568,9 +568,15 @@ function showBasePopup(isAerobatics, minutes, locationName) {
     $("#showData").html(html);
     $("#basePopup").css("top", -64);
     $("#basePopup").show();
-    $("#basePopup").animate({
-        top: 64 + "px"
-    }, 600);
+    if (searchOpen) {
+        $("#basePopup").animate({
+            top: 0 + "px"
+        }, 600);
+    } else {
+        $("#basePopup").animate({
+            top: 64 + "px"
+        }, 600);
+    }
 }
 
 function getEventIcon(isAerobatics) {

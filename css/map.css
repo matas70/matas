@@ -1250,6 +1250,7 @@ hr.aircraftLineSeparator.two {
     font-family: "Heebo-Regular";
     direction: rtl;
     position: sticky;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.12);
 }
 
 .search-input {
@@ -1275,16 +1276,6 @@ hr.aircraftLineSeparator.two {
     background: white;
 }
 
-input:not(:placeholder-shown) {
-    background: #1b223a;
-}
-
-input:valid {
-    background: white;
-    font-family: "Heebo-Regular";
-    font-weight: 600;
-}
-
 .search-icon {
     background: url('../icons/search.svg') no-repeat;
     height: 25px;
@@ -1307,17 +1298,35 @@ input:valid {
 
 #search-back-button {
 
-font-size: 15pt;
+    font-size: 15pt;
 
-color: #3bb5f2;
+    color: #3bb5f2;
 
-font-family: "Heebo-Regular";
+    font-family: "Heebo-Regular";
 
-font-weight: 600;
+    font-weight: 600;
 
-margin-right: 20px;
+    margin-right: 20px;
 
-display: none;
+    display: none;
 
-margin-top: 7px;
+    margin-top: 7px;
+}
+
+#search-view {
+}
+
+.search-view {
+}
+
+#search-prompt {
+    color: #8e8e93;
+    font-family: "Heebo-Regular";
+    font-size: 15pt;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.search-sorry {
+    font-size: 18pt;
 }
