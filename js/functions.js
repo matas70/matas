@@ -349,7 +349,7 @@ function scheduleAerobaticNotifications(notificationBody, item, location, timeTo
 var aerobaticNotificationsHandler = null;
 
 function updateLocationsMap(aircrafts) {
-
+    console.log("Building Locations Map - Step 1");
     var current = getCurrentTime();
 
     // build locations map for all of the aircraft paths
@@ -393,6 +393,7 @@ function updateLocationsMap(aircrafts) {
         }, this);
     }, this);
 
+    console.log("Building Locations Map - Step 2");
     // sort each location points by time
     locations.forEach(function (loc) {
         loc.aircrafts.sort(function (item1, item2) {
@@ -406,6 +407,7 @@ function updateLocationsMap(aircrafts) {
         });
     }, this);
 
+    console.log("Building Locations Map - Done");
     return locations;
 }
 
@@ -1101,11 +1103,11 @@ function onLoad() {
                 loadRoutes(function (routes) {
                     alert("Routes Loaded.");
                     this.routes = routes;
-                    updateLocationsMap(aircrafts);
                     loadCategories(function () {
                         alert("Populating Menu...");
                         fillMenu();
                     });
+                    updateLocationsMap(aircrafts);
                 }, this);
 
                 if (getCurrentTime() < actualStartTime) {
