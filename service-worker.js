@@ -108,6 +108,7 @@ var cacheFileList = [
     'images/group12.png',
     'images/stearman.jpg',
     'images/harvard.jpg',
+    'images/generic.jpg',
     'js/AnimationModule.js',
     'images/group12@2x.png',
     'js/date.js',
