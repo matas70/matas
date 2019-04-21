@@ -32,9 +32,14 @@
     {"path":[{"pointId":46,"time":"11:21:00"},{"pointId":37,"time":"11:59:00"},{"pointId":40,"time":"11:05:00"},{"pointId":47,"time":"11:24:00"}],"aircraftId":26,"aircraftTypeId":26, "special": "מופעים אוויריים", "aerobatic":true, "hide": true},
     {"path":[{"pointId":21,"time":"11:30:00"},{"pointId":18,"time":"11:26:00"},{"pointId":22,"time":"11:31:00"},{"pointId":29,"time":"11:40:00"}],"aircraftId":27,"aircraftTypeId":10, "special": "מופעים אוויריים", "aerobatic":true, "hide": true},
     {"path":[{"pointId":46,"time":"11:26:00"},{"pointId":21,"time":"11:35:00"},{"pointId":18,"time":"11:31:00"},{"pointId":37,"time":"11:04:00"},{"pointId":22,"time":"11:36:00"},{"pointId":47,"time":"11:29:00"},{"pointId":29,"time":"11:36:00"}],"aircraftId":28,"aircraftTypeId":9, "special": "מופעים אוויריים", "aerobatic":true, "hide": true},
-    {"path":[{"pointId":18,"time":"08:00:00","until": "13:00:00"}],"aircraftId":29,"aircraftTypeId":39, "special": "מופעים קרקעיים", "hide": true},
-    {"path":[{"pointId":18,"time":"08:00:00","until": "13:00:00"}],"aircraftId":30,"aircraftTypeId":33, "special": "מופעים קרקעיים", "hide": true},
-    {"path":[{"pointId":18,"time":"08:00:00","until": "13:00:00"}],"aircraftId":31,"aircraftTypeId":38, "special": "מופעים קרקעיים", "hide": true},
-    {"path":[{"pointId":18,"time":"09:30:00"},{"pointId":21,"time":"09:40:00"},{"pointId":22,"time":"09:47:00"},{"pointId":28,"time":"10:03:00"},{"pointId":40,"time":"11:20:00"},{"pointId":37,"time":"11:35:00"},{"pointId":29,"time":"11:50:00"},{"pointId":33,"time":"12:02:00"},{"pointId":47,"time":"13:05:00"},{"pointId":46,"time":"13:15:00"}],"aircraftId":32,"aircraftTypeId":25}
+    {"path":[{"pointId":18,"time":"09:30:00"},{"pointId":21,"time":"09:40:00"},{"pointId":22,"time":"09:47:00"},{"pointId":28,"time":"10:03:00"},{"pointId":40,"time":"11:20:00"},{"pointId":37,"time":"11:35:00"},{"pointId":29,"time":"11:50:00"},{"pointId":33,"time":"12:02:00"},{"pointId":47,"time":"13:05:00"},{"pointId":46,"time":"13:15:00"}],"aircraftId":29,"aircraftTypeId":25},
+    {"path":[{"pointId":21,"time":"12:30:00","from": "08:30:00"},{"pointId":37,"time":"13:00:00","from": "07:30:00"}, {"pointId":18,"time":"13:00:00","from": "08:00:00"}],"aircraftId":30,"aircraftTypeId":39, "special": "מופעים קרקעיים", "hide": true},
+    {"path":[{"pointId":18,"time":"13:00:00","from": "08:00:00"}],"aircraftId":31,"aircraftTypeId":33, "special": "מופעים קרקעיים", "hide": true},
+    {"path":[{"pointId":18,"time":"13:00:00","from": "08:00:00"}],"aircraftId":32,"aircraftTypeId":38, "special": "מופעים קרקעיים", "hide": true},
+    {"path":[{"pointId":21,"time":"12:30:00","from": "08:30:00"}, {"pointId":37,"time":"13:00:00","from": "07:30:00"}, {"pointId":18,"time":"13:00:00","from": "08:00:00"},{"pointId":47,"time":"14:00:00","from": "09:00:00"}],"aircraftId":33,"aircraftTypeId":35, "special": "מופעים קרקעיים", "hide": true},
+    {"path":[{"pointId":21,"time":"12:30:00","from": "08:30:00"}, {"pointId":37,"time":"13:00:00","from": "07:30:00"}, {"pointId":18,"time":"13:00:00","from": "08:00:00"},{"pointId":47,"time":"14:00:00","from": "09:00:00"}],"aircraftId":34,"aircraftTypeId":36, "special": "מופעים קרקעיים", "hide": true},
+    {"path":[{"pointId":21,"time":"12:30:00","from": "08:30:00"},{"pointId":47,"time":"14:00:00","from": "09:00:00"}],"aircraftId":34,"aircraftTypeId":37, "special": "מופעים קרקעיים", "hide": true},
+    {"path":[{"pointId":37,"time":"13:00:00","from": "07:30:00"}],"aircraftId":35,"aircraftTypeId":40, "special": "מופעים קרקעיים", "hide": true},
+    {"path":[{"pointId":47,"time":"14:00:00","from": "09:00:00"}],"aircraftId":35,"aircraftTypeId":34, "special": "מופעים קרקעיים", "hide": true}
   ]
 }

@@ -265,9 +265,9 @@ function showAircraftInfoPopup(aircraft, collapse) {
         $("#aircraftInfoEventIcon").hide();
     }
 
-    var startTime = aircraft.path[0].time;
-    var endTime = aircraft.path[aircraft.path.length-1].until;
-    $("#aircraftInfoStartTime").text(roundToMinute(startTime) + (endTime? (" - " + roundToMinute(endTime)):""));
+    var startTime = aircraft.path[0].from? aircraft.path[0].from : aircraft.path[0].time;
+    var endTime = aircraft.path[0].from? aircraft.path[aircraft.path.length-1].time : aircraft.path[0].time;
+    $("#aircraftInfoStartTime").text((startTime!=endTime?(roundToMinute(startTime)+ " - "):"") + roundToMinute(endTime));
     $("#aircraftInfoIcon").attr("src", "icons/aircraft-menu/" + aircraft.icon + ".svg");
     $("#aircraftInfoContentDescription").text(aircraft.description);
     $("#aircraftInfoContentClassification").text(aircraft.classification);
@@ -417,9 +417,9 @@ function createAerobaticRow(location, time) {
         + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + "</div></div>";
 }
 
-function createCategoryLocationRow(location, time, until) {
+function createCategoryLocationRow(location, time, from) {
     return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ")\" class=\"tableRow indented\"><div class=\"aircraftName\"><b>"
-        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + (until?(" - " + roundToMinute(until)):"")+"</div></div>";
+        + location.pointName + "</b></div><div class=\"time\">" + (from?(roundToMinute(from)+ " - "):"") + roundToMinute(time)+"</div></div>";
 }
 
 function createLocationScheduleRow(aircraft, location, time) {
