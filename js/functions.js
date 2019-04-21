@@ -441,6 +441,10 @@ function loadActualStartTime(routes) {
     if ($.urlParam("simulation") != null) {
         actualStartTime = (new Date()).getTime() - $.urlParam("simulation") * 60 * 1000;
     }
+
+    // TODO - remove this later before production
+    var simulation=110;
+    actualStartTime = (new Date()).getTime() - simulation * 60 * 1000;
 }
 
 function loadAircrafts(callback) {
@@ -1532,7 +1536,7 @@ function fillMenu() {
 
                         categoryLocations.forEach(location => {
                             html += createCategoryLocationRow(locations[location.pointId],
-                                location.time, location.until);
+                                location.time, location.from);
                         });
                     }
                 });
