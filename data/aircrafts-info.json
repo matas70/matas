@@ -542,6 +542,16 @@
       "image" : "images/generic.jpg",
       "classification": "מופעים קרקעיים",
       "description": ""
+    },
+    {
+      "aircraftTypeId": 40,
+      "name": "בינוי",
+      "category": "מופע קרקעי",
+      "type" : "",
+      "icon" : "building",
+      "image" : "images/generic.jpg",
+      "classification": "מופעים קרקעיים",
+      "description": ""
     }
   ]
 }
