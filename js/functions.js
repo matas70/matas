@@ -1263,7 +1263,7 @@ function displaySearchView() {
                     aircraft.type,
                     aircraft.path[0].time,
                     aircraft.aerobatic,
-                    aircraft.parachutist,
+                    aircraft.special,
                     true,
                     false);
 
@@ -1376,7 +1376,7 @@ function initSearchBar() {
                     aircraft.type,
                     aircraft.path[0].time,
                     aircraft.aerobatic,
-                    aircraft.parachutist,
+                    aircraft.special,
                     true,
                     false);
             });
@@ -1499,7 +1499,8 @@ function fillMenu() {
         // } else {
         //     map.set(aircraft.name, aircraft);
         // }
-        aircraftMap.set(aircraft.name, aircraft);
+        if (!aircraftMap.has(aircraft.name))
+            aircraftMap.set(aircraft.name, aircraft);
     });
 
     if (categories.length === 0) {
@@ -1508,59 +1509,57 @@ function fillMenu() {
 
     categories.forEach(function (category) {
         var categorizedAircrafts = [].concat(aircrafts);
-        html += createCategoryRow(category,
-            ((category.aerobatic) || (category.parachutist)) ? true : false);
-        if (category.aerobatic) {
-            var aerobaticLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aerobatic)
-                .map(aerobatics => aerobatics.path));
-            var aerobaticAircrafts = categorizedAircrafts.filter(aircraft => aircraft.aerobatic);
-            if (aerobaticAircrafts.length > 0) {
-                html += createTableRow(aerobaticAircrafts[0].aircraftId,
-                                       aerobaticAircrafts[0].name,
-                                       aerobaticAircrafts[0].icon,
-                                       aerobaticAircrafts[0].type,
-                                       aerobaticAircrafts[0].time,
-                                      false, false, true, false);
-            }
-            aerobaticLocations.forEach(location => {
-                html += createAerobaticRow(locations[location.pointId],
-                    location.time);
+        if (category.special) {
+            var categoryAircrafts = categorizedAircrafts.filter(aircraft => aircraft.special===category.category).sort((aircraft1, aircraft2) => {
+                return aircraft1.name > aircraft2.name ? 1 : aircraft1.name < aircraft2.name ? -1 : 0;
             });
-        } else if (category.parachutist) {
-            var parachutistLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.parachutist)
-                .map(parachutist => parachutist.path));
-            var parachutistAircrafts = categorizedAircrafts.filter(aircraft => aircraft.parachutist);
-            if (parachutistAircrafts.length > 0) {
-                html += createTableRow(parachutistAircrafts[0].aircraftId,
-                                       parachutistAircrafts[0].name,
-                                       parachutistAircrafts[0].icon,
-                                       parachutistAircrafts[0].type,
-                                       parachutistAircrafts[0].time,
-                                      false, false, true, false);
-            }
+            if (categoryAircrafts.length > 0) {
+                html += createCategoryRow(category, category.special);
+                var prevAircraftTypeId = -1;
+                categoryAircrafts.forEach(categoryAircraft => {
+                    if (categoryAircraft.aircraftTypeId !== prevAircraftTypeId) {
+                        html += createTableRow(categoryAircraft.aircraftId,
+                            categoryAircraft.name,
+                            categoryAircraft.icon,
+                            categoryAircraft.type,
+                            categoryAircraft.time,
+                            categoryAircraft.aerobatic,
+                            categoryAircraft.special, true, false);
+                        prevAircraftTypeId = categoryAircraft.aircraftTypeId;
 
-            parachutistLocations.forEach(location =>
-                html += createParachutistRow(locations[location.pointId],
-                    location.time));
+                        var categoryLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aircraftTypeId===categoryAircraft.aircraftTypeId && aircraft.special === category.category)
+                            .map(aircraft => aircraft.path));
+
+                        categoryLocations.forEach(location => {
+                            html += createCategoryLocationRow(locations[location.pointId],
+                                location.time, location.until);
+                        });
+                    }
+                });
+            }
+        } else {
+            aircraftsForCategory = Array.from(aircraftMap.values()).filter(aircraft =>
+                aircraft.category === category.category)
+                .sort((aircraft1, aircraft2) => {
+                    return aircraft1.path[0].time - aircraft2.path[0].time
+                });
+
+            if (aircraftsForCategory.length > 0) {
+                html += createCategoryRow(category, category.special);
+                aircraftsForCategory.forEach(function (aircraftFromCategory) {
+                    html += createTableRow(aircraftFromCategory.aircraftId,
+                        aircraftFromCategory.name,
+                        aircraftFromCategory.icon,
+                        aircraftFromCategory.type,
+                        aircraftFromCategory.path[0].time,
+                        aircraftFromCategory.aerobatic,
+                        aircraftFromCategory.special,
+                        true,
+                        false);
+
+                });
+            }
         }
-
-        Array.from(aircraftMap.values()).filter(aircraft =>
-            aircraft.category === category.category)
-            .sort((aircraft1, aircraft2) => {
-                return aircraft1.path[0].time - aircraft2.path[0].time
-            })
-            .forEach(function (aircraftFromCategory) {
-                html += createTableRow(aircraftFromCategory.aircraftId,
-                    aircraftFromCategory.name,
-                    aircraftFromCategory.icon,
-                    aircraftFromCategory.type,
-                    aircraftFromCategory.path[0].time,
-                    aircraftFromCategory.aerobatic,
-                    aircraftFromCategory.parachutist,
-                    true,
-                    false);
-
-            });
     });
     $("#aircraftsListView").html(html);
 
@@ -1595,7 +1594,7 @@ function fillMenu() {
     locationsViewHtml += createCategoryRow({category: "יישובים"}, true);
     sortedLocations.forEach(function (location) {
         if (!location.hidden && (!location.type || location.type !== "base")) {
-            locationsViewHtml += (currTime > actualStartTime) ? createLocationRow(location, true) : createLocationRow(location, false);
+            locationsViewHtml += createLocationRow(location, true);
         }
     }, this);
 

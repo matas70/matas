@@ -334,6 +334,10 @@ div.table {
     height: 60px;
 }
 
+.indented {
+    padding-right: 80px;
+}
+
 .aerobatic {
     height: 48px;
     background-color: white !important;
@@ -439,6 +443,8 @@ div.time {
     padding-right: 10px;
     text-align: center;
     vertical-align: middle;
+    white-space: nowrap;
+    direction: ltr;
 }
 
 div.infoPopup {
@@ -1203,6 +1209,7 @@ hr.aircraftLineSeparator.two {
 
 #aircraftInfoStartTime {
     font-family: "Heebo-Medium";
+    direction: ltr;
 }
 
 #aircraftInfoEventIcon {

@@ -257,30 +257,68 @@ function showAircraftInfoPopup(aircraft, collapse) {
     if (aircraft.aerobatic) {
         $("#aircraftInfoTimeLabel").text("תחילת מופע");
         $("#aircraftInfoEventIcon").show();
-    } else {
+    } else if (!aircraft.special){
         $("#aircraftInfoTimeLabel").text("זמן המראה");
+        $("#aircraftInfoEventIcon").hide();
+    } else {
+        $("#aircraftInfoTimeLabel").text(aircraft.special);
         $("#aircraftInfoEventIcon").hide();
     }
 
-    $("#aircraftInfoStartTime").text(roundToMinute(aircraft.path[0].time));
+    var startTime = aircraft.path[0].time;
+    var endTime = aircraft.path[aircraft.path.length-1].until;
+    $("#aircraftInfoStartTime").text(roundToMinute(startTime) + (endTime? (" - " + roundToMinute(endTime)):""));
     $("#aircraftInfoIcon").attr("src", "icons/aircraft-menu/" + aircraft.icon + ".svg");
     $("#aircraftInfoContentDescription").text(aircraft.description);
     $("#aircraftInfoContentClassification").text(aircraft.classification);
-    $("#aircraftInfoContentCountry").text(aircraft.manufactured);
-    $("#aircraftInfoContentDimensions").text(aircraft.dimensions);
-    $("#aircraftInfoContentPerformance").text(aircraft.performance);
-    $("#aircraftInfoContentWeight").text(aircraft.weight);
-    $("#aircraftInfoContentEngine").text(aircraft.engine);
+
+    if (aircraft.manufactured) {
+        $("#aircraftInfoContentCountry").text(aircraft.manufactured);
+        $("#aircraftInfoCountry").show();
+    } else {
+        $("#aircraftInfoCountry").hide();
+    }
+
+    if (aircraft.dimensions) {
+        $("#aircraftInfoContentDimensions").text(aircraft.dimensions);
+        $("#aircraftInfoDimensions").show();
+    } else {
+        $("#aircraftInfoDimensions").hide();
+    }
+
+    if (aircraft.performance) {
+        $("#aircraftInfoContentPerformance").text(aircraft.performance);
+        $("#aircraftInfoPerformance").show();
+    } else {
+        $("#aircraftInfoPerformance").hide();
+    }
+
+    if (aircraft.weight) {
+        $("#aircraftInfoContentWeight").text(aircraft.weight);
+        $("#aircraftInfoWeight").show();
+    } else {
+        $("#aircraftInfoWeight").hide();
+    }
+
+    if (aircraft.engine) {
+        $("#aircraftInfoContentEngine").text(aircraft.engine);
+        $("#aircraftInfoEngine").show();
+    } else {
+        $("#aircraftInfoEngine").hide();
+    }
+
+    if (aircraft.armament) {
+        $("#aircraftInfoContentArmament").text(aircraft.armament);
+        $("#aircraftInfoArmament").show();
+    } else {
+        $("#aircraftInfoArmament").hide();
+    }
+
     $("#aircraftInfoBanner").attr("src", aircraft.image);
 
     getMapDarker();
 
-    if (!aircraft.armament) {
-        $("#aircraftInfoContentArmamentContainer").css("display", "none");
-    } else {
-        $("#aircraftInfoContentArmamentContainer").css("display", "flex");
-        $("#aircraftInfoContentArmament").text(aircraft.armament);
-    }
+
 
     // Clears event handlers
     $("#aircraftInfoMore").off("click");
@@ -379,6 +417,11 @@ function createAerobaticRow(location, time) {
         + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + "</div></div>";
 }
 
+function createCategoryLocationRow(location, time, until) {
+    return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ")\" class=\"tableRow indented\"><div class=\"aircraftName\"><b>"
+        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + (until?(" - " + roundToMinute(until)):"")+"</div></div>";
+}
+
 function createLocationScheduleRow(aircraft, location, time) {
     return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"tableRow\"><img src=\"icons/group2@2x.png\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
             ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} </div></div>`;
@@ -403,12 +446,12 @@ function createScheduleRow(aircraft, location) {
     return "";
 }
 
-function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, parachutist, collapse, displayTime = true, date) {
+function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date) {
     var aerobaticIcon = "<div/>";
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
         //aircraftType = "מופע אווירובטי";
-    } else if (parachutist) {
+    } else if (special === "הצנחת צנחנים") {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/parachutist.svg\" class=\"aerobaticTableIcon\"></img>";
         aircraftType = "הצנחת צנחנים";
     }
