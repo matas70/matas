@@ -185,19 +185,22 @@ div.splash {
     display: inline-flex;
     flex-direction: column;
 }
+
 #popupTitle {
     font-family: "Heebo-Bold";
     font-size: 15pt;
-    color: #2b2b2b ;
+    color: #2b2b2b;
     float: right;
     padding-left: 10pt;
 }
-#popupTime{
+
+#popupTime {
     font-family: "Heebo-Regular";
     font-size: 10pt;
     color: #2b2b2b;
     float: right;
 }
+
 #popupSubTitle {
     font-family: "Heebo-Light";
     font-size: 13pt;
@@ -207,15 +210,17 @@ div.splash {
     padding-top: 2px;
 }
 
-#slide{
+#slide {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
-#popupIcon{
+
+#popupIcon {
     float: left;
     padding-left: 14.5pt;
 }
+
 #popupHeader {
     width: 100%;
     height: 50px;
@@ -329,6 +334,10 @@ div.table {
     height: 60px;
 }
 
+.indented {
+    padding-right: 80px;
+}
+
 .aerobatic {
     height: 48px;
     background-color: white !important;
@@ -434,6 +443,8 @@ div.time {
     padding-right: 10px;
     text-align: center;
     vertical-align: middle;
+    white-space: nowrap;
+    direction: ltr;
 }
 
 div.infoPopup {
@@ -446,14 +457,15 @@ div.infoPopup {
     background: white;
 }
 
-#popupDisplay{
+#popupDisplay {
     display: block;
 }
 
-#waze{
+#waze {
     padding-top: 8px;
 }
-#popupIcon{
+
+#popupIcon {
     position: absolute;
     top: 8px;
     left: 0px;
@@ -630,7 +642,12 @@ HEADER {
     width: 100%;
     /* display: none; */
     overflow: hidden;
+    -ms-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -o-transform: translateX(100%);
     transform: translateX(100%);
+
     transition: transform 0.3s;
     bottom: 0;
 }
@@ -655,11 +672,14 @@ HEADER {
     padding: .75rem 0;
     margin: 0;
     text-decoration: none;
-    color: #333;
+    font-size: 13.5pt;
+    color: black;
 }
 
 .menuLink.active {
-    font-weight: bold;
+    color: rgb(59, 181, 242);
+    font-size: 13.5pt;
+    font-family: "Heebo-Bold";
 }
 
 hr.two {
@@ -730,17 +750,27 @@ hr {
 .tabs {
     direction: rtl;
     overflow-y: scroll; /* has to be scroll, not auto */
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
 .listContainer {
     transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -o-transform: translateX(100%);
+
     transition: translate 1s;
 }
 
 .listContainer.hide {
     position: absolute;
     transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    -webkit-transform: translateX(0%);
+    -moz-transform: translateX(0%);
+    -o-transform: translateX(0%);
 }
 
 #basePopup {
@@ -862,6 +892,11 @@ br.baseData {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+
     width: 296px;
     height: 309px;
     position: absolute;
@@ -948,6 +983,11 @@ br.baseData {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+
     display: flex;
     min-width: 16em;
     background: white;
@@ -1105,23 +1145,50 @@ br.baseData {
     margin: 1em;
 }
 
-.confirmationMessageBody {margin-bottom: 1em;}
+.confirmationMessageBody {
+    margin-bottom: 1em;
+}
 
-.confirmButton {align-items: center;min-height: 48px;margin: auto;width: 100%;display: flex;justify-content: center;background: #3bb5f2;color: white;border-radius: 0 0 8pt 8pt;}
+.confirmButton {
+    align-items: center;
+    min-height: 48px;
+    margin: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #3bb5f2;
+    color: white;
+    border-radius: 0 0 8pt 8pt;
+}
 
 
 .aircraftScheduleContent {
 }
 
-.aircraftInfoButton {width: 100%;/* color: rgb(59, 181, 242); */}
+.aircraftInfoButton {
+    width: 100%; /* color: rgb(59, 181, 242); */
+}
 
 .aircraftScheduleButton {
     width: 100%;
 }
 
-.aircraftContentSeparator {display: flex;font-size: 15pt;justify-content: space-evenly;background: white;}
+.aircraftContentSeparator {
+    display: flex;
+    font-size: 15pt;
+    justify-content: space-evenly;
+    background: white;
+}
 
-.aircraftMenuLink {display: flex;font-size: 13.5pt;justify-content: center;padding: .75rem 0;margin: 0;text-decoration: none;color: black;}
+.aircraftMenuLink {
+    display: flex;
+    font-size: 13.5pt;
+    justify-content: center;
+    padding: .75rem 0;
+    margin: 0;
+    text-decoration: none;
+    color: black;
+}
 
 .aircraftMenuLink.active {
     color: rgb(59, 181, 242);
@@ -1129,15 +1196,20 @@ br.baseData {
     font-family: "Heebo-Bold";
 }
 
-hr.aircraftLineSeparator {width: 50%;padding: 0.13em;height: 0;}
+hr.aircraftLineSeparator {
+    width: 50%;
+    padding: 0.13em;
+    height: 0;
+}
 
 hr.aircraftLineSeparator.two {
 
-margin-right: 50%;
+    margin-right: 50%;
 }
 
 #aircraftInfoStartTime {
     font-family: "Heebo-Medium";
+    direction: ltr;
 }
 
 #aircraftInfoEventIcon {
@@ -1145,9 +1217,20 @@ margin-right: 50%;
     width: 34px;
 }
 
-#aircraftInfoEventIconContainer {background: white;display: flex;padding-right: 10px;width: 34px;padding-left: 4px;align-items: center;}
+#aircraftInfoEventIconContainer {
+    background: white;
+    display: flex;
+    padding-right: 10px;
+    width: 34px;
+    padding-left: 4px;
+    align-items: center;
+}
 
-.aircraftTabs {direction: rtl;overflow-y: scroll; /* has to be scroll, not auto */-webkit-overflow-scrolling: touch;}
+.aircraftTabs {
+    direction: rtl;
+    overflow-y: scroll; /* has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
+}
 
 .aircraftSchedule {
     display: flex;
@@ -1172,7 +1255,7 @@ margin-right: 50%;
     text-align: center;
     font-family: Heebo;
     font-size: 9pt;
-    background-color: rgba(0,0,0,.6);
+    background-color: rgba(0, 0, 0, .6);
     color: white;
     border-radius: 13px;
     padding: 4px;
@@ -1182,4 +1265,102 @@ margin-right: 50%;
     padding-right: 10px;
 }
 
-.locationMarkerDiv {display: flex;flex-direction: column;align-items: center;justify-content: center;margin-top: -18px;}
+.locationMarkerDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -18px;
+}
+
+#search-bar {
+    display: flex;
+    padding: 22px 25px 22px 25px;
+    color: black;
+    background: black;
+    font-family: "Heebo-Regular";
+    direction: rtl;
+    position: sticky;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.12);
+}
+
+.search-input {
+    background: #1b223a;
+    border-radius: 30px;
+    width: 100%;
+    height: 25px;
+    font-size: 13pt;
+    padding: 10px 36px 10px 20px;
+    border: 0px;
+    outline: none;
+    caret-color: #3bb5f2;
+    position: sticky;
+    transition: width 0.6s;
+}
+
+.search-input::placeholder {
+    color: #9595af;
+    font-family: "Heebo-Regular";
+}
+
+.search-input:focus {
+    background: white;
+}
+
+.search-icon {
+    background: url('../icons/search.svg') no-repeat;
+    height: 25px;
+    position: absolute;
+    top: 30px;
+    z-index: 1;
+    width: 25px;
+    right: 38px;
+}
+
+#search-clear-button {
+    background: url('../icons/clear-button.svg') no-repeat;
+    height: 35px;
+    display: none;
+    width: 35px;
+    position: absolute;
+    left: 98px;
+    top: 26px;
+}
+
+#search-back-button {
+
+    font-size: 15pt;
+
+    color: #3bb5f2;
+
+    font-family: "Heebo-Regular";
+
+    font-weight: 600;
+
+    margin-right: 20px;
+
+    display: none;
+
+    margin-top: 7px;
+}
+
+#search-view {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.search-view {
+}
+
+#search-prompt {
+    color: #8e8e93;
+    font-family: "Heebo-Regular";
+    font-size: 15pt;
+    text-align: center;
+    margin-top: 40px;
+    display: none;
+}
+
+.search-sorry {
+    font-size: 18pt;
+}

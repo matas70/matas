@@ -401,6 +401,147 @@
       "performance": "מהירות מירבית - 2.5 מאך",
       "weight": "ריק - 14,379 ק\"ג, טעון - 36,741 ק\"ג",
       "engine": "שניים, \"פראט אנד ויטני\" F100-PW-220 בעלי דחף של 10,637 ק\"ג כל-אחד"
+    },
+    {
+      "aircraftTypeId": 27,
+      "name": "הרווארד",
+      "category": "הדרכה",
+      "type" : "הדרכה",
+      "icon" : "harvard",
+      "image" : "images/harvard.jpg",
+      "classification": "מטוס הדרכה מתקדם",
+      "description": "מטוס אימון חד מנועי ששימש כמטוס לאימון מתקדם בהכשרת טייסי קרב של חילות ארה\"ב והבריטי במהלך מלחמת העולם השנייה\nב1948 נרכשו 17 מטוסי הרווארד מדגם AT-6 בחיל האוויר הישראלי ושימשו לתקיפות מבצעיות.",
+      "manufactured": "ארה\"ב",
+      "dimensions": "מוטה - 12.8 מטר, גובה - 3.56 מטר, אורך - 8.85 מטר",
+      "performance": "מהירות מירבית - 340 קמ\"ש, סיג רום מבצעי - 7,400 מטר, טווח - 1,000 ק\"מ",
+      "weight": "ריק - 1,814 ק\"ג, טעון - 2,393 ק\"ג",
+      "engine": "פראט אנד ויטני\" R-1340-AN-1 בעל הספק של 550 כ\"ס\""
+    },
+    {
+      "aircraftTypeId": 28,
+      "name": "סטירמן",
+      "category": "הדרכה",
+      "type" : "הדרכה",
+      "icon" : "stearman",
+      "image" : "images/stearman.jpg",
+      "classification": "מטוס הדרכה בסיסי דו-מושבי",
+      "description": "מטוס אימון חד מנועי ששימש כמטוס לאימון מתקדם בהכשרת טייסי קרב של חילות ארה\"ב והבריטי במהלך מלחמת העולם השנייה\nב1948 נרכשו 17 מטוסי הרווארד מדגם AT-6 בחיל האוויר הישראלי ושימשו לתקיפות מבצעיות.",
+      "manufactured": "ארה\"ב",
+      "dimensions": "מוטה - 9.8 מטר, אורך - 7.56 מטר, גובה - 2.95 מטר, שטח כנף - 27.69 מטר רבוע",
+      "performance": "מהירות מירבית - 200 קמ\"ש, טווח - 636 ק\"מ",
+      "weight": "ריק - 876 ק\"ג,טעון - 1,195 ק\"ג",
+      "engine": "\"קונטיננטל\" R-670-5 בעל הספק של 220 כ\"ס"
+    },
+    {
+      "aircraftTypeId": 29,
+      "name": "עטלף",
+      "category": "מסוקים",
+      "type" : "מסוקי סיור",
+      "icon" : "atalef",
+      "image" : "images/generic.jpg",
+      "classification": "מסוק סיור ימי",
+      "description": "\"עטלף\" הוא מסוק ימי שנכנס לשירות חיל-האוויר בשנת 1996. המסוק פועל מספינות טילים מסוג \"סער-5\" של חיל-הים ומבצע משימות שונות כגון תצפית, סריקה, חילוץ ואיכון מטרות. המסוק החליף את \"דולפין\", המסוק הימי הקודם לו. צוות המסוק מורכב מקברניט, טייס משנה וקצין סיוע ימי שהוא חובל. בחלק מהמשימות מצטרף לצוות המסוק מכונאי מוטס.",
+      "manufactured": "ארה\"ב"
+    },
+    {
+      "aircraftTypeId": 30,
+      "name": "איתן",
+      "category": "תערוכה",
+      "type" : "",
+      "icon" : "eitan",
+      "image" : "images/generic.jpg",
+      "classification": "תערוכה",
+      "description": ""
+    },
+    {
+      "aircraftTypeId": 31,
+      "name": "שובל",
+      "category": "תערוכה",
+      "type" : "",
+      "icon" : "shoval",
+      "image" : "images/generic.jpg",
+      "classification": "תערוכה",
+      "description": ""
+    },
+    {
+      "aircraftTypeId": 32,
+      "name": "טיסן",
+      "category": "תערוכה",
+      "type" : "",
+      "icon" : "thyssen",
+      "image" : "images/generic.jpg",
+      "classification": "תערוכה",
+      "description": ""
+    },
+    {
+      "aircraftTypeId": 33,
+      "name": "תרגיל חילוץ לכודים",
+      "category": "תערוכה",
+      "type" : "",
+      "icon" : "building",
+      "image" : "images/generic.jpg",
+      "classification": "מופעים קרקעיים",
+      "description": ""
+    },
+    {
+      "aircraftTypeId": 34,
+      "name": "עמדת טייס לרגע",
+      "category": "תערוכה",
+      "type" : "",
+      "icon" : "simulator",
+      "image" : "images/generic.jpg",
+      "classification": "תערוכה",
+      "description": ""
+    },
+    {
+      "aircraftTypeId": 35,
+      "name": "משגר יהלום",
+      "category": "תערוכה",
+      "type" : "",
+      "icon" : "diamond_launcher",
+      "image" : "images/generic.jpg",
+      "classification": "תערוכה",
+      "description": ""
+    },
+    {
+      "aircraftTypeId": 36,
+      "name": "משגר כיפת ברזל",
+      "category": "תערוכה",
+      "type" : "",
+      "icon" : "iron_launcher",
+      "image" : "images/generic.jpg",
+      "classification": "תערוכה",
+      "description": ""
+    },
+    {
+      "aircraftTypeId": 37,
+      "name": "תערוכת מערך האחזקה",
+      "category": "תערוכה",
+      "type" : "",
+      "icon" : "maintenance",
+      "image" : "images/generic.jpg",
+      "classification": "תערוכה",
+      "description": ""
+    },
+    {
+      "aircraftTypeId": 38,
+      "name": "להקת חיל האוויר",
+      "category": "תערוכה",
+      "type" : "",
+      "icon" : "band",
+      "image" : "images/generic.jpg",
+      "classification": "מופעים קרקעיים",
+      "description": ""
+    },
+    {
+      "aircraftTypeId": 39,
+      "name": "כיבוי אש",
+      "category": "תערוכה",
+      "type" : "",
+      "icon" : "fire_truck",
+      "image" : "images/generic.jpg",
+      "classification": "מופעים קרקעיים",
+      "description": ""
     }
   ]
 }

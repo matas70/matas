@@ -1,10 +1,19 @@
 [
   {
     "category": "מופעים אווירובטיים",
-    "aerobatic": true
+    "aerobatic": true,
+    "special": true
+  },
+  {
+    "category": "מופעים אוויריים",
+    "aerobatic": true,
+    "special": true
   },
   {
     "category": "מטוסי קרב"
+  },
+  {
+    "category": "מסוקים"
   },
   {
     "category": "תובלה"
@@ -14,5 +23,9 @@
   },
   {
     "category": "סיור ובקרה"
+  },
+  {
+    "category": "מופעים קרקעיים",
+    "special": true
   }
 ]
