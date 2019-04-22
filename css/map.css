@@ -630,7 +630,7 @@ HEADER {
     background-color: #f7f5f5;
     z-index: 1;
     box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.08);
-    max-height: 4em;
+    height: 172px;
 }
 
 .listViewContainer {
@@ -1178,6 +1178,7 @@ br.baseData {
     font-size: 15pt;
     justify-content: space-evenly;
     background: white;
+    height: 143px;
 }
 
 .aircraftMenuLink {
