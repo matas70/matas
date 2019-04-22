@@ -423,7 +423,7 @@ function updateLocations(route) {
 }
 
 function loadRoutes(callback) {
-    $.getJSON("data/routes.json", function (routes) {
+    $.getJSON("data/routes.json?t="+(new Date()).getTime(), function (routes) {
         routes.routes.forEach(function (route) {
             updateLocations(route);
         }, this);
@@ -448,14 +448,14 @@ function loadActualStartTime(routes) {
 }
 
 function loadAircrafts(callback) {
-    $.getJSON("data/aircrafts-info.json", function(aircraftInfo) {
+    $.getJSON("data/aircrafts-info.json?t="+(new Date()).getTime(), function(aircraftInfo) {
         // load aircraft type info into a map
         aircraftInfo.aircraftTypes.forEach(function (aircraftTypeInfo) {
             aircraftTypesInfo[aircraftTypeInfo.aircraftTypeId] = aircraftTypeInfo;
         }, this);
 
         // load all aircrafts
-        $.getJSON("data/aircrafts.json", function (routes) {
+        $.getJSON("data/aircrafts.json?t="+(new Date()).getTime(), function (routes) {
             aircrafts = routes.aircrafts;
             // merge info from aircraft type info
             aircrafts.forEach(function (aircraft) {
@@ -538,7 +538,7 @@ function onAboutButtonClick() {
 
 function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+            navigator.serviceWorker.register('/service-worker.js?t='+(new Date()).getTime()).then(function (registration) {
                 // Registration was successful
                 console.log('ServiceWorker registration successful with scope: ', registration.scope);
             }, function (err) {
@@ -1472,7 +1472,7 @@ function closeMenu() {
 }
 
 function loadCategories(callback) {
-    $.getJSON("data/categories.json", function (pCategories) {
+    $.getJSON("data/categories.json?t="+(new Date()).getTime(), function (pCategories) {
         categories = pCategories;
         callback();
     });
