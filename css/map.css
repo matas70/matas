@@ -177,7 +177,8 @@ div.splash {
 #homeButton {
     margin-top: 4px;
     cursor: pointer;
-    padding: 15px 15px;
+    padding: 6px 6px;
+    margin-left: 18px;
 }
 
 #popupBody {
@@ -187,20 +188,20 @@ div.splash {
 }
 #popupTitle {
     font-family: "Heebo-Bold";
-    font-size: 15pt;
-    color: #2b2b2b ;
+    font-size: 24px;
+    color: #2b2b2b;
     float: right;
     padding-left: 10pt;
 }
 #popupTime{
     font-family: "Heebo-Regular";
-    font-size: 10pt;
+    font-size: 17px;
     color: #2b2b2b;
     float: right;
 }
 #popupSubTitle {
     font-family: "Heebo-Light";
-    font-size: 13pt;
+    font-size: 22px;
     color: #2b2b2b;
     float: right;
     padding-right: 0px;
@@ -218,7 +219,7 @@ div.splash {
 }
 #popupHeader {
     width: 100%;
-    height: 50px;
+    height: 76px;
     background: #3bb5f2;
     vertical-align: middle;
     padding-top: 3pt;
@@ -457,7 +458,7 @@ div.infoPopup {
 }
 
 #waze{
-    padding-top: 8px;
+    padding-top: 16px;
 }
 #popupIcon{
     position: absolute;
@@ -566,12 +567,12 @@ HEADER {
 
 #headerBg {
     display: flex;
-    background: #08051a;
     height: 64px;
     width: 100%;
     position: absolute;
     z-index: 10000;
     align-items: center;
+    background: #080c1a;
 }
 
 #expandedInfo {
@@ -703,11 +704,11 @@ hr {
 }
 
 .timeline-warning {
-    font-size: 14px;
+    font-size: 15px;
     text-align: center;
     color: rgba(69, 87, 115, 0.5);
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 12px;
+    margin-bottom: 12px;
 }
 
 .aircraftCategory {
@@ -727,7 +728,7 @@ hr {
 .aircraftLocationCategory {
     width: 100%;
     height: 32px;
-    padding-right: 20px;
+    padding-right: 10pt;
     line-height: 32px;
     background-color: #d7effb;
     font-size: 15px;
@@ -1232,8 +1233,8 @@ margin-right: 50%;
 #search-bar {
     display: flex;
     padding: 22px 25px 22px 25px;
-    color: black;
-    background: black;
+    color: #080c1a;
+    background: #080c1a;
     font-family: "Heebo-Regular";
     direction: rtl;
     position: sticky;
@@ -1311,12 +1312,12 @@ margin-right: 50%;
 #search-prompt {
     color: #8e8e93;
     font-family: "Heebo-Regular";
-    font-size: 15pt;
+    font-size: 16px;
     text-align: center;
     margin-top: 40px;
     display: none;
 }
 
 .search-sorry {
-    font-size: 18pt;
+    font-size: 18px;
 }
