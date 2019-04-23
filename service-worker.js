@@ -17,13 +17,45 @@ function createCacheBustedRequest(url) {
   return new Request(bustedUrl);
 }
 
-var cacheFileList = [
+var baseCacheFileList = [
     '/',
     '/index.html',
-    '/?simulation=120',
     'js/slidingMarker/jquery.easing.1.3.js',
     'js/slidingMarker/markerAnimate.js',
     'js/slidingMarker/SlidingMarker.min.js',
+    'js/utils.js',
+    'js/AnimationModule.js',
+    'js/date.js',
+    'js/functions.js',
+    'js/map.js',
+    'js/leaflet-map.js',
+    'js/markerclusterer.js',
+    'js/popups.js',
+    'js/RotateIcon.js',
+    'data/aircrafts.json',
+    'data/aircrafts-info.json',
+    'data/categories.json',
+    'data/routes.json',
+    'js/leaflet/leaflet.css',
+    'js/leaflet/leaflet-src.esm.js.map',
+    'js/leaflet/leaflet.js',
+    'js/leaflet/leaflet-src.js',
+    'js/leaflet/leaflet.js.map',
+    'js/leaflet/leaflet-src.js.map',
+    'js/leaflet/leaflet-src.esm.js',
+    'js/leaflet/images/layers.png',
+    'js/leaflet/images/marker-icon-2x.png',
+    'js/leaflet/images/layers-2x.png',
+    'js/leaflet/images/marker-shadow.png',
+    'js/leaflet/images/marker-icon.png',
+    'js/leaflet/leaflet.markercluster.js',
+    'css/map.css',
+    'css/hamburgers.css',
+    'manifest.json'
+];
+
+var cacheFileList = [
+    '/?simulation=120',
     'images/group4@2x.png',
     'animation/loading.gif',
     'images/group4@3x.png',
@@ -35,17 +67,11 @@ var cacheFileList = [
     'images/karnaf.jpg',
     'images/kukiya.jpg',
     'images/lavi.jpg',
-    'css/hamburgers.css',
     'images/nahshon.jpg',
-    'css/map.css',
     'images/oval4Copy2.png',
-    'data/aircrafts.json',
     'images/oval4Copy2@2x.png',
-    'data/aircrafts-info.json',
     'images/oval4Copy2@3x.png',
-    'data/categories.json',
     'images/oval4Copy3.png',
-    'data/routes.json',
     'images/oval4Copy3@2x.png',
     'images/aboutblack@2x.png',
     'images/oval4Copy3@3x.png',
@@ -109,24 +135,15 @@ var cacheFileList = [
     'images/stearman.jpg',
     'images/harvard.jpg',
     'images/generic.jpg',
-    'js/AnimationModule.js',
     'images/group12@2x.png',
-    'js/date.js',
     'images/group12@3x.png',
-    'js/functions.js',
     'images/group13.png',
-    'js/map.js',
-    'js/leaflet-map.js',
     'images/group13@2x.png',
     'images/group13@3x.png',
     'images/group3.png',
-    'js/markerclusterer.js',
     'images/group3@2x.png',
-    'js/popups.js',
     'images/group3@3x.png',
-    'js/RotateIcon.js',
     'images/group4.png',
-    'js/utils.js',
     'fonts/heebo-v3-hebrew_latin-300.svg',
     'fonts/heebo-v3-hebrew_latin-300.woff2',
     'fonts/heebo-v3-hebrew_latin-700.svg',
@@ -294,49 +311,42 @@ var cacheFileList = [
     'icons/showSelected-64e1a5.svg',
     'icons/showSelected-bb7aff.svg',
     'icons/showSelected-f64b58.svg',
-    'icons/stillSplash.png',
     'icons/transparent.png',
     'icons/waze.png',
     'icons/slidepopup.png',
     'icons/drone.png',
     'screenshots/screenshot1.png',
-    'manifest.json',
-    'js/leaflet/leaflet.css',
-    'js/leaflet/leaflet-src.esm.js.map',
-    'js/leaflet/leaflet.js',
-    'js/leaflet/leaflet-src.js',
-    'js/leaflet/leaflet.js.map',
-    'js/leaflet/leaflet-src.js.map',
-    'js/leaflet/leaflet-src.esm.js',
-    'js/leaflet/images/layers.png',
-    'js/leaflet/images/marker-icon-2x.png',
-    'js/leaflet/images/layers-2x.png',
-    'js/leaflet/images/marker-shadow.png',
-    'js/leaflet/images/marker-icon.png',
-    'js/leaflet/leaflet.markercluster.js',
     'images/Matas_vector_map.svg'
 ];
 
-// self.addEventListener('install', function(e) {
-//     console.log("First time install. Loading all files into cache.");
-//     e.waitUntil(self.skipWaiting()); // Activate worker immediately
-//
-//     e.waitUntil(
-//         caches.open('matas').then(function(cache) {
-//             return cache.addAll(cacheFileList);
-//         })
-//     );
-// });
+ self.addEventListener('install', function(e) {
+     console.log("Loading all base files into cache.");
+     e.waitUntil(self.skipWaiting()); // Activate worker immediately
 
-// self.addEventListener('fetch', (event) => {
-//     event.respondWith(async function() {
-//         try {
-//             return await fetch(event.request);
-//         } catch (err) {
-//             return caches.match(event.request,{ignoreSearch: true});
-//         }
-//     }());
-// });
+     e.waitUntil(
+         caches.open('matas').then(function(cache) {
+             return cache.addAll(cacheFileList);
+         })
+     );
+
+     // schedule additional file load to 15 seconds later to not interrupt the app load
+     setTimeout(() => {
+         console.log("Loading Extended Files to Cache...");
+         caches.open('matas').then(cache => {
+             cache.addAll(cacheFileList);
+         });
+     },15000)
+ });
+
+self.addEventListener('fetch', (event) => {
+     event.respondWith(async function() {
+         try {
+             return await fetch(event.request);
+         } catch (err) {
+             return caches.match(event.request,{ignoreSearch: true});
+         }
+     }());
+ });
 
 self.addEventListener('activate', event => {
     event.waitUntil(self.clients.claim()); // Become available to all pages
