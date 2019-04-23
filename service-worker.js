@@ -335,7 +335,7 @@ var cacheFileList = [
          caches.open('matas').then(cache => {
              cache.addAll(cacheFileList);
          });
-     },30000;
+     },30000);
  });
 
 self.addEventListener('fetch', (event) => {
