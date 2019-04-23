@@ -359,7 +359,7 @@ var cacheFileList = [
 
      e.waitUntil(
          caches.open('matas').then(function(cache) {
-             return cache.addAll(cacheFileList);
+             return cache.addAll(baseCacheFileList);
          })
      );
 
