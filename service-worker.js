@@ -17,7 +17,44 @@ function createCacheBustedRequest(url) {
   return new Request(bustedUrl);
 }
 
-var baseCacheFileList = [
+// var baseCacheFileList = [
+//     '/',
+//     '/index.html',
+//     'js/slidingMarker/jquery.easing.1.3.js',
+//     'js/slidingMarker/markerAnimate.js',
+//     'js/slidingMarker/SlidingMarker.min.js',
+//     'js/utils.js',
+//     'js/AnimationModule.js',
+//     'js/date.js',
+//     'js/functions.js',
+//     'js/map.js',
+//     'js/leaflet-map.js',
+//     'js/markerclusterer.js',
+//     'js/popups.js',
+//     'js/RotateIcon.js',
+//     'data/aircrafts.json',
+//     'data/aircrafts-info.json',
+//     'data/categories.json',
+//     'data/routes.json',
+//     'js/leaflet/leaflet.css',
+//     'js/leaflet/leaflet-src.esm.js.map',
+//     'js/leaflet/leaflet.js',
+//     'js/leaflet/leaflet-src.js',
+//     'js/leaflet/leaflet.js.map',
+//     'js/leaflet/leaflet-src.js.map',
+//     'js/leaflet/leaflet-src.esm.js',
+//     'js/leaflet/images/layers.png',
+//     'js/leaflet/images/marker-icon-2x.png',
+//     'js/leaflet/images/layers-2x.png',
+//     'js/leaflet/images/marker-shadow.png',
+//     'js/leaflet/images/marker-icon.png',
+//     'js/leaflet/leaflet.markercluster.js',
+//     'css/map.css',
+//     'css/hamburgers.css',
+//     'manifest.json'
+// ];
+
+var cacheFileList = [
     '/',
     '/index.html',
     'js/slidingMarker/jquery.easing.1.3.js',
@@ -51,10 +88,7 @@ var baseCacheFileList = [
     'js/leaflet/leaflet.markercluster.js',
     'css/map.css',
     'css/hamburgers.css',
-    'manifest.json'
-];
-
-var cacheFileList = [
+    'manifest.json',
     '/?simulation=120',
     'images/group4@2x.png',
     'animation/loading.gif',
@@ -320,14 +354,14 @@ var cacheFileList = [
 ];
 
  self.addEventListener('install', function(e) {
-     console.log("Loading all base files into cache.");
-     e.waitUntil(self.skipWaiting()); // Activate worker immediately
-
-     e.waitUntil(
-         caches.open('matas').then(function(cache) {
-             return cache.addAll(cacheFileList);
-         })
-     );
+     console.log("Scheduling Cache load in 30 seconds....");
+     // e.waitUntil(self.skipWaiting()); // Activate worker immediately
+     //
+     // e.waitUntil(
+     //     caches.open('matas').then(function(cache) {
+     //         return cache.addAll(cacheFileList);
+     //     })
+     // );
 
      // schedule additional file load to 15 seconds later to not interrupt the app load
      setTimeout(() => {
