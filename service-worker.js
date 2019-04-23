@@ -355,7 +355,7 @@ var cacheFileList = [
 
  self.addEventListener('install', function(e) {
      console.log("Scheduling Cache load in 30 seconds....");
-     // e.waitUntil(self.skipWaiting()); // Activate worker immediately
+     e.waitUntil(self.skipWaiting()); // Activate worker immediately
      //
      // e.waitUntil(
      //     caches.open('matas').then(function(cache) {
