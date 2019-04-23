@@ -418,6 +418,7 @@ function updateLocations(route) {
             locations[point.pointId] = point;
             locations[point.pointId].aircrafts = [];
             locations[point.pointId].hideAircrafts = point.hideAircrafts;
+            locations[point.pointId].color = route.color;
         }
     }, this);
 }
@@ -922,7 +923,7 @@ function selectInfoButtonWithoutClicking() {
     currAircraftTab = "#aircraftInfoContent";
 }
 
-function onAircraftSelected(aircraftId, collapse) {
+function onAircraftSelected(aircraftId, collapse, showSchedule=false) {
     var aircraft = aircrafts[aircraftId-1];
     window.scrollTo(0,1);
 
@@ -931,6 +932,15 @@ function onAircraftSelected(aircraftId, collapse) {
     selectInfoButtonWithoutClicking();
 
     selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse);
+
+    if (showSchedule) {
+        // show schedule instead of aircraft info
+        manageAircraftTabs("aircraftScheduleButton");
+        $("#aircraftScheduleButton").addClass("active");
+        $("#aircraftInfoButton").removeClass("active");
+        $("#aircraftScheduleContent").show();
+        $("#aircraftInfoContent").hide();
+    }
 }
 
 var globalCollapse;
@@ -1242,7 +1252,7 @@ function displaySearchView() {
 
         sortedLocations.forEach(function (location) {
             if (!location.hidden && location.type && location.type==="base") {
-                searchViewHtml += createLocationRow(location, true, true);
+                searchViewHtml += createLocationRow(location, false, true);
             }
         }, this);
 
@@ -1250,7 +1260,7 @@ function displaySearchView() {
         searchViewHtml += createCategoryRow({category: "יישובים"}, true);
         sortedLocations.forEach(function (location) {
             if (!location.hidden && (!location.type || location.type !== "base")) {
-                searchViewHtml += createLocationRow(location, true, true);
+                searchViewHtml += createLocationRow(location, false, true);
             }
         }, this);
 
@@ -1340,7 +1350,7 @@ function initSearchBar() {
             // Populate location results
             basesResults.forEach(function (location) {
                 resultsHtml +=
-                    createLocationRow(location, true, true);
+                    createLocationRow(location, false, true);
             }, this);
         }
 
@@ -1356,7 +1366,7 @@ function initSearchBar() {
             // Populate location results
             citiesResults.forEach(function (location) {
                 resultsHtml +=
-                    createLocationRow(location, true, true);
+                    createLocationRow(location, false, true);
             }, this);
         }
 
@@ -1528,16 +1538,16 @@ function fillMenu() {
                             categoryAircraft.type,
                             categoryAircraft.time,
                             categoryAircraft.aerobatic,
-                            categoryAircraft.special, true, false);
+                            categoryAircraft.special, true, false, undefined, true);
                         prevAircraftTypeId = categoryAircraft.aircraftTypeId;
 
-                        var categoryLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aircraftTypeId===categoryAircraft.aircraftTypeId && aircraft.special === category.category)
-                            .map(aircraft => aircraft.path));
-
-                        categoryLocations.forEach(location => {
-                            html += createCategoryLocationRow(locations[location.pointId],
-                                location.time, location.from);
-                        });
+                        // var categoryLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aircraftTypeId===categoryAircraft.aircraftTypeId && aircraft.special === category.category)
+                        //     .map(aircraft => aircraft.path));
+                        //
+                        // categoryLocations.forEach(location => {
+                        //     html += createCategoryLocationRow(locations[location.pointId],
+                        //         location.time, location.from);
+                        // });
                     }
                 });
             }
@@ -1590,7 +1600,7 @@ function fillMenu() {
 
     sortedLocations.forEach(function (location) {
         if (!location.hidden && location.type && location.type === "base") {
-            locationsViewHtml += createLocationRow(location, true);
+            locationsViewHtml += createLocationRow(location, false);
         }
     }, this);
 
@@ -1598,7 +1608,7 @@ function fillMenu() {
     locationsViewHtml += createCategoryRow({category: "יישובים"}, true);
     sortedLocations.forEach(function (location) {
         if (!location.hidden && (!location.type || location.type !== "base")) {
-            locationsViewHtml += createLocationRow(location, true);
+            locationsViewHtml += createLocationRow(location, false);
         }
     }, this);
 
