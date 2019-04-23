@@ -1,4 +1,4 @@
-// ServiceWorker version : 11 (increase this number every time you want the cache to updated)
+// ServiceWorker version : 12 (increase this number every time you want the cache to updated)
 
 'use strict';
 
@@ -22,7 +22,11 @@ var baseCacheFileList = [
     '/index.html',
     'js/utils.js',
     'js/functions.js',
-    'manifest.json'
+    'manifest.json',
+    '/css/jquery-ui.css',
+    '/js/jquery.min.js',
+    '/js/jquery-ui.min.js',
+    '/js/jquery.mobile-events.js'
 //     'js/slidingMarker/jquery.easing.1.3.js',
 //     'js/slidingMarker/markerAnimate.js',
 //     'js/slidingMarker/SlidingMarker.min.js',
@@ -86,6 +90,8 @@ var cacheFileList = [
     'js/leaflet/images/marker-shadow.png',
     'js/leaflet/images/marker-icon.png',
     'js/leaflet/leaflet.markercluster.js',
+    'icons/search.svg',
+    'icons/clear-button.svg',
     'css/map.css',
     'css/hamburgers.css',
     'manifest.json',
@@ -95,8 +101,7 @@ var cacheFileList = [
     'images/group4@3x.png',
     'animation/parachute-alert.gif',
     'images/h125.jpg',
-    'animation/Splash.gif?v=1',
-    'animation/Splash.gif',
+    'animation/Splash-optimized.gif',
     'animation/Splash.jpg',
     'images/karnaf.jpg',
     'images/kukiya.jpg',
@@ -351,6 +356,17 @@ var cacheFileList = [
     'icons/drone.png',
     'screenshots/screenshot1.png',
     'images/Matas_vector_map.svg'
+    // 'fonts/heebo-v3-hebrew_latin-300.svg',
+    // 'fonts/heebo-v3-hebrew_latin-300.woff2',
+    // 'fonts/heebo-v3-hebrew_latin-700.svg',
+    // 'fonts/heebo-v3-hebrew_latin-700.woff2',
+    // 'fonts/heebo-v3-hebrew_latin-regular.svg',
+    // 'fonts/heebo-v3-hebrew_latin-regular.woff2',
+    // 'fonts/heebo-v4-latin-500.eot',
+    // 'fonts/heebo-v4-latin-500.svg',
+    // 'fonts/heebo-v4-latin-500.ttf',
+    // 'fonts/heebo-v4-latin-500.woff',
+    // 'fonts/heebo-v4-latin-500.woff2'
 ];
 
  self.addEventListener('install', function(e) {
@@ -368,7 +384,6 @@ var cacheFileList = [
          console.log("Loading Extended Files to Cache...");
          caches.open('matas').then(cache => {
              cache.addAll(cacheFileList);
-             console.log("Done.");
          });
      },30000);
  });
