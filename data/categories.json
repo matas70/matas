@@ -10,6 +10,14 @@
     "special": true
   },
   {
+    "category": "מופעים קרקעיים",
+    "special": true
+  },
+  {
+    "category": "חזרות",
+    "special": true
+  },
+  {
     "category": "מטוסי קרב"
   },
   {
@@ -23,13 +31,5 @@
   },
   {
     "category": "סיור ובקרה"
-  },
-  {
-    "category": "מופעים קרקעיים",
-    "special": true
-  },
-  {
-    "category": "חזרות",
-    "special": true
   }
 ]

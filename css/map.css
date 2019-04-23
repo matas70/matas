@@ -234,6 +234,10 @@ div.splash {
     -webkit-overflow-scrolling: touch;
 }
 
+#aircraftsListView {
+    background: #f7f5f5;
+}
+
 #aircraftInfoBannerContainer {
     width: 100%;
     background: white;
@@ -328,6 +332,7 @@ div.table {
     display: flex;
     align-items: center;
     height: 60px;
+    margin-bottom: 2px;
 }
 
 .indented {
@@ -364,6 +369,7 @@ div.locationRow {
 div.locationSpace {
     display: none;
     width: 100%;
+    background: #f7f5f5;
 }
 
 div.locationPadding {
@@ -706,7 +712,7 @@ hr {
 .timeline-warning {
     font-size: 15px;
     text-align: center;
-    color: rgba(69, 87, 115, 0.5);
+    color: #293b57;
     margin-top: 12px;
     margin-bottom: 12px;
 }
@@ -1252,7 +1258,7 @@ margin-right: 50%;
     outline: none;
     caret-color: #3bb5f2;
     position: sticky;
-    transition: width 0.6s;
+    transition: width 0.6s, background 0.5s;
 }
 
 .search-input::placeholder {
@@ -1286,19 +1292,19 @@ margin-right: 50%;
 
 #search-back-button {
 
-    font-size: 15pt;
+font-size: 15pt;
 
-    color: #3bb5f2;
+color: #3bb5f2;
 
-    font-family: "Heebo-Regular";
+font-family: "Heebo-Regular";
 
-    font-weight: 600;
+font-weight: 600;
 
-    margin-right: 20px;
+margin-right: 20px;
 
-    display: none;
+display: none;
 
-    margin-top: 7px;
+margin-top: 7px;
 }
 
 #search-view {
