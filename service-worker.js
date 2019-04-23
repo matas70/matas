@@ -17,16 +17,17 @@ function createCacheBustedRequest(url) {
   return new Request(bustedUrl);
 }
 
-// var baseCacheFileList = [
-//     '/',
-//     '/index.html',
+var baseCacheFileList = [
+    '/',
+    '/index.html',
+    'js/utils.js',
+    'js/functions.js',
+    'manifest.json'
 //     'js/slidingMarker/jquery.easing.1.3.js',
 //     'js/slidingMarker/markerAnimate.js',
 //     'js/slidingMarker/SlidingMarker.min.js',
-//     'js/utils.js',
 //     'js/AnimationModule.js',
 //     'js/date.js',
-//     'js/functions.js',
 //     'js/map.js',
 //     'js/leaflet-map.js',
 //     'js/markerclusterer.js',
@@ -51,8 +52,7 @@ function createCacheBustedRequest(url) {
 //     'js/leaflet/leaflet.markercluster.js',
 //     'css/map.css',
 //     'css/hamburgers.css',
-//     'manifest.json'
-// ];
+];
 
 var cacheFileList = [
     '/',
@@ -356,18 +356,19 @@ var cacheFileList = [
  self.addEventListener('install', function(e) {
      console.log("Scheduling Cache load in 30 seconds....");
      e.waitUntil(self.skipWaiting()); // Activate worker immediately
-     //
-     // e.waitUntil(
-     //     caches.open('matas').then(function(cache) {
-     //         return cache.addAll(cacheFileList);
-     //     })
-     // );
 
-     // schedule additional file load to 15 seconds later to not interrupt the app load
+     e.waitUntil(
+         caches.open('matas').then(function(cache) {
+             return cache.addAll(cacheFileList);
+         })
+     );
+
+     // schedule additional file load to 30 seconds later to not interrupt the app load
      setTimeout(() => {
          console.log("Loading Extended Files to Cache...");
          caches.open('matas').then(cache => {
              cache.addAll(cacheFileList);
+             console.log("Done.");
          });
      },30000);
  });
