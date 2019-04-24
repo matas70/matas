@@ -231,6 +231,7 @@ div.splash {
 #aircraftListContainer {
     height: 150px;
     overflow-y: scroll;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
