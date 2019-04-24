@@ -691,7 +691,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
 
         var marker = aircraftMarkers[aircraft.aircraftId];
         var curIndexLocation = getCurrentIndexLocation(aircraft.path, currentTime);
-        if (curIndexLocation >= 0 && curIndexLocation < aircraft.path.length && aircraft.path[curIndexLocation].hideAircrafts) {
+        if (curIndexLocation >= 0 && curIndexLocation < aircraft.path.length && (aircraft.path[curIndexLocation].hideAircrafts || aircraft.hide)) {
             if (mapAPI.isMarkerVisible(marker)) {
                 mapAPI.toggleAircraftMarkerVisibility(marker, false);
                 // console.log(aircraft.path[curIndexLocation].pointId);
