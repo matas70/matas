@@ -869,8 +869,10 @@ function addAircraftsToMap() {
     mapAPI.setZoomCallback(function () {
         var zoomLevel = mapAPI.getZoomLevel();
         if (zoomLevel >= 9 && lastZoomLevel < 9) {
+            $(".locationMarkerLabel").animate({opacity:1});
             updateAircraftIcons();
         } else if (zoomLevel < 9 && lastZoomLevel >= 9) {
+            $(".locationMarkerLabel").animate({opacity:0});
             updateAircraftIcons();
         }
         lastZoomLevel = zoomLevel;
