@@ -945,6 +945,12 @@ function onAircraftSelected(aircraftId, collapse, showSchedule=false) {
 
 var globalCollapse;
 
+function resizeAircraftNameIfNeeded() {
+    if ($("#aircraftInfoName").height() >= $("#aircraftInfoText").height()) {
+        $("#aircraftInfoName").css('fontSize', "19px");
+    }
+}
+
 function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl, collapse) {
     globalCollapse = collapse;
     deselectLocation();
@@ -955,6 +961,7 @@ function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, 
     selectedAircraft = aircraft;
     selectedAircraftMarker = marker;
     //selectedAircraftMarkerIcon = markerIcon;
+    resizeAircraftNameIfNeeded();
 }
 
 function deselectLocation(callback) {

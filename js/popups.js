@@ -318,8 +318,6 @@ function showAircraftInfoPopup(aircraft, collapse) {
 
     getMapDarker();
 
-
-
     // Clears event handlers
     $("#aircraftInfoMore").off("click");
     $("#shrinkAircraftInfoPopup").off("click")
@@ -395,6 +393,7 @@ function hideAircraftInfoPopup(callback) {
     $("#shrinkAircraftInfoPopup").css("display", "none");
     $("#aircraftInfoPopup").css('height', 'auto');
     $('.aircraftTabs #aircraftInfoContent').show().siblings().hide();
+    $("#aircraftInfoName").css('font-size', "");
 }
 
 function hidePopup(popup, callback) {
