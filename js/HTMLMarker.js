@@ -39,5 +39,8 @@ HTMLMarker.prototype.getPosition = function() {
 
 HTMLMarker.prototype.setIcon = function(html) {
 	this.html = html;
-    this.div.innerHTML = this.html;
+	// Though this doesn't make the div appear magically, it help zooming onto the point to draw it later
+	if (this.div) {
+        this.div.innerHTML = this.html;
+	}
 };
