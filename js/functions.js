@@ -935,11 +935,7 @@ function onAircraftSelected(aircraftId, collapse, showSchedule=false) {
 
     if (showSchedule) {
         // show schedule instead of aircraft info
-        manageAircraftTabs("aircraftScheduleButton");
-        $("#aircraftScheduleButton").addClass("active");
-        $("#aircraftInfoButton").removeClass("active");
-        $("#aircraftScheduleContent").show();
-        $("#aircraftInfoContent").hide();
+        $("#aircraftScheduleButton").click();
     }
 }
 
@@ -1717,7 +1713,7 @@ function closeEntrancePopup() {
 }
 
 function getAerobaticsPoints(){
-    return aircrafts.filter(aircraft => aircraft.aerobatic).map(aircraftObj => aircraftObj.path.map(point => point.pointId)).flat();
+    return [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic).map(aircraftObj => aircraftObj.path.map(point => point.pointId)));
 }
 
 function isPointAerobatic(pointId) {
