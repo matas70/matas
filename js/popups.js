@@ -135,6 +135,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
        $("#noAircraftMessage").show();
     } else {
         $("#noAircraftMessage").hide();
+        specials.set("מטס", tmp);
 
         specials.forEach((value, key) => {
            if (value.length > 0) {

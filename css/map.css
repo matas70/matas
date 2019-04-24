@@ -184,7 +184,7 @@ div.splash {
 }
 
 #popupBody {
-    padding-right: 10pt;
+    padding-right: 21px;
     display: inline-flex;
     flex-direction: column;
 }
@@ -217,7 +217,7 @@ div.splash {
 }
 #popupIcon{
     float: left;
-    padding-left: 14.5pt;
+    padding-left: 29px;
 }
 #popupHeader {
     width: 100%;
@@ -235,6 +235,7 @@ div.splash {
     overflow-y: scroll;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    background: #e5e5e6;
 }
 
 #aircraftsListView {
@@ -335,7 +336,7 @@ div.table {
     display: flex;
     align-items: center;
     height: 60px;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
 }
 
 .indented {
@@ -424,8 +425,8 @@ div.smallAircraftName {
 
 img.aircraftIcon {
     /*display: table-cell;*/
-    padding-left: 22px;
-    padding-right: 22px;
+    padding-left: 21px;
+    padding-right: 21px;
     padding-top: 8px;
     padding-bottom: 4px;
     width: 35px;
@@ -444,7 +445,7 @@ div.aircraftName {
 
 div.time {
     display: table-cell;
-    padding-left: 22px;
+    padding-left: 24px;
     padding-right: 10px;
     text-align: center;
     vertical-align: middle;
@@ -460,6 +461,9 @@ div.infoPopup {
     z-index: 100000;
     bottom: 0;
     background: white;
+    box-shadow: 0px -2.5px 10px 0px rgba(0,0,0,0.06);
+    -webkit-box-shadow: 0px -2.5px 10px 0px rgba(0,0,0,0.06);
+    -moz-box-shadow: 0px -2.5px 10px 0px rgba(0,0,0,0.06);
 }
 
 #popupDisplay{
@@ -737,7 +741,7 @@ hr {
 .aircraftLocationCategory {
     width: 100%;
     height: 32px;
-    padding-right: 10pt;
+    padding-right: 21px;
     line-height: 32px;
     background-color: #d7effb;
     font-size: 15px;
@@ -1203,6 +1207,7 @@ margin-right: 50%;
     max-height: 800px;
     flex-direction: column;
     overflow-y: scroll;
+    background: #e5e5e6;
 }
 
 .locationMarkerIcon {

@@ -350,7 +350,7 @@ var cacheFileList = [
     'icons/showSelected-bb7aff.svg',
     'icons/showSelected-f64b58.svg',
     'icons/transparent.png',
-    'icons/waze.png',
+    'icons/waze.svg',
     'icons/slidepopup.png',
     'icons/drone.png',
     'screenshots/screenshot1.png',
