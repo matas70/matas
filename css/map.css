@@ -1217,7 +1217,7 @@ margin-right: 50%;
 
 .locationMarkerLabel {
     text-align: center;
-    font-family: Heebo;
+    font-family: Heebo-Regular;
     font-size: 9pt;
     background-color: rgba(0,0,0,.6);
     color: white;
@@ -1345,7 +1345,6 @@ margin-top: 7px;
     font-weight: 500;
     font-family: "Heebo-Regular";
     text-align: center;
-    margin-top: 25px;
 }
 
 #noAircraftMessageRow {
