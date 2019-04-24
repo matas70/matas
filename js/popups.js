@@ -667,7 +667,7 @@ function openMapClusterPopup(arrayOfObjects) {
     // Populating the popup
     arrayOfObjects.forEach((obj) => {
         // In the case of aircraft
-        if (obj.aircraftId && obj.name != lastAircraft) {
+        if (obj.aircraftId && obj.name !== lastAircraft) {
             html += createTableRow(obj.aircraftId, obj.name, obj.icon, obj.type, obj.path[0].time, obj.aerobatic, obj.parachutist, false, false);
             lastAircraft = obj.name;
         } else if (obj.pointId) {
