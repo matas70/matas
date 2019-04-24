@@ -37,7 +37,7 @@ function initPopups() {
     popupHeader.on("tapstart", function (event) {
         dragStartTopY = event.touches[0].clientY;
         currHeight = locationPopup.height();
-        maxHeight = Math.min($("#aircraftsList").height() + 70, $("#map").height());
+        maxHeight = Math.min($("#aircraftsList").height() + 200, $("#map").height());
         event.preventDefault();
     });
 
@@ -45,8 +45,9 @@ function initPopups() {
         if (dragStartTopY != null) {
             delta = dragStartTopY - event.touches[0].clientY;
             var targetHeight = currHeight + delta;
-            if (targetHeight >= maxHeight)
+            if (targetHeight >= maxHeight) {
                 targetHeight = maxHeight;
+            }
 
             locationPopup.height(targetHeight);
             aircraftListContainer.height(targetHeight - 50);
