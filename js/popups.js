@@ -249,7 +249,9 @@ function manageAircraftTabs(elem) {
     }
 
     currAircraftTab = currentAttrValue;
-    $('.aircraftTabs ' + currentAttrValue).show().siblings().hide();
+    setTimeout(() => {
+        $('.aircraftTabs ' + currentAttrValue).show().siblings().hide();
+    }, 0);
 }
 
 function toggleAircraftContentSeparator(shouldShow) {
