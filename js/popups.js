@@ -37,7 +37,7 @@ function initPopups() {
     popupHeader.on("tapstart", function (event) {
         dragStartTopY = event.touches[0].clientY;
         currHeight = locationPopup.height();
-        maxHeight = Math.min($("#aircraftsList").height() + 200, $("#map").height());
+        maxHeight = $("#map").height();
         event.preventDefault();
     });
 
