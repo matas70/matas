@@ -1,5 +1,9 @@
 [
   {
+    "category": "חזרות",
+    "special": true
+  },
+  {
     "category": "מופעים אווירובטיים",
     "aerobatic": true,
     "special": true
@@ -11,10 +15,6 @@
   },
   {
     "category": "מופעים קרקעיים",
-    "special": true
-  },
-  {
-    "category": "חזרות",
     "special": true
   },
   {
@@ -31,5 +31,9 @@
   },
   {
     "category": "סיור ובקרה"
+  },
+  {
+    "category": "מופעים קרקעיים",
+    "special": true
   }
 ]
