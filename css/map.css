@@ -1339,3 +1339,13 @@ margin-top: 7px;
     text-align: center;
     margin-top: 25px;
 }
+
+#noAircraftMessageRow {
+font-size: 16px;
+display: block;
+color: #8e8e93;
+font-family: "Heebo-Regular";
+text-align: center;
+padding-bottom: 17px;
+padding-top: 17px;
+}

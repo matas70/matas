@@ -490,20 +490,25 @@ function expandLocation(pointId, isSearchBar = false) {
     if (locationSpace.html() === "") {
         var html = "";
         var lastAircraft = "";
-        location.aircrafts.forEach(function (aircraft) {
-            if (aircraft.name !== lastAircraft) {
-                html += createTableRow(aircraft.aircraftId,
-                    aircraft.name,
-                    aircraft.icon,
-                    aircraft.aircraftType,
-                    aircraft.time,
-                    aircraft.aerobatic,
-                    aircraft.parachutist,
-                    true,
-                    true);
-                lastAircraft = aircraft.name;
-            }
-        }, this);
+        if (location.aircrafts.length == 0) {
+            html += createNoAircraftMessageRow();
+        } else {
+            location.aircrafts.forEach(function (aircraft) {
+                if (aircraft.name !== lastAircraft) {
+                    html += createTableRow(aircraft.aircraftId,
+                        aircraft.name,
+                        aircraft.icon,
+                        aircraft.aircraftType,
+                        aircraft.time,
+                        aircraft.aerobatic,
+                        aircraft.parachutist,
+                        true,
+                        true);
+                    lastAircraft = aircraft.name;
+                }
+            }, this);
+        }
+
         locationSpace.html(html);
         locationSpace.slideDown();
         $("#location" + pointId).children(".nextAircraftSection").children(".expandArrow").hide();
@@ -516,6 +521,10 @@ function expandLocation(pointId, isSearchBar = false) {
         });
     }
 
+}
+
+function createNoAircraftMessageRow() {
+    return `<div id="noAircraftMessageRow">אין מטוסים נוספים הצפויים לעבור בנקודה זו השנה</div>`
 }
 
 function showIncompatibleDevicePopup() {
