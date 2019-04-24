@@ -1328,3 +1328,14 @@ margin-top: 7px;
 .search-sorry {
     font-size: 18px;
 }
+
+#noAircraftMessage {
+    display: none;
+    font-size: 16px;
+    display: block;
+    color: #8e8e93;
+    font-weight: 500;
+    font-family: "Heebo-Regular";
+    text-align: center;
+    margin-top: 25px;
+}
