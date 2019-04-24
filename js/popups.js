@@ -138,7 +138,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
         specials.set("מטס", tmp);
 
         specials.forEach((value, key) => {
-           if (value.length > 0) {
+           if (value && value.length > 0) {
                html += createLocationPopupCategoryRow(key);
                value.forEach((ac) => {
                    var date = undefined;
