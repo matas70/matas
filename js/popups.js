@@ -124,36 +124,40 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
        }
     });
 
+    // Filter out empty categories
+    specials = new Map([...specials].filter(([key, value]) => value.length > 0));
+
     var tmp = specials.get("מטס");
     specials.delete("מטס");
 
     // Check to see if aircraftList is empty in this location
-    if (specials.size == 0 && tmp.length == 0) {
+    if (specials.size === 0 && (!tmp || tmp.length === 0)) {
        $("#noAircraftMessage").show();
     } else {
         $("#noAircraftMessage").hide();
-        specials.set("מטס", tmp);
 
         specials.forEach((value, key) => {
-           html += createLocationPopupCategoryRow(key);
-           value.forEach((ac) => {
-               var date = undefined;
+           if (value.length > 0) {
+               html += createLocationPopupCategoryRow(key);
+               value.forEach((ac) => {
+                   var date = undefined;
 
-               if (ac.date) {
-                   var split = ac.date.split('-');
-                   date = split[1] + "/" + split[2] + "/" + split[0].substr(2 , 2);
-               }
-               html += createTableRow(ac.aircraftId,
-                   ac.name,
-                   ac.icon,
-                   ac.aircraftType,
-                   ac.time,
-                   ac.aerobatic || key === "מופעים אווירובטיים" || key === "חזרות" ,
-                   ac.parachutist,
-                   false,
-                   true,
-                   date);
-           });
+                   if (ac.date) {
+                       var split = ac.date.split('-');
+                       date = split[1] + "/" + split[2] + "/" + split[0].substr(2, 2);
+                   }
+                   html += createTableRow(ac.aircraftId,
+                       ac.name,
+                       ac.icon,
+                       ac.aircraftType,
+                       ac.time,
+                       ac.aerobatic || key === "מופעים אווירובטיים" || key === "חזרות",
+                       ac.parachutist,
+                       false,
+                       true,
+                       date);
+               });
+           }
         });
     }
 
