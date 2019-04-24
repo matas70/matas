@@ -1237,6 +1237,14 @@ margin-right: 50%;
     margin-top: -18px;
 }
 
+.locationMarkerDivGmaps {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 22px;
+}
+
 #search-bar {
     display: flex;
     padding: 22px 25px 22px 25px;
@@ -1341,11 +1349,18 @@ margin-top: 7px;
 }
 
 #noAircraftMessageRow {
-font-size: 16px;
-display: block;
-color: #8e8e93;
-font-family: "Heebo-Regular";
-text-align: center;
-padding-bottom: 17px;
-padding-top: 17px;
+
+font-size: 16px;
+
+display: block;
+
+color: #8e8e93;
+
+font-family: "Heebo-Regular";
+
+text-align: center;
+
+padding-bottom: 17px;
+
+padding-top: 17px;
 }
