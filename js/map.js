@@ -188,7 +188,7 @@ googleMaps = {
         var aircraftsInCircle = $.map(aircrafts, (aircraft, index) => {
             var aircraftMarker = aircraftMarkers[aircraft.aircraftId];
             var aircraftPixel = googleMaps.getMarkerPixelPosition(aircraftMarker);
-            if (aircraftMarker.map != null && googleMaps.distanceBetweenPixels(pixel, aircraftPixel) < radius) {
+            if (aircraftMarker.getVisible() && aircraftMarker.map != null && googleMaps.distanceBetweenPixels(pixel, aircraftPixel) < radius) {
                 return [aircraft];
             } else {
                 return [];
@@ -273,6 +273,7 @@ googleMaps = {
                     position: new google.maps.LatLng(location.lat,location.lng),
                     html: markerHtml,
                     zIndex: 100,
+                    class: "htmlMarker"
                 });
 
                 marker.addListener('click', (event) => {
