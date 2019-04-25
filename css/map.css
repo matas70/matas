@@ -481,12 +481,12 @@ div.infoPopup {
 }
 
 div.infoBasePopup {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
-    position: fixed;
     width: 100%;
     z-index: 100000;
     bottom: 0;
+    position: relative;
 }
 
 .screenshot {
@@ -781,27 +781,31 @@ hr {
 }
 
 #basePopup {
-    height: 96pt;
-    top: 64px;
+    height: 98px;
 }
 
 #baseInfo {
     background: white;
-    height: 78pt;
+    height: 90px;
+    -webkit-box-shadow: 0px 2.5px 10px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 2.5px 10px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 2.5px 10px 0px rgba(0,0,0,0.1);
 }
 
 .baseData {
     position: absolute;
     display: inline;
-    padding-top: 21pt;
-    padding-bottom: 37pt;
-    padding-right: 14pt;
-    font-size: 11pt;
+    padding-top: 12px;
+    padding-right: 0px;
+    font-size: 14px;
+    padding-left: 77px;
+    letter-spacing: 0;
+    padding-bottom: 12px;
 }
 
 b.baseData {
     padding: 0;
-    font-size: 12pt;
+    font-size: 17px;
     font-family: Heebo-Bold, sans-serif;
 }
 
@@ -812,18 +816,20 @@ br.baseData {
 .baseEventIcon {
     padding-top: 22pt;
     padding-bottom: 32pt;
-    padding-right: 7pt;
-    width: 54pt;
-    height: 42pt;
+    padding-right: 20px;
+    width: 42px;
+    height: 40px;
+    padding-left: 20px;
 }
 
 .baseExitIcon {
     width: 30pt;
     height: 30pt;
     position: relative;
-    left: -135pt;
-    top: -3pt;
     cursor: pointer;
+    float: left;
+    top: 66px;
+    left: 15px;
 }
 
 #backgroundImage {
@@ -956,10 +962,8 @@ br.baseData {
 
 #entrancePopup {
     width: 100%;
-    top: 64px;
     text-align: center;
-    position: absolute;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
@@ -968,6 +972,7 @@ br.baseData {
     -o-background-size: cover;
     background-size: cover;
     transition: background-image 5s ease-in-out;
+    position: relative;
 }
 
 #entrancePopup.mapLoaded {
@@ -1370,4 +1375,17 @@ text-align: center;
 padding-bottom: 17px;
 
 padding-top: 17px;
+}
+
+.subheader {
+    
+display: flex;
+    
+flex-direction: column;
+    
+width: 100%;
+    
+top: 64px;
+    
+position: fixed;
 }
