@@ -834,6 +834,7 @@ var lastZoomLevel = 0;
 
 function addAircraftsToMap() {
     var zoomLevel = mapAPI.getZoomLevel();
+
     aircrafts.forEach(function (aircraft) {
         // draw current location of the aircraft
         var currentAircraftPosition = getCurrentLocation(aircraft.path, getCurrentTime());
