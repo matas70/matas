@@ -1,4 +1,4 @@
-// ServiceWorker version : 12 (increase this number every time you want the cache to updated)
+// ServiceWorker version : 13 (increase this number every time you want the cache to updated)
 
 'use strict';
 
@@ -354,7 +354,7 @@ var cacheFileList = [
     'icons/slidepopup.png',
     'icons/drone.png',
     'screenshots/screenshot1.png',
-    'images/Matas_vector_map.svg'
+    'images/Matas_vector_map.svg?v=2'
     // 'fonts/heebo-v3-hebrew_latin-300.svg',
     // 'fonts/heebo-v3-hebrew_latin-300.woff2',
     // 'fonts/heebo-v3-hebrew_latin-700.svg',

@@ -1159,19 +1159,25 @@ function loadApp() {
 function loadMapApi() {
     $.ajaxSetup({ cache: true });
     if (!mapLoaded) {
-        // check if an internet connection is available (by fetching non-cache file)
-        fetch("/data/test-connection.json?t="+new Date().getTime()).then((response)=> {
-            // if there is a connection - load google maps
-            $.getScript(mapAPI.MAP_URL, function () {
-                        mapLoaded = true;
-                    });
+        if ($.urlParam("offline")==="true") {
+            mapAPI = leafletMaps;
+            mapLoaded = true;
+            initMap();
+        } else {
+            // check if an internet connection is available (by fetching non-cache file)
+            fetch("/data/test-connection.json?t=" + new Date().getTime()).then((response) => {
+                // if there is a connection - load google maps
+                $.getScript(mapAPI.MAP_URL, function () {
+                    mapLoaded = true;
+                });
             }).catch((err) => {
                 console.warn("no internet connection - working offline");
                 // if there is no connection - load leaflet maps (offline)
                 mapAPI = leafletMaps;
                 mapLoaded = true;
                 initMap();
-        });
+            });
+        }
     }
 
     $.ajaxSetup({ cache: false });

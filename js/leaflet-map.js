@@ -280,7 +280,7 @@ leafletMaps = {
     },
 
     addOfflineMap : (map) => {
-        L.imageOverlay('/images/Matas_vector_map.svg', [[26.7, 30.7], [36, 39.48]]).addTo(map)
+        L.imageOverlay('images/Matas_vector_map.svg?v=2', [[26.500, 30.725], [36.15, 39.390]]).addTo(map)
     },
     
     createMapObject : (clickCallback) => {
