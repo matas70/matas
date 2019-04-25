@@ -30,11 +30,11 @@ googleMaps = {
     createAircraftMarker : (position, name, hide, clickEvent) => {
         aircraftMarker = new SlidingMarker({
             position: position,
-            map: hide ? null : map,
+            map: map,
             title: name,
             easing: "linear",
             optimized: false,
-            zIndex: 9
+            zIndex: 101
         });
 
         // add "clicked" event
@@ -49,15 +49,14 @@ googleMaps = {
             }
         });
 
-
         return aircraftMarker;
     },
 
     toggleAircraftMarkerVisibility : (marker, shouldShow) => {
         if (!shouldShow) {
-            marker.setMap(null);
-        } else if (!marker.getMap()) {
-            marker.setMap(map);
+            marker.setVisible(false);
+        } else {
+            marker.setVisible(true);
         }
     },
 
@@ -255,6 +254,8 @@ googleMaps = {
         map.data.add(dropShadowFeature);
         map.data.add(pathFeature);
 
+        var markers = [];
+
         // create the points marker
         route.points.forEach((point) => {
             if (!point.hidden) {
@@ -271,6 +272,7 @@ googleMaps = {
                 var marker = new HTMLMarker({
                     position: new google.maps.LatLng(location.lat,location.lng),
                     html: markerHtml,
+                    zIndex: 100,
                 });
 
                 marker.addListener('click', (event) => {
@@ -296,17 +298,12 @@ googleMaps = {
                     }
                 });
                 markersMap[point.pointId] = marker;
+                if (!isPointAerobatic(point.pointId))
+                    markers.push(marker);
+                else
+                    marker.setMap(map);
             }
         }, this);
-
-        var markers = $.map(markersMap, (value, index) => {
-            if (!isPointAerobatic(Number.parseInt(index))) return [value];
-            else {
-                value.setMap(map);
-                return null;
-            }
-        });
-
 
         var markerCluster = new MarkerClusterer(map, markers,
             {
@@ -316,37 +313,41 @@ googleMaps = {
                         textSize: 1,
                         textColor: "#" + route.color.toLowerCase(),
                         width: 38,
-                        height: 38
+                        height: 38,
+                        zIndex: 100
                     },
                     {
                         url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
                         textColor: "#" + route.color.toLowerCase(),
                         width: 38,
-                        height: 38
+                        height: 38,
+                        zIndex: 100
                     },
                     {
                         url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
                         textColor: "#" + route.color.toLowerCase(),
                         width: 38,
-                        height: 38
+                        height: 38,
+                        zIndex: 100
                     },
                     {
                         url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
                         textColor: "#" + route.color.toLowerCase(),
                         width: 38,
-                        height: 38
+                        height: 38,
+                        zIndex: 100
                     },
                     {
                         url: "icons/point-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
                         textColor: "#" + route.color.toLowerCase(),
                         width: 38,
-                        height: 38
+                        height: 38,
+                        zIndex: 100
                     }],
-                zIndex: route.routeId
             });
     },
 
@@ -434,6 +435,6 @@ googleMaps = {
     },
 
     isMarkerVisible : (marker) => {
-        return marker.getMap() != null;
+        return marker.getVisible();
     }
 }

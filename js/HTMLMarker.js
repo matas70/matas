@@ -16,13 +16,23 @@ HTMLMarker.prototype.onAdd= function(){
     this.div.className = "htmlMarker";
     this.div.style.position='absolute';
     this.div.innerHTML = this.html;
+    this.div.style.zIndex = this.attr.zIndex;
     var panes = this.getPanes();
-    panes.overlayImage.appendChild(this.div);
+    panes.overlayLayer.appendChild(this.div);
     var self  = this;
     google.maps.event.addDomListener(this.div, "click", function(event) {
         clickEvent = {latLng: self.pos};
         google.maps.event.trigger(self, "click", clickEvent);
     });
+};
+
+HTMLMarker.prototype.setVisible = function(visible) {
+    if (this.div != null) {
+        if (visible)
+            this.div.style.display = "block";
+        else
+            this.div.style.display = "none";
+    }
 };
 
 HTMLMarker.prototype.draw = function(){
@@ -35,6 +45,10 @@ HTMLMarker.prototype.draw = function(){
 
 HTMLMarker.prototype.getPosition = function() {
 	return this.pos;
+};
+
+HTMLMarker.prototype.setPosition = function(pos) {
+    this.pos = pos;
 };
 
 HTMLMarker.prototype.setIcon = function(html) {

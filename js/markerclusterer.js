@@ -1084,10 +1084,11 @@ ClusterIcon.prototype.onAdd = function() {
     var pos = this.getPosFromLatLng_(this.center_);
     this.div_.style.cssText = this.createCss(pos);
     this.div_.innerHTML = this.sums_.text;
+    this.div_.style.zIndex = this.zIndex_;
   }
 
   var panes = this.getPanes();
-  panes.overlayMouseTarget.appendChild(this.div_);
+  panes.overlayLayer.appendChild(this.div_);
 
   var that = this;
   google.maps.event.addDomListener(this.div_, 'click', function() {
@@ -1202,6 +1203,7 @@ ClusterIcon.prototype.useStyle = function() {
   this.anchor_ = style['anchor'];
   this.textSize_ = style['textSize'];
   this.backgroundPosition_ = style['backgroundPosition'];
+  this.zIndex_ = style['zIndex'];
 };
 
 
