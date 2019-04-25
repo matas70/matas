@@ -254,7 +254,8 @@ googleMaps = {
         map.data.add(dropShadowFeature);
         map.data.add(pathFeature);
 
-        var markers = [];
+        var allMarkers = [];
+        var specialMarkers = [];
 
         // create the points marker
         route.points.forEach((point) => {
@@ -300,14 +301,15 @@ googleMaps = {
                 });
                 markersMap[point.pointId] = marker;
                 if (!isPointAerobatic(point.pointId))
-                    markers.push(marker);
+                    allMarkers.push(marker);
                 else
-                    marker.setMap(map);
+                    specialMarkers.push(marker);
             }
         }, this);
 
-        var markerCluster = new MarkerClusterer(map, markers,
+        var markerCluster = new MarkerClusterer(map, allMarkers,
             {
+                gridSize: 100,
                 styles: [
                     {
                         url: "icons/point-" + route.color.toLowerCase() + ".svg",
@@ -343,6 +345,52 @@ googleMaps = {
                     },
                     {
                         url: "icons/point-" + route.color.toLowerCase() + ".svg",
+                        textSize: 1,
+                        textColor: "#" + route.color.toLowerCase(),
+                        width: 38,
+                        height: 38,
+                        zIndex: 100
+                    }],
+            });
+
+        var specialMarkerCluster = new MarkerClusterer(map, specialMarkers,
+            {
+                gridSize: 100,
+                styles: [
+                    {
+                        url: "icons/show-" + route.color.toLowerCase() + ".svg",
+                        textSize: 1,
+                        textColor: "#" + route.color.toLowerCase(),
+                        width: 38,
+                        height: 38,
+                        zIndex: 100
+                    },
+                    {
+                        url: "icons/show-" + route.color.toLowerCase() + ".svg",
+                        textSize: 1,
+                        textColor: "#" + route.color.toLowerCase(),
+                        width: 38,
+                        height: 38,
+                        zIndex: 100
+                    },
+                    {
+                        url: "icons/show-" + route.color.toLowerCase() + ".svg",
+                        textSize: 1,
+                        textColor: "#" + route.color.toLowerCase(),
+                        width: 38,
+                        height: 38,
+                        zIndex: 100
+                    },
+                    {
+                        url: "icons/show-" + route.color.toLowerCase() + ".svg",
+                        textSize: 1,
+                        textColor: "#" + route.color.toLowerCase(),
+                        width: 38,
+                        height: 38,
+                        zIndex: 100
+                    },
+                    {
+                        url: "icons/show-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
                         textColor: "#" + route.color.toLowerCase(),
                         width: 38,

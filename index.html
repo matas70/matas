@@ -140,20 +140,43 @@
 <!-- the map itself -->
 <div id="map" style="display: none;"></div>
 
-<!-- shows popup -->
-<div id="basePopup" class="infoBasePopup" style="display: none">
-    <div id="headerBase">
-        <div class="alert-header">
-            <img src="/icons/drone.png" />
-            <span>חל איסור על הטסת רחפנים בכל האירועים!</span>
-        </div>
-        <div id="baseInfo">
-            <img id="showAeroplanIcon" src="images/aeroplan.png" class="baseEventIcon">
-            <img id="showParachutingIcon" src="images/parachuting.png" class="baseEventIcon">
-            <div id="showData" class="baseData"><b class="baseData">מופע אווירובטי</b><br class="baseData">יחל בבסיס תל
-                נוף בעוד 5 דק'
+<div class="subheader">
+    <!-- entrance popup -->
+    <div id="entrancePopup" class="entrancePopup" style="display:none">
+        <div id="countdownContainer">
+            <div id="countdownMeter" class="countdown">
+                <div class="countdownLabel">
+                    <div id="days" class="countdownText">05</div>
+                    <div id="daysText">ימים</div>
+                </div>
+                <div class="countdownLabel">
+                    <div id="hours" class="countdownText">13</div>
+                    <div id="hoursText">שעות</div>
+                </div>
+                <div class="countdownLabel">
+                    <div id="minutes" class="countdownText">54</div>
+                    <div id="minutesText">דקות</div>
+                </div>
             </div>
-            <img src="images/exitBase.png" class="baseExitIcon" onclick="hideBasePopup()">
+            <div class="entranceBody">לתחילת אירועי חיל האוויר - עצמאות 71</div>
+        </div>
+    </div>
+    <!-- shows popup -->
+    <div id="basePopup" class="infoBasePopup" style="display: none">
+        <div id="headerBase">
+            <div class="alert-header">
+                <img src="/icons/drone.png" />
+                <span>חל איסור על הטסת רחפנים בכל האירועים!</span>
+            </div>
+            <div id="baseInfo">
+                <img id="showAeroplanIcon" src="images/aeroplan.png" class="baseEventIcon">
+                <img id="showParachutingIcon" src="images/parachuting.png" class="baseEventIcon">
+                <img id="popupHeaderIcon" src="icons/genericAircraft.svg" class="baseEventIcon">
+                <div id="showData" class="baseData"><b class="baseData">מופע אווירובטי</b><br class="baseData">יחל בבסיס תל
+                    נוף בעוד 5 דק'
+                </div>
+                <img src="images/exitBase.png" class="baseExitIcon" onclick="hideBasePopup()">
+            </div>
         </div>
     </div>
 </div>
@@ -321,28 +344,6 @@
     <div class="mapClusterPopupHeader">אני רוצה לצפות ב:</div>
     <div id="mapClusterPopupContent" class="mapClusterPopupContent"></div>
     <div id="mapClusterPopupFooter" class="mapClusterPopupFooter">סגור</div>
-</div>
-
-<!-- entrance popup -->
-<div id="entrancePopup" class="entrancePopup" style="display:none">
-    <div id="countdownContainer">
-            <div id="countdownMeter" class="countdown">
-                <div class="countdownLabel">
-                    <div id="days" class="countdownText">05</div>
-                    <div id="daysText">ימים</div>
-                </div>
-                <div class="countdownLabel">
-                    <div id="hours" class="countdownText">13</div>
-                    <div id="hoursText">שעות</div>
-                </div>
-                <div class="countdownLabel">
-                    <div id="minutes" class="countdownText">54</div>
-                    <div id="minutesText">דקות</div>
-                </div>
-            </div>
-            <div class="entranceBody">לתחילת אירועי חיל האוויר - עצמאות 71</div>
-        </div>
-    </div>
 </div>
 
 <!-- confirmation popup -->

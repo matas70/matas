@@ -623,24 +623,58 @@ function showBasePopup(isAerobatics, minutes, locationName) {
     if (isAerobatics) {
         $("#showAeroplanIcon").show();
         $("#showParachutingIcon").hide();
+        $("#popupHeaderIcon").hide();
     } else {
         $("#showAeroplanIcon").hide();
         $("#showParachutingIcon").show();
+        $("#popupHeaderIcon").hide();
     }
 
     html += "</b><br class=\"baseData\">";
     // var eventDetails = `${desc}${baseName} בעוד ${minute} דקות`;
     html += getEventDescription(isAerobatics, locationName, minutes);
     $("#showData").html(html);
-    $("#basePopup").css("top", -64);
+    $("#basePopup").css("top", -64).css("opacity",0);
     $("#basePopup").show();
     if (searchOpen) {
         $("#basePopup").animate({
-            top: 0 + "px"
+            top: -64 + "px",
+            opacity: 0
         }, 600);
+
     } else {
         $("#basePopup").animate({
-            top: 64 + "px"
+            top: 0 + "px",
+            opacity: 1
+        }, 600);
+    }
+}
+
+function showGenericPopup(title, subtitle) {
+    var html = "<b class=\"baseData\">";
+    html += title;
+
+    $("#showAeroplanIcon").hide();
+    $("#showParachutingIcon").hide();
+    $(".alert-header").hide();
+    $("#popupHeaderIcon").show();
+
+    html += "</b><br class=\"baseData\">";
+    // var eventDetails = `${desc}${baseName} בעוד ${minute} דקות`;
+    html += subtitle;
+    $("#showData").html(html);
+    $("#basePopup").css("top", -64).css("opacity",0);
+    $("#basePopup").show();
+    if (searchOpen) {
+        $("#basePopup").animate({
+            top: -64 + "px",
+            opacity: 0
+        }, 600);
+
+    } else {
+        $("#basePopup").animate({
+            top: 0 + "px",
+            opacity: 1
         }, 600);
     }
 }
@@ -651,7 +685,8 @@ function getEventIcon(isAerobatics) {
 
 function hideBasePopup() {
     $("#basePopup").animate({
-        top: -64 + "px"
+        top: -64 + "px",
+        opacity: 0
     }, "fast", "swing", function () {
         $("#basePopup").hide();
     });

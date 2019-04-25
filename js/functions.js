@@ -25,11 +25,15 @@ var locations = [];
 var aircraftMarkers = {};
 var aircraftPaths = {};
 var startDate;
+var firstFlightTime = null;
+var lastFlightTime = null;
 var plannedStartTime;
 var plannedEndTime;
 var actualStartTime;
+var realActualStartTime;
 var categories = [];
 var displayAircraftShows = true;
+var userSimulation = false;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -227,12 +231,14 @@ function getCurrentPosLocation(path, currentTime) {
 }
 
 function removeAircraftsFromLocation() {
-    var currTime = getCurrentTime();
-    locations.forEach(function (location) {
-        location.aircrafts = location.aircrafts.filter(function (aircraft) {
-            return (currTime < getActualPathTime(aircraft.date, aircraft.time));
-        })
-    });
+    if (!userSimulation) {
+        var currTime = getCurrentTime();
+        locations.forEach(function (location) {
+            location.aircrafts = location.aircrafts.filter(function (aircraft) {
+                return (currTime < getActualPathTime(aircraft.date, aircraft.time));
+            })
+        });
+    }
 }
 
 /**
@@ -251,13 +257,15 @@ function cleanPreviousLocations(aircraft) {
     });
 
     // remove aircraft from locations that it already visited
-    pathPassed.forEach(function (path) {
-        var location = locations[path.pointId];
-        location.aircrafts = location.aircrafts.filter(function (aircraftInPath) {
-            return (aircraftInPath.aircraftId !== aircraft.aircraftId ||
-                aircraftInPath.aircraftId === aircraft.aircraftId && currTime < getActualPathTime(aircraftInPath.date, aircraftInPath.time))
+    if (!userSimulation) {
+        pathPassed.forEach(function (path) {
+            var location = locations[path.pointId];
+            location.aircrafts = location.aircrafts.filter(function (aircraftInPath) {
+                return (aircraftInPath.aircraftId !== aircraft.aircraftId ||
+                    aircraftInPath.aircraftId === aircraft.aircraftId && currTime < getActualPathTime(aircraftInPath.date, aircraftInPath.time))
+            });
         });
-    });
+    }
 
 
     // remove them from the aircraft path
@@ -300,10 +308,12 @@ function convertTime(dateString, timeString) {
     var seconds = timeString.substr(6, 2);
 
     if ($.urlParam("ff") === "true") {
-        return new Date(year, month - 1, day, 0, hours, minutes, seconds / 60 * 1000).getTime();
+        realTime = new Date(year, month - 1, day, 0, hours, minutes, seconds / 60 * 1000).getTime();
     } else {
-        return new Date(year, month - 1, day, hours, minutes, seconds).getTime();
+        realTime = new Date(year, month - 1, day, hours, minutes, seconds).getTime();
     }
+
+    return realTime;
 }
 
 function containsPosition(pos, list) {
@@ -437,15 +447,22 @@ function loadRoutes(callback) {
  * Considers the simulation flag
  * @param routes
  */
-function loadActualStartTime(routes) {
-    actualStartTime = convertTime(startDate, routes.actualStartTime);
+function loadActualStartTime(flightData) {
+    actualStartTime = convertTime(startDate, flightData.actualStartTime);
+
     if ($.urlParam("simulation") != null) {
         actualStartTime = (new Date()).getTime() - $.urlParam("simulation") * 60 * 1000;
     }
+    realActualStartTime = actualStartTime;
 
-    // TODO - remove this later before production
-    var simulation=110;
-    actualStartTime = (new Date()).getTime() - simulation * 60 * 1000;
+    var currentTime = new Date().getTime();
+
+    // run simulation until 6 hours before the actual flight.
+    if (actualStartTime - currentTime > 6 * 60 * 60 * 1000) {
+        userSimulation = true;
+        var simulationLength = lastFlightTime - firstFlightTime + 1;
+        actualStartTime = currentTime - (currentTime % (firstFlightTime % simulationLength)) - (firstFlightTime - actualStartTime);
+    }
 }
 
 function loadAircrafts(callback) {
@@ -456,8 +473,12 @@ function loadAircrafts(callback) {
         }, this);
 
         // load all aircrafts
-        $.getJSON("data/aircrafts.json?t="+(new Date()).getTime(), function (routes) {
-            aircrafts = routes.aircrafts;
+        $.getJSON("data/aircrafts.json?t="+(new Date()).getTime(), function (flightData) {
+            aircrafts = flightData.aircrafts;
+            startDate = flightData.startDate;
+            plannedStartTime = convertTime(startDate, flightData.plannedStartTime);
+            plannedEndTime = convertTime(startDate, flightData.plannedEndTime);
+
             // merge info from aircraft type info
             aircrafts.forEach(function (aircraft) {
                 if (aircraft.aircraftTypeId !== undefined) {
@@ -466,11 +487,28 @@ function loadAircrafts(callback) {
                     for(var field in aircraftTypeInfo)
                         aircraft[field]=aircraftTypeInfo[field];
                 }
+
+                // update times of all flights
+                if (!aircraft.hide && aircraft.path.length > 0 && !aircraft.special) {
+                    aircraftFlightTime = convertTime(aircraft.path[0].date, aircraft.path[0].time);
+                    if (firstFlightTime == null) {
+                        firstFlightTime = aircraftFlightTime;
+                    } else if (aircraftFlightTime < firstFlightTime) {
+                        firstFlightTime = aircraftFlightTime;
+                    }
+
+                    aircraftLandTime = convertTime(aircraft.path[aircraft.path.length-1].date, aircraft.path[aircraft.path.length-1].time);
+
+                    if (lastFlightTime == null) {
+                        lastFlightTime = aircraftLandTime;
+                    } else if (aircraftLandTime > lastFlightTime) {
+                        lastFlightTime = aircraftLandTime;
+                    }
+                }
+
             }, this);
 
-            startDate = routes.startDate;
-            plannedStartTime = convertTime(startDate, routes.plannedStartTime);
-            loadActualStartTime(routes);
+            loadActualStartTime(flightData);
             callback(aircrafts);
         });
     });
@@ -1024,7 +1062,7 @@ var mapLoaded = false;
 
 function countdown() {
     var currentTime = getCurrentTime();
-    var remainingTime = new Date(actualStartTime - currentTime);
+    var remainingTime = new Date(realActualStartTime - currentTime);
 
     // Load the map three seconds before the countdown finishes
     if (remainingTime < 3500 && remainingTime > 2500) {
@@ -1036,6 +1074,10 @@ function countdown() {
             $(".splash").fadeIn();
             $(".loading").css("background-image", "url(animation/loading.gif)");
             loadApp();
+            // cancel simulation (if enabled)
+            actualStartTime = realActualStartTime;
+            userSimulation = false;
+
             setTimeout(() => {
                 $(".splash").fadeOut();
                 $(".loading").fadeOut();
@@ -1125,17 +1167,14 @@ function onLoad() {
                     });
                 }, this);
 
-                if (getCurrentTime() < actualStartTime) {
+                if (getCurrentTime() < realActualStartTime) {
                     countdownInterval = setInterval(function () {
                         countdown();
                     }, 1000);
-                    setTimeout(function () {
-                        $(".splash").fadeOut();
-                        $("#entrancePopup").fadeIn();
-                        getMapDarker();
-                        loadApp();
-                    }, 1000);
-                } else if (!mapLoaded) {
+                    $("#entrancePopup").fadeIn();
+                }
+
+                if (!mapLoaded) {
                     // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
                     setTimeout(function () {
                         loadApp();
@@ -1226,9 +1265,6 @@ function toggleListView(event, shouldOnlyToggleClose = false) {
             closeAllPopups();
             openMenu();
             fillMenu();
-            if (mapLoaded) {
-                closeEntrancePopup();
-            }
           }
         }
     }
@@ -1667,6 +1703,8 @@ function initMap() {
         // make it larger than screen that when it scrolls it goes full screen
         makeHeaderSticky();
         initPopups();
+        if (userSimulation)
+            showGenericPopup("מחממים מנועים!", "המטוסים המופיעים על המפה לפני המטס הינם הדמייה בלבד");
 
         if (compatibleDevice() && !checkIframe()) {
             // let splash run for a second before start loading the map
