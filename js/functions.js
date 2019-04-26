@@ -25,11 +25,16 @@ var locations = [];
 var aircraftMarkers = {};
 var aircraftPaths = {};
 var startDate;
+var firstFlightTime = null;
+var lastFlightTime = null;
 var plannedStartTime;
 var plannedEndTime;
 var actualStartTime;
+var realActualStartTime;
 var categories = [];
 var displayAircraftShows = true;
+var userSimulation = false;
+var aircraftData = null;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -227,12 +232,14 @@ function getCurrentPosLocation(path, currentTime) {
 }
 
 function removeAircraftsFromLocation() {
-    var currTime = getCurrentTime();
-    locations.forEach(function (location) {
-        location.aircrafts = location.aircrafts.filter(function (aircraft) {
-            return (currTime < getActualPathTime(aircraft.date, aircraft.time));
-        })
-    });
+    if (!userSimulation) {
+        var currTime = getCurrentTime();
+        locations.forEach(function (location) {
+            location.aircrafts = location.aircrafts.filter(function (aircraft) {
+                return (currTime < getActualPathTime(aircraft.date, aircraft.time));
+            })
+        });
+    }
 }
 
 /**
@@ -251,14 +258,15 @@ function cleanPreviousLocations(aircraft) {
     });
 
     // remove aircraft from locations that it already visited
-    pathPassed.forEach(function (path) {
-        var location = locations[path.pointId];
-        location.aircrafts = location.aircrafts.filter(function (aircraftInPath) {
-            return (aircraftInPath.aircraftId !== aircraft.aircraftId ||
-                aircraftInPath.aircraftId === aircraft.aircraftId && currTime < getActualPathTime(aircraftInPath.date, aircraftInPath.time))
+    if (!userSimulation) {
+        pathPassed.forEach(function (path) {
+            var location = locations[path.pointId];
+            location.aircrafts = location.aircrafts.filter(function (aircraftInPath) {
+                return (aircraftInPath.aircraftId !== aircraft.aircraftId ||
+                    aircraftInPath.aircraftId === aircraft.aircraftId && currTime < getActualPathTime(aircraftInPath.date, aircraftInPath.time))
+            });
         });
-    });
-
+    }
 
     // remove them from the aircraft path
     aircraft.path = aircraft.path.filter(function (path) {
@@ -271,8 +279,6 @@ function cleanPreviousLocations(aircraft) {
     } else {
         aircraft.path.unshift(currLocation)
     }
-
-
     // }, this);
 }
 
@@ -300,10 +306,12 @@ function convertTime(dateString, timeString) {
     var seconds = timeString.substr(6, 2);
 
     if ($.urlParam("ff") === "true") {
-        return new Date(year, month - 1, day, 0, hours, minutes, seconds / 60 * 1000).getTime();
+        realTime = new Date(year, month - 1, day, 0, hours, minutes, seconds / 60 * 1000).getTime();
     } else {
-        return new Date(year, month - 1, day, hours, minutes, seconds).getTime();
+        realTime = new Date(year, month - 1, day, hours, minutes, seconds).getTime();
     }
+
+    return realTime;
 }
 
 function containsPosition(pos, list) {
@@ -418,12 +426,13 @@ function updateLocations(route) {
             locations[point.pointId] = point;
             locations[point.pointId].aircrafts = [];
             locations[point.pointId].hideAircrafts = point.hideAircrafts;
+            locations[point.pointId].color = route.color;
         }
     }, this);
 }
 
 function loadRoutes(callback) {
-    $.getJSON("data/routes.json", function (routes) {
+    $.getJSON("data/routes.json?t="+(new Date()).getTime(), function (routes) {
         routes.routes.forEach(function (route) {
             updateLocations(route);
         }, this);
@@ -436,27 +445,53 @@ function loadRoutes(callback) {
  * Considers the simulation flag
  * @param routes
  */
-function loadActualStartTime(routes) {
-    actualStartTime = convertTime(startDate, routes.actualStartTime);
+function loadActualStartTime() {
+    actualStartTime = convertTime(startDate, aircraftData.actualStartTime);
+
     if ($.urlParam("simulation") != null) {
         actualStartTime = (new Date()).getTime() - $.urlParam("simulation") * 60 * 1000;
     }
+    realActualStartTime = actualStartTime;
 
-    // TODO - remove this later before production
-    var simulation=110;
-    actualStartTime = (new Date()).getTime() - simulation * 60 * 1000;
+    var currentTime = new Date().getTime();
+
+    // make sure there is no active rehearsal
+    var isRehearsalActive = false;
+    var deltaFromRehearsals = 2 * 60 * 60 * 1000;
+    var rehearsals = aircrafts.filter((aircraft)=> {
+        return aircraft.special === "חזרות";
+    }).map((aircraft) => {
+        return aircraft.path;
+    }).flat();
+    rehearsals.forEach((rehersal) => {
+        if (currentTime > convertTime(rehersal.date, rehersal.time) - deltaFromRehearsals &&
+            currentTime < convertTime(rehersal.date, rehersal.time) + deltaFromRehearsals )
+            isRehearsalActive = true;
+    });
+
+    // run simulation until 6 hours before the actual flight.
+    if (actualStartTime - currentTime > 6 * 60 * 60 * 1000 && !isRehearsalActive) {
+        // start a simulation between 15 minutes after the first aircraft and 15 minutes before the last landing time.
+        userSimulation = true;
+        var simulationLength = (lastFlightTime - 15 * 60 * 1000) - (firstFlightTime + 15 * 60 * 1000);
+        actualStartTime = currentTime - (currentTime % ((firstFlightTime + 15 * 60 * 1000) % simulationLength)) - ((firstFlightTime + 15 * 60 * 1000) - actualStartTime);
+    }
 }
 
 function loadAircrafts(callback) {
-    $.getJSON("data/aircrafts-info.json", function(aircraftInfo) {
+    $.getJSON("data/aircrafts-info.json?t="+(new Date()).getTime(), function(aircraftInfo) {
         // load aircraft type info into a map
         aircraftInfo.aircraftTypes.forEach(function (aircraftTypeInfo) {
             aircraftTypesInfo[aircraftTypeInfo.aircraftTypeId] = aircraftTypeInfo;
         }, this);
 
         // load all aircrafts
-        $.getJSON("data/aircrafts.json", function (routes) {
-            aircrafts = routes.aircrafts;
+        $.getJSON("data/aircrafts.json?t="+(new Date()).getTime(), function (flightData) {
+            aircrafts = flightData.aircrafts;
+            startDate = flightData.startDate;
+            plannedStartTime = convertTime(startDate, flightData.plannedStartTime);
+            plannedEndTime = convertTime(startDate, flightData.plannedEndTime);
+
             // merge info from aircraft type info
             aircrafts.forEach(function (aircraft) {
                 if (aircraft.aircraftTypeId !== undefined) {
@@ -465,11 +500,29 @@ function loadAircrafts(callback) {
                     for(var field in aircraftTypeInfo)
                         aircraft[field]=aircraftTypeInfo[field];
                 }
+
+                // update times of all flights
+                if (!aircraft.hide && aircraft.path.length > 0 && !aircraft.special) {
+                    aircraftFlightTime = convertTime(aircraft.path[0].date, aircraft.path[0].time);
+                    if (firstFlightTime == null) {
+                        firstFlightTime = aircraftFlightTime;
+                    } else if (aircraftFlightTime < firstFlightTime) {
+                        firstFlightTime = aircraftFlightTime;
+                    }
+
+                    aircraftLandTime = convertTime(aircraft.path[aircraft.path.length-1].date, aircraft.path[aircraft.path.length-1].time);
+
+                    if (lastFlightTime == null) {
+                        lastFlightTime = aircraftLandTime;
+                    } else if (aircraftLandTime > lastFlightTime) {
+                        lastFlightTime = aircraftLandTime;
+                    }
+                }
+
             }, this);
 
-            startDate = routes.startDate;
-            plannedStartTime = convertTime(startDate, routes.plannedStartTime);
-            loadActualStartTime(routes);
+            aircraftData = flightData;
+            loadActualStartTime();
             callback(aircrafts);
         });
     });
@@ -657,6 +710,30 @@ function makeHeaderSticky() {
 
 var timeoutHandles = {};
 
+function checkIfSimulationEnded() {
+    // if there is a user simulation and there are no more aircrafts with paths, start over
+    if (userSimulation) {
+        let currentTime = getCurrentTime();
+        let remainingAircrafts = aircrafts.filter((aircraft) => {
+            let path = aircraft.path.filter((point) => {
+                return getActualPathTime(point.date, point.time) > currentTime;
+            });
+            return (path.length > 0 && !aircraft.special);
+        });
+        if (remainingAircrafts.length === 0) {
+            // restart simulation
+            $(".splash").fadeIn();
+            $(".loading").css("background-image", "url(animation/loading.gif)");
+            loadActualStartTime();
+            loadApp();
+            setTimeout(() => {
+                $(".splash").fadeOut();
+                $(".loading").fadeOut();
+            }, 2500)
+        }
+    }
+}
+
 function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var animationTime = 2000;
 
@@ -680,6 +757,9 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
             nextAircraftPosition = nextAircraftStopPosition.location;
             animationTime = nextAircraftStopPosition.time - currentTime;
             cleanPreviousLocations(aircraft);
+
+            // after the aircraft reaches its next position - check if the simulation was ended
+            setTimeout(checkIfSimulationEnded, animationTime);
         }
 
         // calculate the new azimuth
@@ -690,7 +770,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
 
         var marker = aircraftMarkers[aircraft.aircraftId];
         var curIndexLocation = getCurrentIndexLocation(aircraft.path, currentTime);
-        if (curIndexLocation >= 0 && curIndexLocation < aircraft.path.length && aircraft.path[curIndexLocation].hideAircrafts) {
+        if (curIndexLocation >= 0 && curIndexLocation < aircraft.path.length && (aircraft.path[curIndexLocation].hideAircrafts || aircraft.hide)) {
             if (mapAPI.isMarkerVisible(marker)) {
                 mapAPI.toggleAircraftMarkerVisibility(marker, false);
                 // console.log(aircraft.path[curIndexLocation].pointId);
@@ -833,6 +913,7 @@ var lastZoomLevel = 0;
 
 function addAircraftsToMap() {
     var zoomLevel = mapAPI.getZoomLevel();
+
     aircrafts.forEach(function (aircraft) {
         // draw current location of the aircraft
         var currentAircraftPosition = getCurrentLocation(aircraft.path, getCurrentTime());
@@ -922,7 +1003,7 @@ function selectInfoButtonWithoutClicking() {
     currAircraftTab = "#aircraftInfoContent";
 }
 
-function onAircraftSelected(aircraftId, collapse) {
+function onAircraftSelected(aircraftId, collapse, showSchedule=false) {
     var aircraft = aircrafts[aircraftId-1];
     window.scrollTo(0,1);
 
@@ -931,9 +1012,20 @@ function onAircraftSelected(aircraftId, collapse) {
     selectInfoButtonWithoutClicking();
 
     selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse);
+
+    if (showSchedule) {
+        // show schedule instead of aircraft info
+        $("#aircraftScheduleButton").click();
+    }
 }
 
 var globalCollapse;
+
+function resizeAircraftNameIfNeeded() {
+    if ($("#aircraftInfoName").height() >= $("#aircraftInfoText").height()) {
+        $("#aircraftInfoName").css('fontSize', "19px");
+    }
+}
 
 function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl, collapse) {
     globalCollapse = collapse;
@@ -945,6 +1037,7 @@ function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, 
     selectedAircraft = aircraft;
     selectedAircraftMarker = marker;
     //selectedAircraftMarkerIcon = markerIcon;
+    resizeAircraftNameIfNeeded();
 }
 
 function deselectLocation(callback) {
@@ -1010,7 +1103,7 @@ var mapLoaded = false;
 
 function countdown() {
     var currentTime = getCurrentTime();
-    var remainingTime = new Date(actualStartTime - currentTime);
+    var remainingTime = new Date(realActualStartTime - currentTime);
 
     // Load the map three seconds before the countdown finishes
     if (remainingTime < 3500 && remainingTime > 2500) {
@@ -1022,6 +1115,10 @@ function countdown() {
             $(".splash").fadeIn();
             $(".loading").css("background-image", "url(animation/loading.gif)");
             loadApp();
+            // cancel simulation (if enabled)
+            actualStartTime = realActualStartTime;
+            userSimulation = false;
+
             setTimeout(() => {
                 $(".splash").fadeOut();
                 $(".loading").fadeOut();
@@ -1111,17 +1208,14 @@ function onLoad() {
                     });
                 }, this);
 
-                if (getCurrentTime() < actualStartTime) {
+                if (getCurrentTime() < realActualStartTime) {
                     countdownInterval = setInterval(function () {
                         countdown();
                     }, 1000);
-                    setTimeout(function () {
-                        $(".splash").fadeOut();
-                        $("#entrancePopup").fadeIn();
-                        getMapDarker();
-                        loadApp();
-                    }, 1000);
-                } else if (!mapLoaded) {
+                    $("#entrancePopup").fadeIn();
+                }
+
+                if (!mapLoaded) {
                     // Stops the gif from running more than once. It probably won't help because loadApp stops ui functions
                     setTimeout(function () {
                         loadApp();
@@ -1145,19 +1239,25 @@ function loadApp() {
 function loadMapApi() {
     $.ajaxSetup({ cache: true });
     if (!mapLoaded) {
-        // check if an internet connection is available (by fetching non-cache file)
-        fetch("/data/test-connection").then((response)=> {
-            // if there is a connection - load google maps
-            $.getScript(mapAPI.MAP_URL, function () {
-                        mapLoaded = true;
-                    });
+        if ($.urlParam("offline")==="true") {
+            mapAPI = leafletMaps;
+            mapLoaded = true;
+            initMap();
+        } else {
+            // check if an internet connection is available (by fetching non-cache file)
+            fetch("/data/test-connection.json?t=" + new Date().getTime()).then((response) => {
+                // if there is a connection - load google maps
+                $.getScript(mapAPI.MAP_URL, function () {
+                    mapLoaded = true;
+                });
             }).catch((err) => {
                 console.warn("no internet connection - working offline");
                 // if there is no connection - load leaflet maps (offline)
                 mapAPI = leafletMaps;
                 mapLoaded = true;
                 initMap();
-        });
+            });
+        }
     }
 
     $.ajaxSetup({ cache: false });
@@ -1206,9 +1306,6 @@ function toggleListView(event, shouldOnlyToggleClose = false) {
             closeAllPopups();
             openMenu();
             fillMenu();
-            if (mapLoaded) {
-                closeEntrancePopup();
-            }
           }
         }
     }
@@ -1242,7 +1339,7 @@ function displaySearchView() {
 
         sortedLocations.forEach(function (location) {
             if (!location.hidden && location.type && location.type==="base") {
-                searchViewHtml += createLocationRow(location, true, true);
+                searchViewHtml += createLocationRow(location, false, true);
             }
         }, this);
 
@@ -1250,7 +1347,7 @@ function displaySearchView() {
         searchViewHtml += createCategoryRow({category: "יישובים"}, true);
         sortedLocations.forEach(function (location) {
             if (!location.hidden && (!location.type || location.type !== "base")) {
-                searchViewHtml += createLocationRow(location, true, true);
+                searchViewHtml += createLocationRow(location, false, true);
             }
         }, this);
 
@@ -1340,7 +1437,7 @@ function initSearchBar() {
             // Populate location results
             basesResults.forEach(function (location) {
                 resultsHtml +=
-                    createLocationRow(location, true, true);
+                    createLocationRow(location, false, true);
             }, this);
         }
 
@@ -1356,7 +1453,7 @@ function initSearchBar() {
             // Populate location results
             citiesResults.forEach(function (location) {
                 resultsHtml +=
-                    createLocationRow(location, true, true);
+                    createLocationRow(location, false, true);
             }, this);
         }
 
@@ -1472,7 +1569,7 @@ function closeMenu() {
 }
 
 function loadCategories(callback) {
-    $.getJSON("data/categories.json", function (pCategories) {
+    $.getJSON("data/categories.json?t="+(new Date()).getTime(), function (pCategories) {
         categories = pCategories;
         callback();
     });
@@ -1528,16 +1625,16 @@ function fillMenu() {
                             categoryAircraft.type,
                             categoryAircraft.time,
                             categoryAircraft.aerobatic,
-                            categoryAircraft.special, true, false);
+                            categoryAircraft.special, true, false, undefined, true);
                         prevAircraftTypeId = categoryAircraft.aircraftTypeId;
 
-                        var categoryLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aircraftTypeId===categoryAircraft.aircraftTypeId && aircraft.special === category.category)
-                            .map(aircraft => aircraft.path));
-
-                        categoryLocations.forEach(location => {
-                            html += createCategoryLocationRow(locations[location.pointId],
-                                location.time, location.from);
-                        });
+                        // var categoryLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aircraftTypeId===categoryAircraft.aircraftTypeId && aircraft.special === category.category)
+                        //     .map(aircraft => aircraft.path));
+                        //
+                        // categoryLocations.forEach(location => {
+                        //     html += createCategoryLocationRow(locations[location.pointId],
+                        //         location.time, location.from);
+                        // });
                     }
                 });
             }
@@ -1590,7 +1687,7 @@ function fillMenu() {
 
     sortedLocations.forEach(function (location) {
         if (!location.hidden && location.type && location.type === "base") {
-            locationsViewHtml += createLocationRow(location, true);
+            locationsViewHtml += createLocationRow(location, false);
         }
     }, this);
 
@@ -1598,7 +1695,7 @@ function fillMenu() {
     locationsViewHtml += createCategoryRow({category: "יישובים"}, true);
     sortedLocations.forEach(function (location) {
         if (!location.hidden && (!location.type || location.type !== "base")) {
-            locationsViewHtml += createLocationRow(location, true);
+            locationsViewHtml += createLocationRow(location, false);
         }
     }, this);
 
@@ -1647,6 +1744,8 @@ function initMap() {
         // make it larger than screen that when it scrolls it goes full screen
         makeHeaderSticky();
         initPopups();
+        if (userSimulation)
+            showGenericPopup("מחממים מנועים!", "המטוסים המופיעים על המפה לפני המטס הינם הדמייה בלבד");
 
         if (compatibleDevice() && !checkIframe()) {
             // let splash run for a second before start loading the map
@@ -1700,7 +1799,7 @@ function closeEntrancePopup() {
 }
 
 function getAerobaticsPoints(){
-    return aircrafts.filter(aircraft => aircraft.aerobatic).map(aircraftObj => aircraftObj.path.map(point => point.pointId)).flat();
+    return [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic).map(aircraftObj => aircraftObj.path.map(point => point.pointId)));
 }
 
 function isPointAerobatic(pointId) {

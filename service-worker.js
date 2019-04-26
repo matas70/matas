@@ -1,4 +1,4 @@
-// ServiceWorker version : 11 (increase this number every time you want the cache to updated)
+// ServiceWorker version : 13 (increase this number every time you want the cache to updated)
 
 'use strict';
 
@@ -17,35 +17,100 @@ function createCacheBustedRequest(url) {
   return new Request(bustedUrl);
 }
 
+var baseCacheFileList = [
+    '/',
+    '/index.html',
+    'js/utils.js',
+    'js/functions.js',
+    'manifest.json',
+    '/css/jquery-ui.css',
+    '/js/jquery.min.js',
+    '/js/jquery-ui.min.js',
+    '/js/jquery.mobile-events.js'
+//     'js/slidingMarker/jquery.easing.1.3.js',
+//     'js/slidingMarker/markerAnimate.js',
+//     'js/slidingMarker/SlidingMarker.min.js',
+//     'js/AnimationModule.js',
+//     'js/date.js',
+//     'js/map.js',
+//     'js/leaflet-map.js',
+//     'js/markerclusterer.js',
+//     'js/popups.js',
+//     'js/RotateIcon.js',
+//     'data/aircrafts.json',
+//     'data/aircrafts-info.json',
+//     'data/categories.json',
+//     'data/routes.json',
+//     'js/leaflet/leaflet.css',
+//     'js/leaflet/leaflet-src.esm.js.map',
+//     'js/leaflet/leaflet.js',
+//     'js/leaflet/leaflet-src.js',
+//     'js/leaflet/leaflet.js.map',
+//     'js/leaflet/leaflet-src.js.map',
+//     'js/leaflet/leaflet-src.esm.js',
+//     'js/leaflet/images/layers.png',
+//     'js/leaflet/images/marker-icon-2x.png',
+//     'js/leaflet/images/layers-2x.png',
+//     'js/leaflet/images/marker-shadow.png',
+//     'js/leaflet/images/marker-icon.png',
+//     'js/leaflet/leaflet.markercluster.js',
+//     'css/map.css',
+//     'css/hamburgers.css',
+];
+
 var cacheFileList = [
     '/',
     '/index.html',
-    '/?simulation=120',
     'js/slidingMarker/jquery.easing.1.3.js',
     'js/slidingMarker/markerAnimate.js',
     'js/slidingMarker/SlidingMarker.min.js',
+    'js/utils.js',
+    'js/AnimationModule.js',
+    'js/date.js',
+    'js/functions.js',
+    'js/map.js',
+    'js/leaflet-map.js',
+    'js/markerclusterer.js',
+    'js/popups.js',
+    'js/RotateIcon.js',
+    'data/aircrafts.json',
+    'data/aircrafts-info.json',
+    'data/categories.json',
+    'data/routes.json',
+    'js/leaflet/leaflet.css',
+    'js/leaflet/leaflet-src.esm.js.map',
+    'js/leaflet/leaflet.js',
+    'js/leaflet/leaflet-src.js',
+    'js/leaflet/leaflet.js.map',
+    'js/leaflet/leaflet-src.js.map',
+    'js/leaflet/leaflet-src.esm.js',
+    'js/leaflet/images/layers.png',
+    'js/leaflet/images/marker-icon-2x.png',
+    'js/leaflet/images/layers-2x.png',
+    'js/leaflet/images/marker-shadow.png',
+    'js/leaflet/images/marker-icon.png',
+    'js/leaflet/leaflet.markercluster.js',
+    'icons/search.svg',
+    'icons/clear-button.svg',
+    'css/map.css',
+    'css/hamburgers.css',
+    'manifest.json',
+    '/?simulation=120',
     'images/group4@2x.png',
     'animation/loading.gif',
     'images/group4@3x.png',
     'animation/parachute-alert.gif',
     'images/h125.jpg',
-    'animation/Splash.gif?v=1',
-    'animation/Splash.gif',
+    'animation/Splash-optimized.gif',
     'animation/Splash.jpg',
     'images/karnaf.jpg',
     'images/kukiya.jpg',
     'images/lavi.jpg',
-    'css/hamburgers.css',
     'images/nahshon.jpg',
-    'css/map.css',
     'images/oval4Copy2.png',
-    'data/aircrafts.json',
     'images/oval4Copy2@2x.png',
-    'data/aircrafts-info.json',
     'images/oval4Copy2@3x.png',
-    'data/categories.json',
     'images/oval4Copy3.png',
-    'data/routes.json',
     'images/oval4Copy3@2x.png',
     'images/aboutblack@2x.png',
     'images/oval4Copy3@3x.png',
@@ -109,24 +174,25 @@ var cacheFileList = [
     'images/stearman.jpg',
     'images/harvard.jpg',
     'images/generic.jpg',
-    'js/AnimationModule.js',
     'images/group12@2x.png',
-    'js/date.js',
     'images/group12@3x.png',
-    'js/functions.js',
     'images/group13.png',
-    'js/map.js',
-    'js/leaflet-map.js',
     'images/group13@2x.png',
     'images/group13@3x.png',
     'images/group3.png',
-    'js/markerclusterer.js',
     'images/group3@2x.png',
-    'js/popups.js',
     'images/group3@3x.png',
-    'js/RotateIcon.js',
     'images/group4.png',
-    'js/utils.js',
+    "images/fire.jpg",
+    "images/band.jpg",
+    "images/kipa.jpg",
+    "images/yahalom.jpg",
+    "images/simulator.jpg",
+    "images/669.jpg",
+    "images/tisanim.jpg",
+    "images/shoval.jpg",
+    "images/eitan.jpg",
+    "images/atalef.jpg",
     'fonts/heebo-v3-hebrew_latin-300.svg',
     'fonts/heebo-v3-hebrew_latin-300.woff2',
     'fonts/heebo-v3-hebrew_latin-700.svg',
@@ -271,13 +337,12 @@ var cacheFileList = [
     'icons/groups/group_yellow.svg',
     'icons/headerLogo.png',
     'icons/headerLogo.svg',
-    'icons/homeIcon.png',
+    'icons/home.svg',
     'icons/iaf.png',
     'icons/iaf-small.png',
     'icons/location.svg',
     'icons/logo.svg',
     'icons/logo192x192.png',
-    'icons/menuIcon.png',
     'icons/point-3bb5f2.svg',
     'icons/point-64e1a5.svg',
     'icons/point-bb7aff.svg',
@@ -294,49 +359,53 @@ var cacheFileList = [
     'icons/showSelected-64e1a5.svg',
     'icons/showSelected-bb7aff.svg',
     'icons/showSelected-f64b58.svg',
-    'icons/stillSplash.png',
     'icons/transparent.png',
-    'icons/waze.png',
+    'icons/waze.svg',
     'icons/slidepopup.png',
     'icons/drone.png',
     'screenshots/screenshot1.png',
-    'manifest.json',
-    'js/leaflet/leaflet.css',
-    'js/leaflet/leaflet-src.esm.js.map',
-    'js/leaflet/leaflet.js',
-    'js/leaflet/leaflet-src.js',
-    'js/leaflet/leaflet.js.map',
-    'js/leaflet/leaflet-src.js.map',
-    'js/leaflet/leaflet-src.esm.js',
-    'js/leaflet/images/layers.png',
-    'js/leaflet/images/marker-icon-2x.png',
-    'js/leaflet/images/layers-2x.png',
-    'js/leaflet/images/marker-shadow.png',
-    'js/leaflet/images/marker-icon.png',
-    'js/leaflet/leaflet.markercluster.js',
-    'images/Matas_vector_map.svg'
+    'images/Matas_vector_map.svg?v=2'
+    // 'fonts/heebo-v3-hebrew_latin-300.svg',
+    // 'fonts/heebo-v3-hebrew_latin-300.woff2',
+    // 'fonts/heebo-v3-hebrew_latin-700.svg',
+    // 'fonts/heebo-v3-hebrew_latin-700.woff2',
+    // 'fonts/heebo-v3-hebrew_latin-regular.svg',
+    // 'fonts/heebo-v3-hebrew_latin-regular.woff2',
+    // 'fonts/heebo-v4-latin-500.eot',
+    // 'fonts/heebo-v4-latin-500.svg',
+    // 'fonts/heebo-v4-latin-500.ttf',
+    // 'fonts/heebo-v4-latin-500.woff',
+    // 'fonts/heebo-v4-latin-500.woff2'
 ];
 
-// self.addEventListener('install', function(e) {
-//     console.log("First time install. Loading all files into cache.");
-//     e.waitUntil(self.skipWaiting()); // Activate worker immediately
-//
-//     e.waitUntil(
-//         caches.open('matas').then(function(cache) {
-//             return cache.addAll(cacheFileList);
-//         })
-//     );
-// });
+ self.addEventListener('install', function(e) {
+     console.log("Scheduling Cache load in 30 seconds....");
+     e.waitUntil(self.skipWaiting()); // Activate worker immediately
 
-// self.addEventListener('fetch', (event) => {
-//     event.respondWith(async function() {
-//         try {
-//             return await fetch(event.request);
-//         } catch (err) {
-//             return caches.match(event.request,{ignoreSearch: true});
-//         }
-//     }());
-// });
+     e.waitUntil(
+         caches.open('matas').then(function(cache) {
+             return cache.addAll(baseCacheFileList);
+         })
+     );
+
+     // schedule additional file load to 30 seconds later to not interrupt the app load
+     setTimeout(() => {
+         console.log("Loading Extended Files to Cache...");
+         caches.open('matas').then(cache => {
+             cache.addAll(cacheFileList);
+         });
+     },30000);
+ });
+
+self.addEventListener('fetch', (event) => {
+     event.respondWith(async function() {
+         try {
+             return await fetch(event.request);
+         } catch (err) {
+             return caches.match(event.request,{ignoreSearch: true});
+         }
+     }());
+ });
 
 self.addEventListener('activate', event => {
     event.waitUntil(self.clients.claim()); // Become available to all pages

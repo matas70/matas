@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="27" viewBox="0 0 30 27">
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#37474F" fill-rule="nonzero" d="M16.714 23.447c-12.49 0-15.17-3.443-16.314-4.914a1.78 1.78 0 0 1-.4-1.125c0-.98.78-1.776 1.741-1.776.602 0 2.438 0 2.438-3.494v-.414C4.179 5.259 9.802 0 16.714 0S29.25 5.26 29.25 11.724s-5.624 11.723-12.536 11.723z"/>
+        <path fill="#F4F6F7" fill-rule="nonzero" d="M16.714 22.026c6.144 0 11.143-4.622 11.143-10.302 0-5.681-4.999-10.303-11.143-10.303-6.144 0-11.143 4.622-11.143 10.303v.414c0 4.436-2.679 4.915-3.83 4.915a.352.352 0 0 0-.263.58c1.032 1.327 3.419 4.393 15.236 4.393z"/>
+        <ellipse cx="20.196" cy="9.237" fill="#37474F" fill-rule="nonzero" rx="1.393" ry="1.421"/>
+        <ellipse cx="13.232" cy="9.237" fill="#37474F" fill-rule="nonzero" rx="1.393" ry="1.421"/>
+        <path stroke="#37474F" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.24" d="M20.893 13.145s-.522 3.197-4.179 3.197c-3.656 0-4.178-3.197-4.178-3.197"/>
+        <ellipse cx="9.402" cy="23.803" fill="#37474F" fill-rule="nonzero" rx="3.134" ry="3.197"/>
+        <ellipse cx="9.402" cy="23.803" fill="#607D8B" fill-rule="nonzero" rx="1.045" ry="1.066"/>
+        <ellipse cx="20.545" cy="23.803" fill="#37474F" fill-rule="nonzero" rx="3.134" ry="3.197"/>
+        <ellipse cx="20.545" cy="23.803" fill="#607D8B" fill-rule="nonzero" rx="1.045" ry="1.066"/>
+    </g>
+</svg>

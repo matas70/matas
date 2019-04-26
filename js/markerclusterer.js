@@ -1051,6 +1051,7 @@ function ClusterIcon(cluster, styles, opt_padding) {
   this.center_ = null;
   this.map_ = cluster.getMap();
   this.div_ = null;
+  this.clickableDiv_ = null;
   this.sums_ = null;
   this.visible_ = false;
 
@@ -1079,18 +1080,32 @@ ClusterIcon.prototype.triggerClusterClick = function() {
  * @ignore
  */
 ClusterIcon.prototype.onAdd = function() {
+  // add visual marker
   this.div_ = document.createElement('DIV');
   if (this.visible_) {
     var pos = this.getPosFromLatLng_(this.center_);
     this.div_.style.cssText = this.createCss(pos);
     this.div_.innerHTML = this.sums_.text;
+    this.div_.style.zIndex = this.zIndex_;
   }
 
   var panes = this.getPanes();
-  panes.overlayMouseTarget.appendChild(this.div_);
+  panes.markerLayer.appendChild(this.div_);
+
+  // add clickable invisible marker
+  this.clickableDiv_ = document.createElement('DIV');
+  if (this.visible_) {
+      var pos = this.getPosFromLatLng_(this.center_);
+      this.clickableDiv_.style.cssText = this.createCss(pos);
+      this.clickableDiv_.innerHTML = this.sums_.text;
+      this.clickableDiv_.style.zIndex = this.zIndex_;
+      this.clickableDiv_.style.opacity = 0;
+  }
+
+  panes.overlayMouseTarget.appendChild(this.clickableDiv_);
 
   var that = this;
-  google.maps.event.addDomListener(this.div_, 'click', function() {
+  google.maps.event.addDomListener(this.clickableDiv_, 'click', function() {
     that.triggerClusterClick();
   });
 };
@@ -1118,8 +1133,10 @@ ClusterIcon.prototype.getPosFromLatLng_ = function(latlng) {
 ClusterIcon.prototype.draw = function() {
   if (this.visible_) {
     var pos = this.getPosFromLatLng_(this.center_);
-    this.div_.style.top = pos.y + 'px';
-    this.div_.style.left = pos.x + 'px';
+      this.div_.style.top = pos.y + 'px';
+      this.div_.style.left = pos.x + 'px';
+      this.clickableDiv_.style.top = pos.y + 'px';
+      this.clickableDiv_.style.left = pos.x + 'px';
   }
 };
 
@@ -1129,7 +1146,8 @@ ClusterIcon.prototype.draw = function() {
  */
 ClusterIcon.prototype.hide = function() {
   if (this.div_) {
-    this.div_.style.display = 'none';
+      this.div_.style.display = 'none';
+      this.clickableDiv_.style.display = 'none';
   }
   this.visible_ = false;
 };
@@ -1143,6 +1161,8 @@ ClusterIcon.prototype.show = function() {
     var pos = this.getPosFromLatLng_(this.center_);
     this.div_.style.cssText = this.createCss(pos);
     this.div_.style.display = '';
+      this.clickableDiv_.style.cssText = this.createCss(pos);
+      this.clickableDiv_.style.display = '';
   }
   this.visible_ = true;
 };
@@ -1163,8 +1183,11 @@ ClusterIcon.prototype.remove = function() {
 ClusterIcon.prototype.onRemove = function() {
   if (this.div_ && this.div_.parentNode) {
     this.hide();
-    this.div_.parentNode.removeChild(this.div_);
-    this.div_ = null;
+      this.div_.parentNode.removeChild(this.div_);
+      this.div_ = null;
+      this.clickableDiv_.parentNode.removeChild(this.clickableDiv_);
+      this.clickableDiv_= null;
+
   }
 };
 
@@ -1182,6 +1205,7 @@ ClusterIcon.prototype.setSums = function(sums) {
   this.index_ = sums.index;
   if (this.div_) {
     this.div_.innerHTML = sums.text;
+    this.clickableDiv_.innerHeight = sums.text;
   }
 
   this.useStyle();
@@ -1202,6 +1226,7 @@ ClusterIcon.prototype.useStyle = function() {
   this.anchor_ = style['anchor'];
   this.textSize_ = style['textSize'];
   this.backgroundPosition_ = style['backgroundPosition'];
+  this.zIndex_ = style['zIndex'];
 };
 
 
