@@ -701,7 +701,6 @@ function checkIfSimulationEnded() {
             return (aircraft.path.length > 0)
         });
         if (remainingAircrafts.length === 0) {
-            debugger;
             // restart simulation
             $(".splash").fadeIn();
             $(".loading").css("background-image", "url(animation/loading.gif)");
