@@ -459,9 +459,10 @@ function loadActualStartTime(flightData) {
 
     // run simulation until 6 hours before the actual flight.
     if (actualStartTime - currentTime > 6 * 60 * 60 * 1000) {
+        // start a simulation between 15 minutes after the first aircraft and 15 minutes before the last landing time.
         userSimulation = true;
-        var simulationLength = lastFlightTime - firstFlightTime + 1;
-        actualStartTime = currentTime - (currentTime % (firstFlightTime % simulationLength)) - (firstFlightTime - actualStartTime);
+        var simulationLength = (lastFlightTime - 15 * 60 * 1000) - (firstFlightTime + 15 * 60 * 1000);
+        actualStartTime = currentTime - (currentTime % ((firstFlightTime + 15 * 60 * 1000) % simulationLength)) - ((firstFlightTime + 15 * 60 * 1000) - actualStartTime);
     }
 }
 
