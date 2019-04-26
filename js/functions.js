@@ -267,7 +267,6 @@ function cleanPreviousLocations(aircraft) {
         });
     }
 
-
     // remove them from the aircraft path
     aircraft.path = aircraft.path.filter(function (path) {
         return (currTime < getActualPathTime(path.date, path.time));
@@ -279,8 +278,6 @@ function cleanPreviousLocations(aircraft) {
     } else {
         aircraft.path.unshift(currLocation)
     }
-
-
     // }, this);
 }
 
@@ -697,6 +694,22 @@ function makeHeaderSticky() {
 
 var timeoutHandles = {};
 
+function checkIfSimulationEnded() {
+    // if there is a user simulation and there are no more aircrafts with paths, start over
+    if (userSimulation) {
+        var remainingAircrafts = aircrafts.filter(function (aircraft) {
+            return (aircraft.path.length > 0)
+        });
+        if (remainingAircrafts.length === 0) {
+            debugger;
+            // restart simulation
+            $(".splash").fadeIn();
+            $(".loading").css("background-image", "url(animation/loading.gif)");
+            loadApp();
+        }
+    }
+}
+
 function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var animationTime = 2000;
 
@@ -720,6 +733,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
             nextAircraftPosition = nextAircraftStopPosition.location;
             animationTime = nextAircraftStopPosition.time - currentTime;
             cleanPreviousLocations(aircraft);
+            checkIfSimulationEnded();
         }
 
         // calculate the new azimuth
