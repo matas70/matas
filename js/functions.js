@@ -34,6 +34,7 @@ var realActualStartTime;
 var categories = [];
 var displayAircraftShows = true;
 var userSimulation = false;
+var aircraftData = null;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -444,8 +445,8 @@ function loadRoutes(callback) {
  * Considers the simulation flag
  * @param routes
  */
-function loadActualStartTime(flightData) {
-    actualStartTime = convertTime(startDate, flightData.actualStartTime);
+function loadActualStartTime() {
+    actualStartTime = convertTime(startDate, aircraftData.actualStartTime);
 
     if ($.urlParam("simulation") != null) {
         actualStartTime = (new Date()).getTime() - $.urlParam("simulation") * 60 * 1000;
@@ -454,8 +455,22 @@ function loadActualStartTime(flightData) {
 
     var currentTime = new Date().getTime();
 
+    // make sure there is no active rehearsal
+    var isRehearsalActive = false;
+    var deltaFromRehearsals = 2 * 60 * 60 * 1000;
+    var rehearsals = aircrafts.filter((aircraft)=> {
+        return aircraft.special === "חזרות";
+    }).map((aircraft) => {
+        return aircraft.path;
+    }).flat();
+    rehearsals.forEach((rehersal) => {
+        if (currentTime > convertTime(rehersal.date, rehersal.time) - deltaFromRehearsals &&
+            currentTime < convertTime(rehersal.date, rehersal.time) + deltaFromRehearsals )
+            isRehearsalActive = true;
+    });
+
     // run simulation until 6 hours before the actual flight.
-    if (actualStartTime - currentTime > 6 * 60 * 60 * 1000) {
+    if (actualStartTime - currentTime > 6 * 60 * 60 * 1000 && !isRehearsalActive) {
         // start a simulation between 15 minutes after the first aircraft and 15 minutes before the last landing time.
         userSimulation = true;
         var simulationLength = (lastFlightTime - 15 * 60 * 1000) - (firstFlightTime + 15 * 60 * 1000);
@@ -506,7 +521,8 @@ function loadAircrafts(callback) {
 
             }, this);
 
-            loadActualStartTime(flightData);
+            aircraftData = flightData;
+            loadActualStartTime();
             callback(aircrafts);
         });
     });
@@ -697,14 +713,23 @@ var timeoutHandles = {};
 function checkIfSimulationEnded() {
     // if there is a user simulation and there are no more aircrafts with paths, start over
     if (userSimulation) {
-        var remainingAircrafts = aircrafts.filter(function (aircraft) {
-            return (aircraft.path.length > 0)
+        let currentTime = getCurrentTime();
+        let remainingAircrafts = aircrafts.filter((aircraft) => {
+            let path = aircraft.path.filter((point) => {
+                return getActualPathTime(point.date, point.time) > currentTime;
+            });
+            return (path.length > 0 && !aircraft.special);
         });
         if (remainingAircrafts.length === 0) {
             // restart simulation
             $(".splash").fadeIn();
             $(".loading").css("background-image", "url(animation/loading.gif)");
+            loadActualStartTime();
             loadApp();
+            setTimeout(() => {
+                $(".splash").fadeOut();
+                $(".loading").fadeOut();
+            }, 2500)
         }
     }
 }
@@ -732,7 +757,9 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
             nextAircraftPosition = nextAircraftStopPosition.location;
             animationTime = nextAircraftStopPosition.time - currentTime;
             cleanPreviousLocations(aircraft);
-            checkIfSimulationEnded();
+
+            // after the aircraft reaches its next position - check if the simulation was ended
+            setTimeout(checkIfSimulationEnded, animationTime);
         }
 
         // calculate the new azimuth
