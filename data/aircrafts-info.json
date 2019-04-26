@@ -438,7 +438,7 @@
       "category": "מסוקים",
       "type" : "מסוקי סיור",
       "icon" : "atalef",
-      "image" : "images/generic.jpg",
+      "image" : "images/atalef.jpg",
       "classification": "מסוק סיור ימי",
       "description": "\"עטלף\" הוא מסוק ימי שנכנס לשירות חיל-האוויר בשנת 1996. המסוק פועל מספינות טילים מסוג \"סער-5\" של חיל-הים ומבצע משימות שונות כגון תצפית, סריקה, חילוץ ואיכון מטרות. המסוק החליף את \"דולפין\", המסוק הימי הקודם לו. צוות המסוק מורכב מקברניט, טייס משנה וקצין סיוע ימי שהוא חובל. בחלק מהמשימות מצטרף לצוות המסוק מכונאי מוטס.",
       "manufactured": "ארה\"ב"
@@ -449,7 +449,7 @@
       "category": "תערוכה",
       "type" : "",
       "icon" : "eitan",
-      "image" : "images/generic.jpg",
+      "image" : "images/eitan.jpg",
       "classification": "תערוכה",
       "description": ""
     },
@@ -459,7 +459,7 @@
       "category": "תערוכה",
       "type" : "",
       "icon" : "shoval",
-      "image" : "images/generic.jpg",
+      "image" : "images/shoval.jpg",
       "classification": "תערוכה",
       "description": ""
     },
@@ -469,7 +469,7 @@
       "category": "תערוכה",
       "type" : "",
       "icon" : "thyssen",
-      "image" : "images/generic.jpg",
+      "image" : "images/tisanim.jpg",
       "classification": "תערוכה",
       "description": ""
     },
@@ -479,7 +479,7 @@
       "category": "תערוכה",
       "type" : "",
       "icon" : "building",
-      "image" : "images/generic.jpg",
+      "image" : "images/669.jpg",
       "classification": "מופעים קרקעיים",
       "description": ""
     },
@@ -489,7 +489,7 @@
       "category": "תערוכה",
       "type" : "",
       "icon" : "simulator",
-      "image" : "images/generic.jpg",
+      "image" : "images/simulator.jpg",
       "classification": "תערוכה",
       "description": ""
     },
@@ -499,7 +499,7 @@
       "category": "תערוכה",
       "type" : "",
       "icon" : "diamond_launcher",
-      "image" : "images/generic.jpg",
+      "image" : "images/yahalom.jpg",
       "classification": "תערוכה",
       "description": ""
     },
@@ -509,7 +509,7 @@
       "category": "תערוכה",
       "type" : "",
       "icon" : "iron_launcher",
-      "image" : "images/generic.jpg",
+      "image" : "images/kipa.jpg",
       "classification": "תערוכה",
       "description": ""
     },
@@ -529,7 +529,7 @@
       "category": "תערוכה",
       "type" : "",
       "icon" : "band",
-      "image" : "images/generic.jpg",
+      "image" : "images/band.jpg",
       "classification": "מופעים קרקעיים",
       "description": ""
     },
@@ -539,7 +539,7 @@
       "category": "תערוכה",
       "type" : "",
       "icon" : "fire_truck",
-      "image" : "images/generic.jpg",
+      "image" : "images/fire.jpg",
       "classification": "מופעים קרקעיים",
       "description": ""
     },
