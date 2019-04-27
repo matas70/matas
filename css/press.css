@@ -83,19 +83,42 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 
 .main-logo {margin-top: 10px;width: 148px;height: 108px;}
 
-.base-table {
-}
+.base-table {width: 312px;margin-left: 17px;}
 
 #city-container {margin-top: 24px;}
 
 .main-title {display: flex;justify-content: center;position: relative;font-family: "Heebo-Bold";font-size: 18px;color: #37474f;align-items: center;}
 
-.footer {
-}
+.footer {display: flex;justify-content: center;margin-top: 30px;}
 
 #base-container {margin-top: 50px;}
 
 .title-decoration {width: 270px;height: 0.5px;color: #cecfcf;border-radius: 1px;flex-basis: 35%;}
 
 .title-text {
+}
+
+.base-table-title {background: #52aee7;color: white;height: 23px;padding-right: 10px;display: flex;font-family: "Heebo-Regular";border-radius: 10px 10px 0 0;align-items: center;}
+
+#base-table-list {margin-top: 19px;margin-right: 49px;}
+
+.base-table-body {
+}
+
+.base-table-category {
+}
+
+.showcase-container {
+}
+
+.aircraft-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.base-table-title-text {font-weight: 600;letter-spacing: 1px;flex: 0.3;align-self: flex-end;}
+
+.base-title-times {/* padding-top: 1px; */}
+
+.aircraft-icon-text {
 }
