@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>יום העצמאות 71 למדינת ישראל - מידע על אירועי חיל האוויר</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="css/press.css">
+    <link rel="stylesheet" href="css/hamburgers.css">
+    <link rel="icon" sizes="192x192" href="icons/logo192x192.png">
+    <link rel="stylesheet" href="/js/leaflet/leaflet.css"/>
+
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/jquery.mobile-events.js"></script>
+
+    <link rel="manifest" href="/manifest.json">
+
+    <script src="js/leaflet/leaflet.js"></script>
+    <script src="js/date.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/leaflet-map.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/popups.js"></script>
+    <script src="js/RotateIcon.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'UA-98360124-1');
+    </script>
+    <script>
+        function loadScripts() {
+            // $.when(
+            //     $.getScript("js/leaflet/leaflet.js"),
+            //     $.getScript("js/date.js"),
+            //     $.getScript("js/map.js"),
+            //     $.getScript("js/leaflet-map.js"),
+            //     $.getScript("js/leaflet/leaflet.js"),
+            //     $.getScript("js/popups.js"),
+            //     $.getScript("js/RotateIcon.js"),
+            //     $.getScript("js/utils.js"),
+            //
+            //     $.Deferred(function( deferred ){
+            //         $( deferred.resolve );
+            //     })
+            // ).done(function(){
+            //     $.getScript("js/functions.js").then(()=>{
+            //         onLoad();
+            //     });
+            // });
+        }
+    </script>
+</head>
+<body>
+
+<!-- page header -->
+<header>
+</header>
+
+<!-- aircraft images cache -->
+<div class="imageCache">
+    <img id="raam" src="icons/aircrafts/raam.svg" class="imageCache"></img>
+    <img id="barak" src="icons/aircrafts/barak.svg" class="imageCache"></img>
+    <img id="tzufit" src="icons/aircrafts/tzufit.svg" class="imageCache"></img>
+    <img id="yasur" src="icons/aircrafts/yasur.svg" class="imageCache"></img>
+    <img id="adir" src="icons/aircrafts/adir.svg" class="imageCache"></img>
+    <img id="lavi" src="icons/aircrafts/lavi.svg" class="imageCache"></img>
+    <img id="nahshon" src="icons/aircrafts/nahshon.svg" class="imageCache"></img>
+    <img id="karnaf" src="icons/aircrafts/karnaf.svg" class="imageCache"></img>
+    <img id="shimshon" src="icons/aircrafts/shimshon.svg" class="imageCache"></img>
+    <img id="baz" src="icons/aircrafts/baz.svg" class="imageCache"></img>
+    <img id="reem" src="icons/aircrafts/reem.svg" class="imageCache"></img>
+    <img id="efroni" src="icons/aircrafts/efroni.svg" class="imageCache"></img>
+
+    <!-- new aircrafts 2018 -->
+    <img id="peten" src="icons/aircrafts/peten.svg" class="imageCache"></img>
+    <img id="yanshuf" src="icons/aircrafts/yanshuf.svg" class="imageCache"></img>
+    <img id="atalef" src="icons/aircrafts/atalef.svg" class="imageCache"></img>
+    <img id="saraf" src="icons/aircrafts/saraf.svg" class="imageCache"></img>
+
+    <img id="airTractor" src="icons/aircrafts/airTractor.svg" class="imageCache"></img>
+    <img id="shimshon-britian" src="icons/aircrafts/shimshon-britian.svg" class="imageCache"></img>
+    <img id="shimshon-ostrian" src="icons/aircrafts/shimshon-ostrian.svg" class="imageCache"></img>
+    <img id="c17" src="icons/aircrafts/c17.svg" class="imageCache"></img>
+    <img id="eurofighter" src="icons/aircrafts/eurofighter.svg" class="imageCache"></img>
+    <img id="f16g" src="icons/aircrafts/f16g.svg" class="imageCache"></img>
+    <img id="c295" src="icons/aircrafts/c295.svg" class="imageCache"></img>
+    <img id="boeing787" src="icons/aircrafts/boeing787.svg" class="imageCache"></img>
+    <img id="boeing747" src="icons/aircrafts/boeing747.svg" class="imageCache"></img>
+    <img id="saifan" src="icons/aircrafts/saifan.svg" class="imageCache"></img>
+    <img id="h125" src="icons/aircrafts/h125.svg" class="imageCache"></img>
+
+    <!-- forigen countries -->
+    <img id="canada" src="icons/countries/canada.svg" class="imageCache"></img>
+    <img id="britian" src="icons/countries/britian.svg" class="imageCache"></img>
+    <img id="italian" src="icons/countries/italian.svg" class="imageCache"></img>
+    <img id="greece" src="icons/countries/greece.svg" class="imageCache"></img>
+    <img id="austria" src="icons/countries/austria.svg" class="imageCache"></img>
+    <img id="poland" src="icons/countries/poland.svg" class="imageCache"></img>
+
+    <!-- aircraft mini icons -->
+    <img id="arrow" src="icons/arrow.svg" class="imageCache"></img>
+
+    <!-- new aircrafts 2019 -->
+    <img id="harvard" src="icons/aircrafts/harvard.svg" class="imageCache"></img>
+    <img id="stearman" src="icons/aircrafts/stearman.svg" class="imageCache"></img>
+
+</div>
+</body>
+</html>

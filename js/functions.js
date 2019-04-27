@@ -1794,6 +1794,7 @@ function initMap() {
         } else {
             setTimeout(function () {
                 $(".splash").fadeOut();
+                window.location.replace("localhost:3000/press.html");
                 showIncompatibleDevicePopup();
             }, 1500);
         }
