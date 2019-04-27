@@ -57,17 +57,17 @@ html, body {
 }
 
 .press-header {
-
+display: flex;
+justify-content: space-around;
+direction: ltr;
 }
 
 .idf-logo {
 }
 
-.iaf-logo {
-}
+.iaf-logo {}
 
-.main-logo {
-}
+.main-logo {width: 148px;height: 108px;}
 
 .base-table {
 }
