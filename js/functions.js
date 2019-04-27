@@ -1619,13 +1619,24 @@ function fillMenu() {
                 var prevAircraftTypeId = -1;
                 categoryAircrafts.forEach(categoryAircraft => {
                     if (categoryAircraft.aircraftTypeId !== prevAircraftTypeId) {
+                        var date = undefined;
+
+                        if (categoryAircraft.date) {
+                            var split = categoryAircraft.date.split('-');
+                            date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
+                        }
+
                         html += createTableRow(categoryAircraft.aircraftId,
                             categoryAircraft.name,
                             categoryAircraft.icon,
                             categoryAircraft.type,
                             categoryAircraft.time,
-                            categoryAircraft.aerobatic,
-                            categoryAircraft.special, true, false, undefined, true);
+                            categoryAircraft.aerobatic || category.category === "מופעים אווירובטיים" || category.category === "חזרות",
+                            categoryAircraft.special,
+                            true,
+                            false,
+                            date,
+                            true);
                         prevAircraftTypeId = categoryAircraft.aircraftTypeId;
 
                         // var categoryLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aircraftTypeId===categoryAircraft.aircraftTypeId && aircraft.special === category.category)

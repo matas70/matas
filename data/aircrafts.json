@@ -1831,10 +1831,24 @@
       "hide": true
     },
     {
-      "path":[{"pointId":37,"time":"14:55:00","special":"חזרות","date":"2019-04-29"},
-        {"pointId":47,"time":"15:15:00","special":"חזרות", "date":"2019-04-29"}],
-      "aircraftId":37,
-      "aircraftTypeId":26,
-      "special":"חזרות"}
+      "path": [
+        {
+          "pointId": 37,
+          "time": "14:55:00",
+          "special": "חזרות",
+          "date": "2019-04-29"
+        },
+        {
+          "pointId": 47,
+          "time": "15:15:00",
+          "special": "חזרות",
+          "date": "2019-04-29"
+        }
+      ],
+      "aircraftId": 37,
+      "date": "2019-04-29",
+      "aircraftTypeId": 26,
+      "special": "חזרות"
+    }
   ]
 }
