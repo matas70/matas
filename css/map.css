@@ -346,8 +346,8 @@ div.table {
 .aerobatic {
     height: 48px;
     background-color: white !important;
-    margin: 0 25px 0 25px;
     border-bottom: solid 1px #F4F5F5;
+    padding-right: 25px;
 }
 
 div.locationsTable {
