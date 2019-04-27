@@ -405,8 +405,8 @@
     {
       "aircraftTypeId": 27,
       "name": "הרווארד",
-      "category": "הדרכה",
-      "type" : "הדרכה",
+      "category": "מוזיאון",
+      "type" : "מוזיאון",
       "icon" : "harvard",
       "image" : "images/harvard.jpg",
       "classification": "מטוס הדרכה מתקדם",
@@ -420,8 +420,8 @@
     {
       "aircraftTypeId": 28,
       "name": "סטירמן",
-      "category": "הדרכה",
-      "type" : "הדרכה",
+      "category": "מוזיאון",
+      "type" : "מוזיאון",
       "icon" : "stearman",
       "image" : "images/stearman.jpg",
       "classification": "מטוס הדרכה בסיסי דו-מושבי",
