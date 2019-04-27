@@ -45,10 +45,8 @@
 
 /* Makes the page fill the window. */
 html, body {
-    height: 100%;
     width: 100%;
     margin: 0;
-    position: fixed;
     padding: 0;
     direction: rtl;
     background: white;
@@ -83,55 +81,127 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 
 .main-logo {margin-top: 10px;width: 148px;height: 108px;}
 
-.base-table {width: 40%;background: white;margin-left: 17px;}
-
 #city-container {margin-top: 24px;}
 
-.main-title {display: flex;justify-content: center;position: relative;font-family: "Heebo-Bold";font-size: 18px;color: #37474f;align-items: center;}
+.main-title {display: flex;justify-content: center;position: relative;font-family: "Heebo-Bold";font-size: 18px;color: #37474f;align-items: center;padding-right: 40px;padding-left: 40px;}
 
 .footer {display: flex;justify-content: center;margin-top: 30px;}
 
 #base-container {margin-top: 50px;}
 
-.title-decoration {width: 270px;height: 0.5px;color: #cecfcf;border-radius: 1px;flex-basis: 40%;}
+.title-decoration {width: 100%;height: 2px;background: #cecfcf;border-radius: 1px;}
 
-.title-text {font-size: 18px;}
+.title-text {font-size: 18px;padding-left: 21px;padding-right: 21px;}
 
-.base-table-title {background: #52aee7;color: white;height: 23px;padding-right: 10px;display: flex;font-family: "Heebo-Regular";border-radius: 10px 10px 0 0;align-items: center;}
+.base-table-title {background: #52aee7;color: white;height: 23px;padding-right: 10px;font-family: "Heebo-Regular";border-radius: 10px 10px 0 0;align-items: center;}
 
-#base-table-list {margin-top: 19px;margin-right: 49px;}
+.base-table-list {
+    margin-right: 39.5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    margin-left: 39.5px;
+    flex-flow: row wrap;
+}
+
+.base-table-list .base-table {
+    width: 50%;
+    box-sizing: border-box;
+    padding: 8.5px;
+    box-sizing: border-box;
+}
 
 .base-table-body {
     display: flex;
     flex-direction: column;
 }
 
-.base-table-category {height: 40px;display: flex;}
+.base-table-category {height: 40px;display: flex;align-items: center;margin-bottom: 2px;background: white;padding-left: 10px;padding-right: 10px;}
 
-.showcase-container {
-}
+.showcase-container {background: white;padding-left: 10px;padding-right: 10px;padding-top: 7px;}
 
 .aircraft-icon {
     width: 25px;
     height: 25px;
 }
 
-.base-table-title-text {font-weight: 600;letter-spacing: 1px;flex: 0.3;align-self: flex-end;}
+.base-table-title-text {letter-spacing: 1px;font-size: 13px;display: inline-block;font-family: 'Heebo-Bold';}
 
-.base-title-times {/* padding-top: 1px; */}
+.base-title-times {font-size: 12px;display: inline-block;}
 
-.aircraft-icon-text {display: flex;flex-direction: column;text-align: center;}
+.aircraft-icon-text {display: flex;flex-direction: column;text-align: center;font-size:9px;align-items: center;white-space: nowrap;text-overflow: ellipsis;margin-left: 6px;margin-right: 6px;}
 
-.category-name {color: #37474f;display: flex;flex-direction: column;text-align: center;flex-basis: 20%;}
+.category-name {color: #37474f;display: flex;flex-direction: column;text-align: right;width: 103px;flex-shrink: 0;}
 
+.category-title {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.category-start-time {
+    font-size: 10px;
+}
 .category-icons {
     display: flex;
     flex-direction: row-reverse;
     flex: 2 0 60%;
     margin-top: 5px;
     justify-content: space-around;
+    font-size: 10px;
 }
 
 .press-body {
     background: #f5f5f7;
+}
+
+.exhibition-category {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.exhibition-body {
+    font-size: 12px;
+    font-weight: lighter;
+}
+
+.base-table-end {
+    border-radius: 0 0 10px 10px;
+    height: 10px;
+    background: white;
+}
+
+.line-separator {
+    
+width: 100%;
+    
+height: 1px;
+    
+background: #f2f2f6;
+}
+
+.city-table-list {
+    margin-right: 39.5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    margin-left: 39.5px;
+    flex-flow: row wrap;
+}
+
+.city-table-list .city-table {
+    width: 33%;
+    box-sizing: border-box;
+    padding: 8.5px;
+    box-sizing: border-box;
+}
+
+.city-table-category {display: flex;margin-bottom: 2px;background: white;padding-left: 10px;padding-right: 10px;border-radius: 0 0 10px 10px;}
+
+.city-category-icons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+    font-size: 10px;
+    overflow: hidden;
+    flex-flow: row wrap;
 }

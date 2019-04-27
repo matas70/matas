@@ -4,7 +4,7 @@ window.gm_authFailure = function () {
 };
 
 var mapFail = false;
-var mapAPI = googleMaps;
+var mapAPI = null;
 
 function convertPath(path) {
     var convertedPath = [];
@@ -1239,6 +1239,7 @@ function loadApp() {
 }
 
 function loadMapApi() {
+    mapAPI = googleMaps;
     $.ajaxSetup({ cache: true });
     if (!mapLoaded) {
         if ($.urlParam("offline")==="true") {

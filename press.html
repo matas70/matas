@@ -19,14 +19,6 @@
 
     <link rel="manifest" href="/manifest.json">
 
-    <script src="js/leaflet/leaflet.js"></script>
-    <script src="js/date.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/map.js"></script>
-    <script src="js/leaflet-map.js"></script>
-    <script src="js/functions.js"></script>
-    <script src="js/popups.js"></script>
-    <script src="js/RotateIcon.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
     <script>
@@ -40,29 +32,32 @@
         gtag('config', 'UA-98360124-1');
     </script>
     <script>
-        function loadScripts() {
-            // $.when(
-            //     $.getScript("js/leaflet/leaflet.js"),
-            //     $.getScript("js/date.js"),
-            //     $.getScript("js/map.js"),
-            //     $.getScript("js/leaflet-map.js"),
-            //     $.getScript("js/leaflet/leaflet.js"),
-            //     $.getScript("js/popups.js"),
-            //     $.getScript("js/RotateIcon.js"),
-            //     $.getScript("js/utils.js"),
-            //
-            //     $.Deferred(function( deferred ){
-            //         $( deferred.resolve );
-            //     })
-            // ).done(function(){
-            //     $.getScript("js/functions.js").then(()=>{
-            //         onLoad();
-            //     });
-            // });
+        function press_load() {
+            $.when(
+                $.getScript("js/date.js"),
+                $.getScript("js/utils.js"),
+
+                $.Deferred(function( deferred ){
+                    $( deferred.resolve );
+                })
+            ).done(function(){
+                $.getScript("js/functions.js").then(()=>{
+                    loadAircrafts((pAircrafts) => {
+                        aircrafts = pAircrafts;
+                        loadRoutes((routes) => {
+                                this.routes = routes;
+                                loadCategories(function () {
+                                    console.log(locations);
+                                    // TODO: popuplate table
+                                });
+                            }, this);
+                        }, this);
+                });
+            });
         }
     </script>
 </head>
-<body class="press-body">
+<body class="press-body" onload="press_load()">
 
 <!-- page header -->
 <header>
@@ -74,64 +69,269 @@
 </header>
 <div id="base-container">
     <div class="main-title">
-        <hr class="title-decoration">
-        <div class="title-text">
-            בסיסים
-        </div>
-        <hr class="title-decoration">
+        <div class="title-decoration"></div>
+        <div class="title-text">בסיסים</div>
+        <div class="title-decoration"></div>
     </div>
-    <div id="base-table-list">
+    <div class="base-table-list">
         <div class="base-table">
-            <div id="location21">
+            <div id="location1" class="base-card">
                 <div class="base-table-title">
-                    <div class="base-table-title-text">
-                        רמת דוד
-                    </div>
-                    <div class="base-title-times">
-                       | 8:00-13:00
-                    </div>
+                    <div class="base-table-title-text">רמת דוד</div>&nbsp;|&nbsp;
+                    <div class="base-title-times">8:00-13:00</div>
                 </div>
                 <div class="base-table-body">
                     <div class="base-table-category">
                         <div class="category-name">
-                            <b>
-                            מטס
-                            </b>
-                            11:00
+                            <div class="category-title">מטס</div>
+                            <div class="category-start-time">11:00</div>
                         </div>
                         <div class="category-icons">
-                                <div class="aircraft-icon-text">
-                                <img class="aircraft-icon" src="icons/aircraft-menu/efroni.svg">
-                                עפרוני
+                             <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/reem.svg">
+                                ראם
                             </div>
                             <div class="aircraft-icon-text">
                                 <img class="aircraft-icon" src="icons/aircraft-menu/sufa.svg">
                                 סופה
                             </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/baz.svg">
+                                בז
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/adir.svg">
+                                אדיר
+                            </div>
                         </div>
                     </div>
                     <div class="base-table-category">
                         <div class="category-name">
-                            <b>
-                                מופעים קרקעיים
-                            </b>
-                            11:30
+                            <div class="category-title">מופעים אוויריים</div>
+                            <div class="category-start-time">11:30</div>
                         </div>
                         <div class="category-icons">
                             <div class="aircraft-icon-text">
-                                <img class="aircraft-icon" src="icons/aircraft-menu/maintenance.svg">
-                                תערוכת מערך האחזקה
+                                <img class="aircraft-icon" src="icons/aircraft-menu/reem.svg">
+                                ראם
                             </div>
                             <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/sufa.svg">
+                                סופה
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/atalef.svg">
+                                עטלף
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/efroni.svg">
+                                עפרוני
+                            </div>
+                        </div>
+                    </div>
+                    <div class="base-table-category">
+                        <div class="category-name">
+                            <div class="category-title">מופעים קרקעיים</div>
+                            <div class="category-start-time">12:00</div>
+                        </div>
+                        <div class="category-icons">
+                            <div class="aircraft-icon-text">
                                 <img class="aircraft-icon" src="icons/aircraft-menu/iron_launcher.svg">
-                                משגר כיפת ברזל
+                                כיפת ברזל
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/diamond_launcher.svg">
+                                משגר יהלום
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/building.svg">
+                                חילוץ לכודים
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/band.svg">
+                                להקת ח"א
                             </div>
                         </div>
                     </div>
                     <div class="showcase-container">
-                        <h1>תערוכה:</h1>
-                        ברק, עטלף, רעם, בז, סופה, לביא, פתן, יסעור, ינשוף, שמשון, חופית, צופית, זיק, משגר יהלום, משגר כיפת ברזל, קרון קשר י"ק 533
+                        <span class="exhibition-category">תערוכה:</span>
+                        <span class="exhibition-body">ברק, עטלף, רעם, בז, סופה, לביא, פתן, יסעור, ינשוף, שמשון, חופית, צופית, זיק, משגר יהלום, משגר כיפת ברזל, קרון קשר י"ק 533</span>
                     </div>
+                    <div class="base-table-end"></div>
+                </div>
+            </div>
+        </div>
+        <div class="base-table">
+            <div id="location2" class="base-card">
+                <div class="base-table-title">
+                    <div class="base-table-title-text">תל נוף</div>&nbsp;|&nbsp;
+                    <div class="base-title-times">8:00-13:00</div>
+                </div>
+                <div class="base-table-body">
+                    <div class="base-table-category">
+                        <div class="category-name">
+                            <div class="category-title">מטס</div>
+                            <div class="category-start-time">11:00</div>
+                        </div>
+                        <div class="category-icons">
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/reem.svg">
+                                ראם
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/sufa.svg">
+                                סופה
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/baz.svg">
+                                בז
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/adir.svg">
+                                אדיר
+                            </div>
+                        </div>
+                    </div>
+                    <div class="base-table-category">
+                        <div class="category-name">
+                            <div class="category-title">מופעים אוויריים</div>
+                            <div class="category-start-time">11:30</div>
+                        </div>
+                        <div class="category-icons">
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/reem.svg">
+                                ראם
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/sufa.svg">
+                                סופה
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/atalef.svg">
+                                עטלף
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/efroni.svg">
+                                עפרוני
+                            </div>
+                        </div>
+                    </div>
+                    <div class="base-table-category">
+                        <div class="category-name">
+                            <div class="category-title">מופעים קרקעיים</div>
+                            <div class="category-start-time">12:00</div>
+                        </div>
+                        <div class="category-icons">
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/iron_launcher.svg">
+                                כיפת ברזל
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/diamond_launcher.svg">
+                                משגר יהלום
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/building.svg">
+                                חילוץ לכודים
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/band.svg">
+                                להקת ח"א
+                            </div>
+                        </div>
+                    </div>
+                    <div class="showcase-container">
+                        <span class="exhibition-category">תערוכה:</span>
+                        <span class="exhibition-body">ברק, עטלף, רעם, בז, סופה, לביא, פתן, יסעור, ינשוף, שמשון, חופית, צופית, זיק, משגר יהלום, משגר כיפת ברזל, קרון קשר י"ק 533</span>
+                    </div>
+                    <div class="base-table-end"></div>
+                </div>
+            </div>
+        </div>
+        <div class="base-table">
+            <div id="location3" class="base-card">
+                <div class="base-table-title">
+                    <div class="base-table-title-text">מוזיאון חיל האוויר</div>&nbsp;|&nbsp;
+                    <div class="base-title-times">8:00-13:00</div>
+                </div>
+                <div class="base-table-body">
+                    <div class="base-table-category">
+                        <div class="category-name">
+                            <div class="category-title">מטס</div>
+                            <div class="category-start-time">11:00</div>
+                        </div>
+                        <div class="category-icons">
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/reem.svg">
+                                ראם
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/sufa.svg">
+                                סופה
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/baz.svg">
+                                בז
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/adir.svg">
+                                אדיר
+                            </div>
+                        </div>
+                    </div>
+                    <div class="base-table-category">
+                        <div class="category-name">
+                            <div class="category-title">מופעים אוויריים</div>
+                            <div class="category-start-time">11:30</div>
+                        </div>
+                        <div class="category-icons">
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/reem.svg">
+                                ראם
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/sufa.svg">
+                                סופה
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/atalef.svg">
+                                עטלף
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/efroni.svg">
+                                עפרוני
+                            </div>
+                        </div>
+                    </div>
+                    <div class="base-table-category">
+                        <div class="category-name">
+                            <div class="category-title">מופעים קרקעיים</div>
+                            <div class="category-start-time">12:00</div>
+                        </div>
+                        <div class="category-icons">
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/iron_launcher.svg">
+                                כיפת ברזל
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/diamond_launcher.svg">
+                                משגר יהלום
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/building.svg">
+                                חילוץ לכודים
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/band.svg">
+                                להקת ח"א
+                            </div>
+                        </div>
+                    </div>
+                    <div class="showcase-container">
+                        <span class="exhibition-category">תערוכה:</span>
+                        <span class="exhibition-body">ברק, עטלף, רעם, בז, סופה, לביא, פתן, יסעור, ינשוף, שמשון, חופית, צופית, זיק, משגר יהלום, משגר כיפת ברזל, קרון קשר י"ק 533</span>
+                    </div>
+                    <div class="base-table-end"></div>
                 </div>
             </div>
         </div>
@@ -140,15 +340,134 @@
 
 <div id="city-container">
     <div class="main-title">
-        <hr class="title-decoration">
-        <div class="title-text">
-        ישובים
-        </div>
-        <hr class="title-decoration">
+        <div class="title-decoration"></div>
+        <div class="title-text">ישובים</div>
+        <div class="title-decoration"></div>
     </div>
-    <div id="city-table-list">
+    <div class="city-table-list">
         <div class="city-table">
-
+            <div id="location4" class="base-card">
+                <div class="base-table-title">
+                    <div class="base-table-title-text">אופקים</div>&nbsp;|&nbsp;
+                    <div class="base-title-times">11:20</div>
+                </div>
+                <div class="base-table-body">
+                    <div class="city-table-category">
+                        <div class="city-category-icons">
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/reem.svg">
+                                ראם
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/sufa.svg">
+                                סופה
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/baz.svg">
+                                בז
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/adir.svg">
+                                אדיר
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/nahshon.svg">
+                                נחשון
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/h125.svg">
+                                כחל
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/lavi.svg">
+                                לביא
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="city-table">
+            <div id="location5" class="base-card">
+                <div class="base-table-title">
+                    <div class="base-table-title-text">באר שבע</div>&nbsp;|&nbsp;
+                    <div class="base-title-times">11:18</div>
+                </div>
+                <div class="base-table-body">
+                    <div class="city-table-category">
+                        <div class="city-category-icons">
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/reem.svg">
+                                ראם
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/sufa.svg">
+                                סופה
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/baz.svg">
+                                בז
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/adir.svg">
+                                אדיר
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/efroni.svg">
+                                עפרוני
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="city-table">
+            <div id="location6" class="base-card">
+                <div class="base-table-title">
+                    <div class="base-table-title-text">בית שמש</div>&nbsp;|&nbsp;
+                    <div class="base-title-times">11:55</div>
+                </div>
+                <div class="base-table-body">
+                    <div class="city-table-category">
+                        <div class="city-category-icons">
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/h125.svg">
+                                כחל
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="city-table">
+            <div id="location7" class="base-card">
+                <div class="base-table-title">
+                    <div class="base-table-title-text">אילת</div>&nbsp;|&nbsp;
+                    <div class="base-title-times">11:30</div>
+                </div>
+                <div class="base-table-body">
+                    <div class="city-table-category">
+                        <div class="city-category-icons">
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/reem.svg">
+                                ראם
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/sufa.svg">
+                                סופה
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/baz.svg">
+                                בז
+                            </div>
+                            <div class="aircraft-icon-text">
+                                <img class="aircraft-icon" src="icons/aircraft-menu/adir.svg">
+                                אדיר
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
