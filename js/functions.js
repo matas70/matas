@@ -1224,8 +1224,10 @@ function onLoad() {
             });
         }, 0);
     } else {
-        $(".splash").fadeOut();
-        showIncompatibleDevicePopup();
+        window.location.replace(window.location.href + "press.html");
+        // TODO: revert
+        // $(".splash").fadeOut();
+        // showIncompatibleDevicePopup();
     }
 }
 
@@ -1794,8 +1796,9 @@ function initMap() {
         } else {
             setTimeout(function () {
                 $(".splash").fadeOut();
-                window.location.replace("localhost:3000/press.html");
-                showIncompatibleDevicePopup();
+                // TODO: Revert
+                window.location.replace(window.location.href + "press.html");
+                // showIncompatibleDevicePopup();
             }, 1500);
         }
     });
