@@ -145,7 +145,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
                    if (ac.date) {
                        var split = ac.date.split('-');
-                       date = split[1] + "/" + split[2] + "/" + split[0].substr(2, 2);
+                       date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
                    }
                    html += createTableRow(ac.aircraftId,
                        ac.name,
