@@ -722,14 +722,7 @@ function checkIfSimulationEnded() {
         });
         if (remainingAircrafts.length === 0) {
             // restart simulation
-            $(".splash").fadeIn();
-            $(".loading").css("background-image", "url(animation/loading.gif)");
-            loadActualStartTime();
-            loadApp();
-            setTimeout(() => {
-                $(".splash").fadeOut();
-                $(".loading").fadeOut();
-            }, 2500)
+            location.reload();
         }
     }
 }
