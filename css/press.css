@@ -57,29 +57,45 @@ html, body {
 }
 
 .press-header {
-display: flex;
-justify-content: space-around;
-direction: ltr;
+
+display: flex;
+
+justify-content: space-around;
+
+direction: ltr;
+
+height: 85px;
+
+background-image: linear-gradient(#a1e3f9, #7bd1fc);
 }
 
 .idf-logo {
+    width: 58px;
+    height: 54px;
+    align-self: center;
 }
 
-.iaf-logo {}
+.iaf-logo {
+    width: 58px;
+    height: 54px;
+    align-self: center;
+}
 
-.main-logo {width: 148px;height: 108px;}
+.main-logo {margin-top: 10px;width: 148px;height: 108px;}
 
 .base-table {
 }
 
-#city-container {
-}
+#city-container {margin-top: 24px;}
 
-.main-title {
-}
+.main-title {display: flex;justify-content: center;position: relative;font-family: "Heebo-Bold";font-size: 18px;color: #37474f;align-items: center;}
 
 .footer {
 }
 
-#base-container {
+#base-container {margin-top: 50px;}
+
+.title-decoration {width: 270px;height: 0.5px;color: #cecfcf;border-radius: 1px;flex-basis: 35%;}
+
+.title-text {
 }
