@@ -334,6 +334,7 @@ function indexOfPosition(pos, list) {
             return i;
         }
     }
+    
     return -1;
 }
 
@@ -364,12 +365,15 @@ function glowOnPoint(location) {
         // Actually set the icon
         mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
 
-        aerobaticShows[location.pointId] = setTimeout(() => {
-            relevantMarker.html = originalMarkerHtml;
-            mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
-            aerobaticShows[location.pointId] = undefined;
-            mapAPI.panALittle();
-        }, 10 * 60 * 1000);
+        if (!aerobaticShows[location.pointId]) {
+            aerobaticShows[location.pointId] = setTimeout(() => {
+                counter--;
+                relevantMarker.html = originalMarkerHtml;
+                mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
+                aerobaticShows[location.pointId] = undefined;
+                mapAPI.panALittle();
+            }, 10  * 60 *  1000);
+        }
     }
 }
 
