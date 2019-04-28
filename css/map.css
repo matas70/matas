@@ -1393,16 +1393,16 @@ position: fixed;
 
 .aerobatic-gif {
 display: flex;
-width: 70px;
-height: 70px;
+width: 88px;
+height: 88px;
 justify-content: center;
 align-items: center;
 z-index: -1;
 }
 
 .aerobatic-gif-marker {
-    margin-top: 12px;
+    /* margin-top: 12px; */
     position: absolute;
-    margin-right: 12px;
-    display: inline-block;
+    /* margin-right: 12px; */
+    /* display: inline-block; */
 }
