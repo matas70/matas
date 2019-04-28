@@ -458,6 +458,7 @@ googleMaps = {
             {
                 center: {lat: 32.00, lng: 35.00},
                 zoom: 8,
+                minZoom: 7,
                 gestureHandling: 'greedy',
                 disableDefaultUI: true
             });

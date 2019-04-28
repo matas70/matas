@@ -4,11 +4,6 @@
     "special": true
   },
   {
-    "category": "מופעים אווירובטיים",
-    "aerobatic": true,
-    "special": true
-  },
-  {
     "category": "מופעים אוויריים",
     "aerobatic": true,
     "special": true
@@ -31,9 +26,5 @@
   },
   {
     "category": "סיור ובקרה"
-  },
-  {
-    "category": "מופעים קרקעיים",
-    "special": true
   }
 ]

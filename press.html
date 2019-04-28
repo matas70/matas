@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>יום העצמאות 71 למדינת ישראל - מידע על אירועי חיל האוויר</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="css/press.css">
+    <link rel="stylesheet" href="css/hamburgers.css">
+    <link rel="icon" sizes="192x192" href="icons/logo192x192.png">
+    <link rel="stylesheet" href="/js/leaflet/leaflet.css"/>
+
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/jquery.mobile-events.js"></script>
+
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'UA-98360124-1');
+    </script>
+    <script>
+        function press_load() {
+            $.when(
+                $.getScript("js/date.js"),
+                $.getScript("js/utils.js"),
+                $.getScript("js/functions.js"),
+                $.getScript("js/press.js"),
+
+                $.Deferred(function( deferred ){
+                    $( deferred.resolve );
+                })
+            ).done(function(){
+                initPressPage();
+            });
+        }
+    </script>
+</head>
+<body class="press-body" onload="press_load()">
+
+<!-- page header -->
+<header>
+    <div class="press-header">
+        <img class="iaf-logo" src="icons/air_force.svg">
+        <img class="main-logo" src="icons/press/71_logo.png">
+        <img class="idf-logo" src="icons/press/idf.png">
+    </div>
+</header>
+<div>
+    <div id="base-container">
+        <div class="main-title">
+            <div class="title-decoration"></div>
+            <div class="title-text">בסיסים</div>
+            <div class="title-decoration"></div>
+        </div>
+        <div class="base-table-list"><img src="animation/loading.gif" class="loading"></div>
+    </div>
+
+    <div id="city-container">
+        <div class="main-title">
+            <div class="title-decoration"></div>
+            <div class="title-text">ישובים</div>
+            <div class="title-decoration"></div>
+        </div>
+        <div class="city-table-list"><img src="animation/loading.gif" class="loading"></div>
+    </div>
+</div>
+<footer class="footer" href="http://matas-iaf.com">
+    <img class="aerobatic-footer-icon" src="icons/aerobatic.png">&nbsp;מופע אווירובטי&nbsp; | לפרטים מלאים על כל הישובים והערים בהם יעבור המטס היכנסו לאתר המטס מהמכשיר הסלולרי
+</footer>
+</body>
+</html>

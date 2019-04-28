@@ -405,8 +405,8 @@
     {
       "aircraftTypeId": 27,
       "name": "הרווארד",
-      "category": "הדרכה",
-      "type" : "הדרכה",
+      "category": "מוזיאון",
+      "type" : "מוזיאון",
       "icon" : "harvard",
       "image" : "images/harvard.jpg",
       "classification": "מטוס הדרכה מתקדם",
@@ -420,8 +420,8 @@
     {
       "aircraftTypeId": 28,
       "name": "סטירמן",
-      "category": "הדרכה",
-      "type" : "הדרכה",
+      "category": "מוזיאון",
+      "type" : "מוזיאון",
       "icon" : "stearman",
       "image" : "images/stearman.jpg",
       "classification": "מטוס הדרכה בסיסי דו-מושבי",
@@ -475,7 +475,7 @@
     },
     {
       "aircraftTypeId": 33,
-      "name": "תרגיל חילוץ לכודים",
+      "name": "חילוץ לכודים",
       "category": "תערוכה",
       "type" : "",
       "icon" : "building",
@@ -505,7 +505,7 @@
     },
     {
       "aircraftTypeId": 36,
-      "name": "משגר כיפת ברזל",
+      "name": "כיפת ברזל",
       "category": "תערוכה",
       "type" : "",
       "icon" : "iron_launcher",
@@ -515,7 +515,7 @@
     },
     {
       "aircraftTypeId": 37,
-      "name": "תערוכת מערך האחזקה",
+      "name": "מערך האחזקה",
       "category": "תערוכה",
       "type" : "",
       "icon" : "maintenance",
@@ -525,7 +525,7 @@
     },
     {
       "aircraftTypeId": 38,
-      "name": "להקת חיל האוויר",
+      "name": "להקת ח\"א",
       "category": "תערוכה",
       "type" : "",
       "icon" : "band",

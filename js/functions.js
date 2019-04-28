@@ -4,7 +4,7 @@ window.gm_authFailure = function () {
 };
 
 var mapFail = false;
-var mapAPI = googleMaps;
+var mapAPI = null;
 
 function convertPath(path) {
     var convertedPath = [];
@@ -722,14 +722,7 @@ function checkIfSimulationEnded() {
         });
         if (remainingAircrafts.length === 0) {
             // restart simulation
-            $(".splash").fadeIn();
-            $(".loading").css("background-image", "url(animation/loading.gif)");
-            loadActualStartTime();
-            loadApp();
-            setTimeout(() => {
-                $(".splash").fadeOut();
-                $(".loading").fadeOut();
-            }, 2500)
+            location.reload();
         }
     }
 }
@@ -757,9 +750,6 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
             nextAircraftPosition = nextAircraftStopPosition.location;
             animationTime = nextAircraftStopPosition.time - currentTime;
             cleanPreviousLocations(aircraft);
-
-            // after the aircraft reaches its next position - check if the simulation was ended
-            setTimeout(checkIfSimulationEnded, animationTime);
         }
 
         // calculate the new azimuth
@@ -825,6 +815,11 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     }
     // update clusters
     //updateCluster();
+
+    // check if simulation ended - if so - reload the app
+    if (userSimulation && currentTime > actualStartTime + (aircraftLandTime - plannedStartTime)) {
+        location.reload();
+    }
 }
 
 function calcAngle(currentAzimuth, previousAzimuth) {
@@ -1177,13 +1172,13 @@ function getRemainingSeconds(date) {
 var countdownInterval;
 
 function onLoad() {
+    if (compatibleDevice() && !checkIframe()) {
     // register service worker (needed for the app to be suggested as webapp)
     registerServiceWorker();
 
     initMenu();
     $("#mapClusterPopup").hide();
 
-    if (compatibleDevice() && !checkIframe()) {
         // start "loading icon" after 2 seconds
         setTimeout(function () {
             //$(".splash").css("background-image", "url(animation/Splash.jpg)");
@@ -1224,8 +1219,7 @@ function onLoad() {
             });
         }, 0);
     } else {
-        $(".splash").fadeOut();
-        showIncompatibleDevicePopup();
+        window.location.replace(window.location.href + "press.html");
     }
 }
 
@@ -1237,6 +1231,7 @@ function loadApp() {
 }
 
 function loadMapApi() {
+    mapAPI = googleMaps;
     $.ajaxSetup({ cache: true });
     if (!mapLoaded) {
         if ($.urlParam("offline")==="true") {
@@ -1619,13 +1614,24 @@ function fillMenu() {
                 var prevAircraftTypeId = -1;
                 categoryAircrafts.forEach(categoryAircraft => {
                     if (categoryAircraft.aircraftTypeId !== prevAircraftTypeId) {
+                        var date = undefined;
+
+                        if (categoryAircraft.date) {
+                            var split = categoryAircraft.date.split('-');
+                            date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
+                        }
+
                         html += createTableRow(categoryAircraft.aircraftId,
                             categoryAircraft.name,
                             categoryAircraft.icon,
                             categoryAircraft.type,
                             categoryAircraft.time,
-                            categoryAircraft.aerobatic,
-                            categoryAircraft.special, true, false, undefined, true);
+                            categoryAircraft.aerobatic || category.category === "מופעים אווירובטיים" || category.category === "חזרות",
+                            categoryAircraft.special,
+                            true,
+                            false,
+                            date,
+                            true);
                         prevAircraftTypeId = categoryAircraft.aircraftTypeId;
 
                         // var categoryLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aircraftTypeId===categoryAircraft.aircraftTypeId && aircraft.special === category.category)
@@ -1783,8 +1789,8 @@ function initMap() {
         } else {
             setTimeout(function () {
                 $(".splash").fadeOut();
-                showIncompatibleDevicePopup();
-            }, 1500);
+                window.location.replace(window.location.href + "press.html");
+            }, 0);
         }
     });
 }
@@ -1808,4 +1814,13 @@ function isPointAerobatic(pointId) {
     }
 
     return aerobaticPoints.includes(pointId);
+}
+
+function getEventName(isAerobatics) {
+    return isAerobatics ? 'מופע אווירובטי' : 'הצנחות';
+}
+
+function getEventDescription(isAerobatics, locationName, minutes) {
+    var desc = isAerobatics ? 'יחל ב' : 'יחלו ב';
+    return `${desc}${locationName} בעוד ${minutes} דקות`;
 }
