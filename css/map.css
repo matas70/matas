@@ -1236,6 +1236,7 @@ margin-right: 50%;
     display: inline-flex;
     align-content: center;
     justify-content: center;
+    position: relative;
 }
 
 .locationMarkerLabel {
@@ -1389,14 +1390,37 @@ padding-top: 17px;
 }
 
 .subheader {
-    
+
 display: flex;
-    
+
 flex-direction: column;
-    
+
 width: 100%;
-    
+
 top: 64px;
-    
+
 position: fixed;
+}
+
+.aerobatic-gif {
+
+display: flex;
+
+width: 90px;
+
+height: 90px;
+
+justify-content: center;
+
+align-items: center;
+
+z-index: -1;
+
+position: relative;
+}
+
+.aerobatic-gif-marker {
+    width: 95px;
+    position: absolute;
+    height: 75px;
 }

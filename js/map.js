@@ -139,6 +139,7 @@ googleMaps = {
         }
 
         var markerHtml = '<div class=\"locationMarkerDivGmaps\"><div class=\"locationIconContainer\"><img class=\"locationMarkerIcon\" src=\"' + iconUrl + '\"/></div><span class=\"locationMarkerLabel\">' + label + '</span></div>';
+
         return markerHtml;
     },
 
@@ -303,7 +304,7 @@ googleMaps = {
                 if (!isPointAerobatic(point.pointId))
                     allMarkers.push(marker);
                 else
-                    specialMarkers.push(marker);
+                    marker.setMap(map);
             }
         }, this);
 
@@ -345,52 +346,6 @@ googleMaps = {
                     },
                     {
                         url: "icons/point-" + route.color.toLowerCase() + ".svg",
-                        textSize: 1,
-                        textColor: "#" + route.color.toLowerCase(),
-                        width: 38,
-                        height: 38,
-                        zIndex: 100
-                    }],
-            });
-
-        var specialMarkerCluster = new MarkerClusterer(map, specialMarkers,
-            {
-                gridSize: 100,
-                styles: [
-                    {
-                        url: "icons/show-" + route.color.toLowerCase() + ".svg",
-                        textSize: 1,
-                        textColor: "#" + route.color.toLowerCase(),
-                        width: 38,
-                        height: 38,
-                        zIndex: 100
-                    },
-                    {
-                        url: "icons/show-" + route.color.toLowerCase() + ".svg",
-                        textSize: 1,
-                        textColor: "#" + route.color.toLowerCase(),
-                        width: 38,
-                        height: 38,
-                        zIndex: 100
-                    },
-                    {
-                        url: "icons/show-" + route.color.toLowerCase() + ".svg",
-                        textSize: 1,
-                        textColor: "#" + route.color.toLowerCase(),
-                        width: 38,
-                        height: 38,
-                        zIndex: 100
-                    },
-                    {
-                        url: "icons/show-" + route.color.toLowerCase() + ".svg",
-                        textSize: 1,
-                        textColor: "#" + route.color.toLowerCase(),
-                        width: 38,
-                        height: 38,
-                        zIndex: 100
-                    },
-                    {
-                        url: "icons/show-" + route.color.toLowerCase() + ".svg",
                         textSize: 1,
                         textColor: "#" + route.color.toLowerCase(),
                         width: 38,
@@ -486,5 +441,8 @@ googleMaps = {
 
     isMarkerVisible : (marker) => {
         return marker.getVisible();
+    },
+    panALittle : () => {
+        map.panTo(map.getCenter());
     }
 }
