@@ -4,7 +4,7 @@ window.gm_authFailure = function () {
 };
 
 var mapFail = false;
-var mapAPI = googleMaps;
+var mapAPI = null;
 
 function convertPath(path) {
     var convertedPath = [];
@@ -1238,13 +1238,13 @@ function getRemainingSeconds(date) {
 var countdownInterval;
 
 function onLoad() {
+    if (compatibleDevice() && !checkIframe()) {
     // register service worker (needed for the app to be suggested as webapp)
     registerServiceWorker();
 
     initMenu();
     $("#mapClusterPopup").hide();
 
-    if (compatibleDevice() && !checkIframe()) {
         // start "loading icon" after 2 seconds
         setTimeout(function () {
             //$(".splash").css("background-image", "url(animation/Splash.jpg)");
@@ -1285,8 +1285,7 @@ function onLoad() {
             });
         }, 0);
     } else {
-        $(".splash").fadeOut();
-        showIncompatibleDevicePopup();
+        window.location.replace(window.location.href + "press.html");
     }
 }
 
@@ -1298,6 +1297,7 @@ function loadApp() {
 }
 
 function loadMapApi() {
+    mapAPI = googleMaps;
     $.ajaxSetup({ cache: true });
     if (!mapLoaded) {
         if ($.urlParam("offline")==="true") {
@@ -1859,8 +1859,8 @@ function initMap() {
         } else {
             setTimeout(function () {
                 $(".splash").fadeOut();
-                showIncompatibleDevicePopup();
-            }, 1500);
+                window.location.replace(window.location.href + "press.html");
+            }, 0);
         }
     });
 }
@@ -1884,4 +1884,13 @@ function isPointAerobatic(pointId) {
     }
 
     return aerobaticPoints.includes(pointId);
+}
+
+function getEventName(isAerobatics) {
+    return isAerobatics ? 'מופע אווירובטי' : 'הצנחות';
+}
+
+function getEventDescription(isAerobatics, locationName, minutes) {
+    var desc = isAerobatics ? 'יחל ב' : 'יחלו ב';
+    return `${desc}${locationName} בעוד ${minutes} דקות`;
 }

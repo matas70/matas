@@ -267,6 +267,7 @@ div.splash {
 }
 
 #aircraftInfoContent {
+    -webkit-transform: translate3d(0px,0px,0px);
     overflow-y: scroll; /* has to be scroll, not auto */
     display: block;
     -webkit-overflow-scrolling: touch;
@@ -337,6 +338,7 @@ div.table {
     align-items: center;
     height: 60px;
     margin-bottom: 1px;
+    flex-shrink: 0;
 }
 
 .indented {
@@ -1165,6 +1167,10 @@ br.baseData {
 .aircraftScheduleContent {
 }
 
+#aircraftScheduleContent {
+    -webkit-transform: translate3d(0px,0px,0px);
+}
+
 .aircraftInfoButton {width: 100%;/* color: rgb(59, 181, 242); */}
 
 .aircraftScheduleButton {
@@ -1205,7 +1211,12 @@ margin-right: 50%;
 
 #aircraftInfoEventIconContainer {background: white;display: flex;padding-right: 10px;width: 34px;padding-left: 4px;align-items: center;}
 
-.aircraftTabs {direction: rtl;overflow-y: scroll; /* has to be scroll, not auto */-webkit-overflow-scrolling: touch; height: 75%}
+.aircraftTabs {
+    direction: rtl;
+    overflow-y: scroll; /* has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
+    flex: 1;
+}
 
 .aircraftSchedule {
     display: flex;
@@ -1392,13 +1403,20 @@ position: fixed;
 }
 
 .aerobatic-gif {
-display: flex;
-width: 90px;
-height: 90px;
-justify-content: center;
-align-items: center;
-z-index: -1;
-position: relative;
+
+display: flex;
+
+width: 90px;
+
+height: 90px;
+
+justify-content: center;
+
+align-items: center;
+
+z-index: -1;
+
+position: relative;
 }
 
 .aerobatic-gif-marker {

@@ -607,15 +607,6 @@ function scheduleFlightStartNotification() {
     }
 }
 
-function getEventName(isAerobatics) {
-    return isAerobatics ? 'מופע אווירובטי' : 'הצנחות';
-}
-
-function getEventDescription(isAerobatics, locationName, minutes) {
-    var desc = isAerobatics ? 'יחל ב' : 'יחלו ב';
-    return `${desc}${locationName} בעוד ${minutes} דקות`;
-}
-
 function showBasePopup(isAerobatics, minutes, locationName) {
     var html = "<b class=\"baseData\">";
     html += getEventName(isAerobatics);
