@@ -4,7 +4,7 @@ window.gm_authFailure = function () {
 };
 
 var mapFail = false;
-var mapAPI = googleMaps;
+var mapAPI = null;
 
 function convertPath(path) {
     var convertedPath = [];
@@ -1219,8 +1219,10 @@ function onLoad() {
             });
         }, 0);
     } else {
-        $(".splash").fadeOut();
-        showIncompatibleDevicePopup();
+        window.location.replace(window.location.href + "press.html");
+        // TODO: revert
+        // $(".splash").fadeOut();
+        // showIncompatibleDevicePopup();
     }
 }
 
@@ -1232,6 +1234,7 @@ function loadApp() {
 }
 
 function loadMapApi() {
+    mapAPI = googleMaps;
     $.ajaxSetup({ cache: true });
     if (!mapLoaded) {
         if ($.urlParam("offline")==="true") {
@@ -1789,7 +1792,9 @@ function initMap() {
         } else {
             setTimeout(function () {
                 $(".splash").fadeOut();
-                showIncompatibleDevicePopup();
+                // TODO: Revert
+                window.location.replace(window.location.href + "press.html");
+                // showIncompatibleDevicePopup();
             }, 1500);
         }
     });
@@ -1814,4 +1819,13 @@ function isPointAerobatic(pointId) {
     }
 
     return aerobaticPoints.includes(pointId);
+}
+
+function getEventName(isAerobatics) {
+    return isAerobatics ? 'מופע אווירובטי' : 'הצנחות';
+}
+
+function getEventDescription(isAerobatics, locationName, minutes) {
+    var desc = isAerobatics ? 'יחל ב' : 'יחלו ב';
+    return `${desc}${locationName} בעוד ${minutes} דקות`;
 }
