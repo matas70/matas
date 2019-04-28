@@ -1225,6 +1225,7 @@ margin-right: 50%;
     display: inline-flex;
     align-content: center;
     justify-content: center;
+    position: relative;
 }
 
 .locationMarkerLabel {
@@ -1392,16 +1393,16 @@ position: fixed;
 
 .aerobatic-gif {
 display: flex;
-width: 65px;
-height: 65px;
+width: 70px;
+height: 70px;
 justify-content: center;
 align-items: center;
-position: relative;
-top: -83px;
-left: -9px;
 z-index: -1;
 }
 
 .aerobatic-gif-marker {
-    margin-top: 90px;
+    margin-top: 12px;
+    position: absolute;
+    margin-right: 12px;
+    display: inline-block;
 }
