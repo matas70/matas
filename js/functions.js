@@ -399,7 +399,7 @@ function scheduleAerobaticNotifications(notificationBody, item, location, timeTo
     // Since the time to notify is 5 minutes from the show, We're timing the gif to be in +5 minutes
     setTimeout(() => {
         glowOnPoint(location);
-    }, 5 * 60 * 1000);
+    }, timeToNotify + 5 * 60 * 1000);
 }
 
 var aerobaticNotificationsHandler = null;
