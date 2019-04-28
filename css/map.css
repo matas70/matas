@@ -1378,14 +1378,30 @@ padding-top: 17px;
 }
 
 .subheader {
-    
+
 display: flex;
-    
+
 flex-direction: column;
-    
+
 width: 100%;
-    
+
 top: 64px;
-    
+
 position: fixed;
+}
+
+.aerobatic-gif {
+display: flex;
+width: 70px;
+height: 70px;
+justify-content: center;
+align-items: center;
+position: relative;
+top: -85px;
+left: -7px;
+z-index: -1;
+}
+
+.aerobatic-gif-marker {
+    margin-top: 90px;
 }

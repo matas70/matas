@@ -337,21 +337,33 @@ function indexOfPosition(pos, list) {
     return -1;
 }
 
+function glowOnPoint(location) {
+    var relevantMarker = markersMap[location.pointId];
+    var originalMarkerHtml = relevantMarker.html;
+    var markerClassHtml = relevantMarker.html.split('">', 1)[0];
+    relevantMarker.html = originalMarkerHtml.replace(markerClassHtml, markerClassHtml + " aerobatic-gif-marker");
+    relevantMarker.html += `<img class="aerobatic-gif" src="../animation/aerobatic.gif">`;
+    setTimeout(() => {
+        relevantMarker.html = originalMarkerHtml;
+    }, 60 * 10 * 1000);
+}
+
 function scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify) {
     // Only if notifications are allowed
-    if (Notification.permission === 'granted' && !localStorage.getItem(notificationBody)) {
-        localStorage.setItem(notificationBody, notificationBody);
-        notificationOptions.body = notificationBody;
-        notificationOptions.icon = getEventIcon(item.aerobatic);
+    // if (Notification.permission === 'granted' && !localStorage.getItem(notificationBody)) {
+    //     localStorage.setItem(notificationBody, notificationBody);
+    //     notificationOptions.body = notificationBody;
+    //     notificationOptions.icon = getEventIcon(item.aerobatic);
 
         // TODO: push notifications
         // if (navigator.serviceWorker.controller)
         //     navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, timeToNotify));
         // notificationOptions.data.sentNotifications.push(notificationOptions.body);
-    }
+    // }
 
     setTimeout(function () {
         showBasePopup(item.aerobatic, 5, location.pointName);
+        glowOnPoint(location);
         setTimeout(function () {
             hideBasePopup();
         }, 10000);
@@ -387,17 +399,18 @@ function updateLocationsMap(aircrafts) {
                 var timeout = convertTime(item.date, item.time) - getCurrentTime() + actualStartTime - plannedStartTime;
                 var timeBefore = 5 * 60 * 1000;
                 var notificationBody = `${getEventName(item.aerobatic)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
-                // var timeToNotify = timeout - timeBefore;
-                // if (timeToNotify > 0) {
+                var timeToNotify = timeout - timeBefore;
+                if (timeToNotify > 0) {
+                    scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify);
+                }
                 //     if (!Notification.permission && timeToNotify > 30000) {
                 //         // Since this happens as we draw the routes,
                 //         // We need to give the user 30 more seconds to accept notifications
                 //         aerobaticNotificationsHandler =
-                //             setTimeout(() => scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify), 30000);
-                //     } else {
-                //         scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify);
-                //     }
-                // }
+                            // setTimeout(() => scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify), 30000);
+                    // } else {
+                    //     scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify);
+                    // }
             }
 
             location.aircrafts.push(item);
