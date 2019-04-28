@@ -1,6 +1,6 @@
 function initPressPage() {
     loadAircrafts((pAircrafts) => {
-        aircrafts = pAircrafts;
+        aircrafts = pAircrafts.filter((aircraft)=>aircraft.name!=='כחל');
         loadRoutes((routes) => {
             this.routes = routes;
             loadCategories(function () {
@@ -31,7 +31,9 @@ function createCityTables() {
     });
     let cityTables = "";
     cities.forEach((city)=> {
-        cityTables += createCityTable(city);
+        if (city.aircrafts.length > 0) {
+            cityTables += createCityTable(city);
+        }
     });
     return cityTables;
 }
@@ -87,8 +89,8 @@ function createTableCategories(categories, aircrafts, exhibitions, type) {
     // add exhibitions section
     if (exhibitions) {
         tableCategoriesDiv += `<div class="showcase-container">
-                        <span class="exhibition-category">תערוכה:</span>
-                        <span class="exhibition-body">${exhibitions}</span>
+                        <div class="exhibition-category">תערוכה:</div>
+                        ${exhibitions}
                     </div>`;
     }
 
@@ -104,11 +106,15 @@ function createTableCategory(categoryName, categoryAircrafts, type) {
                             </div>`;
     let flightCategoryIcons = "";
 
+    let aircraftShown = new Map();
     categoryAircrafts.forEach((aircraft) => {
-        flightCategoryIcons += `<div class="aircraft-icon-text">
-                            <img class="aircraft-icon" src="icons/aircraft-menu/${aircraft.icon}.svg" title="${aircraft.time.substr(0,5)}">
+        if (!aircraftShown[aircraft.name]) {
+            flightCategoryIcons += `<div class="aircraft-icon-text">
+                            <img class="aircraft-icon" src="icons/aircraft-menu/${aircraft.icon}.svg" title="${aircraft.time.substr(0, 5)}">
                             ${aircraft.name}
                         </div>`;
+            aircraftShown[aircraft.name] = true;
+        }
     });
     return `<div class="${type}-table-category">${flightCategoryTitle}<div class="${type}-category-icons">${flightCategoryIcons}</div></div>`;
 }
