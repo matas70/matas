@@ -338,14 +338,18 @@ function indexOfPosition(pos, list) {
 }
 
 function getHtmlWithGif(originalMarkerHtml) {
-    var markerClassHtml = originalMarkerHtml.split('">', 1)[0];
-    var htmlWithGif = originalMarkerHtml.replace(markerClassHtml, markerClassHtml + " aerobatic-gif-marker");
-    htmlWithGif += `<img class="aerobatic-gif" src="../animation/aerobatic.gif">`;
+    if (!originalMarkerHtml.includes("aerobatic-gif")) {
+        var markerClassHtml = originalMarkerHtml.split('">', 1)[0];
+        var htmlWithGif = originalMarkerHtml.replace(markerClassHtml, markerClassHtml + " aerobatic-gif-marker");
+        htmlWithGif += `<img class="aerobatic-gif" src="../animation/aerobatic.gif">`;
 
-    // Sorry for this
-    mapAPI.panALittle();
+        // Sorry for this
+        mapAPI.panALittle();
 
-    return htmlWithGif;
+        return htmlWithGif;
+    }
+
+    return originalMarkerHtml;
 }
 
 var aerobaticShows = {};
@@ -361,12 +365,11 @@ function glowOnPoint(location) {
         mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
 
         aerobaticShows[location.pointId] = setTimeout(() => {
-            // TODO: do this also for clustered markers
             relevantMarker.html = originalMarkerHtml;
             mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
             aerobaticShows[location.pointId] = undefined;
             mapAPI.panALittle();
-        }, 10 * 1000);
+        }, 10 * 60 * 1000);
     }
 }
 
