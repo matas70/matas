@@ -1285,7 +1285,7 @@ function onLoad() {
             });
         }, 0);
     } else {
-        window.location.replace(window.location.href + "press.html");
+        window.location.replace(window.location.href.substr(0, window.location.href.lastIndexOf('/')) + "/press.html");
     }
 }
 
