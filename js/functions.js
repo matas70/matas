@@ -1172,13 +1172,13 @@ function getRemainingSeconds(date) {
 var countdownInterval;
 
 function onLoad() {
+    if (compatibleDevice() && !checkIframe()) {
     // register service worker (needed for the app to be suggested as webapp)
     registerServiceWorker();
 
     initMenu();
     $("#mapClusterPopup").hide();
 
-    if (compatibleDevice() && !checkIframe()) {
         // start "loading icon" after 2 seconds
         setTimeout(function () {
             //$(".splash").css("background-image", "url(animation/Splash.jpg)");
@@ -1220,9 +1220,6 @@ function onLoad() {
         }, 0);
     } else {
         window.location.replace(window.location.href + "press.html");
-        // TODO: revert
-        // $(".splash").fadeOut();
-        // showIncompatibleDevicePopup();
     }
 }
 
@@ -1792,10 +1789,8 @@ function initMap() {
         } else {
             setTimeout(function () {
                 $(".splash").fadeOut();
-                // TODO: Revert
                 window.location.replace(window.location.href + "press.html");
-                // showIncompatibleDevicePopup();
-            }, 1500);
+            }, 0);
         }
     });
 }
