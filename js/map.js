@@ -139,6 +139,7 @@ googleMaps = {
         }
 
         var markerHtml = '<div class=\"locationMarkerDivGmaps\"><div class=\"locationIconContainer\"><img class=\"locationMarkerIcon\" src=\"' + iconUrl + '\"/></div><span class=\"locationMarkerLabel\">' + label + '</span></div>';
+
         return markerHtml;
     },
 
@@ -486,5 +487,8 @@ googleMaps = {
 
     isMarkerVisible : (marker) => {
         return marker.getVisible();
+    },
+    panALittle : () => {
+        map.panTo(map.getCenter());
     }
 }

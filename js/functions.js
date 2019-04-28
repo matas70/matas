@@ -337,15 +337,37 @@ function indexOfPosition(pos, list) {
     return -1;
 }
 
+function getHtmlWithGif(originalMarkerHtml) {
+    var markerClassHtml = originalMarkerHtml.split('">', 1)[0];
+    var htmlWithGif = originalMarkerHtml.replace(markerClassHtml, markerClassHtml + " aerobatic-gif-marker");
+    htmlWithGif += `<img class="aerobatic-gif" src="../animation/aerobatic.gif">`;
+
+    // Sorry for this
+    mapAPI.panALittle();
+
+    return htmlWithGif;
+}
+
+var aerobaticShows = {};
+
 function glowOnPoint(location) {
     var relevantMarker = markersMap[location.pointId];
-    var originalMarkerHtml = relevantMarker.html;
-    var markerClassHtml = relevantMarker.html.split('">', 1)[0];
-    relevantMarker.html = originalMarkerHtml.replace(markerClassHtml, markerClassHtml + " aerobatic-gif-marker");
-    relevantMarker.html += `<img class="aerobatic-gif" src="../animation/aerobatic.gif">`;
-    setTimeout(() => {
-        relevantMarker.html = originalMarkerHtml;
-    }, 60 * 10 * 1000);
+
+    if (relevantMarker) {
+        var originalMarkerHtml = relevantMarker.html;
+        relevantMarker.html = getHtmlWithGif(originalMarkerHtml);
+
+        // Actually set the icon
+        mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
+
+        aerobaticShows[location.pointId] = setTimeout(() => {
+            // TODO: do this also for clustered markers
+            relevantMarker.html = originalMarkerHtml;
+            mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
+            aerobaticShows[location.pointId] = undefined;
+            mapAPI.panALittle();
+        }, 10 * 1000);
+    }
 }
 
 function scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify) {
@@ -367,7 +389,7 @@ function scheduleAerobaticNotifications(notificationBody, item, location, timeTo
         setTimeout(function () {
             hideBasePopup();
         }, 10000);
-    }, timeToNotify);
+    }, timeToNotify + 5000);
 }
 
 var aerobaticNotificationsHandler = null;
@@ -973,17 +995,33 @@ function updateAircraftIcons() {
     }, this);
 }
 
+var selectedPointId;
+
 function selectLocation(pointId, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor, minimized = false) {
     deselectAircraft();
+    selectedPointId = pointId;
+
+    if (aerobaticShows[selectedPointId]) {
+        markerIconClicked = getHtmlWithGif(markerIconClicked);
+        marker.html = getHtmlWithGif(marker.html);
+    }
 
     mapAPI.setMarkerIcon(marker, markerIconClicked);
     selectedLocation = location;
+
+
     selectedLocationMarker = marker;
     selectedLocationMarkerIcon = markerIcon;
     mapAPI.panTo(map, location);
 
     showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, function () {
+        if (aerobaticShows[selectedPointId]) {
+            selectedLocationMarker.html = getHtmlWithGif(selectedLocationMarker.html);
+            selectedLocationMarkerIcon = getHtmlWithGif(selectedLocationMarkerIcon);
+        }
+
         mapAPI.setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
+
         // mark it is deselected
         selectedLocation = null;
     });
@@ -1053,6 +1091,11 @@ function deselectLocation(callback) {
         // hide selected location
         hideLocationPopup(function () {
             // set it to the previous marker icon
+            if (aerobaticShows[selectedPointId]) {
+                selectedLocationMarker.html = getHtmlWithGif(selectedLocationMarker.html);
+                selectedLocationMarkerIcon = getHtmlWithGif(selectedLocationMarkerIcon);
+            }
+
             mapAPI.setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
 
             // mark it is deselected

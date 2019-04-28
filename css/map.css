@@ -1392,13 +1392,13 @@ position: fixed;
 
 .aerobatic-gif {
 display: flex;
-width: 70px;
-height: 70px;
+width: 65px;
+height: 65px;
 justify-content: center;
 align-items: center;
 position: relative;
-top: -85px;
-left: -7px;
+top: -83px;
+left: -9px;
 z-index: -1;
 }
 
