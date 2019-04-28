@@ -85,7 +85,7 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 
 .main-title {display: flex;justify-content: center;position: relative;font-family: "Heebo-Bold";font-size: 18px;color: #37474f;align-items: center;padding-right: 40px;padding-left: 40px;}
 
-.footer {display: flex;justify-content: center;margin-top: 30px;}
+.footer {display: flex;justify-content: center;margin-top: 30px; font-size:12px;}
 
 #base-container {margin-top: 50px;}
 
@@ -93,7 +93,7 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 
 .title-text {font-size: 18px;padding-left: 21px;padding-right: 21px;}
 
-.base-table-title {background: #52aee7;color: white;height: 23px;padding-right: 10px;font-family: "Heebo-Regular";border-radius: 10px 10px 0 0;align-items: center;}
+.base-table-title {background: #53aee7;color: white;height: 23px;padding-right: 10px;font-family: "Heebo-Regular";border-radius: 10px 10px 0 0;align-items: center;display: flex;flex-direction: row;justify-content: center;}
 
 .base-table-list {
     margin-right: 39.5px;
@@ -109,6 +109,10 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
     box-sizing: border-box;
     padding: 8.5px;
     box-sizing: border-box;
+}
+
+.base-table-title-group {
+    flex: 1;
 }
 
 .base-table-body {
@@ -141,12 +145,11 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 .category-start-time {
     font-size: 10px;
 }
-.category-icons {
+.base-category-icons {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     flex: 2 0 60%;
     margin-top: 5px;
-    justify-content: space-around;
     font-size: 10px;
 }
 
@@ -204,4 +207,30 @@ background: #f2f2f6;
     font-size: 10px;
     overflow: hidden;
     flex-flow: row wrap;
+}
+
+img.loading {
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translateX(50%);
+    -webkit-transform: translateX(50%);
+    -moz-transform: translateX(50%);
+}
+
+div.aerobatic-icon {
+    /* padding-left: 8px; */
+    /* padding-top: 3px; */
+    align-self: flex-end;
+}
+
+img.aerobatic-icon {
+    margin-left: 8px;
+    margin-top: 2px;
+    width: 19px;
+    height: 19px;
+}
+
+img.aerobatic-footer-icon {
+    width: 23px;
+    height: 23px;
 }

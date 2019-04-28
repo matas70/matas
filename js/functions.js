@@ -1825,3 +1825,12 @@ function isPointAerobatic(pointId) {
 
     return aerobaticPoints.includes(pointId);
 }
+
+function getEventName(isAerobatics) {
+    return isAerobatics ? 'מופע אווירובטי' : 'הצנחות';
+}
+
+function getEventDescription(isAerobatics, locationName, minutes) {
+    var desc = isAerobatics ? 'יחל ב' : 'יחלו ב';
+    return `${desc}${locationName} בעוד ${minutes} דקות`;
+}
