@@ -1,6 +1,6 @@
 function initPressPage() {
     loadAircrafts((pAircrafts) => {
-        aircrafts = pAircrafts;
+        aircrafts = pAircrafts.filter((aircraft)=>aircraft.name!=='כחל');
         loadRoutes((routes) => {
             this.routes = routes;
             loadCategories(function () {
@@ -31,7 +31,9 @@ function createCityTables() {
     });
     let cityTables = "";
     cities.forEach((city)=> {
-        cityTables += createCityTable(city);
+        if (city.aircrafts.length > 0) {
+            cityTables += createCityTable(city);
+        }
     });
     return cityTables;
 }
