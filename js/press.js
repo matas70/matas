@@ -104,11 +104,15 @@ function createTableCategory(categoryName, categoryAircrafts, type) {
                             </div>`;
     let flightCategoryIcons = "";
 
+    let aircraftShown = new Map();
     categoryAircrafts.forEach((aircraft) => {
-        flightCategoryIcons += `<div class="aircraft-icon-text">
-                            <img class="aircraft-icon" src="icons/aircraft-menu/${aircraft.icon}.svg" title="${aircraft.time.substr(0,5)}">
+        if (!aircraftShown[aircraft.name]) {
+            flightCategoryIcons += `<div class="aircraft-icon-text">
+                            <img class="aircraft-icon" src="icons/aircraft-menu/${aircraft.icon}.svg" title="${aircraft.time.substr(0, 5)}">
                             ${aircraft.name}
                         </div>`;
+            aircraftShown[aircraft.name] = true;
+        }
     });
     return `<div class="${type}-table-category">${flightCategoryTitle}<div class="${type}-category-icons">${flightCategoryIcons}</div></div>`;
 }

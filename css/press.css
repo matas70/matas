@@ -74,8 +74,7 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 }
 
 .iaf-logo {
-    width: 58px;
-    height: 54px;
+    width: 64px;
     align-self: center;
 }
 
@@ -93,7 +92,7 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 
 .title-text {font-size: 18px;padding-left: 21px;padding-right: 21px;}
 
-.base-table-title {background: #53aee7;color: white;height: 23px;padding-right: 10px;font-family: "Heebo-Regular";border-radius: 10px 10px 0 0;align-items: center;display: flex;flex-direction: row;justify-content: center;}
+.base-table-title {background: #53aee7;color: white;height: 23px;padding-right: 10px;font-family: "Heebo-Regular";border-radius: 10px 10px 0 0;align-items: center;display: flex;flex-direction: row;justify-content: center;border-color: #f2f2f6;border-width: 0.5px;border-style: solid;}
 
 .base-table-list {
     margin-right: 39.5px;
@@ -120,9 +119,9 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
     flex-direction: column;
 }
 
-.base-table-category {height: 40px;display: flex;align-items: center;margin-bottom: 2px;background: white;padding-left: 10px;padding-right: 10px;}
+.base-table-category {display: flex;align-items: center;margin-bottom: 1px;background: white;padding-left: 10px;padding-right: 10px;border-right: 0.5px solid #f2f2f6;border-left: 0.5px solid #f2f2f6;}
 
-.showcase-container {background: white;padding-left: 10px;padding-right: 10px;padding-top: 7px;}
+.showcase-container {background: white;padding-left: 10px;padding-right: 10px;padding-top: 7px;border-right: 0.5px solid #f2f2f6;border-left:0.5px solid #f2f2f6;font-size: 12px;font-family: 'Heebo-Light', sans-serif;}
 
 .aircraft-icon {
     width: 25px;
@@ -133,7 +132,7 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 
 .base-title-times {font-size: 12px;display: inline-block;}
 
-.aircraft-icon-text {display: flex;flex-direction: column;text-align: center;font-size:9px;align-items: center;white-space: nowrap;text-overflow: ellipsis;margin-left: 6px;margin-right: 6px;}
+.aircraft-icon-text {display: flex;flex-direction: column;text-align: center;font-size: 10px;align-items: center;white-space: nowrap;text-overflow: ellipsis;margin-left: 3px;margin-right: 3px;/* font-family: 'Heebo-Light',sans-serif; */color: #596b6a;min-width: 32px;}
 
 .category-name {color: #37474f;display: flex;flex-direction: column;text-align: right;width: 103px;flex-shrink: 0;}
 
@@ -144,6 +143,7 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 
 .category-start-time {
     font-size: 10px;
+    color: #596b6a;
 }
 .base-category-icons {
     display: flex;
@@ -151,6 +151,8 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
     flex: 2 0 60%;
     margin-top: 5px;
     font-size: 10px;
+    flex-flow: row wrap;
+    /* justify-content: space-between; */
 }
 
 .press-body {
@@ -159,17 +161,22 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 
 .exhibition-category {
     font-size: 12px;
-    font-weight: bold;
+    font-family: 'Heebo-Regular',sans-serif;
+    display: inline;
 }
 
 .exhibition-body {
     font-size: 12px;
-    font-weight: lighter;
+    font-family: 'Heebo-Light';
+    display: inline-flex;
 }
 
 .base-table-end {
     border-radius: 0 0 10px 10px;
     height: 10px;
+    border-right: 0.5px solid #f2f2f6;
+    border-bottom: 0.5px solid #f2f2f6;
+    border-left:0.5px solid #f2f2f6;
     background: white;
 }
 
@@ -198,7 +205,7 @@ background: #f2f2f6;
     box-sizing: border-box;
 }
 
-.city-table-category {display: flex;margin-bottom: 2px;background: white;padding-left: 10px;padding-right: 10px;border-radius: 0 0 10px 10px;}
+.city-table-category {display: flex;margin-bottom: 2px;background: white;padding-left: 10px;padding-right: 10px;border-radius: 0 0 10px 10px;border-bottom: 0.5px solid #f2f2f6;border-left: 0.5px solid #f2f2f6;border-right: 0.5px solid #f2f2f6;}
 
 .city-category-icons {
     display: flex;
