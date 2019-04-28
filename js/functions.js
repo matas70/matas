@@ -1682,7 +1682,11 @@ function fillMenu() {
                     if (categoryAircraft.aircraftTypeId !== prevAircraftTypeId) {
                         var date = undefined;
 
-                        if (categoryAircraft.date) {
+                        if (categoryAircraft.path.find(point => point.date)) {
+                            date = categoryAircraft.path.find(point => point.date).date;
+                        }
+
+                        if (date) {
                             var split = categoryAircraft.date.split('-');
                             date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
                         }
