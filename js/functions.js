@@ -334,11 +334,11 @@ function indexOfPosition(pos, list) {
             return i;
         }
     }
-    
+
     return -1;
 }
 
-function getHtmlWithGif(originalMarkerHtml) {
+function getHtmlWithAerobaticGlow(originalMarkerHtml) {
     if (!originalMarkerHtml.includes("aerobatic-gif")) {
         var markerClassHtml = originalMarkerHtml.split('">', 1)[0];
         var htmlWithGif = originalMarkerHtml.replace(markerClassHtml, markerClassHtml + " aerobatic-gif-marker");
@@ -360,14 +360,13 @@ function glowOnPoint(location) {
 
     if (relevantMarker) {
         var originalMarkerHtml = relevantMarker.html;
-        relevantMarker.html = getHtmlWithGif(originalMarkerHtml);
+        relevantMarker.html = getHtmlWithAerobaticGlow(originalMarkerHtml);
 
         // Actually set the icon
         mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
 
         if (!aerobaticShows[location.pointId]) {
             aerobaticShows[location.pointId] = setTimeout(() => {
-                counter--;
                 relevantMarker.html = originalMarkerHtml;
                 mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
                 aerobaticShows[location.pointId] = undefined;
@@ -392,11 +391,15 @@ function scheduleAerobaticNotifications(notificationBody, item, location, timeTo
 
     setTimeout(function () {
         showBasePopup(item.aerobatic, 5, location.pointName);
-        glowOnPoint(location);
         setTimeout(function () {
             hideBasePopup();
         }, 10000);
-    }, timeToNotify + 5000);
+    }, timeToNotify);
+
+    // Since the time to notify is 5 minutes from the show, We're timing the gif to be in +5 minutes
+    setTimeout(() => {
+        glowOnPoint(location);
+    }, 5 * 60 * 1000);
 }
 
 var aerobaticNotificationsHandler = null;
@@ -1009,8 +1012,8 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     selectedPointId = pointId;
 
     if (aerobaticShows[selectedPointId]) {
-        markerIconClicked = getHtmlWithGif(markerIconClicked);
-        marker.html = getHtmlWithGif(marker.html);
+        markerIconClicked = getHtmlWithAerobaticGlow(markerIconClicked);
+        marker.html = getHtmlWithAerobaticGlow(marker.html);
     }
 
     mapAPI.setMarkerIcon(marker, markerIconClicked);
@@ -1023,8 +1026,8 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
 
     showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, function () {
         if (aerobaticShows[selectedPointId]) {
-            selectedLocationMarker.html = getHtmlWithGif(selectedLocationMarker.html);
-            selectedLocationMarkerIcon = getHtmlWithGif(selectedLocationMarkerIcon);
+            selectedLocationMarker.html = getHtmlWithAerobaticGlow(selectedLocationMarker.html);
+            selectedLocationMarkerIcon = getHtmlWithAerobaticGlow(selectedLocationMarkerIcon);
         }
 
         mapAPI.setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
@@ -1099,8 +1102,8 @@ function deselectLocation(callback) {
         hideLocationPopup(function () {
             // set it to the previous marker icon
             if (aerobaticShows[selectedPointId]) {
-                selectedLocationMarker.html = getHtmlWithGif(selectedLocationMarker.html);
-                selectedLocationMarkerIcon = getHtmlWithGif(selectedLocationMarkerIcon);
+                selectedLocationMarker.html = getHtmlWithAerobaticGlow(selectedLocationMarker.html);
+                selectedLocationMarkerIcon = getHtmlWithAerobaticGlow(selectedLocationMarkerIcon);
             }
 
             mapAPI.setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
