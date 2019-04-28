@@ -89,8 +89,8 @@ function createTableCategories(categories, aircrafts, exhibitions, type) {
     // add exhibitions section
     if (exhibitions) {
         tableCategoriesDiv += `<div class="showcase-container">
-                        <span class="exhibition-category">תערוכה:</span>
-                        <span class="exhibition-body">${exhibitions}</span>
+                        <div class="exhibition-category">תערוכה:</div>
+                        ${exhibitions}
                     </div>`;
     }
 
