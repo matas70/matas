@@ -335,7 +335,7 @@ div.table {
     background: white;
     display: flex;
     align-items: center;
-    height: 60px;
+    height: 61px;
     margin-bottom: 1px;
 }
 
@@ -427,14 +427,15 @@ img.aircraftIcon {
     /*display: table-cell;*/
     padding-left: 21px;
     padding-right: 21px;
-    padding-top: 8px;
+    padding-top: 4px;
     padding-bottom: 4px;
     width: 35px;
 }
 
 .aircraftSchedule img.aircraftIcon {
-    padding: 7.5px 5px 7.5px 10px;
     float: right;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 div.aircraftName {
@@ -442,8 +443,8 @@ div.aircraftName {
     color: #37474F;
     vertical-align: middle;
     /*width: 100%;*/
-	float: right;
-    margin-top: 13px;
+    float: right;
+    flex: 1;
     }
 
 div.time {
@@ -455,7 +456,6 @@ div.time {
     white-space: nowrap;
     direction: ltr;
     float: left;
-    margin-top: 13px;
 }
 
 div.infoPopup {
@@ -936,10 +936,20 @@ br.baseData {
 }
 
 .scheduleRow {
-    height: 60px;
+    height: 61px;
     display: block;
     background: white;
     margin-bottom: 1px;
+}
+
+.scheduleRow > div.aircraftName {
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
+.scheduleRow > div.time {
+    margin-top: 18px;
+    margin-bottom: 18px;
 }
 
 .locationIcon {
