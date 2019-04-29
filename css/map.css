@@ -436,14 +436,15 @@ img.aircraftIcon {
 
 .aircraftSchedule img.aircraftIcon {
     padding: 7.5px 5px 7.5px 10px;
+    float: right;
 }
 
 div.aircraftName {
-    /*display: table-cell;*/
     color: #37474F;
     vertical-align: middle;
-    width: 100%;
-}
+    margin-top: 13px;
+    flex: 1;
+    }
 
 div.time {
     display: table-cell;
@@ -453,6 +454,8 @@ div.time {
     vertical-align: middle;
     white-space: nowrap;
     direction: ltr;
+    float: left;
+    margin-top: 13px;
 }
 
 div.infoPopup {
@@ -932,6 +935,13 @@ br.baseData {
     font-size: 17px;
 }
 
+.scheduleRow {
+    height: 60px;
+    display: flex;
+    background: white;
+    margin-bottom: 1px;
+}
+
 .locationIcon {
     padding-left: 17px;
     padding-right: 17px;
@@ -1390,33 +1400,21 @@ padding-top: 17px;
 }
 
 .subheader {
-
-display: flex;
-
-flex-direction: column;
-
-width: 100%;
-
-top: 64px;
-
-position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  top: 64px;
+  position: fixed;
 }
 
 .aerobatic-gif {
-
-display: flex;
-
-width: 90px;
-
-height: 90px;
-
-justify-content: center;
-
-align-items: center;
-
-z-index: -1;
-
-position: relative;
+  display: flex;
+  width: 90px;
+  height: 90px;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+  position: relative;
 }
 
 .aerobatic-gif-marker {
