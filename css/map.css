@@ -1418,7 +1418,50 @@ padding-top: 17px;
 }
 
 .aerobatic-gif-marker {
-    width: 95px;
     position: absolute;
-    height: 75px;
+    padding: 16px;
+}
+
+.circle {
+    border-radius: 50%;
+    background-color: yellow;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    opacity: 0;
+    animation: scaleIn 2s infinite cubic-bezier(.36, .11, .89, .32);
+    animation-delay: 0s;
+}
+
+.circle2 {
+    border-radius: 50%;
+    background-color: yellow;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    opacity: 0;
+    animation: scaleIn 2.0s infinite cubic-bezier(.36, .11, .89, .32);
+    animation-delay: 1s;
+}
+
+.glowing-circle {
+    width: 122px;
+    height: 124px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    z-index: -1;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(.5, .5);
+        opacity: .9;
+    }
+    to {
+        transform: scale(2.5, 2.5);
+        opacity: 0;
+    }
 }
