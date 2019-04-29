@@ -342,7 +342,10 @@ function getHtmlWithAerobaticGlow(originalMarkerHtml) {
     if (!originalMarkerHtml.includes("aerobatic-gif")) {
         var markerClassHtml = originalMarkerHtml.split('">', 1)[0];
         var htmlWithGif = originalMarkerHtml.replace(markerClassHtml, markerClassHtml + " aerobatic-gif-marker");
-        htmlWithGif += `<img class="aerobatic-gif" src="../animation/aerobatic.gif">`;
+        htmlWithGif += `<div class="glowing-circle">
+                          <div class="circle"></div>
+                          <div class="circle2"></div>
+                        </div>`;
 
         // Sorry for this
         mapAPI.panALittle();
