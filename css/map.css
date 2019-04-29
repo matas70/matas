@@ -935,6 +935,13 @@ br.baseData {
     font-size: 17px;
 }
 
+.scheduleRow {
+    height: 60px;
+    display: block;
+    background: white;
+    margin-bottom: 1px;
+}
+
 .locationIcon {
     padding-left: 17px;
     padding-right: 17px;
