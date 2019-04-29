@@ -267,7 +267,6 @@ div.splash {
 }
 
 #aircraftInfoContent {
-    -webkit-transform: translate3d(0px,0px,0px);
     overflow-y: scroll; /* has to be scroll, not auto */
     display: block;
     -webkit-overflow-scrolling: touch;
@@ -336,9 +335,8 @@ div.table {
     background: white;
     display: flex;
     align-items: center;
-    height: 60px;
+    height: 61px;
     margin-bottom: 1px;
-    flex-shrink: 0;
 }
 
 .indented {
@@ -429,21 +427,25 @@ img.aircraftIcon {
     /*display: table-cell;*/
     padding-left: 21px;
     padding-right: 21px;
-    padding-top: 8px;
+    padding-top: 4px;
     padding-bottom: 4px;
     width: 35px;
 }
 
 .aircraftSchedule img.aircraftIcon {
-    padding: 7.5px 5px 7.5px 10px;
+    float: right;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 div.aircraftName {
     /*display: table-cell;*/
     color: #37474F;
     vertical-align: middle;
-    width: 100%;
-}
+    /*width: 100%;*/
+    float: right;
+    flex: 1;
+    }
 
 div.time {
     display: table-cell;
@@ -453,6 +455,7 @@ div.time {
     vertical-align: middle;
     white-space: nowrap;
     direction: ltr;
+    float: left;
 }
 
 div.infoPopup {
@@ -932,6 +935,23 @@ br.baseData {
     font-size: 17px;
 }
 
+.scheduleRow {
+    height: 61px;
+    display: block;
+    background: white;
+    margin-bottom: 1px;
+}
+
+.scheduleRow > div.aircraftName {
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
+.scheduleRow > div.time {
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
 .locationIcon {
     padding-left: 17px;
     padding-right: 17px;
@@ -1167,10 +1187,6 @@ br.baseData {
 .aircraftScheduleContent {
 }
 
-#aircraftScheduleContent {
-    -webkit-transform: translate3d(0px,0px,0px);
-}
-
 .aircraftInfoButton {width: 100%;/* color: rgb(59, 181, 242); */}
 
 .aircraftScheduleButton {
@@ -1211,12 +1227,7 @@ margin-right: 50%;
 
 #aircraftInfoEventIconContainer {background: white;display: flex;padding-right: 10px;width: 34px;padding-left: 4px;align-items: center;}
 
-.aircraftTabs {
-    direction: rtl;
-    overflow-y: scroll; /* has to be scroll, not auto */
-    -webkit-overflow-scrolling: touch;
-    flex: 1;
-}
+.aircraftTabs {direction: rtl;overflow-y: scroll; /* has to be scroll, not auto */-webkit-overflow-scrolling: touch; height: 75%}
 
 .aircraftSchedule {
     display: flex;
@@ -1389,14 +1400,68 @@ padding-top: 17px;
 }
 
 .subheader {
-    
-display: flex;
-    
-flex-direction: column;
-    
-width: 100%;
-    
-top: 64px;
-    
-position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  top: 64px;
+  position: fixed;
+}
+
+.aerobatic-gif {
+  display: flex;
+  width: 90px;
+  height: 90px;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+  position: relative;
+}
+
+.aerobatic-gif-marker {
+    position: absolute;
+    padding: 16px;
+}
+
+.circle {
+    border-radius: 50%;
+    background-color: yellow;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    opacity: 0;
+    animation: scaleIn 2s infinite cubic-bezier(.36, .11, .89, .32);
+    animation-delay: 0s;
+}
+
+.circle2 {
+    border-radius: 50%;
+    background-color: yellow;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    opacity: 0;
+    animation: scaleIn 2.0s infinite cubic-bezier(.36, .11, .89, .32);
+    animation-delay: 1s;
+}
+
+.glowing-circle {
+    width: 122px;
+    height: 124px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    z-index: -1;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(.5, .5);
+        opacity: .9;
+    }
+    to {
+        transform: scale(2.5, 2.5);
+        opacity: 0;
+    }
 }

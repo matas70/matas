@@ -334,21 +334,63 @@ function indexOfPosition(pos, list) {
             return i;
         }
     }
+
     return -1;
+}
+
+function getHtmlWithAerobaticGlow(originalMarkerHtml) {
+    if (!originalMarkerHtml.includes("aerobatic-gif")) {
+        var markerClassHtml = originalMarkerHtml.split('">', 1)[0];
+        var htmlWithGif = originalMarkerHtml.replace(markerClassHtml, markerClassHtml + " aerobatic-gif-marker");
+        htmlWithGif += `<div class="glowing-circle">
+                          <div class="circle"></div>
+                          <div class="circle2"></div>
+                        </div>`;
+
+        // Sorry for this
+        mapAPI.panALittle();
+
+        return htmlWithGif;
+    }
+
+    return originalMarkerHtml;
+}
+
+var aerobaticShows = {};
+
+function glowOnPoint(location) {
+    var relevantMarker = markersMap[location.pointId];
+
+    if (relevantMarker) {
+        var originalMarkerHtml = relevantMarker.html;
+        relevantMarker.html = getHtmlWithAerobaticGlow(originalMarkerHtml);
+
+        // Actually set the icon
+        mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
+
+        if (!aerobaticShows[location.pointId]) {
+            aerobaticShows[location.pointId] = setTimeout(() => {
+                relevantMarker.html = originalMarkerHtml;
+                mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
+                aerobaticShows[location.pointId] = undefined;
+                mapAPI.panALittle();
+            }, 10  * 60 *  1000);
+        }
+    }
 }
 
 function scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify) {
     // Only if notifications are allowed
-    if (Notification.permission === 'granted' && !localStorage.getItem(notificationBody)) {
-        localStorage.setItem(notificationBody, notificationBody);
-        notificationOptions.body = notificationBody;
-        notificationOptions.icon = getEventIcon(item.aerobatic);
+    // if (Notification.permission === 'granted' && !localStorage.getItem(notificationBody)) {
+    //     localStorage.setItem(notificationBody, notificationBody);
+    //     notificationOptions.body = notificationBody;
+    //     notificationOptions.icon = getEventIcon(item.aerobatic);
 
         // TODO: push notifications
         // if (navigator.serviceWorker.controller)
         //     navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, timeToNotify));
         // notificationOptions.data.sentNotifications.push(notificationOptions.body);
-    }
+    // }
 
     setTimeout(function () {
         showBasePopup(item.aerobatic, 5, location.pointName);
@@ -356,6 +398,11 @@ function scheduleAerobaticNotifications(notificationBody, item, location, timeTo
             hideBasePopup();
         }, 10000);
     }, timeToNotify);
+
+    // Since the time to notify is 5 minutes from the show, We're timing the gif to be in +5 minutes
+    setTimeout(() => {
+        glowOnPoint(location);
+    }, timeToNotify + 5 * 60 * 1000);
 }
 
 var aerobaticNotificationsHandler = null;
@@ -387,17 +434,18 @@ function updateLocationsMap(aircrafts) {
                 var timeout = convertTime(item.date, item.time) - getCurrentTime() + actualStartTime - plannedStartTime;
                 var timeBefore = 5 * 60 * 1000;
                 var notificationBody = `${getEventName(item.aerobatic)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
-                // var timeToNotify = timeout - timeBefore;
-                // if (timeToNotify > 0) {
+                var timeToNotify = timeout - timeBefore;
+                if (timeToNotify > 0) {
+                    scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify);
+                }
                 //     if (!Notification.permission && timeToNotify > 30000) {
                 //         // Since this happens as we draw the routes,
                 //         // We need to give the user 30 more seconds to accept notifications
                 //         aerobaticNotificationsHandler =
-                //             setTimeout(() => scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify), 30000);
-                //     } else {
-                //         scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify);
-                //     }
-                // }
+                            // setTimeout(() => scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify), 30000);
+                    // } else {
+                    //     scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify);
+                    // }
             }
 
             location.aircrafts.push(item);
@@ -960,17 +1008,33 @@ function updateAircraftIcons() {
     }, this);
 }
 
+var selectedPointId;
+
 function selectLocation(pointId, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor, minimized = false) {
     deselectAircraft();
+    selectedPointId = pointId;
+
+    if (aerobaticShows[selectedPointId]) {
+        markerIconClicked = getHtmlWithAerobaticGlow(markerIconClicked);
+        marker.html = getHtmlWithAerobaticGlow(marker.html);
+    }
 
     mapAPI.setMarkerIcon(marker, markerIconClicked);
     selectedLocation = location;
+
+
     selectedLocationMarker = marker;
     selectedLocationMarkerIcon = markerIcon;
     mapAPI.panTo(map, location);
 
     showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, function () {
+        if (aerobaticShows[selectedPointId]) {
+            selectedLocationMarker.html = getHtmlWithAerobaticGlow(selectedLocationMarker.html);
+            selectedLocationMarkerIcon = getHtmlWithAerobaticGlow(selectedLocationMarkerIcon);
+        }
+
         mapAPI.setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
+
         // mark it is deselected
         selectedLocation = null;
     });
@@ -1040,6 +1104,11 @@ function deselectLocation(callback) {
         // hide selected location
         hideLocationPopup(function () {
             // set it to the previous marker icon
+            if (aerobaticShows[selectedPointId]) {
+                selectedLocationMarker.html = getHtmlWithAerobaticGlow(selectedLocationMarker.html);
+                selectedLocationMarkerIcon = getHtmlWithAerobaticGlow(selectedLocationMarkerIcon);
+            }
+
             mapAPI.setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
 
             // mark it is deselected
@@ -1219,7 +1288,7 @@ function onLoad() {
             });
         }, 0);
     } else {
-        window.location.replace(window.location.href + "press.html");
+        window.location.replace(window.location.href.substr(0, window.location.href.lastIndexOf('/')) + "/press.html");
     }
 }
 
@@ -1616,8 +1685,8 @@ function fillMenu() {
                     if (categoryAircraft.aircraftTypeId !== prevAircraftTypeId) {
                         var date = undefined;
 
-                        if (categoryAircraft.date) {
-                            var split = categoryAircraft.date.split('-');
+                        if (categoryAircraft.path.find(point => point.date)) {
+                            var split = categoryAircraft.path.find(point => point.date).date.split('-');
                             date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
                         }
 

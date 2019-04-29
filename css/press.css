@@ -84,7 +84,7 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 
 .main-title {display: flex;justify-content: center;position: relative;font-family: "Heebo-Bold";font-size: 18px;color: #37474f;align-items: center;padding-right: 40px;padding-left: 40px;}
 
-.footer {display: flex;justify-content: center;margin-top: 30px; font-size:12px;}
+.footer {display: flex;justify-content: center;font-size:12px;flex-flow: row;}
 
 #base-container {margin-top: 50px;}
 
@@ -101,6 +101,7 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
     flex-direction: row;
     margin-left: 39.5px;
     flex-flow: row wrap;
+    justify-content: center;
 }
 
 .base-table-list .base-table {
@@ -108,6 +109,7 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
     box-sizing: border-box;
     padding: 8.5px;
     box-sizing: border-box;
+    max-width: 400px;
 }
 
 .base-table-title-group {
@@ -196,6 +198,7 @@ background: #f2f2f6;
     flex-direction: row;
     margin-left: 39.5px;
     flex-flow: row wrap;
+    justify-content: center;
 }
 
 .city-table-list .city-table {
@@ -203,6 +206,7 @@ background: #f2f2f6;
     box-sizing: border-box;
     padding: 8.5px;
     box-sizing: border-box;
+    max-width: 230px;
 }
 
 .city-table-category {display: flex;margin-bottom: 2px;background: white;padding-left: 10px;padding-right: 10px;border-radius: 0 0 10px 10px;border-bottom: 0.5px solid #f2f2f6;border-left: 0.5px solid #f2f2f6;border-right: 0.5px solid #f2f2f6;}
@@ -240,4 +244,17 @@ img.aerobatic-icon {
 img.aerobatic-footer-icon {
     width: 23px;
     height: 23px;
+}
+
+img.qrcode {
+    position: relative;
+    margin-top: -80px;
+    width: 96px;
+    height: 96px;
+    float: left;
+    margin-left: 24px;
+}
+
+div.footer-text {
+
 }

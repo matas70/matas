@@ -207,7 +207,7 @@
 </div>
 
 <!-- aircraft info popup -->
-<div id="aircraftInfoPopup" class="infoPopup" style="display: none;">
+<div id="aircraftInfoPopup" class="infoPopup" style="display: none; overflow: scroll; -webkit-overflow-scrolling: touch;">
     <img id="shrinkAircraftInfoPopup" style=" position: absolute; top: 10px; left: 10px;
      display: none; z-index: 10000000;" src="images/arrowCopy.png">
     <div id="aircraftInfoBannerContainer">
@@ -233,7 +233,7 @@
         <a id="aircraftInfoButton" class="aircraftMenuLink active aircraftInfoButton" href="#aircraftInfoContent">
             מידע
         </a>
-        <a id="aircraftScheduleButton" class="aircraftMenuLink aircraftScheduleButton" href="#aircraftScheduleContent">
+        <a id="aircraftScheduleButton" class="aircraftMenuLink aircraftScheduleButton" href="#aircraftScheduleContent" onclick="setAircraftScheduleHeight()">
             מקומות וזמנים
         </a>
     </div>
@@ -298,7 +298,8 @@
             </div>
         </div>
         <div id="aircraftScheduleContent" class="tab-content">
-            <div id="aircraftSchedule" class="aircraftSchedule">
+            <div id="aircraftSchedule" class="aircraftSchedule" style="">
+
             </div>
         </div>
     </div>
