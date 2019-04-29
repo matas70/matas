@@ -267,7 +267,6 @@ div.splash {
 }
 
 #aircraftInfoContent {
-    -webkit-transform: translate3d(0px,0px,0px);
     overflow-y: scroll; /* has to be scroll, not auto */
     display: block;
     -webkit-overflow-scrolling: touch;
@@ -936,10 +935,10 @@ br.baseData {
 }
 
 .scheduleRow {
-    height: 60px;
-    display: block;
-    background: white;
-    margin-bottom: 1px;
+    /*height: 60px;*/
+    /*display: block;*/
+    /*background: white;*/
+    /*margin-bottom: 1px;*/
 }
 
 .locationIcon {
@@ -1178,7 +1177,6 @@ br.baseData {
 }
 
 #aircraftScheduleContent {
-    -webkit-transform: translate3d(0px,0px,0px);
 }
 
 .aircraftInfoButton {width: 100%;/* color: rgb(59, 181, 242); */}
