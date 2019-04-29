@@ -436,14 +436,15 @@ img.aircraftIcon {
 
 .aircraftSchedule img.aircraftIcon {
     padding: 7.5px 5px 7.5px 10px;
+    float: right;
 }
 
 div.aircraftName {
-    /*display: table-cell;*/
     color: #37474F;
     vertical-align: middle;
-    width: 100%;
-}
+    margin-top: 13px;
+    flex: 1;
+    }
 
 div.time {
     display: table-cell;
@@ -453,6 +454,8 @@ div.time {
     vertical-align: middle;
     white-space: nowrap;
     direction: ltr;
+    float: left;
+    margin-top: 13px;
 }
 
 div.infoPopup {
@@ -930,6 +933,13 @@ br.baseData {
     height: 71px;
     border-bottom: 1px #dadde3 solid;
     font-size: 17px;
+}
+
+.scheduleRow {
+    height: 60px;
+    display: flex;
+    background: white;
+    margin-bottom: 1px;
 }
 
 .locationIcon {
