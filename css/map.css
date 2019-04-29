@@ -443,7 +443,7 @@ div.aircraftName {
     color: #37474F;
     vertical-align: middle;
     margin-top: 13px;
-    flex: 1;
+    float: right;
     }
 
 div.time {
@@ -937,7 +937,7 @@ br.baseData {
 
 .scheduleRow {
     height: 60px;
-    display: flex;
+    display: block;
     background: white;
     margin-bottom: 1px;
 }
@@ -1225,7 +1225,7 @@ margin-right: 50%;
     direction: rtl;
     overflow-y: scroll; /* has to be scroll, not auto */
     -webkit-overflow-scrolling: touch;
-    flex: 1;
+    height: 75%;
 }
 
 .aircraftSchedule {
