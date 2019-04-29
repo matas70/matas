@@ -935,13 +935,6 @@ br.baseData {
     font-size: 17px;
 }
 
-.scheduleRow {
-    /*height: 60px;*/
-    /*display: block;*/
-    /*background: white;*/
-    /*margin-bottom: 1px;*/
-}
-
 .locationIcon {
     padding-left: 17px;
     padding-right: 17px;
@@ -1177,9 +1170,6 @@ br.baseData {
 .aircraftScheduleContent {
 }
 
-#aircraftScheduleContent {
-}
-
 .aircraftInfoButton {width: 100%;/* color: rgb(59, 181, 242); */}
 
 .aircraftScheduleButton {
@@ -1220,12 +1210,7 @@ margin-right: 50%;
 
 #aircraftInfoEventIconContainer {background: white;display: flex;padding-right: 10px;width: 34px;padding-left: 4px;align-items: center;}
 
-.aircraftTabs {
-    direction: rtl;
-    overflow-y: scroll; /* has to be scroll, not auto */
-    -webkit-overflow-scrolling: touch;
-    height: 75%;
-}
+.aircraftTabs {direction: rtl;overflow-y: scroll; /* has to be scroll, not auto */-webkit-overflow-scrolling: touch; height: 75%}
 
 .aircraftSchedule {
     display: flex;
