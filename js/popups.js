@@ -232,16 +232,12 @@ function fillAircraftSchedule(aircraft, collapse) {
     $("#aircraftSchedule").html(html);
 }
 
-$("#aircraftScheduleButton").click(function(){
-	setAircraftScheduleHeight();
-});
-
 function setAircraftScheduleHeight() {
-	var winHeight = $(window).height();
-	var imgHeight = $('#aircraftInfoBannerContainer').innerHeight();
-	var containerHeight = $('#aircraftIconContainer').innerHeight();
-	var contentHeight = $('#aircraftContentSeparator').innerHeight();
-	var divHeight = winHeight - imgHeight - containerHeight - contentHeight - 7;
+    let winHeight = $(window).height();
+    let imgHeight = $('#aircraftInfoBannerContainer').innerHeight();
+    let containerHeight = $('#aircraftIconContainer').innerHeight();
+    let contentHeight = $('#aircraftContentSeparator').innerHeight();
+    let divHeight = winHeight - imgHeight - containerHeight - contentHeight - 7;
 
     $('#aircraftSchedule').css('max-height', divHeight + 'px');
 }
@@ -451,7 +447,7 @@ function createCategoryLocationRow(location, time, from) {
 }
 
 function createLocationScheduleRow(aircraft, location, time) {
-    return `<div onclick="selectPointFromSchedule(${location.pointId})"><img src=\"icons/point-${location.color}.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+    return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/point-${location.color}.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
             ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} </div></div>`;
 }
 
