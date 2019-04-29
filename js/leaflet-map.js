@@ -282,7 +282,7 @@ leafletMaps = {
     addOfflineMap : (map) => {
         L.imageOverlay('images/Matas_vector_map.svg?v=2', [[26.500, 30.725], [36.15, 39.390]]).addTo(map)
     },
-    
+
     createMapObject : (clickCallback) => {
         var map = L.map('map').setView([32.00, 35.00], 8);
         map.setMaxZoom(18);
@@ -322,5 +322,8 @@ leafletMaps = {
 
     isMarkerVisible : (marker) => {
         return marker.options.alpha > 0;
-    }    
+    },
+    panALittle : () => {
+        map.panTo(map.getCenter());
+    }
 }
