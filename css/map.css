@@ -337,7 +337,6 @@ div.table {
     align-items: center;
     height: 60px;
     margin-bottom: 1px;
-    flex-shrink: 0;
 }
 
 .indented {
@@ -439,10 +438,12 @@ img.aircraftIcon {
 }
 
 div.aircraftName {
+    /*display: table-cell;*/
     color: #37474F;
     vertical-align: middle;
+    /*width: 100%;*/
+	float: right;
     margin-top: 13px;
-    float: right;
     }
 
 div.time {
@@ -1244,7 +1245,6 @@ margin-right: 50%;
     display: inline-flex;
     align-content: center;
     justify-content: center;
-    position: relative;
 }
 
 .locationMarkerLabel {
