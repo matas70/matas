@@ -1576,7 +1576,7 @@ var tabsHeight;
 function initMenu() {
     $menuHamburger = $("#menuHamburger");
     // ugly code to place about logo correctly related to the half blue
-    $("#aboutLogo").css("paddingTop", $(".halfBlue").height() - $(".aboutLogo").height() + 12 + "px");
+    $("#aboutLogo").css("paddingTop", $(".halfBlue").height() - $(".aboutLogo").height() + 100 + "px");
 
     $("#listView").height("100%");
     var listViewHeight = $("#listView").height();
