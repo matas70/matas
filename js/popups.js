@@ -108,11 +108,13 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
     point.aircrafts.forEach((ac) => {
        if (ac.specialInAircraft) {
-           if (!specials.has(ac.specialInAircraft)) {
+           if (!specials.has(ac.specialInAircraft) && (!ac.date || (ac.date && new Date(ac.date) > new Date()))) {
                specials.set(ac.specialInAircraft, []);
-           }
+           } 
 
-           specials.get(ac.specialInAircraft).push(ac);
+           if (specials.get(ac.specialInAircraft)) {
+               specials.get(ac.specialInAircraft).push(ac);
+           }
        } else if (ac.specialInPath) {
            if (!specials.has(ac.specialInPath)) {
                specials.set(ac.specialInPath, []);
