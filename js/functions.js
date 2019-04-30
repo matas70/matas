@@ -35,6 +35,7 @@ var categories = [];
 var displayAircraftShows = true;
 var userSimulation = false;
 var aircraftData = null;
+var appLoaded = false;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -503,11 +504,11 @@ function loadActualStartTime() {
     // make sure there is no active rehearsal
     var isRehearsalActive = false;
     var deltaFromRehearsals = 2 * 60 * 60 * 1000;
-    var rehearsals = aircrafts.filter((aircraft)=> {
+    var rehearsals = [].concat.apply([], aircrafts.filter((aircraft)=> {
         return aircraft.special === "חזרות";
     }).map((aircraft) => {
         return aircraft.path;
-    }).flat();
+    }));
     rehearsals.forEach((rehersal) => {
         if (currentTime > convertTime(rehersal.date, rehersal.time) - deltaFromRehearsals &&
             currentTime < convertTime(rehersal.date, rehersal.time) + deltaFromRehearsals )
@@ -1239,22 +1240,38 @@ var countdownInterval;
 
 function onLoad() {
     if (compatibleDevice() && !checkIframe()) {
-    // register service worker (needed for the app to be suggested as webapp)
-    registerServiceWorker();
 
-    initMenu();
-    $("#mapClusterPopup").hide();
-
-        // start "loading icon" after 2 seconds
-        setTimeout(function () {
-            //$(".splash").css("background-image", "url(animation/Splash.jpg)");
-            $(".loading").show();
-        }, 2100);
+        // if we are on online mode and it is taking too long to load - switch to offline
+        if (!($.urlParam("offline")==="true")) {
+            setTimeout(() => {
+                // if after 45 seconds the app isn't loaded yet and there is an offline cache - start it offline
+                if (!appLoaded && navigator.serviceWorker) {
+                    console.log("app load is taking too long... trying to switch to offline mode.");
+                    caches.open('matas').then((cache) => {
+                        cache.keys().then(keys => {
+                            // if there is enough cache keys loaded
+                            if (keys.length > 100) {
+                                // reload the page in offline mode
+                                window.location = "/?offline=true";
+                            }
+                        });
+                    });
+                }
+            }, 45000);
+        }
 
         // replace animation with still image after 5 seconds
         setTimeout(function () {
             $(".splash").css("background-image", "url(animation/Splash.jpg)");
-        }, 5000);
+            $(".loading").show();
+        }, 2000);
+
+        // register service worker (needed for the app to be suggested as webapp)
+        registerServiceWorker();
+
+        initMenu();
+        $("#mapClusterPopup").hide();
+
 
         setTimeout(function () {
             aircrafts = [];
@@ -1831,10 +1848,28 @@ function initMap() {
                 addAircraftsToMap();
                 startAircraftsAnimation(false);
 
-                // hide splash screen
-                setTimeout(function () {
-                    $(".splash").fadeOut();
-                }, 3500);
+                // hide splash screen - wait few milliseconds so the map can be loaded
+                let waitForMap = setInterval(() => {
+                    if ($("#map:visible").length === 1) {
+                        clearInterval(waitForMap);
+                        $(".splash").fadeOut();
+
+                        // load cache of all aircraft types icons
+                        let loadedAicrafts = {};
+                        aircrafts.forEach((aircraft) => {
+                            if (!loadedAicrafts[aircraft.icon]) {
+                                $("#aircraftImgCache").append(`<img id="${aircraft.icon}" src="icons/aircrafts/${aircraft.icon}.svg" class="imageCache"></img>`);
+                                loadedAicrafts[aircraft.icon] = true;
+                            }
+                        });
+
+                        // request service worker to load all of the cache
+                        if (navigator.serviceWorker && navigator.serviceWorker.controller)
+                            navigator.serviceWorker.controller.postMessage("loadCache");
+
+                        appLoaded = true;
+                    }
+                }, 100);
 
                 //             $(window).focus(function () {
                 // //                 startAircraftsAnimation(true);
