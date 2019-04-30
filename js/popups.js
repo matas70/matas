@@ -223,11 +223,41 @@ function hideLocationPopup(callback) {
     $("#aircraftListContainer").animate({height: "150px"}, "fast");
 }
 
-function fillAircraftSchedule(aircraft, collapse) {
+function removeDuplicatesBy(keyFn, array) {
+    var mySet = new Set();
+    return array.filter(function(x) {
+        var key = keyFn(x), isNew = !mySet.has(key);
+        if (isNew) mySet.add(key);
+        return isNew;
+    });
+}
+//
+// function compareLocationName(point1, point2) {
+//     var name1 = locations[point1.pointid];
+//     var name2 = locations[point2.pointId];
+//     locations[point1.pointId].pointName - locations[point2.pointId].pointName);
+// }
+
+function fillAircraftSchedule(aircraft, showAllPoints = false) {
     var html = "";
-    aircraft.path.sort((point1, point2) => Date.parse(point1.time) - Date.parse(point2.time)).forEach(location => {
+    var aircraftPath = [];
+
+    if (showAllPoints) {
+        // Gathers all of the locations an aircraft type passes by, and removes duplicate points. It then sorts alphabetically location name
+        aircraftPath =
+            removeDuplicatesBy((point => point.pointId),
+                [].concat.apply([],
+                                aircrafts.filter(otherAircraft => otherAircraft.aircraftTypeId === aircraft.aircraftTypeId)
+                                         .map(relevantAircraft => relevantAircraft.path)))
+                .sort((point1, point2) => locations[point1.pointId].pointName.localeCompare(locations[point2.pointId].pointName));
+    } else {
+        aircraftPath = aircraft.path.sort((point1, point2) => Date.parse(point1.time) - Date.parse(point2.time))
+    }
+
+    aircraftPath.forEach(location => {
         html += createScheduleRow(aircraft, location);
     });
+
 
     $("#aircraftSchedule").html(html);
 }
@@ -470,7 +500,7 @@ function createScheduleRow(aircraft, location) {
     return "";
 }
 
-function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule=false) {
+function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule=false, showAllPoints=false) {
     var aerobaticIcon = "<div/>";
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
@@ -480,7 +510,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
         aircraftType = "הצנחת צנחנים";
     }
 
-    return "<div onclick='onAircraftSelected(" + aircraftId + "," + collapse.toString() + ","+showSchedule+");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
+    return "<div onclick='onAircraftSelected(" + aircraftId + "," + collapse.toString() + ","+ showSchedule + "," + showAllPoints + ");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
         ".svg\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>" + name +
         "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class='date'>" + (date ? date : '') + "</div>" + "<div class=\"time\">" + (displayTime ? roundToMinute(time) : "") + "</div></div></div></div>";
 }

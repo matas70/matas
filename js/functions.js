@@ -1062,7 +1062,7 @@ function selectInfoButtonWithoutClicking() {
     currAircraftTab = "#aircraftInfoContent";
 }
 
-function onAircraftSelected(aircraftId, collapse, showSchedule=false) {
+function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllPoints = false) {
     var aircraft = aircrafts[aircraftId-1];
     window.scrollTo(0,1);
 
@@ -1070,7 +1070,7 @@ function onAircraftSelected(aircraftId, collapse, showSchedule=false) {
     // $("#aircraftInfoButton").click();
     selectInfoButtonWithoutClicking();
 
-    selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse);
+    selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse, showAllPoints);
 
     if (showSchedule) {
         // show schedule instead of aircraft info
@@ -1086,11 +1086,11 @@ function resizeAircraftNameIfNeeded() {
     }
 }
 
-function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl, collapse) {
+function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl, collapse, showAllPoints = false) {
     globalCollapse = collapse;
     deselectLocation();
     showAircraftInfoPopup(aircraft, collapse);
-    fillAircraftSchedule(aircraft, collapse);
+    fillAircraftSchedule(aircraft, showAllPoints);
     //map.panTo(location);
     //marker.setIcon(markerIconClicked);
     selectedAircraft = aircraft;
@@ -1675,9 +1675,17 @@ function fillMenu() {
     categories.forEach(function (category) {
         var categorizedAircrafts = [].concat(aircrafts);
         if (category.special) {
-            var categoryAircrafts = categorizedAircrafts.filter(aircraft => aircraft.special===category.category).sort((aircraft1, aircraft2) => {
-                return aircraft1.name > aircraft2.name ? 1 : aircraft1.name < aircraft2.name ? -1 : 0;
-            });
+            // Get aircraft relevant for category, sort them,
+            // and make sure that if there is a date - It is in the future (Prevents past rehearsals being shown)
+            var categoryAircrafts =
+                categorizedAircrafts.filter(aircraft => aircraft.special === category.category)
+                    .sort((aircraft1, aircraft2) => {
+                        return aircraft1.name > aircraft2.name ? 1 : aircraft1.name < aircraft2.name ? -1 : 0;
+                    })
+                    .filter(categoryAircraft =>
+                                     categoryAircraft.path.find(point =>
+                                            (point.date && new Date(point.date) > new Date()) ||
+                                            (!point.date)));
             if (categoryAircrafts.length > 0) {
                 html += createCategoryRow(category, category.special);
                 var prevAircraftTypeId = -1;
@@ -1718,7 +1726,11 @@ function fillMenu() {
                 aircraft.category === category.category)
                 .sort((aircraft1, aircraft2) => {
                     return aircraft1.path[0].time - aircraft2.path[0].time
-                });
+                })
+                .filter(categoryAircraft =>
+                                 categoryAircraft.path.find(point =>
+                                     (point.date  && new Date(point.date) > new Date())
+                                     || !point.date));
 
             if (aircraftsForCategory.length > 0) {
                 html += createCategoryRow(category, category.special);
@@ -1731,7 +1743,10 @@ function fillMenu() {
                         aircraftFromCategory.aerobatic,
                         aircraftFromCategory.special,
                         true,
-                        false);
+                        false,
+                        undefined,
+                        false   ,
+                        true);
 
                 });
             }
