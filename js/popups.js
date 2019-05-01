@@ -110,7 +110,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
        if (ac.specialInAircraft) {
            if (!specials.has(ac.specialInAircraft) && (!ac.date || (ac.date && new Date(ac.date) > new Date()))) {
                specials.set(ac.specialInAircraft, []);
-           } 
+           }
 
            if (specials.get(ac.specialInAircraft)) {
                specials.get(ac.specialInAircraft).push(ac);
@@ -668,19 +668,17 @@ function showBasePopup(isAerobatics, minutes, locationName) {
     html += getEventDescription(isAerobatics, locationName, minutes);
     $("#showData").html(html);
     $("#basePopup").css("top", -64).css("opacity",0);
+    $(".alert-header").show();
     $("#basePopup").show();
-    if (searchOpen) {
-        $("#basePopup").animate({
-            top: -64 + "px",
-            opacity: 0
-        }, 600);
+    animateBasePopup();
+}
 
-    } else {
-        $("#basePopup").animate({
-            top: 0 + "px",
-            opacity: 1
-        }, 600);
-    }
+function animateBasePopup() {
+    var topHeight = searchOpen ? -64 + "px" : 0 + "px";
+    $("#basePopup").animate({
+        top: topHeight,
+        opacity: 1
+    }, 600);
 }
 
 function showGenericPopup(title, subtitle) {
@@ -698,18 +696,7 @@ function showGenericPopup(title, subtitle) {
     $("#showData").html(html);
     $("#basePopup").css("top", -64).css("opacity",0);
     $("#basePopup").show();
-    if (searchOpen) {
-        $("#basePopup").animate({
-            top: -64 + "px",
-            opacity: 0
-        }, 600);
-
-    } else {
-        $("#basePopup").animate({
-            top: 0 + "px",
-            opacity: 1
-        }, 600);
-    }
+    animateBasePopup();
 }
 
 function getEventIcon(isAerobatics) {
