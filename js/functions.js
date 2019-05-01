@@ -436,7 +436,7 @@ function updateLocationsMap(aircrafts) {
                 var timeBefore = 5 * 60 * 1000;
                 var notificationBody = `${getEventName(item.aerobatic)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
                 var timeToNotify = timeout - timeBefore;
-                if (timeToNotify > 0) {
+                if (timeToNotify > 0 && !userSimulation) {
                     scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify);
                 }
                 //     if (!Notification.permission && timeToNotify > 30000) {
