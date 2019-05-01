@@ -718,13 +718,13 @@ HEADER {
 }
 
 hr.two {
-    margin-left: 11%;
+    margin-left: 0%;
 }
 
 hr {
     height: 0.4em;
-    width: 33%;
-    margin: 0 0 0 57%;
+    width: 50%;
+    margin-left: 50%;
     background: #3bb5f2;
     border: none;
     transition: .3s ease-in-out;
