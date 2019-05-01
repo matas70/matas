@@ -517,7 +517,7 @@ div.locationInfoPopup {
     background: white;
     text-align: center;
     position: absolute;
-    z-index: 10005;
+    z-index: 10002;
     width: 100%;
     height: 100%;
     bottom: 0px;
@@ -536,16 +536,25 @@ div.locationInfoPopup {
     z-index: 999;
 }
 
+.aboutExitLogo{
+    z-index: 10003;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
 .aboutTitle {
     font-family: "Heebo-Bold", sans-serif;
-    font-size: 17px;
+    font-size: 22px;
     margin-top: 13px;
     margin-bottom: 13px;
 }
 
 .aboutBody {
-    margin-left: 52px;
-    margin-right: 52px;
+    margin-left: 61px;
+    margin-right: 61px;
 }
 
 .aboutBottom {
@@ -553,8 +562,19 @@ div.locationInfoPopup {
 }
 
 .aboutBottomLink {
+    height: 50px;
     width: 100%;
     background: #f7f5f5;
+}
+
+.aboutBottomImg{
+    padding:9px
+}
+
+.iafLogo{
+    padding-bottom: 40px;
+    width: 69px;
+    height: 68px;
 }
 
 .bottomText {

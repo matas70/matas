@@ -1346,6 +1346,7 @@ var canOpenMenu = true;
 var currMenuTab = "#locations";
 var currAircraftTab = "#aircraftInfoContent";
 var $menuHamburger;
+var $aboutExit
 
 function toggleListView(event, shouldOnlyToggleClose = false) {
     if (aboutVisible) {
@@ -1374,7 +1375,9 @@ function toggleListView(event, shouldOnlyToggleClose = false) {
         }
     }
 }
-
+function exitAbout(event){
+    alert("work")
+}
 var searchOpen = false;
 var listViewHeight;
 function displaySearchView() {
@@ -1575,8 +1578,11 @@ var tabsHeight;
 
 function initMenu() {
     $menuHamburger = $("#menuHamburger");
+    $aboutExit = $("#aboutExitLogo");
     // ugly code to place about logo correctly related to the half blue
     $("#aboutLogo").css("paddingTop", $(".halfBlue").height() - $(".aboutLogo").height() + 100 + "px");
+
+    $("#aboutLogo").css({'z-index':'inherit'});
 
     $("#listView").height("100%");
     var listViewHeight = $("#listView").height();
@@ -1590,7 +1596,7 @@ function initMenu() {
 
     // Responsible for opening the side menu
     $menuHamburger.on("click", toggleListView);
-
+    $aboutExit.on("click",toggleListView);
     initSearchBar();
 
     // Responsible for managing the tabs
