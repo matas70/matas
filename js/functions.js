@@ -628,7 +628,6 @@ function onAboutButtonClick() {
         });
         $("#aboutButton").attr("src", "icons/aboutIconSelected.png");
         aboutVisible = true;
-        $("#menuHamburger").toggleClass("is-active");
 
         // hide IAF logo if there is no room - this is very ugly code but we don't have much time to mess around with this
         var requiredHeight = 64 + $("#headerMobile").height() + $("#aboutLogo").height() +  $("#aboutTitle").height() + $("#aboutBody").height() + $("#aboutBottom").height();
@@ -1370,7 +1369,6 @@ function toggleListView(event, shouldOnlyToggleClose = false) {
         });
         $("#aboutButton").attr("src", "icons/aboutIcon.png");
         aboutVisible = false;
-        $menuHamburger.toggleClass("is-active");
     } else if (canOpenMenu) {
         canOpenMenu = false;
         if (isMenuOpen) {
