@@ -35,6 +35,7 @@ var categories = [];
 var displayAircraftShows = true;
 var userSimulation = false;
 var aircraftData = null;
+var appLoaded = false;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -435,7 +436,7 @@ function updateLocationsMap(aircrafts) {
                 var timeBefore = 5 * 60 * 1000;
                 var notificationBody = `${getEventName(item.aerobatic)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
                 var timeToNotify = timeout - timeBefore;
-                if (timeToNotify > 0) {
+                if (timeToNotify > 0 && !userSimulation) {
                     scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify);
                 }
                 //     if (!Notification.permission && timeToNotify > 30000) {
@@ -506,11 +507,11 @@ function loadActualStartTime() {
     // make sure there is no active rehearsal
     var isRehearsalActive = false;
     var deltaFromRehearsals = 2 * 60 * 60 * 1000;
-    var rehearsals = aircrafts.filter((aircraft)=> {
+    var rehearsals = [].concat.apply([], aircrafts.filter((aircraft)=> {
         return aircraft.special === "חזרות";
     }).map((aircraft) => {
         return aircraft.path;
-    }).flat();
+    }));
     rehearsals.forEach((rehersal) => {
         if (currentTime > convertTime(rehersal.date, rehersal.time) - deltaFromRehearsals &&
             currentTime < convertTime(rehersal.date, rehersal.time) + deltaFromRehearsals )
@@ -1062,7 +1063,7 @@ function selectInfoButtonWithoutClicking() {
     currAircraftTab = "#aircraftInfoContent";
 }
 
-function onAircraftSelected(aircraftId, collapse, showSchedule=false) {
+function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllPoints = false) {
     var aircraft = aircrafts[aircraftId-1];
     window.scrollTo(0,1);
 
@@ -1070,7 +1071,7 @@ function onAircraftSelected(aircraftId, collapse, showSchedule=false) {
     // $("#aircraftInfoButton").click();
     selectInfoButtonWithoutClicking();
 
-    selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse);
+    selectAircraft(aircraft, aircraftMarkers[aircraftId-1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse, showAllPoints);
 
     if (showSchedule) {
         // show schedule instead of aircraft info
@@ -1086,11 +1087,11 @@ function resizeAircraftNameIfNeeded() {
     }
 }
 
-function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl, collapse) {
+function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl, collapse, showAllPoints = false) {
     globalCollapse = collapse;
     deselectLocation();
     showAircraftInfoPopup(aircraft, collapse);
-    fillAircraftSchedule(aircraft, collapse);
+    fillAircraftSchedule(aircraft, showAllPoints);
     //map.panTo(location);
     //marker.setIcon(markerIconClicked);
     selectedAircraft = aircraft;
@@ -1242,22 +1243,38 @@ var countdownInterval;
 
 function onLoad() {
     if (compatibleDevice() && !checkIframe()) {
-    // register service worker (needed for the app to be suggested as webapp)
-    registerServiceWorker();
 
-    initMenu();
-    $("#mapClusterPopup").hide();
-
-        // start "loading icon" after 2 seconds
-        setTimeout(function () {
-            //$(".splash").css("background-image", "url(animation/Splash.jpg)");
-            $(".loading").show();
-        }, 2100);
+        // if we are on online mode and it is taking too long to load - switch to offline
+        if (!($.urlParam("offline")==="true")) {
+            setTimeout(() => {
+                // if after 45 seconds the app isn't loaded yet and there is an offline cache - start it offline
+                if (!appLoaded && navigator.serviceWorker) {
+                    console.log("app load is taking too long... trying to switch to offline mode.");
+                    caches.open('matas').then((cache) => {
+                        cache.keys().then(keys => {
+                            // if there is enough cache keys loaded
+                            if (keys.length > 100) {
+                                // reload the page in offline mode
+                                window.location = "/?offline=true";
+                            }
+                        });
+                    });
+                }
+            }, 45000);
+        }
 
         // replace animation with still image after 5 seconds
         setTimeout(function () {
             $(".splash").css("background-image", "url(animation/Splash.jpg)");
-        }, 5000);
+            $(".loading").show();
+        }, 2000);
+
+        // register service worker (needed for the app to be suggested as webapp)
+        registerServiceWorker();
+
+        initMenu();
+        $("#mapClusterPopup").hide();
+
 
         setTimeout(function () {
             aircrafts = [];
@@ -1681,9 +1698,17 @@ function fillMenu() {
     categories.forEach(function (category) {
         var categorizedAircrafts = [].concat(aircrafts);
         if (category.special) {
-            var categoryAircrafts = categorizedAircrafts.filter(aircraft => aircraft.special===category.category).sort((aircraft1, aircraft2) => {
-                return aircraft1.name > aircraft2.name ? 1 : aircraft1.name < aircraft2.name ? -1 : 0;
-            });
+            // Get aircraft relevant for category, sort them,
+            // and make sure that if there is a date - It is in the future (Prevents past rehearsals being shown)
+            var categoryAircrafts =
+                categorizedAircrafts.filter(aircraft => aircraft.special === category.category)
+                    .sort((aircraft1, aircraft2) => {
+                        return aircraft1.name > aircraft2.name ? 1 : aircraft1.name < aircraft2.name ? -1 : 0;
+                    })
+                    .filter(categoryAircraft =>
+                                     categoryAircraft.path.find(point =>
+                                            (point.date && new Date(point.date) > new Date()) ||
+                                            (!point.date)));
             if (categoryAircrafts.length > 0) {
                 html += createCategoryRow(category, category.special);
                 var prevAircraftTypeId = -1;
@@ -1724,7 +1749,11 @@ function fillMenu() {
                 aircraft.category === category.category)
                 .sort((aircraft1, aircraft2) => {
                     return aircraft1.path[0].time - aircraft2.path[0].time
-                });
+                })
+                .filter(categoryAircraft =>
+                                 categoryAircraft.path.find(point =>
+                                     (point.date  && new Date(point.date) > new Date())
+                                     || !point.date));
 
             if (aircraftsForCategory.length > 0) {
                 html += createCategoryRow(category, category.special);
@@ -1737,7 +1766,10 @@ function fillMenu() {
                         aircraftFromCategory.aerobatic,
                         aircraftFromCategory.special,
                         true,
-                        false);
+                        false,
+                        undefined,
+                        false   ,
+                        true);
 
                 });
             }
@@ -1840,10 +1872,28 @@ function initMap() {
                 addAircraftsToMap();
                 startAircraftsAnimation(false);
 
-                // hide splash screen
-                setTimeout(function () {
-                    $(".splash").fadeOut();
-                }, 3500);
+                // hide splash screen - wait few milliseconds so the map can be loaded
+                let waitForMap = setInterval(() => {
+                    if ($("#map:visible").length === 1) {
+                        clearInterval(waitForMap);
+                        $(".splash").fadeOut();
+
+                        // load cache of all aircraft types icons
+                        let loadedAicrafts = {};
+                        aircrafts.forEach((aircraft) => {
+                            if (!loadedAicrafts[aircraft.icon]) {
+                                $("#aircraftImgCache").append(`<img id="${aircraft.icon}" src="icons/aircrafts/${aircraft.icon}.svg" class="imageCache"></img>`);
+                                loadedAicrafts[aircraft.icon] = true;
+                            }
+                        });
+
+                        // request service worker to load all of the cache
+                        if (navigator.serviceWorker && navigator.serviceWorker.controller)
+                            navigator.serviceWorker.controller.postMessage("loadCache");
+
+                        appLoaded = true;
+                    }
+                }, 100);
 
                 //             $(window).focus(function () {
                 // //                 startAircraftsAnimation(true);

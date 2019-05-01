@@ -108,11 +108,13 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
     point.aircrafts.forEach((ac) => {
        if (ac.specialInAircraft) {
-           if (!specials.has(ac.specialInAircraft)) {
+           if (!specials.has(ac.specialInAircraft) && (!ac.date || (ac.date && new Date(ac.date) > new Date()))) {
                specials.set(ac.specialInAircraft, []);
            }
 
-           specials.get(ac.specialInAircraft).push(ac);
+           if (specials.get(ac.specialInAircraft)) {
+               specials.get(ac.specialInAircraft).push(ac);
+           }
        } else if (ac.specialInPath) {
            if (!specials.has(ac.specialInPath)) {
                specials.set(ac.specialInPath, []);
@@ -223,11 +225,41 @@ function hideLocationPopup(callback) {
     $("#aircraftListContainer").animate({height: "150px"}, "fast");
 }
 
-function fillAircraftSchedule(aircraft, collapse) {
+function removeDuplicatesBy(keyFn, array) {
+    var mySet = new Set();
+    return array.filter(function(x) {
+        var key = keyFn(x), isNew = !mySet.has(key);
+        if (isNew) mySet.add(key);
+        return isNew;
+    });
+}
+//
+// function compareLocationName(point1, point2) {
+//     var name1 = locations[point1.pointid];
+//     var name2 = locations[point2.pointId];
+//     locations[point1.pointId].pointName - locations[point2.pointId].pointName);
+// }
+
+function fillAircraftSchedule(aircraft, showAllPoints = false) {
     var html = "";
-    aircraft.path.sort((point1, point2) => Date.parse(point1.time) - Date.parse(point2.time)).forEach(location => {
+    var aircraftPath = [];
+
+    if (showAllPoints) {
+        // Gathers all of the locations an aircraft type passes by, and removes duplicate points. It then sorts alphabetically location name
+        aircraftPath =
+            removeDuplicatesBy((point => point.pointId),
+                [].concat.apply([],
+                                aircrafts.filter(otherAircraft => otherAircraft.aircraftTypeId === aircraft.aircraftTypeId)
+                                         .map(relevantAircraft => relevantAircraft.path)))
+                .sort((point1, point2) => locations[point1.pointId].pointName.localeCompare(locations[point2.pointId].pointName));
+    } else {
+        aircraftPath = aircraft.path.sort((point1, point2) => Date.parse(point1.time) - Date.parse(point2.time))
+    }
+
+    aircraftPath.forEach(location => {
         html += createScheduleRow(aircraft, location);
     });
+
 
     $("#aircraftSchedule").html(html);
 }
@@ -470,7 +502,7 @@ function createScheduleRow(aircraft, location) {
     return "";
 }
 
-function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule=false) {
+function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule=false, showAllPoints=false) {
     var aerobaticIcon = "<div/>";
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
@@ -480,7 +512,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
         aircraftType = "הצנחת צנחנים";
     }
 
-    return "<div onclick='onAircraftSelected(" + aircraftId + "," + collapse.toString() + ","+showSchedule+");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
+    return "<div onclick='onAircraftSelected(" + aircraftId + "," + collapse.toString() + ","+ showSchedule + "," + showAllPoints + ");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
         ".svg\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>" + name +
         "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class='date'>" + (date ? date : '') + "</div>" + "<div class=\"time\">" + (displayTime ? roundToMinute(time) : "") + "</div></div></div></div>";
 }
@@ -636,19 +668,17 @@ function showBasePopup(isAerobatics, minutes, locationName) {
     html += getEventDescription(isAerobatics, locationName, minutes);
     $("#showData").html(html);
     $("#basePopup").css("top", -64).css("opacity",0);
+    $(".alert-header").show();
     $("#basePopup").show();
-    if (searchOpen) {
-        $("#basePopup").animate({
-            top: -64 + "px",
-            opacity: 0
-        }, 600);
+    animateBasePopup();
+}
 
-    } else {
-        $("#basePopup").animate({
-            top: 0 + "px",
-            opacity: 1
-        }, 600);
-    }
+function animateBasePopup() {
+    var topHeight = searchOpen ? -64 + "px" : 0 + "px";
+    $("#basePopup").animate({
+        top: topHeight,
+        opacity: 1
+    }, 600);
 }
 
 function showGenericPopup(title, subtitle) {
@@ -666,18 +696,7 @@ function showGenericPopup(title, subtitle) {
     $("#showData").html(html);
     $("#basePopup").css("top", -64).css("opacity",0);
     $("#basePopup").show();
-    if (searchOpen) {
-        $("#basePopup").animate({
-            top: -64 + "px",
-            opacity: 0
-        }, 600);
-
-    } else {
-        $("#basePopup").animate({
-            top: 0 + "px",
-            opacity: 1
-        }, 600);
-    }
+    animateBasePopup();
 }
 
 function getEventIcon(isAerobatics) {

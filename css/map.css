@@ -1,3 +1,24 @@
+.body, #wrapper {
+    /* Break the flow */
+    position: absolute;
+    top: 0px;
+
+    /* Give them all the available space */
+    width: 100%;
+    height: 100%;
+
+    /* Remove the margins if any */
+    margin: 0;
+
+    /* Allow them to scroll down the document */
+    overflow-y: hidden;
+}
+
+#wrapper {
+    /* Making the wrapper stack above the body */
+    z-index: 2;
+}
+
 #map {
     position: absolute;
     top: 64px; /* Header Height */
@@ -66,6 +87,8 @@ html, body {
     background: white;
     font-family: 'Heebo-Regular', sans-serif;
     text-rendering: optimizeLegibility;
+    /* Sending body at the bottom of the stack */
+    z-index: 1;
 }
 
 div.aircraftInfoContent {
@@ -731,13 +754,13 @@ HEADER {
 }
 
 hr.two {
-    margin-left: 11%;
+    margin-left: 0%;
 }
 
 hr {
     height: 0.4em;
-    width: 33%;
-    margin: 0 0 0 57%;
+    width: 50%;
+    margin-left: 50%;
     background: #3bb5f2;
     border: none;
     transition: .3s ease-in-out;
