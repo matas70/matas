@@ -50,327 +50,328 @@
         }
     </script>
 </head>
-<body onload="loadScripts()">
+<body onload="loadScripts()" class="body">
+<div id="wrapper">
+    <!-- page header -->
+    <header id="headerMobile">
+        <div id="headerBg">
 
-<!-- page header -->
-<header id="headerMobile">
-    <div id="headerBg">
-
-        <!--<a href="javascript:void(0)" onclick="onAboutButtonClick()">-->
-        <!--<img id="aboutButton" src="icons/aboutIcon.png"/>-->
-        <!--</a>-->
-        <div id="menuHamburger" class="hamburger hamburger--spin small" type="button">
-            <div class="hamburger-box">
-                <div class="hamburger-inner"></div>
-            </div>
-        </div>
-
-        <div id="headerIconContainer">
-            <img src="icons/headerLogo.svg" style="width:90px"/>
-            <div id="aboutMenuTitle" style="display:none">אודות</div>
-        </div>
-        <div>
-            <img id="homeButton" src="icons/home.svg" onclick="onHomeButtonClick()" style="visibility: hidden"/>
-        </div>
-    </div>
-</header>
-
-<!-- list view -->
-<div id="listView" class="listViewContainer">
-    <div id="listHeader" class="container">
-        <div id="search-bar" class="search-bar">
-            <span class="search-icon" >
-            </span>
-            <input class="search-input" type="text" placeholder="חיפוש" spellcheck="false" name="input" id="input" required pattern=".*">
-            <span id="search-clear-button">
-            </span>
-            <div id="search-back-button">
-                ביטול
-            </div>
-        </div>
-        <ul class="menuHeader">
-            <li class="one" class="menuItem" style="padding-right: 20%;"><a class="menuLink" href="#aircrafts">כלי טיס</a></li>
-            <li class="two" class="menuItem"><a class="menuLink active" href="#locations">מקומות</a></li>
-            <hr/>
-        </ul>
-    </div>
-    <div class="tabs">
-        <!-- Aircrafts -->
-        <div class="tab-content" id="aircrafts">
-            <p class="timeline-warning">לידיעתכם, ייתכנו שינוים בלוחות הזמנים</p>
-            <div id="aircraftsListView">
-
-            </div>
-        </div>
-        <!-- Locations -->
-        <div class="tab-content.active" id="locations">
-            <p class="timeline-warning">לידיעתכם, ייתכנו שינוים בלוחות הזמנים</p>
-            <div id="locationsListView" class="locationsTable">
-            </div>
-        </div>
-        <!-- Search View -->
-        <div class="tab-content" id="search">
-            <div id="search-prompt">
-                <b class="search-sorry">מצטערים,</b>
-                <br/>
-                השנה המטס לא עובר מעל הישוב שחיפשתם,
-                <br/>
-                נסו לחפש ישובים סמוכים גדולים.
-            </div>
-            <div id="search-view" class="search-view">
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="aboutIcon" onclick="onAboutButtonClick();">
-    <img src="icons/aboutIconSelected.png">
-</div>
-
-<!-- map overlay -->
-<div class="map-dark" onclick="closeAllPopups();" style="display: none">
-</div>
-
-<!-- startup splash screen -->
-<div class="splash"
-     style="background-image: url('animation/Splash-no-number.gif');background-size: contain; visibility: visible;">
-    <div class="loading" style="background-image: url('animation/loading.gif');background-size: contain; display: none;"></div>
-</div>
-
-<!-- the map itself -->
-<div id="map" style="display: none;"></div>
-
-<div class="subheader">
-    <!-- entrance popup -->
-    <div id="entrancePopup" class="entrancePopup" style="display:none">
-        <div id="countdownContainer">
-            <div id="countdownMeter" class="countdown">
-                <div class="countdownLabel">
-                    <div id="days" class="countdownText">05</div>
-                    <div id="daysText">ימים</div>
-                </div>
-                <div class="countdownLabel">
-                    <div id="hours" class="countdownText">13</div>
-                    <div id="hoursText">שעות</div>
-                </div>
-                <div class="countdownLabel">
-                    <div id="minutes" class="countdownText">54</div>
-                    <div id="minutesText">דקות</div>
+            <!--<a href="javascript:void(0)" onclick="onAboutButtonClick()">-->
+            <!--<img id="aboutButton" src="icons/aboutIcon.png"/>-->
+            <!--</a>-->
+            <div id="menuHamburger" class="hamburger hamburger--spin small" type="button">
+                <div class="hamburger-box">
+                    <div class="hamburger-inner"></div>
                 </div>
             </div>
-            <div class="entranceBody">לתחילת אירועי חיל האוויר - עצמאות 71</div>
-        </div>
-    </div>
-    <!-- shows popup -->
-    <div id="basePopup" class="infoBasePopup" style="display: none">
-        <div id="headerBase">
-            <div class="alert-header">
-                <img src="/icons/drone.png" />
-                <span>חל איסור על הטסת רחפנים בכל האירועים!</span>
+
+            <div id="headerIconContainer">
+                <img src="icons/headerLogo.svg" style="width:90px"/>
+                <div id="aboutMenuTitle" style="display:none">אודות</div>
             </div>
-            <div id="baseInfo">
-                <img id="showAeroplanIcon" src="images/aeroplan.png" class="baseEventIcon">
-                <img id="showParachutingIcon" src="images/parachuting.png" class="baseEventIcon">
-                <img id="popupHeaderIcon" src="icons/genericAircraft.svg" class="baseEventIcon">
-                <div id="showData" class="baseData"><b class="baseData">מופע אווירובטי</b><br class="baseData">יחל בבסיס תל
-                    נוף בעוד 5 דק'
+            <div>
+                <img id="homeButton" src="icons/home.svg" onclick="onHomeButtonClick()" style="visibility: hidden"/>
+            </div>
+        </div>
+    </header>
+
+    <!-- list view -->
+    <div id="listView" class="listViewContainer">
+        <div id="listHeader" class="container">
+            <div id="search-bar" class="search-bar">
+                <span class="search-icon" >
+                </span>
+                <input class="search-input" type="text" placeholder="חיפוש" spellcheck="false" name="input" id="input" required pattern=".*">
+                <span id="search-clear-button">
+                </span>
+                <div id="search-back-button">
+                    ביטול
                 </div>
-                <img src="images/exitBase.png" class="baseExitIcon" onclick="hideBasePopup()">
             </div>
+            <ul class="menuHeader">
+                <li class="one" class="menuItem" style="padding-right: 20%;"><a class="menuLink" href="#aircrafts">כלי טיס</a></li>
+                <li class="two" class="menuItem"><a class="menuLink active" href="#locations">מקומות</a></li>
+                <hr/>
+            </ul>
         </div>
-    </div>
-</div>
+        <div class="tabs">
+            <!-- Aircrafts -->
+            <div class="tab-content" id="aircrafts">
+                <p class="timeline-warning">לידיעתכם, ייתכנו שינוים בלוחות הזמנים</p>
+                <div id="aircraftsListView">
 
-<!-- location info popup -->
-<div id="locationPopup" class="infoPopup" style="display: none">
-    <div id="popupIcon" ><a id="wazeLink" href="https://www.waze.com" target="_blank"><img id="waze" src="icons/waze.svg"></a></div>
-    <div id="popupHeader">
-        <div id="slidepopup"><img id="slide" src="icons/slidepopup.png" ></div>
-        <div  >
-        <div id="popupBody">
-            <div  id="popupDisplay">
-                <div id="popupTitle"></div>
-                <div id="popupSubTitle"></div>
-            </div>
-
-            <div id="popupTime">13:30-16:00</div>
-        </div>
-        </div>
-    </div>
-    <div id="aircraftListContainer">
-        <div id="aircraftsList" class="table">
-        </div>
-        <div id="noAircraftMessage">
-            אין מטוסים נוספים הצפויים לעבור בנקודה זו השנה
-        </div>
-    </div>
-</div>
-
-<!-- aircraft info popup -->
-<div id="aircraftInfoPopup" class="infoPopup" style="display: none; overflow: scroll; -webkit-overflow-scrolling: touch;">
-    <img id="shrinkAircraftInfoPopup" style=" position: absolute; top: 10px; left: 10px;
-     display: none; z-index: 10000000;" src="images/arrowCopy.png">
-    <div id="aircraftInfoBannerContainer">
-        <img id="aircraftInfoBanner" src=""></img>
-    </div>
-    <div class="aircraftInfoContentRow aircraftInfoTitle">
-        <div id="aircraftIconContainer">
-            <img id="aircraftInfoIcon" src="icons/aircrafts/adir.png"/>
-        </div>
-        <div id="aircraftInfoText">
-            <div id="aircraftInfoName"></div>
-            <div id="aircraftInfoType"></div>
-        </div>
-            <div id="aircraftInfoEventIconContainer">
-                <img id="aircraftInfoEventIcon" src="icons/aircraft-menu/aerobatic.svg"/>
-            </div>
-        <div id="aircraftInfoTime">
-            <div id="aircraftInfoStartTime"></div>
-            <div id="aircraftInfoTimeLabel">זמן המראה</div>
-        </div>
-    </div>
-    <div id="aircraftContentSeparator" class="aircraftContentSeparator">
-        <a id="aircraftInfoButton" class="aircraftMenuLink active aircraftInfoButton" href="#aircraftInfoContent">
-            מידע
-        </a>
-        <a id="aircraftScheduleButton" class="aircraftMenuLink aircraftScheduleButton" href="#aircraftScheduleContent" onclick="setAircraftScheduleHeight()">
-            מקומות וזמנים
-        </a>
-    </div>
-    <hr class="aircraftLineSeparator">
-    <div id="aircraftInfoMore">קרא עוד</div>
-    <div class="aircraftTabs">
-        <div id="aircraftInfoContent" class="tab-content">
-            <div id="expandedInfo">
-                <div class="aircraftInfoContentRow">
-                    <p class="aircraftDescription" id="aircraftInfoContentDescription">
-                    </p>
                 </div>
-                <div id="aircraftInfoClassification" class="aircraftInfoContentRowFlex">
-                    <img class="aircraftInfoContentIcon" src="images/group3@2x.png">
-                    <div class="aircraftInfoContentGroup">
-                        <div class="aircraftInfoContentTitle">סוג</div>
-                        <div class="aircraftInfoContentText" id="aircraftInfoContentClassification"></div>
+            </div>
+            <!-- Locations -->
+            <div class="tab-content.active" id="locations">
+                <p class="timeline-warning">לידיעתכם, ייתכנו שינוים בלוחות הזמנים</p>
+                <div id="locationsListView" class="locationsTable">
+                </div>
+            </div>
+            <!-- Search View -->
+            <div class="tab-content" id="search">
+                <div id="search-prompt">
+                    <b class="search-sorry">מצטערים,</b>
+                    <br/>
+                    השנה המטס לא עובר מעל הישוב שחיפשתם,
+                    <br/>
+                    נסו לחפש ישובים סמוכים גדולים.
+                </div>
+                <div id="search-view" class="search-view">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="aboutIcon" onclick="onAboutButtonClick();">
+        <img src="icons/aboutIconSelected.png">
+    </div>
+
+    <!-- map overlay -->
+    <div class="map-dark" onclick="closeAllPopups();" style="display: none">
+    </div>
+
+    <!-- startup splash screen -->
+    <div class="splash"
+         style="background-image: url('animation/Splash-no-number.gif');background-size: contain; visibility: visible;">
+        <div class="loading" style="background-image: url('animation/loading.gif');background-size: contain; display: none;"></div>
+    </div>
+
+    <!-- the map itself -->
+    <div id="map" style="display: none;"></div>
+
+    <div class="subheader">
+        <!-- entrance popup -->
+        <div id="entrancePopup" class="entrancePopup" style="display:none">
+            <div id="countdownContainer">
+                <div id="countdownMeter" class="countdown">
+                    <div class="countdownLabel">
+                        <div id="days" class="countdownText">05</div>
+                        <div id="daysText">ימים</div>
+                    </div>
+                    <div class="countdownLabel">
+                        <div id="hours" class="countdownText">13</div>
+                        <div id="hoursText">שעות</div>
+                    </div>
+                    <div class="countdownLabel">
+                        <div id="minutes" class="countdownText">54</div>
+                        <div id="minutesText">דקות</div>
                     </div>
                 </div>
-                <div id="aircraftInfoCountry" class="aircraftInfoContentRowFlex">
-                    <img class="aircraftInfoContentIcon" src="images/group4@2x.png">
-                    <div class="aircraftInfoContentGroup">
-                        <div class="aircraftInfoContentTitle">ארץ ייצור</div>
-                        <div class="aircraftInfoContentText" id="aircraftInfoContentCountry"></div>
-                    </div>
+                <div class="entranceBody">לתחילת אירועי חיל האוויר - עצמאות 71</div>
+            </div>
+        </div>
+        <!-- shows popup -->
+        <div id="basePopup" class="infoBasePopup" style="display: none">
+            <div id="headerBase">
+                <div class="alert-header">
+                    <img src="/icons/drone.png" />
+                    <span>חל איסור על הטסת רחפנים בכל האירועים!</span>
                 </div>
-                <div id="aircraftInfoDimensions" class="aircraftInfoContentRowFlex">
-                    <img class="aircraftInfoContentIcon" src="images/group10@2x.png">
-                    <div class="aircraftInfoContentGroup">
-                        <div class="aircraftInfoContentTitle">מימדים</div>
-                        <div class="aircraftInfoContentText" id="aircraftInfoContentDimensions"></div>
+                <div id="baseInfo">
+                    <img id="showAeroplanIcon" src="images/aeroplan.png" class="baseEventIcon">
+                    <img id="showParachutingIcon" src="images/parachuting.png" class="baseEventIcon">
+                    <img id="popupHeaderIcon" src="icons/genericAircraft.svg" class="baseEventIcon">
+                    <div id="showData" class="baseData"><b class="baseData">מופע אווירובטי</b><br class="baseData">יחל בבסיס תל
+                        נוף בעוד 5 דק'
                     </div>
-                </div>
-                <div id="aircraftInfoPerformance" class="aircraftInfoContentRowFlex">
-                    <img class="aircraftInfoContentIcon" src="images/group11@2x.png">
-                    <div class="aircraftInfoContentGroup">
-                        <div class="aircraftInfoContentTitle">ביצועים</div>
-                        <div class="aircraftInfoContentText" id="aircraftInfoContentPerformance"></div>
-                    </div>
-                </div>
-                <div id="aircraftInfoWeight" class="aircraftInfoContentRowFlex">
-                    <img class="aircraftInfoContentIcon" src="images/group12@2x.png">
-                    <div class="aircraftInfoContentGroup">
-                        <div class="aircraftInfoContentTitle">משקל</div>
-                        <div class="aircraftInfoContentText" id="aircraftInfoContentWeight"></div>
-                    </div>
-                </div>
-                <div id="aircraftInfoEngine" class="aircraftInfoContentRowFlex">
-                    <img class="aircraftInfoContentIcon" src="images/group13@2x.png">
-                    <div class="aircraftInfoContentGroup">
-                        <div class="aircraftInfoContentTitle">מנוע</div>
-                        <div class="aircraftInfoContentText" id="aircraftInfoContentEngine"></div>
-                    </div>
-                </div>
-                <div id="aircraftInfoArmament" class="aircraftInfoContentRowFlex" id="aircraftInfoContentArmamentContainer">
-                    <img class="aircraftInfoContentIcon" src="images/armament@2x.png">
-                    <div class="aircraftInfoContentGroup">
-                        <div class="aircraftInfoContentTitle">חימוש</div>
-                        <div class="aircraftInfoContentText" id="aircraftInfoContentArmament"></div>
-                    </div>
+                    <img src="images/exitBase.png" class="baseExitIcon" onclick="hideBasePopup()">
                 </div>
             </div>
         </div>
-        <div id="aircraftScheduleContent" class="tab-content">
-            <div id="aircraftSchedule" class="aircraftSchedule" style="">
+    </div>
 
+    <!-- location info popup -->
+    <div id="locationPopup" class="infoPopup" style="display: none">
+        <div id="popupIcon" ><a id="wazeLink" href="https://www.waze.com" target="_blank"><img id="waze" src="icons/waze.svg"></a></div>
+        <div id="popupHeader">
+            <div id="slidepopup"><img id="slide" src="icons/slidepopup.png" ></div>
+            <div  >
+            <div id="popupBody">
+                <div  id="popupDisplay">
+                    <div id="popupTitle"></div>
+                    <div id="popupSubTitle"></div>
+                </div>
+
+                <div id="popupTime">13:30-16:00</div>
+            </div>
+            </div>
+        </div>
+        <div id="aircraftListContainer">
+            <div id="aircraftsList" class="table">
+            </div>
+            <div id="noAircraftMessage">
+                אין מטוסים נוספים הצפויים לעבור בנקודה זו השנה
             </div>
         </div>
     </div>
-</div>
 
-<!-- about popup -->
-<div id="aboutPopup" class="aboutPopup" style="display:none">
-    <!--<div class="halfBlue">-->
-    <img id="aboutLogo" class="aboutLogo" src="icons/bigLogo.png"/>
-    <div id="aboutTitle" class="aboutTitle">
-            חג עצמאות שמח!
-     </div>
-    <div id="aboutBody" class="aboutBody">
-        האפליקציה פותחה ע"י <b>יחידת אופק 324</b>, היחידה הטכנולוגית המבצעית של חיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות לכבוד חגיגות 71 שנה למדינת ישראל
-    </div>
-     <div id="aboutBottom" class="aboutBottom">
-            <img id="iafLogo" src="icons/iaf-small.png" style="padding-bottom: 14px"/>
-            <div class="bottomText">
-                שימו לב, ייתכנו שינוים בלוחות הזמנים
+    <!-- aircraft info popup -->
+    <div id="aircraftInfoPopup" class="infoPopup" style="display: none; overflow: scroll; -webkit-overflow-scrolling: touch;">
+        <img id="shrinkAircraftInfoPopup" style=" position: absolute; top: 10px; left: 10px;
+         display: none; z-index: 10000000;" src="images/arrowCopy.png">
+        <div id="aircraftInfoBannerContainer">
+            <img id="aircraftInfoBanner" src=""></img>
+        </div>
+        <div class="aircraftInfoContentRow aircraftInfoTitle">
+            <div id="aircraftIconContainer">
+                <img id="aircraftInfoIcon" src="icons/aircrafts/adir.png"/>
             </div>
-     </div>
-</div>
-
-<!-- incompatible browser popup -->
-<div id="incompatibleBrowserPopup" class="aboutPopup" style="display:none">
-    <div class="halfBlue">
-        <img class="aboutLogo" src="icons/bigLogo.png"/>
-        <img src="screenshots/screenshot1.png" class="screenshot"/>
-        <div class="aboutTitle">
-            חג עצמאות שמח!
+            <div id="aircraftInfoText">
+                <div id="aircraftInfoName"></div>
+                <div id="aircraftInfoType"></div>
+            </div>
+                <div id="aircraftInfoEventIconContainer">
+                    <img id="aircraftInfoEventIcon" src="icons/aircraft-menu/aerobatic.svg"/>
+                </div>
+            <div id="aircraftInfoTime">
+                <div id="aircraftInfoStartTime"></div>
+                <div id="aircraftInfoTimeLabel">זמן המראה</div>
+            </div>
         </div>
-        <div class="aboutBody">
-            אנחנו מתנצלים, הצפיה במפת מטס חיל האוויר נתמכת במכשירים סלולריים בלבד.<br>
-            היכנסו מהמכשיר הסלולרי שלכם ותוכלו לצפות בזמן אמת במטס חיל האוויר על גבי מפה ולקבל מידע מפורט על המופעים,
-            הזמנים והמטוסים<br>
-            <img src="icons/iaf.png" width="138"><br>
-            <b>יחידת אופק 324</b>
+        <div id="aircraftContentSeparator" class="aircraftContentSeparator">
+            <a id="aircraftInfoButton" class="aircraftMenuLink active aircraftInfoButton" href="#aircraftInfoContent">
+                מידע
+            </a>
+            <a id="aircraftScheduleButton" class="aircraftMenuLink aircraftScheduleButton" href="#aircraftScheduleContent" onclick="setAircraftScheduleHeight()">
+                מקומות וזמנים
+            </a>
+        </div>
+        <hr class="aircraftLineSeparator">
+        <div id="aircraftInfoMore">קרא עוד</div>
+        <div class="aircraftTabs">
+            <div id="aircraftInfoContent" class="tab-content">
+                <div id="expandedInfo">
+                    <div class="aircraftInfoContentRow">
+                        <p class="aircraftDescription" id="aircraftInfoContentDescription">
+                        </p>
+                    </div>
+                    <div id="aircraftInfoClassification" class="aircraftInfoContentRowFlex">
+                        <img class="aircraftInfoContentIcon" src="images/group3@2x.png">
+                        <div class="aircraftInfoContentGroup">
+                            <div class="aircraftInfoContentTitle">סוג</div>
+                            <div class="aircraftInfoContentText" id="aircraftInfoContentClassification"></div>
+                        </div>
+                    </div>
+                    <div id="aircraftInfoCountry" class="aircraftInfoContentRowFlex">
+                        <img class="aircraftInfoContentIcon" src="images/group4@2x.png">
+                        <div class="aircraftInfoContentGroup">
+                            <div class="aircraftInfoContentTitle">ארץ ייצור</div>
+                            <div class="aircraftInfoContentText" id="aircraftInfoContentCountry"></div>
+                        </div>
+                    </div>
+                    <div id="aircraftInfoDimensions" class="aircraftInfoContentRowFlex">
+                        <img class="aircraftInfoContentIcon" src="images/group10@2x.png">
+                        <div class="aircraftInfoContentGroup">
+                            <div class="aircraftInfoContentTitle">מימדים</div>
+                            <div class="aircraftInfoContentText" id="aircraftInfoContentDimensions"></div>
+                        </div>
+                    </div>
+                    <div id="aircraftInfoPerformance" class="aircraftInfoContentRowFlex">
+                        <img class="aircraftInfoContentIcon" src="images/group11@2x.png">
+                        <div class="aircraftInfoContentGroup">
+                            <div class="aircraftInfoContentTitle">ביצועים</div>
+                            <div class="aircraftInfoContentText" id="aircraftInfoContentPerformance"></div>
+                        </div>
+                    </div>
+                    <div id="aircraftInfoWeight" class="aircraftInfoContentRowFlex">
+                        <img class="aircraftInfoContentIcon" src="images/group12@2x.png">
+                        <div class="aircraftInfoContentGroup">
+                            <div class="aircraftInfoContentTitle">משקל</div>
+                            <div class="aircraftInfoContentText" id="aircraftInfoContentWeight"></div>
+                        </div>
+                    </div>
+                    <div id="aircraftInfoEngine" class="aircraftInfoContentRowFlex">
+                        <img class="aircraftInfoContentIcon" src="images/group13@2x.png">
+                        <div class="aircraftInfoContentGroup">
+                            <div class="aircraftInfoContentTitle">מנוע</div>
+                            <div class="aircraftInfoContentText" id="aircraftInfoContentEngine"></div>
+                        </div>
+                    </div>
+                    <div id="aircraftInfoArmament" class="aircraftInfoContentRowFlex" id="aircraftInfoContentArmamentContainer">
+                        <img class="aircraftInfoContentIcon" src="images/armament@2x.png">
+                        <div class="aircraftInfoContentGroup">
+                            <div class="aircraftInfoContentTitle">חימוש</div>
+                            <div class="aircraftInfoContentText" id="aircraftInfoContentArmament"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="aircraftScheduleContent" class="tab-content">
+                <div id="aircraftSchedule" class="aircraftSchedule" style="">
+
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<div id="mapClusterPopup" class="mapClusterPopup">
-    <div class="mapClusterPopupHeader">אני רוצה לצפות ב:</div>
-    <div id="mapClusterPopupContent" class="mapClusterPopupContent"></div>
-    <div id="mapClusterPopupFooter" class="mapClusterPopupFooter">סגור</div>
-</div>
-
-<!-- confirmation popup -->
-<div id="confirmationPopup" class="confirmationPopup" style="display: none">
-    <div id="confirmationMessageTitle" class="confirmationMessageTitle">
-        הישארו מעודכנים!
+    <!-- about popup -->
+    <div id="aboutPopup" class="aboutPopup" style="display:none">
+        <!--<div class="halfBlue">-->
+        <img id="aboutLogo" class="aboutLogo" src="icons/bigLogo.png"/>
+        <div id="aboutTitle" class="aboutTitle">
+                חג עצמאות שמח!
+         </div>
+        <div id="aboutBody" class="aboutBody">
+            האפליקציה פותחה ע"י <b>יחידת אופק 324</b>, היחידה הטכנולוגית המבצעית של חיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות לכבוד חגיגות 71 שנה למדינת ישראל
+        </div>
+         <div id="aboutBottom" class="aboutBottom">
+                <img id="iafLogo" src="icons/iaf-small.png" style="padding-bottom: 14px"/>
+                <div class="bottomText">
+                    שימו לב, ייתכנו שינוים בלוחות הזמנים
+                </div>
+         </div>
     </div>
-    <div id="confirmationMessageBody" class="confirmationMessageBody">
-        אם ברצונך לקבל הודעות בדבר זמני המופעים הקרובים יש לאשר קבלת התראות
-    </div>
-    <div id="confirmButton" class="confirmButton" onclick="hideConfirmationPopup()">
-        הבנתי
-    </div>
-</div>
 
-<!-- aircraft images cache -->
-<div id="aircraftImgCache" class="imageCache">
-    <img id="arrow" src="icons/arrow.svg" class="imageCache"></img>
+    <!-- incompatible browser popup -->
+    <div id="incompatibleBrowserPopup" class="aboutPopup" style="display:none">
+        <div class="halfBlue">
+            <img class="aboutLogo" src="icons/bigLogo.png"/>
+            <img src="screenshots/screenshot1.png" class="screenshot"/>
+            <div class="aboutTitle">
+                חג עצמאות שמח!
+            </div>
+            <div class="aboutBody">
+                אנחנו מתנצלים, הצפיה במפת מטס חיל האוויר נתמכת במכשירים סלולריים בלבד.<br>
+                היכנסו מהמכשיר הסלולרי שלכם ותוכלו לצפות בזמן אמת במטס חיל האוויר על גבי מפה ולקבל מידע מפורט על המופעים,
+                הזמנים והמטוסים<br>
+                <img src="icons/iaf.png" width="138"><br>
+                <b>יחידת אופק 324</b>
+            </div>
+        </div>
+    </div>
 
-    <!--&lt;!&ndash; forigen countries &ndash;&gt;-->
-    <!--<img id="canada" src="icons/countries/canada.svg" class="imageCache"></img>-->
-    <!--<img id="britian" src="icons/countries/britian.svg" class="imageCache"></img>-->
-    <!--<img id="italian" src="icons/countries/italian.svg" class="imageCache"></img>-->
-    <!--<img id="greece" src="icons/countries/greece.svg" class="imageCache"></img>-->
-    <!--<img id="austria" src="icons/countries/austria.svg" class="imageCache"></img>-->
-    <!--<img id="poland" src="icons/countries/poland.svg" class="imageCache"></img>-->
+    <div id="mapClusterPopup" class="mapClusterPopup">
+        <div class="mapClusterPopupHeader">אני רוצה לצפות ב:</div>
+        <div id="mapClusterPopupContent" class="mapClusterPopupContent"></div>
+        <div id="mapClusterPopupFooter" class="mapClusterPopupFooter">סגור</div>
+    </div>
+
+    <!-- confirmation popup -->
+    <div id="confirmationPopup" class="confirmationPopup" style="display: none">
+        <div id="confirmationMessageTitle" class="confirmationMessageTitle">
+            הישארו מעודכנים!
+        </div>
+        <div id="confirmationMessageBody" class="confirmationMessageBody">
+            אם ברצונך לקבל הודעות בדבר זמני המופעים הקרובים יש לאשר קבלת התראות
+        </div>
+        <div id="confirmButton" class="confirmButton" onclick="hideConfirmationPopup()">
+            הבנתי
+        </div>
+    </div>
+
+    <!-- aircraft images cache -->
+    <div id="aircraftImgCache" class="imageCache">
+        <img id="arrow" src="icons/arrow.svg" class="imageCache"></img>
+
+        <!--&lt;!&ndash; forigen countries &ndash;&gt;-->
+        <!--<img id="canada" src="icons/countries/canada.svg" class="imageCache"></img>-->
+        <!--<img id="britian" src="icons/countries/britian.svg" class="imageCache"></img>-->
+        <!--<img id="italian" src="icons/countries/italian.svg" class="imageCache"></img>-->
+        <!--<img id="greece" src="icons/countries/greece.svg" class="imageCache"></img>-->
+        <!--<img id="austria" src="icons/countries/austria.svg" class="imageCache"></img>-->
+        <!--<img id="poland" src="icons/countries/poland.svg" class="imageCache"></img>-->
+    </div>
 </div>
 </body>
 </html>
