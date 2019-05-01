@@ -80,13 +80,13 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 
 .main-logo {margin-top: 10px;width: 148px;height: 108px;}
 
-#city-container {margin-top: 24px;}
+#city-container {margin-top: 24px;display: flex;flex-direction: column;align-items: center;margin-left: 48px;margin-right: 48px;max-width: 1200px;}
 
-.main-title {display: flex;justify-content: center;position: relative;font-family: "Heebo-Bold";font-size: 18px;color: #37474f;align-items: center;padding-right: 40px;padding-left: 40px;}
+.main-title {display: flex;justify-content: center;position: relative;font-family: "Heebo-Bold";font-size: 18px;color: #37474f;align-items: center;padding-right: 40px;padding-left: 40px;width: 100%;}
 
 .footer {display: flex;justify-content: center;font-size:12px;flex-flow: row;}
 
-#base-container {margin-top: 50px;}
+#base-container {margin-top: 17px;display: flex;flex-direction: column;justify-content: center;align-items: center;max-width: 800px;}
 
 .title-decoration {width: 100%;height: 2px;background: #cecfcf;border-radius: 1px;}
 
@@ -95,13 +95,10 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 .base-table-title {background: #53aee7;color: white;height: 23px;padding-right: 10px;font-family: "Heebo-Regular";border-radius: 10px 10px 0 0;align-items: center;display: flex;flex-direction: row;justify-content: center;border-color: #f2f2f6;border-width: 0.5px;border-style: solid;}
 
 .base-table-list {
-    margin-right: 39.5px;
     overflow: hidden;
     display: flex;
     flex-direction: row;
-    margin-left: 39.5px;
     flex-flow: row wrap;
-    justify-content: center;
 }
 
 .base-table-list .base-table {
@@ -183,20 +180,18 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 }
 
 .line-separator {
-    
+
 width: 100%;
-    
+
 height: 1px;
-    
+
 background: #f2f2f6;
 }
 
 .city-table-list {
-    margin-right: 39.5px;
     overflow: hidden;
     display: flex;
     flex-direction: row;
-    margin-left: 39.5px;
     flex-flow: row wrap;
     justify-content: center;
 }
@@ -206,7 +201,7 @@ background: #f2f2f6;
     box-sizing: border-box;
     padding: 8.5px;
     box-sizing: border-box;
-    max-width: 230px;
+    max-width: 240px;
 }
 
 .city-table-category {display: flex;margin-bottom: 2px;background: white;padding-left: 10px;padding-right: 10px;border-radius: 0 0 10px 10px;border-bottom: 0.5px solid #f2f2f6;border-left: 0.5px solid #f2f2f6;border-right: 0.5px solid #f2f2f6;}
@@ -248,13 +243,32 @@ img.aerobatic-footer-icon {
 
 img.qrcode {
     position: relative;
-    margin-top: -80px;
-    width: 96px;
-    height: 96px;
-    float: left;
-    margin-left: 24px;
+    width: 52px;
+    height: 52px;
+    margin-left: 17px;
+    align-self: center;
 }
 
 div.footer-text {
 
+}
+
+#qrdiv {
+    margin-top: 46px;
+    display: flex;
+    justify-content: center;
+}
+
+#qrdivtext {
+    width: 297px;
+    font-size: 12px;
+}
+
+.qrlink {
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

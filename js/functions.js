@@ -1172,13 +1172,12 @@ function countdown() {
 
     // Load the map three seconds before the countdown finishes
     if (remainingTime < 3500 && remainingTime > 2500) {
-        $(".splash").css("background-image", "url('animation/Splash-optimized.gif')");
         $(".splash").hide();
 
         // Stops the gif from running more than once
         setTimeout(function () {
             $(".splash").fadeIn();
-            $(".loading").css("background-image", "url(animation/loading.gif)");
+            $(".loading").fadeIn();
             loadApp();
             // cancel simulation (if enabled)
             actualStartTime = realActualStartTime;
@@ -1195,8 +1194,7 @@ function countdown() {
     if (remainingTime < 0) {
         $("#minutes").text("00");
         $("#entrancePopup").fadeOut("slow", function () {
-            $(".splash").css("background-image", "url(animation/Splash.jpg)");
-            $(".loading").css("background-image", "url(animation/loading.gif)");
+            $(".loading").fadeIn();
             $(".map-dark").hide();
         });
         if (countdownInterval) {
@@ -1263,10 +1261,9 @@ function onLoad() {
             }, 45000);
         }
 
-        // replace animation with still image after 5 seconds
+        // start loading animation after 2 seconds
         setTimeout(function () {
-            $(".splash").css("background-image", "url(animation/Splash.jpg)");
-            $(".loading").show();
+            $(".loading").fadeIn();
         }, 2000);
 
         // register service worker (needed for the app to be suggested as webapp)
