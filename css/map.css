@@ -1301,7 +1301,7 @@ margin-right: 50%;
 
 #aircraftInfoEventIconContainer {background: white;display: flex;padding-right: 10px;width: 34px;padding-left: 4px;align-items: center;}
 
-.aircraftTabs {direction: rtl;overflow-y: scroll; /* has to be scroll, not auto */-webkit-overflow-scrolling: touch; height: 75%}
+.aircraftTabs {direction: rtl;overflow-y: scroll; /* has to be scroll, not auto */-webkit-overflow-scrolling: touch; flex:1}
 
 .aircraftSchedule {
     display: flex;
