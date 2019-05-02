@@ -27,40 +27,18 @@ var baseCacheFileList = [
     '/js/jquery.min.js',
     '/js/jquery-ui.min.js',
     '/js/jquery.mobile-events.js'
-//     'js/slidingMarker/jquery.easing.1.3.js',
-//     'js/slidingMarker/markerAnimate.js',
-//     'js/slidingMarker/SlidingMarker.min.js',
-//     'js/AnimationModule.js',
-//     'js/date.js',
-//     'js/map.js',
-//     'js/leaflet-map.js',
-//     'js/markerclusterer.js',
-//     'js/popups.js',
-//     'js/RotateIcon.js',
-//     'data/aircrafts.json',
-//     'data/aircrafts-info.json',
-//     'data/categories.json',
-//     'data/routes.json',
-//     'js/leaflet/leaflet.css',
-//     'js/leaflet/leaflet-src.esm.js.map',
-//     'js/leaflet/leaflet.js',
-//     'js/leaflet/leaflet-src.js',
-//     'js/leaflet/leaflet.js.map',
-//     'js/leaflet/leaflet-src.js.map',
-//     'js/leaflet/leaflet-src.esm.js',
-//     'js/leaflet/images/layers.png',
-//     'js/leaflet/images/marker-icon-2x.png',
-//     'js/leaflet/images/layers-2x.png',
-//     'js/leaflet/images/marker-shadow.png',
-//     'js/leaflet/images/marker-icon.png',
-//     'js/leaflet/leaflet.markercluster.js',
-//     'css/map.css',
-//     'css/hamburgers.css',
 ];
 
 var cacheFileList = [
     '/',
     '/index.html',
+    'js/utils.js',
+    'js/functions.js',
+    'manifest.json',
+    '/css/jquery-ui.css',
+    '/js/jquery.min.js',
+    '/js/jquery-ui.min.js',
+    '/js/jquery.mobile-events.js',
     'js/slidingMarker/jquery.easing.1.3.js',
     'js/slidingMarker/markerAnimate.js',
     'js/slidingMarker/SlidingMarker.min.js',
@@ -92,6 +70,7 @@ var cacheFileList = [
     'js/leaflet/leaflet.markercluster.js',
     'icons/search.svg',
     'icons/clear-button.svg',
+    'icons/genericAircraft.svg',
     'css/map.css',
     'css/hamburgers.css',
     'manifest.json',
@@ -100,8 +79,7 @@ var cacheFileList = [
     'animation/loading.gif',
     'animation/parachute-alert.gif',
     'images/h125.jpg',
-    'animation/Splash-optimized.gif',
-    'animation/Splash.jpg',
+    'animation/Splash-71 smaller.gif',
     'images/karnaf.jpg',
     'images/kukiya.jpg',
     'images/lavi.jpg',
@@ -294,7 +272,13 @@ var cacheFileList = [
     'icons/aircrafts/yanshuf.svg',
     'icons/aircrafts/yasur.menu.svg',
     'icons/aircrafts/yasur.png',
-    'icons/aircrafts/yasur.svg',
+    'icons/aircrafts/fire_truck.svg',
+    'icons/aircrafts/building.svg',
+    'icons/aircrafts/band.svg',
+    'icons/aircrafts/diamond_launcher.svg',
+    'icons/aircrafts/iron_launcher.svg',
+    'icons/aircrafts/maintenance.svg',
+    'icons/aircrafts/simulator.svg',
     'icons/arrow.svg',
     'icons/arrowBlack.png',
     'icons/arrowBlackUp.png',
@@ -343,6 +327,7 @@ var cacheFileList = [
     'icons/drone.png',
     'screenshots/screenshot1.png',
     'images/Matas_vector_map.svg?v=2'
+    // doesn't work with font files... I don't know why...
     // 'fonts/heebo-v3-hebrew_latin-300.svg',
     // 'fonts/heebo-v3-hebrew_latin-300.woff2',
     // 'fonts/heebo-v3-hebrew_latin-700.svg',
@@ -356,8 +341,11 @@ var cacheFileList = [
     // 'fonts/heebo-v4-latin-500.woff2'
 ];
 
+let firstTimeInstall = false;
+
  self.addEventListener('install', function(e) {
-     console.log("Scheduling Cache load in 30 seconds....");
+     firstTimeInstall = true;
+     console.log("Loading base cache for offline mode.");
      e.waitUntil(self.skipWaiting()); // Activate worker immediately
 
      e.waitUntil(
@@ -365,14 +353,6 @@ var cacheFileList = [
              return cache.addAll(baseCacheFileList);
          })
      );
-
-     // schedule additional file load to 30 seconds later to not interrupt the app load
-     setTimeout(() => {
-         console.log("Loading Extended Files to Cache...");
-         caches.open('matas').then(cache => {
-             cache.addAll(cacheFileList);
-         });
-     },30000);
  });
 
 self.addEventListener('fetch', (event) => {
@@ -394,19 +374,25 @@ self.addEventListener('activate', event => {
  * Riding on onMessage event to schedule notifications when browser is closed
  */
 self.addEventListener('message', event => {
-    var sentNotifications = event.data.notificationOptions.data.sentNotifications;
-
-    if (!sentNotifications.includes(event.data.notificationOptions.body)) {
-        console.log(event.data);
-        event.waitUntil(new Promise(function (resolve) {
-            setTimeout(function () {
-                self.registration.showNotification(event.data.notificationTitle, event.data.notificationOptions);
-                resolve();
-            }, event.data.notificationTime);
-        }));
+    if (event.data === "loadCache" && firstTimeInstall) {
+        console.log("Loading Extended Files to Cache...");
+        caches.open('matas').then(cache => {
+            cache.addAll(cacheFileList);
+        });
     }
+    else if (event.message === "scheduleNotification") {
+        let sentNotifications = event.data.notificationOptions.data.sentNotifications;
 
-    return;
+        if (!sentNotifications.includes(event.data.notificationOptions.body)) {
+            console.log(event.data);
+            event.waitUntil(new Promise(function (resolve) {
+                setTimeout(function () {
+                    self.registration.showNotification(event.data.notificationTitle, event.data.notificationOptions);
+                    resolve();
+                }, event.data.notificationTime);
+            }));
+        }
+    }
 });
 
 self.addEventListener('notificationclick', function(event) {
