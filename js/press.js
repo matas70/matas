@@ -1,15 +1,19 @@
 function initPressPage() {
-    loadAircrafts((pAircrafts) => {
-        aircrafts = pAircrafts.filter((aircraft)=>aircraft.name!=='כחל');
-        loadRoutes((routes) => {
-            this.routes = routes;
-            loadCategories(function () {
-                updateLocationsMap(aircrafts);
-                $(".base-table-list").html(createBasesTables());
-                $(".city-table-list").html(createCityTables());
-            });
+    if (compatibleDevice() && !checkIframe()) {
+        window.location.replace(window.location.href.substr(0, window.location.href.lastIndexOf('/')));
+    } else {
+        loadAircrafts((pAircrafts) => {
+            aircrafts = pAircrafts.filter((aircraft) => aircraft.name !== 'כחל');
+            loadRoutes((routes) => {
+                this.routes = routes;
+                loadCategories(function () {
+                    updateLocationsMap(aircrafts);
+                    $(".base-table-list").html(createBasesTables());
+                    $(".city-table-list").html(createCityTables());
+                });
+            }, this);
         }, this);
-    }, this);
+    }
 }
 
 function createBasesTables() {
