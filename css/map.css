@@ -1,3 +1,24 @@
+.body, #wrapper {
+    /* Break the flow */
+    position: absolute;
+    top: 0px;
+
+    /* Give them all the available space */
+    width: 100%;
+    height: 100%;
+
+    /* Remove the margins if any */
+    margin: 0;
+
+    /* Allow them to scroll down the document */
+    overflow-y: hidden;
+}
+
+#wrapper {
+    /* Making the wrapper stack above the body */
+    z-index: 2;
+}
+
 #map {
     position: absolute;
     top: 64px; /* Header Height */
@@ -66,6 +87,8 @@ html, body {
     background: white;
     font-family: 'Heebo-Regular', sans-serif;
     text-rendering: optimizeLegibility;
+    /* Sending body at the bottom of the stack */
+    z-index: 1;
 }
 
 div.aircraftInfoContent {
@@ -508,43 +531,94 @@ div.locationInfoPopup {
 }
 
 #aboutPopup {
-    top: 64px;
 }
 
 .aboutPopup {
     display: flex;
     align-items: center;
     flex-direction: column;
-    top: 64px;
     background: white;
     text-align: center;
     position: absolute;
-    z-index: 9999;
+    z-index: 10002;
     width: 100%;
+    height: 100%;
     bottom: 0px;
     justify-content: space-between;
+}
+.aboutHeader {
+    align-items: center;
+    background: #7bd1fc;
+    width: 100%;
+    height: 152px;
+}
+
+.aboutHeaderSpacing {
+    background: #7bd1fc;
+    width: 100%;
+    flex: 1;
+}
+
+.aboutExitLogo{
+    z-index: 10003;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.aboutLogo {
+    position: relative;
+    top: -134px;
+}
+
+#aboutLogoDiv {
+    width: 100%;
+    height: 198px;
+}
+
+.aboutSpacing {
+    flex: 1;
 }
 
 .aboutTitle {
     font-family: "Heebo-Bold", sans-serif;
-    font-size: 17px;
-    margin-top: 13px;
+    font-size: 22px;
     margin-bottom: 13px;
+    margin-top: 13px;
 }
 
 .aboutBody {
-    margin-left: 52px;
-    margin-right: 52px;
+    margin-left: 8px;
+    margin-right: 8px;
 }
 
 .aboutBottom {
     width: 100%;
 }
 
+.aboutBottomLink {
+    height: 50px;
+    width: 100%;
+    background: #f7f5f5;
+}
+
+.aboutBottomImg{
+    padding:9px
+}
+
+.iafLogo{
+    width: 69px;
+    height: 68px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+}
+
 .bottomText {
     font-size: 10pt;
-    align-self: flex-end;
-    padding-bottom: 14px;
+    align-self: center;
+    padding-bottom: 7px;
 }
 
 #aboutMenuTitle {
@@ -643,7 +717,6 @@ HEADER {
     background-color: #f7f5f5;
     z-index: 1;
     box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.08);
-    max-height: 4em;
 }
 
 .listViewContainer {
@@ -695,13 +768,13 @@ HEADER {
 }
 
 hr.two {
-    margin-left: 11%;
+    margin-left: 0%;
 }
 
 hr {
     height: 0.4em;
-    width: 33%;
-    margin: 0 0 0 57%;
+    width: 50%;
+    margin-left: 50%;
     background: #3bb5f2;
     border: none;
     transition: .3s ease-in-out;
@@ -1227,7 +1300,7 @@ margin-right: 50%;
 
 #aircraftInfoEventIconContainer {background: white;display: flex;padding-right: 10px;width: 34px;padding-left: 4px;align-items: center;}
 
-.aircraftTabs {direction: rtl;overflow-y: scroll; /* has to be scroll, not auto */-webkit-overflow-scrolling: touch; height: 75%}
+.aircraftTabs {direction: rtl;overflow-y: scroll; /* has to be scroll, not auto */-webkit-overflow-scrolling: touch; flex:1}
 
 .aircraftSchedule {
     display: flex;
