@@ -57,37 +57,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-functions.js"></script>
-    <script>
-        // Initialize Firebase
-        firebase.initializeApp({
-            apiKey: "AIzaSyAB3thYpehBuQMoHm-LD9hUpvwaR3aJsTM",
-            authDomain: "maps-ext-47253069.firebaseapp.com",
-            databaseURL: "https://maps-ext-47253069.firebaseio.com",
-            projectId: "maps-ext-47253069",
-            storageBucket: "maps-ext-47253069.appspot.com",
-            messagingSenderId: "504034859779"
-        });
-        
-        const messaging = firebase.messaging();
-        const functions = firebase.app().functions('europe-west1');
-
-        const subscribeToTopic = functions.httpsCallable('subscribeToTopic');
-
-        messaging.requestPermission().then(async () => {
-            let token = await messaging.getToken();
-            subscribeToTopic({
-                "token": token,
-                "topic": "users"
-            }).then(function(result) {
-                console.log("signed up to topic!");
-            });
-        }).catch(function(err) {
-            
-        });
-
-        messaging.onMessage((payload) => console.log("payload: ", payload));
-
-    </script>
+    <script src="js/firebaseInteraction.js"></script>
 
 <div id="wrapper">
     <!-- page header -->
