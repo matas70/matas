@@ -1330,7 +1330,7 @@ margin-right: 50%;
 
 .locationMarkerIcon {
     display: block;
-    padding-top: 25px;
+    margin-top: -25px;
 }
 
 .locationIconContainer {
@@ -1353,6 +1353,7 @@ margin-right: 50%;
     white-space: nowrap;
     padding-left: 10px;
     padding-right: 10px;
+    margin-top: -50px;
 }
 
 .locationMarkerDiv {

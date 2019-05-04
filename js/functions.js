@@ -361,6 +361,9 @@ function getHtmlWithAerobaticGlow(originalMarkerHtml) {
 var aerobaticShows = {};
 
 function glowOnPoint(location) {
+    let timeOfAerobaticShow = 10  * 60 *  1000;
+    if ($.urlParam("ff") === "true") timeOfAerobaticShow = timeOfAerobaticShow / 60;
+
     var relevantMarker = markersMap[location.pointId];
 
     if (relevantMarker) {
@@ -376,7 +379,7 @@ function glowOnPoint(location) {
                 mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
                 aerobaticShows[location.pointId] = undefined;
                 mapAPI.panALittle();
-            }, 10  * 60 *  1000);
+            }, timeOfAerobaticShow);
         }
     }
 }
