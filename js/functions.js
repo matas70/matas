@@ -1593,8 +1593,9 @@ function initSearchBar() {
 
 var currentAttrValue;
 var tabsHeight;
+var attemptToExit = false;
 
-window.onhashchange = function() {
+window.onhashchange = () => {
     var state = history.state;
     var currentHash = window.location.hash;
 
@@ -1633,7 +1634,7 @@ function initMenu() {
         currentAttrValue = $(this).attr('href');
         history.replaceState(currentAttrValue, currentAttrValue);
         if (currMenuTab != currentAttrValue) {
-            $("hr").toggleClass("two")
+            $("hr").toggleClass("two");
         }
 
         currMenuTab = currentAttrValue;
