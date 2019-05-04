@@ -1602,9 +1602,11 @@ window.onhashchange = () => {
     // Should close the menu
     if ((state === "#menu" || state === "#locations") && currentHash === "#main") {
         $("#menuHamburger").click();
-    } else if (state === "#locations" && currentHash === "#menu") {
-        console.log("close locations");
+    } else if (state === "#locations" && currentHash === "#aircraft") {
+        // Should toggle between locations and aircraft
+        $("#aircraftLink").click();
     } else if (state === "#aircraft" && (currentHash === "#locations" || currentHash === "#menu")) {
+        // Should toggle between aircraft and locations
         $("#locationsLink").click();
     }
 };
