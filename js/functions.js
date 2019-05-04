@@ -1237,9 +1237,14 @@ function getRemainingSeconds(date) {
 
 
 var countdownInterval;
+var mainState = { data: "main", title: "main"};
+var menuState = {data: "menu", title: "menu"};
+
 
 function onLoad() {
     if (compatibleDevice() && !checkIframe()) {
+        // For back button handling
+        history.pushState(mainState.data, mainState.title);
 
         // if we are on online mode and it is taking too long to load - switch to offline
         if (!($.urlParam("offline")==="true")) {
@@ -1588,6 +1593,22 @@ function initSearchBar() {
 var currentAttrValue;
 var tabsHeight;
 
+window.onhashchange = function() {
+    var currentHash = window.location.hash;
+    var state = history.state;
+
+    // Should close the menu
+    if (state === "menu" && currentHash === "") {
+        $("#menuHamburger").click();
+    }
+
+    if (currentHash === "menu") {
+        closeMenu();
+    } else if (currentHash === "locations") {
+        console.log("close locations");
+    }
+};
+
 function initMenu() {
     $menuHamburger = $("#menuHamburger");
     $aboutExit = $("#aboutExitLogo");
@@ -1629,6 +1650,9 @@ function initMenu() {
 }
 
 function openMenu() {
+    // For back button handling
+    history.pushState(menuState.data, menuState.title);
+
     $("#listView").css({ "transform": "translateX(0)" });
     isMenuOpen = true;
     setTimeout(function () {
@@ -1637,6 +1661,7 @@ function openMenu() {
 }
 
 function closeMenu() {
+    history.pushState(mainState.data, mainState.title);
     $("#listView").css({ "transform": "translateX(100%)" });
     isMenuOpen = false;
     setTimeout(function () {
