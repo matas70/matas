@@ -213,6 +213,42 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     // // add touch events on the list to allow user expand or collapse it
     $("#aircraftListContainer").scrollTop(0);
 
+    // add register to notifications if available
+    if (areNotificationsPossible()) {
+        $("#registerToLocationNotifcations").show();
+        if (isLocationRegistered(point.pointId)) {
+            $('#registerCheckbox').prop('checked', true);
+        } else {
+            $('#registerCheckbox').prop('checked', false);
+        }
+        $("#registerCheckbox").off("click");
+        $("#registerCheckbox").on("click", (event) => {
+            if (!areNotificationsAvailable()) {
+                Notification.requestPermission().then(function (result) {
+                    if (result === 'granted') {
+                        $("#registerCheckbox").prop('checked', true);
+                        Notification.permission = result;
+                        registerToNotifications(point.pointId);
+                    } else {
+                        $("#registerCheckbox").prop('checked', false);
+                        return false;
+                    }
+                });
+            } else {
+                if (isLocationRegistered(point.pointId)) {
+                    unregisterNotificationsForLocation(point.pointId);
+                    $("#registerCheckbox").prop('checked', false);
+                }
+                else {
+                    registerToNotifications(point.pointId);
+                    $("#registerCheckbox").prop('checked', true);
+                }
+            }
+        });
+    } else {
+        $("#registerToLocationNotifcations").hide();
+    }
+
 }
 
 function hideLocationPopup(callback) {
@@ -600,27 +636,6 @@ function hideConfirmationPopup() {
     });
 }
 
-// function scheduleFlightStartNotification() {
-//     var FIVE_MINUTES_IN_MILLISECONDS = 5 * 60 * 1000;
-//
-//     // Five minutes before flight start
-//     var remainingTime = actualStartTime - FIVE_MINUTES_IN_MILLISECONDS - getCurrentTime();
-//
-//     // Only display the message when we have 5 minutes or more remaining
-//     if (remainingTime >= 0 && Notification.permission === 'granted') {
-//         notificationOptions.body = 'המטס יתחיל בעוד 5 דקות!';
-//         notificationOptions.icon = '../icons/logo192x192.png';
-//
-//         // TODO: push notifications
-//         // // We only schedule if we haven't already
-//         // if (!localStorage.getItem(notificationOptions.body)) {
-//         //     localStorage.setItem(notificationOptions.body, notificationOptions.body);
-//         //     navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, remainingTime));
-//         //     notificationOptions.data.sentNotifications.push(notificationOptions.body);
-//         // }
-//     }
-// }
-
 function showBasePopup(isAerobatics, minutes, locationName) {
     var html = "<b class=\"baseData\">";
     html += getEventName(isAerobatics);
@@ -636,7 +651,6 @@ function showBasePopup(isAerobatics, minutes, locationName) {
     }
 
     html += "</b><br class=\"baseData\">";
-    // var eventDetails = `${desc}${baseName} בעוד ${minute} דקות`;
     html += getEventDescription(isAerobatics, locationName, minutes);
     $("#showData").html(html);
     $("#basePopup").css("top", -64).css("opacity",0);

@@ -395,7 +395,7 @@ self.addEventListener('sync', event => {
                     console.log("success");
                     let notificationsDB = event.target.result;
 
-                    // TODO: re-register all of the notifications
+                    // TODO: re-schedule timeout all of the notifications
                 };
             }
         }
@@ -403,14 +403,22 @@ self.addEventListener('sync', event => {
     }));
 });
 
-function notifyForEventOnLocation(locationName, timeBefore) {
+function notifyForEventOnLocation(locationName, timeBefore, showType) {
     // Let's check if the browser supports notifications
     if (areNotificationsAvailable()) {
         // Let's check whether notification permissions have already been granted
         if (Notification.permission === "granted") {
-            var notificationOptions =
+
+
+            let title = "מטס עצמאות 2019"
+            let text;
+            if (showType === "flight") text = `בעוד ${timeBefore} דקות יחלוף המטס מעל יישוב ${locationName}`;
+            else if (showType === "airShow") text = `בעוד ${timeBefore} דקות יחל מופע אווירי ב${locationName}`;
+            else if (showType === "aerobaticShow") text = `בעוד ${timeBefore} דקות יחל מופע אווירובטי ב${locationName}`;
+
+            let notificationOptions =
                 {
-                    body: '',
+                    body: text,
                     icon: '../icons/logo192x192.png',
                     dir: "rtl",
                     lang: 'he',
@@ -420,32 +428,67 @@ function notifyForEventOnLocation(locationName, timeBefore) {
                 };
 
             // If it's okay let's create a notification
-            self.registration.showNotification(`חג שמח! בעוד ${timeBefore}${locationName} דקות יתחיל מופע ביישוב`, notificationOptions);
+            self.registration.showNotification(title, notificationOptions);
         }
     }
 }
 
-function registerToLocation(locationId, locationName, notificationTime, minutesBefore) {
+function registerToLocation(locationId) {
     if (indexedDB) {
-        console.log("opening database");
         let request = indexedDB.open('notifications', 1);
         request.onsuccess = function (event) {
-            console.log("success");
+            console.log("registering to notifications for " + locationId);
             let notificationsDB = event.target.result;
-            let myRegisteredLocationsObjectStore = notificationsDB.transaction("registered_locations", "readwrite").objectStore("registered_locations");
-            let timeout = notificationTime - new Date().getTime() - minutesBefore * 60 * 1000;
-            console.log("registered notification for: " + locationName + " within:" + timeout / 1000 + " seconds");
-            if (timeout > 0) {
-                let handler = setTimeout(() => {
-                    console.log("notification for:" + locationName);
-                    notifyForEventOnLocation(locationName, minutesBefore);
-                }, timeout);
+            let locationsObjectStore = notificationsDB.transaction("locations", "readonly").objectStore("locations");
+            let timeBefore = 10;
 
-                let registeredLocation = {
-                    pointId: locationId,
-                    handlerId: handler
-                };
-                myRegisteredLocationsObjectStore.add(registeredLocation);
+            locationsObjectStore.get(locationId).onsuccess = (event) => {
+                let loc = event.target.result;
+                let firstAirShowHandler;
+                let firstAerobaticShowHandler;
+                let firstFlightHandler;
+
+                if (loc.firstAerobaticShow) {
+                    let timeout = loc.firstAerobaticShow - new Date().getTime() - timeBefore * 60 * 1000;
+                    if (timeout > 0) {
+                        firstAerobaticShowHandler = setTimeout(() => {
+                            notifyForEventOnLocation(loc.pointName, timeBefore, "aerobaticShow");
+                        }, timeout);
+                    }
+                    console.log("registered notification for aerobatic show at " + loc.pointName + " within:" + timeout / 1000 + " seconds");
+                }
+
+                if (loc.firstAirShow) {
+                    let timeout = loc.firstAirShow - new Date().getTime() - timeBefore * 60 * 1000;
+                    if (timeout > 0) {
+                        firstAirShowHandler = setTimeout(() => {
+                            notifyForEventOnLocation(loc.pointName, timeBefore, "airShow");
+                        }, timeout);
+                    }
+                    console.log("registered notification for air show at " + loc.pointName + " within:" + timeout / 1000 + " seconds");
+                }
+
+                if (loc.firstFlight) {
+                    let timeout = loc.firstFlight - new Date().getTime() - timeBefore * 60 * 1000;
+                    if (timeout > 0) {
+                        firstFlightHandler = setTimeout(() => {
+                            notifyForEventOnLocation(loc.pointName, timeBefore, "flight");
+                        }, timeout);
+                    }
+                    console.log("registered notification for flight at " + loc.pointName + " within:" + timeout / 1000 + " seconds");
+                }
+
+                if (firstAirShowHandler || firstFlightHandler || firstAerobaticShowHandler) {
+                    let registeredLocation = {
+                        pointId: locationId,
+                        firstAirShowHandlerId: firstAirShowHandler,
+                        firstFlightHandlerId: firstFlightHandler,
+                        firstAerobaticShowHandlerId: firstAerobaticShowHandler
+                    };
+
+                    let myRegisteredLocationsObjectStore = notificationsDB.transaction("registered_locations", "readwrite").objectStore("registered_locations");
+                    myRegisteredLocationsObjectStore.add(registeredLocation);
+                }
             }
         };
     }
@@ -453,17 +496,19 @@ function registerToLocation(locationId, locationName, notificationTime, minutesB
 
 function unregisterLocation(locationId) {
     if (indexedDB) {
-        console.log("opening database");
         let request = indexedDB.open('notifications', 1);
         request.onsuccess = function (event) {
-            console.log("success");
             let notificationsDB = event.target.result;
             console.log("unregistered notification for: " + locationId);
             let myRegisteredLocationsObjectStore = notificationsDB.transaction("registered_locations", "readwrite").objectStore("registered_locations");
             let registeredLocation = myRegisteredLocationsObjectStore.get(locationId);
-            if (handlerId != null)
-                clearTimeout(handlerId);
-            myRegisteredLocationsObjectStore.remove(locationId);
+            if (registeredLocation.firstAirShowHandlerId != null)
+                clearTimeout(registeredLocation.firstAirShowHandlerId);
+            if (registeredLocation.firstAerobaticShowHandlerId != null)
+                clearTimeout(registeredLocation.firstAerobaticShowHandlerId);
+            if (registeredLocation.firstFlightHandlerId != null)
+                clearTimeout(registeredLocation.firstFlightHandlerId);
+            myRegisteredLocationsObjectStore.delete(locationId);
         }
     }
 }
@@ -490,7 +535,7 @@ self.addEventListener('message', event => {
     }
     else if (event.data.action === "registerToLocation") {
         event.waitUntil(new Promise((resolve) => {
-            registerToLocation(event.data.locationId, event.data.locationName, event.data.notificationTime, event.data.minutesBefore);
+            registerToLocation(event.data.locationId);
             resolve();
         }));
     }

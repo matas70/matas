@@ -253,6 +253,24 @@ div.splash {
     padding-bottom: 10px;
 }
 
+#registerToLocationNotifcations {
+    display: flex;
+}
+
+#registerToLocationText {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-right: 21px;
+    color: #585868;
+    font-size: 15px;
+    flex: 1;
+    margin-left: 21px;
+}
+
+#registerToggle {
+
+}
+
 #aircraftListContainer {
     height: 150px;
     overflow-y: scroll;

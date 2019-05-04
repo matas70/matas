@@ -1019,22 +1019,29 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
         // mark it is deselected
         selectedLocation = null;
     });
+}
 
-    // TEMP
+function isLocationRegistered(locationId) {
+    return locations[locationId].notify;
+}
+
+function registerToNotifications(pointId) {
     if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-        let loc = locations[pointId];
-
-        console.log("registering to notifications for that location");
-        if (loc.aircrafts.length > 0) {
-            let notificationTime = convertTime(loc.aircrafts[0].date, loc.aircrafts[0].time);
-            navigator.serviceWorker.controller.postMessage({
+        navigator.serviceWorker.controller.postMessage({
                 action: "registerToLocation",
                 locationId: pointId,
-                locationName: loc.pointName,
-                notificationTime: notificationTime,
-                minutesBefore: 15
             });
-        }
+        locations[pointId].notify = true;
+    }
+}
+
+function unregisterNotificationsForLocation(pointId) {
+    if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+            action: "unregisterLocation",
+            locationId: pointId,
+        });
+        locations[pointId].notify = false;
     }
 }
 
@@ -1869,6 +1876,20 @@ function popuplateNotificationsDB() {
                     // Store values in the newly created objectStore.
                     let notificationsObjectStore = notificationsDB.transaction("locations", "readwrite").objectStore("locations");
                     locations.forEach(function(location) {
+                        // check when is the first air show and when is the first flight in that loocation
+                        let aerobaticShows = location.aircrafts.filter(aircraft => aircraft.name === "עפרוני" && (aircraft.specialInAircraft === "מופעים אוויריים" || aircraft.specialInPath === "מופעים אוויריים"));
+                        let airShows = location.aircrafts.filter(aircraft => aircraft.name !== "עפרוני" &&  (aircraft.specialInAircraft === "מופעים אוויריים" || aircraft.specialInPath === "מופעים אוויריים"));
+                        let flight = location.aircrafts.filter(aircraft => !aircraft.specialInAircraft);
+                        if (aerobaticShows.length > 0) {
+                            location.firstAerobaticShow = getActualPathTime(aerobaticShows[0].date, aerobaticShows[0].time);
+                        }
+                        if (airShows.length > 0) {
+                            location.firstAirShow = getActualPathTime(airShows[0].date, airShows[0].time);
+                        }
+                        if (flight.length > 0) {
+                            location.firstFlight = getActualPathTime(flight[0].date, flight[0].time);
+                        }
+
                         notificationsObjectStore.add(location);
                     });
                 };
@@ -1879,8 +1900,31 @@ function popuplateNotificationsDB() {
             notificationsDB = event.target.result;
             let notificationsObjectStore = notificationsDB.transaction("locations", "readwrite").objectStore("locations");
             locations.forEach(function(location) {
+                // check when is the first air show and when is the first flight in that loocation
+                let aerobaticShows = location.aircrafts.filter(aircraft => aircraft.name === "עפרוני" && (aircraft.specialInAircraft === "מופעים אוויריים" || aircraft.specialInPath === "מופעים אוויריים"));
+                let airShows = location.aircrafts.filter(aircraft => aircraft.name !== "עפרוני" &&  (aircraft.specialInAircraft === "מופעים אוויריים" || aircraft.specialInPath === "מופעים אוויריים"));
+                let flight = location.aircrafts.filter(aircraft => !aircraft.specialInAircraft);
+                if (aerobaticShows.length > 0) {
+                    location.firstAerobaticShow = getActualPathTime(aerobaticShows[0].date, aerobaticShows[0].time);
+                }
+                if (airShows.length > 0) {
+                    location.firstAirShow = getActualPathTime(airShows[0].date, airShows[0].time);
+                }
+                if (flight.length > 0) {
+                    location.firstFlight = getActualPathTime(flight[0].date, flight[0].time);
+                }
+
                 notificationsObjectStore.add(location);
             });
+
+            // check current notification registration
+            let registrationObjectStore = notificationsDB.transaction("registered_locations", "readonly").objectStore("registered_locations");
+            registrationObjectStore.getAll().onsuccess = function(event) {
+                registredlocations = event.target.result;
+                registredlocations.forEach((registeredLocation) => {
+                    locations[registeredLocation.pointId].notify = true;
+                });
+            };
         };
     }
 }
