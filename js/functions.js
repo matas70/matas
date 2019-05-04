@@ -1237,14 +1237,15 @@ function getRemainingSeconds(date) {
 
 
 var countdownInterval;
-var mainState = { data: "main", title: "main"};
-var menuState = {data: "menu", title: "menu"};
+var mainState = { data: "#main", title: "#main"};
+var menuState = {data: "#locations", title: "#menu"};
 
 
 function onLoad() {
     if (compatibleDevice() && !checkIframe()) {
         // For back button handling
-        history.pushState(mainState.data, mainState.title);
+        history.replaceState(mainState.data, mainState.title);
+        window.location.hash = "#main";
 
         // if we are on online mode and it is taking too long to load - switch to offline
         if (!($.urlParam("offline")==="true")) {
@@ -1594,18 +1595,16 @@ var currentAttrValue;
 var tabsHeight;
 
 window.onhashchange = function() {
-    var currentHash = window.location.hash;
     var state = history.state;
+    var currentHash = window.location.hash;
 
     // Should close the menu
-    if (state === "menu" && currentHash === "") {
+    if ((state === "#menu" || state === "#locations") && currentHash === "#main") {
         $("#menuHamburger").click();
-    }
-
-    if (currentHash === "menu") {
-        closeMenu();
-    } else if (currentHash === "locations") {
+    } else if (state === "#locations" && currentHash === "#menu") {
         console.log("close locations");
+    } else if (state === "#aircraft" && (currentHash === "#locations" || currentHash === "#menu")) {
+        $("#locationsLink").click();
     }
 };
 
@@ -1632,6 +1631,7 @@ function initMenu() {
         $(".menuLink").removeClass("active");
         $(elem.target).addClass("active");
         currentAttrValue = $(this).attr('href');
+        history.replaceState(currentAttrValue, currentAttrValue);
         if (currMenuTab != currentAttrValue) {
             $("hr").toggleClass("two")
         }
@@ -1651,7 +1651,7 @@ function initMenu() {
 
 function openMenu() {
     // For back button handling
-    history.pushState(menuState.data, menuState.title);
+    history.replaceState(menuState.data, menuState.title);
 
     $("#listView").css({ "transform": "translateX(0)" });
     isMenuOpen = true;
@@ -1661,7 +1661,7 @@ function openMenu() {
 }
 
 function closeMenu() {
-    history.pushState(mainState.data, mainState.title);
+    history.replaceState(mainState.data, mainState.title);
     $("#listView").css({ "transform": "translateX(100%)" });
     isMenuOpen = false;
     setTimeout(function () {
