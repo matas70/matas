@@ -36,6 +36,7 @@ var displayAircraftShows = true;
 var userSimulation = false;
 var aircraftData = null;
 var appLoaded = false;
+var notificationsDB = null;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -380,30 +381,20 @@ function glowOnPoint(location) {
     }
 }
 
-function scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify) {
-    // Only if notifications are allowed
-    // if (Notification.permission === 'granted' && !localStorage.getItem(notificationBody)) {
-    //     localStorage.setItem(notificationBody, notificationBody);
-    //     notificationOptions.body = notificationBody;
-    //     notificationOptions.icon = getEventIcon(item.aerobatic);
+function scheduleAerobaticNotifications(notificationBody, item, location, time) {
+    // schedule in-app popups 5 minutes before each aerobatic show
+    let timeToNotify = time - 5 * 60 * 1000;
 
-        // TODO: push notifications
-        // if (navigator.serviceWorker.controller)
-        //     navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, timeToNotify));
-        // notificationOptions.data.sentNotifications.push(notificationOptions.body);
-    // }
+    if (timeToNotify > 0) {
+        setTimeout(() => {
+            showBasePopup(item.aerobatic, 5, location.pointName);
+        }, timeToNotify);
+    }
 
-    setTimeout(function () {
-        showBasePopup(item.aerobatic, 5, location.pointName);
-        setTimeout(function () {
-            hideBasePopup();
-        }, 10000);
-    }, timeToNotify);
-
-    // Since the time to notify is 5 minutes from the show, We're timing the gif to be in +5 minutes
+    // schedule aerobatic indication when the show starts
     setTimeout(() => {
         glowOnPoint(location);
-    }, timeToNotify + 5 * 60 * 1000);
+    }, time);
 }
 
 var aerobaticNotificationsHandler = null;
@@ -433,20 +424,10 @@ function updateLocationsMap(aircrafts) {
             var location = locations[location.pointId];
             if (displayAircraftShows && (item.aerobatic || item.parachutist)) {
                 var timeout = convertTime(item.date, item.time) - getCurrentTime() + actualStartTime - plannedStartTime;
-                var timeBefore = 5 * 60 * 1000;
                 var notificationBody = `${getEventName(item.aerobatic)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
-                var timeToNotify = timeout - timeBefore;
-                if (timeToNotify > 0 && !userSimulation) {
-                    scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify);
+                if (!userSimulation && timeout > 0) {
+                    scheduleAerobaticNotifications(notificationBody, item, location, timeout);
                 }
-                //     if (!Notification.permission && timeToNotify > 30000) {
-                //         // Since this happens as we draw the routes,
-                //         // We need to give the user 30 more seconds to accept notifications
-                //         aerobaticNotificationsHandler =
-                            // setTimeout(() => scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify), 30000);
-                    // } else {
-                    //     scheduleAerobaticNotifications(notificationBody, item, location, timeToNotify);
-                    // }
             }
 
             location.aircrafts.push(item);
@@ -639,7 +620,7 @@ function onAboutButtonClick() {
 
 function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+            navigator.serviceWorker.register('service-worker.js').then(function (registration) {
                 // Registration was successful
                 console.log('ServiceWorker registration successful with scope: ', registration.scope);
             }, function (err) {
@@ -1038,6 +1019,23 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
         // mark it is deselected
         selectedLocation = null;
     });
+
+    // TEMP
+    if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+        let loc = locations[pointId];
+
+        console.log("registering to notifications for that location");
+        if (loc.aircrafts.length > 0) {
+            let notificationTime = convertTime(loc.aircrafts[0].date, loc.aircrafts[0].time);
+            navigator.serviceWorker.controller.postMessage({
+                action: "registerToLocation",
+                locationId: pointId,
+                locationName: loc.pointName,
+                notificationTime: notificationTime,
+                minutesBefore: 15
+            });
+        }
+    }
 }
 
 function deselectAircraft(callback) {
@@ -1240,7 +1238,6 @@ var countdownInterval;
 
 function onLoad() {
     if (compatibleDevice() && !checkIframe()) {
-
         // if we are on online mode and it is taking too long to load - switch to offline
         if (!($.urlParam("offline")==="true")) {
             setTimeout(() => {
@@ -1282,6 +1279,8 @@ function onLoad() {
                     loadCategories(function () {
                         updateLocationsMap(aircrafts);
                         fillMenu();
+                        scheduleConfirmationPopup();
+                        popuplateNotificationsDB();
                     });
                 }, this);
 
@@ -1309,7 +1308,6 @@ function loadApp() {
     loadMapApi();
     showComponents();
     removeAircraftsFromLocation();
-    //setTimeout(removeAircraftsFromLocation,1000);
 }
 
 function loadMapApi() {
@@ -1322,7 +1320,7 @@ function loadMapApi() {
             initMap();
         } else {
             // check if an internet connection is available (by fetching non-cache file)
-            fetch("/data/test-connection.json?t=" + new Date().getTime()).then((response) => {
+            fetch("data/test-connection.json?t=" + new Date().getTime()).then((response) => {
                 // if there is a connection - load google maps
                 $.getScript(mapAPI.MAP_URL, function () {
                     mapLoaded = true;
@@ -1830,16 +1828,63 @@ function roundToMinute(time) {
     return makeTwoDigitTime(h) + ":" + makeTwoDigitTime(m);
 }
 
-function scheduleConfirmationPopup() {
-    var messageBody = 'אם ברצונך לקבל הודעה בדבר זמני המופעים הקרובים עליך לאשר את ההתראות';
-
-    // Getting permissions for notifications if we haven't gotten them yet
-    // if (Notification.permission !== "granted") {
-    //     setTimeout(function () {
-    //         showConfirmationPopup("הישארו מעודכנים!", messageBody);
-    //     }, 15000);
-    // }
+function areNotificationsAvailable() {
+    return (areNotificationsPossible() && Notification.permission === "granted");
 }
+
+function areNotificationsPossible() {
+    return ('Notification' in window);
+}
+
+function scheduleConfirmationPopup() {
+    let messageBody = 'אם ברצונך לקבל הודעה בדבר זמני המופעים הקרובים עליך לאשר את ההתראות';
+
+   //  Getting permissions for notifications if we haven't gotten them yet
+    if (areNotificationsPossible()) {
+        if (Notification.permission !== "granted") {
+            setTimeout(function () {
+                showConfirmationPopup("הישארו מעודכנים!", messageBody);
+            }, 15000);
+        }
+    }
+}
+
+function popuplateNotificationsDB() {
+    console.log("popuplateNotificationsDB");
+    if (indexedDB) {
+        var request = indexedDB.open('notifications', 1);
+
+        request.onerror = function (event) {
+            // Do something with request.errorCode!
+        };
+        request.onupgradeneeded = function (event) {
+            notificationsDB = event.target.result;
+            if (!notificationsDB.objectStoreNames.contains('locations')) {
+                let locationsObjectStore = notificationsDB.createObjectStore('locations', {keyPath: 'pointId'});
+                let myRegisteredLocationsObjectStore = notificationsDB.createObjectStore('registered_locations', {keyPath: 'pointId'});
+
+                // Use transaction oncomplete to make sure the objectStore creation is
+                // finished before adding data into it.
+                locationsObjectStore.transaction.oncomplete = function(event) {
+                    // Store values in the newly created objectStore.
+                    let notificationsObjectStore = notificationsDB.transaction("locations", "readwrite").objectStore("locations");
+                    locations.forEach(function(location) {
+                        notificationsObjectStore.add(location);
+                    });
+                };
+            }
+        };
+        request.onsuccess = function (event) {
+            // update locations list
+            notificationsDB = event.target.result;
+            let notificationsObjectStore = notificationsDB.transaction("locations", "readwrite").objectStore("locations");
+            locations.forEach(function(location) {
+                notificationsObjectStore.add(location);
+            });
+        };
+    }
+}
+
 
 function initMap() {
     mapAPI.loadPlugins(() =>
@@ -1879,7 +1924,7 @@ function initMap() {
 
                         // request service worker to load all of the cache
                         if (navigator.serviceWorker && navigator.serviceWorker.controller)
-                            navigator.serviceWorker.controller.postMessage("loadCache");
+                            navigator.serviceWorker.controller.postMessage({action:"loadCache"});
 
                         appLoaded = true;
                     }

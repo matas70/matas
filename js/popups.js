@@ -600,54 +600,26 @@ function hideConfirmationPopup() {
     });
 }
 
-var notificationTitle = 'מטס עצמאות 71';
-var notificationOptions =
-    {
-        body: '',
-        icon: '../icons/logo192x192.png',
-        dir: "rtl",
-        lang: 'he',
-        //TODO: add badge here
-        badge: '../icons/logo192x192.png',
-        vibrate: [300, 100, 400],
-        data: {url: 'https://matas-iaf.com', sentNotifications: []}
-    };
-
-var notificationMessage =
-    {
-        "notificationTitle": notificationTitle,
-        "notificationOptions": notificationOptions,
-        "notificationTime": 500
-    };
-
-function createNotificationMessage(title, options, time) {
-    notificationMessage.notificationTitle = title;
-    notificationMessage.notificationOptions = options;
-    notificationMessage.notificationTime = time;
-
-    return notificationMessage;
-}
-
-function scheduleFlightStartNotification() {
-    var FIVE_MINUTES_IN_MILLISECONDS = 5 * 60 * 1000;
-
-    // Five minutes before flight start
-    var remainingTime = actualStartTime - FIVE_MINUTES_IN_MILLISECONDS - getCurrentTime();
-
-    // Only display the message when we have 5 minutes or more remaining
-    if (remainingTime >= 0 && Notification.permission === 'granted') {
-        notificationOptions.body = 'המטס יתחיל בעוד 5 דקות!';
-        notificationOptions.icon = '../icons/logo192x192.png';
-
-        // TODO: push notifications
-        // // We only schedule if we haven't already
-        // if (!localStorage.getItem(notificationOptions.body)) {
-        //     localStorage.setItem(notificationOptions.body, notificationOptions.body);
-        //     navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, remainingTime));
-        //     notificationOptions.data.sentNotifications.push(notificationOptions.body);
-        // }
-    }
-}
+// function scheduleFlightStartNotification() {
+//     var FIVE_MINUTES_IN_MILLISECONDS = 5 * 60 * 1000;
+//
+//     // Five minutes before flight start
+//     var remainingTime = actualStartTime - FIVE_MINUTES_IN_MILLISECONDS - getCurrentTime();
+//
+//     // Only display the message when we have 5 minutes or more remaining
+//     if (remainingTime >= 0 && Notification.permission === 'granted') {
+//         notificationOptions.body = 'המטס יתחיל בעוד 5 דקות!';
+//         notificationOptions.icon = '../icons/logo192x192.png';
+//
+//         // TODO: push notifications
+//         // // We only schedule if we haven't already
+//         // if (!localStorage.getItem(notificationOptions.body)) {
+//         //     localStorage.setItem(notificationOptions.body, notificationOptions.body);
+//         //     navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, remainingTime));
+//         //     notificationOptions.data.sentNotifications.push(notificationOptions.body);
+//         // }
+//     }
+// }
 
 function showBasePopup(isAerobatics, minutes, locationName) {
     var html = "<b class=\"baseData\">";

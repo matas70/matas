@@ -37,8 +37,8 @@
     font-family: 'Heebo-Light';
     font-style: normal;
     font-weight: 300;
-    src: local('Heebo Light'), local('Heebo-Light'), url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg');
+    src: local('Heebo Light'), local('Heebo-Light'), url('../fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg');
     /* Legacy iOS */
 }
 
@@ -47,8 +47,8 @@
     font-family: 'Heebo-Regular';
     font-style: normal;
     font-weight: 400;
-    src: local('Heebo'), local('Heebo-Regular'), url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg');
+    src: local('Heebo'), local('Heebo-Regular'), url('../fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg');
     /* Legacy iOS */
 }
 
@@ -57,8 +57,8 @@
     font-family: 'Heebo-Bold';
     font-style: normal;
     font-weight: 700;
-    src: local('Heebo Bold'), local('Heebo-Bold'), url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg');
+    src: local('Heebo Bold'), local('Heebo-Bold'), url('../fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg');
     /* Legacy iOS */
 }
 
@@ -1312,11 +1312,12 @@ margin-right: 50%;
 
 .locationMarkerIcon {
     display: block;
+    padding-top: 25px;
 }
 
 .locationIconContainer {
-    width: 48px;
-    height: 48px;
+    width: 128px;
+    height: 128px;
     display: inline-flex;
     align-content: center;
     justify-content: center;
@@ -1349,7 +1350,6 @@ margin-right: 50%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 22px;
 }
 
 #search-bar {
@@ -1492,7 +1492,8 @@ padding-top: 17px;
 
 .aerobatic-gif-marker {
     position: absolute;
-    padding: 16px;
+    width: 128px;
+    height: 128px;
 }
 
 .circle {
@@ -1518,8 +1519,8 @@ padding-top: 17px;
 }
 
 .glowing-circle {
-    width: 122px;
-    height: 124px;
+    width: 128px;
+    height: 128px;
     display: flex;
     align-items: center;
     justify-content: center;

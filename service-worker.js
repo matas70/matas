@@ -369,29 +369,136 @@ self.addEventListener('activate', event => {
     event.waitUntil(self.clients.claim()); // Become available to all pages
 });
 
+function areNotificationsAvailable() {
+    return (Notification && Notification.permission === "granted");
+}
+
+function createNotificationMessage(title, options, time, timeoutHandler) {
+    return {
+        "action" : "scheduleNotification",
+        "notificationTitle": title,
+        "notificationOptions": options,
+        "notificationTime": time,
+        "currentTimeoutHandler" : timeoutHandler
+    };
+}
+
+self.addEventListener('sync', event => {
+    console.log("service worker sync event");
+    event.waitUntil(new Promise((resolve) => {
+        // schedule local push notifications
+        if (areNotificationsAvailable()) {
+            if (indexedDB) {
+                console.log("opening database");
+                var request = indexedDB.open('notifications', 1);
+                request.onsuccess = function (event) {
+                    console.log("success");
+                    let notificationsDB = event.target.result;
+
+                    // TODO: re-register all of the notifications
+                };
+            }
+        }
+        resolve();
+    }));
+});
+
+function notifyForEventOnLocation(locationName, timeBefore) {
+    // Let's check if the browser supports notifications
+    if (areNotificationsAvailable()) {
+        // Let's check whether notification permissions have already been granted
+        if (Notification.permission === "granted") {
+            var notificationOptions =
+                {
+                    body: '',
+                    icon: '../icons/logo192x192.png',
+                    dir: "rtl",
+                    lang: 'he',
+                    badge: '../icons/logo192x192.png',
+                    vibrate: [300, 100, 400],
+                    data: {url: 'https://matas-iaf.com'}
+                };
+
+            // If it's okay let's create a notification
+            self.registration.showNotification(`חג שמח! בעוד ${timeBefore}${locationName} דקות יתחיל מופע ביישוב`, notificationOptions);
+        }
+    }
+}
+
+function registerToLocation(locationId, locationName, notificationTime, minutesBefore) {
+    if (indexedDB) {
+        console.log("opening database");
+        let request = indexedDB.open('notifications', 1);
+        request.onsuccess = function (event) {
+            console.log("success");
+            let notificationsDB = event.target.result;
+            let myRegisteredLocationsObjectStore = notificationsDB.transaction("registered_locations", "readwrite").objectStore("registered_locations");
+            let timeout = notificationTime - new Date().getTime() - minutesBefore * 60 * 1000;
+            console.log("registered notification for: " + locationName + " within:" + timeout / 1000 + " seconds");
+            if (timeout > 0) {
+                let handler = setTimeout(() => {
+                    console.log("notification for:" + locationName);
+                    notifyForEventOnLocation(locationName, minutesBefore);
+                }, timeout);
+
+                let registeredLocation = {
+                    pointId: locationId,
+                    handlerId: handler
+                };
+                myRegisteredLocationsObjectStore.add(registeredLocation);
+            }
+        };
+    }
+}
+
+function unregisterLocation(locationId) {
+    if (indexedDB) {
+        console.log("opening database");
+        let request = indexedDB.open('notifications', 1);
+        request.onsuccess = function (event) {
+            console.log("success");
+            let notificationsDB = event.target.result;
+            console.log("unregistered notification for: " + locationId);
+            let myRegisteredLocationsObjectStore = notificationsDB.transaction("registered_locations", "readwrite").objectStore("registered_locations");
+            let registeredLocation = myRegisteredLocationsObjectStore.get(locationId);
+            if (handlerId != null)
+                clearTimeout(handlerId);
+            myRegisteredLocationsObjectStore.remove(locationId);
+        }
+    }
+}
 
 /**
  * Riding on onMessage event to schedule notifications when browser is closed
  */
 self.addEventListener('message', event => {
-    if (event.data === "loadCache" && firstTimeInstall) {
+    if (event.data.action === "loadCache" && firstTimeInstall) {
         console.log("Loading Extended Files to Cache...");
-        caches.open('matas').then(cache => {
+        event.waitUntil(caches.open('matas').then(cache => {
             cache.addAll(cacheFileList);
-        });
+        }));
     }
-    else if (event.message === "scheduleNotification") {
-        let sentNotifications = event.data.notificationOptions.data.sentNotifications;
-
-        if (!sentNotifications.includes(event.data.notificationOptions.body)) {
-            console.log(event.data);
-            event.waitUntil(new Promise(function (resolve) {
-                setTimeout(function () {
-                    self.registration.showNotification(event.data.notificationTitle, event.data.notificationOptions);
-                    resolve();
-                }, event.data.notificationTime);
-            }));
-        }
+    else if (event.data.action === "scheduleNotification") {
+        console.log(event.data);
+        event.waitUntil(new Promise(function (resolve) {
+            clearTimeout(event.data.currentTimeoutHandler);
+            setTimeout(function () {
+                self.registration.showNotification(event.data.notificationTitle, event.data.notificationOptions);
+                resolve();
+            }, event.data.notificationTime);
+        }));
+    }
+    else if (event.data.action === "registerToLocation") {
+        event.waitUntil(new Promise((resolve) => {
+            registerToLocation(event.data.locationId, event.data.locationName, event.data.notificationTime, event.data.minutesBefore);
+            resolve();
+        }));
+    }
+    else if (event.data.action === "unregisterLocation") {
+        event.waitUntil(new Promise((resolve) => {
+            unregisterLocation(event.data.locationId);
+            resolve();
+        }));
     }
 });
 
