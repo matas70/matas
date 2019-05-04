@@ -369,29 +369,181 @@ self.addEventListener('activate', event => {
     event.waitUntil(self.clients.claim()); // Become available to all pages
 });
 
+function areNotificationsAvailable() {
+    return (Notification && Notification.permission === "granted");
+}
+
+function createNotificationMessage(title, options, time, timeoutHandler) {
+    return {
+        "action" : "scheduleNotification",
+        "notificationTitle": title,
+        "notificationOptions": options,
+        "notificationTime": time,
+        "currentTimeoutHandler" : timeoutHandler
+    };
+}
+
+self.addEventListener('sync', event => {
+    console.log("service worker sync event");
+    event.waitUntil(new Promise((resolve) => {
+        // schedule local push notifications
+        if (areNotificationsAvailable()) {
+            if (indexedDB) {
+                console.log("opening database");
+                var request = indexedDB.open('notifications', 1);
+                request.onsuccess = function (event) {
+                    console.log("success");
+                    let notificationsDB = event.target.result;
+
+                    // TODO: re-schedule timeout all of the notifications
+                };
+            }
+        }
+        resolve();
+    }));
+});
+
+function notifyForEventOnLocation(locationName, timeBefore, showType) {
+    // Let's check if the browser supports notifications
+    if (areNotificationsAvailable()) {
+        // Let's check whether notification permissions have already been granted
+        if (Notification.permission === "granted") {
+
+
+            let title = "מטס עצמאות 2019"
+            let text;
+            if (showType === "flight") text = `בעוד ${timeBefore} דקות יחלוף המטס מעל יישוב ${locationName}`;
+            else if (showType === "airShow") text = `בעוד ${timeBefore} דקות יחל מופע אווירי ב${locationName}`;
+            else if (showType === "aerobaticShow") text = `בעוד ${timeBefore} דקות יחל מופע אווירובטי ב${locationName}`;
+
+            let notificationOptions =
+                {
+                    body: text,
+                    icon: '../icons/logo192x192.png',
+                    dir: "rtl",
+                    lang: 'he',
+                    badge: '../icons/logo192x192.png',
+                    vibrate: [300, 100, 400],
+                    data: {url: 'https://matas-iaf.com'}
+                };
+
+            // If it's okay let's create a notification
+            self.registration.showNotification(title, notificationOptions);
+        }
+    }
+}
+
+function registerToLocation(locationId) {
+    if (indexedDB) {
+        let request = indexedDB.open('notifications', 1);
+        request.onsuccess = function (event) {
+            console.log("registering to notifications for " + locationId);
+            let notificationsDB = event.target.result;
+            let locationsObjectStore = notificationsDB.transaction("locations", "readonly").objectStore("locations");
+            let timeBefore = 10;
+
+            locationsObjectStore.get(locationId).onsuccess = (event) => {
+                let loc = event.target.result;
+                let firstAirShowHandler;
+                let firstAerobaticShowHandler;
+                let firstFlightHandler;
+
+                if (loc.firstAerobaticShow) {
+                    let timeout = loc.firstAerobaticShow - new Date().getTime() - timeBefore * 60 * 1000;
+                    if (timeout > 0) {
+                        firstAerobaticShowHandler = setTimeout(() => {
+                            notifyForEventOnLocation(loc.pointName, timeBefore, "aerobaticShow");
+                        }, timeout);
+                    }
+                    console.log("registered notification for aerobatic show at " + loc.pointName + " within:" + timeout / 1000 + " seconds");
+                }
+
+                if (loc.firstAirShow) {
+                    let timeout = loc.firstAirShow - new Date().getTime() - timeBefore * 60 * 1000;
+                    if (timeout > 0) {
+                        firstAirShowHandler = setTimeout(() => {
+                            notifyForEventOnLocation(loc.pointName, timeBefore, "airShow");
+                        }, timeout);
+                    }
+                    console.log("registered notification for air show at " + loc.pointName + " within:" + timeout / 1000 + " seconds");
+                }
+
+                if (loc.firstFlight) {
+                    let timeout = loc.firstFlight - new Date().getTime() - timeBefore * 60 * 1000;
+                    if (timeout > 0) {
+                        firstFlightHandler = setTimeout(() => {
+                            notifyForEventOnLocation(loc.pointName, timeBefore, "flight");
+                        }, timeout);
+                    }
+                    console.log("registered notification for flight at " + loc.pointName + " within:" + timeout / 1000 + " seconds");
+                }
+
+                if (firstAirShowHandler || firstFlightHandler || firstAerobaticShowHandler) {
+                    let registeredLocation = {
+                        pointId: locationId,
+                        firstAirShowHandlerId: firstAirShowHandler,
+                        firstFlightHandlerId: firstFlightHandler,
+                        firstAerobaticShowHandlerId: firstAerobaticShowHandler
+                    };
+
+                    let myRegisteredLocationsObjectStore = notificationsDB.transaction("registered_locations", "readwrite").objectStore("registered_locations");
+                    myRegisteredLocationsObjectStore.add(registeredLocation);
+                }
+            }
+        };
+    }
+}
+
+function unregisterLocation(locationId) {
+    if (indexedDB) {
+        let request = indexedDB.open('notifications', 1);
+        request.onsuccess = function (event) {
+            let notificationsDB = event.target.result;
+            console.log("unregistered notification for: " + locationId);
+            let myRegisteredLocationsObjectStore = notificationsDB.transaction("registered_locations", "readwrite").objectStore("registered_locations");
+            let registeredLocation = myRegisteredLocationsObjectStore.get(locationId);
+            if (registeredLocation.firstAirShowHandlerId != null)
+                clearTimeout(registeredLocation.firstAirShowHandlerId);
+            if (registeredLocation.firstAerobaticShowHandlerId != null)
+                clearTimeout(registeredLocation.firstAerobaticShowHandlerId);
+            if (registeredLocation.firstFlightHandlerId != null)
+                clearTimeout(registeredLocation.firstFlightHandlerId);
+            myRegisteredLocationsObjectStore.delete(locationId);
+        }
+    }
+}
 
 /**
  * Riding on onMessage event to schedule notifications when browser is closed
  */
 self.addEventListener('message', event => {
-    if (event.data === "loadCache" && firstTimeInstall) {
+    if (event.data.action === "loadCache" && firstTimeInstall) {
         console.log("Loading Extended Files to Cache...");
-        caches.open('matas').then(cache => {
+        event.waitUntil(caches.open('matas').then(cache => {
             cache.addAll(cacheFileList);
-        });
+        }));
     }
-    else if (event.message === "scheduleNotification") {
-        let sentNotifications = event.data.notificationOptions.data.sentNotifications;
-
-        if (!sentNotifications.includes(event.data.notificationOptions.body)) {
-            console.log(event.data);
-            event.waitUntil(new Promise(function (resolve) {
-                setTimeout(function () {
-                    self.registration.showNotification(event.data.notificationTitle, event.data.notificationOptions);
-                    resolve();
-                }, event.data.notificationTime);
-            }));
-        }
+    else if (event.data.action === "scheduleNotification") {
+        console.log(event.data);
+        event.waitUntil(new Promise(function (resolve) {
+            clearTimeout(event.data.currentTimeoutHandler);
+            setTimeout(function () {
+                self.registration.showNotification(event.data.notificationTitle, event.data.notificationOptions);
+                resolve();
+            }, event.data.notificationTime);
+        }));
+    }
+    else if (event.data.action === "registerToLocation") {
+        event.waitUntil(new Promise((resolve) => {
+            registerToLocation(event.data.locationId);
+            resolve();
+        }));
+    }
+    else if (event.data.action === "unregisterLocation") {
+        event.waitUntil(new Promise((resolve) => {
+            unregisterLocation(event.data.locationId);
+            resolve();
+        }));
     }
 });
 
