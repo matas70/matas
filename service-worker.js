@@ -447,9 +447,11 @@ function registerToLocation(locationId) {
                 let firstAirShowHandler;
                 let firstAerobaticShowHandler;
                 let firstFlightHandler;
+                let currentTime = new Date().getTime();
+                console.log("current time: " + currentTime);
 
                 if (loc.firstAerobaticShow) {
-                    let timeout = loc.firstAerobaticShow - new Date().getTime() - timeBefore * 60 * 1000;
+                    let timeout = loc.firstAerobaticShow - currentTime - timeBefore * 60 * 1000;
                     if (timeout > 0) {
                         firstAerobaticShowHandler = setTimeout(() => {
                             notifyForEventOnLocation(loc.pointName, timeBefore, "aerobaticShow");
@@ -459,7 +461,7 @@ function registerToLocation(locationId) {
                 }
 
                 if (loc.firstAirShow) {
-                    let timeout = loc.firstAirShow - new Date().getTime() - timeBefore * 60 * 1000;
+                    let timeout = loc.firstAirShow - currentTime - timeBefore * 60 * 1000;
                     if (timeout > 0) {
                         firstAirShowHandler = setTimeout(() => {
                             notifyForEventOnLocation(loc.pointName, timeBefore, "airShow");
@@ -469,7 +471,7 @@ function registerToLocation(locationId) {
                 }
 
                 if (loc.firstFlight) {
-                    let timeout = loc.firstFlight - new Date().getTime() - timeBefore * 60 * 1000;
+                    let timeout = loc.firstFlight - currentTime - timeBefore * 60 * 1000;
                     if (timeout > 0) {
                         firstFlightHandler = setTimeout(() => {
                             notifyForEventOnLocation(loc.pointName, timeBefore, "flight");
