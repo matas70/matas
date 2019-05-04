@@ -628,7 +628,6 @@ function onAboutButtonClick() {
         });
         $("#aboutButton").attr("src", "icons/aboutIconSelected.png");
         aboutVisible = true;
-        $("#menuHamburger").toggleClass("is-active");
 
         // hide IAF logo if there is no room - this is very ugly code but we don't have much time to mess around with this
         var requiredHeight = 64 + $("#headerMobile").height() + $("#aboutLogo").height() +  $("#aboutTitle").height() + $("#aboutBody").height() + $("#aboutBottom").height();
@@ -1172,13 +1171,12 @@ function countdown() {
 
     // Load the map three seconds before the countdown finishes
     if (remainingTime < 3500 && remainingTime > 2500) {
-        $(".splash").css("background-image", "url('animation/Splash-optimized.gif')");
         $(".splash").hide();
 
         // Stops the gif from running more than once
         setTimeout(function () {
             $(".splash").fadeIn();
-            $(".loading").css("background-image", "url(animation/loading.gif)");
+            $(".loading").fadeIn();
             loadApp();
             // cancel simulation (if enabled)
             actualStartTime = realActualStartTime;
@@ -1195,8 +1193,7 @@ function countdown() {
     if (remainingTime < 0) {
         $("#minutes").text("00");
         $("#entrancePopup").fadeOut("slow", function () {
-            $(".splash").css("background-image", "url(animation/Splash.jpg)");
-            $(".loading").css("background-image", "url(animation/loading.gif)");
+            $(".loading").fadeIn();
             $(".map-dark").hide();
         });
         if (countdownInterval) {
@@ -1263,10 +1260,9 @@ function onLoad() {
             }, 45000);
         }
 
-        // replace animation with still image after 5 seconds
+        // start loading animation after 2 seconds
         setTimeout(function () {
-            $(".splash").css("background-image", "url(animation/Splash.jpg)");
-            $(".loading").show();
+            $(".loading").fadeIn();
         }, 2000);
 
         // register service worker (needed for the app to be suggested as webapp)
@@ -1363,6 +1359,7 @@ var canOpenMenu = true;
 var currMenuTab = "#locations";
 var currAircraftTab = "#aircraftInfoContent";
 var $menuHamburger;
+var $aboutExit
 
 function toggleListView(event, shouldOnlyToggleClose = false) {
     if (aboutVisible) {
@@ -1372,7 +1369,6 @@ function toggleListView(event, shouldOnlyToggleClose = false) {
         });
         $("#aboutButton").attr("src", "icons/aboutIcon.png");
         aboutVisible = false;
-        $menuHamburger.toggleClass("is-active");
     } else if (canOpenMenu) {
         canOpenMenu = false;
         if (isMenuOpen) {
@@ -1391,7 +1387,9 @@ function toggleListView(event, shouldOnlyToggleClose = false) {
         }
     }
 }
-
+function exitAbout(event){
+    alert("work")
+}
 var searchOpen = false;
 var listViewHeight;
 function displaySearchView() {
@@ -1592,9 +1590,7 @@ var tabsHeight;
 
 function initMenu() {
     $menuHamburger = $("#menuHamburger");
-    // ugly code to place about logo correctly related to the half blue
-    $("#aboutLogo").css("paddingTop", $(".halfBlue").height() - $(".aboutLogo").height() + 12 + "px");
-
+    $aboutExit = $("#aboutExitLogo");
     $("#listView").height("100%");
     var listViewHeight = $("#listView").height();
     var headerHeight = $("#headerBg").height();
@@ -1607,7 +1603,7 @@ function initMenu() {
 
     // Responsible for opening the side menu
     $menuHamburger.on("click", toggleListView);
-
+    $aboutExit.on("click",toggleListView);
     initSearchBar();
 
     // Responsible for managing the tabs

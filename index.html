@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>יום העצמאות 71 למדינת ישראל - מפת מטס חיל האוויר</title>
+    <title>יום העצמאות 2019 - 71 שנים למדינת ישראל - מפת מטס חיל האוויר</title>
+    <meta name="description" content="מטס יום העצמאות 2019: איפה ומתי יחלפו המטוסים?  עשרות כלי טיס, יקחו חלק במטס המסורתי לכבוד יום הולדתה ה-71 של מדינת ישראל, שיחלוף מעל עשרות יישובים מצפון עד דרום. היכנסו לאתר מותאם למכשירים סלולריים המאפשר צפייה בזמן אמת במיקום המטוסים על גבי מפה וקבלו מידע אודות המופעים האווריים, המופעים הקרקעיים, התערוכות והפעילויות השונות בבסיסים הפתוחים של חיל האוויר">
+    <meta name="keywords" content="מטס עצמאות,2019,71,חיל האוויר,חיל האויר,מטס 2019, אירועי חיל האוויר 2019,כלי טיס, מטוסי קרב, מסוקים, בסיסים פתוחים חיל האוויר,חגיגות עצמאות">
+    <meta name="author" content="חיל האוויר">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -66,7 +69,7 @@
             </a>
 
             <div id="headerIconContainer">
-                <img src="icons/headerLogo.svg" style="width:90px"/>
+                <img src="icons/headerLogo.svg" onclick="onAboutButtonClick();" style="width:90px"/>
                 <div id="aboutMenuTitle" style="display:none">אודות</div>
             </div>
             <div>
@@ -123,17 +126,13 @@
         </div>
     </div>
 
-    <div class="aboutIcon" onclick="onAboutButtonClick();">
-        <img src="icons/aboutIconSelected.png">
-    </div>
-
     <!-- map overlay -->
     <div class="map-dark" onclick="closeAllPopups();" style="display: none">
     </div>
 
     <!-- startup splash screen -->
     <div class="splash"
-         style="background-image: url('animation/Splash-no-number.gif');background-size: contain; visibility: visible;">
+         style="background-image: url('animation/Splash-71 smaller.gif');background-size: contain; visibility: visible;">
         <div class="loading" style="background-image: url('animation/loading.gif');background-size: contain; display: none;"></div>
     </div>
 
@@ -305,23 +304,34 @@
         </div>
     </div>
 
-    <!-- about popup -->
-    <div id="aboutPopup" class="aboutPopup" style="display:none">
-        <!--<div class="halfBlue">-->
+<!-- about popup -->
+<div id="aboutPopup" class="aboutPopup" style="display:none">
+    <img id="aboutExitLogo" class="aboutExitLogo" src = "icons/aboutExitLogo.svg"/>
+    <div id="aboutHeaderSpacing" class="aboutHeaderSpacing"></div>
+    <div id="aboutLogoDiv">
+        <div id="aboutHeader" class="aboutHeader"></div>
         <img id="aboutLogo" class="aboutLogo" src="icons/bigLogo.png"/>
-        <div id="aboutTitle" class="aboutTitle">
-                חג עצמאות שמח!
-         </div>
-        <div id="aboutBody" class="aboutBody">
-            האפליקציה פותחה ע"י <b>יחידת אופק 324</b>, היחידה הטכנולוגית המבצעית של חיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות לכבוד חגיגות 71 שנה למדינת ישראל
-        </div>
-         <div id="aboutBottom" class="aboutBottom">
-                <img id="iafLogo" src="icons/iaf-small.png" style="padding-bottom: 14px"/>
-                <div class="bottomText">
-                    שימו לב, ייתכנו שינוים בלוחות הזמנים
-                </div>
-         </div>
     </div>
+    <div class="aboutSpacing"></div>
+    <div id="aboutTitle" class="aboutTitle">
+            חג עצמאות שמח!
+     </div>
+    <div class="aboutSpacing"></div>
+    <div id="aboutBody" class="aboutBody">
+        האפליקציה פותחה ע"י <span style ="font-weight: 600;">יחידת אופק 324</span >, היחידה הטכנולוגית המבצעית של חיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות לכבוד חגיגות 71 שנה למדינת ישראל
+    </div>
+    <div class="aboutSpacing"></div>
+    <img id="iafLogo"  src="icons/iaf-small.png" class="iafLogo"/>
+    <div class="aboutSpacing"></div>
+    <div class="bottomText">
+        לידיעתכם, ייתכנו שינוים בלוחות הזמנים
+    </div>
+    <div id="aboutBottomLink" class="aboutBottomLink">
+        <a id="facebookLink" href="https://www.facebook.com/IsraeliAirForce.HE/"><img src="icons/facebook.svg" class="aboutBottomImg"></a>
+        <a id="instagramLink" href="https://www.instagram.com/israeliairforce/"><img src="icons/instagram.svg" class="aboutBottomImg"></a>
+        <a id="twitterLink" href="https://twitter.com/iafsite"><img src="icons/twitter.svg" class="aboutBottomImg"></a>
+    </div>
+</div>
 
     <!-- incompatible browser popup -->
     <div id="incompatibleBrowserPopup" class="aboutPopup" style="display:none">
