@@ -623,7 +623,7 @@ function onAboutButtonClick() {
 
 function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+            navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
                 // Registration was successful
                 console.log('ServiceWorker registration successful with scope: ', registration.scope);
             }, function (err) {
@@ -1875,33 +1875,13 @@ function popuplateNotificationsDB() {
 
                 // Use transaction oncomplete to make sure the objectStore creation is
                 // finished before adding data into it.
-                locationsObjectStore.transaction.oncomplete = function(event) {
-                    // Store values in the newly created objectStore.
-                    let notificationsObjectStore = notificationsDB.transaction("locations", "readwrite").objectStore("locations");
-                    locations.forEach(function(location) {
-                        // check when is the first air show and when is the first flight in that loocation
-                        let aerobaticShows = location.aircrafts.filter(aircraft => aircraft.name === "עפרוני" && (aircraft.specialInAircraft === "מופעים אוויריים" || aircraft.specialInPath === "מופעים אוויריים"));
-                        let airShows = location.aircrafts.filter(aircraft => aircraft.name !== "עפרוני" &&  (aircraft.specialInAircraft === "מופעים אוויריים" || aircraft.specialInPath === "מופעים אוויריים"));
-                        let flight = location.aircrafts.filter(aircraft => !aircraft.specialInAircraft);
-                        if (aerobaticShows.length > 0) {
-                            location.firstAerobaticShow = getActualPathTime(aerobaticShows[0].date, aerobaticShows[0].time);
-                        }
-                        if (airShows.length > 0) {
-                            location.firstAirShow = getActualPathTime(airShows[0].date, airShows[0].time);
-                        }
-                        if (flight.length > 0) {
-                            location.firstFlight = getActualPathTime(flight[0].date, flight[0].time);
-                        }
-
-                        notificationsObjectStore.add(location);
-                    });
-                };
             }
         };
         request.onsuccess = function (event) {
             // update locations list
             notificationsDB = event.target.result;
             let notificationsObjectStore = notificationsDB.transaction("locations", "readwrite").objectStore("locations");
+            notificationsObjectStore.clear();
             locations.forEach(function(location) {
                 // check when is the first air show and when is the first flight in that loocation
                 let aerobaticShows = location.aircrafts.filter(aircraft => aircraft.name === "עפרוני" && (aircraft.specialInAircraft === "מופעים אוויריים" || aircraft.specialInPath === "מופעים אוויריים"));
