@@ -149,6 +149,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
                        var split = ac.date.split('-');
                        date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
                    }
+
                    html += createTableRow(ac.aircraftId,
                        ac.name,
                        ac.icon,
@@ -158,7 +159,10 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
                        ac.parachutist,
                        false,
                        true,
-                       date);
+                       date,
+                       location,
+                       false,
+                       ac.from);
                });
            }
         });
@@ -499,14 +503,14 @@ function hidePopup(popup, callback) {
     });
 }
 
-function createParachutistRow(location, time) {
+function createParachutistRow(location, time, from) {
     return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ")\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/parachutist.svg\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>"
-        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + "</div></div>";
+        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time)  + (from ? " - " +roundToMinute(from): "")  +  "</div></div>";
 }
 
-function createAerobaticRow(location, time) {
+function createAerobaticRow(location, time, from) {
     return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ")\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"
-        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + "</div></div>";
+        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + (from ? " - " +roundToMinute(from): "")  + "</div></div>";
 }
 
 function createCategoryLocationRow(location, time, from) {
@@ -514,9 +518,9 @@ function createCategoryLocationRow(location, time, from) {
         + location.pointName + "</b></div><div class=\"time\">" + (from?(roundToMinute(from)+ " - "):"") + roundToMinute(time)+"</div></div>";
 }
 
-function createLocationScheduleRow(aircraft, location, time) {
+function createLocationScheduleRow(aircraft, location, time, from) {
     return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/point-${location.color}.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
-            ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} </div></div>`;
+            ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} ${(from ? " - " + roundToMinute(from): "")} </div></div>`;
 }
 
 function selectPointFromSchedule(pointId, minimized = false) {
@@ -528,17 +532,17 @@ function selectPointFromSchedule(pointId, minimized = false) {
 function createScheduleRow(aircraft, location) {
     var fullPoint = locations[location.pointId];
     if (aircraft.aerobatic) {
-        return createAerobaticRow(fullPoint, location.time);
+        return createAerobaticRow(fullPoint, location.time, location.from);
     } else if (aircraft.parachutist) {
-        return createParachutistRow(fullPoint, location.time);
+        return createParachutistRow(fullPoint, location.time, location.from);
     } else if (!fullPoint.hidden) {
-        return createLocationScheduleRow(aircraft, fullPoint, location.time);
+        return createLocationScheduleRow(aircraft, fullPoint, location.time, location.from);
     }
 
     return "";
 }
 
-function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule=false, showAllPoints=false) {
+function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule=false, showAllPoints=false, from) {
     var aerobaticIcon = "<div/>";
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
@@ -550,7 +554,8 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
 
     return "<div onclick='onAircraftSelected(" + aircraftId + "," + collapse.toString() + ","+ showSchedule + "," + showAllPoints + ");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
         ".svg\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>" + name +
-        "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class='date'>" + (date ? date : '') + "</div>" + "<div class=\"time\">" + (displayTime ? roundToMinute(time) : "") + "</div></div></div></div>";
+        "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class='date'>" + (date ? date : '') + "</div>" + "<div class=\"time\">" +
+        (displayTime ? roundToMinute(time) : "") + (displayTime && from ? (" - " + roundToMinute(from)) : "") + "</div></div></div></div>";
 }
 
 function createLocationRow(location, displayFirstAircraft, isSearchBar = false) {
@@ -589,7 +594,11 @@ function expandLocation(pointId, isSearchBar = false) {
                         aircraft.aerobatic,
                         aircraft.parachutist,
                         true,
-                        true);
+                        true,
+                        undefined,
+                        false,
+                        false,
+                        aircraft.from);
                     lastAircraft = aircraft.name;
                 }
             }, this);
