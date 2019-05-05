@@ -415,6 +415,7 @@ function updateLocationsMap(aircrafts) {
                 icon: aircraft.icon,
                 aircraftType: aircraft.type,
                 time: location.time,
+                from: location.from,
                 aerobatic: aircraft.aerobatic,
                 parachutist: aircraft.parachutist,
                 category: aircraft.category,
@@ -1729,7 +1730,9 @@ function fillMenu() {
                             true,
                             false,
                             date,
-                            true);
+                            true,
+                            false,
+                            );
                         prevAircraftTypeId = categoryAircraft.aircraftTypeId;
 
                         // var categoryLocations = [].concat.apply([], categorizedAircrafts.filter(aircraft => aircraft.aircraftTypeId===categoryAircraft.aircraftTypeId && aircraft.special === category.category)
