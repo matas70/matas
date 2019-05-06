@@ -21,6 +21,7 @@
     overflow: visible;
     margin-right: 18px;
     padding: 6px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .hamburger:hover {
      }

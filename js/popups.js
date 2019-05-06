@@ -578,9 +578,6 @@ function createLocationRow(location, displayFirstAircraft, isSearchBar = false) 
 }
 
 function expandLocation(pointId, isSearchBar = false) {
-    window.location.hash = "#expandLocation";
-    history.replaceState(expandLocationState.data + pointId, expandLocationState.title, expandLocationState.url);
-
     var location = locations[pointId];
     var locationSpace = isSearchBar ? $("#search-view #locationSpace" + pointId) : $("#locationSpace" + pointId);
     if (locationSpace.html() === "") {

@@ -1249,7 +1249,6 @@ var countdownInterval;
 var mainState = { data: "#main", title: "#main"};
 var menuState = {data: "#locations", title: "#menu"};
 
-
 function onLoad() {
     if (compatibleDevice() && !checkIframe()) {
         // For back button handling
