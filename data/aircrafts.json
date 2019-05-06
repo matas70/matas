@@ -1533,7 +1533,7 @@
           "time": "13:22:00"
         }
       ],
-      "hide": false,
+      "hide": true,
       "aircraftId": 14,
       "aircraftTypeId": 25,
       "special": ""
