@@ -604,6 +604,7 @@ var selectedAircraftMarker = null;
 var selectedAircraftMarkerIcon = null;
 
 function onAboutButtonClick() {
+    previousHash.push("#about");
     deselectAircraft();
     deselectLocation();
     if (!aboutVisible) {
@@ -1072,6 +1073,8 @@ function selectInfoButtonWithoutClicking() {
 }
 
 function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllPoints = false) {
+    previousHash.push("#aircraftSelected");
+    window.location.hash = "#aircraftSelected";
     var aircraft = aircrafts[aircraftId-1];
     window.scrollTo(0,1);
 
@@ -1246,13 +1249,12 @@ function getRemainingSeconds(date) {
 
 
 var countdownInterval;
-var mainState = { data: "#main", title: "#main"};
-var menuState = {data: "#locations", title: "#menu"};
+var previousHash = ["#main"];
 
 function onLoad() {
     if (compatibleDevice() && !checkIframe()) {
         // For back button handling
-        history.replaceState(mainState.data, mainState.title);
+        previousHash.push("#main");
         window.location.hash = "#main";
 
         // if we are on online mode and it is taking too long to load - switch to offline
@@ -1604,19 +1606,42 @@ var currentAttrValue;
 var tabsHeight;
 var attemptToExit = false;
 
-window.onhashchange = () => {
-    var state = history.state;
-    var currentHash = window.location.hash;
+window.onpopstate = () => {
+//     previousHash.push(window.location.hash);
+}
+
+window.onhashchange = (e) => {
+    var currentHash = e.newURL.substr(e.newURL.lastIndexOf("#"), e.newURL.length);
+    var previousHashValue = previousHash.pop();
+
+    if (currentHash === previousHashValue) {
+        previousHash.push(previousHashValue);
+    }
 
     // Should close the menu
-    if ((state === "#menu" || state === "#locations") && currentHash === "#main") {
+    if ((previousHashValue === "#menu" || previousHashValue === "#locations") && currentHash === "#main") {
         $("#menuHamburger").click();
-    } else if (state === "#locations" && currentHash === "#aircraft") {
+    } else if (previousHashValue === "#locations" && currentHash === "#aircraft") {
         // Should toggle between locations and aircraft
         $("#aircraftLink").click();
-    } else if (state === "#aircraft" && (currentHash === "#locations" || currentHash === "#menu")) {
+    } else if (previousHashValue === "#aircraft" && (currentHash === "#locations" || currentHash === "#menu")) {
         // Should toggle between aircraft and locations
         $("#locationsLink").click();
+    } else if (previousHashValue === "#about" && currentHash !== "#about") {
+        if (aboutVisible) {
+            previousHash.push("#main");
+            $("#aboutPopup").fadeOut();
+            aboutVisible = false;
+        }
+    } else if (previousHashValue === "#aircraftSelected" &&
+               currentHash !== "#aircraftSelected" &&
+               currentHash !== "#aircraftInfoContent" &&
+               currentHash !== "#aircraftScheduleContent") {
+        $("#shrinkAircraftInfoPopup").click();
+    } else if (previousHashValue === "#aircraftInfoContent" && currentHash === "#aircraftScheduleContent") {
+        $("#aircraftScheduleButton").click();
+    } else if (previousHashValue === "#aircraftScheduleContent" && currentHash === "#aircraftInfoContent") {
+        $("#aircraftInfoButton").click();
     }
 };
 
@@ -1643,7 +1668,7 @@ function initMenu() {
         $(".menuLink").removeClass("active");
         $(elem.target).addClass("active");
         currentAttrValue = $(this).attr('href');
-        history.replaceState(currentAttrValue, currentAttrValue);
+        previousHash.push(currentAttrValue);
         if (currMenuTab != currentAttrValue) {
             $("hr").toggleClass("two");
         }
@@ -1663,8 +1688,7 @@ function initMenu() {
 
 function openMenu() {
     // For back button handling
-    history.replaceState(menuState.data, menuState.title);
-
+    previousHash.push("#menu");
     $("#listView").css({ "transform": "translateX(0)" });
     isMenuOpen = true;
     setTimeout(function () {
@@ -1673,7 +1697,7 @@ function openMenu() {
 }
 
 function closeMenu() {
-    history.replaceState(mainState.data, mainState.title);
+    previousHash.push("#main");
     $("#listView").css({ "transform": "translateX(100%)" });
     isMenuOpen = false;
     setTimeout(function () {
