@@ -1854,10 +1854,12 @@ function scheduleConfirmationPopup() {
 
    //  Getting permissions for notifications if we haven't gotten them yet
     if (areNotificationsPossible()) {
-        if (Notification.permission !== "granted") {
+        if (Notification.permission !== "granted" && Notification.permission !== "denied") {
             setTimeout(function () {
                 showConfirmationPopup("הישארו מעודכנים!", messageBody);
             }, 15000);
+        } else if (Notification.permission === "granted") {
+            registerToFirebaseNotifications();
         }
     }
 }
