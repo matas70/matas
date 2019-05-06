@@ -42,6 +42,7 @@
                 $.getScript("js/popups.js"),
                 $.getScript("js/RotateIcon.js"),
                 $.getScript("js/utils.js"),
+                $.getScript("js/firebaseInteraction.js"),
 
                 $.Deferred(function( deferred ){
                     $( deferred.resolve );
@@ -55,6 +56,9 @@
     </script>
 </head>
 <body onload="loadScripts()" class="body">
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-functions.js"></script>
 <div id="wrapper">
     <!-- page header -->
     <header id="headerMobile">

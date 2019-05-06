@@ -390,7 +390,17 @@
           "wazeLink": "",
           "activeTimes": ""
         },
-        {"hidden":false,"hideAircrafts":false,"pointId":31,"E":"3443.500","N":"3159.782","pointName":"בת ים","pointLocation":"קו חוף","wazeLink":"","activeTimes":""},
+        {
+          "hidden": false,
+          "hideAircrafts": false,
+          "pointId": 31,
+          "E": "3443.500",
+          "N": "3159.782",
+          "pointName": "בת ים",
+          "pointLocation": "קו חוף",
+          "wazeLink": "",
+          "activeTimes": ""
+        },
         {
           "hidden": false,
           "hideAircrafts": false,
@@ -973,18 +983,6 @@
           "activeTimes": ""
         },
         {
-          "hidden": false,
-          "hideAircrafts": false,
-          "pointId": 115,
-          "E": "3503.023",
-          "N": "3112.455",
-          "pointName": "נבטים",
-          "pointLocation": "",
-          "wazeLink": "",
-          "activeTimes": "",
-          "exhibitions": ""
-        },
-        {
           "hidden": true,
           "hideAircrafts": false,
           "pointId": 42,
@@ -1288,11 +1286,11 @@
           "exhibitions": ""
         },
         {
-          "hidden": true,
+          "hidden": false,
           "hideAircrafts": false,
           "pointId": 94,
-          "E": "3501.198",
-          "N": "3204.925",
+          "E": "3458.0653",
+          "N": "3209.19104",
           "pointName": "ירחיב",
           "pointLocation": "",
           "wazeLink": "",
@@ -1431,22 +1429,23 @@
     {
       "routeId": 5,
       "name": "מסלול בית הנשיא",
-      "color": "3bb5f2",
+      "color": "bb7aff",
       "primaryTextColor": "ffffff",
       "secondaryTextColor": "187aab",
       "visible": true,
-      "points" : [{
-        "hidden": true,
-        "hideAircrafts": false,
-        "pointId": 116,
-        "E": "3514.753",
-        "N": "3146.044",
-        "pointName": "בית הנשיא יכ",
-        "pointLocation": "",
-        "wazeLink": "",
-        "activeTimes": "",
-        "exhibitions": ""
-      },
+      "points": [
+        {
+          "hidden": true,
+          "hideAircrafts": false,
+          "pointId": 116,
+          "E": "3514.753",
+          "N": "3146.044",
+          "pointName": "בית הנשיא יכ",
+          "pointLocation": "",
+          "wazeLink": "",
+          "activeTimes": "",
+          "exhibitions": ""
+        },
         {
           "hidden": false,
           "hideAircrafts": false,
@@ -1470,7 +1469,8 @@
           "wazeLink": "",
           "activeTimes": "",
           "exhibitions": ""
-        }]
+        }
+      ]
     }
   ]
 }
