@@ -973,18 +973,6 @@
           "activeTimes": ""
         },
         {
-          "hidden": false,
-          "hideAircrafts": false,
-          "pointId": 115,
-          "E": "3503.023",
-          "N": "3112.455",
-          "pointName": "נבטים",
-          "pointLocation": "",
-          "wazeLink": "",
-          "activeTimes": "",
-          "exhibitions": ""
-        },
-        {
           "hidden": true,
           "hideAircrafts": false,
           "pointId": 42,
@@ -1288,11 +1276,11 @@
           "exhibitions": ""
         },
         {
-          "hidden": true,
+          "hidden": false,
           "hideAircrafts": false,
           "pointId": 94,
-          "E": "3501.198",
-          "N": "3204.925",
+          "E": "3458.0653",
+          "N": "3209.19104",
           "pointName": "ירחיב",
           "pointLocation": "",
           "wazeLink": "",
