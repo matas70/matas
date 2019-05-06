@@ -2407,7 +2407,7 @@
           "time": "13:30:00"
         }
       ],
-      "hide": false,
+      "hide": true,
       "aircraftId": 51,
       "aircraftTypeId": 1,
       "special": "מופעים אוויריים",
