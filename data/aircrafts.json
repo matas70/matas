@@ -2236,8 +2236,8 @@
         {
           "pointId": 37,
           "time": "09:55:00",
-          "from": "09:00:00",
-          "special": "מופעים אוויריים"
+          "special": "מופעים אוויריים",
+          "from": "09:00:00"
         }
       ],
       "hide": true,
@@ -2251,8 +2251,8 @@
         {
           "pointId": 37,
           "time": "12:40:00",
-          "from": "12:00:00",
-          "special": "מופעים אוויריים"
+          "special": "מופעים אוויריים",
+          "from": "12:00:00"
         }
       ],
       "hide": true,
@@ -2266,8 +2266,8 @@
         {
           "pointId": 37,
           "time": "14:55:00",
-          "from": "13:55:00",
-          "special": "מופעים אוויריים"
+          "special": "מופעים אוויריים",
+          "from": "13:55:00"
         }
       ],
       "hide": true,
@@ -2437,6 +2437,62 @@
       "aircraftTypeId": 1,
       "special": "מופעים אוויריים",
       "aerobatic": true
+    },
+    {
+      "path": [
+        {
+          "pointId": 18,
+          "time": "09:25:00",
+          "date": "2019-5-7",
+          "special": "חזרות"
+        },
+        {
+          "pointId": 21,
+          "time": "09:45:00",
+          "date": "2019-5-7",
+          "special": "חזרות"
+        },
+        {
+          "pointId": 22,
+          "time": "10:00:00",
+          "date": "2019-5-7",
+          "special": "חזרות"
+        },
+        {
+          "pointId": 37,
+          "time": "12:15:00",
+          "date": "2019-5-7",
+          "special": "חזרות"
+        },
+        {
+          "pointId": 40,
+          "time": "12:40:00",
+          "date": "2019-5-7",
+          "special": "חזרות"
+        },
+        {
+          "pointId": 47,
+          "time": "14:30:00",
+          "date": "2019-5-7",
+          "special": "חזרות"
+        },
+        {
+          "pointId": 46,
+          "time": "14:45:00",
+          "date": "2019-5-7",
+          "special": "חזרות"
+        },
+        {
+          "pointId": 29,
+          "time": "11:59:00",
+          "date": "2019-5-7",
+          "special": "חזרות"
+        }
+      ],
+      "hide": false,
+      "aircraftId": 53,
+      "aircraftTypeId": 25,
+      "special": "חזרות"
     }
   ]
 }
