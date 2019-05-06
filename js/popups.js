@@ -160,7 +160,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
                        false,
                        true,
                        date,
-                       location,
+                       false,
                        false,
                        ac.from);
                });
