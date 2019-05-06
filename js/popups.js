@@ -531,12 +531,14 @@ function selectPointFromSchedule(pointId, minimized = false) {
 
 function createScheduleRow(aircraft, location) {
     var fullPoint = locations[location.pointId];
-    if (aircraft.aerobatic) {
-        return createAerobaticRow(fullPoint, location.time, location.from);
-    } else if (aircraft.parachutist) {
-        return createParachutistRow(fullPoint, location.time, location.from);
-    } else if (!fullPoint.hidden) {
-        return createLocationScheduleRow(aircraft, fullPoint, location.time, location.from);
+    if (!fullPoint.hidden) {
+        if (aircraft.aerobatic) {
+            return createAerobaticRow(fullPoint, location.time, location.from);
+        } else if (aircraft.parachutist) {
+            return createParachutistRow(fullPoint, location.time, location.from);
+        } else {
+            return createLocationScheduleRow(aircraft, fullPoint, location.time, location.from);
+        }
     }
 
     return "";
