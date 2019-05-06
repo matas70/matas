@@ -149,6 +149,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
                        var split = ac.date.split('-');
                        date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
                    }
+
                    html += createTableRow(ac.aircraftId,
                        ac.name,
                        ac.icon,
@@ -158,7 +159,10 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
                        ac.parachutist,
                        false,
                        true,
-                       date);
+                       date,
+                       false,
+                       false,
+                       ac.from);
                });
            }
         });
@@ -212,6 +216,42 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
     // // add touch events on the list to allow user expand or collapse it
     $("#aircraftListContainer").scrollTop(0);
+
+    // add register to notifications if available
+    if (areNotificationsPossible()) {
+        $("#registerToLocationNotifcations").show();
+        if (isLocationRegistered(point.pointId)) {
+            $('#registerCheckbox').prop('checked', true);
+        } else {
+            $('#registerCheckbox').prop('checked', false);
+        }
+        $("#registerCheckbox").off("click");
+        $("#registerCheckbox").on("click", (event) => {
+            if (!areNotificationsAvailable()) {
+                Notification.requestPermission().then(function (result) {
+                    if (result === 'granted') {
+                        $("#registerCheckbox").prop('checked', true);
+                        Notification.permission = result;
+                        registerToNotifications(point.pointId);
+                    } else {
+                        $("#registerCheckbox").prop('checked', false);
+                        return false;
+                    }
+                });
+            } else {
+                if (isLocationRegistered(point.pointId)) {
+                    unregisterNotificationsForLocation(point.pointId);
+                    $("#registerCheckbox").prop('checked', false);
+                }
+                else {
+                    registerToNotifications(point.pointId);
+                    $("#registerCheckbox").prop('checked', true);
+                }
+            }
+        });
+    } else {
+        $("#registerToLocationNotifcations").hide();
+    }
 
 }
 
@@ -463,14 +503,14 @@ function hidePopup(popup, callback) {
     });
 }
 
-function createParachutistRow(location, time) {
+function createParachutistRow(location, time, from) {
     return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ")\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/parachutist.svg\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>"
-        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + "</div></div>";
+        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time)  + (from ? " - " +roundToMinute(from): "")  +  "</div></div>";
 }
 
-function createAerobaticRow(location, time) {
+function createAerobaticRow(location, time, from) {
     return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ")\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"
-        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + "</div></div>";
+        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + (from ? " - " +roundToMinute(from): "")  + "</div></div>";
 }
 
 function createCategoryLocationRow(location, time, from) {
@@ -478,9 +518,9 @@ function createCategoryLocationRow(location, time, from) {
         + location.pointName + "</b></div><div class=\"time\">" + (from?(roundToMinute(from)+ " - "):"") + roundToMinute(time)+"</div></div>";
 }
 
-function createLocationScheduleRow(aircraft, location, time) {
+function createLocationScheduleRow(aircraft, location, time, from) {
     return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/point-${location.color}.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
-            ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} </div></div>`;
+            ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} ${(from ? " - " + roundToMinute(from): "")} </div></div>`;
 }
 
 function selectPointFromSchedule(pointId, minimized = false) {
@@ -491,18 +531,20 @@ function selectPointFromSchedule(pointId, minimized = false) {
 
 function createScheduleRow(aircraft, location) {
     var fullPoint = locations[location.pointId];
-    if (aircraft.aerobatic) {
-        return createAerobaticRow(fullPoint, location.time);
-    } else if (aircraft.parachutist) {
-        return createParachutistRow(fullPoint, location.time);
-    } else if (!fullPoint.hidden) {
-        return createLocationScheduleRow(aircraft, fullPoint, location.time);
+    if (!fullPoint.hidden) {
+        if (aircraft.aerobatic) {
+            return createAerobaticRow(fullPoint, location.time, location.from);
+        } else if (aircraft.parachutist) {
+            return createParachutistRow(fullPoint, location.time, location.from);
+        } else {
+            return createLocationScheduleRow(aircraft, fullPoint, location.time, location.from);
+        }
     }
 
     return "";
 }
 
-function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule=false, showAllPoints=false) {
+function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule=false, showAllPoints=false, from) {
     var aerobaticIcon = "<div/>";
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
@@ -514,7 +556,8 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
 
     return "<div onclick='onAircraftSelected(" + aircraftId + "," + collapse.toString() + ","+ showSchedule + "," + showAllPoints + ");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
         ".svg\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>" + name +
-        "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class='date'>" + (date ? date : '') + "</div>" + "<div class=\"time\">" + (displayTime ? roundToMinute(time) : "") + "</div></div></div></div>";
+        "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class='date'>" + (date ? date : '') + "</div>" + "<div class=\"time\">" +
+        (displayTime ? roundToMinute(time) : "") + (displayTime && from ? (" - " + roundToMinute(from)) : "") + "</div></div></div></div>";
 }
 
 function createLocationRow(location, displayFirstAircraft, isSearchBar = false) {
@@ -553,7 +596,11 @@ function expandLocation(pointId, isSearchBar = false) {
                         aircraft.aerobatic,
                         aircraft.parachutist,
                         true,
-                        true);
+                        true,
+                        undefined,
+                        false,
+                        false,
+                        aircraft.from);
                     lastAircraft = aircraft.name;
                 }
             }, this);
@@ -600,55 +647,6 @@ function hideConfirmationPopup() {
     });
 }
 
-var notificationTitle = 'מטס עצמאות 71';
-var notificationOptions =
-    {
-        body: '',
-        icon: '../icons/logo192x192.png',
-        dir: "rtl",
-        lang: 'he',
-        //TODO: add badge here
-        badge: '../icons/logo192x192.png',
-        vibrate: [300, 100, 400],
-        data: {url: 'https://matas-iaf.com', sentNotifications: []}
-    };
-
-var notificationMessage =
-    {
-        "notificationTitle": notificationTitle,
-        "notificationOptions": notificationOptions,
-        "notificationTime": 500
-    };
-
-function createNotificationMessage(title, options, time) {
-    notificationMessage.notificationTitle = title;
-    notificationMessage.notificationOptions = options;
-    notificationMessage.notificationTime = time;
-
-    return notificationMessage;
-}
-
-function scheduleFlightStartNotification() {
-    var FIVE_MINUTES_IN_MILLISECONDS = 5 * 60 * 1000;
-
-    // Five minutes before flight start
-    var remainingTime = actualStartTime - FIVE_MINUTES_IN_MILLISECONDS - getCurrentTime();
-
-    // Only display the message when we have 5 minutes or more remaining
-    if (remainingTime >= 0 && Notification.permission === 'granted') {
-        notificationOptions.body = 'המטס יתחיל בעוד 5 דקות!';
-        notificationOptions.icon = '../icons/logo192x192.png';
-
-        // TODO: push notifications
-        // // We only schedule if we haven't already
-        // if (!localStorage.getItem(notificationOptions.body)) {
-        //     localStorage.setItem(notificationOptions.body, notificationOptions.body);
-        //     navigator.serviceWorker.controller.postMessage(createNotificationMessage(notificationTitle, notificationOptions, remainingTime));
-        //     notificationOptions.data.sentNotifications.push(notificationOptions.body);
-        // }
-    }
-}
-
 function showBasePopup(isAerobatics, minutes, locationName) {
     var html = "<b class=\"baseData\">";
     html += getEventName(isAerobatics);
@@ -664,7 +662,6 @@ function showBasePopup(isAerobatics, minutes, locationName) {
     }
 
     html += "</b><br class=\"baseData\">";
-    // var eventDetails = `${desc}${baseName} בעוד ${minute} דקות`;
     html += getEventDescription(isAerobatics, locationName, minutes);
     $("#showData").html(html);
     $("#basePopup").css("top", -64).css("opacity",0);
