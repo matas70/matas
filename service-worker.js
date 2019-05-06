@@ -427,86 +427,6 @@ function notifyForEventOnLocation(locationName, timeBefore, showType) {
     }
 }
 
-function registerToLocation(locationId) {
-    if (indexedDB) {
-        let request = indexedDB.open('notifications', 1);
-        request.onsuccess = function (event) {
-            console.log("registering to notifications for " + locationId);
-            let notificationsDB = event.target.result;
-            let locationsObjectStore = notificationsDB.transaction("locations", "readonly").objectStore("locations");
-            let timeBefore = 10;
-
-            locationsObjectStore.get(locationId).onsuccess = (event) => {
-                let loc = event.target.result;
-                let firstAirShowHandler;
-                let firstAerobaticShowHandler;
-                let firstFlightHandler;
-
-                if (loc.firstAerobaticShow) {
-                    let timeout = loc.firstAerobaticShow - new Date().getTime() - timeBefore * 60 * 1000;
-                    if (timeout > 0) {
-                        firstAerobaticShowHandler = setTimeout(() => {
-                            notifyForEventOnLocation(loc.pointName, timeBefore, "aerobaticShow");
-                        }, timeout);
-                    }
-                    console.log("registered notification for aerobatic show at " + loc.pointName + " within:" + timeout / 1000 + " seconds");
-                }
-
-                if (loc.firstAirShow) {
-                    let timeout = loc.firstAirShow - new Date().getTime() - timeBefore * 60 * 1000;
-                    if (timeout > 0) {
-                        firstAirShowHandler = setTimeout(() => {
-                            notifyForEventOnLocation(loc.pointName, timeBefore, "airShow");
-                        }, timeout);
-                    }
-                    console.log("registered notification for air show at " + loc.pointName + " within:" + timeout / 1000 + " seconds");
-                }
-
-                if (loc.firstFlight) {
-                    let timeout = loc.firstFlight - new Date().getTime() - timeBefore * 60 * 1000;
-                    if (timeout > 0) {
-                        firstFlightHandler = setTimeout(() => {
-                            notifyForEventOnLocation(loc.pointName, timeBefore, "flight");
-                        }, timeout);
-                    }
-                    console.log("registered notification for flight at " + loc.pointName + " within:" + timeout / 1000 + " seconds");
-                }
-
-                if (firstAirShowHandler || firstFlightHandler || firstAerobaticShowHandler) {
-                    let registeredLocation = {
-                        pointId: locationId,
-                        firstAirShowHandlerId: firstAirShowHandler,
-                        firstFlightHandlerId: firstFlightHandler,
-                        firstAerobaticShowHandlerId: firstAerobaticShowHandler
-                    };
-
-                    let myRegisteredLocationsObjectStore = notificationsDB.transaction("registered_locations", "readwrite").objectStore("registered_locations");
-                    myRegisteredLocationsObjectStore.add(registeredLocation);
-                }
-            }
-        };
-    }
-}
-
-function unregisterLocation(locationId) {
-    if (indexedDB) {
-        let request = indexedDB.open('notifications', 1);
-        request.onsuccess = function (event) {
-            let notificationsDB = event.target.result;
-            console.log("unregistered notification for: " + locationId);
-            let myRegisteredLocationsObjectStore = notificationsDB.transaction("registered_locations", "readwrite").objectStore("registered_locations");
-            let registeredLocation = myRegisteredLocationsObjectStore.get(locationId);
-            if (registeredLocation.firstAirShowHandlerId != null)
-                clearTimeout(registeredLocation.firstAirShowHandlerId);
-            if (registeredLocation.firstAerobaticShowHandlerId != null)
-                clearTimeout(registeredLocation.firstAerobaticShowHandlerId);
-            if (registeredLocation.firstFlightHandlerId != null)
-                clearTimeout(registeredLocation.firstFlightHandlerId);
-            myRegisteredLocationsObjectStore.delete(locationId);
-        }
-    }
-}
-
 /**
  * Riding on onMessage event to schedule notifications when browser is closed
  */
@@ -519,29 +439,6 @@ self.addEventListener('message', event => {
                     console.error(reason);
                 })
             }));
-    }
-    else
-    if (event.data.action === "scheduleNotification") {
-        console.log(event.data);
-        event.waitUntil(new Promise(function (resolve) {
-            clearTimeout(event.data.currentTimeoutHandler);
-            setTimeout(function () {
-                self.registration.showNotification(event.data.notificationTitle, event.data.notificationOptions);
-                resolve();
-            }, event.data.notificationTime);
-        }));
-    }
-    else if (event.data.action === "registerToLocation") {
-        event.waitUntil(new Promise((resolve) => {
-            registerToLocation(event.data.locationId);
-            resolve();
-        }));
-    }
-    else if (event.data.action === "unregisterLocation") {
-        event.waitUntil(new Promise((resolve) => {
-            unregisterLocation(event.data.locationId);
-            resolve();
-        }));
     }
 });
 

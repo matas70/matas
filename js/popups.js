@@ -642,7 +642,7 @@ function hideConfirmationPopup() {
     Notification.requestPermission().then(function (result) {
         if (result === 'granted') {
             Notification.permission = result;
-            // scheduleFlightStartNotification();
+            registerToFirebaseNotifications();
         }
     });
 }
