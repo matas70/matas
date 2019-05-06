@@ -319,6 +319,7 @@ function manageAircraftTabs(elem) {
     $(elem.target).addClass("active");
     var currentAttrValue = $(elem.currentTarget).attr('href');
     previousHash.push(currentAttrValue);
+
     if (currAircraftTab != currentAttrValue) {
         $("hr.aircraftLineSeparator").toggleClass("two")
     }
