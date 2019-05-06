@@ -1760,7 +1760,7 @@ function fillMenu() {
                             false,
                             date,
                             true,
-                            false,
+                            categoryAircraft.category === "מופעים קרקעיים",
                             );
                         prevAircraftTypeId = categoryAircraft.aircraftTypeId;
 
