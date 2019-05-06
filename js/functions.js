@@ -36,7 +36,6 @@ var displayAircraftShows = true;
 var userSimulation = false;
 var aircraftData = null;
 var appLoaded = false;
-var notificationsDB = null;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -1026,27 +1025,17 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
 }
 
 function isLocationRegistered(locationId) {
-    return locations[locationId].notify;
+    return isSubscribed(locationId);
 }
 
 function registerToNotifications(pointId) {
-    if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({
-                action: "registerToLocation",
-                locationId: pointId,
-            });
-        locations[pointId].notify = true;
-    }
+    subscribe(pointId);
+    locations[pointId].notify = true;
 }
 
 function unregisterNotificationsForLocation(pointId) {
-    if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({
-            action: "unregisterLocation",
-            locationId: pointId,
-        });
-        locations[pointId].notify = false;
-    }
+    unsubscribe(pointId);
+    locations[pointId].notify = false;
 }
 
 function deselectAircraft(callback) {
@@ -1291,7 +1280,6 @@ function onLoad() {
                         updateLocationsMap(aircrafts);
                         fillMenu();
                         scheduleConfirmationPopup();
-                        popuplateNotificationsDB();
                     });
                 }, this);
 
@@ -1863,60 +1851,6 @@ function scheduleConfirmationPopup() {
         }
     }
 }
-
-function popuplateNotificationsDB() {
-    console.log("popuplateNotificationsDB");
-    if (indexedDB) {
-        var request = indexedDB.open('notifications', 1);
-
-        request.onerror = function (event) {
-            // Do something with request.errorCode!
-        };
-        request.onupgradeneeded = function (event) {
-            notificationsDB = event.target.result;
-            if (!notificationsDB.objectStoreNames.contains('locations')) {
-                let locationsObjectStore = notificationsDB.createObjectStore('locations', {keyPath: 'pointId'});
-                let myRegisteredLocationsObjectStore = notificationsDB.createObjectStore('registered_locations', {keyPath: 'pointId'});
-
-                // Use transaction oncomplete to make sure the objectStore creation is
-                // finished before adding data into it.
-            }
-        };
-        request.onsuccess = function (event) {
-            // update locations list
-            notificationsDB = event.target.result;
-            let notificationsObjectStore = notificationsDB.transaction("locations", "readwrite").objectStore("locations");
-            notificationsObjectStore.clear();
-            locations.forEach(function(location) {
-                // check when is the first air show and when is the first flight in that loocation
-                let aerobaticShows = location.aircrafts.filter(aircraft => aircraft.name === "עפרוני" && (aircraft.specialInAircraft === "מופעים אוויריים" || aircraft.specialInPath === "מופעים אוויריים"));
-                let airShows = location.aircrafts.filter(aircraft => aircraft.name !== "עפרוני" &&  (aircraft.specialInAircraft === "מופעים אוויריים" || aircraft.specialInPath === "מופעים אוויריים"));
-                let flight = location.aircrafts.filter(aircraft => !aircraft.specialInAircraft);
-                if (aerobaticShows.length > 0) {
-                    location.firstAerobaticShow = getActualPathTime(aerobaticShows[0].date, aerobaticShows[0].time);
-                }
-                if (airShows.length > 0) {
-                    location.firstAirShow = getActualPathTime(airShows[0].date, airShows[0].time);
-                }
-                if (flight.length > 0) {
-                    location.firstFlight = getActualPathTime(flight[0].date, flight[0].time);
-                }
-
-                notificationsObjectStore.add(location);
-            });
-
-            // check current notification registration
-            let registrationObjectStore = notificationsDB.transaction("registered_locations", "readonly").objectStore("registered_locations");
-            registrationObjectStore.getAll().onsuccess = function(event) {
-                registredlocations = event.target.result;
-                registredlocations.forEach((registeredLocation) => {
-                    locations[registeredLocation.pointId].notify = true;
-                });
-            };
-        };
-    }
-}
-
 
 function initMap() {
     mapAPI.loadPlugins(() =>

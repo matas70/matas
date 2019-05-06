@@ -41,3 +41,59 @@ function registerToFirebaseNotifications() {
     });
 }
 
+function subscribe(pointId) {
+    const messaging = firebase.messaging();
+    const functions = firebase.app().functions('europe-west1');
+
+    const subscribeToTopic = functions.httpsCallable('subscribeToTopic');
+
+    messaging.requestPermission().then(async () => {
+        let topicName = "point-"+pointId;
+
+        if (localStorage.getItem(topicName)) {
+            return;
+        }
+
+        let token = await messaging.getToken();
+        subscribeToTopic({
+            "token": token,
+            "topic": topicName
+        }).then(function () {
+            localStorage.setItem(topicName, true);
+            console.log("subscribed to " + topicName);
+        });
+    }).catch(function (err) {
+        console.log(err);
+    });
+}
+
+function unsubscribe(pointId) {
+    const messaging = firebase.messaging();
+    const functions = firebase.app().functions('europe-west1');
+
+    const unsubscribeToTopic = functions.httpsCallable('unsubscribeToTopic');
+
+    messaging.requestPermission().then(async () => {
+        let topicName = "point-"+pointId;
+
+        if (localStorage.getItem(topicName) !== "true") {
+            return;
+        }
+
+        let token = await messaging.getToken();
+        unsubscribeToTopic({
+            "token": token,
+            "topic": topicName
+        }).then(function () {
+            localStorage.setItem(topicName, true);
+            console.log("unsubscribed from " + topicName);
+        });
+    }).catch(function (err) {
+        console.log(err);
+    });
+}
+
+function isSubscribed(pointId) {
+    let topicName = "point-"+pointId;
+    return localStorage.getItem(topicName);
+}
