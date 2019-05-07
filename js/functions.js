@@ -1770,8 +1770,7 @@ function fillMenu() {
                     })
                     .filter(categoryAircraft =>
                                      categoryAircraft.path.find(point =>
-                                            (point.date && new Date(point.date) > new Date()) ||
-                                            (!point.date)));
+                                            getCurrentTime() <= convertTime(point.date, point.time)));
             if (categoryAircrafts.length > 0) {
                 html += createCategoryRow(category, category.special);
                 var prevAircraftTypeId = -1;
