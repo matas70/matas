@@ -280,9 +280,9 @@
         },
         {
           "hidden": true,
-          "hideAircrafts": false,
+          "hideAircrafts": true,
           "pointId": 123,
-          "E": "3457.152",
+          "E": "3457.151",
           "N": "3247.547",
           "pointName": "חיפה 2",
           "pointLocation": "",
@@ -369,9 +369,9 @@
         },
         {
           "hidden": true,
-          "hideAircrafts": false,
+          "hideAircrafts": true,
           "pointId": 122,
-          "E": "3445.745",
+          "E": "3445.744",
           "N": "3204.684",
           "pointName": "תל אביב 2",
           "pointLocation": "",
