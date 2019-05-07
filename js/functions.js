@@ -604,7 +604,7 @@ var selectedAircraftMarkerIcon = null;
 
 function onAboutButtonClick() {
     previousHash.push(aboutHash);
-    window.location.hash(aboutHash);
+    window.location.hash = aboutHash;
 
     deselectAircraft();
     deselectLocation();
@@ -1083,8 +1083,8 @@ function resizeAircraftNameIfNeeded() {
 }
 
 function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl, collapse, showAllPoints = false) {
-    previousHash.push("#aircraftSelected");
-    window.location.hash = "#aircraftSelected";
+    previousHash.push(aircraftSelectedHash);
+    window.location.hash = aircraftSelectedHash;
 
     globalCollapse = collapse;
     deselectLocation();
@@ -1643,7 +1643,7 @@ window.onhashchange = (e) => {
         $("#shrinkAircraftInfoPopup").click();
         hideAircraftInfoPopup();
         if (currentHash !== menuHash) {
-            previousHash.pop();    
+            previousHash.pop();
         }
     } else if (previousHashValue === aircraftSelectedHash &&
                currentHash !== aircraftSelectedHash &&
