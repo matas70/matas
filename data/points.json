@@ -1372,5 +1372,17 @@
     "wazeLink": "",
     "activeTimes": "",
     "exhibitions": ""
+  },
+  {
+    "hidden": false,
+    "hideAircrafts": false,
+    "pointId": 128,
+    "E": "3432.375",
+    "N": "3134.408",
+    "pointName": "נתיב העשרה",
+    "pointLocation": "",
+    "wazeLink": "",
+    "activeTimes": "",
+    "exhibitions": ""
   }
 ]

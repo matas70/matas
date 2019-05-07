@@ -652,7 +652,7 @@
           "exhibitions": ""
         },
         {
-          "hidden": false,
+          "hidden": true,
           "hideAircrafts": false,
           "pointId": 48,
           "E": "3437.247",
@@ -663,7 +663,7 @@
           "activeTimes": ""
         },
         {
-          "hidden": false,
+          "hidden": true,
           "hideAircrafts": false,
           "pointId": 49,
           "E": "3435.225",
@@ -674,7 +674,7 @@
           "activeTimes": ""
         },
         {
-          "hidden": false,
+          "hidden": true,
           "hideAircrafts": false,
           "pointId": 50,
           "E": "3436.046",
@@ -1019,6 +1019,17 @@
         {
           "hidden": false,
           "hideAircrafts": false,
+          "pointId": 75,
+          "E": "3448.984",
+          "N": "3122.350",
+          "pointName": "להבים",
+          "pointLocation": "מרכז ישוב",
+          "wazeLink": "",
+          "activeTimes": ""
+        },
+        {
+          "hidden": false,
+          "hideAircrafts": false,
           "pointId": 127,
           "E": "3446.515",
           "N": "3123.665",
@@ -1027,17 +1038,6 @@
           "wazeLink": "",
           "activeTimes": "",
           "exhibitions": ""
-        },
-        {
-          "hidden": false,
-          "hideAircrafts": false,
-          "pointId": 75,
-          "E": "3448.984",
-          "N": "3122.350",
-          "pointName": "להבים",
-          "pointLocation": "מרכז ישוב",
-          "wazeLink": "",
-          "activeTimes": ""
         },
         {
           "hidden": false,
@@ -1095,7 +1095,7 @@
           "activeTimes": ""
         },
         {
-          "hidden": false,
+          "hidden": true,
           "hideAircrafts": false,
           "pointId": 80,
           "E": "3427.517",
@@ -1106,7 +1106,7 @@
           "activeTimes": ""
         },
         {
-          "hidden": false,
+          "hidden": true,
           "hideAircrafts": false,
           "pointId": 81,
           "E": "3425.598",
@@ -1117,7 +1117,7 @@
           "activeTimes": ""
         },
         {
-          "hidden": false,
+          "hidden": true,
           "hideAircrafts": false,
           "pointId": 82,
           "E": "3424.459",
@@ -1515,7 +1515,7 @@
       "secondaryTextColor": "64e1a5",
       "visible": true,
       "points": [{
-        "hidden": true,
+        "hidden": false,
         "hideAircrafts": false,
         "pointId": 82,
         "E": "3424.459",
@@ -1524,19 +1524,31 @@
         "pointLocation": "מרכז ישוב",
         "wazeLink": "",
         "activeTimes": ""
-      },{
-        "hidden": true,
-        "hideAircrafts": false,
-        "pointId": 80,
-        "E": "3427.517",
-        "N": "3123.085",
-        "pointName": "רעים",
-        "pointLocation": "מרכז ישוב",
-        "wazeLink": "",
-        "activeTimes": ""
+      },
+        {
+          "hidden": false,
+          "hideAircrafts": false,
+          "pointId": 81,
+          "E": "3425.598",
+          "N": "3117.924",
+          "pointName": "מגן",
+          "pointLocation": "מרכז ישוב",
+          "wazeLink": "",
+          "activeTimes": ""
         },
         {
-          "hidden": true,
+          "hidden": false,
+          "hideAircrafts": false,
+          "pointId": 80,
+          "E": "3427.517",
+          "N": "3123.085",
+          "pointName": "רעים",
+          "pointLocation": "מרכז ישוב",
+          "wazeLink": "",
+          "activeTimes": ""
+        },
+        {
+          "hidden": false,
           "hideAircrafts": false,
           "pointId": 48,
           "E": "3437.247",
@@ -1547,7 +1559,7 @@
           "activeTimes": ""
         },
         {
-          "hidden": true,
+          "hidden": false,
           "hideAircrafts": false,
           "pointId": 49,
           "E": "3435.225",
@@ -1558,7 +1570,7 @@
           "activeTimes": ""
         },
         {
-          "hidden": true,
+          "hidden": false,
           "hideAircrafts": false,
           "pointId": 50,
           "E": "3436.046",
@@ -1567,6 +1579,18 @@
           "pointLocation": "מרכז ישוב",
           "wazeLink": "",
           "activeTimes": ""
+        },
+        {
+          "hidden": false,
+          "hideAircrafts": false,
+          "pointId": 128,
+          "E": "3432.375",
+          "N": "3134.408",
+          "pointName": "נתיב העשרה",
+          "pointLocation": "",
+          "wazeLink": "",
+          "activeTimes": "",
+          "exhibitions": ""
         }
       ]
     }
