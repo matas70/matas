@@ -77,8 +77,8 @@ function initPopups() {
 }
 
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized = false, closeCallback) {
-    window.location.hash = "#locationPopup";
-    previousHash.push("#locationPopup");
+    window.location.hash = locationPopupHash;
+    previousHash.push(locationPopupHash);
 
     locationPopupCloseCallback = closeCallback;
 
@@ -432,7 +432,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
         $("#aircraftInfoMore").on("click", function () {
             window.location.hash = "#moreInfo";
             previousHash.push("#moreInfo");
-            
+
             toggleAircraftContentSeparator(true);
             $("#aircraftInfoButton").click();
             var height = $(window).height();

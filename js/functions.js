@@ -1248,6 +1248,7 @@ var aircraftSelectedHash = "#aircraftSelected";
 var aboutHash = "#about";
 var locationsHash = "#locations";
 var mainHash = "#main";
+var menuHash = "#menu";
 var aircraftHash = "#aircraft";
 
 function onLoad() {
@@ -1615,13 +1616,14 @@ window.onhashchange = (e) => {
     if (currentHash === "/" && previousHashValue !== "/") {
         closeAllPopups();
     }
+
     // Should close the menu
-    else if ((previousHashValue === mainHash || previousHashValue === locationsHash) && currentHash === mainHash) {
+    else if ((previousHashValue === menuHash || previousHashValue === locationsHash) && currentHash === mainHash) {
         $("#menuHamburger").click();
     } else if (previousHashValue === locationsHash && currentHash === aircraftHash) {
         // Should toggle between locations and aircraft
         $("#aircraftLink").click();
-    } else if (previousHashValue === aircraftHash && (currentHash === locationsHash || currentHash === mainHash)) {
+    } else if (previousHashValue === aircraftHash && (currentHash === locationsHash || currentHash === menuHash)) {
         // Should toggle between aircraft and locations
         $("#locationsLink").click();
     } else if (previousHashValue === aboutHash && currentHash !== aboutHash) {
