@@ -1062,8 +1062,6 @@ function selectInfoButtonWithoutClicking() {
 }
 
 function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllPoints = false) {
-    previousHash.push("#aircraftSelected");
-    window.location.hash = "#aircraftSelected";
     var aircraft = aircrafts[aircraftId-1];
     window.scrollTo(0,1);
 
@@ -1088,6 +1086,9 @@ function resizeAircraftNameIfNeeded() {
 }
 
 function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl, collapse, showAllPoints = false) {
+    previousHash.push("#aircraftSelected");
+    window.location.hash = "#aircraftSelected";
+    
     globalCollapse = collapse;
     deselectLocation();
     showAircraftInfoPopup(aircraft, collapse);
