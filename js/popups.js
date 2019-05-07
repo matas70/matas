@@ -221,7 +221,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     $("#aircraftListContainer").scrollTop(0);
 
     // add register to notifications if available
-    if (areNotificationsPossible()) {
+    if (areNotificationsPossible() && getAllPointsWithShows().includes(point.pointId)) {
         $("#registerToLocationNotifcations").show();
         if (isLocationRegistered(point.pointId)) {
             $('#registerCheckbox').prop('checked', true);
@@ -266,6 +266,9 @@ function hideLocationPopup(callback) {
             callback.call(this);
     });
     $("#aircraftListContainer").animate({height: "150px"}, "fast");
+
+    window.location.hash = mainHash;
+    previousHash.push(mainHash);
 }
 
 function removeDuplicatesBy(keyFn, array) {
@@ -430,7 +433,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
         // Lots of code to set the correct state of html elements according to collapse/extended
         toggleAircraftContentSeparator(false);
         $("#aircraftInfoMore").on("click", function () {
-            window.location.hash = "#moreInfo";
+            window.location.hash = moreInfoHash;
             previousHash.push(moreInfoHash);
 
             toggleAircraftContentSeparator(true);
@@ -499,6 +502,11 @@ function hideAircraftInfoPopup(callback) {
     $("#aircraftInfoPopup").css('height', 'auto');
     $('.aircraftTabs #aircraftInfoContent').show().siblings().hide();
     $("#aircraftInfoName").css('font-size', "");
+
+    if (!isMenuOpen) {
+        window.location.hash = mainHash;
+        previousHash.push(mainHash);
+    }
 }
 
 function hidePopup(popup, callback) {
