@@ -1088,7 +1088,7 @@ function resizeAircraftNameIfNeeded() {
 function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, imageName, time, infoUrl, collapse, showAllPoints = false) {
     previousHash.push("#aircraftSelected");
     window.location.hash = "#aircraftSelected";
-    
+
     globalCollapse = collapse;
     deselectLocation();
     showAircraftInfoPopup(aircraft, collapse);
@@ -1251,12 +1251,17 @@ var locationsHash = "#locations";
 var mainHash = "#main";
 var menuHash = "#menu";
 var aircraftHash = "#aircraft";
+var mapHash = "#map";
 
 function onLoad() {
     if (compatibleDevice() && !checkIframe()) {
         // For back button handling
         previousHash.push(mainHash);
-        window.location.hash = mainHash;
+        previousHash.push(mapHash);
+        window.location.hash = mapHash;
+        setTimeout(() => {
+            window.location.hash = mainHash;
+        }, 100);
 
         // if we are on online mode and it is taking too long to load - switch to offline
         if (!($.urlParam("offline")==="true")) {
@@ -1634,7 +1639,7 @@ window.onhashchange = (e) => {
             aboutVisible = false;
         }
     // Aircraft info popup section
-    } else if (previousHashValue === aircraftSelectedHash &&
+    } else if ((previousHashValue === aircraftSelectedHash || previousHashValue === "#aircraftInfoContent") &&
                currentHash !== aircraftSelectedHash &&
                currentHash !== aircraftInfoContentHash &&
                currentHash !== aircraftScheduleContentHash) {
