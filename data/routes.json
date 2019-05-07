@@ -996,6 +996,18 @@
         {
           "hidden": false,
           "hideAircrafts": false,
+          "pointId": 126,
+          "E": "3505.262",
+          "N": "3115.604",
+          "pointName": "כסיפה",
+          "pointLocation": "",
+          "wazeLink": "",
+          "activeTimes": "",
+          "exhibitions": ""
+        },
+        {
+          "hidden": false,
+          "hideAircrafts": false,
           "pointId": 74,
           "E": "3456.291",
           "N": "3119.664",
@@ -1003,6 +1015,18 @@
           "pointLocation": "מרכז ישוב",
           "wazeLink": "",
           "activeTimes": ""
+        },
+        {
+          "hidden": false,
+          "hideAircrafts": false,
+          "pointId": 127,
+          "E": "3446.515",
+          "N": "3123.665",
+          "pointName": "רהט",
+          "pointLocation": "",
+          "wazeLink": "",
+          "activeTimes": "",
+          "exhibitions": ""
         },
         {
           "hidden": false,
@@ -1213,6 +1237,17 @@
           "pointName": "בית שמש",
           "pointLocation": "מרכז ישוב",
           "wazeLink": "",
+          "activeTimes": ""
+        },
+        {
+          "hidden": true,
+          "hideAircrafts": false,
+          "pointId": 40,
+          "E": "3512.496",
+          "N": "3146.733",
+          "pointName": "ירושלים",
+          "pointLocation": "גן סאקר",
+          "wazeLink": "https://www.waze.com/ul?ll=31.78060000%2C35.20770000&navigate=yes&zoom=16",
           "activeTimes": ""
         },
         {
@@ -1469,6 +1504,69 @@
           "wazeLink": "",
           "activeTimes": "",
           "exhibitions": ""
+        }
+      ]
+    },
+    {
+      "routeId": 5,
+      "name": "מסלול עוטף עזה",
+      "color": "f64b58",
+      "primaryTextColor": "ffffff",
+      "secondaryTextColor": "64e1a5",
+      "visible": true,
+      "points": [{
+        "hidden": true,
+        "hideAircrafts": false,
+        "pointId": 82,
+        "E": "3424.459",
+        "N": "3114.816",
+        "pointName": "מיבטחים",
+        "pointLocation": "מרכז ישוב",
+        "wazeLink": "",
+        "activeTimes": ""
+      },{
+        "hidden": true,
+        "hideAircrafts": false,
+        "pointId": 80,
+        "E": "3427.517",
+        "N": "3123.085",
+        "pointName": "רעים",
+        "pointLocation": "מרכז ישוב",
+        "wazeLink": "",
+        "activeTimes": ""
+        },
+        {
+          "hidden": true,
+          "hideAircrafts": false,
+          "pointId": 48,
+          "E": "3437.247",
+          "N": "3118.568",
+          "pointName": "אופקים",
+          "pointLocation": "מרכז ישוב",
+          "wazeLink": "",
+          "activeTimes": ""
+        },
+        {
+          "hidden": true,
+          "hideAircrafts": false,
+          "pointId": 49,
+          "E": "3435.225",
+          "N": "3125.135",
+          "pointName": "נתיבות",
+          "pointLocation": "מרכז ישוב",
+          "wazeLink": "",
+          "activeTimes": ""
+        },
+        {
+          "hidden": true,
+          "hideAircrafts": false,
+          "pointId": 50,
+          "E": "3436.046",
+          "N": "3131.427",
+          "pointName": "שדרות",
+          "pointLocation": "מרכז ישוב",
+          "wazeLink": "",
+          "activeTimes": ""
         }
       ]
     }
