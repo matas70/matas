@@ -431,7 +431,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
         toggleAircraftContentSeparator(false);
         $("#aircraftInfoMore").on("click", function () {
             window.location.hash = "#moreInfo";
-            previousHash.push("#moreInfo");
+            previousHash.push(moreInfoHash);
 
             toggleAircraftContentSeparator(true);
             $("#aircraftInfoButton").click();
@@ -739,8 +739,8 @@ function createClusterLocationRow(location) {
 }
 
 function openMapClusterPopup(arrayOfObjects) {
-    window.location.hash = "#cluster";
-    previousHash.push("#cluster");
+    window.location.hash = clusterHash;
+    previousHash.push(clusterHash);
     getMapDarker();
     closeAllPopups();
 
