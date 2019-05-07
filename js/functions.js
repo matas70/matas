@@ -534,6 +534,9 @@ function loadAircrafts(callback) {
                         aircraft[field]=aircraftTypeInfo[field];
                 }
 
+                // sort aircraft path by time
+                aircraft.path.sort((point1, point2) => convertTime(point1.date, point1.time) - convertTime(point2.date, point2.time));
+
                 // update times of all flights
                 if (!aircraft.hide && aircraft.path.length > 0 && !aircraft.special) {
                     aircraftFlightTime = convertTime(aircraft.path[0].date, aircraft.path[0].time);

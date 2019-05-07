@@ -296,7 +296,7 @@ function fillAircraftSchedule(aircraft, showAllPoints = false) {
                                          .map(relevantAircraft => relevantAircraft.path)))
                 .sort((point1, point2) => locations[point1.pointId].pointName.localeCompare(locations[point2.pointId].pointName));
     } else {
-        aircraftPath = aircraft.path.sort((point1, point2) => Date.parse(point1.time) - Date.parse(point2.time))
+        aircraftPath = aircraft.path;
     }
 
     aircraftPath.forEach(location => {
