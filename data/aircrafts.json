@@ -1549,7 +1549,7 @@
           "special": "מופעים אוויריים"
         }
       ],
-      "hide": false,
+      "hide": true,
       "aircraftId": 14,
       "aircraftTypeId": 25,
       "special": ""
