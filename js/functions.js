@@ -359,8 +359,7 @@ function getHtmlWithAerobaticGlow(originalMarkerHtml) {
 
 var aerobaticShows = {};
 
-function glowOnPoint(location) {
-    let timeOfAerobaticShow = 10  * 60 *  1000;
+function glowOnPoint(location, timeOfAerobaticShow) {
     if ($.urlParam("ff") === "true") timeOfAerobaticShow = timeOfAerobaticShow / 60;
 
     var relevantMarker = markersMap[location.pointId];
@@ -392,11 +391,6 @@ function scheduleAerobaticNotifications(notificationBody, item, location, time) 
             showBasePopup(item.aerobatic, 5, location.pointName);
         }, timeToNotify);
     }
-
-    // schedule aerobatic indication when the show starts
-    setTimeout(() => {
-        glowOnPoint(location);
-    }, time);
 }
 
 var aerobaticNotificationsHandler = null;
@@ -425,11 +419,19 @@ function updateLocationsMap(aircrafts) {
 
             location.hideAircrafts = locations[location.pointId].hideAircrafts;
             var location = locations[location.pointId];
-            if (displayAircraftShows && (item.aerobatic || item.parachutist)) {
+            if (displayAircraftShows && (item.aerobatic || item.parachutist || item.specialInPath === "מופעים אוויריים" || item.specialInAircraft === "מופעים אוויריים")) {
                 var timeout = convertTime(item.date, item.time) - getCurrentTime() + actualStartTime - plannedStartTime;
                 var notificationBody = `${getEventName(item.aerobatic)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
                 if (!userSimulation && timeout > 0) {
                     scheduleAerobaticNotifications(notificationBody, item, location, timeout);
+                }
+                const timeOfAerobaticShow = 10  * 60 *  1000;
+                if (!userSimulation && timeout > -timeOfAerobaticShow) {
+                    // schedule aerobatic indication when the show starts, if the show already start the glow will start within 5 seconds
+                    // (to allow the map to load and create the markers)
+                    setTimeout(() => {
+                        glowOnPoint(location, timeOfAerobaticShow+Math.min(timeout,0));
+                    }, Math.max(timeout,5000));
                 }
             }
 
@@ -533,6 +535,9 @@ function loadAircrafts(callback) {
                     for(var field in aircraftTypeInfo)
                         aircraft[field]=aircraftTypeInfo[field];
                 }
+
+                // sort aircraft path by time
+                aircraft.path.sort((point1, point2) => convertTime(point1.date, point1.time) - convertTime(point2.date, point2.time));
 
                 // update times of all flights
                 if (!aircraft.hide && aircraft.path.length > 0 && !aircraft.special) {
@@ -2040,6 +2045,10 @@ function isPointAerobatic(pointId) {
     }
 
     return aerobaticPoints.includes(pointId);
+}
+
+function isAircraftAerobatic(aircraftId) {
+    return (aircrafts[aircraftId].aerobatic || aircrafts[aircraftId].specialInPath === "מופעים אוויריים")
 }
 
 function getEventName(isAerobatics) {
