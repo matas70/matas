@@ -1638,7 +1638,7 @@ window.onhashchange = (e) => {
                currentHash !== aircraftInfoContentHash &&
                currentHash !== aircraftScheduleContentHash) {
         $("#shrinkAircraftInfoPopup").click();
-        $("#aircraftInfoPopup").hide();
+        hideAircraftInfoPopup();
     } else if (previousHashValue === aircraftInfoContentHash && (currentHash === aircraftScheduleContentHash || currentHash === aircraftSelectedHash)) {
         $("#aircraftScheduleButton").click();
     } else if (previousHashValue === aircraftScheduleContentHash && (currentHash === aircraftInfoContentHash || currentHash === aircraftSelectedHash)) {
