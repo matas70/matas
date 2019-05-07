@@ -505,7 +505,7 @@ function loadActualStartTime() {
     });
 
     // run simulation until 6 hours before the actual flight.
-    // if (actualStartTime - currentTime > 6 * 60 * 60 * 1000 && !isRehearsalActive) {
+    if (actualStartTime - currentTime > 6 * 60 * 60 * 1000 && !isRehearsalActive) {
         // start a simulation between 15 minutes after the first aircraft and 15 minutes before the last landing time.
         userSimulation = true;
         var simulationLength = (lastFlightTime - 15 * 60 * 1000) - (firstFlightTime + 15 * 60 * 1000);
@@ -1960,7 +1960,7 @@ function initGenericPopups() {
         }
 
         setTimeout(() => {
-            showGenericPopup("נתראה בשנה הבאה!", `מקווים שנהניתם מהמטס. <br> חג עצמאות שמח! :)`, "flightEndIcon");    
+            showGenericPopup("נתראה בשנה הבאה!", `מקווים שנהניתם מהמטס. <br> חג עצמאות שמח! :)`, "flightEndIcon");
         }, timeToFlightEnd);
     }
 
