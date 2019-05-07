@@ -603,7 +603,9 @@ var selectedAircraftMarker = null;
 var selectedAircraftMarkerIcon = null;
 
 function onAboutButtonClick() {
-    previousHash.push("#about");
+    previousHash.push(aboutHash);
+    window.location.hash(aboutHash);
+
     deselectAircraft();
     deselectLocation();
     if (!aboutVisible) {
@@ -1619,7 +1621,7 @@ window.onhashchange = (e) => {
     }
 
     // Should close the menu
-    else if ((previousHashValue === menuHash || previousHashValue === locationsHash) && currentHash === mainHash) {
+    else if ((previousHashValue === menuHash || previousHashValue === locationsHash) && (currentHash === mainHash || currentHash === "/")) {
         $("#menuHamburger").click();
     } else if (previousHashValue === locationsHash && currentHash === aircraftHash) {
         // Should toggle between locations and aircraft
@@ -1634,16 +1636,25 @@ window.onhashchange = (e) => {
             aboutVisible = false;
         }
     // Aircraft info popup section
-    } else if ((previousHashValue === aircraftSelectedHash || previousHashValue === "#aircraftInfoContent") &&
+    } else if ((previousHashValue === aircraftSelectedHash || previousHashValue === aircraftInfoContentHash) &&
                currentHash !== aircraftSelectedHash &&
                currentHash !== aircraftInfoContentHash &&
-               currentHash !== aircraftScheduleContentHash) {
+               currentHash !== aircraftScheduleContentHash && globalCollapse) {
         $("#shrinkAircraftInfoPopup").click();
         hideAircraftInfoPopup();
-        previousHash.pop();
-    } else if (previousHashValue === aircraftInfoContentHash && (currentHash === aircraftScheduleContentHash || currentHash === aircraftSelectedHash)) {
+        if (currentHash !== menuHash) {
+            previousHash.pop();    
+        }
+    } else if (previousHashValue === aircraftSelectedHash &&
+               currentHash !== aircraftSelectedHash &&
+               currentHash !== mainHash && !globalCollapse) {
+        hideAircraftInfoPopup();
+    } else if (previousHashValue === aircraftInfoContentHash && currentHash === aircraftSelectedHash) {
+        hideAircraftInfoPopup();
+    } else if (previousHashValue === aircraftInfoContentHash && (currentHash === aircraftScheduleContentHash)) {
+//      || currentHash === aircraftSelectedHash)) {
         $("#aircraftScheduleButton").click();
-    } else if (previousHashValue === aircraftScheduleContentHash && (currentHash === aircraftInfoContentHash || currentHash === aircraftSelectedHash)) {
+    } else if (previousHashValue === aircraftScheduleContentHash && (currentHash === aircraftInfoContentHash || currentHash === aircraftSelectedHash || currentHash === moreInfoHash)) {
         $("#aircraftInfoButton").click();
     } else if (previousHashValue === moreInfoHash && currentHash !== moreInfoHash) {
         $("#shrinkAircraftInfoPopup").click();
@@ -2008,6 +2019,19 @@ function closeEntrancePopup() {
 
 function getAerobaticsPoints(){
     return [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic).map(aircraftObj => aircraftObj.path.map(point => point.pointId)));
+}
+
+var pointsWithShows = [];
+
+function getAllPointsWithShows() {
+    if (!pointsWithShows) {
+        pointsWithShows = [].concat.apply([], aircrafts.filter(aircraft => {
+            return (aircraft.aerobatic || aircraft.specialInPath ||
+                    aircraft.special === "מופעים אוויריים");
+        }).map(aircraftObj => aircraftObj.path.map(point => point.pointId)));
+    }
+
+    return pointsWithShows;
 }
 
 function isPointAerobatic(pointId) {
