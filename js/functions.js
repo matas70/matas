@@ -603,6 +603,7 @@ var selectedAircraftMarker = null;
 var selectedAircraftMarkerIcon = null;
 
 function onAboutButtonClick() {
+    previousHash.push("#about");
     deselectAircraft();
     deselectLocation();
     if (!aboutVisible) {
@@ -1061,6 +1062,8 @@ function selectInfoButtonWithoutClicking() {
 }
 
 function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllPoints = false) {
+    previousHash.push("#aircraftSelected");
+    window.location.hash = "#aircraftSelected";
     var aircraft = aircrafts[aircraftId-1];
     window.scrollTo(0,1);
 
@@ -1235,9 +1238,25 @@ function getRemainingSeconds(date) {
 
 
 var countdownInterval;
+var previousHash = [mainHash];
+var locationPopupHash = "#locationPopup";
+var clusterHash = "#cluster";
+var moreInfoHash = "#moreInfo";
+var aircraftScheduleContentHash = "#aircraftScheduleContent";
+var aircraftInfoContentHash = "#aircraftInfoContent";
+var aircraftSelectedHash = "#aircraftSelected";
+var aboutHash = "#about";
+var locationsHash = "#locations";
+var mainHash = "#main";
+var menuHash = "#menu";
+var aircraftHash = "#aircraft";
 
 function onLoad() {
     if (compatibleDevice() && !checkIframe()) {
+        // For back button handling
+        previousHash.push(mainHash);
+        window.location.hash = mainHash;
+
         // if we are on online mode and it is taking too long to load - switch to offline
         if (!($.urlParam("offline")==="true")) {
             setTimeout(() => {
@@ -1584,6 +1603,58 @@ function initSearchBar() {
 
 var currentAttrValue;
 var tabsHeight;
+var attemptToExit = false;
+
+window.onhashchange = (e) => {
+    var currentHash = e.newURL.substr(e.newURL.lastIndexOf("#"), e.newURL.length);
+    var previousHashValue = previousHash.pop();
+
+    if (currentHash === previousHashValue) {
+        previousHash.push(previousHashValue);
+    }
+
+    if (currentHash === "/" && previousHashValue !== "/") {
+        closeAllPopups();
+    }
+
+    // Should close the menu
+    else if ((previousHashValue === menuHash || previousHashValue === locationsHash) && currentHash === mainHash) {
+        $("#menuHamburger").click();
+    } else if (previousHashValue === locationsHash && currentHash === aircraftHash) {
+        // Should toggle between locations and aircraft
+        $("#aircraftLink").click();
+    } else if (previousHashValue === aircraftHash && (currentHash === locationsHash || currentHash === menuHash)) {
+        // Should toggle between aircraft and locations
+        $("#locationsLink").click();
+    } else if (previousHashValue === aboutHash && currentHash !== aboutHash) {
+        if (aboutVisible) {
+            previousHash.push(mainHash);
+            $("#aboutPopup").fadeOut();
+            aboutVisible = false;
+        }
+    // Aircraft info popup section
+    } else if (previousHashValue === aircraftSelectedHash &&
+               currentHash !== aircraftSelectedHash &&
+               currentHash !== aircraftInfoContentHash &&
+               currentHash !== aircraftScheduleContentHash) {
+        $("#shrinkAircraftInfoPopup").click();
+        hideAircraftInfoPopup();
+    } else if (previousHashValue === aircraftInfoContentHash && (currentHash === aircraftScheduleContentHash || currentHash === aircraftSelectedHash)) {
+        $("#aircraftScheduleButton").click();
+    } else if (previousHashValue === aircraftScheduleContentHash && (currentHash === aircraftInfoContentHash || currentHash === aircraftSelectedHash)) {
+        $("#aircraftInfoButton").click();
+    } else if (previousHashValue === moreInfoHash && currentHash !== moreInfoHash) {
+        $("#shrinkAircraftInfoPopup").click();
+    }
+    // Cluster section
+    else if (previousHashValue === clusterHash && currentHash !== clusterHash) {
+        closeAllPopups();
+    }
+    // Location popup
+    else if (previousHashValue === locationPopupHash && currentHash !== locationPopupHash) {
+        closeAllPopups();
+    }
+};
 
 function initMenu() {
     $menuHamburger = $("#menuHamburger");
@@ -1608,8 +1679,9 @@ function initMenu() {
         $(".menuLink").removeClass("active");
         $(elem.target).addClass("active");
         currentAttrValue = $(this).attr('href');
+        previousHash.push(currentAttrValue);
         if (currMenuTab != currentAttrValue) {
-            $("hr").toggleClass("two")
+            $("hr").toggleClass("two");
         }
 
         currMenuTab = currentAttrValue;
@@ -1626,6 +1698,8 @@ function initMenu() {
 }
 
 function openMenu() {
+    // For back button handling
+    previousHash.push("#menu");
     $("#listView").css({ "transform": "translateX(0)" });
     isMenuOpen = true;
     setTimeout(function () {
@@ -1634,6 +1708,7 @@ function openMenu() {
 }
 
 function closeMenu() {
+    previousHash.push("#main");
     $("#listView").css({ "transform": "translateX(100%)" });
     isMenuOpen = false;
     setTimeout(function () {

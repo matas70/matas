@@ -23,6 +23,15 @@
 
     <link rel="manifest" href="manifest.json">
 
+    <script src="js/leaflet/leaflet.js"></script>
+    <script src="js/date.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/leaflet-map.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/popups.js"></script>
+    <script src="js/RotateIcon.js"></script>
+    <script src="js/firebaseInteraction.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
     <script>
@@ -32,30 +41,29 @@
         gtag('config', 'UA-98360124-1');
     </script>
     <script>
-        function loadScripts() {
-            $.when(
-                $.getScript("js/leaflet/leaflet.js"),
-                $.getScript("js/date.js"),
-                $.getScript("js/map.js"),
-                $.getScript("js/leaflet-map.js"),
-                $.getScript("js/leaflet/leaflet.js"),
-                $.getScript("js/popups.js"),
-                $.getScript("js/RotateIcon.js"),
-                $.getScript("js/utils.js"),
-                $.getScript("js/firebaseInteraction.js"),
-
-                $.Deferred(function( deferred ){
-                    $( deferred.resolve );
-                })
-            ).done(function(){
-                $.getScript("js/functions.js").then(()=>{
-                    onLoad();
-                });
-            });
-        }
+        // function loadScripts() {
+        //     $.when(
+        //         $.getScript("js/leaflet/leaflet.js"),
+        //         $.getScript("js/date.js"),
+        //         $.getScript("js/map.js"),
+        //         $.getScript("js/leaflet-map.js"),
+        //         $.getScript("js/leaflet/leaflet.js"),
+        //         $.getScript("js/popups.js"),
+        //         $.getScript("js/RotateIcon.js"),
+        //         $.getScript("js/utils.js"),
+        //
+        //         $.Deferred(function( deferred ){
+        //             $( deferred.resolve );
+        //         })
+        //     ).done(function(){
+        //         $.getScript("js/functions.js").then(()=>{
+        //             onLoad();
+        //         });
+        //     });
+        // }
     </script>
 </head>
-<body onload="loadScripts()" class="body">
+<body onload="onLoad()" class="body">
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-functions.js"></script>
@@ -67,16 +75,16 @@
             <!--<a href="javascript:void(0)" onclick="onAboutButtonClick()">-->
             <!--<img id="aboutButton" src="icons/aboutIcon.png"/>-->
             <!--</a>-->
-            <div id="menuHamburger" class="hamburger hamburger--spin small" type="button">
+            <a id="menuHamburger" class="hamburger hamburger--spin small" type="button" href="#menu">
                 <div class="hamburger-box">
                     <div class="hamburger-inner"></div>
                 </div>
-            </div>
+            </a>
 
-            <div id="headerIconContainer">
+            <a id="headerIconContainer" href="#about">
                 <img src="icons/headerLogo.svg" onclick="onAboutButtonClick();" style="width:90px"/>
                 <div id="aboutMenuTitle" style="display:none">אודות</div>
-            </div>
+            </a>
             <div>
                 <img id="homeButton" src="icons/home.svg" onclick="onHomeButtonClick()" style="visibility: hidden"/>
             </div>
@@ -97,14 +105,14 @@
                 </div>
             </div>
             <ul class="menuHeader">
-                <li class="one" class="menuItem" style="padding-right: 20%;"><a class="menuLink" href="#aircrafts">כלי טיס</a></li>
-                <li class="two" class="menuItem"><a class="menuLink active" href="#locations">מקומות</a></li>
+                <li class="one" class="menuItem" style="padding-right: 20%;"><a id="aircraftLink" class="menuLink" href="#aircraft">כלי טיס</a></li>
+                <li class="two" class="menuItem"><a id="locationsLink" class="menuLink active" href="#locations">מקומות</a></li>
                 <hr/>
             </ul>
         </div>
         <div class="tabs">
             <!-- Aircrafts -->
-            <div class="tab-content" id="aircrafts">
+            <div class="tab-content" id="aircraft">
                 <p class="timeline-warning">לידיעתכם, ייתכנו שינוים בלוחות הזמנים</p>
                 <div id="aircraftsListView">
 
