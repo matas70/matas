@@ -1948,8 +1948,15 @@ function initGenericPopups() {
         showGenericPopup("מחממים מנועים!", "המטוסים המופיעים על המפה לפני המטס הינם הדמייה בלבד");
     } else if (new Date() <= realActualStartTime && getISODate(new Date()) === getISODate(realActualStartTime)) {
         showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon");
-    } else if (aircrafts.length === 0) {
-        showGenericPopup("נתראה בשנה הבאה!", `מקווים שנהניתם מהמטס. <br> חג עצמאות שמח! :)`, "flightEndIcon");
+    } else {
+        var timeToFlightEnd = new Date(realActualStartTime).addHours(6) - new Date();
+        if  (timeToFlightEnd < 0) {
+            timeToFlightEnd = 0;
+        }
+
+        setTimeout(() => {
+            showGenericPopup("נתראה בשנה הבאה!", `מקווים שנהניתם מהמטס. <br> חג עצמאות שמח! :)`, "flightEndIcon");    
+        }, timeToFlightEnd);
     }
 
     var timeToNotifyOfek = new Date(realActualStartTime).addHours(2.5) - new Date();
