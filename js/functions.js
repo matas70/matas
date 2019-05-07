@@ -1238,13 +1238,23 @@ function getRemainingSeconds(date) {
 
 
 var countdownInterval;
-var previousHash = ["#main"];
+var previousHash = [mainHash];
+var locationPopupHash = "#locationPopup";
+var clusterHash = "#cluster";
+var moreInfoHash = "#moreInfo";
+var aircraftScheduleContentHash = "#aircraftScheduleContent";
+var aircraftInfoContentHash = "#aircraftInfoContent";
+var aircraftSelectedHash = "#aircraftSelected";
+var aboutHash = "#about";
+var locationsHash = "#locations";
+var mainHash = "#main";
+var aircraftHash = "#aircraft";
 
 function onLoad() {
     if (compatibleDevice() && !checkIframe()) {
         // For back button handling
-        previousHash.push("#main");
-        window.location.hash = "#main";
+        previousHash.push(mainHash);
+        window.location.hash = mainHash;
 
         // if we are on online mode and it is taking too long to load - switch to offline
         if (!($.urlParam("offline")==="true")) {
@@ -1594,10 +1604,6 @@ var currentAttrValue;
 var tabsHeight;
 var attemptToExit = false;
 
-window.onpopstate = () => {
-//     previousHash.push(window.location.hash);
-}
-
 window.onhashchange = (e) => {
     var currentHash = e.newURL.substr(e.newURL.lastIndexOf("#"), e.newURL.length);
     var previousHashValue = previousHash.pop();
@@ -1606,30 +1612,45 @@ window.onhashchange = (e) => {
         previousHash.push(previousHashValue);
     }
 
+    if (currentHash === "/" && previousHashValue !== "/") {
+        closeAllPopups();
+    }
     // Should close the menu
-    if ((previousHashValue === "#menu" || previousHashValue === "#locations") && currentHash === "#main") {
+    else if ((previousHashValue === mainHash || previousHashValue === locationsHash) && currentHash === mainHash) {
         $("#menuHamburger").click();
-    } else if (previousHashValue === "#locations" && currentHash === "#aircraft") {
+    } else if (previousHashValue === locationsHash && currentHash === aircraftHash) {
         // Should toggle between locations and aircraft
         $("#aircraftLink").click();
-    } else if (previousHashValue === "#aircraft" && (currentHash === "#locations" || currentHash === "#menu")) {
+    } else if (previousHashValue === aircraftHash && (currentHash === locationsHash || currentHash === mainHash)) {
         // Should toggle between aircraft and locations
         $("#locationsLink").click();
-    } else if (previousHashValue === "#about" && currentHash !== "#about") {
+    } else if (previousHashValue === aboutHash && currentHash !== aboutHash) {
         if (aboutVisible) {
-            previousHash.push("#main");
+            previousHash.push(mainHash);
             $("#aboutPopup").fadeOut();
             aboutVisible = false;
         }
-    } else if (previousHashValue === "#aircraftSelected" &&
-               currentHash !== "#aircraftSelected" &&
-               currentHash !== "#aircraftInfoContent" &&
-               currentHash !== "#aircraftScheduleContent") {
+    // Aircraft info popup section
+    } else if (previousHashValue === aircraftSelectedHash &&
+               currentHash !== aircraftSelectedHash &&
+               currentHash !== aircraftInfoContentHash &&
+               currentHash !== aircraftScheduleContentHash) {
         $("#shrinkAircraftInfoPopup").click();
-    } else if (previousHashValue === "#aircraftInfoContent" && currentHash === "#aircraftScheduleContent") {
+        $("#aircraftInfoPopup").hide();
+    } else if (previousHashValue === aircraftInfoContentHash && (currentHash === aircraftScheduleContentHash || currentHash === aircraftSelectedHash)) {
         $("#aircraftScheduleButton").click();
-    } else if (previousHashValue === "#aircraftScheduleContent" && currentHash === "#aircraftInfoContent") {
+    } else if (previousHashValue === aircraftScheduleContentHash && (currentHash === aircraftInfoContentHash || currentHash === aircraftSelectedHash)) {
         $("#aircraftInfoButton").click();
+    } else if (previousHashValue === moreInfoHash && currentHash !== moreInfoHash) {
+        $("#shrinkAircraftInfoPopup").click();
+    }
+    // Cluster section
+    else if (previousHashValue === clusterHash && currentHash !== clusterHash) {
+        closeAllPopups();
+    }
+    // Location popup
+    else if (previousHashValue === locationPopupHash && currentHash !== locationPopupHash) {
+        closeAllPopups();
     }
 };
 

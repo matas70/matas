@@ -77,6 +77,9 @@ function initPopups() {
 }
 
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized = false, closeCallback) {
+    window.location.hash = "#locationPopup";
+    previousHash.push("#locationPopup");
+
     locationPopupCloseCallback = closeCallback;
 
     // build popup html
@@ -427,6 +430,9 @@ function showAircraftInfoPopup(aircraft, collapse) {
         // Lots of code to set the correct state of html elements according to collapse/extended
         toggleAircraftContentSeparator(false);
         $("#aircraftInfoMore").on("click", function () {
+            window.location.hash = "#moreInfo";
+            previousHash.push("#moreInfo");
+            
             toggleAircraftContentSeparator(true);
             $("#aircraftInfoButton").click();
             var height = $(window).height();
@@ -733,6 +739,8 @@ function createClusterLocationRow(location) {
 }
 
 function openMapClusterPopup(arrayOfObjects) {
+    window.location.hash = "#cluster";
+    previousHash.push("#cluster");
     getMapDarker();
     closeAllPopups();
 

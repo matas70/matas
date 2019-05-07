@@ -23,6 +23,15 @@
 
     <link rel="manifest" href="manifest.json">
 
+    <script src="js/leaflet/leaflet.js"></script>
+    <script src="js/date.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/leaflet-map.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/popups.js"></script>
+    <script src="js/RotateIcon.js"></script>
+    <script src="js/firebaseInteraction.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
     <script>
@@ -32,30 +41,29 @@
         gtag('config', 'UA-98360124-1');
     </script>
     <script>
-        function loadScripts() {
-            $.when(
-                $.getScript("js/leaflet/leaflet.js"),
-                $.getScript("js/date.js"),
-                $.getScript("js/map.js"),
-                $.getScript("js/leaflet-map.js"),
-                $.getScript("js/leaflet/leaflet.js"),
-                $.getScript("js/popups.js"),
-                $.getScript("js/RotateIcon.js"),
-                $.getScript("js/utils.js"),
-                $.getScript("js/firebaseInteraction.js"),
-
-                $.Deferred(function( deferred ){
-                    $( deferred.resolve );
-                })
-            ).done(function(){
-                $.getScript("js/functions.js").then(()=>{
-                    onLoad();
-                });
-            });
-        }
+        // function loadScripts() {
+        //     $.when(
+        //         $.getScript("js/leaflet/leaflet.js"),
+        //         $.getScript("js/date.js"),
+        //         $.getScript("js/map.js"),
+        //         $.getScript("js/leaflet-map.js"),
+        //         $.getScript("js/leaflet/leaflet.js"),
+        //         $.getScript("js/popups.js"),
+        //         $.getScript("js/RotateIcon.js"),
+        //         $.getScript("js/utils.js"),
+        //
+        //         $.Deferred(function( deferred ){
+        //             $( deferred.resolve );
+        //         })
+        //     ).done(function(){
+        //         $.getScript("js/functions.js").then(()=>{
+        //             onLoad();
+        //         });
+        //     });
+        // }
     </script>
 </head>
-<body onload="loadScripts()" class="body">
+<body onload="onLoad()" class="body">
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-functions.js"></script>
