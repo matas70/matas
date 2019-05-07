@@ -925,8 +925,12 @@ br.baseData {
     position: relative;
     cursor: pointer;
     float: left;
-    top: 66px;
+    top: 61px;
     left: 15px;
+    border: 2px solid white;
+    z-index: 20;
+    border-radius: 25px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 #backgroundImage {
@@ -1557,4 +1561,15 @@ padding-top: 17px;
         transform: scale(2.5, 2.5);
         opacity: 0;
     }
+}
+
+#flightStartIcon {height: 60px;width: 60px;padding-top: 15px;padding-left: 12px;padding-bottom: 12px;padding-right: 14px;}
+
+#flightEndIcon {
+}
+
+#ofekIcon {padding: 20px 0 0 0;width: 100px;height: 70px;}
+
+.ofek-link {
+text-decoration: none;
 }
