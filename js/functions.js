@@ -848,11 +848,6 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     }
     // update clusters
     //updateCluster();
-
-    // check if simulation ended - if so - reload the app
-    if (userSimulation && currentTime > actualStartTime + (aircraftLandTime - plannedStartTime)) {
-        location.reload();
-    }
 }
 
 function calcAngle(currentAzimuth, previousAzimuth) {

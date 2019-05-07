@@ -1230,18 +1230,6 @@
     "exhibitions": ""
   },
   {
-    "hidden": false,
-    "hideAircrafts": false,
-    "pointId": 115,
-    "E": "3503.023",
-    "N": "3112.455",
-    "pointName": "נבטים",
-    "pointLocation": "",
-    "wazeLink": "",
-    "activeTimes": "",
-    "exhibitions": ""
-  },
-  {
     "hidden": true,
     "hideAircrafts": false,
     "pointId": 116,
@@ -1356,6 +1344,42 @@
     "E": "3510.949",
     "N": "3239.999",
     "pointName": "בסיס רמת דוד 2",
+    "pointLocation": "",
+    "wazeLink": "",
+    "activeTimes": "",
+    "exhibitions": ""
+  },
+  {
+    "hidden": false,
+    "hideAircrafts": false,
+    "pointId": 126,
+    "E": "3505.262",
+    "N": "3115.604",
+    "pointName": "כסיפה",
+    "pointLocation": "",
+    "wazeLink": "",
+    "activeTimes": "",
+    "exhibitions": ""
+  },
+  {
+    "hidden": false,
+    "hideAircrafts": false,
+    "pointId": 127,
+    "E": "3446.515",
+    "N": "3123.665",
+    "pointName": "רהט",
+    "pointLocation": "",
+    "wazeLink": "",
+    "activeTimes": "",
+    "exhibitions": ""
+  },
+  {
+    "hidden": false,
+    "hideAircrafts": false,
+    "pointId": 128,
+    "E": "3432.375",
+    "N": "3134.408",
+    "pointName": "נתיב העשרה",
     "pointLocation": "",
     "wazeLink": "",
     "activeTimes": "",
