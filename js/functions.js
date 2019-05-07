@@ -505,7 +505,7 @@ function loadActualStartTime() {
     });
 
     // run simulation until 6 hours before the actual flight.
-    if (actualStartTime - currentTime > 6 * 60 * 60 * 1000 && !isRehearsalActive) {
+    // if (actualStartTime - currentTime > 6 * 60 * 60 * 1000 && !isRehearsalActive) {
         // start a simulation between 15 minutes after the first aircraft and 15 minutes before the last landing time.
         userSimulation = true;
         var simulationLength = (lastFlightTime - 15 * 60 * 1000) - (firstFlightTime + 15 * 60 * 1000);
@@ -1944,14 +1944,46 @@ function scheduleConfirmationPopup() {
     }
 }
 
+function getISODate(date) {
+    return new Date(date).toISOString().split('T')[0];
+}
+
+function initGenericPopups() {
+    if (userSimulation) {
+        showGenericPopup("מחממים מנועים!", "המטוסים המופיעים על המפה לפני המטס הינם הדמייה בלבד");
+    } else if (new Date() <= realActualStartTime && getISODate(new Date()) === getISODate(realActualStartTime)) {
+        showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon");
+    } else {
+        var timeToFlightEnd = new Date(realActualStartTime).addHours(6) - new Date();
+        if  (timeToFlightEnd < 0) {
+            timeToFlightEnd = 0;
+        }
+
+        setTimeout(() => {
+            showGenericPopup("נתראה בשנה הבאה!", `מקווים שנהניתם מהמטס. <br> חג עצמאות שמח! :)`, "flightEndIcon");    
+        }, timeToFlightEnd);
+    }
+
+    var timeToNotifyOfek = new Date(realActualStartTime).addHours(2.5) - new Date();
+
+    if (timeToNotifyOfek > 0) {
+        setTimeout(() => {
+            showGenericPopup("חג עצמאות שמח!",
+                    ` אנשי יחידת אופק 324 מתרגשים לחגוג אתכם את יום העצמאות ה-71!`,
+                    "ofekIcon",
+                    "https://bit.ly/2PQAoVY");
+        }, timeToNotifyOfek);
+    }
+}
+
 function initMap() {
     mapAPI.loadPlugins(() =>
     {
         // make it larger than screen that when it scrolls it goes full screen
         makeHeaderSticky();
         initPopups();
-        if (userSimulation)
-            showGenericPopup("מחממים מנועים!", "המטוסים המופיעים על המפה לפני המטס הינם הדמייה בלבד");
+        initGenericPopups();
+        // } else if (new Date() >= )
 
         if (compatibleDevice() && !checkIframe()) {
             // let splash run for a second before start loading the map

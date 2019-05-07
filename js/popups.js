@@ -666,6 +666,8 @@ function hideConfirmationPopup() {
 function showBasePopup(isAerobatics, minutes, locationName) {
     var html = "<b class=\"baseData\">";
     html += getEventName(isAerobatics);
+    $(".baseEventIcon").hide();
+    $("#basePopup").off('click');
 
     if (isAerobatics) {
         $("#showAeroplanIcon").show();
@@ -694,14 +696,23 @@ function animateBasePopup() {
     }, 600);
 }
 
-function showGenericPopup(title, subtitle) {
+function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link = undefined) {
     var html = "<b class=\"baseData\">";
     html += title;
 
-    $("#showAeroplanIcon").hide();
-    $("#showParachutingIcon").hide();
+    $(".baseEventIcon").hide();
     $(".alert-header").hide();
-    $("#popupHeaderIcon").show();
+    $(`#${iconId}`).show();
+    if (link) {
+        $("#basePopup").click(() => {
+           var win = window.open(link);
+           if (win) {
+               win.focus();
+           }
+        });
+    } else {
+        $("#basePopup").off('click');
+    }
 
     html += "</b><br class=\"baseData\">";
     // var eventDetails = `${desc}${baseName} בעוד ${minute} דקות`;
@@ -710,6 +721,7 @@ function showGenericPopup(title, subtitle) {
     $("#basePopup").css("top", -64).css("opacity",0);
     $("#basePopup").show();
     animateBasePopup();
+
 }
 
 function getEventIcon(isAerobatics) {
@@ -717,6 +729,7 @@ function getEventIcon(isAerobatics) {
 }
 
 function hideBasePopup() {
+    $("#basePopup").off('click');
     $("#basePopup").animate({
         top: -64 + "px",
         opacity: 0
