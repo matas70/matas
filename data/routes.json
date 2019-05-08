@@ -402,7 +402,7 @@
           "activeTimes": ""
         },
         {
-          "hidden": false,
+          "hidden": true,
           "hideAircrafts": false,
           "pointId": 104,
           "E": "3443.500",
