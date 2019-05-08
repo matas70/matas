@@ -1031,6 +1031,18 @@ function isLocationRegistered(locationId) {
     return isSubscribed(locationId);
 }
 
+function createNotification(notificationData) {
+    var notificationOptions = {
+        body: notificationData.body,
+        icon: notificationData.icon,
+        dir:  notificationData.dir,
+        lang: notificationData.lang,
+        vibrate: notificationData.vibrate,
+        data: notificationData.data   
+    };
+    var notification = new Notification(notificationData.title, notificationOptions);
+}
+
 function registerToNotifications(pointId) {
     subscribe(pointId);
     locations[pointId].notify = true;

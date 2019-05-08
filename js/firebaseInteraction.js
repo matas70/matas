@@ -1,3 +1,6 @@
+var NOTIFICATION_SERVER = 'http://localhost:3001';
+// var NOTIFICATION_SERVER = 'https://matas-notifications.com';
+
 // Initialize Firebase
 function registerToFirebaseNotifications() {
     console.log("registering to firebase notifications.");
@@ -13,7 +16,7 @@ function registerToFirebaseNotifications() {
     const messaging = firebase.messaging();
     const functions = firebase.app().functions('europe-west1');
 
-    const subscribeToTopic = functions.httpsCallable('subscribeToTopic');
+    // const subscribeToTopic = functions.httpsCallable('subscribeToTopic');
 
     messaging.requestPermission().then(async () => {
         const topicName = "users";
@@ -38,7 +41,14 @@ function registerToFirebaseNotifications() {
     messaging.onMessage((payload) => {
         /* handle notifications when app is on */
         console.log("payload: ", payload);
+        if (payload && payload.notification) {
+            createNotification(payload.notification);
+        }
     });
+}
+
+function subscribeToTopic(token, topic) {
+    $.get(`${NOTIFICATION_SERVER}/subscribeToTopic/${token}/${topic}`);
 }
 
 function subscribe(pointId) {
