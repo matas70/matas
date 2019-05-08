@@ -22,17 +22,14 @@ function registerToFirebaseNotifications() {
         const topicName = "users";
         const keyString = `subscribedTo_${topicName}`;
 
-        if (localStorage.getItem(keyString) !== null) {
-            return;
-        }
+//         if (localStorage.getItem(keyString) !== null) {
+//             return;
+//         }
 
         let token = await messaging.getToken();
-        subscribeToTopic({
-            "token": token,
-            "topic": topicName
-        }).then(function () {
+        subscribeToTopic(token, topicName, data => {
             localStorage.setItem(keyString, true);
-            console.log("subscribed to " + topicName);
+            console.log("subscribed to " + topicName)
         });
     }).catch(function (err) {
         console.log(err);
@@ -47,8 +44,8 @@ function registerToFirebaseNotifications() {
     });
 }
 
-function subscribeToTopic(token, topic) {
-    $.get(`${NOTIFICATION_SERVER}/subscribeToTopic/${token}/${topic}`);
+function subscribeToTopic(token, topic, callback) {
+    $.get(`${NOTIFICATION_SERVER}/subscribeToTopic/${token}/${topic}`).done(data => callback(data));
 }
 
 function subscribe(pointId) {
