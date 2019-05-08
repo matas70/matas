@@ -1,8 +1,8 @@
 {
-  "startDate": "2019-05-09",
+  "startDate": "2019-05-08",
   "plannedStartTime": "09:00:00",
-  "actualStartTime": "09:00:00",
-  "plannedEndTime": "13:00:00",
+  "actualStartTime": "18:30:00",
+  "plannedEndTime": "23:59:59",
   "changes" : false,
   "aircrafts": [
     {
