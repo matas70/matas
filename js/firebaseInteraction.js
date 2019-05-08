@@ -47,7 +47,8 @@ function subscribe(pointId) {
     messaging.requestPermission().then(async () => {
         let topicName = "point-"+pointId;
 
-        if (localStorage.getItem(topicName)) {
+        // if it already subscribed, there is no need to subscribe again
+        if (localStorage.getItem(topicName) === "true") {
             return;
         }
 
@@ -67,7 +68,8 @@ function unsubscribe(pointId) {
     messaging.requestPermission().then(async () => {
         let topicName = "point-"+pointId;
 
-        if (localStorage.getItem(topicName) !== "true") {
+        // if it already unsubscribed, there is no need to unsubscribe again
+        if (localStorage.getItem(topicName) === "false" || !localStorage.getItem(topicName)) {
             return;
         }
 
@@ -83,5 +85,5 @@ function unsubscribe(pointId) {
 
 function isSubscribed(pointId) {
     let topicName = "point-"+pointId;
-    return localStorage.getItem(topicName);
+    return localStorage.getItem(topicName)==="true";
 }
