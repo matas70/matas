@@ -221,7 +221,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     $("#aircraftListContainer").scrollTop(0);
 
     // add register to notifications if available
-    if (areNotificationsPossible() && getAllPointsWithShows().includes(point.pointId)) {
+    if (areNotificationsPossible()) {
         $("#registerToLocationNotifcations").show();
         if (isLocationRegistered(point.pointId)) {
             $('#registerCheckbox').prop('checked', true);
