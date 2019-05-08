@@ -1664,11 +1664,6 @@
           "pointId": 18,
           "time": "13:00:00",
           "from": "08:00:00"
-        },
-        {
-          "pointId": 47,
-          "time": "14:00:00",
-          "from": "09:00:00"
         }
       ],
       "hide": true,
@@ -1738,15 +1733,36 @@
     {
       "path": [
         {
-          "pointId": 47,
-          "time": "14:00:00",
-          "from": "09:00:00"
+          "pointId": 82,
+          "time": "10:15:00",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 80,
+          "time": "10:17:40"
+        },
+        {
+          "pointId": 48,
+          "time": "10:19:30"
+        },
+        {
+          "pointId": 49,
+          "time": "10:21:06",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 50,
+          "time": "10:23:20",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 128,
+          "time": "10:26:10"
         }
       ],
-      "hide": true,
+      "hide": false,
       "aircraftId": 24,
-      "aircraftTypeId": 34,
-      "special": "מופעים קרקעיים"
+      "aircraftTypeId": 10
     },
     {
       "path": [
@@ -2322,40 +2338,6 @@
       "aircraftTypeId": 28,
       "special": "מופעים אוויריים",
       "aerobatic": true
-    },
-    {
-      "path": [
-        {
-          "pointId": 82,
-          "time": "10:15:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 80,
-          "time": "10:17:40"
-        },
-        {
-          "pointId": 48,
-          "time": "10:19:30"
-        },
-        {
-          "pointId": 49,
-          "time": "10:21:06",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 50,
-          "time": "10:23:20",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 128,
-          "time": "10:26:10"
-        }
-      ],
-      "hide": false,
-      "aircraftId": 45,
-      "aircraftTypeId": 10
     }
   ]
 }
