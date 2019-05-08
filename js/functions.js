@@ -1040,7 +1040,7 @@ function createNotification(notificationData) {
         dir:  notificationData.dir,
         lang: notificationData.lang,
         vibrate: notificationData.vibrate,
-        data: notificationData.data   
+        data: notificationData.data
     };
     var notification = new Notification(notificationData.title, notificationOptions);
 }
@@ -1268,6 +1268,7 @@ var mainHash = "#main";
 var menuHash = "#menu";
 var aircraftHash = "#aircraft";
 var mapHash = "#map";
+var confirmationHash = "#confirmation";
 
 function onLoad() {
     if (compatibleDevice() && !checkIframe()) {
@@ -1684,7 +1685,9 @@ window.onhashchange = (e) => {
     }
     // Location popup
     else if (previousHashValue === locationPopupHash && currentHash !== locationPopupHash) {
-        closeAllPopups();
+        hideConfirmationPopup();
+    } else if (previousHashValue === confirmationHash && currentHash !== confirmationHash) {
+        hideConfirmationPopup();
     }
 };
 

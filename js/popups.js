@@ -647,6 +647,8 @@ function showIncompatibleDevicePopup() {
 }
 
 function showConfirmationPopup(title, messageBody) {
+    window.location.hash = confirmationHash;
+    prveiousHash.push(confirmationHash);
     getMapDarker();
     closeAllPopups();
     $('#confirmationPopup').show();
