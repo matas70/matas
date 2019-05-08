@@ -663,17 +663,17 @@ function hideConfirmationPopup() {
     });
 }
 
-function showBasePopup(isAerobatics, minutes, locationName) {
+function showBasePopup(isAerobatics, special1, special2, minutes, locationName) {
     var html = "<b class=\"baseData\">";
-    html += getEventName(isAerobatics);
+    html += getEventName(isAerobatics, special1, special2);
     $(".baseEventIcon").hide();
     $("#basePopup").off('click');
 
-    if (isAerobatics) {
+    if (isAerobatics || special1 === "מופעים אוויריים" || special2 === "מופעים אוויריים") {
         $("#showAeroplanIcon").show();
         $("#showParachutingIcon").hide();
         $("#popupHeaderIcon").hide();
-    } else {
+    } else if (special1 === "הצנחת צנחנים" ||special2 === "הצנחת צנחנים" ) {
         $("#showAeroplanIcon").hide();
         $("#showParachutingIcon").show();
         $("#popupHeaderIcon").hide();

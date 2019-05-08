@@ -389,7 +389,7 @@ function scheduleAerobaticNotifications(notificationBody, item, location, time) 
 
     if (timeToNotify > 0) {
         setTimeout(() => {
-            showBasePopup(item.aerobatic, 5, location.pointName);
+            showBasePopup(item.aerobatic, item.specialInAircraft, item.specialInPath, 5, location.pointName);
         }, timeToNotify);
     }
 }
@@ -422,7 +422,7 @@ function updateLocationsMap(aircrafts) {
             var location = locations[location.pointId];
             if (displayAircraftShows && (item.aerobatic || item.parachutist || item.specialInPath === "מופעים אוויריים" || item.specialInAircraft === "מופעים אוויריים")) {
                 var timeout = convertTime(item.date, item.time) - getCurrentTime() + actualStartTime - plannedStartTime;
-                var notificationBody = `${getEventName(item.aerobatic)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
+                var notificationBody = `${getEventName(item.aerobatic, item.specialInAircraft, item.specialInPath)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
                 if (!userSimulation && timeout > 0) {
                     scheduleAerobaticNotifications(notificationBody, item, location, timeout);
                 }
@@ -2096,11 +2096,20 @@ function isAircraftAerobatic(aircraftId) {
     return (aircrafts[aircraftId].aerobatic || aircrafts[aircraftId].specialInPath === "מופעים אוויריים")
 }
 
-function getEventName(isAerobatics) {
-    return isAerobatics ? 'מופע אווירובטי' : 'הצנחות';
+function getEventName(aerobatic, special1, special2) {
+    if (aerobatic)
+        return "מופע אווירובטי";
+    else if (special1 === "מופעים אוויריים")
+        return "מופע אווירי";
+    else if (special2 === "מופעים אוויריים")
+        return "מופע אווירי";
+    else {
+        debugger;
+        return "מופע";
+    }
 }
 
 function getEventDescription(isAerobatics, locationName, minutes) {
-    var desc = isAerobatics ? 'יחל ב' : 'יחלו ב';
+    var desc = 'יחל ב';
     return `${desc}${locationName} בעוד ${minutes} דקות`;
 }
