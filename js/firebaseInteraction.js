@@ -22,9 +22,9 @@ function registerToFirebaseNotifications() {
         const topicName = "users";
         const keyString = `subscribedTo_${topicName}`;
 
-//         if (localStorage.getItem(keyString) !== null) {
-//             return;
-//         }
+        if (localStorage.getItem(keyString) !== null) {
+            return;
+        }
 
         let token = await messaging.getToken();
         subscribeToTopic(token, topicName, data => {
