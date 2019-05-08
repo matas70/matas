@@ -36,6 +36,7 @@ var displayAircraftShows = true;
 var userSimulation = false;
 var aircraftData = null;
 var appLoaded = false;
+var changes = false;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -388,7 +389,7 @@ function scheduleAerobaticNotifications(notificationBody, item, location, time) 
 
     if (timeToNotify > 0) {
         setTimeout(() => {
-            showBasePopup(item.aerobatic, 5, location.pointName);
+            showBasePopup(item.aerobatic, item.specialInAircraft, item.specialInPath, 5, location.pointName);
         }, timeToNotify);
     }
 }
@@ -421,7 +422,7 @@ function updateLocationsMap(aircrafts) {
             var location = locations[location.pointId];
             if (displayAircraftShows && (item.aerobatic || item.parachutist || item.specialInPath === "מופעים אוויריים" || item.specialInAircraft === "מופעים אוויריים")) {
                 var timeout = convertTime(item.date, item.time) - getCurrentTime() + actualStartTime - plannedStartTime;
-                var notificationBody = `${getEventName(item.aerobatic)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
+                var notificationBody = `${getEventName(item.aerobatic, item.specialInAircraft, item.specialInPath)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
                 if (!userSimulation && timeout > 0) {
                     scheduleAerobaticNotifications(notificationBody, item, location, timeout);
                 }
@@ -526,6 +527,7 @@ function loadAircrafts(callback) {
             startDate = flightData.startDate;
             plannedStartTime = convertTime(startDate, flightData.plannedStartTime);
             plannedEndTime = convertTime(startDate, flightData.plannedEndTime);
+            changes = flightData.changes;
 
             // merge info from aircraft type info
             aircrafts.forEach(function (aircraft) {
@@ -1963,8 +1965,19 @@ function getISODate(date) {
 function initGenericPopups() {
     if (userSimulation) {
         showGenericPopup("מחממים מנועים!", "המטוסים המופיעים על המפה לפני המטס הינם הדמייה בלבד");
-    } else if (new Date() <= realActualStartTime && getISODate(new Date()) === getISODate(realActualStartTime)) {
-        showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon");
+    } else if (getCurrentTime() >= realActualStartTime - 4 * 60 * 60 * 1000 && getCurrentTime() <= realActualStartTime + 3 * 60 * 60 * 1000 ) {
+        if (!changes) {
+            let displayed = "false";
+            if (localStorage)
+                displayed = localStorage.getItem("good_morning_displayed_2019");
+            if (!(displayed === "true")) {
+                showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon");
+                if (localStorage)
+                    localStorage.setItem("good_morning_displayed_2019", "true");
+            }
+        } else {
+            showGenericPopup("עקב תנאי מזג האוויר", `חלו שינויים קלים בנתיבים ובמופעים, אך אנחנו עדיין באים! (: חג שמח!`, "flightStartChangesIcon");
+        }
     } else {
         var timeToFlightEnd = new Date(realActualStartTime).addHours(6) - new Date();
         if  (timeToFlightEnd < 0) {
@@ -2095,11 +2108,20 @@ function isAircraftAerobatic(aircraftId) {
     return (aircrafts[aircraftId].aerobatic || aircrafts[aircraftId].specialInPath === "מופעים אוויריים")
 }
 
-function getEventName(isAerobatics) {
-    return isAerobatics ? 'מופע אווירובטי' : 'הצנחות';
+function getEventName(aerobatic, special1, special2) {
+    if (aerobatic)
+        return "מופע אווירובטי";
+    else if (special1 === "מופעים אוויריים")
+        return "מופע אווירי";
+    else if (special2 === "מופעים אוויריים")
+        return "מופע אווירי";
+    else {
+        debugger;
+        return "מופע";
+    }
 }
 
 function getEventDescription(isAerobatics, locationName, minutes) {
-    var desc = isAerobatics ? 'יחל ב' : 'יחלו ב';
+    var desc = 'יחל ב';
     return `${desc}${locationName} בעוד ${minutes} דקות`;
 }
