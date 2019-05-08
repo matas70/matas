@@ -235,6 +235,8 @@ var cacheFileList = [
     'icons/aircrafts/eitam.svg',
     'icons/aircrafts/eurofighter.png',
     'icons/aircrafts/eurofighter.svg',
+    'icons/aircrafts/yasur.svg',
+    'icons/aircrafts/thysseen.svg',
     'icons/aircrafts/f16.png',
     'icons/aircrafts/f16g.png',
     'icons/aircrafts/f16g.svg',
@@ -328,7 +330,17 @@ var cacheFileList = [
     'icons/slidepopup.png',
     'icons/drone.png',
     'screenshots/screenshot1.png',
-    'images/Matas_vector_map.svg?v=2'
+    'images/Matas_vector_map.svg?v=2',
+    'icons/flightStart.svg',
+    'icons/flightEnd.svg',
+    'icons/flightStartChanges.svg',
+    'icons/ofekIcon.svg',
+    'icons/aboutExitLogo.svg',
+    'icons/facebook.svg',
+    'icons/instagram.svg',
+    'icons/twitter.svg',
+    'js/firebaseInteraction.js',
+    'css/components.css'
     // doesn't work with font files... I don't know why...
     // 'fonts/heebo-v3-hebrew_latin-300.svg',
     // 'fonts/heebo-v3-hebrew_latin-300.woff2',

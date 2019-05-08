@@ -113,13 +113,13 @@ leafletMaps = {
         if (label) {
             return new L.DivIcon({
                 className: 'locationMarkerOuterDiv',
-                html: '<div class="locationMarkerDiv"><div class="locationIconContainer"><img class="locationMarkerIcon" src="' + iconUrl + '"/></div>' +
+                html: '<div class="locationMarkerDiv"><div class="locationIconContainer"><img class="leafletlocationMarkerIcon" src="' + iconUrl + '"/></div>' +
                 '<span class="locationMarkerLabel">' + label + '</span></div>'
             });
         } else {
             return new L.DivIcon({
                 className: 'locationMarkerOuterDiv',
-                html: '<div class="locationMarkerDiv"><div class="locationIconContainer"><img class="locationMarkerIcon" src="' + iconUrl + '"/></div></div>'
+                html: '<div class="locationMarkerDiv"><div class="locationIconContainer"><img class="leafletlocationMarkerIcon" src="' + iconUrl + '"/></div></div>'
             });
         }
     },
