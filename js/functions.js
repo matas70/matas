@@ -36,6 +36,7 @@ var displayAircraftShows = true;
 var userSimulation = false;
 var aircraftData = null;
 var appLoaded = false;
+var changes = false;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -526,6 +527,7 @@ function loadAircrafts(callback) {
             startDate = flightData.startDate;
             plannedStartTime = convertTime(startDate, flightData.plannedStartTime);
             plannedEndTime = convertTime(startDate, flightData.plannedEndTime);
+            changes = flightData.changes;
 
             // merge info from aircraft type info
             aircrafts.forEach(function (aircraft) {
@@ -1951,8 +1953,19 @@ function getISODate(date) {
 function initGenericPopups() {
     if (userSimulation) {
         showGenericPopup("מחממים מנועים!", "המטוסים המופיעים על המפה לפני המטס הינם הדמייה בלבד");
-    } else if (new Date() <= realActualStartTime && getISODate(new Date()) === getISODate(realActualStartTime)) {
-        showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon");
+    } else if (getCurrentTime() >= realActualStartTime - 4 * 60 * 60 * 1000 && getCurrentTime() <= realActualStartTime + 3 * 60 * 60 * 1000 ) {
+        if (!changes) {
+            let displayed = "false";
+            if (localStorage)
+                displayed = localStorage.getItem("good_morning_displayed_2019");
+            if (!(displayed === "true")) {
+                showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon");
+                if (localStorage)
+                    localStorage.setItem("good_morning_displayed_2019", "true");
+            }
+        } else {
+            showGenericPopup("בוקר כחול לבן!", `עקב תנאי מזג האוויר, חלו שינויים, אנא התעדכן מול האתר בפרטים`, "flightStartChangesIcon");
+        }
     } else {
         var timeToFlightEnd = new Date(realActualStartTime).addHours(6) - new Date();
         if  (timeToFlightEnd < 0) {
