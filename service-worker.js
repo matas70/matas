@@ -32,9 +32,9 @@ var baseCacheFileList = [
 var cacheFileList = [
     '/',
     '/index.html',
-    'js/utils.js',
-    'js/functions.js',
-    'manifest.json',
+    // 'js/utils.js',
+    // 'js/functions.js',
+    // 'manifest.json',
     '/css/jquery-ui.css',
     '/js/jquery.min.js',
     '/js/jquery-ui.min.js',
@@ -74,11 +74,11 @@ var cacheFileList = [
     'css/map.css',
     'css/hamburgers.css',
     'manifest.json',
-    '/?simulation=120',
     'images/group4@2x.png',
     'animation/loading.gif',
     'animation/parachute-alert.gif',
     'images/h125.jpg',
+    'images/duchifat.jpg',
     'animation/Splash-71 smaller.gif',
     'images/karnaf.jpg',
     'images/kukiya.jpg',
@@ -175,6 +175,7 @@ var cacheFileList = [
     'icons/aircraft-menu/eurofighter.svg',
     'icons/aircraft-menu/f16g.svg',
     'icons/aircraft-menu/h125.svg',
+    'icons/aircraft-menu/duchifat.svg',
     'icons/aircraft-menu/karnaf.svg',
     'icons/aircraft-menu/lavi.svg',
     'icons/aircraft-menu/nahshon.svg',
@@ -234,11 +235,14 @@ var cacheFileList = [
     'icons/aircrafts/eitam.svg',
     'icons/aircrafts/eurofighter.png',
     'icons/aircrafts/eurofighter.svg',
+    'icons/aircrafts/yasur.svg',
+    'icons/aircrafts/thysseen.svg',
     'icons/aircrafts/f16.png',
     'icons/aircrafts/f16g.png',
     'icons/aircrafts/f16g.svg',
     'icons/aircrafts/h125.png',
     'icons/aircrafts/h125.svg',
+    'icons/aircrafts/duchifat.svg',
     'icons/aircrafts/karnaf.png',
     'icons/aircrafts/karnaf.svg',
     'icons/aircrafts/lavi.png',
@@ -326,7 +330,17 @@ var cacheFileList = [
     'icons/slidepopup.png',
     'icons/drone.png',
     'screenshots/screenshot1.png',
-    'images/Matas_vector_map.svg?v=2'
+    'images/Matas_vector_map.svg?v=2',
+    'icons/flightStart.svg',
+    'icons/flightEnd.svg',
+    'icons/flightStartChanges.svg',
+    'icons/ofekIcon.svg',
+    'icons/aboutExitLogo.svg',
+    'icons/facebook.svg',
+    'icons/instagram.svg',
+    'icons/twitter.svg',
+    'js/firebaseInteraction.js',
+    'css/components.css'
     // doesn't work with font files... I don't know why...
     // 'fonts/heebo-v3-hebrew_latin-300.svg',
     // 'fonts/heebo-v3-hebrew_latin-300.woff2',
@@ -345,7 +359,7 @@ let firstTimeInstall = false;
 
  self.addEventListener('install', function(e) {
      firstTimeInstall = true;
-     console.log("Loading base cache for offline mode.");
+     console.log("service-worker: install");
      e.waitUntil(self.skipWaiting()); // Activate worker immediately
 
      e.waitUntil(
@@ -356,6 +370,7 @@ let firstTimeInstall = false;
  });
 
 self.addEventListener('fetch', (event) => {
+     // console.log("service-worker: fetch - " + event.request.url);
      event.respondWith(async function() {
          try {
              return await fetch(event.request);
@@ -366,36 +381,81 @@ self.addEventListener('fetch', (event) => {
  });
 
 self.addEventListener('activate', event => {
+    console.log("service-worker: activate");
     event.waitUntil(self.clients.claim()); // Become available to all pages
 });
 
+function areNotificationsAvailable() {
+    return (Notification && Notification.permission === "granted");
+}
+
+self.addEventListener('sync', event => {
+    console.log("service-worker: sync");
+    event.waitUntil(new Promise((resolve) => {
+        // schedule local push notifications
+        if (areNotificationsAvailable()) {
+            if (indexedDB) {
+                console.log("opening database");
+                var request = indexedDB.open('notifications', 1);
+                request.onsuccess = function (event) {
+                    console.log("success");
+                    let notificationsDB = event.target.result;
+
+                    // TODO: re-schedule timeout all of the notifications
+                };
+            }
+        }
+        resolve();
+    }));
+});
+
+function notifyForEventOnLocation(locationName, timeBefore, showType) {
+    // Let's check if the browser supports notifications
+    if (areNotificationsAvailable()) {
+        // Let's check whether notification permissions have already been granted
+        if (Notification.permission === "granted") {
+
+
+            let title = "מטס עצמאות 2019"
+            let text;
+            if (showType === "flight") text = `בעוד ${timeBefore} דקות יחלוף המטס מעל יישוב ${locationName}`;
+            else if (showType === "airShow") text = `בעוד ${timeBefore} דקות יחל מופע אווירי ב${locationName}`;
+            else if (showType === "aerobaticShow") text = `בעוד ${timeBefore} דקות יחל מופע אווירובטי ב${locationName}`;
+
+            let notificationOptions =
+                {
+                    body: text,
+                    icon: '../icons/logo192x192.png',
+                    dir: "rtl",
+                    lang: 'he',
+                    badge: '../icons/logo192x192.png',
+                    vibrate: [300, 100, 400],
+                    data: {url: 'https://matas-iaf.com'}
+                };
+
+            // If it's okay let's create a notification
+            self.registration.showNotification(title, notificationOptions);
+        }
+    }
+}
 
 /**
  * Riding on onMessage event to schedule notifications when browser is closed
  */
 self.addEventListener('message', event => {
-    if (event.data === "loadCache" && firstTimeInstall) {
+    console.log("service-worker: message - " + event.data.action);
+    if (event.data.action === "loadCache" && firstTimeInstall) {
         console.log("Loading Extended Files to Cache...");
-        caches.open('matas').then(cache => {
-            cache.addAll(cacheFileList);
-        });
-    }
-    else if (event.message === "scheduleNotification") {
-        let sentNotifications = event.data.notificationOptions.data.sentNotifications;
-
-        if (!sentNotifications.includes(event.data.notificationOptions.body)) {
-            console.log(event.data);
-            event.waitUntil(new Promise(function (resolve) {
-                setTimeout(function () {
-                    self.registration.showNotification(event.data.notificationTitle, event.data.notificationOptions);
-                    resolve();
-                }, event.data.notificationTime);
+        event.waitUntil(caches.open('matas').then(cache => {
+                cache.addAll(cacheFileList).catch((reason)=> {
+                    console.error(reason);
+                })
             }));
-        }
     }
 });
 
 self.addEventListener('notificationclick', function(event) {
+    console.log("service-worker: notificationclick");
     event.notification.close();
     event.waitUntil(new Promise(resolve => {
         clients.openWindow(event.notification.data.url).then(x => {

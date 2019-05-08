@@ -3,7 +3,7 @@ function initPressPage() {
         window.location.replace(window.location.href.substr(0, window.location.href.lastIndexOf('/')));
     } else {
         loadAircrafts((pAircrafts) => {
-            aircrafts = pAircrafts.filter((aircraft) => aircraft.name !== 'כחל');
+            aircrafts = pAircrafts; //.filter((aircraft) => aircraft.name !== 'כחל');
             loadRoutes((routes) => {
                 this.routes = routes;
                 loadCategories(function () {

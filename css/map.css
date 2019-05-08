@@ -37,8 +37,8 @@
     font-family: 'Heebo-Light';
     font-style: normal;
     font-weight: 300;
-    src: local('Heebo Light'), local('Heebo-Light'), url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg');
+    src: local('Heebo Light'), local('Heebo-Light'), url('../fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg');
     /* Legacy iOS */
 }
 
@@ -47,8 +47,8 @@
     font-family: 'Heebo-Regular';
     font-style: normal;
     font-weight: 400;
-    src: local('Heebo'), local('Heebo-Regular'), url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg');
+    src: local('Heebo'), local('Heebo-Regular'), url('../fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg');
     /* Legacy iOS */
 }
 
@@ -57,8 +57,8 @@
     font-family: 'Heebo-Bold';
     font-style: normal;
     font-weight: 700;
-    src: local('Heebo Bold'), local('Heebo-Bold'), url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg');
+    src: local('Heebo Bold'), local('Heebo-Bold'), url('../fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg');
     /* Legacy iOS */
 }
 
@@ -191,6 +191,7 @@ div.splash {
     width: 100%;
     text-align: center;
     vertical-align: middle;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 #aboutButton {
@@ -251,6 +252,24 @@ div.splash {
     /*padding-left: 10px;*/
     /*padding-right: 10px;*/
     padding-bottom: 10px;
+}
+
+#registerToLocationNotifcations {
+    display: flex;
+}
+
+#registerToLocationText {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-right: 21px;
+    color: #585868;
+    font-size: 15px;
+    flex: 1;
+    margin-left: 21px;
+}
+
+#registerToggle {
+
 }
 
 #aircraftListContainer {
@@ -876,7 +895,7 @@ hr {
     padding-top: 12px;
     padding-right: 0px;
     font-size: 14px;
-    padding-left: 77px;
+    padding-left: 65px;
     letter-spacing: 0;
     padding-bottom: 12px;
 }
@@ -906,8 +925,12 @@ br.baseData {
     position: relative;
     cursor: pointer;
     float: left;
-    top: 66px;
+    top: 61px;
     left: 15px;
+    border: 2px solid white;
+    z-index: 20;
+    border-radius: 25px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 #backgroundImage {
@@ -1285,7 +1308,6 @@ hr.aircraftLineSeparator {width: 50%;padding: 0.13em;height: 0;}
 
 hr.aircraftLineSeparator.two {
 
-margin-right: 50%;
 }
 
 #aircraftInfoStartTime {
@@ -1312,11 +1334,17 @@ margin-right: 50%;
 
 .locationMarkerIcon {
     display: block;
+    margin-top: -25px;
+}
+
+.leafletlocationMarkerIcon {
+    display: block;
+    margin-top: -80px;
 }
 
 .locationIconContainer {
-    width: 48px;
-    height: 48px;
+    width: 128px;
+    height: 128px;
     display: inline-flex;
     align-content: center;
     justify-content: center;
@@ -1334,6 +1362,7 @@ margin-right: 50%;
     white-space: nowrap;
     padding-left: 10px;
     padding-right: 10px;
+    margin-top: -50px;
 }
 
 .locationMarkerDiv {
@@ -1349,7 +1378,6 @@ margin-right: 50%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 22px;
 }
 
 #search-bar {
@@ -1492,7 +1520,8 @@ padding-top: 17px;
 
 .aerobatic-gif-marker {
     position: absolute;
-    padding: 16px;
+    width: 128px;
+    height: 128px;
 }
 
 .circle {
@@ -1518,8 +1547,8 @@ padding-top: 17px;
 }
 
 .glowing-circle {
-    width: 122px;
-    height: 124px;
+    width: 128px;
+    height: 128px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1537,4 +1566,15 @@ padding-top: 17px;
         transform: scale(2.5, 2.5);
         opacity: 0;
     }
+}
+
+#flightStartIcon {height: 60px;width: 60px;padding-top: 15px;padding-left: 12px;padding-bottom: 12px;padding-right: 14px;}
+#flightStartChangesIcon {height: 60px;width: 60px;padding-top: 15px;padding-left: 12px;padding-bottom: 12px;padding-right: 14px;}
+
+#flightEndIcon {padding: 18px 11px 0px 12px;height: 56px;width: 54px;}
+
+#ofekIcon {padding: 20px 0 0 0;width: 100px;height: 70px;}
+
+.ofek-link {
+text-decoration: none;
 }
