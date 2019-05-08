@@ -1,7 +1,7 @@
 {
   "startDate": "2019-05-08",
-  "plannedStartTime": "09:00:00",
-  "actualStartTime": "18:30:00",
+  "plannedStartTime": "09:30:00",
+  "actualStartTime": "19:00:00",
   "plannedEndTime": "23:59:59",
   "changes" : false,
   "aircrafts": [
@@ -1553,7 +1553,8 @@
       "hide": false,
       "aircraftId": 14,
       "aircraftTypeId": 25,
-      "special": ""
+      "special": "מופעים אוויריים",
+      "aerobatic": true
     },
     {
       "path": [
