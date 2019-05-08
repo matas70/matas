@@ -1964,7 +1964,7 @@ function initGenericPopups() {
                     localStorage.setItem("good_morning_displayed_2019", "true");
             }
         } else {
-            showGenericPopup("בוקר כחול לבן!", `עקב תנאי מזג האוויר, חלו שינויים, אנא התעדכן מול האתר בפרטים`, "flightStartChangesIcon");
+            showGenericPopup("עקב תנאי מזג האוויר", `חלו שינויים קלים בנתיבים ובמופעים, אך אנחנו עדיין באים! (: חג שמח!`, "flightStartChangesIcon");
         }
     } else {
         var timeToFlightEnd = new Date(realActualStartTime).addHours(6) - new Date();
