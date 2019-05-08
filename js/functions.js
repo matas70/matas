@@ -1924,11 +1924,13 @@ function roundToMinute(time) {
 }
 
 function areNotificationsAvailable() {
-    return (areNotificationsPossible() && Notification.permission === "granted");
+    return false;
+    //return (areNotificationsPossible() && Notification.permission === "granted");
 }
 
 function areNotificationsPossible() {
-    return ('Notification' in window);
+    return false;
+    //return ('Notification' in window);
 }
 
 function scheduleConfirmationPopup() {
