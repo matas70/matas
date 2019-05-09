@@ -53,7 +53,7 @@ function subscribe(pointId) {
         }
 
         let token = await messaging.getToken();
-        fetch(`https://matas-notifications.azurewebsites.net/subscribeToTopic/${token}/${topicName}`).then(function () {
+        fetch(`https://matas-notifications.azurewebsites.net/subscribeToTopic/${token}/${topicName}`, {mode: "no-cors"}).then(function () {
             localStorage.setItem(topicName, "true");
             console.log("subscribed to " + topicName);
         });
@@ -74,7 +74,7 @@ function unsubscribe(pointId) {
         }
 
         let token = await messaging.getToken();
-        fetch(`https://matas-notifications.azurewebsites.net/unsubscribeToTopic/${token}/${topicName}`).then(function () {
+        fetch(`https://matas-notifications.azurewebsites.net/unsubscribeToTopic/${token}/${topicName}`, {mode: "no-cors"}).then(function () {
             localStorage.setItem(topicName, "false");
             console.log("unsubscribed from " + topicName);
         });
