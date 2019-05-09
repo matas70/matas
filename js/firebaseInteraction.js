@@ -42,58 +42,64 @@ function registerToFirebaseNotifications() {
 }
 
 function subscribe(pointId) {
-    const messaging = firebase.messaging();
-    const functions = firebase.app().functions('europe-west1');
+    return new Promise((resolve, reject)=>
+    {
+        const messaging = firebase.messaging();
 
-    const subscribeToTopic = functions.httpsCallable('subscribeToTopic');
+        messaging.requestPermission().then(async () => {
+            let topicName = "point-" + pointId;
 
-    messaging.requestPermission().then(async () => {
-        let topicName = "point-"+pointId;
+            // if it already subscribed, there is no need to subscribe again
+            if (localStorage.getItem(topicName) === "true") {
+                return;
+            }
 
-        if (localStorage.getItem(topicName)) {
-            return;
-        }
-
-        let token = await messaging.getToken();
-        subscribeToTopic({
-            "token": token,
-            "topic": topicName
-        }).then(function () {
-            localStorage.setItem(topicName, true);
-            console.log("subscribed to " + topicName);
+            let token = await messaging.getToken();
+            fetch(`https://matas-notifications.azurewebsites.net/subscribeToTopic/${token}/${topicName}`, {mode: "no-cors"}).then(function (response) {
+                localStorage.setItem(topicName, "true");
+                console.log("subscribed to " + topicName);
+                resolve();
+            }).catch((err) => {
+                console.log(err);
+                reject();
+            });
+        }).catch(function (err) {
+            console.log(err);
+            reject();
         });
-    }).catch(function (err) {
-        console.log(err);
     });
 }
 
 function unsubscribe(pointId) {
-    const messaging = firebase.messaging();
-    const functions = firebase.app().functions('europe-west1');
+    return new Promise((resolve, reject)=>
+    {
+        const messaging = firebase.messaging();
 
-    const unsubscribeToTopic = functions.httpsCallable('unsubscribeToTopic');
+        messaging.requestPermission().then(async () => {
+            let topicName = "point-" + pointId;
 
-    messaging.requestPermission().then(async () => {
-        let topicName = "point-"+pointId;
+            // if it already unsubscribed, there is no need to unsubscribe again
+            if (localStorage.getItem(topicName) === "false" || !localStorage.getItem(topicName)) {
+                return;
+            }
 
-        if (localStorage.getItem(topicName) !== "true") {
-            return;
-        }
-
-        let token = await messaging.getToken();
-        unsubscribeToTopic({
-            "token": token,
-            "topic": topicName
-        }).then(function () {
-            localStorage.setItem(topicName, true);
-            console.log("unsubscribed from " + topicName);
+            let token = await messaging.getToken();
+            fetch(`https://matas-notifications.azurewebsites.net/unsubscribeToTopic/${token}/${topicName}`, {mode: "no-cors"}).then(function () {
+                localStorage.setItem(topicName, "false");
+                console.log("unsubscribed from " + topicName);
+                resolve();
+            }).catch((err) => {
+                console.log(err);
+                reject();
+            });
+        }).catch(function (err) {
+            console.log(err);
+            reject();
         });
-    }).catch(function (err) {
-        console.log(err);
     });
 }
 
 function isSubscribed(pointId) {
     let topicName = "point-"+pointId;
-    return localStorage.getItem(topicName);
+    return localStorage.getItem(topicName)==="true";
 }

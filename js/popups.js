@@ -223,7 +223,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     // add register to notifications if available
     if (areNotificationsPossible()) {
         $("#registerToLocationNotifcations").show();
-        if (isLocationRegistered(point.pointId)) {
+        if (isSubscribed(point.pointId)) {
             $('#registerCheckbox').prop('checked', true);
         } else {
             $('#registerCheckbox').prop('checked', false);
@@ -235,20 +235,38 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
                     if (result === 'granted') {
                         $("#registerCheckbox").prop('checked', true);
                         Notification.permission = result;
-                        registerToNotifications(point.pointId);
+                        subscribe(point.pointId).then(() => {
+                            locations[point.pointId].notify = true;
+                        }).catch((e) => {
+                            console.error(e);
+                            // on failure - make it unchecked back again
+                            $("#registerCheckbox").prop('checked', false);
+                        });
                     } else {
                         $("#registerCheckbox").prop('checked', false);
                         return false;
                     }
                 });
             } else {
-                if (isLocationRegistered(point.pointId)) {
-                    unregisterNotificationsForLocation(point.pointId);
-                    $("#registerCheckbox").prop('checked', false);
+                if (isSubscribed(point.pointId)) {
+                    unsubscribe(point.pointId).then(() => {
+                        locations[point.pointId].notify = false;
+                        $("#registerCheckbox").prop('checked', false);
+                    }).catch((e) => {
+                        console.error(e);
+                        // on failure - make it checked back again
+                        $("#registerCheckbox").prop('checked', true);
+                    });
                 }
                 else {
-                    registerToNotifications(point.pointId);
-                    $("#registerCheckbox").prop('checked', true);
+                    subscribe(point.pointId).then(() => {
+                        locations[point.pointId].notify = true;
+                        $("#registerCheckbox").prop('checked', true);
+                    }).catch((e) => {
+                        console.error(e);
+                        // on failure - make it unchecked back again
+                        $("#registerCheckbox").prop('checked', false);
+                    });
                 }
             }
         });

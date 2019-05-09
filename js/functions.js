@@ -1029,20 +1029,6 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     });
 }
 
-function isLocationRegistered(locationId) {
-    return isSubscribed(locationId);
-}
-
-function registerToNotifications(pointId) {
-    subscribe(pointId);
-    locations[pointId].notify = true;
-}
-
-function unregisterNotificationsForLocation(pointId) {
-    unsubscribe(pointId);
-    locations[pointId].notify = false;
-}
-
 function deselectAircraft(callback) {
     if (selectedAircraft != null) {
         // hide selected location
@@ -1924,13 +1910,11 @@ function roundToMinute(time) {
 }
 
 function areNotificationsAvailable() {
-    return false;
-    //return (areNotificationsPossible() && Notification.permission === "granted");
+    return (areNotificationsPossible() && Notification.permission === "granted");
 }
 
 function areNotificationsPossible() {
-    return false;
-    //return ('Notification' in window);
+    return ('Notification' in window);
 }
 
 function scheduleConfirmationPopup() {
