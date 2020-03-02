@@ -12,44 +12,22 @@ function registerToFirebaseNotifications() {
         messagingSenderId: "504034859779"
     });
 
+    subscribe("users");
+
     const messaging = firebase.messaging();
-    const functions = firebase.app().functions('europe-west1');
-
-    const subscribeToTopic = functions.httpsCallable('subscribeToTopic');
-
-    messaging.requestPermission().then(async () => {
-        const topicName = "users";
-        const keyString = `subscribedTo_${topicName}`;
-
-        if (localStorage.getItem(keyString) !== null) {
-            return;
-        }
-
-        let token = await messaging.getToken();
-        subscribeToTopic({
-            "token": token,
-            "topic": topicName
-        }).then(function () {
-            localStorage.setItem(keyString, true);
-            console.log("subscribed to " + topicName);
-        });
-    }).catch(function (err) {
-        console.log(err);
-    });
-
     messaging.onMessage((payload) => {
         /* handle notifications when app is on */
         console.log("payload: ", payload);
     });
 }
 
-function subscribe(pointId) {
+function subscribe(topicName) {
     return new Promise((resolve, reject)=>
     {
         const messaging = firebase.messaging();
 
         messaging.requestPermission().then(async () => {
-            let topicName = "point-" + pointId;
+            // let topicName = "point-" + pointId;
 
             // if it already subscribed, there is no need to subscribe again
             if (localStorage.getItem(topicName) === "true") {

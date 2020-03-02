@@ -235,7 +235,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
                     if (result === 'granted') {
                         $("#registerCheckbox").prop('checked', true);
                         Notification.permission = result;
-                        subscribe(point.pointId).then(() => {
+                        subscribe("point-" + point.pointId).then(() => {
                             locations[point.pointId].notify = true;
                         }).catch((e) => {
                             console.error(e);
@@ -259,7 +259,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
                     });
                 }
                 else {
-                    subscribe(point.pointId).then(() => {
+                    subscribe("point-" + point.pointId).then(() => {
                         locations[point.pointId].notify = true;
                         $("#registerCheckbox").prop('checked', true);
                     }).catch((e) => {
