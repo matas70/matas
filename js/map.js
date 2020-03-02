@@ -7,9 +7,9 @@ aerobaticPoints = null;
 googleMaps = {
     //const MAP_URL : "https://maps.googleapis.com/maps/api/js?key=AIzaSyCUHnpGpGO0nDr7Hy3nsnk85eIM75jGBd4&callback=initMap&language=he&region=IL";
     // new production key
-    MAP_URL : "https://maps.googleapis.com/maps/api/js?key=AIzaSyC9SvKqEi2KwCecVLbG6257Xuu9SZf0azk&callback=initMap&language=he&region=IL",
+    MAP_URL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyC9SvKqEi2KwCecVLbG6257Xuu9SZf0azk&callback=initMap&language=he&region=IL",
 
-    setAircraftMarkerIcon : (marker, url, anchor = 36) => {
+    setAircraftMarkerIcon: (marker, url, anchor = 36) => {
         if (anchor != null) {
             marker.setIcon({
                 url: url,
@@ -27,7 +27,7 @@ googleMaps = {
         marker.setIcon(icon);
     },
 
-    createAircraftMarker : (position, name, hide, clickEvent) => {
+    createAircraftMarker: (position, name, hide, clickEvent) => {
         aircraftMarker = new SlidingMarker({
             position: position,
             map: map,
@@ -42,8 +42,7 @@ googleMaps = {
             var items = googleMaps.getItemsInCircle(googleMaps.getPixelPosition(event.latLng), 32);
             if (items.locations.length == 0 && items.aircrafts.length == 1) {
                 clickEvent();
-            }
-            else {
+            } else {
                 openMapClusterPopup($.merge(items.aircrafts, items.locations));
                 //alert("found multiple items, aircrafts:"+items.aircrafts.length+" locations:"+items.locations.length);
             }
@@ -52,7 +51,7 @@ googleMaps = {
         return aircraftMarker;
     },
 
-    toggleAircraftMarkerVisibility : (marker, shouldShow) => {
+    toggleAircraftMarkerVisibility: (marker, shouldShow) => {
         if (!shouldShow) {
             marker.setVisible(false);
         } else {
@@ -60,11 +59,11 @@ googleMaps = {
         }
     },
 
-    currentHeadingMarker : null,
-    currentPosition : null,
-    currentHeading : null,
+    currentHeadingMarker: null,
+    currentPosition: null,
+    currentHeading: null,
 
-    createHeadingArea : (heading) => {
+    createHeadingArea: (heading) => {
         return {
             path: "M0 0 L32 -64 L-32 -64 Z",
             strokeOpacity: 0,
@@ -76,7 +75,7 @@ googleMaps = {
         };
     },
 
-    createPositionIcon : () => {
+    createPositionIcon: () => {
         return {
             path: google.maps.SymbolPath.CIRCLE,
             strokeOpacity: 0.8,
@@ -89,7 +88,7 @@ googleMaps = {
         };
     },
 
-    createPositionMarker : (position) => {
+    createPositionMarker: (position) => {
         //var currentHeadingIcon = createHeadingArea(0);
         //drawMarker(currentPosition, currentHeadingIcon, false);
 
@@ -97,7 +96,7 @@ googleMaps = {
         return mapAPI.drawMarker(currentPosition, currentPositionIcon, true);
     },
 
-    updateCurrentHeading : (heading) => {
+    updateCurrentHeading: (heading) => {
         currentHeading = heading;
         currentHeadingMarker.setIcon(createHeadingArea(currentHeading));
         currentHeadingMarker.setMap(map);
@@ -109,7 +108,7 @@ googleMaps = {
      * @param icon - the icon of the marker
      * @param shouldUseMap - should the map be
      */
-    drawMarker : (position, icon, shouldUseMap) => {
+    drawMarker: (position, icon, shouldUseMap) => {
         var marker = new SlidingMarker({
             position: position,
             map: shouldUseMap ? map : null,
@@ -122,13 +121,13 @@ googleMaps = {
      * Sets the map's focus on the given location and zooms in on it
      * @param location
      */
-    focusOnLocation : (location, zoom = 12) => {
+    focusOnLocation: (location, zoom = 12) => {
         map.setCenter(location);
         map.setZoom(zoom);
     },
 
     // location markers
-    getMarkerIcon : (color, clicked, aerobatic, label) => {
+    getMarkerIcon: (color, clicked, aerobatic, label) => {
         color = color.toLowerCase();
         var iconUrl;
 
@@ -143,22 +142,22 @@ googleMaps = {
         return markerHtml;
     },
 
-    panTo : (map, location) => {
+    panTo: (map, location) => {
         map.panTo(location);
     },
 
-    rad : (x) => {
+    rad: (x) => {
         return x * Math.PI / 180;
     },
 
-    distanceBetweenPixels : (p1, p2) => {
+    distanceBetweenPixels: (p1, p2) => {
         var a = p1.x - p2.x;
         var b = p1.y - p2.y;
         var c = Math.sqrt(a * a + b * b);
         return c;
     },
 
-    getPixelPosition : (position) => {
+    getPixelPosition: (position) => {
         var scale = Math.pow(2, map.getZoom());
         var nw = new google.maps.LatLng(
             map.getBounds().getNorthEast().lat(),
@@ -173,18 +172,18 @@ googleMaps = {
         return pixelOffset;
     },
 
-    getMarkerPosition : (marker) => {
+    getMarkerPosition: (marker) => {
         return {
             lat: marker.position.lat(),
             lng: marker.position.lng()
         };
     },
 
-    getMarkerPixelPosition : (marker) => {
+    getMarkerPixelPosition: (marker) => {
         return googleMaps.getPixelPosition(marker.getPosition());
     },
 
-    getItemsInCircle : (pixel, radius) => {
+    getItemsInCircle: (pixel, radius) => {
         items = [];
         var aircraftsInCircle = $.map(aircrafts, (aircraft, index) => {
             var aircraftMarker = aircraftMarkers[aircraft.aircraftId];
@@ -210,18 +209,18 @@ googleMaps = {
         return {aircrafts: aircraftsInCircle, locations: locationsInCircle};
     },
 
-    getMarkerIconUrl : (color, clicked, aerobatic, label) => {
+    getMarkerIconUrl: (color, clicked, aerobatic, label) => {
         color = color.toLowerCase();
         iconUrl = "icons/point-" + color + ".svg";
 
-        if (!clicked){
-            if(!aerobatic) {
-                iconUrl =  "icons/point-" + color + ".svg";
+        if (!clicked) {
+            if (!aerobatic) {
+                iconUrl = "icons/point-" + color + ".svg";
             } else {
-                iconUrl =  "icons/show-" + color + ".svg";
+                iconUrl = "icons/show-" + color + ".svg";
             }
         } else {
-            if(!aerobatic){
+            if (!aerobatic) {
                 iconUrl = "icons/pointPress-" + color + ".svg";
             } else {
                 iconUrl = "icons/showSelected-" + color + ".svg";
@@ -231,7 +230,7 @@ googleMaps = {
         return iconUrl;
     },
 
-    drawRouteOnMap : (route) => {
+    drawRouteOnMap: (route) => {
         // create the line path
         var path = [];
         for (var i = 0; i < route.points.length; i++) {
@@ -268,11 +267,11 @@ googleMaps = {
 
 
                 var markerHtml = googleMaps.getMarkerIcon(route.color, false, aerobatic, point.pointName);
-                var markerHtmlClicked =  googleMaps.getMarkerIcon(route.color, true, aerobatic, point.pointName);
+                var markerHtmlClicked = googleMaps.getMarkerIcon(route.color, true, aerobatic, point.pointName);
 
                 // draw marker for this location
                 var marker = new HTMLMarker({
-                    position: new google.maps.LatLng(location.lat,location.lng),
+                    position: new google.maps.LatLng(location.lat, location.lng),
                     html: markerHtml,
                     zIndex: 100,
                     class: "htmlMarker"
@@ -355,7 +354,7 @@ googleMaps = {
             });
     },
 
-    drawRoutesOnMap : (routes) => {
+    drawRoutesOnMap: (routes) => {
         // set style options for routes
         map.data.setStyle((feature) => {
             var color = feature.getProperty('color');
@@ -392,7 +391,7 @@ googleMaps = {
         }, this);
     },
 
-    loadPlugins : (callback) => {
+    loadPlugins: (callback) => {
         $.when(
             $.getScript("js/slidingMarker/jquery.easing.1.3.js"),
             $.getScript("js/slidingMarker/markerAnimate.js"),
@@ -400,15 +399,15 @@ googleMaps = {
             $.getScript("js/slidingMarker/SlidingMarker.min.js"),
             $.getScript("js/HTMLMarker.js"),
 
-            $.Deferred(function( deferred ){
-                $( deferred.resolve );
+            $.Deferred(function (deferred) {
+                $(deferred.resolve);
             })
-        ).done(function(){
+        ).done(function () {
             callback.call(this);
         });
     },
 
-    createMapObject : (clickCallback) => {
+    createMapObject: (clickCallback) => {
         map = new google.maps.Map(document.getElementById('map'),
             {
                 center: {lat: 32.00, lng: 35.00},
@@ -422,27 +421,45 @@ googleMaps = {
         return map;
     },
 
-    updateMarkerPosition : (marker, position, animationDuration) => {
+    updateMarkerPosition: (marker, position, animationDuration) => {
         marker.setDuration(animationDuration);
         marker.setPosition(position);
     },
 
-    setZoomCallback : (zoomCallback) => {
+    setZoomCallback: (zoomCallback) => {
         google.maps.event.addListener(map, 'zoom_changed', zoomCallback);
     },
 
-    getZoomLevel : () => {
+    getZoomLevel: () => {
         return map.getZoom();
     },
 
-    getMapFromMarker : (marker) => {
+    getMapFromMarker: (marker) => {
         return marker.getMap();
     },
 
-    isMarkerVisible : (marker) => {
+    isMarkerVisible: (marker) => {
         return marker.getVisible();
     },
-    panALittle : () => {
+    panALittle: () => {
         map.panTo(map.getCenter());
-    }
-}
+    },
+    getMarkerHtml: (marker) => {
+        return marker.html;
+    },
+    setMarkerHtml: (marker, html) => {
+        marker.html = html;
+        return marker;
+    },
+    getMarkerIconHtml: (markerIcon) => {
+        return markerIcon;
+    },
+    setMarkerIconHtml: (markerIcon, html) => {
+        markerIcon = html;
+        return markerIcon;
+    },
+    getMarkerIconToSet: (marker) => {
+        return marker.html;
+    },
+    circleClassName:  "",
+};

@@ -24,6 +24,7 @@
     top: 64px; /* Header Height */
     bottom: 0px; /* Footer Height */
     width: 100%;
+    z-index: 0;
 }
 
 .sticky {
@@ -1555,6 +1556,10 @@ padding-top: 17px;
     overflow: hidden;
     position: relative;
     z-index: -1;
+}
+
+.leaflet-circle {
+    top: -45px;
 }
 
 @keyframes scaleIn {
