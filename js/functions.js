@@ -1004,11 +1004,11 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     selectedPointId = pointId;
 
     if (aerobaticShows[selectedPointId]) {
-        markerIcon = mapAPI.setMarkerIconHtml(markerIcon, getHtmlWithAerobaticGlow(mapAPI.getMarkerIconHtml(markerIconClicked)));
+        markerIconClicked = mapAPI.setMarkerIconHtml(markerIcon, getHtmlWithAerobaticGlow(mapAPI.getMarkerIconHtml(markerIconClicked)));
         marker = mapAPI.setMarkerHtml(marker, getHtmlWithAerobaticGlow(mapAPI.getMarkerHtml(marker)));
     }
 
-    mapAPI.setMarkerIcon(marker, markerIcon);
+    mapAPI.setMarkerIcon(marker, markerIconClicked);
     selectedLocation = location;
     selectedLocationMarker = marker;
     selectedLocationMarkerIcon = markerIcon;
