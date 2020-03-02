@@ -1,3 +1,5 @@
+const NOTIFICATIONS_URL = 'https://matas-notifications.azurewebsites.net';
+
 // Initialize Firebase
 function registerToFirebaseNotifications() {
     console.log("registering to firebase notifications.");
@@ -55,7 +57,7 @@ function subscribe(pointId) {
             }
 
             let token = await messaging.getToken();
-            fetch(`https://matas-notifications.azurewebsites.net/subscribeToTopic/${token}/${topicName}`, {mode: "no-cors"}).then(function (response) {
+            fetch(`${NOTIFICATIONS_URL}/subscribeToTopic/${token}/${topicName}`, {mode: "no-cors"}).then(function (response) {
                 localStorage.setItem(topicName, "true");
                 console.log("subscribed to " + topicName);
                 resolve();
@@ -84,7 +86,7 @@ function unsubscribe(pointId) {
             }
 
             let token = await messaging.getToken();
-            fetch(`https://matas-notifications.azurewebsites.net/unsubscribeToTopic/${token}/${topicName}`, {mode: "no-cors"}).then(function () {
+            fetch(`${NOTIFICATIONS_URL}/unsubscribeToTopic/${token}/${topicName}`, {mode: "no-cors"}).then(function () {
                 localStorage.setItem(topicName, "false");
                 console.log("unsubscribed from " + topicName);
                 resolve();
