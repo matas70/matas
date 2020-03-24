@@ -1,7 +1,7 @@
 leafletMaps = {
-    MAP_URL : "",
+    MAP_URL: "",
 
-    setAircraftMarkerIcon : (marker, url, anchor = 36) => {
+    setAircraftMarkerIcon: (marker, url, anchor = 36) => {
         marker.setIcon(L.icon({
             iconUrl: url,
             iconAnchor: anchor != null ? undefined : [anchor, anchor],
@@ -9,15 +9,15 @@ leafletMaps = {
         }));
     },
 
-    setMarkerIcon : (marker, icon) => {
+    setMarkerIcon: (marker, icon) => {
         marker.setIcon(icon);
     },
 
-    selectedLocation : null,
-    selectedLocationMarker : null,
-    selectedLocationMarkerIcon : null,
+    selectedLocation: null,
+    selectedLocationMarker: null,
+    selectedLocationMarkerIcon: null,
 
-    createAircraftMarker : (position, name, hide, clickEvent) => {
+    createAircraftMarker: (position, name, hide, clickEvent) => {
         var marker = L.marker(position, {
             title: name,
             opacity: hide ? 0 : 1,
@@ -27,8 +27,7 @@ leafletMaps = {
             var items = leafletMaps.getItemsInCircle(leafletMaps.getPixelPosition(event.latlng), 32);
             if (items.locations.length == 0 && items.aircrafts.length == 1) {
                 clickEvent();
-            }
-            else {
+            } else {
                 openMapClusterPopup($.merge(items.aircrafts, items.locations));
             }
         });
@@ -38,15 +37,15 @@ leafletMaps = {
         return marker;
     },
 
-    toggleAircraftMarkerVisibility : (marker, shouldShow) => {
+    toggleAircraftMarkerVisibility: (marker, shouldShow) => {
         marker.setOpacity(shouldShow ? 1 : 0);
     },
 
-    currentHeadingMarker : null,
-    currentPosition : null,
-    currentHeading : null,
+    currentHeadingMarker: null,
+    currentPosition: null,
+    currentHeading: null,
 
-    createPositionMarker : (position) => {
+    createPositionMarker: (position) => {
         marker = L.circleMarker(position,
             {
                 radius: 8,
@@ -66,7 +65,7 @@ leafletMaps = {
      * @param icon - the icon of the marker
      * @param shouldUseMap - should the map be
      */
-    drawMarker : (position, icon, isVisible) => {
+    drawMarker: (position, icon, isVisible) => {
         var marker = L.marker(position, {
             title: name,
             opacity: isVisible ? 0 : 1,
@@ -82,26 +81,26 @@ leafletMaps = {
      * Sets the map's focus on the given location and zooms in on it
      * @param location
      */
-    focusOnLocation : (location, zoom = 12) => {
+    focusOnLocation: (location, zoom = 12) => {
         map.panTo(location, {animate: false})
         map.setZoom(zoom);
     },
 
-    getMarkerIcon : (color, clicked, aerobatic, label) => {
+    getMarkerIcon: (color, clicked, aerobatic, label) => {
         color = color.toLowerCase();
         iconUrl = "icons/point-" + color + ".svg";
-        iconAnchor = [19,19];
+        iconAnchor = [19, 19];
 
-        if (!clicked){
-            if(!aerobatic) {
-                iconUrl =  "icons/point-" + color + ".svg";
+        if (!clicked) {
+            if (!aerobatic) {
+                iconUrl = "icons/point-" + color + ".svg";
                 iconAnchor = [19, 19];
             } else {
-                iconUrl =  "icons/show-" + color + ".svg";
+                iconUrl = "icons/show-" + color + ".svg";
                 iconAnchor = [21, 19];
             }
         } else {
-            if(!aerobatic){
+            if (!aerobatic) {
                 iconUrl = "icons/pointPress-" + color + ".svg";
                 iconAnchor = [22, 22];
             } else {
@@ -114,7 +113,7 @@ leafletMaps = {
             return new L.DivIcon({
                 className: 'locationMarkerOuterDiv',
                 html: '<div class="locationMarkerDiv"><div class="locationIconContainer"><img class="leafletlocationMarkerIcon" src="' + iconUrl + '"/></div>' +
-                '<span class="locationMarkerLabel">' + label + '</span></div>'
+                    '<span class="locationMarkerLabel">' + label + '</span></div>'
             });
         } else {
             return new L.DivIcon({
@@ -124,39 +123,39 @@ leafletMaps = {
         }
     },
 
-    panTo : (map, location) => {
+    panTo: (map, location) => {
         map.panTo(location);
     },
 
-    markersMap : {},
+    markersMap: {},
 
-    rad : function (x) {
+    rad: function (x) {
         return x * Math.PI / 180;
     },
 
-    distanceBetweenPixels : (p1, p2) => {
+    distanceBetweenPixels: (p1, p2) => {
         var a = p1.x - p2.x;
         var b = p1.y - p2.y;
         var c = Math.sqrt(a * a + b * b);
         return c;
     },
 
-    getPixelPosition : (position) => {
+    getPixelPosition: (position) => {
         return map.latLngToContainerPoint(position);
     },
 
-    getMarkerPosition : (marker) => {
+    getMarkerPosition: (marker) => {
         return {
             lat: marker.getLatLng().lat,
             lng: marker.getLatLng().lng
         };
     },
 
-    getMarkerPixelPosition : (marker) => {
+    getMarkerPixelPosition: (marker) => {
         return leafletMaps.getPixelPosition(marker.getLatLng());
     },
 
-    getItemsInCircle : (pixel, radius) => {
+    getItemsInCircle: (pixel, radius) => {
         items = [];
         var aircraftsInCircle = $.map(aircrafts, function (aircraft, index) {
             var aircraftMarker = aircraftMarkers[aircraft.aircraftId];
@@ -182,7 +181,7 @@ leafletMaps = {
         return {aircrafts: aircraftsInCircle, locations: locationsInCircle};
     },
 
-    drawRouteOnMap : (route) => {
+    drawRouteOnMap: (route) => {
         // create the line path
         var path = [];
         for (var i = 0; i < route.points.length; i++) {
@@ -201,9 +200,10 @@ leafletMaps = {
 
         // create a cluster for the route
         var markerCluster = L.markerClusterGroup({
-            iconCreateFunction: function(cluster) {
+            iconCreateFunction: function (cluster) {
                 return leafletMaps.getMarkerIcon(route.color, false, false);
-            }});
+            }
+        });
 
         // // create the points marker
         route.points.forEach((point) => {
@@ -257,7 +257,7 @@ leafletMaps = {
         map.addLayer(markerCluster);
     },
 
-    drawRoutesOnMap : (routes) => {
+    drawRoutesOnMap: (routes) => {
         map.invalidateSize();
 
         aerobaticPoints = getAerobaticsPoints();
@@ -268,22 +268,22 @@ leafletMaps = {
         }, this);
     },
 
-    loadPlugins : (callback) => {
+    loadPlugins: (callback) => {
         $.when(
             $.getScript("js/leaflet/leaflet.markercluster.js"),
-        $.Deferred(function( deferred ){
-            $( deferred.resolve );
-        })
-        ).done(function(){
+            $.Deferred(function (deferred) {
+                $(deferred.resolve);
+            })
+        ).done(function () {
             callback.call(this);
         });
     },
 
-    addOfflineMap : (map) => {
+    addOfflineMap: (map) => {
         L.imageOverlay('images/Matas_vector_map.svg?v=2', [[26.500, 30.725], [36.15, 39.390]]).addTo(map)
     },
 
-    createMapObject : (clickCallback) => {
+    createMapObject: (clickCallback) => {
         var map = L.map('map').setView([32.00, 35.00], 8);
         map.setMaxZoom(18);
 
@@ -301,29 +301,47 @@ leafletMaps = {
         return map;
     },
 
-    updateMarkerPosition : (marker, position, animationDuration) => {
+    updateMarkerPosition: (marker, position, animationDuration) => {
         // TODO: set duration of animation when using sliding marker - marker.setDuration(animationDuration);
         marker.setLatLng(position);
     },
 
-    setZoomCallback : (zoomCallback) => {
+    setZoomCallback: (zoomCallback) => {
         map.on('zoom', function () {
             zoomCallback();
         });
     },
 
-    getZoomLevel : () => {
+    getZoomLevel: () => {
         return map.getZoom();
     },
 
-    getMapFromMarker : (marker) => {
+    getMapFromMarker: (marker) => {
         return map;
     },
 
-    isMarkerVisible : (marker) => {
+    isMarkerVisible: (marker) => {
         return marker.options.alpha > 0;
     },
-    panALittle : () => {
+    panALittle: () => {
         map.panTo(map.getCenter());
-    }
-}
+    },
+    getMarkerHtml: (marker) => {
+        return marker.options.icon.options.html;
+    },
+    setMarkerHtml: (marker, html) => {
+        marker.options.icon.options.html = html;
+        return marker;
+    },
+    getMarkerIconHtml: (markerIcon) => {
+        return markerIcon.options.html;
+    },
+    setMarkerIconHtml: (markerIcon, html) => {
+        markerIcon.options.html = html;
+        return markerIcon;
+    },
+    getMarkerIconToSet: (marker) => {
+        return marker.options.icon;
+    },
+    circleClassName:  "leaflet-circle",
+};

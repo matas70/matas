@@ -344,7 +344,7 @@ function getHtmlWithAerobaticGlow(originalMarkerHtml) {
     if (!originalMarkerHtml.includes("aerobatic-gif")) {
         var markerClassHtml = originalMarkerHtml.split('">', 1)[0];
         var htmlWithGif = originalMarkerHtml.replace(markerClassHtml, markerClassHtml + " aerobatic-gif-marker");
-        htmlWithGif += `<div class="glowing-circle">
+        htmlWithGif += `<div class="glowing-circle ${mapAPI.circleClassName}">
                           <div class="circle"></div>
                           <div class="circle2"></div>
                         </div>`;
@@ -366,16 +366,16 @@ function glowOnPoint(location, timeOfAerobaticShow) {
     var relevantMarker = markersMap[location.pointId];
 
     if (relevantMarker) {
-        var originalMarkerHtml = relevantMarker.html;
-        relevantMarker.html = getHtmlWithAerobaticGlow(originalMarkerHtml);
+        const originalMarkerHtml = mapAPI.getMarkerHtml(relevantMarker);
+        mapAPI.setMarkerHtml(relevantMarker, getHtmlWithAerobaticGlow(originalMarkerHtml));
 
         // Actually set the icon
-        mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
+        mapAPI.setMarkerIcon(relevantMarker, mapAPI.getMarkerIconToSet(relevantMarker));
 
         if (!aerobaticShows[location.pointId]) {
             aerobaticShows[location.pointId] = setTimeout(() => {
-                relevantMarker.html = originalMarkerHtml;
-                mapAPI.setMarkerIcon(relevantMarker, relevantMarker.html);
+                mapAPI.setMarkerHtml(originalMarkerHtml);
+                mapAPI.setMarkerIcon(relevantMarker, mapAPI.getMarkerIconToSet(relevantMarker));
                 aerobaticShows[location.pointId] = undefined;
                 mapAPI.panALittle();
             }, timeOfAerobaticShow);
@@ -1007,29 +1007,17 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     selectedPointId = pointId;
 
     if (aerobaticShows[selectedPointId]) {
-        markerIconClicked = getHtmlWithAerobaticGlow(markerIconClicked);
-        marker.html = getHtmlWithAerobaticGlow(marker.html);
+        markerIconClicked = mapAPI.setMarkerIconHtml(markerIconClicked, getHtmlWithAerobaticGlow(mapAPI.getMarkerIconHtml(markerIconClicked)));
+        marker = mapAPI.setMarkerHtml(marker, getHtmlWithAerobaticGlow(mapAPI.getMarkerHtml(marker)));
     }
 
     mapAPI.setMarkerIcon(marker, markerIconClicked);
     selectedLocation = location;
-
-
     selectedLocationMarker = marker;
     selectedLocationMarkerIcon = markerIcon;
     mapAPI.panTo(map, location);
 
-    showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, function () {
-        if (aerobaticShows[selectedPointId]) {
-            selectedLocationMarker.html = getHtmlWithAerobaticGlow(selectedLocationMarker.html);
-            selectedLocationMarkerIcon = getHtmlWithAerobaticGlow(selectedLocationMarkerIcon);
-        }
-
-        mapAPI.setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
-
-        // mark it is deselected
-        selectedLocation = null;
-    });
+    showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, setMarkerOnDeselectLocation);
 }
 
 function deselectAircraft(callback) {
@@ -1094,24 +1082,29 @@ function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, 
     resizeAircraftNameIfNeeded();
 }
 
+
 function deselectLocation(callback) {
     if (selectedLocation != null) {
         // hide selected location
         hideLocationPopup(function () {
-            // set it to the previous marker icon
-            if (aerobaticShows[selectedPointId]) {
-                selectedLocationMarker.html = getHtmlWithAerobaticGlow(selectedLocationMarker.html);
-                selectedLocationMarkerIcon = getHtmlWithAerobaticGlow(selectedLocationMarkerIcon);
-            }
-
-            mapAPI.setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
-
-            // mark it is deselected
-            selectedLocation = null;
+            setMarkerOnDeselectLocation();
             if (callback != undefined)
                 callback.call(this);
         });
     }
+}
+
+function setMarkerOnDeselectLocation() {
+    // set it to the previous marker icon
+    if (aerobaticShows[selectedPointId]) {
+        selectedLocationMarker = mapAPI.setMarkerHtml(selectedLocationMarker, getHtmlWithAerobaticGlow(mapAPI.getMarkerHtml(selectedLocationMarker)));
+        selectedLocationMarkerIcon = mapAPI.setMarkerIconHtml(selectedLocationMarkerIcon, getHtmlWithAerobaticGlow(mapAPI.getMarkerIconHtml(selectedLocationMarkerIcon)));
+    }
+
+    mapAPI.setMarkerIcon(selectedLocationMarker, selectedLocationMarkerIcon);
+
+    // mark it is deselected
+    selectedLocation = null;
 }
 
 function selectPoint(pointId, minimized = false) {
@@ -2093,7 +2086,6 @@ function getEventName(aerobatic, special1, special2) {
     else if (special2 === "מופעים אוויריים")
         return "מופע אווירי";
     else {
-        debugger;
         return "מופע";
     }
 }
