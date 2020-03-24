@@ -1,5 +1,7 @@
 var locationPopupExpanded = false;
 var locationPopupCloseCallback = null;
+var minimizedLocationPopupHeight = 100;
+var locationPopupHeight = 200;
 
 function initPopups() {
     $("#locationPopup").hide();
@@ -87,27 +89,8 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     locationPopupExpanded = false;
 
     var specials = new Map();
+
     specials.set("מטס", []);
-    // let specialCats = categories.filter((cat) => cat.special);
-    //
-    // specialCats.forEach(specialCat => {
-    //     let matchingAcs = point.aircrafts.filter((ac) => ac.category === specialCat.category);
-    //     if (matchingAcs.length > 0) {
-    //         html += createLocationPopupCategoryRow(specialCat);
-    //
-    //         matchingAcs.forEach((matchingAc) => {
-    //             html += createTableRow(matchingAc.aircraftId,
-    //                 matchingAc.name,
-    //                 matchingAc.icon,
-    //                 matchingAc.aircraftType,
-    //                 matchingAc.time,
-    //                 matchingAc.aerobatic,
-    //                 matchingAc.parachutist, false, true);
-    //
-    //         });
-    //     }
-    // });
-    // html += createLocationPopupCategoryRow({category: "מטס"});
 
     point.aircrafts.forEach((ac) => {
        if (ac.specialInAircraft) {
@@ -140,6 +123,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
        $("#noAircraftMessage").show();
     } else {
         $("#noAircraftMessage").hide();
+
         specials.set("מטס", tmp);
 
         specials.forEach((value, key) => {
@@ -203,13 +187,23 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     $("#popupTitle").css("color", "#2b2b2b");
     $("#popupSubTitle").css("color", "#2b2b2b");
 
-    if (!minimized)
+    if (isPointAerobatic(point.pointId) && noCrowdingLocationText !== "") {
+        locationPopupHeight = 290;
+        $("#noCrowdingWarning").show();
+        $("#noCrowdingWarningText").text(noCrowdingLocationText);
+    } else {
+        locationPopupHeight = 200;
+        $("#noCrowdingWarning").hide();
+    }
+
+    if (!minimized) {
         getMapDarker();
+    }
 
     var locationPopup = $("#locationPopup");
 
     // animate popup coming from bottom
-    var targetHeight = minimized ? 100 : 200;
+    var targetHeight = minimized ? minimizedLocationPopupHeight : locationPopupHeight;
 
     locationPopup.height(0);
     locationPopup.show();
