@@ -389,7 +389,9 @@ function scheduleAerobaticNotifications(notificationBody, item, location, time) 
 
     if (timeToNotify > 0) {
         setTimeout(() => {
-            showBasePopup(item.aerobatic, item.specialInAircraft, item.specialInPath, 5, location.pointName);
+            if (isSubscribed(location.pointId)) {
+                showBasePopup(item.aerobatic, item.specialInAircraft, item.specialInPath, 5, location.pointName);
+            }
         }, timeToNotify);
     }
 }
@@ -426,6 +428,7 @@ function updateLocationsMap(aircrafts) {
                 if (!userSimulation && timeout > 0) {
                     scheduleAerobaticNotifications(notificationBody, item, location, timeout);
                 }
+
                 const timeOfAerobaticShow = 10  * 60 *  1000;
                 if (!userSimulation && timeout > -timeOfAerobaticShow) {
                     // schedule aerobatic indication when the show starts, if the show already start the glow will start within 5 seconds
