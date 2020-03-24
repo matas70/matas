@@ -27,8 +27,6 @@ function subscribe(topicName) {
         const messaging = firebase.messaging();
 
         messaging.requestPermission().then(async () => {
-            // let topicName = "point-" + pointId;
-
             // if it already subscribed, there is no need to subscribe again
             if (localStorage.getItem(topicName) === "true") {
                 return;
