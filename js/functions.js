@@ -37,6 +37,7 @@ var userSimulation = false;
 var aircraftData = null;
 var appLoaded = false;
 var changes = false;
+var isProd = false;
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -531,6 +532,7 @@ function loadAircrafts(callback) {
             plannedStartTime = convertTime(startDate, flightData.plannedStartTime);
             plannedEndTime = convertTime(startDate, flightData.plannedEndTime);
             changes = flightData.changes;
+            isProd = flightData.isProd;
 
             // merge info from aircraft type info
             aircrafts.forEach(function (aircraft) {

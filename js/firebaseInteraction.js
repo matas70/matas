@@ -21,7 +21,9 @@ function registerToFirebaseNotifications() {
     });
 }
 
-function subscribe(topicName) {
+function subscribe(topicNameWithoutSuffix) {
+    let topicName = `${topicNameWithoutSuffix}${getTopicSuffix()}`;
+
     return new Promise((resolve, reject)=>
     {
         const messaging = firebase.messaging();
@@ -54,7 +56,7 @@ function unsubscribe(pointId) {
         const messaging = firebase.messaging();
 
         messaging.requestPermission().then(async () => {
-            let topicName = "point-" + pointId;
+            let topicName = `point-${pointId}${getTopicSuffix()}`;
 
             // if it already unsubscribed, there is no need to unsubscribe again
             if (localStorage.getItem(topicName) === "false" || !localStorage.getItem(topicName)) {
@@ -78,6 +80,10 @@ function unsubscribe(pointId) {
 }
 
 function isSubscribed(pointId) {
-    let topicName = "point-"+pointId;
-    return localStorage.getItem(topicName)==="true";
+    let topicName = `point-${pointId}${getTopicSuffix()}`;
+    return localStorage.getItem(topicName) === "true";
+}
+
+function getTopicSuffix() {
+    return isProd ? "" : "Dev";
 }

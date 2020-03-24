@@ -3,6 +3,7 @@
   "plannedStartTime": "09:30:00",
   "actualStartTime": "09:30:00",
   "plannedEndTime": "13:00:00",
+  "isProd": false,
   "changes" : false,
   "aircrafts": [
     {
