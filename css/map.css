@@ -1118,7 +1118,6 @@ br.baseData {
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
-
     display: flex;
     min-width: 16em;
     background: white;

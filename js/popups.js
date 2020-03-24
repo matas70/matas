@@ -664,7 +664,7 @@ function showIncompatibleDevicePopup() {
     $("#incompatibleBrowserPopup").show();
 }
 
-function showConfirmationPopup(title, messageBody) {
+function showConfirmationPopup() {
     getMapDarker();
     closeAllPopups();
     $('#confirmationPopup').show();
@@ -679,6 +679,19 @@ function hideConfirmationPopup() {
             registerToFirebaseNotifications();
         }
     });
+}
+
+function showNoCrowdingPopup() {
+    getMapDarker();
+    closeAllPopups();
+    $('#noCrowdingPopupBody').text(noCrowdingGeneralText);
+    $('#noCrowdingPopup').show();
+}
+
+
+function hideNoCrowdingPopup() {
+    $('#noCrowdingPopup').fadeOut();
+    getMapUndark();
 }
 
 function showBasePopup(isAerobatics, special1, special2, minutes, locationName) {
