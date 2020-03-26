@@ -77,7 +77,7 @@ function initPopups() {
 }
 
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized = false, closeCallback) {
-    var Video360Url = '/360_videos/360_VR Master.mp4';
+    var Video360Url = '/360_videos/matas_VR_2019.mp4';
 
     // Configure your Clappr player.
     var PlayerInstance = new Clappr.Player({
@@ -91,6 +91,13 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
         autoPlay: true,
         chromeless: true,
         loop: true
+    });
+    console.log(Clappr.Events.PLAYER_READY);
+    PlayerInstance.listenToOnce(PlayerInstance, Clappr.Events.PLAYER_TIMEUPDATE, () => {
+        console.log("event!!");
+        setTimeout(() => {
+            PlayerInstance.seek(60);
+        }, 500);
     });
 
     // Important to disable the click to pause native plugin of clappr
