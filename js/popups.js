@@ -77,6 +77,25 @@ function initPopups() {
 }
 
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized = false, closeCallback) {
+    var Video360Url = '/360_videos/360_VR Master.mp4';
+
+    // Configure your Clappr player.
+    var PlayerInstance = new Clappr.Player({
+        source: Video360Url,
+        plugins: {
+            container: [Video360],
+        },
+        parentId: '#player',
+        width: '100%',
+        height: '200px',
+        autoPlay: true,
+        chromeless: true,
+        loop: true
+    });
+
+    // Important to disable the click to pause native plugin of clappr
+    // otherwise you won't be able to use correctly the player
+    PlayerInstance.getPlugin('click_to_pause').disable();
     window.location.hash = locationPopupHash;
     previousHash.push(locationPopupHash);
 
@@ -504,6 +523,9 @@ function showAircraftInfoPopup(aircraft, collapse) {
     setTimeout(function () {
         $("#listView").hide();
     }, 500);
+    
+
+
 }
 
 function hideAircraftInfoPopup(callback) {
@@ -682,6 +704,7 @@ function hideConfirmationPopup() {
 }
 
 function showBasePopup(isAerobatics, special1, special2, minutes, locationName) {
+
     var html = "<b class=\"baseData\">";
     html += getEventName(isAerobatics, special1, special2);
     $(".baseEventIcon").hide();
@@ -704,6 +727,8 @@ function showBasePopup(isAerobatics, special1, special2, minutes, locationName) 
     $(".alert-header").show();
     $("#basePopup").show();
     animateBasePopup();
+
+    
 }
 
 function animateBasePopup() {

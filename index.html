@@ -22,6 +22,10 @@
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.mobile-events.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/gh/clappr/clappr@latest/dist/clappr.min.js"></script>
+    <script src="https://cdn.rawgit.com/thiagopnts/clappr-video360/master/dist/clappr-video360.min.js"></script>
+
+
     <link rel="manifest" href="manifest.json">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -168,6 +172,7 @@
         </div>
         <!-- shows popup -->
         <div id="basePopup" class="infoBasePopup" style="display: none">
+            
             <div id="headerBase">
                 <div class="alert-header">
                     <img src="icons/drone.png" />
@@ -192,8 +197,10 @@
 
     <!-- location info popup -->
     <div id="locationPopup" class="infoPopup" style="display: none">
+
         <div id="popupIcon" ><a id="wazeLink" href="https://www.waze.com" target="_blank"><img id="waze" src="icons/waze.svg"></a></div>
         <div id="popupHeader">
+            
             <div id="slidepopup"><img id="slide" src="icons/slidepopup.png" ></div>
             <div  >
             <div id="popupBody">
@@ -206,12 +213,16 @@
             </div>
             </div>
         </div>
+
         <div id="registerToLocationNotifcations">
             <div id="registerToLocationText">שלח לי התראות על מופעים במיקום זה</div>
             <label id="registerToggle" class="switch">
                 <input id="registerCheckbox" type="checkbox">
                 <span class="slider round"></span>
             </label>
+        </div>
+        <div id="player" style="width: 100%;">
+   
         </div>
         <div id="aircraftListContainer">
             <div id="aircraftsList" class="table">
@@ -226,6 +237,8 @@
     <div id="aircraftInfoPopup" class="infoPopup" style="display: none; overflow: scroll; -webkit-overflow-scrolling: touch;">
         <img id="shrinkAircraftInfoPopup" style=" position: absolute; top: 10px; left: 10px;
          display: none; z-index: 10000000;" src="images/arrowCopy.png">
+
+
         <div id="aircraftInfoBannerContainer">
             <img id="aircraftInfoBanner" src=""></img>
         </div>
