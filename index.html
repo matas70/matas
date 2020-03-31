@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="css/hamburgers.css">
     <link rel="icon" sizes="192x192" href="icons/logo192x192.png">
     <link rel="stylesheet" href="js/leaflet/leaflet.css" />
-    <link rel="stylesheet" href="css/modal.css">
 
     <link rel="stylesheet" href="css/jquery-ui.css">
     <script src="js/jquery.min.js"></script>
@@ -401,25 +400,26 @@
         <!--<img id="poland" src="icons/countries/poland.svg" class="imageCache"></img>-->
     </div>
 
-    <div id="myModal" class="Modal">
+    <div id="myModal" class="modal">
         <div class="modal-content">
             <div class="messagePart">
-                <img class="close" src="icons/voicemessageAssets/page_1.png"></img>
-                <img id="audioImg"src="icons/voicemessageAssets/group_5.png"></img>
-                <div id="audio">
+                <img class="close" onclick="closeVoiceMessagePopapp()" src="icons/voiceMessage/page_1.png"/>
+                <img class="audioImg" src="icons/voiceMessage/group_5.png"/>
+                <div class="audio">
                     <audio src=""></audio>
-                    <img class="audioPlay" src="icons/voicemessageAssets/triangle.png"></img>
-                    <img class="audioTrack" src="icons/voicemessageAssets/rectangle.png">
-                        <img src="icons/voicemessageAssets/oval.png"></img>
-                    </img>
-                    <span id="audioTime">00:22</span>
+                    <img class="audioPlay" src="icons/voiceMessage/triangle.png"/>
+                    <span class="tracker">
+                        <img class="audioTrack" src="icons/voiceMessage/rectangle.png"/>
+                        <img class="trackerPoint" src="icons/voiceMessage/blue.png"/>
+                    </span>
+                    <span class="audioTime">00:22</span>
                 </div>
                 <div class="border"></div>
-                <p>שלום, כאן א', מפקד טייסת אבירי הזנב הכתוםץ אנו אנשי הטייסת, הטכנאים והלוחמים בסדיר ובמילואים, מבקשים לחזק את ידם של הצוותים הרפואיים וכלל האזרחים בימים לא פשוטים אלו. מאחלים לכולנו חג עצמאות שמח! </p>
+                <p class="wroteMessage">שלום, כאן א', מפקד טייסת אבירי הזנב הכתום. אנו אנשי הטייסת, הטכנאים והלוחמים בסדיר ובמילואים, מבקשים לחזק את ידם של הצוותים הרפואיים וכלל האזרחים בימים לא פשוטים אלו. מאחלים לכולנו חג עצמאות שמח! </p>
             </div>
             <div class="sendPost">
-                <img class="camera" src="icons/voicemessageAssets/group_4.png"></img>
-                <span>העלו תמונה מהמטס והשתתפו בתחרות!</span>
+                <img class="camera" src="icons/voiceMessage/group_4.png"/>
+                <span class="sendMessage"><p>העלו תמונה מהמטס והשתתפו בתחרות!</p></span>
             </div>
         </div>
     </div>

@@ -2094,3 +2094,12 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     var desc = 'יחל ב';
     return `${desc}${locationName} בעוד ${minutes} דקות`;
 }
+
+function showAudioMessagePopapp() {
+    document.getElementById("myModal").style.display = "block";
+}
+
+function closeVoiceMessagePopapp(){
+    console.log("none");
+    document.getElementById("myModal").style.display = "none";
+}
