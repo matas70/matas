@@ -1249,6 +1249,18 @@ function onLoad() {
             window.location.hash = mainHash;
         }, 100);
 
+        // load environment data
+        fetch("data/env.json")
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.info("env:"+data.env)
+            })
+        .catch(() => {
+            console.warn("no envoirnment file, assuming localhost");
+        });
+
         // if we are on online mode and it is taking too long to load - switch to offline
         if (!($.urlParam("offline")==="true")) {
             setTimeout(() => {
