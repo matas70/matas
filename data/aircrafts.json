@@ -4,6 +4,8 @@
   "actualStartTime": "09:30:00",
   "plannedEndTime": "13:00:00",
   "changes" : false,
+  "noCrowdingGeneralText": "שימו לב! עפ\"י הנחיות משרד הבריאות אין להתקהל לצורך צפייה במטס",
+  "noCrowdingLocationText": "שימו לב! עפ\"י הנחיות משרד הבריאות אין להתקהל במקום זה לצורך צפייה במופע. ניתן לצפות מהמופע מהחדרים והמרפסות בלבד",
   "aircrafts": [
     {
       "path": [
