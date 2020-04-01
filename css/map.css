@@ -77,6 +77,38 @@
     url('../fonts/heebo-v4-latin-500.svg#Heebo') format('svg'); /* Legacy iOS */
 }
 
+/* Desktop mode handler */
+@media only screen and (min-width: 600px) {
+    .listViewContainer {
+        width: 400px;
+        transform: translateX(100%) !important;
+        height: calc(100vh - 50px) !important;
+        margin: 0 400px 0 0;
+    }
+
+    .tabs {
+        height: calc(100vh - 204px) !important;
+    }
+
+    #locationPopup {
+        width: 400px;
+        height: 500px;
+        left: calc(100% - 400px);
+        overflow: hidden;
+    }
+
+    #menuHamburger {
+        display: none;
+    }
+
+    #baseInfo {
+        width: 600px;
+        margin: auto;
+        position: relative;
+        top: calc(50vh - 60px);
+    }
+}
+
 /* Makes the page fill the window. */
 html, body {
     height: 100%;
