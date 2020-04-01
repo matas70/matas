@@ -76,33 +76,7 @@ function initPopups() {
 
 }
 
-function showLocationPopup(point, color, titleColor, subtitleColor, minimized = false, closeCallback) {
-    var Video360Url = '/360_videos/matas_VR_2019.mp4';
-
-    // Configure your Clappr player.
-    var PlayerInstance = new Clappr.Player({
-        source: Video360Url,
-        plugins: {
-            container: [Video360],
-        },
-        parentId: '#player',
-        width: '100%',
-        height: '200px',
-        autoPlay: true,
-        chromeless: true,
-        loop: true
-    });
-    console.log(Clappr.Events.PLAYER_READY);
-    PlayerInstance.listenToOnce(PlayerInstance, Clappr.Events.PLAYER_TIMEUPDATE, () => {
-        console.log("event!!");
-        setTimeout(() => {
-            PlayerInstance.seek(60);
-        }, 500);
-    });
-
-    // Important to disable the click to pause native plugin of clappr
-    // otherwise you won't be able to use correctly the player
-    PlayerInstance.getPlugin('click_to_pause').disable();
+function showLocationPopup(point, color, titleColor, subtitleColor, minimized = false, closeCallback) {    
     window.location.hash = locationPopupHash;
     previousHash.push(locationPopupHash);
 
@@ -400,6 +374,7 @@ function toggleAircraftContentSeparator(shouldShow) {
 }
 
 function showAircraftInfoPopup(aircraft, collapse) {
+    start360Video();
     $("#aircraftInfoName").text(aircraft.name);
     $("#aircraftInfoType").text(aircraft.type);
 
@@ -856,3 +831,32 @@ function closeAllPopups() {
 $(document).ready(function () {
     //window.scrollTo(0,document.body.scrollHeight);
 });
+
+function start360Video() {
+    var Video360Url = '/360_videos/matas_VR_2019.mp4';
+
+    // Configure your Clappr player.
+    var PlayerInstance = new Clappr.Player({
+        source: Video360Url,
+        plugins: {
+            container: [Video360],
+        },
+        parentId: '#player',
+        width: '100%',
+        height: '200px',
+        autoPlay: true,
+        chromeless: true,
+        loop: true
+    });
+    console.log(Clappr.Events.PLAYER_READY);
+    PlayerInstance.listenToOnce(PlayerInstance, Clappr.Events.PLAYER_TIMEUPDATE, () => {
+        console.log("event!!");
+        setTimeout(() => {
+            PlayerInstance.seek(60);
+        }, 500);
+    });
+
+    // Important to disable the click to pause native plugin of clappr
+    // otherwise you won't be able to use correctly the player
+    PlayerInstance.getPlugin('click_to_pause').disable();
+}
