@@ -410,8 +410,8 @@ googleMaps = {
     createMapObject: (clickCallback) => {
         map = new google.maps.Map(document.getElementById('map'),
             {
-                center: {lat: 31.20, lng: 34.90},
-                zoom: 7,
+                center: {lat: 31.20, lng: 34.97},
+                zoom: ($(window).height() > 950) ? 8 : 7,
                 minZoom: 7,
                 gestureHandling: 'greedy',
                 disableDefaultUI: true
