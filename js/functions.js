@@ -1240,7 +1240,7 @@ var aircraftHash = "#aircraft";
 var mapHash = "#map";
 
 function onLoad() {
-    if (compatibleDevice() && !checkIframe()) {
+    if (true) {
         // For back button handling
         previousHash.push(mainHash);
         previousHash.push(mapHash);
@@ -1980,7 +1980,7 @@ function initMap() {
         initGenericPopups();
         // } else if (new Date() >= )
 
-        if (compatibleDevice() && !checkIframe()) {
+        if (true) {
             // let splash run for a second before start loading the map
             setTimeout(function () {
                 map = mapAPI.createMapObject(function (e) {
