@@ -205,7 +205,7 @@ div.splash {
     margin-top: 4px;
     cursor: pointer;
     padding: 6px 6px;
-    margin-left: 18px;
+    margin-left: 15px;
 }
 
 #popupBody {
@@ -1609,14 +1609,17 @@ text-decoration: none;
     }
 
     #baseInfo {
-        width: 600px;
-        margin: auto;
-        position: relative;
-        top: calc(50vh - 60px);
+        width: calc(100% - 400px);
+        float: left;
     }
 
     #map {
         width: calc(100% - 400px);
         left: 0;
+    }
+
+    #headerIconContainer {
+        text-align: right;
+        margin-right: 15px;
     }
 }
