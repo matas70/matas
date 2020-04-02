@@ -590,7 +590,9 @@ div.locationInfoPopup {
 
 .aboutLogo {
     position: relative;
-    top: -134px;
+    top: -165px;
+    width: 80vw;
+    max-width: 375px;
 }
 
 #aboutLogoDiv {
@@ -612,6 +614,7 @@ div.locationInfoPopup {
 .aboutBody {
     margin-left: 8px;
     margin-right: 8px;
+    max-width: 400px;
 }
 
 .aboutBottom {
