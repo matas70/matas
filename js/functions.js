@@ -420,8 +420,15 @@ function updateLocationsMap(aircrafts) {
                 date: location.date
             };
 
-            location.hideAircrafts = locations[location.pointId].hideAircrafts;
-            var location = locations[location.pointId];
+            if (locations[location.pointId]) {
+                location = locations[location.pointId];
+            } else {
+                console.warn(`warning - aircraft is moving above non existing location, point id: ${location.pointId}, time: ${item.time}`)
+                location.aircrafts = [];
+                location.hidden = true;
+                location.pointName = "";
+            }
+
             if (displayAircraftShows && (item.aerobatic || item.parachutist || item.specialInPath === "מופעים אוויריים" || item.specialInAircraft === "מופעים אוויריים")) {
                 var timeout = convertTime(item.date, item.time) - getCurrentTime() + actualStartTime - plannedStartTime;
                 var notificationBody = `${getEventName(item.aerobatic, item.specialInAircraft, item.specialInPath)} ${getEventDescription(item.aerobatic, location.pointName, 5)}`;
@@ -461,13 +468,23 @@ function updateLocationsMap(aircrafts) {
 
 function updateLocations(route) {
     route.points.forEach(function (point) {
-        if (locations[point.pointId] === undefined) {
-            locations[point.pointId] = point;
-            locations[point.pointId].aircrafts = [];
-            locations[point.pointId].hideAircrafts = point.hideAircrafts;
-            locations[point.pointId].color = route.color;
-        }
+        locations[point.pointId] = point;
+        locations[point.pointId].aircrafts = [];
+        locations[point.pointId].hideAircrafts = point.hideAircrafts;
+        locations[point.pointId].color = route.color;
     }, this);
+}
+
+function loadLocations(callback) {
+    $.getJSON("data/points.json?t=" + (new Date()).getTime(), function (points) {
+        points.forEach(function (point) {
+            if (locations[point.pointId] === undefined) {
+                locations[point.pointId] = point;
+                locations[point.pointId].aircrafts = [];
+            }
+        }, this);
+        callback(points);
+    });
 }
 
 function loadRoutes(callback) {
@@ -1295,15 +1312,17 @@ function onLoad() {
             aircrafts = [];
             loadAircrafts(function (pAircrafts) {
                 aircrafts = pAircrafts;
-                // load all routes
-                loadRoutes(function (routes) {
-                    this.routes = routes;
-                    loadCategories(function () {
-                        updateLocationsMap(aircrafts);
-                        fillMenu();
-                        scheduleNoCrowdingPopup();
-                        scheduleConfirmationPopup();
-                    });
+                loadLocations(function (points) {
+                    // load all routes
+                    loadRoutes(function (routes) {
+                        this.routes = routes;
+                        loadCategories(function () {
+                            updateLocationsMap(aircrafts);
+                            fillMenu();
+                            scheduleNoCrowdingPopup();
+                            scheduleConfirmationPopup();
+                        });
+                    }, this);
                 }, this);
 
                 if (getCurrentTime() < realActualStartTime) {
@@ -1991,7 +2010,7 @@ function initGenericPopups() {
     if (timeToNotifyOfek > 0) {
         setTimeout(() => {
             showGenericPopup("חג עצמאות שמח!",
-                ` אנשי יחידת אופק 324 מתרגשים לחגוג אתכם את יום העצמאות ה-71!`,
+                ` אנשי יחידת אופק 324 מתרגשים לחגוג אתכם את יום העצמאות ה-72!`,
                 "ofekIcon",
                 "https://bit.ly/2PQAoVY");
         }, timeToNotifyOfek);
