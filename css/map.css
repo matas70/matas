@@ -1109,6 +1109,7 @@ br.baseData {
 }
 
 .confirmationPopup {
+    color: #37474F;
     text-align: center;
     position: absolute;
     top: 50%;
@@ -1273,6 +1274,15 @@ br.baseData {
 .confirmationMessageTitle {
     font-family: "Heebo-bold";
     margin: 1em;
+    margin-bottom: 0.5em;
+}
+
+.confirmationMessageIcon {
+    width: 58px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 0.5em;
 }
 
 .confirmationMessageBody {
@@ -1280,6 +1290,7 @@ br.baseData {
     margin-right: 20px;
     margin-left: 20px;
 }
+
 
 .confirmButton {
     align-items: center;
