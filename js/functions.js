@@ -481,6 +481,7 @@ function loadLocations(callback) {
             if (locations[point.pointId] === undefined) {
                 locations[point.pointId] = point;
                 locations[point.pointId].aircrafts = [];
+                locations[point.pointId].color = "64e1a5"
             }
         }, this);
         callback(points);
