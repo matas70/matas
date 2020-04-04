@@ -169,7 +169,7 @@
           "exhibitions": ""
         },
         {
-          "hidden": false,
+          "hidden": true,
           "hideAircrafts": false,
           "pointId": 201,
           "E": "3502.070",
@@ -217,7 +217,7 @@
           "exhibitions": ""
         },
         {
-          "hidden": false,
+          "hidden": true,
           "hideAircrafts": false,
           "pointId": 144,
           "E": "3458.831",
@@ -584,8 +584,8 @@
           "hidden": false,
           "hideAircrafts": false,
           "pointId": 177,
-          "E": "3439.755",
-          "N": "3113.990",
+          "E": "3448.712",
+          "N": "3158.104",
           "pointName": "ראשון לציון",
           "pointLocation": "",
           "wazeLink": "",
@@ -742,8 +742,8 @@
           "hidden": false,
           "hideAircrafts": false,
           "pointId": 177,
-          "E": "3439.755",
-          "N": "3113.990",
+          "E": "3448.712",
+          "N": "3158.104",
           "pointName": "ראשון לציון",
           "pointLocation": "",
           "wazeLink": "",

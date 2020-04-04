@@ -37,10 +37,17 @@ var userSimulation = false;
 var aircraftData = null;
 var appLoaded = false;
 var changes = false;
-var noCrowdingGeneralText = "";
-var noCrowdingLocationText = "";
 var appStage;
-var apiURL = "https://matasstorage.blob.core.windows.net"
+
+// set default configuration
+var config = {
+    "timeOfAerobaticShow" : 2,
+    "noCrowdingGeneralText": "",
+    "noCrowdingLocationText": "",
+    "showCrowdingWarnings": false,
+    "apiURL": "https://matasstorage.blob.core.windows.net"
+};
+
 
 function getEnv(callback) {
     if (appStage != undefined) callback(appStage);
@@ -65,6 +72,8 @@ function getEnv(callback) {
         });
     }
 }
+
+
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -462,7 +471,7 @@ function updateLocationsMap(aircrafts) {
                     scheduleAerobaticNotifications(notificationBody, item, location, timeout);
                 }
 
-                const timeOfAerobaticShow = 10 * 60 * 1000;
+                const timeOfAerobaticShow = config.timeOfAerobaticShow * 60 * 1000;
                 if (!userSimulation && timeout > -timeOfAerobaticShow) {
                     // schedule aerobatic indication when the show starts, if the show already start the glow will start within 5 seconds
                     // (to allow the map to load and create the markers)
@@ -1987,10 +1996,10 @@ function scheduleConfirmationPopup() {
 
 
 function scheduleNoCrowdingPopup() {
-    if (noCrowdingGeneralText !== "") {
+    if (config.showCrowdingWarnings) {
         setTimeout(function () {
             showNoCrowdingPopup();
-        }, 40000);
+        }, 30000);
     }
 }
 
@@ -2115,7 +2124,8 @@ function closeEntrancePopup() {
 }
 
 function getAerobaticsPoints() {
-    return [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic).map(aircraftObj => aircraftObj.path.map(point => point.pointId)));
+    return [].concat(aircrafts.filter(aircraft => aircraft.aerobatic).map(aircraftObj => aircraftObj.path.map(point => point.pointId)).flat(),
+                     aircrafts.map(aircraft => aircraft.path.filter(point => point.special === "מופעים אוויריים").map(point => point.pointId)).flat());
 }
 
 var pointsWithShows = [];
