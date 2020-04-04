@@ -37,8 +37,14 @@ var userSimulation = false;
 var aircraftData = null;
 var appLoaded = false;
 var changes = false;
-var noCrowdingGeneralText = "";
-var noCrowdingLocationText = "";
+
+// set default configuration
+var config = {
+    "timeOfAerobaticShow" : 2,
+    "noCrowdingGeneralText": "",
+    "noCrowdingLocationText": "",
+    "showCrowdingWarnings": false
+};
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -436,7 +442,7 @@ function updateLocationsMap(aircrafts) {
                     scheduleAerobaticNotifications(notificationBody, item, location, timeout);
                 }
 
-                const timeOfAerobaticShow = 10 * 60 * 1000;
+                const timeOfAerobaticShow = config.timeOfAerobaticShow * 60 * 1000;
                 if (!userSimulation && timeout > -timeOfAerobaticShow) {
                     // schedule aerobatic indication when the show starts, if the show already start the glow will start within 5 seconds
                     // (to allow the map to load and create the markers)
@@ -549,8 +555,6 @@ function loadAircrafts(callback) {
             plannedStartTime = convertTime(startDate, flightData.plannedStartTime);
             plannedEndTime = convertTime(startDate, flightData.plannedEndTime);
             changes = flightData.changes;
-            noCrowdingGeneralText = flightData.noCrowdingGeneralText;
-            noCrowdingLocationText = flightData.noCrowdingLocationText;
 
             // merge info from aircraft type info
             aircrafts.forEach(function (aircraft) {
@@ -1278,6 +1282,18 @@ function onLoad() {
             console.warn("no envoirnment file, assuming localhost");
         });
 
+        // load configuration data
+        fetch("data/config.json")
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                config = data
+            })
+            .catch(() => {
+                console.warn("no configuration file, using defaults");
+            });
+
         // if we are on online mode and it is taking too long to load - switch to offline
         if (!($.urlParam("offline") === "true")) {
             setTimeout(() => {
@@ -1968,10 +1984,10 @@ function scheduleConfirmationPopup() {
 
 
 function scheduleNoCrowdingPopup() {
-    if (noCrowdingGeneralText !== "") {
+    if (config.showCrowdingWarnings) {
         setTimeout(function () {
             showNoCrowdingPopup();
-        }, 40000);
+        }, 30000);
     }
 }
 

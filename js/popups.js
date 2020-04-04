@@ -187,10 +187,10 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     $("#popupTitle").css("color", "#2b2b2b");
     $("#popupSubTitle").css("color", "#2b2b2b");
 
-    if (isPointAerobatic(point.pointId) && noCrowdingLocationText !== "") {
+    if (isPointAerobatic(point.pointId) && config.showCrowdingWarnings) {
         locationPopupHeight = 290;
         $("#noCrowdingWarning").show();
-        $("#noCrowdingWarningText").text(noCrowdingLocationText);
+        $("#noCrowdingWarningText").text(config.noCrowdingLocationText);
     } else {
         locationPopupHeight = 200;
         $("#noCrowdingWarning").hide();
@@ -678,7 +678,7 @@ function hideConfirmationPopup() {
 function showNoCrowdingPopup() {
     getMapDarker();
     closeAllPopups();
-    $('#noCrowdingPopupBody').text(noCrowdingGeneralText);
+    $('#noCrowdingPopupBody').text(config.noCrowdingGeneralText);
     $('#noCrowdingPopup').show();
 }
 
