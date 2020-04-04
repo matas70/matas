@@ -37,14 +37,43 @@ var userSimulation = false;
 var aircraftData = null;
 var appLoaded = false;
 var changes = false;
+var appStage;
 
 // set default configuration
 var config = {
     "timeOfAerobaticShow" : 2,
     "noCrowdingGeneralText": "",
     "noCrowdingLocationText": "",
-    "showCrowdingWarnings": false
+    "showCrowdingWarnings": false,
+    "apiURL": "https://matasstorage.blob.core.windows.net"
 };
+
+
+function getEnv(callback) {
+    if (appStage != undefined) callback(appStage);
+    else {
+        $.getJSON('data/env.json', (body) => {
+            switch (body.env) {
+                case 'dev':
+                    appStage = 'matas-dev';
+                    break;
+                case 'prod':
+                    appStage = 'matas';
+                    break;
+                default:
+                    break;
+            }
+            callback(appStage);
+        })
+        .catch(() => {
+            console.error("Matas: Couldn't load env from server, using defauls.");
+            appStage = "matas";
+            callback(appStage);
+        });
+    }
+}
+
+
 
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
@@ -482,25 +511,29 @@ function updateLocations(route) {
 }
 
 function loadLocations(callback) {
-    $.getJSON("data/points.json?t=" + (new Date()).getTime(), function (points) {
-        points.forEach(function (point) {
-            if (locations[point.pointId] === undefined) {
-                locations[point.pointId] = point;
-                locations[point.pointId].aircrafts = [];
-                locations[point.pointId].color = "64e1a5"
-            }
-        }, this);
-        callback(points);
+    getEnv((env) => {
+        $.getJSON(`${apiURL}/${env}/points.json?t=` + (new Date()).getTime(), function (points) {
+            points.forEach(function (point) {
+                if (locations[point.pointId] === undefined) {
+                    locations[point.pointId] = point;
+                    locations[point.pointId].aircrafts = [];
+                    locations[point.pointId].color = "64e1a5"
+                }
+            }, this);
+            callback(points);
+        });
     });
 }
 
 function loadRoutes(callback) {
-    $.getJSON("data/routes.json?t=" + (new Date()).getTime(), function (routes) {
-        routes.routes.forEach(function (route) {
-            updateLocations(route);
-        }, this);
-        loadedRoutes = routes.routes;
-        callback(routes.routes);
+    getEnv((env) => {
+        $.getJSON(`${apiURL}/${env}/routes.json?t=`+(new Date()).getTime(), function (routes) {
+            routes.routes.forEach(function (route) {
+                updateLocations(route);
+            }, this);
+            loadedRoutes = routes.routes;
+            callback(routes.routes);
+        });
     });
 }
 
@@ -542,55 +575,57 @@ function loadActualStartTime() {
 }
 
 function loadAircrafts(callback) {
-    $.getJSON("data/aircrafts-info.json?t=" + (new Date()).getTime(), function (aircraftInfo) {
-        // load aircraft type info into a map
-        aircraftInfo.aircraftTypes.forEach(function (aircraftTypeInfo) {
-            aircraftTypesInfo[aircraftTypeInfo.aircraftTypeId] = aircraftTypeInfo;
-        }, this);
-
-        // load all aircrafts
-        $.getJSON("data/aircrafts.json?t=" + (new Date()).getTime(), function (flightData) {
-            aircrafts = flightData.aircrafts;
-            startDate = flightData.startDate;
-            plannedStartTime = convertTime(startDate, flightData.plannedStartTime);
-            plannedEndTime = convertTime(startDate, flightData.plannedEndTime);
-            changes = flightData.changes;
-
-            // merge info from aircraft type info
-            aircrafts.forEach(function (aircraft) {
-                if (aircraft.aircraftTypeId !== undefined) {
-                    // copy all of the information from aircraft type info
-                    var aircraftTypeInfo = aircraftTypesInfo[aircraft.aircraftTypeId];
-                    for (var field in aircraftTypeInfo)
-                        aircraft[field] = aircraftTypeInfo[field];
-                }
-
-                // sort aircraft path by time
-                aircraft.path.sort((point1, point2) => convertTime(point1.date, point1.time) - convertTime(point2.date, point2.time));
-
-                // update times of all flights
-                if (!aircraft.hide && aircraft.path.length > 0 && !aircraft.special) {
-                    aircraftFlightTime = convertTime(aircraft.path[0].date, aircraft.path[0].time);
-                    if (firstFlightTime == null) {
-                        firstFlightTime = aircraftFlightTime;
-                    } else if (aircraftFlightTime < firstFlightTime) {
-                        firstFlightTime = aircraftFlightTime;
-                    }
-
-                    aircraftLandTime = convertTime(aircraft.path[aircraft.path.length - 1].date, aircraft.path[aircraft.path.length - 1].time);
-
-                    if (lastFlightTime == null) {
-                        lastFlightTime = aircraftLandTime;
-                    } else if (aircraftLandTime > lastFlightTime) {
-                        lastFlightTime = aircraftLandTime;
-                    }
-                }
-
+    getEnv((env) => {
+        $.getJSON(`${apiURL}/${env}/aircrafts-info.json?t=` + (new Date()).getTime(), function(aircraftInfo) {
+            // load aircraft type info into a map
+            aircraftInfo.aircraftTypes.forEach(function (aircraftTypeInfo) {
+                aircraftTypesInfo[aircraftTypeInfo.aircraftTypeId] = aircraftTypeInfo;
             }, this);
 
-            aircraftData = flightData;
-            loadActualStartTime();
-            callback(aircrafts);
+            // load all aircrafts
+            $.getJSON(`${apiURL}/${env}/aircrafts.json?t=`+(new Date()).getTime(), function (flightData) {
+                aircrafts = flightData.aircrafts;
+                startDate = flightData.startDate;
+                plannedStartTime = convertTime(startDate, flightData.plannedStartTime);
+                plannedEndTime = convertTime(startDate, flightData.plannedEndTime);
+                changes = flightData.changes;
+
+                // merge info from aircraft type info
+                aircrafts.forEach(function (aircraft) {
+                    if (aircraft.aircraftTypeId !== undefined) {
+                        // copy all of the information from aircraft type info
+                        var aircraftTypeInfo = aircraftTypesInfo[aircraft.aircraftTypeId];
+                        for(var field in aircraftTypeInfo)
+                            aircraft[field]=aircraftTypeInfo[field];
+                    }
+
+                    // sort aircraft path by time
+                    aircraft.path.sort((point1, point2) => convertTime(point1.date, point1.time) - convertTime(point2.date, point2.time));
+
+                    // update times of all flights
+                    if (!aircraft.hide && aircraft.path.length > 0 && !aircraft.special) {
+                        aircraftFlightTime = convertTime(aircraft.path[0].date, aircraft.path[0].time);
+                        if (firstFlightTime == null) {
+                            firstFlightTime = aircraftFlightTime;
+                        } else if (aircraftFlightTime < firstFlightTime) {
+                            firstFlightTime = aircraftFlightTime;
+                        }
+
+                        aircraftLandTime = convertTime(aircraft.path[aircraft.path.length-1].date, aircraft.path[aircraft.path.length-1].time);
+
+                        if (lastFlightTime == null) {
+                            lastFlightTime = aircraftLandTime;
+                        } else if (aircraftLandTime > lastFlightTime) {
+                            lastFlightTime = aircraftLandTime;
+                        }
+                    }
+
+                }, this);
+
+                aircraftData = flightData;
+                loadActualStartTime();
+                callback(aircrafts);
+            });
         });
     });
 }
@@ -1270,30 +1305,6 @@ function onLoad() {
             window.location.hash = mainHash;
         }, 100);
 
-        // load environment data
-        fetch("data/env.json")
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                console.info("env:"+data.env)
-            })
-        .catch(() => {
-            console.warn("no envoirnment file, assuming localhost");
-        });
-
-        // load configuration data
-        fetch("data/config.json")
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                config = data
-            })
-            .catch(() => {
-                console.warn("no configuration file, using defaults");
-            });
-
         // if we are on online mode and it is taking too long to load - switch to offline
         if (!($.urlParam("offline") === "true")) {
             setTimeout(() => {
@@ -1599,9 +1610,10 @@ function initSearchBar() {
             }, this);
         }
 
-        aircraftResults = Array.from(aircraftMap.values()).filter(aircraft => aircraft.name.includes(searchInput) ||
-            aircraft.type.includes(searchInput) ||
-            (aircraft.special && aircraft.special.includes(searchInput)));
+        aircraftResults = Array.from(aircraftMap.values()).
+            filter(aircraft => aircraft.name.includes(searchInput) ||
+                               aircraft.type.includes(searchInput) ||
+                               (aircraft.special && aircraft.special.includes(searchInput)));
 
         if (aircraftResults.length > 0) {
             // Create location category only if we have location results
@@ -1611,17 +1623,17 @@ function initSearchBar() {
             aircraftResults.sort((aircraft1, aircraft2) => {
                 return aircraft1.name.localeCompare(aircraft2.name);
             })
-                .forEach(function (aircraft) {
-                    resultsHtml += createTableRow(aircraft.aircraftId,
-                        aircraft.name,
-                        aircraft.icon,
-                        aircraft.type,
-                        aircraft.path[0].time,
-                        aircraft.aerobatic,
-                        aircraft.special,
-                        true,
-                        false);
-                });
+            .forEach(function (aircraft) {
+                resultsHtml += createTableRow(aircraft.aircraftId,
+                    aircraft.name,
+                    aircraft.icon,
+                    aircraft.type,
+                    aircraft.path[0].time,
+                    aircraft.aerobatic,
+                    aircraft.special,
+                    true,
+                    false);
+            });
         }
 
         if (aircraftResults.length > 0 || citiesResults.length > 0 || basesResults.length > 0) {
@@ -1678,7 +1690,7 @@ window.onhashchange = (e) => {
             $("#aboutPopup").fadeOut();
             aboutVisible = false;
         }
-        // Aircraft info popup section
+    // Aircraft info popup section
     } else if ((previousHashValue === aircraftSelectedHash || previousHashValue === aircraftInfoContentHash) &&
         currentHash !== aircraftSelectedHash &&
         currentHash !== aircraftInfoContentHash &&
