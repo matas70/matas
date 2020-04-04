@@ -2100,6 +2100,5 @@ function showAudioMessagePopapp() {
 }
 
 function closeVoiceMessagePopapp(){
-    console.log("none");
     document.getElementById("myModal").style.display = "none";
 }
