@@ -2112,7 +2112,8 @@ function closeEntrancePopup() {
 }
 
 function getAerobaticsPoints() {
-    return [].concat.apply([], aircrafts.filter(aircraft => aircraft.aerobatic).map(aircraftObj => aircraftObj.path.map(point => point.pointId)));
+    return [].concat(aircrafts.filter(aircraft => aircraft.aerobatic).map(aircraftObj => aircraftObj.path.map(point => point.pointId)).flat(),
+                     aircrafts.map(aircraft => aircraft.path.filter(point => point.special === "מופעים אוויריים").map(point => point.pointId)).flat());
 }
 
 var pointsWithShows = [];
