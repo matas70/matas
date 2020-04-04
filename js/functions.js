@@ -50,14 +50,17 @@ function getEnv(callback) {
                 case 'dev':
                     appStage = 'matas-dev';
                     break;
-
                 case 'prod':
                     appStage = 'matas';
                     break;
-
                 default:
                     break;
             }
+            callback(appStage);
+        })
+        .catch(() => {
+            console.error("Matas: Couldn't load env from server, using defauls.");
+            appStage = "matas";
             callback(appStage);
         });
     }
@@ -499,15 +502,17 @@ function updateLocations(route) {
 }
 
 function loadLocations(callback) {
-    $.getJSON("data/points.json?t=" + (new Date()).getTime(), function (points) {
-        points.forEach(function (point) {
-            if (locations[point.pointId] === undefined) {
-                locations[point.pointId] = point;
-                locations[point.pointId].aircrafts = [];
-                locations[point.pointId].color = "64e1a5"
-            }
-        }, this);
-        callback(points);
+    getEnv((env) => {
+        $.getJSON(`${apiURL}/${env}/points.json?t=` + (new Date()).getTime(), function (points) {
+            points.forEach(function (point) {
+                if (locations[point.pointId] === undefined) {
+                    locations[point.pointId] = point;
+                    locations[point.pointId].aircrafts = [];
+                    locations[point.pointId].color = "64e1a5"
+                }
+            }, this);
+            callback(points);
+        });
     });
 }
 
@@ -1290,18 +1295,6 @@ function onLoad() {
         setTimeout(() => {
             window.location.hash = mainHash;
         }, 100);
-
-        // load environment data
-        fetch("data/env.json")
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                console.info("env:"+data.env)
-            })
-        .catch(() => {
-            console.warn("no envoirnment file, assuming localhost");
-        });
 
         // if we are on online mode and it is taking too long to load - switch to offline
         if (!($.urlParam("offline") === "true")) {
