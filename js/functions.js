@@ -61,6 +61,7 @@ function getEnv(callback) {
                     appStage = 'matas';
                     break;
                 default:
+                    appStage = 'matas-dev';
                     break;
             }
             callback(appStage);
@@ -512,7 +513,7 @@ function updateLocations(route) {
 
 function loadLocations(callback) {
     getEnv((env) => {
-        $.getJSON(`${apiURL}/${env}/points.json?t=` + (new Date()).getTime(), function (points) {
+        $.getJSON(`${config.apiURL}/${env}/points.json?t=` + (new Date()).getTime(), function (points) {
             points.forEach(function (point) {
                 if (locations[point.pointId] === undefined) {
                     locations[point.pointId] = point;
@@ -527,7 +528,7 @@ function loadLocations(callback) {
 
 function loadRoutes(callback) {
     getEnv((env) => {
-        $.getJSON(`${apiURL}/${env}/routes.json?t=`+(new Date()).getTime(), function (routes) {
+        $.getJSON(`${config.apiURL}/${env}/routes.json?t=`+(new Date()).getTime(), function (routes) {
             routes.routes.forEach(function (route) {
                 updateLocations(route);
             }, this);
@@ -576,14 +577,14 @@ function loadActualStartTime() {
 
 function loadAircrafts(callback) {
     getEnv((env) => {
-        $.getJSON(`${apiURL}/${env}/aircrafts-info.json?t=` + (new Date()).getTime(), function(aircraftInfo) {
+        $.getJSON(`${config.apiURL}/${env}/aircrafts-info.json?t=` + (new Date()).getTime(), function(aircraftInfo) {
             // load aircraft type info into a map
             aircraftInfo.aircraftTypes.forEach(function (aircraftTypeInfo) {
                 aircraftTypesInfo[aircraftTypeInfo.aircraftTypeId] = aircraftTypeInfo;
             }, this);
 
             // load all aircrafts
-            $.getJSON(`${apiURL}/${env}/aircrafts.json?t=`+(new Date()).getTime(), function (flightData) {
+            $.getJSON(`${config.apiURL}/${env}/aircrafts.json?t=`+(new Date()).getTime(), function (flightData) {
                 aircrafts = flightData.aircrafts;
                 startDate = flightData.startDate;
                 plannedStartTime = convertTime(startDate, flightData.plannedStartTime);
