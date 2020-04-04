@@ -1,2344 +1,507 @@
 {
-  "startDate": "2019-05-09",
-  "plannedStartTime": "09:30:00",
-  "actualStartTime": "09:30:00",
-  "plannedEndTime": "13:00:00",
+  "startDate": "2020-04-04",
+  "plannedStartTime": "11:00:00",
+  "actualStartTime": "11:00:00",
+  "plannedEndTime": "17:00:00",
   "changes" : false,
+  "noCrowdingGeneralText": "שימו לב! עפ\"י הנחיות משרד הבריאות אין להתקהל לצורך צפייה במטס",
+  "noCrowdingLocationText": "שימו לב! עפ\"י הנחיות משרד הבריאות אין להתקהל במקום זה לצורך צפייה במופע. ניתן לצפות מהמופע מהחדרים והמרפסות בלבד",
   "aircrafts": [
     {
       "path": [
         {
-          "pointId": 1,
-          "time": "11:00:35"
+          "pointId": 153,
+          "time": "11:14:38"
         },
         {
-          "pointId": 2,
-          "time": "11:02:05"
+          "pointId": 48,
+          "time": "11:12:30"
         },
         {
-          "pointId": 3,
-          "time": "11:07:35"
+          "pointId": 154,
+          "time": "11:22:33"
         },
         {
-          "pointId": 4,
-          "time": "11:08:40"
+          "pointId": 155,
+          "time": "11:24:41",
+          "special": "מופעים אוויריים"
+
         },
         {
-          "pointId": 5,
-          "time": "11:10:30"
+          "pointId": 156,
+          "time": "11:24:42"
+
+
         },
         {
-          "pointId": 6,
-          "time": "11:11:55"
+          "pointId": 157,
+          "time": "11:25:41"
+
+
         },
         {
-          "pointId": 7,
-          "time": "11:13:30"
-        },
-        {
-          "pointId": 8,
-          "time": "11:14:25"
-        },
-        {
-          "pointId": 9,
-          "time": "11:15:40"
-        },
-        {
-          "pointId": 10,
-          "time": "11:16:00"
-        },
-        {
-          "pointId": 11,
-          "time": "11:16:20"
-        },
-        {
-          "pointId": 12,
-          "time": "11:17:25"
-        },
-        {
-          "pointId": 13,
-          "time": "11:18:05"
-        },
-        {
-          "pointId": 14,
-          "time": "11:19:10"
-        },
-        {
-          "pointId": 15,
-          "time": "11:19:45"
-        },
-        {
-          "pointId": 16,
-          "time": "11:20:50"
-        },
-        {
-          "pointId": 17,
-          "time": "11:22:35"
-        },
-        {
-          "pointId": 18,
-          "time": "11:23:55"
-        },
-        {
-          "pointId": 19,
-          "time": "11:24:45"
-        },
-        {
-          "pointId": 20,
-          "time": "11:24:55"
-        },
-        {
-          "pointId": 21,
-          "time": "11:26:10"
-        },
-        {
-          "pointId": 22,
-          "time": "11:29:10"
-        },
-        {
-          "pointId": 23,
-          "time": "11:30:25"
-        },
-        {
-          "pointId": 24,
-          "time": "11:32:40"
-        },
-        {
-          "pointId": 25,
-          "time": "11:33:30"
-        },
-        {
-          "pointId": 26,
-          "time": "11:33:50"
-        },
-        {
-          "pointId": 27,
-          "time": "11:36:05"
-        },
-        {
-          "pointId": 28,
-          "time": "11:36:45"
+          "pointId": 158,
+          "time": "11:26:02"
+
+
         },
         {
           "pointId": 29,
-          "time": "11:38:00"
+          "time": "11:26:50"
+
+
         },
         {
-          "pointId": 30,
-          "time": "11:38:25"
+          "pointId": 159,
+          "time": "11:27:02",
+          "special": "מופעים אוויריים"
+
+
         },
         {
-          "pointId": 31,
-          "time": "11:37:55"
+          "pointId": 160,
+          "time": "11:27:03"
+
+
         },
         {
-          "pointId": 32,
-          "time": "11:41:40"
+          "pointId": 161,
+          "time": "11:28:32"
+
+
         },
         {
-          "pointId": 33,
-          "time": "11:43:10"
+          "pointId": 162,
+          "time": "11:29:21"
+
+
         },
         {
-          "pointId": 104,
-          "time": "11:39:05"
+          "pointId": 164,
+          "time": "11:29:48"
+
+
+        },
+        {
+          "pointId": 163,
+          "time": "11:29:47",
+          "special": "מופעים אוויריים"
+
+
+        },
+        {
+          "pointId": 165,
+          "time": "11:31:06"
+
+
+        },
+        {
+          "pointId": 166,
+          "time": "11:31:35"
+
+
+        },
+        {
+          "pointId": 167,
+          "time": "11:32:12"
+
+
+        },
+        {
+          "pointId": 168,
+          "time": "11:32:50",
+          "special": "מופעים אוויריים"
+
+
+        },
+        {
+          "pointId": 169,
+          "time": "11:33:00"
+
+
+        },
+        {
+          "pointId": 170,
+          "time": "11:34:23"
+
+
+        },
+        {
+          "pointId": 171,
+          "time": "11:35:20",
+          "special": "מופעים אוויריים"
+
+
+        },
+        {
+          "pointId": 172,
+          "time": "11:36:20"
+
+
+        },
+        {
+          "pointId": 173,
+          "time": "11:37:20"
+
+
+        },
+        {
+          "pointId": 174,
+          "time": "11:37:36"
+
+
+        },
+        {
+          "pointId": 175,
+          "time": "11:37:57",
+          "special": "מופעים אוויריים"
+
+
+        },
+        {
+          "pointId": 176,
+          "time": "11:37:58"
+
+
+        },
+        {
+          "pointId": 177,
+          "time": "11:38:57"
+
+
         }
       ],
+      "hide": false,
       "aircraftId": 1,
-      "aircraftTypeId": 8
+      "aircraftTypeId": 25
     },
     {
       "path": [
         {
-          "pointId": 1,
-          "time": "11:03:29"
-        },
-        {
-          "pointId": 2,
-          "time": "11:04:58"
-        },
-        {
-          "pointId": 3,
-          "time": "11:10:25"
-        },
-        {
-          "pointId": 4,
-          "time": "11:11:32"
-        },
-        {
-          "pointId": 5,
-          "time": "11:13:18"
-        },
-        {
-          "pointId": 6,
-          "time": "11:14:45"
-        },
-        {
-          "pointId": 7,
-          "time": "11:16:17"
-        },
-        {
-          "pointId": 8,
-          "time": "11:17:13"
-        },
-        {
-          "pointId": 9,
-          "time": "11:18:30"
-        },
-        {
-          "pointId": 10,
-          "time": "11:18:50"
-        },
-        {
-          "pointId": 11,
-          "time": "11:19:10"
-        },
-        {
-          "pointId": 12,
-          "time": "11:20:13"
-        },
-        {
-          "pointId": 13,
-          "time": "11:20:53"
-        },
-        {
-          "pointId": 14,
-          "time": "11:22:04"
-        },
-        {
-          "pointId": 15,
-          "time": "11:22:43"
-        },
-        {
-          "pointId": 16,
-          "time": "11:23:46"
-        },
-        {
-          "pointId": 17,
-          "time": "11:25:24"
-        },
-        {
-          "pointId": 18,
-          "time": "11:26:45"
-        },
-        {
-          "pointId": 19,
-          "time": "11:28:31"
-        },
-        {
-          "pointId": 20,
-          "time": "11:28:43"
-        },
-        {
-          "pointId": 21,
-          "time": "11:30:00"
-        },
-        {
-          "pointId": 22,
-          "time": "11:32:00"
-        },
-        {
-          "pointId": 23,
-          "time": "11:34:07"
-        },
-        {
-          "pointId": 24,
-          "time": "11:35:58"
-        },
-        {
-          "pointId": 25,
-          "time": "11:36:42"
-        },
-        {
-          "pointId": 26,
-          "time": "11:37:51"
-        },
-        {
-          "pointId": 27,
-          "time": "11:38:55"
-        },
-        {
-          "pointId": 28,
-          "time": "11:39:34"
-        },
-        {
-          "pointId": 29,
-          "time": "11:40:50"
-        },
-        {
-          "pointId": 30,
-          "time": "11:42:10"
-        },
-        {
-          "pointId": 31,
-          "time": "11:42:55"
-        },
-        {
-          "pointId": 32,
-          "time": "11:45:27"
-        },
-        {
-          "pointId": 33,
-          "time": "11:46:58"
-        },
-        {
-          "pointId": 104,
-          "time": "11:42:50"
-        }
-      ],
-      "aircraftId": 2,
-      "aircraftTypeId": 10
-    },
-    {
-      "path": [
-        {
-          "pointId": 1,
-          "time": "11:08:29"
-        },
-        {
-          "pointId": 2,
-          "time": "11:09:58"
-        },
-        {
-          "pointId": 3,
-          "time": "11:15:25"
-        },
-        {
-          "pointId": 4,
-          "time": "11:16:32"
-        },
-        {
-          "pointId": 5,
-          "time": "11:18:18"
-        },
-        {
-          "pointId": 6,
-          "time": "11:19:45"
-        },
-        {
-          "pointId": 7,
-          "time": "11:21:17"
-        },
-        {
-          "pointId": 8,
-          "time": "11:22:13"
-        },
-        {
-          "pointId": 9,
-          "time": "11:23:30"
-        },
-        {
-          "pointId": 10,
-          "time": "11:23:50"
-        },
-        {
-          "pointId": 11,
-          "time": "11:24:10"
-        },
-        {
-          "pointId": 12,
-          "time": "11:25:13"
-        },
-        {
-          "pointId": 13,
-          "time": "11:25:53"
-        },
-        {
-          "pointId": 14,
-          "time": "11:07:04"
-        },
-        {
-          "pointId": 15,
-          "time": "11:27:43"
-        },
-        {
-          "pointId": 16,
-          "time": "11:28:46"
-        },
-        {
-          "pointId": 17,
-          "time": "11:30:24"
-        },
-        {
-          "pointId": 18,
-          "time": "11:31:45"
-        },
-        {
-          "pointId": 19,
-          "time": "11:33:31"
-        },
-        {
-          "pointId": 20,
-          "time": "11:33:34"
-        },
-        {
-          "pointId": 21,
-          "time": "11:35:00"
-        },
-        {
-          "pointId": 22,
-          "time": "11:37:00"
-        },
-        {
-          "pointId": 23,
-          "time": "11:39:07"
-        },
-        {
-          "pointId": 24,
-          "time": "11:40:58"
-        },
-        {
-          "pointId": 25,
-          "time": "11:41:42"
-        },
-        {
-          "pointId": 26,
-          "time": "11:42:51"
-        },
-        {
-          "pointId": 27,
-          "time": "11:43:55"
-        },
-        {
-          "pointId": 28,
-          "time": "11:44:34"
-        },
-        {
-          "pointId": 29,
-          "time": "11:45:50"
-        },
-        {
-          "pointId": 30,
-          "time": "11:47:10"
-        },
-        {
-          "pointId": 31,
-          "time": "11:47:55"
-        },
-        {
-          "pointId": 32,
-          "time": "11:50:27"
-        },
-        {
-          "pointId": 33,
-          "time": "11:51:58"
-        },
-        {
-          "pointId": 104,
-          "time": "11:47:50"
-        }
-      ],
-      "aircraftId": 3,
-      "aircraftTypeId": 9
-    },
-    {
-      "path": [
-        {
-          "pointId": 5,
-          "time": "11:10:20"
-        },
-        {
-          "pointId": 1,
-          "time": "11:00:25"
-        },
-        {
-          "pointId": 2,
-          "time": "11:01:55"
-        },
-        {
-          "pointId": 3,
-          "time": "11:07:25"
-        },
-        {
-          "pointId": 4,
-          "time": "11:08:30"
-        },
-        {
-          "pointId": 6,
-          "time": "11:11:45"
-        },
-        {
-          "pointId": 7,
-          "time": "11:13:20"
-        },
-        {
-          "pointId": 8,
-          "time": "11:14:15"
-        },
-        {
-          "pointId": 9,
-          "time": "11:15:30"
-        },
-        {
-          "pointId": 10,
-          "time": "11:15:50"
-        },
-        {
-          "pointId": 11,
-          "time": "11:16:10"
-        },
-        {
-          "pointId": 12,
-          "time": "11:17:15"
-        },
-        {
-          "pointId": 13,
-          "time": "11:17:55"
-        },
-        {
-          "pointId": 14,
-          "time": "11:19:00"
-        },
-        {
-          "pointId": 15,
-          "time": "11:19:35"
-        },
-        {
-          "pointId": 16,
-          "time": "11:20:40"
-        },
-        {
-          "pointId": 17,
-          "time": "11:22:25"
-        },
-        {
-          "pointId": 18,
-          "time": "11:23:45"
-        },
-        {
-          "pointId": 19,
-          "time": "11:24:35"
-        },
-        {
-          "pointId": 20,
-          "time": "11:24:45"
-        },
-        {
-          "pointId": 21,
-          "time": "11:26:00"
-        },
-        {
-          "pointId": 22,
-          "time": "11:29:00"
-        },
-        {
-          "pointId": 23,
-          "time": "11:30:15"
-        },
-        {
-          "pointId": 24,
-          "time": "11:32:30"
-        },
-        {
-          "pointId": 25,
-          "time": "11:33:20"
-        },
-        {
-          "pointId": 26,
-          "time": "11:33:40"
-        },
-        {
-          "pointId": 27,
-          "time": "11:35:55"
-        },
-        {
-          "pointId": 28,
-          "time": "11:36:35"
-        },
-        {
-          "pointId": 29,
-          "time": "11:37:50"
-        },
-        {
-          "pointId": 30,
-          "time": "11:38:15"
-        },
-        {
-          "pointId": 31,
-          "time": "11:37:55"
-        },
-        {
-          "pointId": 32,
-          "time": "11:41:30"
-        },
-        {
-          "pointId": 33,
-          "time": "11:43:00"
-        },
-        {
-          "pointId": 104,
-          "time": "11:38:55"
-        }
-      ],
-      "aircraftId": 4,
-      "aircraftTypeId": 12
-    },
-    {
-      "path": [
-        {
-          "pointId": 34,
-          "time": "10:54:00"
-        },
-        {
-          "pointId": 35,
-          "time": "10:55:20"
-        },
-        {
-          "pointId": 36,
-          "time": "10:55:45"
-        },
-        {
-          "pointId": 37,
-          "time": "10:56:30"
-        },
-        {
-          "pointId": 38,
-          "time": "10:58:30"
-        },
-        {
-          "pointId": 39,
-          "time": "10:59:00"
-        },
-        {
-          "pointId": 40,
-          "time": "11:02:05"
-        },
-        {
-          "pointId": 41,
-          "time": "11:03:05"
-        },
-        {
-          "pointId": 42,
-          "time": "11:09:30"
-        },
-        {
-          "pointId": 43,
-          "time": "11:12:25"
-        },
-        {
-          "pointId": 44,
-          "time": "11:13:45"
-        },
-        {
-          "pointId": 45,
-          "time": "11:15:15"
-        },
-        {
-          "pointId": 46,
-          "time": "11:17:55"
-        },
-        {
-          "pointId": 47,
-          "time": "11:19:00"
-        },
-        {
-          "pointId": 48,
-          "time": "11:20:15"
-        },
-        {
-          "pointId": 49,
-          "time": "11:21:35"
-        },
-        {
-          "pointId": 50,
-          "time": "11:22:45"
-        },
-        {
-          "pointId": 51,
-          "time": "11:24:40"
-        }
-      ],
-      "aircraftId": 5,
-      "aircraftTypeId": 12
-    },
-    {
-      "path": [
-        {
-          "pointId": 34,
-          "time": "10:54:10"
-        },
-        {
-          "pointId": 35,
-          "time": "10:55:30"
-        },
-        {
-          "pointId": 36,
-          "time": "10:55:55"
-        },
-        {
-          "pointId": 37,
-          "time": "10:56:40"
-        },
-        {
-          "pointId": 38,
-          "time": "10:58:40"
-        },
-        {
-          "pointId": 39,
-          "time": "10:59:10"
-        },
-        {
-          "pointId": 40,
-          "time": "11:02:15"
-        },
-        {
-          "pointId": 41,
-          "time": "11:03:15"
-        },
-        {
-          "pointId": 42,
-          "time": "11:09:40"
-        },
-        {
-          "pointId": 43,
-          "time": "11:12:35"
-        },
-        {
-          "pointId": 44,
-          "time": "11:13:55"
-        },
-        {
-          "pointId": 45,
-          "time": "11:15:25"
-        },
-        {
-          "pointId": 46,
-          "time": "11:18:05"
-        },
-        {
-          "pointId": 47,
-          "time": "11:19:10"
-        },
-        {
-          "pointId": 48,
-          "time": "11:20:25"
-        },
-        {
-          "pointId": 49,
-          "time": "11:21:45"
-        },
-        {
-          "pointId": 50,
-          "time": "11:22:55"
-        },
-        {
-          "pointId": 51,
-          "time": "11:24:50"
-        }
-      ],
-      "aircraftId": 6,
-      "aircraftTypeId": 8
-    },
-    {
-      "path": [
-        {
-          "pointId": 34,
-          "time": "10:57:00"
-        },
-        {
-          "pointId": 35,
-          "time": "10:58:20"
-        },
-        {
-          "pointId": 36,
-          "time": "10:58:45"
-        },
-        {
-          "pointId": 37,
-          "time": "10:59:30"
-        },
-        {
-          "pointId": 38,
-          "time": "11:03:23"
-        },
-        {
-          "pointId": 39,
-          "time": "11:03:51"
-        },
-        {
-          "pointId": 40,
-          "time": "11:06:29"
-        },
-        {
-          "pointId": 41,
-          "time": "11:07:21"
-        },
-        {
-          "pointId": 42,
-          "time": "11:12:53"
-        },
-        {
-          "pointId": 43,
-          "time": "11:15:23"
-        },
-        {
-          "pointId": 44,
-          "time": "11:16:43"
-        },
-        {
-          "pointId": 45,
-          "time": "11:18:15"
-        },
-        {
-          "pointId": 46,
-          "time": "11:21:00"
-        },
-        {
-          "pointId": 47,
-          "time": "11:24:10"
-        },
-        {
-          "pointId": 48,
-          "time": "11:26:48"
-        },
-        {
-          "pointId": 49,
-          "time": "11:27:58"
-        },
-        {
-          "pointId": 50,
-          "time": "11:29:03"
-        },
-        {
-          "pointId": 51,
-          "time": "11:30:44"
-        }
-      ],
-      "aircraftId": 7,
-      "aircraftTypeId": 26
-    },
-    {
-      "path": [
-        {
-          "pointId": 34,
-          "time": "11:02:00"
-        },
-        {
-          "pointId": 35,
-          "time": "11:03:22"
-        },
-        {
-          "pointId": 36,
-          "time": "11:03:48"
-        },
-        {
-          "pointId": 37,
-          "time": "11:04:30"
-        },
-        {
-          "pointId": 38,
-          "time": "11:07:33"
-        },
-        {
-          "pointId": 39,
-          "time": "11:08:05"
-        },
-        {
-          "pointId": 40,
-          "time": "11:11:10"
-        },
-        {
-          "pointId": 41,
-          "time": "11:12:00"
-        },
-        {
-          "pointId": 42,
-          "time": "11:17:23"
-        },
-        {
-          "pointId": 43,
-          "time": "11:20:17"
-        },
-        {
-          "pointId": 44,
-          "time": "11:21:39"
-        },
-        {
-          "pointId": 45,
-          "time": "11:23:11"
-        },
-        {
-          "pointId": 46,
-          "time": "11:26:00"
-        },
-        {
-          "pointId": 47,
-          "time": "11:28:00"
-        },
-        {
-          "pointId": 48,
-          "time": "11:30:11"
-        },
-        {
-          "pointId": 49,
-          "time": "11:31:32"
-        },
-        {
-          "pointId": 50,
-          "time": "11:32:48"
-        },
-        {
-          "pointId": 51,
-          "time": "11:34:46"
-        }
-      ],
-      "aircraftId": 8,
-      "aircraftTypeId": 9
-    },
-    {
-      "path": [
-        {
-          "pointId": 52,
-          "time": "11:01:34"
-        },
-        {
-          "pointId": 53,
-          "time": "11:03:20"
-        },
-        {
-          "pointId": 54,
-          "time": "11:05:16"
-        },
-        {
-          "pointId": 55,
-          "time": "11:07:33"
-        },
-        {
-          "pointId": 56,
-          "time": "11:14:54"
-        },
-        {
-          "pointId": 57,
-          "time": "11:16:26"
-        },
-        {
-          "pointId": 58,
-          "time": "11:28:02"
-        },
-        {
-          "pointId": 59,
-          "time": "11:29:59"
-        },
-        {
-          "pointId": 60,
-          "time": "11:31:07"
-        },
-        {
-          "pointId": 61,
-          "time": "11:31:34"
-        },
-        {
-          "pointId": 62,
-          "time": "11:32:24"
-        },
-        {
-          "pointId": 63,
-          "time": "11:32:59"
-        },
-        {
-          "pointId": 86,
-          "time": "11:33:19"
-        },
-        {
-          "pointId": 64,
-          "time": "11:34:51"
-        },
-        {
-          "pointId": 65,
-          "time": "11:37:31"
-        },
-        {
-          "pointId": 66,
-          "time": "11:38:13"
-        },
-        {
-          "pointId": 67,
-          "time": "11:40:40"
-        },
-        {
-          "pointId": 68,
-          "time": "11:41:19"
-        },
-        {
-          "pointId": 69,
-          "time": "11:42:05"
-        },
-        {
-          "pointId": 70,
-          "time": "11:43:29"
-        },
-        {
-          "pointId": 71,
-          "time": "11:43:59"
-        },
-        {
-          "pointId": 72,
-          "time": "11:48:11"
-        },
-        {
-          "pointId": 73,
-          "time": "11:48:47"
-        },
-        {
-          "pointId": 42,
-          "time": "11:50:35"
-        },
-        {
-          "pointId": 74,
-          "time": "11:53:31"
-        },
-        {
-          "pointId": 75,
-          "time": "11:54:52"
-        },
-        {
-          "pointId": 76,
-          "time": "11:55:53"
-        },
-        {
-          "pointId": 77,
-          "time": "11:57:09"
-        },
-        {
-          "pointId": 78,
-          "time": "11:58:19"
-        },
-        {
-          "pointId": 79,
-          "time": "11:58:48"
-        },
-        {
-          "pointId": 80,
-          "time": "11:59:23"
-        },
-        {
-          "pointId": 81,
-          "time": "12:00:28"
-        },
-        {
-          "pointId": 82,
-          "time": "12:01:07"
-        },
-        {
-          "pointId": 83,
-          "time": "12:02:02"
-        },
-        {
-          "pointId": 84,
-          "time": "12:02:20"
-        },
-        {
-          "pointId": 85,
-          "time": "12:02:53"
-        },
-        {
-          "pointId": 113,
-          "time": "11:25:06"
-        },
-        {
-          "pointId": 114,
-          "time": "11:27:20"
+          "pointId": 126,
+          "time": "13:03:00"
+
+
         },
         {
           "pointId": 127,
-          "time": "11:55:20"
-        },
-        {
-          "pointId": 126,
-          "time": "11:52:10"
-        }
-      ],
-      "aircraftId": 9,
-      "aircraftTypeId": 8
-    },
-    {
-      "path": [
-        {
-          "pointId": 52,
-          "time": "11:02:34"
-        },
-        {
-          "pointId": 53,
-          "time": "11:04:20"
-        },
-        {
-          "pointId": 54,
-          "time": "11:06:16"
-        },
-        {
-          "pointId": 55,
-          "time": "11:08:33"
-        },
-        {
-          "pointId": 56,
-          "time": "11:15:54"
-        },
-        {
-          "pointId": 57,
-          "time": "11:17:26"
-        },
-        {
-          "pointId": 58,
-          "time": "11:29:02"
-        },
-        {
-          "pointId": 59,
-          "time": "11:30:59"
-        },
-        {
-          "pointId": 60,
-          "time": "11:32:07"
-        },
-        {
-          "pointId": 61,
-          "time": "11:32:34"
-        },
-        {
-          "pointId": 62,
-          "time": "11:33:24"
-        },
-        {
-          "pointId": 63,
-          "time": "11:33:59"
-        },
-        {
-          "pointId": 86,
-          "time": "11:34:19"
-        },
-        {
-          "pointId": 64,
-          "time": "11:35:51"
-        },
-        {
-          "pointId": 65,
-          "time": "11:38:31"
-        },
-        {
-          "pointId": 66,
-          "time": "11:39:13"
-        },
-        {
-          "pointId": 67,
-          "time": "11:41:40"
-        },
-        {
-          "pointId": 68,
-          "time": "11:42:19"
-        },
-        {
-          "pointId": 69,
-          "time": "11:42:05"
-        },
-        {
-          "pointId": 70,
-          "time": "11:44:29"
-        },
-        {
-          "pointId": 71,
-          "time": "11:44:59"
-        },
-        {
-          "pointId": 72,
-          "time": "11:49:11"
-        },
-        {
-          "pointId": 73,
-          "time": "11:49:47"
-        },
-        {
-          "pointId": 113,
-          "time": "11:26:06"
-        },
-        {
-          "pointId": 114,
-          "time": "11:28:20"
-        }
-      ],
-      "aircraftId": 10,
-      "aircraftTypeId": 11
-    },
-    {
-      "path": [
-        {
-          "pointId": 52,
-          "time": "11:03:32"
-        },
-        {
-          "pointId": 53,
-          "time": "11:05:25"
-        },
-        {
-          "pointId": 54,
-          "time": "11:07:47"
-        },
-        {
-          "pointId": 55,
-          "time": "11:10:56"
-        },
-        {
-          "pointId": 56,
-          "time": "11:19:56"
-        },
-        {
-          "pointId": 57,
-          "time": "11:21:45"
-        },
-        {
-          "pointId": 58,
-          "time": "11:32:08"
-        },
-        {
-          "pointId": 59,
-          "time": "11:34:31"
-        },
-        {
-          "pointId": 60,
-          "time": "11:35:55"
-        },
-        {
-          "pointId": 61,
-          "time": "11:36:29"
-        },
-        {
-          "pointId": 62,
-          "time": "11:37:30"
-        },
-        {
-          "pointId": 63,
-          "time": "11:38:12"
-        },
-        {
-          "pointId": 86,
-          "time": "11:38:37"
-        },
-        {
-          "pointId": 64,
-          "time": "11:40:32"
-        },
-        {
-          "pointId": 65,
-          "time": "11:43:48"
-        },
-        {
-          "pointId": 66,
-          "time": "11:44:40"
-        },
-        {
-          "pointId": 67,
-          "time": "11:47:44"
-        },
-        {
-          "pointId": 68,
-          "time": "11:48:31"
-        },
-        {
-          "pointId": 69,
-          "time": "11:49:29"
-        },
-        {
-          "pointId": 70,
-          "time": "11:51:10"
-        },
-        {
-          "pointId": 71,
-          "time": "11:51:49"
-        },
-        {
-          "pointId": 72,
-          "time": "11:56:57"
-        },
-        {
-          "pointId": 73,
-          "time": "11:57:41"
-        },
-        {
-          "pointId": 113,
-          "time": "11:28:59"
-        },
-        {
-          "pointId": 114,
-          "time": "11:31:17"
-        }
-      ],
-      "aircraftId": 11,
-      "aircraftTypeId": 15
-    },
-    {
-      "path": [
-        {
-          "pointId": 52,
-          "time": "11:04:32"
-        },
-        {
-          "pointId": 53,
-          "time": "11:06:25"
-        },
-        {
-          "pointId": 54,
-          "time": "11:08:47"
-        },
-        {
-          "pointId": 55,
-          "time": "11:11:56"
-        },
-        {
-          "pointId": 56,
-          "time": "11:20:56"
-        },
-        {
-          "pointId": 57,
-          "time": "11:22:45"
-        },
-        {
-          "pointId": 58,
-          "time": "11:33:08"
-        },
-        {
-          "pointId": 59,
-          "time": "11:35:31"
-        },
-        {
-          "pointId": 60,
-          "time": "11:36:55"
-        },
-        {
-          "pointId": 61,
-          "time": "11:37:29"
-        },
-        {
-          "pointId": 62,
-          "time": "11:38:30"
-        },
-        {
-          "pointId": 63,
-          "time": "11:39:12"
-        },
-        {
-          "pointId": 86,
-          "time": "11:39:37"
-        },
-        {
-          "pointId": 64,
-          "time": "11:41:32"
-        },
-        {
-          "pointId": 65,
-          "time": "11:44:48"
-        },
-        {
-          "pointId": 66,
-          "time": "11:45:40"
-        },
-        {
-          "pointId": 67,
-          "time": "11:48:44"
-        },
-        {
-          "pointId": 68,
-          "time": "11:49:31"
-        },
-        {
-          "pointId": 69,
-          "time": "11:50:29"
-        },
-        {
-          "pointId": 70,
-          "time": "11:52:10"
-        },
-        {
-          "pointId": 71,
-          "time": "11:52:49"
-        },
-        {
-          "pointId": 72,
-          "time": "11:57:57"
-        },
-        {
-          "pointId": 73,
-          "time": "11:58:41"
-        },
-        {
-          "pointId": 113,
-          "time": "11:29:59"
-        },
-        {
-          "pointId": 114,
-          "time": "11:32:17"
-        }
-      ],
-      "aircraftId": 12,
-      "aircraftTypeId": 14
-    },
-    {
-      "path": [
-        {
-          "pointId": 87,
-          "time": "11:49:55"
-        },
-        {
-          "pointId": 89,
-          "time": "11:52:35"
-        },
-        {
-          "pointId": 90,
-          "time": "11:55:50"
-        },
-        {
-          "pointId": 92,
-          "time": "12:13:40"
-        },
-        {
-          "pointId": 93,
-          "time": "12:15:50"
-        },
-        {
-          "pointId": 94,
-          "time": "12:22:30"
-        },
-        {
-          "pointId": 95,
-          "time": "12:24:50"
-        },
-        {
-          "pointId": 96,
-          "time": "12:28:35"
-        },
-        {
-          "pointId": 29,
-          "time": "12:33:50"
-        },
-        {
-          "pointId": 97,
-          "time": "12:40:20"
-        },
-        {
-          "pointId": 98,
-          "time": "11:43:30"
-        },
-        {
-          "pointId": 37,
-          "time": "11:47:00"
-        },
-        {
-          "pointId": 40,
-          "time": "12:04:25"
-        },
-        {
-          "pointId": 108,
-          "time": "11:40:00"
-        },
-        {
-          "pointId": 99,
-          "time": "12:08:35"
-        },
-        {
-          "pointId": 100,
-          "time": "12:11:50"
-        },
-        {
-          "pointId": 101,
-          "time": "12:19:50"
-        },
-        {
-          "pointId": 102,
-          "time": "12:20:50"
-        },
-        {
-          "pointId": 104,
-          "time": "12:37:20"
-        },
-        {
-          "pointId": 105,
-          "time": "12:42:30"
-        },
-        {
-          "pointId": 106,
-          "time": "12:44:50"
-        },
-        {
-          "pointId": 107,
-          "time": "12:50:50"
-        },
-        {
-          "pointId": 37,
-          "time": "12:53:00"
-        },
-        {
-          "pointId": 109,
-          "time": "12:56:30"
-        },
-        {
-          "pointId": 110,
-          "time": "12:59:00"
-        }
-      ],
-      "aircraftId": 13,
-      "aircraftTypeId": 4
-    },
-    {
-      "path": [
-        {
-          "pointId": 18,
-          "time": "09:30:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 21,
-          "time": "09:40:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 22,
-          "time": "09:47:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 40,
-          "time": "11:20:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 46,
-          "time": "13:15:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 125,
-          "time": "09:37:00"
-        },
-        {
-          "pointId": 124,
-          "time": "09:43:00"
-        },
-        {
-          "pointId": 123,
-          "time": "09:54:00"
-        },
-        {
-          "pointId": 121,
-          "time": "11:27:00"
-        },
-        {
-          "pointId": 112,
-          "time": "11:42:00"
-        },
-        {
-          "pointId": 122,
-          "time": "11:57:00"
-        },
-        {
-          "pointId": 119,
-          "time": "13:12:00"
-        },
-        {
-          "pointId": 120,
-          "time": "13:22:00"
-        },
-        {
-          "pointId": 37,
-          "time": "11:35:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 29,
-          "time": "11:50:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 47,
-          "time": "13:05:00",
-          "special": "מופעים אוויריים"
-        }
-      ],
-      "hide": false,
-      "aircraftId": 14,
-      "aircraftTypeId": 25,
-      "special": "מופעים אוויריים",
-      "aerobatic": true
-    },
-    {
-      "path": [
-        {
-          "pointId": 18,
-          "time": "10:49:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 21,
-          "time": "11:06:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 125,
-          "time": "10:59:00"
-        },
-        {
-          "pointId": 124,
-          "time": "11:21:00"
-        }
-      ],
-      "hide": false,
-      "aircraftId": 15,
-      "aircraftTypeId": 29,
-      "special": ""
-    },
-    {
-      "path": [
-        {
-          "pointId": 18,
-          "time": "11:37:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 125,
-          "time": "11:52:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 16,
-      "aircraftTypeId": 29,
-      "special": "מופעים אוויריים",
-      "aerobatic": true
-    },
-    {
-      "path": [
-        {
-          "pointId": 21,
-          "time": "12:30:00",
-          "from": "08:30:00"
-        },
-        {
-          "pointId": 37,
-          "time": "13:00:00",
-          "from": "07:30:00"
-        },
-        {
-          "pointId": 18,
-          "time": "13:00:00",
-          "from": "08:00:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 17,
-      "aircraftTypeId": 39,
-      "special": "מופעים קרקעיים"
-    },
-    {
-      "path": [
-        {
-          "pointId": 18,
-          "time": "13:00:00",
-          "from": "08:00:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 18,
-      "aircraftTypeId": 33,
-      "special": "מופעים קרקעיים"
-    },
-    {
-      "path": [
-        {
-          "pointId": 18,
-          "time": "13:00:00",
-          "from": "08:00:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 19,
-      "aircraftTypeId": 38,
-      "special": "מופעים קרקעיים"
-    },
-    {
-      "path": [
-        {
-          "pointId": 21,
-          "time": "12:30:00",
-          "from": "08:30:00"
-        },
-        {
-          "pointId": 37,
-          "time": "13:00:00",
-          "from": "07:30:00"
-        },
-        {
-          "pointId": 18,
-          "time": "13:00:00",
-          "from": "08:00:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 20,
-      "aircraftTypeId": 35,
-      "special": "מופעים קרקעיים"
-    },
-    {
-      "path": [
-        {
-          "pointId": 21,
-          "time": "12:30:00",
-          "from": "08:30:00"
-        },
-        {
-          "pointId": 37,
-          "time": "13:00:00",
-          "from": "07:30:00"
-        },
-        {
-          "pointId": 18,
-          "time": "13:00:00",
-          "from": "08:00:00"
-        },
-        {
-          "pointId": 47,
-          "time": "14:00:00",
-          "from": "09:00:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 21,
-      "aircraftTypeId": 36,
-      "special": "מופעים קרקעיים"
-    },
-    {
-      "path": [
-        {
-          "pointId": 21,
-          "time": "12:30:00",
-          "from": "08:30:00"
-        },
-        {
-          "pointId": 47,
-          "time": "14:00:00",
-          "from": "09:00:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 22,
-      "aircraftTypeId": 37,
-      "special": "מופעים קרקעיים"
-    },
-    {
-      "path": [
-        {
-          "pointId": 37,
-          "time": "13:00:00",
-          "from": "07:30:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 23,
-      "aircraftTypeId": 40,
-      "special": "מופעים קרקעיים"
-    },
-    {
-      "path": [
-        {
-          "pointId": 82,
-          "time": "10:15:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 80,
-          "time": "10:17:40"
-        },
-        {
-          "pointId": 48,
-          "time": "10:19:30"
-        },
-        {
-          "pointId": 49,
-          "time": "10:21:06",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 50,
-          "time": "10:23:20",
-          "special": "מופעים אוויריים"
+          "time": "13:08:37"
+
+
         },
         {
           "pointId": 128,
-          "time": "10:26:10"
+          "time": "13:12:20"
+
+
+        },
+        {
+          "pointId": 129,
+          "time": "13:26:42",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 130,
+          "time": "13:27:42"
+        },
+        {
+          "pointId": 132,
+          "time": "13:33:41",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 133,
+          "time": "13:34:41"
+
+
+        },
+        {
+          "pointId": 134,
+          "time": "13:36:32"
+
+
+        },
+        {
+          "pointId": 135,
+          "time": "13:39:27",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 136,
+          "time": "13:40:27"
+
+
+        },
+        {
+          "pointId": 16,
+          "time": "13:29:32"
+
+
+        },
+        {
+          "pointId": 137,
+          "time": "13:42:52"
+
+
+        },
+        {
+          "pointId": 138,
+          "time": "13:46:11"
+
+
+        },
+        {
+          "pointId": 139,
+          "time": "13:47:44"
+
+
+        },
+        {
+          "pointId": 140,
+          "time": "13:49:37",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 141,
+          "time": "13:49:38"
+
+
+        },
+        {
+          "pointId": 142,
+          "time": "13:50:37"
+
+
+        },
+        {
+          "pointId": 143,
+          "time": "13:51:01",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 144,
+          "time": "13:51:02"
+
+
+        },
+        {
+          "pointId": 145,
+          "time": "13:52:01"
+
+
+        },
+        {
+          "pointId": 146,
+          "time": "13:55:39"
+
+
+        },
+        {
+          "pointId": 147,
+          "time": "13:57:47"
+
+
+        },
+        {
+          "pointId": 148,
+          "time": "13:57:48"
+
+
+        },
+        {
+          "pointId": 25,
+          "time": "13:58:50"
+
+
+        },
+        {
+          "pointId": 149,
+          "time": "14:00:29"
+
+
+        },
+        {
+          "pointId": 150,
+          "time": "14:01:29"
+
+
+        },
+        {
+          "pointId": 26,
+          "time": "14:01:40"
+
+
+        },
+        {
+          "pointId": 151,
+          "time": "14:01:59"
+
+
+        },
+        {
+          "pointId": 152,
+          "time": "14:08:54"
+
+
+        },
+        {
+          "pointId": 12,
+          "time": "13:32:34"
+
+
+        },
+        {
+          "pointId": 201,
+          "time": "13:48:37"
+
+
         }
       ],
       "hide": false,
-      "aircraftId": 24,
-      "aircraftTypeId": 10
+      "aircraftId": 2,
+      "aircraftTypeId": 25
     },
     {
       "path": [
         {
-          "pointId": 37,
-          "time": "14:55:00",
-          "date": "2019-04-29",
-          "special": "חזרות"
+          "pointId": 178,
+          "time": "15:32:30"
+
+
         },
         {
-          "pointId": 47,
-          "time": "15:15:00",
-          "date": "2019-04-29",
-          "special": "חזרות"
-        }
-      ],
-      "aircraftId": 25,
-      "aircraftTypeId": 26,
-      "special": "חזרות"
-    },
-    {
-      "path": [
-        {
-          "pointId": 110,
-          "time": "13:00:00"
+          "pointId": 179,
+          "time": "15:38:21"
+
+
         },
         {
-          "pointId": 109,
-          "time": "12:57:30"
+          "pointId": 181,
+          "time": "15:39:21"
+
+
         },
         {
-          "pointId": 37,
-          "time": "12:54:00"
+          "pointId": 182,
+          "time": "15:41:50"
+
+
         },
         {
-          "pointId": 107,
-          "time": "12:51:50"
+          "pointId": 184,
+          "time": "15:44:22"
+
+
         },
         {
-          "pointId": 106,
-          "time": "12:45:50"
+          "pointId": 185,
+          "time": "15:45:30",
+          "special": "מופעים אוויריים"
+
+
         },
         {
-          "pointId": 105,
-          "time": "12:43:30"
+          "pointId": 36,
+          "time": "15:47:09"
+
+
         },
         {
-          "pointId": 97,
-          "time": "12:41:20"
+          "pointId": 35,
+          "time": "15:47:51"
+
+
         },
         {
-          "pointId": 104,
-          "time": "12:38:20"
+          "pointId": 187,
+          "time": "15:46:30"
+
+
         },
         {
-          "pointId": 29,
-          "time": "12:34:50"
+          "pointId": 189,
+          "time": "15:48:58",
+          "special": "מופעים אוויריים"
+
+
         },
         {
-          "pointId": 96,
-          "time": "12:29:35"
+          "pointId": 191,
+          "time": "15:55:14",
+          "special": "מופעים אוויריים"
+
+
         },
         {
-          "pointId": 95,
-          "time": "12:25:50"
+          "pointId": 193,
+          "time": "15:56:42",
+          "special": "מופעים אוויריים"
+
+
         },
         {
-          "pointId": 94,
-          "time": "12:23:30"
+          "pointId": 195,
+          "time": "15:57:42"
+
+
         },
         {
-          "pointId": 102,
-          "time": "12:21:50"
+          "pointId": 196,
+          "time": "16:01:07"
+
+
         },
         {
-          "pointId": 101,
-          "time": "12:20:50"
+          "pointId": 42,
+          "time": "16:09:23"
+
+
         },
         {
-          "pointId": 93,
-          "time": "12:16:50"
+          "pointId": 43,
+          "time": "16:13:25"
+
+
         },
         {
-          "pointId": 92,
-          "time": "12:14:40"
+          "pointId": 44,
+          "time": "16:15:20"
+
+
         },
         {
-          "pointId": 100,
-          "time": "12:12:50"
+          "pointId": 197,
+          "time": "16:07:09"
         },
         {
-          "pointId": 99,
-          "time": "12:09:35"
-        },
-        {
-          "pointId": 40,
-          "time": "12:05:25"
-        },
-        {
-          "pointId": 90,
-          "time": "11:56:50"
-        },
-        {
-          "pointId": 89,
-          "time": "11:53:35"
-        },
-        {
-          "pointId": 87,
-          "time": "11:50:55"
-        },
-        {
-          "pointId": 37,
-          "time": "11:48:00"
-        },
-        {
-          "pointId": 98,
-          "time": "11:44:30"
-        },
-        {
-          "pointId": 108,
-          "time": "11:41:00"
-        }
-      ],
-      "hide": false,
-      "aircraftId": 26,
-      "aircraftTypeId": 5
-    },
-    {
-      "path": [
-        {
-          "pointId": 18,
-          "time": "09:45:00",
+          "pointId": 198,
+          "time": "16:20:15",
           "special": "מופעים אוויריים"
         },
         {
-          "pointId": 21,
-          "time": "10:00:00",
-          "special": "מופעים אוויריים"
+          "pointId": 200,
+          "time": "16:23:39"
         },
         {
-          "pointId": 125,
-          "time": "09:50:00"
-        },
-        {
-          "pointId": 124,
-          "time": "10:05:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 27,
-      "aircraftTypeId": 4,
-      "special": "מופעים אוויריים",
-      "aerobatic": true
-    },
-    {
-      "path": [
-        {
-          "pointId": 21,
-          "time": "10:05:00"
-        },
-        {
-          "pointId": 18,
-          "time": "10:15:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 125,
-          "time": "10:20:00"
-        }
-      ],
-      "hide": false,
-      "aircraftId": 28,
-      "aircraftTypeId": 4
-    },
-    {
-      "path": [
-        {
-          "pointId": 18,
-          "time": "12:15:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 21,
-          "time": "12:30:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 125,
-          "time": "12:20:00"
-        },
-        {
-          "pointId": 124,
-          "time": "12:35:00"
-        }
-      ],
-      "hide": false,
-      "aircraftId": 29,
-      "aircraftTypeId": 4
-    },
-    {
-      "path": [
-        {
-          "pointId": 21,
-          "time": "12:35:00"
-        },
-        {
-          "pointId": 18,
-          "time": "12:45:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 125,
-          "time": "12:50:00"
-        }
-      ],
-      "hide": false,
-      "aircraftId": 30,
-      "aircraftTypeId": 4
-    },
-    {
-      "path": [
-        {
-          "pointId": 47,
-          "time": "10:00:00",
-          "special": "מופעים אוויריים"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 31,
-      "aircraftTypeId": 27,
-      "special": "מופעים אוויריים",
-      "aerobatic": true
-    },
-    {
-      "path": [
-        {
-          "pointId": 47,
-          "time": "13:30:00",
-          "special": "מופעים אוויריים"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 32,
-      "aircraftTypeId": 27,
-      "special": "מופעים אוויריים",
-      "aerobatic": true
-    },
-    {
-      "path": [
-        {
-          "pointId": 37,
-          "time": "11:12:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 112,
-          "time": "11:27:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 33,
-      "aircraftTypeId": 1,
-      "special": "מופעים אוויריים",
-      "aerobatic": true
-    },
-    {
-      "path": [
-        {
-          "pointId": 37,
-          "time": "10:45:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 37,
-          "time": "11:43:00",
-          "special": "מופעים אוויריים"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 34,
-      "aircraftTypeId": 26,
-      "special": "מופעים אוויריים",
-      "aerobatic": true
-    },
-    {
-      "path": [
-        {
-          "pointId": 18,
-          "time": "12:00:00",
-          "special": "מופעים אוויריים"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 35,
-      "aircraftTypeId": 10,
-      "special": "מופעים אוויריים",
-      "aerobatic": true
-    },
-    {
-      "path": [
-        {
-          "pointId": 37,
-          "time": "09:55:00",
-          "special": "מופעים אוויריים",
-          "from": "09:00:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 36,
-      "aircraftTypeId": 32,
-      "special": "מופעים אוויריים",
-      "aerobatic": true
-    },
-    {
-      "path": [
-        {
-          "pointId": 37,
-          "time": "12:40:00",
-          "special": "מופעים אוויריים",
-          "from": "12:00:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 37,
-      "aircraftTypeId": 32,
-      "special": "מופעים אוויריים",
-      "aerobatic": true
-    },
-    {
-      "path": [
-        {
-          "pointId": 37,
-          "time": "14:55:00",
-          "special": "מופעים אוויריים",
-          "from": "13:55:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 38,
-      "aircraftTypeId": 32,
-      "special": "מופעים אוויריים",
-      "aerobatic": true
-    },
-    {
-      "path": [
-        {
-          "pointId": 117,
-          "time": "08:45:00"
-        },
-        {
-          "pointId": 116,
-          "time": "08:44:00"
-        },
-        {
-          "pointId": 118,
-          "time": "08:46:00"
-        }
-      ],
-      "hide": false,
-      "aircraftId": 39,
-      "aircraftTypeId": 2
-    },
-    {
-      "path": [
-        {
-          "pointId": 117,
-          "time": "08:45:10"
-        },
-        {
-          "pointId": 116,
-          "time": "08:44:10"
-        },
-        {
-          "pointId": 118,
-          "time": "08:46:10"
-        }
-      ],
-      "hide": false,
-      "aircraftId": 40,
-      "aircraftTypeId": 3
-    },
-    {
-      "path": [
-        {
-          "pointId": 108,
-          "time": "11:40:10"
-        },
-        {
-          "pointId": 98,
-          "time": "11:43:40"
-        },
-        {
-          "pointId": 37,
-          "time": "11:47:10"
-        },
-        {
-          "pointId": 87,
-          "time": "11:50:05"
-        },
-        {
-          "pointId": 89,
-          "time": "11:52:45"
-        },
-        {
-          "pointId": 90,
-          "time": "11:56:00"
-        },
-        {
-          "pointId": 40,
-          "time": "12:04:35"
-        },
-        {
-          "pointId": 99,
-          "time": "12:08:45"
-        },
-        {
-          "pointId": 100,
-          "time": "12:12:00"
-        },
-        {
-          "pointId": 92,
-          "time": "12:13:50"
-        },
-        {
-          "pointId": 93,
-          "time": "12:16:00"
-        },
-        {
-          "pointId": 101,
-          "time": "12:20:00"
-        },
-        {
-          "pointId": 102,
-          "time": "12:21:00"
-        },
-        {
-          "pointId": 94,
-          "time": "12:22:40"
-        },
-        {
-          "pointId": 95,
-          "time": "12:25:00"
-        },
-        {
-          "pointId": 96,
-          "time": "12:28:45"
-        },
-        {
-          "pointId": 29,
-          "time": "12:34:00"
-        },
-        {
-          "pointId": 104,
-          "time": "12:37:30"
-        },
-        {
-          "pointId": 97,
-          "time": "12:40:30"
-        },
-        {
-          "pointId": 105,
-          "time": "12:42:40"
-        },
-        {
-          "pointId": 106,
-          "time": "12:45:00"
-        },
-        {
-          "pointId": 107,
-          "time": "12:51:00"
-        },
-        {
-          "pointId": 37,
-          "time": "12:53:10"
-        },
-        {
-          "pointId": 109,
-          "time": "12:56:40"
-        },
-        {
-          "pointId": 110,
-          "time": "12:59:10"
-        }
-      ],
-      "hide": false,
-      "aircraftId": 41,
-      "aircraftTypeId": 41
-    },
-    {
-      "path": [
-        {
-          "pointId": 37,
-          "time": "13:15:00",
-          "special": "מופעים אוויריים"
-        },
-        {
-          "pointId": 112,
-          "time": "13:30:00"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 42,
-      "aircraftTypeId": 1,
-      "special": "מופעים אוויריים",
-      "aerobatic": true
-    },
-    {
-      "path": [
-        {
-          "pointId": 18,
-          "time": "09:25:00",
-          "date": "2019-05-7",
-          "special": "חזרות"
-        },
-        {
-          "pointId": 21,
-          "time": "09:45:00",
-          "date": "2019-05-7",
-          "special": "חזרות"
-        },
-        {
-          "pointId": 22,
-          "time": "10:00:00",
-          "date": "2019-05-7",
-          "special": "חזרות"
-        },
-        {
-          "pointId": 37,
-          "time": "12:15:00",
-          "date": "2019-05-7",
-          "special": "חזרות"
-        },
-        {
-          "pointId": 40,
-          "time": "12:40:00",
-          "date": "2019-05-7",
-          "special": "חזרות"
-        },
-        {
-          "pointId": 47,
-          "time": "14:30:00",
-          "date": "2019-05-7",
-          "special": "חזרות"
+          "pointId": 32,
+          "time": "15:41:32"
         },
         {
           "pointId": 46,
-          "time": "14:45:00",
-          "date": "2019-05-7",
-          "special": "חזרות"
+          "time": "16:22:00"
         },
         {
-          "pointId": 29,
-          "time": "11:59:00",
-          "date": "2019-05-7",
-          "special": "חזרות"
-        }
-      ],
-      "hide": true,
-      "aircraftId": 43,
-      "aircraftTypeId": 25,
-      "special": "חזרות"
-    },
-    {
-      "path": [
+          "pointId": 50,
+          "time": "15:34:20"
+        },
         {
-          "pointId": 47,
-          "time": "12:00:00",
-          "special": "מופעים אוויריים"
+          "pointId": 49,
+          "time": "15:36:01"
         }
       ],
       "hide": false,
-      "aircraftId": 44,
-      "aircraftTypeId": 28,
-      "special": "מופעים אוויריים",
-      "aerobatic": true
+      "aircraftId": 3,
+      "aircraftTypeId": 25
     }
   ]
 }
