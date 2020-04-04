@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="css/map.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/hamburgers.css">
-    <link rel="icon" sizes="192x192" href="icons/logo72192x192.png">
+    <link rel="icon" sizes="192x192" href="icons/android_icon.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="icons/ios_icon.png">
     <link rel="stylesheet" href="js/leaflet/leaflet.css" />
 
     <link rel="stylesheet" href="css/jquery-ui.css">
@@ -75,7 +76,7 @@
             </a>
 
             <divv id="headerIconContainer">
-                <img src="icons/header_logo.png" onclick="onAboutButtonClick();" style="width: 69px; margin-top: 5px;"/>
+                <img src="icons/header_logo.png" onclick="onAboutButtonClick();" style="width:80px;margin-top:5px;"/>
                 <div id="aboutMenuTitle" style="display:none">אודות</div>
             </divv>
             <div>
@@ -137,8 +138,7 @@
     </div>
 
     <!-- startup splash screen -->
-    <div class="splash"
-         style="background-image: url('animation/72_Splash-min.gif');background-size: contain; visibility: visible;">
+    <div class="splash" style="background-image: url('animation/72_Splash-min.gif');background-size: contain; visibility: visible;">
         <div class="loading" style="background-image: url('animation/loading.gif');background-size: contain; display: none;"></div>
     </div>
 
@@ -212,6 +212,12 @@
                 <input id="registerCheckbox" type="checkbox">
                 <span class="slider round"></span>
             </label>
+        </div>
+        <div id="noCrowdingWarning">
+            <img src="icons/no-crowding.svg" class="noCrowdingIcon">
+            <div id="noCrowdingWarningText">
+
+            </div>
         </div>
         <div id="aircraftListContainer">
             <div id="aircraftsList" class="table">
@@ -327,7 +333,7 @@
     <div id="aboutHeaderSpacing" class="aboutHeaderSpacing"></div>
     <div id="aboutLogoDiv">
         <div id="aboutHeader" class="aboutHeader"></div>
-        <img id="aboutLogo" class="aboutLogo" src="icons/bigLogo72.png"/>
+        <img id="aboutLogo" class="aboutLogo" style="top: -100px;width: 200px;" src="icons/bigLogo72.png"/>
     </div>
     <div class="aboutSpacing"></div>
     <div id="aboutTitle" class="aboutTitle">
@@ -383,6 +389,21 @@
             אם ברצונך לקבל הודעות בדבר זמני המופעים הקרובים יש לאשר קבלת התראות
         </div>
         <div id="confirmButton" class="confirmButton" onclick="hideConfirmationPopup()">
+            הבנתי
+        </div>
+    </div>
+
+
+    <!-- no crowding popup -->
+    <div id="noCrowdingPopup" class="confirmationPopup" style="display: none">
+        <div id="noCrowdingPopupTitle" class="confirmationMessageTitle">
+            <img src="/icons/no-crowding.svg" class="confirmationMessageIcon">
+            איסור התקהלות
+        </div>
+        <div id="noCrowdingPopupBody" class="confirmationMessageBody">
+
+        </div>
+        <div class="confirmButton" onclick="hideNoCrowdingPopup()">
             הבנתי
         </div>
     </div>

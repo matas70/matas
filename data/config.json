@@ -1,0 +1,7 @@
+{
+  "timeOfAerobaticShow" : 2,
+  "noCrowdingGeneralText": "שימו לב! עפ\"י הנחיות משרד הבריאות אין להתקהל לצורך צפייה במטס",
+  "noCrowdingLocationText": "שימו לב! עפ\"י הנחיות משרד הבריאות אין להתקהל במקום זה לצורך צפייה במופע. ניתן לצפות מהמופע מהחדרים והמרפסות בלבד",
+  "showCrowdingWarnings": true,
+  "apiURL": "https://matasstorage.blob.core.windows.net"
+}
