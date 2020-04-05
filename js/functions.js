@@ -1486,19 +1486,35 @@ function displaySearchView() {
 
         var searchViewHtml = "";
 
-        // add bases
-        searchViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
+        if (shouldShowTypeCategory("base")) {
+            // add bases
+            searchViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
 
-        sortedLocations.forEach(function (location) {
-            if (!location.hidden && location.type && location.type === "base") {
-                searchViewHtml += createLocationRow(location, false, true);
-            }
-        }, this);
+            sortedLocations.forEach(function (location) {
+                if (!location.hidden && location.type && location.type === "base") {
+                    searchViewHtml += createLocationRow(location, false, true);
+                }
+            }, this);
+        }
+
+
+        if (shouldShowTypeCategory("hospital")) {
+            // add bases
+            searchViewHtml += createCategoryRow({category: "בתי חולים"}, true);
+
+            sortedLocations.forEach(function (location) {
+                if (!location.hidden && location.type && location.type === "hospital") {
+                    searchViewHtml += createLocationRow(location, false, true);
+                }
+            }, this);
+        }
 
         // add other locations category
         searchViewHtml += createCategoryRow({category: "יישובים"}, true);
         sortedLocations.forEach(function (location) {
-            if (!location.hidden && (!location.type || location.type !== "base")) {
+            if (!location.hidden &&
+                !!routes.find(route => route.points.find(point => location.pointId === point.pointId)) &&
+                (!location.type || location.type !== "base")) {
                 searchViewHtml += createLocationRow(location, false, true);
             }
         }, this);
@@ -1907,6 +1923,7 @@ function fillMenu() {
             }
         }
     });
+
     $("#aircraftsListView").html(html);
 
     // prepare locations view
@@ -1927,24 +1944,48 @@ function fillMenu() {
 
     var currTime = getCurrentTime();
 
-    // add bases
-    locationsViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
+    if (shouldShowTypeCategory("base")) {
+        // add bases
+        locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
 
-    sortedLocations.forEach(function (location) {
-        if (!location.hidden && location.type && location.type === "base") {
-            locationsViewHtml += createLocationRow(location, false);
-        }
-    }, this);
+        sortedLocations.forEach(function (location) {
+            if (!location.hidden && location.type && location.type === "base") {
+                locationsViewHtml += createLocationRow(location, false);
+            }
+        }, this);
+    }
+
+    if (shouldShowTypeCategory("hospital")) {
+        // add hospitals
+        locationsViewHtml += createCategoryRow({category: "בתי חולים"}, true);
+
+        sortedLocations.forEach(function (location) {
+            if (!location.hidden && location.type && location.type === "hospital") {
+                locationsViewHtml += createLocationRow(location, false);
+            }
+        }, this);
+    }
 
     // add cities
     locationsViewHtml += createCategoryRow({category: "יישובים"}, true);
     sortedLocations.forEach(function (location) {
-        if (!location.hidden && (!location.type || location.type !== "base")) {
+        if ((!location.hidden &&
+            !!routes.find(route => route.points.find(point => location.pointId === point.pointId))) &&
+            (!location.type || location.type !== "base" || location.type !== "hospital")) {
             locationsViewHtml += createLocationRow(location, false);
         }
     }, this);
 
     $("#locationsListView").html(locationsViewHtml);
+}
+
+/**
+ *
+ * @param typeCategory - base, hospital, etc.
+ * @returns {boolean}
+ */
+function shouldShowTypeCategory(typeCategory) {
+    return !!sortedLocations.find(location => location && location.type === typeCategory);
 }
 
 function makeTwoDigitTime(t) {
