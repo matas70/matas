@@ -865,7 +865,8 @@
           "pointLocation": "",
           "wazeLink": "",
           "activeTimes": "",
-          "exhibitions": ""
+          "exhibitions": "",
+          "type":  "hospital"
         },
         {
           "hidden": false,
