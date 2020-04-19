@@ -2141,24 +2141,29 @@ function getEventDescription(isAerobatics, locationName, minutes) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
             if(haversineDistance(userLoc,currentLocation) < 1000)
             {
-                var name = aircraft.name;
-                document.getElementById("gottoVoiceMessagePopup").style.display = "block";
-                document.getElementById("aircraftName").innerHTML = " מטוס קרב " + name;
-                
-                var engName="";
-                for (var i=0; i<aircraftsName.length; i++){
-                    if(aircraftsName[i].hebName == name){
-                        engName = aircraftsName[i].engName;
-                        break;
+                console.log("in if1");
+                if(document.getElementById("gottoVoiceMessagePopup").style.display === "none" && document.getElementById("myModal").style.display === "none")
+                {
+                    console.log("in if2");
+                    var name = aircraft.name;
+                    document.getElementById("gottoVoiceMessagePopup").style.display = "block";
+                    document.getElementById("aircraftName").innerHTML = " מטוס קרב " + name;
+                    
+                    var engName="";
+                    for (var i=0; i<aircraftsName.length; i++){
+                        if(aircraftsName[i].hebName == name){
+                            engName = aircraftsName[i].engName;
+                            break;
+                        }
                     }
-                }
-                if(engName !== undefined || engName === "")
-                {
-                     document.getElementById("aircraftImg").src="icons/aircrafts/"+engName+".png";
-                }
-                else
-                {
-                    document.getElementById("aircraftImg").src="";
+                    if(engName !== undefined || engName !== "")
+                    {
+                        document.getElementById("aircraftImg").src="icons/aircrafts/"+engName+".png";
+                    }
+                    else
+                    {
+                        document.getElementById("aircraftImg").src="";
+                    }
                 }
             }
 
