@@ -2152,10 +2152,14 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         break;
                     }
                 }
-                if(engName !== undefined || engName == "")
-                    document.getElementById("aircraftImg").src="icons/aircrafts/"+engName+".png";
+                if(engName !== undefined || engName === "")
+                {
+                     document.getElementById("aircraftImg").src="icons/aircrafts/"+engName+".png";
+                }
                 else
+                {
                     document.getElementById("aircraftImg").src="";
+                }
             }
 
             else if(haversineDistance(userLoc,currentLocation) > 1000)
