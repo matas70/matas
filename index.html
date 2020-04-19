@@ -232,6 +232,12 @@
                 <span class="slider round"></span>
             </label>
         </div>
+        <div id="noCrowdingWarning">
+            <img src="icons/no-crowding.svg" class="noCrowdingIcon">
+            <div id="noCrowdingWarningText">
+
+            </div>
+        </div>
         <div id="aircraftListContainer">
             <div id="aircraftsList" class="table">
             </div>
@@ -402,6 +408,21 @@
             אם ברצונך לקבל הודעות בדבר זמני המופעים הקרובים יש לאשר קבלת התראות
         </div>
         <div id="confirmButton" class="confirmButton" onclick="hideConfirmationPopup()">
+            הבנתי
+        </div>
+    </div>
+
+
+    <!-- no crowding popup -->
+    <div id="noCrowdingPopup" class="confirmationPopup" style="display: none">
+        <div id="noCrowdingPopupTitle" class="confirmationMessageTitle">
+            <img src="/icons/no-crowding.svg" class="confirmationMessageIcon">
+            איסור התקהלות
+        </div>
+        <div id="noCrowdingPopupBody" class="confirmationMessageBody">
+
+        </div>
+        <div class="confirmButton" onclick="hideNoCrowdingPopup()">
             הבנתי
         </div>
     </div>

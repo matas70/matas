@@ -18,23 +18,28 @@ function initPressPage() {
 
 function createBasesTables() {
     let bases = locations.filter((location) => {
-        return location.type==="base";
+        return location.type === "base";
     });
-    let baseTables = "";
-    bases.forEach((base)=> {
-        baseTables += createBaseTable(base);
-    });
-    return baseTables;
+
+    if (bases.length === 0) {
+        $("#base-container").show();
+        let baseTables = "";
+        bases.forEach((base) => {
+            baseTables += createBaseTable(base);
+        });
+
+        return baseTables;
+    }
 }
 
 function createCityTables() {
     let cities = locations.filter((location) => {
-        return location.type!=="base";
+        return location.type !== "base";
     }).sort((city1, city2) => {
-        return city1.pointName > city2.pointName ? 1 : city1.pointName < city2.pointName? -1 : 0;
+        return city1.pointName > city2.pointName ? 1 : city1.pointName < city2.pointName ? -1 : 0;
     });
     let cityTables = "";
-    cities.forEach((city)=> {
+    cities.forEach((city) => {
         if (city.aircrafts.length > 0) {
             cityTables += createCityTable(city);
         }
@@ -48,17 +53,17 @@ function createBaseTable(base) {
                     ${createBaseTableTitle(base.pointName, base.activeTimes, false)}
                 </div>
                 <div class="base-table-body">
-                    ${createTableCategories(categories, base.aircrafts, base.exhibitions,"base")}
+                    ${createTableCategories(categories, base.aircrafts, base.exhibitions, "base")}
                 </div>
                 <div class="base-table-end"></div>
             </div>`;
 }
 
 function createCityTable(city) {
-    hasAerobatic = city.aircrafts.filter((aircraft)=>aircraft.specialInAircraft).length>0;
+    hasAerobatic = city.aircrafts.filter((aircraft) => aircraft.specialInAircraft).length > 0;
     return `<div class="city-table">
                 <div id="location-${city.pointId}" class="base-card">
-                    ${createBaseTableTitle(city.pointName, city.aircrafts[0].time.substr(0,5), hasAerobatic)}
+                    ${createBaseTableTitle(city.pointName, city.aircrafts[0].time.substr(0, 5), hasAerobatic)}
                 </div>
                 <div class="base-table-body">
                     ${createTableCategory("מטס", city.aircrafts, "city")}
@@ -72,17 +77,19 @@ function createBaseTableTitle(name, activeTimes, hasAerobatic) {
                         <div class="base-table-title-text">${name}</div>&nbsp;|&nbsp;
                         <div class="base-title-times">${activeTimes}</div>
                     </div>
-                    <img src="icons/aerobatic.svg" class="aerobatic-icon" style="visibility:${hasAerobatic?"visible":"hidden"}">
+                    <img src="icons/aerobatic.svg" class="aerobatic-icon" style="visibility:${hasAerobatic ? "visible" : "hidden"}">
                 </div>`;
 }
 
 function createTableCategories(categories, aircrafts, exhibitions, type) {
     let tableCategoriesDiv = "";
     // flight category
-    let categoryAircrafts = aircrafts.filter((aircraft) => {return !aircraft.specialInAircraft});
+    let categoryAircrafts = aircrafts.filter((aircraft) => {
+        return !aircraft.specialInAircraft
+    });
     tableCategoriesDiv += createTableCategory("מטס", categoryAircrafts, type);
 
-    categories.forEach((category)=> {
+    categories.forEach((category) => {
         let categoryAircrafts = aircrafts.filter((aircraft) => {
             return aircraft.specialInAircraft === category.category
         });
@@ -106,7 +113,7 @@ function createTableCategory(categoryName, categoryAircrafts, type) {
     if (type === "base")
         flightCategoryTitle = `<div class="category-name">
                                 <div class="category-title">${categoryName}</div>
-                                <div class="category-start-time">${categoryAircrafts[0].time.substr(0,5)}</div>
+                                <div class="category-start-time">${categoryAircrafts[0].time.substr(0, 5)}</div>
                             </div>`;
     let flightCategoryIcons = "";
 
