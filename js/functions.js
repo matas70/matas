@@ -2106,12 +2106,56 @@ function getEventDescription(isAerobatics, locationName, minutes) {
         userLoc = {lon: userLoc.coords.longitude, lat: userLoc.coords.latitude};
     });
 
+    var aircraftsName = [       
+        {'hebName':'ברק','engName':'barak'},
+        {'hebName':'אדיר','engName':'adir'},
+        {'hebName':'עטלף','engName':'atalef'},
+        {'hebName':'בז','engName':'baz'},
+        {'hebName':'בוינג747','engName':'boeing747'},
+        {'hebName':'','engName':'c17'},
+        {'hebName':'','engName':'airtractor'},
+        {'hebName':'','engName':'c295'},
+        {'hebName':'עפרוני','engName':'efroni'},
+        {'hebName':'עיטם','engName':'eitam' },
+        {'hebName':'F-16','engName':'f16'},
+        {'hebName':'קרנף','engName':'karnef'},
+        {'hebName':'לביא','engName':'lavi'},
+        {'hebName':'נחשון','engName':'nahshon'},
+        {'hebName':'פתן','engName':'peten'},
+        {'hebName':'רעם','engName':'raam'},
+        {'hebName':'ראם','engName':'reem'},
+        {'hebName':'סייפן','engName':'saifan'},
+        {'hebName':'שרף','engName':'saraf'},
+        {'hebName':'שחף','engName':'shahaf'},
+        {'hebName':'שמשון','engName':'shimshon'},
+        {'hebName':'שמשון בריטי','engName':'shimshon-britian'},
+        {'hebName':'שמשון אוסטרי','engName':'shimshon-ostrian'},
+        {'hebName':'סופה','engName':'sufa'},
+        {'hebName':'צופית','engName':'tzufit'},
+        {'hebName':'ינשוף','engName':'yanshuf'},
+        {'hebName':'יסעור','engName':'yasur'}
+    ];
+
     function notifyUserIfNear(currentLocation, aircraft) {
         if (userLoc) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
             if(haversineDistance(userLoc,currentLocation) < 1000)
             {
+                var name = aircraft.name;
                 document.getElementById("gottoVoiceMessagePopup").style.display = "block";
+                document.getElementById("aircraftName").innerHTML = " מטוס קרב " + name;
+                
+                var engName="";
+                for (var i=0; i<aircraftsName.length; i++){
+                    if(aircraftsName[i].hebName == name){
+                        engName = aircraftsName[i].engName;
+                        break;
+                    }
+                }
+                if(engName !== undefined || engName == "")
+                    document.getElementById("aircraftImg").src="icons/aircrafts/"+engName+".png";
+                else
+                    document.getElementById("aircraftImg").src="";
             }
 
             else if(haversineDistance(userLoc,currentLocation) > 1000)

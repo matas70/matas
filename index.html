@@ -147,12 +147,12 @@
 
     <div class="subheader">
         <!-- goto voiceMessage popup-->
-        <div id="gottoVoiceMessagePopup" class="gotoVoiceMessagePopup" style="display:block; top:0;height: 98px;">
+        <div id="gottoVoiceMessagePopup" class="gotoVoiceMessagePopup" style="display:none; top:0;height: 98px;">
             <div id="aircraftDetatilsContainer" style="background-color: white; height: 70%;display: flex;">
-                <img id="aircraftImg" src="icons/voiceMessage/icon_barak.png" style="margin: 7px;"/>
+                <img id="aircraftImg" src="" alt="" style="margin: 7px;"/>
                 <div id="detatils" style="margin-top: 7px;">
-                    <div style="font-weight: bold; font-size: large;">מטוס קרב ברק</div>
-                    <div style="font-size: smaller;">יעבור מעלייך 30 שניות</div>
+                    <div id="aircraftName" style="font-weight: bold; font-size: large;"></div>
+                    <div id="aircraftTime" style="font-size: smaller;">יעבור מעלייך 30 שניות</div>
                 </div>
             </div>
             <div id="hearTheMessage" onclick="showAudioMessagePopapp()" style="background-color: #f7f5f5; height: 50%; border-top: 0.5px solid #e7e7e7;display: inline-flex; width:100%">
