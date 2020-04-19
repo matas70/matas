@@ -2112,6 +2112,13 @@ function getEventDescription(isAerobatics, locationName, minutes) {
             if(haversineDistance(userLoc,currentLocation) < 1000)
             {
                 document.getElementById("gottoVoiceMessagePopup").style.display = "block";
+                document.getElementById("aircraftName").innerHTML = "מטוס קרב" + aircraft;
+                
+                var time = haversineDistance(userLoc,currentLocation)/50 //speed
+                document.getElementById("aircraftTime").innerHTML = "יעבור מעלייך" + time + "שניות";
+
+                //set the right aircraf picture
+                //document.getElementById("aircraftImg").src="";
             }
 
             else if(haversineDistance(userLoc,currentLocation) > 1000)
