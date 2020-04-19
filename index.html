@@ -146,6 +146,25 @@
     <div id="map" style="display: none;"></div>
 
     <div class="subheader">
+        <!-- goto voiceMessage popup-->
+        <div id="gottoVoiceMessagePopup" class="gotoVoiceMessagePopup" style="display:block; top:0;height: 98px;">
+            <div id="aircraftDetatilsContainer" style="background-color: white; height: 70%;display: flex;">
+                <img id="aircraftImg" src="icons/voiceMessage/icon_barak.png" style="margin: 7px;"/>
+                <div id="detatils" style="margin-top: 7px;">
+                    <div style="font-weight: bold; font-size: large;">מטוס קרב ברק</div>
+                    <div style="font-size: smaller;">יעבור מעלייך 30 שניות</div>
+                </div>
+            </div>
+            <div id="hearTheMessage" onclick="showAudioMessagePopapp()" style="background-color: #f7f5f5; height: 50%; border-top: 0.5px solid #e7e7e7;display: inline-flex; width:100%">
+                <img id="voiceMessageImg" src="icons/voiceMessage/dictation_glyph.png" style="height: auto;margin-top: auto;margin-bottom: auto;margin-right: 20px;"/>
+                <span style="display: inline-flex;float: left;margin-right: 7px;">
+                    <p style="font-weight: bolder; font-size: 90%;">יש לך הודעה קולית מהטייס!</p>
+                </span>
+            </div>
+            <div id="closePopUp" onclick="closeVoiceMessagePopapp()" style="margin-top: -30px; margin-left: 15px; float: left; position: relative;">
+                <img id="closeGotoVoiceMessagePopupBTN" src="icons/voiceMessage/group.png" onclick="closeGotoVoiceMessagePopapp()" />
+            </div>
+        </div>
         <!-- entrance popup -->
         <div id="entrancePopup" class="entrancePopup" style="display:none">
             <div id="countdownContainer">
@@ -406,11 +425,11 @@
                 <img class="close" onclick="closeVoiceMessagePopapp()" src="icons/voiceMessage/page_1.png"/>
                 <img class="audioImg" src="icons/voiceMessage/group_5.png"/>
                <div class="audio">
-                    <audio src=""></audio>
-                    <img class="audioPlay" src="icons/voiceMessage/triangle.png"/>
-                    <img class="trackerPoint" src="icons/voiceMessage/blue.png"/>
-                    <img class="audioTrack" src="icons/voiceMessage/rectangle.png"/>
-                    <span class="audioTime">00:22</span>
+                    <audio id="audioSRC" src="icons/voiceMessage/file_example_MP3_700KB.mp3" ontimeupdate="updateAudioMessageTime()"></audio>
+                    <span id="audioTime" class="audioTime">00:00</span>
+                    <img id="audioTrack" class="audioTrack" src="icons/voiceMessage/rectangle.png"/>
+                    <img id="trackerPoint" class="trackerPoint" src="icons/voiceMessage/blue.png"/>
+                    <img class="audioPlay" onclick="playBTN()" src="icons/voiceMessage/triangle.png"/>
                 </div>
                 <div class="border"></div>
                 <p class="wroteMessage">שלום, כאן א', מפקד טייסת אבירי הזנב הכתום. אנו אנשי הטייסת, הטכנאים והלוחמים בסדיר ובמילואים, מבקשים לחזק את ידם של הצוותים הרפואיים וכלל האזרחים בימים לא פשוטים אלו. מאחלים לכולנו חג עצמאות שמח! </p>
