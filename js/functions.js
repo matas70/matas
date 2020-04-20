@@ -2216,7 +2216,8 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     return `${desc}${locationName} בעוד ${minutes} דקות`;
 }
 
-
+var name ="";
+var timerCount=0;
 (function () {
     var userLoc = null;
     navigator.geolocation.watchPosition(function(newLoc){
@@ -2253,47 +2254,55 @@ function getEventDescription(isAerobatics, locationName, minutes) {
         {'hebName':'ינשוף','engName':'yanshuf','audioSrc':""},
         {'hebName':'יסעור','engName':'yasur','audioSrc':""}
     ];
-    var name ="";
+
     function notifyUserIfNear(currentLocation, aircraft) {
         if (userLoc) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-            if(haversineDistance(userLoc,currentLocation) < 2000)
+            if(haversineDistance(userLoc,currentLocation) < 15)
             {
-                if(document.getElementById("myModal").style.display === "none" && document.getElementById("gottoVoiceMessagePopup").style.display === "none")
-                {
-                    name = aircraft.name;
-                    document.getElementById("gottoVoiceMessagePopup").style.display = "block";
-                    document.getElementById("aircraftName").innerHTML = " מטוס קרב " + name;
-                    document.getElementById("aircraftTime").innerHTML = "יעבור מעלייך 30 שניות";
-                    document.getElementById("youHaveVoicemessage").innerHTML = "יש לך הודעה קולית מהטייס!";
-                    document.getElementById("voiceMessageImg").src = "icons/voiceMessage/dictation_glyph.png";
-                        
-                    var engName="";
-                    var audioSrc = "";
-                    for (var i=0; i<aircraftsName.length; i++){
-                        if(aircraftsName[i].hebName == name){
-                            engName = aircraftsName[i].engName;
-                            audioSrc = aircraftsName [i].audioSrc;
-                            break;
+                if(this.name===""){
+                    var timer = setInterval(function(){
+                        this.timerCount+=1;
+                    }, 1000);
+                }
+                if(this.timerCount>30 || this.name !== aircraft.name){
+                    if(document.getElementById("myModal").style.display === "none" && document.getElementById("gottoVoiceMessagePopup").style.display === "none")
+                    {
+                        this.timerCount=0;
+                        this.name = aircraft.name;
+                        document.getElementById("gottoVoiceMessagePopup").style.display = "block";
+                        document.getElementById("aircraftName").innerHTML = " מטוס קרב " + this.name;
+                        document.getElementById("aircraftTime").innerHTML = "יעבור מעלייך 30 שניות";
+                        document.getElementById("youHaveVoicemessage").innerHTML = "יש לך הודעה קולית מהטייס!";
+                        document.getElementById("voiceMessageImg").src = "icons/voiceMessage/dictation_glyph.png";
+                            
+                        var engName="";
+                        var audioSrc = "";
+                        for (var i=0; i<aircraftsName.length; i++){
+                            if(aircraftsName[i].hebName === this.name){
+                                engName = aircraftsName[i].engName;
+                                audioSrc = aircraftsName [i].audioSrc;
+                                break;
+                            }
                         }
-                    }
-                    if(audioSrc !== undefined && audioSrc !== ""){
-                        document.getElementById("audioSRC").src=audioSrc;
-                    }
-                    else{
-                        document.getElementById("audioSRC").src="";
-                    }
+                        if(audioSrc !== undefined && audioSrc !== ""){
+                            document.getElementById("audioSRC").src=audioSrc;
+                        }
+                        else{
+                            document.getElementById("audioSRC").src="";
+                        }
 
-                    if(engName !== undefined && engName !== ""){
-                        document.getElementById("aircraftImg").src="icons/aircrafts/"+engName+".png";
-                    }
-                    else{
-                        document.getElementById("aircraftImg").src="";
+                        if(engName !== undefined && engName !== ""){
+                            document.getElementById("aircraftImg").src="icons/aircrafts/"+engName+".png";
+                        }
+                        else{
+                            document.getElementById("aircraftImg").src="";
+                        }
                     }
                 }
             }
 
-            else if(haversineDistance(userLoc,currentLocation) > 2000)
+            else if(haversineDistance(userLoc,currentLocation) > 15)
             {
                 if(document.getElementById("myModal").style.display !== "block")
                 {

@@ -844,7 +844,9 @@ function showAudioMessagePopup() {
 }
 
 function closeVoiceMessagePopup(){
-    document.getElementById("audioSRC").pause();
+    if(document.getElementById("audioSRC").src !== "") {
+        document.getElementById("audioSRC").pause();
+    }
     document.getElementById("audioSRC").currentTime = 0;
     document.getElementById("myModal").style.display = "none";
     document.getElementById("gottoVoiceMessagePopup").style.display = "none";
