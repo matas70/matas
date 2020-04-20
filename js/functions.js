@@ -843,7 +843,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var nextAircraftStopPosition = getNextLocation(aircraft.path, currentTime);
     var nextAircraftPosition;
 
-    If (!notifiedNearUser) {
+    if (!notifiedNearUser) {
         notifyUserIfNear(currentAircraftPosition, aircraft);
     }
     
