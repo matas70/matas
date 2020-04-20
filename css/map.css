@@ -1730,4 +1730,10 @@ hr.aircraftLineSeparator.two {
         text-align: right;
         margin-right: 15px;
     }
+
+    
+    .subheader {
+        width: calc(100% - 400px);
+        left: 0;
+    }
 }
