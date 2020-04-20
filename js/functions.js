@@ -2263,6 +2263,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
             if(haversineDistance(userLoc,currentLocation) < 2000)
             {
+                notifiedNearUser = true;
                 var name = aircraft.name;
                 document.getElementById("gottoVoiceMessagePopup").style.display = "block";
                 document.getElementById("aircraftName").innerHTML = " מטוס קרב " + name;
