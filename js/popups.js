@@ -839,7 +839,7 @@ function closeGotoVoiceMessagePopup() {
 
 function showAudioMessagePopup() {
     document.getElementById("gottoVoiceMessagePopup").style.display = "none";
-    document.getElementById("myModal").style.display = "block";
+    document.getElementById("myModal").style.display = "flex";
     playAudioMessageAndTracker()
 }
 
