@@ -852,18 +852,24 @@ function closeVoiceMessagePopup(){
 
 var audioPLay;
 function playAudioMessageAndTracker() {
-    document.getElementById("audioSRC").play();
-    audioPLay = true;
+    if(document.getElementById("audioSRC").src !== "")
+    {
+        document.getElementById("audioSRC").play();
+        audioPLay = true;
+    }
 }
 
 function playBTN() {
-    if(audioPLay){
-        audioPLay = false;
-        document.getElementById("audioSRC").pause();
-    }
-    else {
-        audioPLay = true;
-        document.getElementById("audioSRC").play();
+    if(document.getElementById("audioSRC").src !== "")
+    {
+        if(audioPLay){
+            audioPLay = false;
+            document.getElementById("audioSRC").pause();
+        }
+        else {
+            audioPLay = true;
+            document.getElementById("audioSRC").play();
+        }
     }
 }
 

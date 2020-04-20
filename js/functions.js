@@ -2228,75 +2228,90 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     });
 
     var aircraftsName = [       
-        {'hebName':'ברק','engName':'barak'},
-        {'hebName':'אדיר','engName':'adir'},
-        {'hebName':'עטלף','engName':'atalef'},
-        {'hebName':'בז','engName':'baz'},
-        {'hebName':'בוינג747','engName':'boeing747'},
-        {'hebName':'','engName':'c17'},
-        {'hebName':'','engName':'airtractor'},
-        {'hebName':'','engName':'c295'},
-        {'hebName':'עפרוני','engName':'efroni'},
-        {'hebName':'עיטם','engName':'eitam' },
-        {'hebName':'F-16','engName':'f16'},
-        {'hebName':'קרנף','engName':'karnef'},
-        {'hebName':'לביא','engName':'lavi'},
-        {'hebName':'נחשון','engName':'nahshon'},
-        {'hebName':'פתן','engName':'peten'},
-        {'hebName':'רעם','engName':'raam'},
-        {'hebName':'ראם','engName':'reem'},
-        {'hebName':'סייפן','engName':'saifan'},
-        {'hebName':'שרף','engName':'saraf'},
-        {'hebName':'שחף','engName':'shahaf'},
-        {'hebName':'שמשון','engName':'shimshon'},
-        {'hebName':'שמשון בריטי','engName':'shimshon-britian'},
-        {'hebName':'שמשון אוסטרי','engName':'shimshon-ostrian'},
-        {'hebName':'סופה','engName':'sufa'},
-        {'hebName':'צופית','engName':'tzufit'},
-        {'hebName':'ינשוף','engName':'yanshuf'},
-        {'hebName':'יסעור','engName':'yasur'}
+        {'hebName':'ברק','engName':'barak', 'audioSrc':""},
+        {'hebName':'אדיר','engName':'adir','audioSrc':""},
+        {'hebName':'עטלף','engName':'atalef','audioSrc':""},
+        {'hebName':'בז','engName':'baz','audioSrc':""},
+        {'hebName':'בוינג747','engName':'boeing747','audioSrc':""},
+        {'hebName':'','engName':'c17','audioSrc':""},
+        {'hebName':'','engName':'airtractor','audioSrc':""},
+        {'hebName':'','engName':'c295','audioSrc':""},
+        {'hebName':'עפרוני','engName':'efroni','audioSrc':""},
+        {'hebName':'עיטם','engName':'eitam','audioSrc':"" },
+        {'hebName':'F-16','engName':'f16','audioSrc':""},
+        {'hebName':'קרנף','engName':'karnef','audioSrc':""},
+        {'hebName':'לביא','engName':'lavi','audioSrc':""},
+        {'hebName':'נחשון','engName':'nahshon','audioSrc':""},
+        {'hebName':'פתן','engName':'peten','audioSrc':""},
+        {'hebName':'רעם','engName':'raam','audioSrc':""},
+        {'hebName':'ראם','engName':'reem','audioSrc':""},
+        {'hebName':'סייפן','engName':'saifan','audioSrc':""},
+        {'hebName':'שרף','engName':'saraf','audioSrc':""},
+        {'hebName':'שחף','engName':'shahaf','audioSrc':""},
+        {'hebName':'שמשון','engName':'shimshon','audioSrc':""},
+        {'hebName':'שמשון בריטי','engName':'shimshon-britian','audioSrc':""},
+        {'hebName':'שמשון אוסטרי','engName':'shimshon-ostrian','audioSrc':""},
+        {'hebName':'סופה','engName':'sufa','audioSrc':""},
+        {'hebName':'צופית','engName':'tzufit','audioSrc':""},
+        {'hebName':'ינשוף','engName':'yanshuf','audioSrc':""},
+        {'hebName':'יסעור','engName':'yasur','audioSrc':""}
     ];
     var name ="";
-    var timeCount = 0;
+    //check that its not the same popup that has been closed
+    //var timeCount = 0;
     function notifyUserIfNear(currentLocation, aircraft) {
         if (userLoc) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
             if(haversineDistance(userLoc,currentLocation) < 2000)
             {
                 notifiedNearUser = true;
-                if(name === "")
+                //check that its not the same popup that has been closed
+                /*if(name === "")
                 {
+                    console.log("in timer");
                     var x = setInterval( function () { timeCount++;}, 1000);
-                }
-                if(timeCount >30 || name !== aircraft.name) {
-                if(document.getElementById("myModal").style.display === "none" && document.getElementById("gottoVoiceMessagePopup").style.display === "none")
-                {
-                    this.timeCount = 0;
-                    name = aircraft.name;
-                    document.getElementById("gottoVoiceMessagePopup").style.display = "block";
-                    document.getElementById("aircraftName").innerHTML = " מטוס קרב " + name;
-                    
-                    var engName="";
-                    for (var i=0; i<aircraftsName.length; i++){
-                        if(aircraftsName[i].hebName == name){
-                            engName = aircraftsName[i].engName;
-                            break;
+                } */
+                //check that its not the same popup that has been closed - if its not the same aircraft or its has been more then 30 sec
+                //if(timeCount >30 || name !== aircraft.name) {
+                    if(document.getElementById("myModal").style.display === "none" && document.getElementById("gottoVoiceMessagePopup").style.display === "none")
+                    {
+                        //timeCount = 0;
+                        name = aircraft.name;
+                        document.getElementById("gottoVoiceMessagePopup").style.display = "block";
+                        document.getElementById("aircraftName").innerHTML = " מטוס קרב " + name;
+                        document.getElementById("aircraftTime").innerHTML = "יעבור מעלייך 30 שניות";
+                        document.getElementById("youHaveVoicemessage").innerHTML = "יש לך הודעה קולית מהטייס!";
+                        document.getElementById("voiceMessageImg").src = "icons/voiceMessage/dictation_glyph.png";
+                        
+                        var engName="";
+                        var audioSrc = "";
+                        for (var i=0; i<aircraftsName.length; i++){
+                            if(aircraftsName[i].hebName == name){
+                                engName = aircraftsName[i].engName;
+                                audioSrc = aircraftsName [i].audioSrc;
+                                break;
+                            }
+                        }
+                        if(audioSrc !== undefined && audioSrc !== ""){
+                            document.getElementById("audioSRC").src=audioSrc;
+                        }
+                        else{
+                            document.getElementById("audioSRC").src="";
+                        }
+
+                        if(engName !== undefined && engName !== ""){
+                            document.getElementById("aircraftImg").src="icons/aircrafts/"+engName+".png";
+                        }
+                        else{
+                            document.getElementById("aircraftImg").src="";
                         }
                     }
-                    if(engName !== undefined || engName !== "")
-                    {
-                        document.getElementById("aircraftImg").src="icons/aircrafts/"+engName+".png";
-                    }
-                    else
-                    {
-                        document.getElementById("aircraftImg").src="";
-                    }
-                }}
+                //}
             }
 
             else if(haversineDistance(userLoc,currentLocation) > 2000)
             {
-                if(document.getElementById("myModal").style.display != "block")
+                if(document.getElementById("myModal").style.display !== "block")
                 {
                     document.getElementById("gottoVoiceMessagePopup").style.display = "none";
                 }
