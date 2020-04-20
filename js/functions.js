@@ -832,6 +832,8 @@ function checkIfSimulationEnded() {
     }
 }
 
+var notifiedNearUser = false;
+
 function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var animationTime = 2000;
 
@@ -841,7 +843,10 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var nextAircraftStopPosition = getNextLocation(aircraft.path, currentTime);
     var nextAircraftPosition;
 
-    notifyUserIfNear(currentAircraftPosition, aircraft);
+    If (!notifiedNearUser) {
+        notifyUserIfNear(currentAircraftPosition, aircraft);
+    }
+    
 
     // Should the current time be larger than the next position's time, that means the aircraft landed
     if (convertTime(aircraft.path[aircraft.path.length - 1].date, aircraft.path[aircraft.path.length - 1].time) - plannedStartTime + actualStartTime < getCurrentTime()) {
@@ -2279,7 +2284,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                 }
             }
 
-            else if(haversineDistance(userLoc,currentLocation) > 1000)
+            else if(haversineDistance(userLoc,currentLocation) > 2000)
             {
                 if(document.getElementById("myModal").style.display != "block")
                 {
