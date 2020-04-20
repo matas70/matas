@@ -432,6 +432,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     }
 
     $("#aircraftInfoBanner").attr("src", aircraft.image);
+    $("#aircraftInfoBannerBackground").attr("src", aircraft.image);
 
     getMapDarker();
 
@@ -496,7 +497,11 @@ function showAircraftInfoPopup(aircraft, collapse) {
     }, "fast");
 
     setTimeout(function () {
-        $("#listView").hide();
+        if ($(window).width() < 600) {
+            // Hide only on mobile 
+            $("#listView").hide();
+         }
+        
     }, 500);
 }
 
