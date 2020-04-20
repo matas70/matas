@@ -843,7 +843,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var nextAircraftStopPosition = getNextLocation(aircraft.path, currentTime);
     var nextAircraftPosition;
 
-    If (!notifiedNearUser) {
+    if (!notifiedNearUser) {
         notifyUserIfNear(currentAircraftPosition, aircraft);
     }
     
@@ -2220,7 +2220,6 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 }
 
 
-
 (function () {
     var userLoc = null;
     navigator.geolocation.watchPosition(function(newLoc){
@@ -2257,32 +2256,42 @@ function getEventDescription(isAerobatics, locationName, minutes) {
         {'hebName':'ינשוף','engName':'yanshuf'},
         {'hebName':'יסעור','engName':'yasur'}
     ];
-
+    var name ="";
+    var timeCount = 0;
     function notifyUserIfNear(currentLocation, aircraft) {
         if (userLoc) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
             if(haversineDistance(userLoc,currentLocation) < 2000)
             {
                 notifiedNearUser = true;
-                var name = aircraft.name;
-                document.getElementById("gottoVoiceMessagePopup").style.display = "block";
-                document.getElementById("aircraftName").innerHTML = " מטוס קרב " + name;
-                
-                var engName="";
-                for (var i=0; i<aircraftsName.length; i++){
-                    if(aircraftsName[i].hebName == name){
-                        engName = aircraftsName[i].engName;
-                        break;
+                if(name === "")
+                {
+                    var x = setInterval( function () { timeCount++;}, 1000);
+                }
+                if(timeCount >30 || name !== aircraft.name) {
+                if(document.getElementById("myModal").style.display === "none" && document.getElementById("gottoVoiceMessagePopup").style.display === "none")
+                {
+                    this.timeCount = 0;
+                    name = aircraft.name;
+                    document.getElementById("gottoVoiceMessagePopup").style.display = "block";
+                    document.getElementById("aircraftName").innerHTML = " מטוס קרב " + name;
+                    
+                    var engName="";
+                    for (var i=0; i<aircraftsName.length; i++){
+                        if(aircraftsName[i].hebName == name){
+                            engName = aircraftsName[i].engName;
+                            break;
+                        }
                     }
-                }
-                if(engName !== undefined || engName === "")
-                {
-                     document.getElementById("aircraftImg").src="icons/aircrafts/"+engName+".png";
-                }
-                else
-                {
-                    document.getElementById("aircraftImg").src="";
-                }
+                    if(engName !== undefined || engName !== "")
+                    {
+                        document.getElementById("aircraftImg").src="icons/aircrafts/"+engName+".png";
+                    }
+                    else
+                    {
+                        document.getElementById("aircraftImg").src="";
+                    }
+                }}
             }
 
             else if(haversineDistance(userLoc,currentLocation) > 2000)
