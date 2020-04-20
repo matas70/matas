@@ -2141,10 +2141,8 @@ function getEventDescription(isAerobatics, locationName, minutes) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
             if(haversineDistance(userLoc,currentLocation) < 1000)
             {
-                console.log("in if1");
                 if(document.getElementById("gottoVoiceMessagePopup").style.display === "none" && document.getElementById("myModal").style.display === "none")
                 {
-                    console.log("in if2");
                     var name = aircraft.name;
                     document.getElementById("gottoVoiceMessagePopup").style.display = "block";
                     document.getElementById("aircraftName").innerHTML = " מטוס קרב " + name;
@@ -2166,7 +2164,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                     }
                 }
             }
-
+            
             else if(haversineDistance(userLoc,currentLocation) > 1000)
             {
                 if(document.getElementById("myModal").style.display != "block")
