@@ -152,17 +152,17 @@
                 <img id="aircraftImg" src="" alt="" style="margin: 7px; object-fit: contain;"/>
                 <div id="detatils" style="margin-top: 7px;">
                     <div id="aircraftName" style="font-weight: bold; font-size: large;"></div>
-                    <div id="aircraftTime" style="font-size: smaller;">יעבור מעלייך 30 שניות</div>
+                    <div id="aircraftTime" style="font-size: smaller;"></div>
                 </div>
             </div>
-            <div id="hearTheMessage" onclick="showAudioMessagePopapp()" style="background-color: #f7f5f5; height: 50%; border-top: 0.5px solid #e7e7e7;display: inline-flex; width:100%">
-                <img id="voiceMessageImg" src="icons/voiceMessage/dictation_glyph.png" style="height: auto;margin-top: auto;margin-bottom: auto;margin-right: 20px;"/>
+            <div id="hearTheMessage" onclick="showAudioMessagePopup()" style="background-color: #f7f5f5; height: 50%; border-top: 0.5px solid #e7e7e7;display: inline-flex; width:100%">
+                <img id="voiceMessageImg" src="" style="height: auto;margin-top: auto;margin-bottom: auto;margin-right: 20px;"/>
                 <span style="display: inline-flex;float: left;margin-right: 7px;">
-                    <p style="font-weight: bolder; font-size: 90%;">יש לך הודעה קולית מהטייס!</p>
+                    <p id="youHaveVoicemessage" style="font-weight: bolder; font-size: 90%;"></p>
                 </span>
             </div>
-            <div id="closePopUp" onclick="closeVoiceMessagePopapp()" style="margin-top: -30px; margin-left: 15px; float: left; position: relative;">
-                <img id="closeGotoVoiceMessagePopupBTN" src="icons/voiceMessage/group.png" onclick="closeGotoVoiceMessagePopapp()" />
+            <div id="closePopUp" onclick="closeVoiceMessagePopup()" style="margin-top: -30px; margin-left: 15px; float: left; position: relative;">
+                <img id="closeGotoVoiceMessagePopupBTN" src="icons/voiceMessage/group.png" onclick="closeGotoVoiceMessagePopup()" />
             </div>
         </div>
         <!-- entrance popup -->
@@ -440,13 +440,13 @@
         <!--<img id="poland" src="icons/countries/poland.svg" class="imageCache"></img>-->
     </div>
 
-    <div id="myModal" class="modal">
+    <div id="myModal" class="modal" style="display: none;">
         <div class="modal-content">
             <div class="messagePart">
-                <img class="close" onclick="closeVoiceMessagePopapp()" src="icons/voiceMessage/page_1.png"/>
+                <img class="close" onclick="closeVoiceMessagePopup()" src="icons/voiceMessage/page_1.png"/>
                 <img class="audioImg" src="icons/voiceMessage/group_5.png"/>
                <div class="audio">
-                    <audio id="audioSRC" src="icons/voiceMessage/file_example_MP3_700KB.mp3" ontimeupdate="updateAudioMessageTime()"></audio>
+                    <audio id="audioSRC" src="" ontimeupdate="updateAudioMessageTime()"></audio>
                     <span id="audioTime" class="audioTime">00:00</span>
                     <img id="audioTrack" class="audioTrack" src="icons/voiceMessage/rectangle.png"/>
                     <img id="trackerPoint" class="trackerPoint" src="icons/voiceMessage/blue.png"/>

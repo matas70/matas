@@ -825,6 +825,7 @@ function closeMapClusterPopup(clearMap) {
 function closeAllPopups() {
     deselectLocation();
     deselectAircraft();
+    //closeVoiceMessagePopup();
     closeMapClusterPopup(true);
 }
 
@@ -832,36 +833,43 @@ $(document).ready(function () {
     //window.scrollTo(0,document.body.scrollHeight);
 });
 
-function closeGotoVoiceMessagePopapp() {
+function closeGotoVoiceMessagePopup() {
     document.getElementById("gottoVoiceMessagePopup").style.display = "none";
 }
 
-function showAudioMessagePopapp() {
+function showAudioMessagePopup() {
     document.getElementById("gottoVoiceMessagePopup").style.display = "none";
     document.getElementById("myModal").style.display = "block";
     playAudioMessageAndTracker()
 }
 
-function closeVoiceMessagePopapp(){
+function closeVoiceMessagePopup(){
     document.getElementById("audioSRC").pause();
     document.getElementById("audioSRC").currentTime = 0;
     document.getElementById("myModal").style.display = "none";
+    document.getElementById("gottoVoiceMessagePopup").style.display = "none";
 }
 
 var audioPLay;
 function playAudioMessageAndTracker() {
-    document.getElementById("audioSRC").play();
-    audioPLay = true;
+    if(document.getElementById("audioSRC").src !== "")
+    {
+        document.getElementById("audioSRC").play();
+        audioPLay = true;
+    }
 }
 
 function playBTN() {
-    if(audioPLay){
-        audioPLay = false;
-        document.getElementById("audioSRC").pause();
-    }
-    else {
-        audioPLay = true;
-        document.getElementById("audioSRC").play();
+    if(document.getElementById("audioSRC").src !== "")
+    {
+        if(audioPLay){
+            audioPLay = false;
+            document.getElementById("audioSRC").pause();
+        }
+        else {
+            audioPLay = true;
+            document.getElementById("audioSRC").play();
+        }
     }
 }
 
