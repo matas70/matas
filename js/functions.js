@@ -2256,7 +2256,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     function notifyUserIfNear(currentLocation, aircraft) {
         if (userLoc) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-            if(haversineDistance(userLoc,currentLocation) < 1000)
+            if(haversineDistance(userLoc,currentLocation) < 2000)
             {
                 var name = aircraft.name;
                 document.getElementById("gottoVoiceMessagePopup").style.display = "block";
