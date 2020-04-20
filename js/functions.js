@@ -832,6 +832,8 @@ function checkIfSimulationEnded() {
     }
 }
 
+var notifiedNearUser = false;
+
 function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var animationTime = 2000;
 
@@ -840,6 +842,11 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var currentAircraftPosition = getCurrentLocation(aircraft.path, currentTime);
     var nextAircraftStopPosition = getNextLocation(aircraft.path, currentTime);
     var nextAircraftPosition;
+
+    If (!notifiedNearUser) {
+        notifyUserIfNear(currentAircraftPosition, aircraft);
+    }
+    
 
     // Should the current time be larger than the next position's time, that means the aircraft landed
     if (convertTime(aircraft.path[aircraft.path.length - 1].date, aircraft.path[aircraft.path.length - 1].time) - plannedStartTime + actualStartTime < getCurrentTime()) {
@@ -1486,19 +1493,35 @@ function displaySearchView() {
 
         var searchViewHtml = "";
 
-        // add bases
-        searchViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
+        if (shouldShowTypeCategory("base")) {
+            // add bases
+            searchViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
 
-        sortedLocations.forEach(function (location) {
-            if (!location.hidden && location.type && location.type === "base") {
-                searchViewHtml += createLocationRow(location, false, true);
-            }
-        }, this);
+            sortedLocations.forEach(function (location) {
+                if (!location.hidden && location.type && location.type === "base") {
+                    searchViewHtml += createLocationRow(location, false, true);
+                }
+            }, this);
+        }
+
+
+        if (shouldShowTypeCategory("hospital")) {
+            // add bases
+            searchViewHtml += createCategoryRow({category: "בתי חולים"}, true);
+
+            sortedLocations.forEach(function (location) {
+                if (!location.hidden && location.type && location.type === "hospital") {
+                    searchViewHtml += createLocationRow(location, false, true);
+                }
+            }, this);
+        }
 
         // add other locations category
         searchViewHtml += createCategoryRow({category: "יישובים"}, true);
         sortedLocations.forEach(function (location) {
-            if (!location.hidden && (!location.type || location.type !== "base")) {
+            if (!location.hidden &&
+                !!routes.find(route => route.points.find(point => location.pointId === point.pointId)) &&
+                (!location.type || location.type !== "base")) {
                 searchViewHtml += createLocationRow(location, false, true);
             }
         }, this);
@@ -1907,6 +1930,7 @@ function fillMenu() {
             }
         }
     });
+
     $("#aircraftsListView").html(html);
 
     // prepare locations view
@@ -1927,24 +1951,48 @@ function fillMenu() {
 
     var currTime = getCurrentTime();
 
-    // add bases
-    locationsViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
+    if (shouldShowTypeCategory("base")) {
+        // add bases
+        locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
 
-    sortedLocations.forEach(function (location) {
-        if (!location.hidden && location.type && location.type === "base") {
-            locationsViewHtml += createLocationRow(location, false);
-        }
-    }, this);
+        sortedLocations.forEach(function (location) {
+            if (!location.hidden && location.type && location.type === "base") {
+                locationsViewHtml += createLocationRow(location, false);
+            }
+        }, this);
+    }
+
+    if (shouldShowTypeCategory("hospital")) {
+        // add hospitals
+        locationsViewHtml += createCategoryRow({category: "בתי חולים"}, true);
+
+        sortedLocations.forEach(function (location) {
+            if (!location.hidden && location.type && location.type === "hospital") {
+                locationsViewHtml += createLocationRow(location, false);
+            }
+        }, this);
+    }
 
     // add cities
     locationsViewHtml += createCategoryRow({category: "יישובים"}, true);
     sortedLocations.forEach(function (location) {
-        if (!location.hidden && (!location.type || location.type !== "base")) {
+        if ((!location.hidden &&
+            !!routes.find(route => route.points.find(point => location.pointId === point.pointId))) &&
+            (!location.type || location.type !== "base" || location.type !== "hospital")) {
             locationsViewHtml += createLocationRow(location, false);
         }
     }, this);
 
     $("#locationsListView").html(locationsViewHtml);
+}
+
+/**
+ *
+ * @param typeCategory - base, hospital, etc.
+ * @returns {boolean}
+ */
+function shouldShowTypeCategory(typeCategory) {
+    return !!sortedLocations.find(location => location && location.type === typeCategory);
 }
 
 function makeTwoDigitTime(t) {
@@ -2170,3 +2218,110 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     var desc = 'יחל ב';
     return `${desc}${locationName} בעוד ${minutes} דקות`;
 }
+
+
+
+(function () {
+    var userLoc = null;
+    navigator.geolocation.watchPosition(function(newLoc){
+        userLoc = newLoc;
+        userLoc = {lon: userLoc.coords.longitude, lat: userLoc.coords.latitude};
+    });
+
+    var aircraftsName = [       
+        {'hebName':'ברק','engName':'barak'},
+        {'hebName':'אדיר','engName':'adir'},
+        {'hebName':'עטלף','engName':'atalef'},
+        {'hebName':'בז','engName':'baz'},
+        {'hebName':'בוינג747','engName':'boeing747'},
+        {'hebName':'','engName':'c17'},
+        {'hebName':'','engName':'airtractor'},
+        {'hebName':'','engName':'c295'},
+        {'hebName':'עפרוני','engName':'efroni'},
+        {'hebName':'עיטם','engName':'eitam' },
+        {'hebName':'F-16','engName':'f16'},
+        {'hebName':'קרנף','engName':'karnef'},
+        {'hebName':'לביא','engName':'lavi'},
+        {'hebName':'נחשון','engName':'nahshon'},
+        {'hebName':'פתן','engName':'peten'},
+        {'hebName':'רעם','engName':'raam'},
+        {'hebName':'ראם','engName':'reem'},
+        {'hebName':'סייפן','engName':'saifan'},
+        {'hebName':'שרף','engName':'saraf'},
+        {'hebName':'שחף','engName':'shahaf'},
+        {'hebName':'שמשון','engName':'shimshon'},
+        {'hebName':'שמשון בריטי','engName':'shimshon-britian'},
+        {'hebName':'שמשון אוסטרי','engName':'shimshon-ostrian'},
+        {'hebName':'סופה','engName':'sufa'},
+        {'hebName':'צופית','engName':'tzufit'},
+        {'hebName':'ינשוף','engName':'yanshuf'},
+        {'hebName':'יסעור','engName':'yasur'}
+    ];
+
+    function notifyUserIfNear(currentLocation, aircraft) {
+        if (userLoc) {
+            currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
+            if(haversineDistance(userLoc,currentLocation) < 2000)
+            {
+                notifiedNearUser = true;
+                var name = aircraft.name;
+                document.getElementById("gottoVoiceMessagePopup").style.display = "block";
+                document.getElementById("aircraftName").innerHTML = " מטוס קרב " + name;
+                
+                var engName="";
+                for (var i=0; i<aircraftsName.length; i++){
+                    if(aircraftsName[i].hebName == name){
+                        engName = aircraftsName[i].engName;
+                        break;
+                    }
+                }
+                if(engName !== undefined || engName === "")
+                {
+                     document.getElementById("aircraftImg").src="icons/aircrafts/"+engName+".png";
+                }
+                else
+                {
+                    document.getElementById("aircraftImg").src="";
+                }
+            }
+
+            else if(haversineDistance(userLoc,currentLocation) > 2000)
+            {
+                if(document.getElementById("myModal").style.display != "block")
+                {
+                    document.getElementById("gottoVoiceMessagePopup").style.display = "none";
+                }
+            }
+        }
+    }
+
+    window.notifyUserIfNear = notifyUserIfNear;
+
+    // taken from https://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
+    function haversineDistance(coords1, coords2) {
+        function toRad(x) {
+            return x * Math.PI / 180;
+        }
+
+        var lon1 = coords1.lon;
+        var lat1 = coords1.lat;
+
+        var lon2 = coords2.lon;
+        var lat2 = coords2.lat;
+
+        var R = 6371; // km
+
+        var x1 = lat2 - lat1;
+        var dLat = toRad(x1);
+        var x2 = lon2 - lon1;
+        var dLon = toRad(x2)
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+
+        return d;
+    }
+})()
+

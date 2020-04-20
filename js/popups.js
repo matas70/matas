@@ -831,3 +831,49 @@ function closeAllPopups() {
 $(document).ready(function () {
     //window.scrollTo(0,document.body.scrollHeight);
 });
+
+function closeGotoVoiceMessagePopapp() {
+    document.getElementById("gottoVoiceMessagePopup").style.display = "none";
+}
+
+function showAudioMessagePopapp() {
+    document.getElementById("gottoVoiceMessagePopup").style.display = "none";
+    document.getElementById("myModal").style.display = "block";
+    playAudioMessageAndTracker()
+}
+
+function closeVoiceMessagePopapp(){
+    document.getElementById("audioSRC").pause();
+    document.getElementById("audioSRC").currentTime = 0;
+    document.getElementById("myModal").style.display = "none";
+}
+
+var audioPLay;
+function playAudioMessageAndTracker() {
+    document.getElementById("audioSRC").play();
+    audioPLay = true;
+}
+
+function playBTN() {
+    if(audioPLay){
+        audioPLay = false;
+        document.getElementById("audioSRC").pause();
+    }
+    else {
+        audioPLay = true;
+        document.getElementById("audioSRC").play();
+    }
+}
+
+function updateAudioMessageTime() {
+    activeVoiceMessage = document.getElementById("audioSRC");
+    var currentSeconds = (Math.floor(activeVoiceMessage.currentTime % 60) < 10 ? '0' : '') + Math.floor(activeVoiceMessage.currentTime % 60);
+    var currentMinutes = Math.floor(activeVoiceMessage.currentTime / 60);
+
+    document.getElementById("audioTime").innerHTML = currentMinutes + ":" + currentSeconds;
+
+    var percentageOfSong = (activeVoiceMessage.currentTime/activeVoiceMessage.duration);
+    var percentageOfSlider = document.getElementById('audioTrack').offsetWidth * percentageOfSong;
+
+    document.getElementById('trackerPoint').style.left = Math.round(percentageOfSlider) + "px";
+}
