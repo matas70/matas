@@ -1,4 +1,5 @@
 /* The switch - the box around the slider */
+
 .switch {
     position: relative;
     display: inline-block;
@@ -10,14 +11,18 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+
 /* Hide default HTML checkbox */
+
 .switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
+
 /* The slider */
+
 .slider {
     position: absolute;
     cursor: pointer;
@@ -42,67 +47,69 @@
     transition: .4s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
     background-color: #3bb5f2;
 }
 
-input:focus + .slider {
+input:focus+.slider {
     box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
     -webkit-transform: translateX(20px);
     -ms-transform: translateX(20px);
     transform: translateX(20px);
 }
 
+
 /* Rounded sliders */
+
 .slider.round {
     border-radius: 34px;
 }
 
 .slider.round:before {
     border-radius: 50%;
-} 
+}
 
 .modal {
-    display: none; 
+    display: none;
     position: fixed;
     z-index: 100;
     left: 0;
     top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-  }
- 
-  .modal-content {
-    display:block;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    display: block;
     margin: auto;
     width: 70%;
-    height:60%;
-    margin-top:30%;
-  }
+    height: 60%;
+    margin-top: 30%;
+}
 
-  .messagePart {
+.messagePart {
     background-color: white;
     border: 0.3px solid grey;
     border-radius: 15px;
     width: 100%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-top: 35vw;
-  }
-  
-    .close {
+}
+
+.close {
     margin: 5%;
     color: #aaaaaa;
     float: left;
     width: 5%;
-  }
-  
-  .audioImg {
+}
+
+.audioImg {
     position: relative;
     display: block;
     margin: auto;
@@ -110,34 +117,34 @@ input:checked + .slider:before {
     padding-bottom: 5%;
     padding-right: 10%;
     width: 15vw;
-  }
+}
 
-  .audio {
+.audio {
     width: 100%;
     margin-top: -10px;
     display: inline-flex;
     float: left;
     margin-left: auto;
     margin-right: auto;
-  }
+}
 
-  .audioPlay {
+.audioPlay {
     margin-right: -5px;
     margin-left: 5px;
     width: 6%;
     height: 6%;
-  }
+}
 
-  .audioTrack {
+.audioTrack {
     right: 7px;
     height: 50%;
     width: 70%;
     margin-top: auto;
     margin-bottom: auto;
     position: relative;
-  }
+}
 
-  .trackerPoint {
+.trackerPoint {
     position: relative;
     height: unset;
     margin-left: 5px;
@@ -145,34 +152,34 @@ input:checked + .slider:before {
     height: 6%;
     margin-bottom: auto;
     margin-top: auto;
-  }
+}
 
-  .audioTime {
+.audioTime {
     font-size: 3.5vw;
     margin-right: 5px;
     margin-top: auto;
     margin-bottom: auto;
-  }
+}
 
-  .border {
+.border {
     background-color: grey;
     padding: 0.5px;
     opacity: 0.3;
     width: 100%;
     margin-top: 7%;
-  }
+}
 
-  .wroteMessage {
-    text-align:right;
-    direction:rtl;
-    font-weight:bold;
-    font-size:4vw;
-    font-family:Arial,Helvetica,sans-serif;
-    padding:7%;
-    margin:auto;
-  }
+.wroteMessage {
+    text-align: right;
+    direction: rtl;
+    font-weight: bold;
+    font-size: 4vw;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 7%;
+    margin: auto;
+}
 
-  .sendPost {
+.sendPost {
     background-color: #3bb5f2;
     margin-top: 3%;
     border: 0.5px solid grey;
@@ -180,15 +187,15 @@ input:checked + .slider:before {
     width: 100%;
     display: inline-flex;
     float: left;
-  }
+}
 
-  .camera {
+.camera {
     height: 8vw;
-    margin:3%;
+    margin: 3%;
     margin-left: 2%;
-  }
+}
 
-  .sendMessage {
+.sendMessage {
     color: white;
     margin-top: 5%;
     margin-bottom: 4%;
@@ -197,6 +204,79 @@ input:checked + .slider:before {
     display: contents;
     font-weight: bold;
     font-size: 3.5vw;
-    font-family: Arial,Helvetica,sans-serif;
-  }
+    font-family: Arial, Helvetica, sans-serif;
+}
 
+
+/* Desktop mode handler */
+
+@media only screen and (min-width: 600px) {
+    #myModal {
+        z-index: 99999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Audio Popup */
+    .modal-content {
+        width: 400px;
+        height: auto;
+        margin: 0;
+    }
+
+    .modal-content {
+        margin-top: 0;
+    }
+
+    .messagePart {
+        margin-top: 0;
+    }
+    
+    .wroteMessage {
+        font-size: 1em;
+    }
+
+    .sendMessage {
+        font-size: 1em;
+    }
+
+    .camera {
+        height: auto;
+        display: block;
+    }
+
+    .sendPost {
+        display: flex;
+        align-items: center;
+    }
+    
+    .audioTime {
+        font-size: 1em;
+    }
+
+    .audioPlay {
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .trackerPoint {
+        width: auto; 
+        height: auto;
+    }
+
+    .audio {
+        display: flex;
+        justify-content: center;
+    }
+
+    .close {
+        width: auto;
+    }
+
+    .audioImg {
+        width: auto;
+    }
+
+}
