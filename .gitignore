@@ -2,3 +2,4 @@
 .vscode*
 Thumbs*
 node_modules/*
+/data/env.json
