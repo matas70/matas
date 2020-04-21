@@ -1701,17 +1701,16 @@ hr.aircraftLineSeparator.two {}
         height: calc(100vh - 204px) !important;
     }
     #locationPopup {
-        width: 400px;
+        width: calc(100% - 400px);
         height: 500px;
-        left: calc(100% - 400px);
+        left: 0;
         overflow: hidden;
     }
     #menuHamburger {
         display: none;
     }
     #baseInfo {
-        width: calc(100% - 400px);
-        float: left;
+        width: 100%;
     }
     #map {
         width: calc(100% - 400px);
