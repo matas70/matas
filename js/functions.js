@@ -2304,17 +2304,17 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         }
                         audioSrc = audioMessage.audioSrc;
                         if(audioSrc !== undefined && audioSrc !== ""){
-                            document.getElementById("audioSRC").src=audioSrc;
+                            $("#audioSRC").attr("src",audioSrc);
                         }
                         else{
-                            document.getElementById("audioSRC").src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3";
+                            $("#audioSRC").attr("src",'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
                         }
 
                         if(engName !== undefined && engName !== ""){
-                            document.getElementById("aircraftImg").src="icons/aircrafts/"+engName+".png";
+                            $("#my_image").attr("src",`icons/aircrafts/${engName}.png`);
                         }
                         else{
-                            document.getElementById("aircraftImg").src="";
+                            $("#my_image").attr("src",``);
                         }
                     }
                 //}
