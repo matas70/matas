@@ -2256,6 +2256,14 @@ function getEventDescription(isAerobatics, locationName, minutes) {
         {'hebName':'ינשוף','engName':'yanshuf','audioSrc':""},
         {'hebName':'יסעור','engName':'yasur','audioSrc':""}
     ];
+
+    var audioMessages;
+    $.getJSON('/data/audio-messages.json', (res) => {
+        audioMessages = res;
+    });
+    console.log(audioMessages);
+    
+
     var name ="";
     //check that its not the same popup that has been closed
     //var timeCount = 0;
@@ -2277,11 +2285,13 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                     {
                         //timeCount = 0;
                         name = aircraft.name;
+                        let audioMessage = audioMessages[aircraft.aircraftId] ? audioMessages[aircraft.aircraftId] : audioMessages['default'];
                         document.getElementById("gottoVoiceMessagePopup").style.display = "block";
                         document.getElementById("aircraftName").innerHTML = " מטוס קרב " + name;
                         document.getElementById("aircraftTime").innerHTML = "יעבור מעלייך 30 שניות";
                         document.getElementById("youHaveVoicemessage").innerHTML = "יש לך הודעה קולית מהטייס!";
                         document.getElementById("voiceMessageImg").src = "icons/voiceMessage/dictation_glyph.png";
+                        $('#audioMessageText').html(audioMessage.text);
                         
                         var engName="";
                         var audioSrc = "";
@@ -2292,6 +2302,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                                 break;
                             }
                         }
+                        audioSrc = audioMessage.audioSrc;
                         if(audioSrc !== undefined && audioSrc !== ""){
                             document.getElementById("audioSRC").src=audioSrc;
                         }
