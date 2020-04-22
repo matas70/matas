@@ -2227,36 +2227,6 @@ function getEventDescription(isAerobatics, locationName, minutes) {
         userLoc = {lon: userLoc.coords.longitude, lat: userLoc.coords.latitude};
     });
 
-    var aircraftsName = [       
-        {'hebName':'ברק','engName':'barak', 'audioSrc':""},
-        {'hebName':'אדיר','engName':'adir','audioSrc':""},
-        {'hebName':'עטלף','engName':'atalef','audioSrc':""},
-        {'hebName':'בז','engName':'baz','audioSrc':""},
-        {'hebName':'בוינג747','engName':'boeing747','audioSrc':""},
-        {'hebName':'','engName':'c17','audioSrc':""},
-        {'hebName':'','engName':'airtractor','audioSrc':""},
-        {'hebName':'','engName':'c295','audioSrc':""},
-        {'hebName':'עפרוני','engName':'efroni','audioSrc':""},
-        {'hebName':'עיטם','engName':'eitam','audioSrc':"" },
-        {'hebName':'F-16','engName':'f16','audioSrc':""},
-        {'hebName':'קרנף','engName':'karnef','audioSrc':""},
-        {'hebName':'לביא','engName':'lavi','audioSrc':""},
-        {'hebName':'נחשון','engName':'nahshon','audioSrc':""},
-        {'hebName':'פתן','engName':'peten','audioSrc':""},
-        {'hebName':'רעם','engName':'raam','audioSrc':""},
-        {'hebName':'ראם','engName':'reem','audioSrc':""},
-        {'hebName':'סייפן','engName':'saifan','audioSrc':""},
-        {'hebName':'שרף','engName':'saraf','audioSrc':""},
-        {'hebName':'שחף','engName':'shahaf','audioSrc':""},
-        {'hebName':'שמשון','engName':'shimshon','audioSrc':""},
-        {'hebName':'שמשון בריטי','engName':'shimshon-britian','audioSrc':""},
-        {'hebName':'שמשון אוסטרי','engName':'shimshon-ostrian','audioSrc':""},
-        {'hebName':'סופה','engName':'sufa','audioSrc':""},
-        {'hebName':'צופית','engName':'tzufit','audioSrc':""},
-        {'hebName':'ינשוף','engName':'yanshuf','audioSrc':""},
-        {'hebName':'יסעור','engName':'yasur','audioSrc':""}
-    ];
-
     var audioMessages;
     $.getJSON('/data/audio-messages.json', (res) => {
         audioMessages = res;
@@ -2288,33 +2258,25 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         let audioMessage = audioMessages[aircraft.aircraftId] ? audioMessages[aircraft.aircraftId] : audioMessages['default'];
                         $("#gottoVoiceMessagePopup")[0].style.display = "block";
                         $("#aircraftName").html(`${aircraft.type} - ${name}`);
-                        $("#aircraftTime").html(".יעבור מעלייך בעוד כ-30 שניות");
+                        $("#aircraftTime").html("יעבור מעלייך בעוד כ-30 שניות.");
                         $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
                         $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
                         $('#audioMessageText').html(audioMessage.text);
-                        
-                        var engName="";
-                        var audioSrc = "";
-                        for (var i=0; i<aircraftsName.length; i++){
-                            if(aircraftsName[i].hebName == name){
-                                engName = aircraftsName[i].engName;
-                                audioSrc = aircraftsName [i].audioSrc;
-                                break;
-                            }
-                        }
-                        audioSrc = audioMessage.audioSrc;
-                        if(audioSrc !== undefined && audioSrc !== ""){
-                            $("#audioSRC").attr("src",audioSrc);
+
+                        if(audioMessage.audioSrc){
+                            $("#audioSRC").attr("src",audioMessage.audioSrc);
                         }
                         else{
                             $("#audioSRC").attr("src",'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
                         }
 
-                        if(engName !== undefined && engName !== ""){
-                            $("#my_image").attr("src",`icons/aircrafts/${engName}.png`);
+                        console.log(`icons/aircrafts/${aircraft.icon}.svg`);
+                        
+                        if(aircraft.icon){
+                            $("#aircraftImg").attr("src",`icons/aircrafts/${aircraft.icon}.svg`);
                         }
                         else{
-                            $("#my_image").attr("src",``);
+                            $("#aircraftImg").attr("src",`icons/genericAircraft.svg`);
                         }
                     }
                 //}
