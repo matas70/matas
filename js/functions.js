@@ -2286,7 +2286,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         //timeCount = 0;
                         name = aircraft.name;
                         let audioMessage = audioMessages[aircraft.aircraftId] ? audioMessages[aircraft.aircraftId] : audioMessages['default'];
-                        $("#gottoVoiceMessagePopup").style.display = "block";
+                        $("#gottoVoiceMessagePopup")[0].style.display = "block";
                         $("#aircraftName").html(`${aircraft.type} - ${name}`);
                         $("#aircraftTime").html(".יעבור מעלייך בעוד כ-30 שניות");
                         $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
