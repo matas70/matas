@@ -201,10 +201,15 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     }
 
     var locationPopup = $("#locationPopup");
+    var targetHeight = 0;
+    if ($(window).width() < 600) { 
+        targetHeight = minimized ? minimizedLocationPopupHeight : locationPopupHeight;
+     }
+     else {                              
+        targetHeight = 350;
+     }
 
     // animate popup coming from bottom
-    var targetHeight = minimized ? minimizedLocationPopupHeight : locationPopupHeight;
-
     locationPopup.height(0);
     locationPopup.show();
     locationPopup.animate({

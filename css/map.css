@@ -1779,4 +1779,8 @@ hr.aircraftLineSeparator.two {}
     .aircraftInfoContentRow.aircraftInfoTitle {
         z-index: 103;
     }
+
+    #aircraftListContainer {
+        height: inherit;
+    }
 }
