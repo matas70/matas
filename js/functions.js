@@ -2281,16 +2281,16 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                 } */
                 //check that its not the same popup that has been closed - if its not the same aircraft or its has been more then 30 sec
                 //if(timeCount >30 || name !== aircraft.name) {
-                    if(document.getElementById("myModal").style.display === "none" && document.getElementById("gottoVoiceMessagePopup").style.display === "none")
+                    if($('#myModal:hidden') && $('#gottoVoiceMessagePopup:hidden'))
                     {
                         //timeCount = 0;
                         name = aircraft.name;
                         let audioMessage = audioMessages[aircraft.aircraftId] ? audioMessages[aircraft.aircraftId] : audioMessages['default'];
-                        document.getElementById("gottoVoiceMessagePopup").style.display = "block";
-                        document.getElementById("aircraftName").innerHTML = `${aircraft.type} - ${name}`;
-                        document.getElementById("aircraftTime").innerHTML = ".יעבור מעלייך בעוד 30 שניות";
-                        document.getElementById("youHaveVoicemessage").innerHTML = "יש לך הודעה קולית מהטייס!";
-                        document.getElementById("voiceMessageImg").src = "icons/voiceMessage/dictation_glyph.png";
+                        $("#gottoVoiceMessagePopup").style.display = "block";
+                        $("#aircraftName").html(`${aircraft.type} - ${name}`);
+                        $("#aircraftTime").html(".יעבור מעלייך בעוד כ-30 שניות");
+                        $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
+                        $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
                         $('#audioMessageText').html(audioMessage.text);
                         
                         var engName="";
@@ -2322,9 +2322,9 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 
             else if(haversineDistance(userLoc,currentLocation) > 2000)
             {
-                if(document.getElementById("myModal").style.display !== "block")
+                if ($('#myModal:hidden'))
                 {
-                    document.getElementById("gottoVoiceMessagePopup").style.display = "none";
+                    $('#gottoVoiceMessagePopup').hide();
                 }
             }
         }
