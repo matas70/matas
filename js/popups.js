@@ -839,11 +839,12 @@ $(document).ready(function () {
 });
 
 function closeGotoVoiceMessagePopup() {
-   $("#gottoVoiceMessagePopup")[0].style.display = "none";
+   $("#gottoVoiceMessagePopup").hide();
 }
 
 function showAudioMessagePopup() {
-   $("#gottoVoiceMessagePopup")[0].style.display = "none";
+   $("#gottoVoiceMessagePopup").hide();
+   $("#myModal").show();
    $("#myModal")[0].style.display = "flex";
     playAudioMessageAndTracker()
 }
@@ -851,8 +852,8 @@ function showAudioMessagePopup() {
 function closeVoiceMessagePopup(){
     $("#audioSRC")[0].pause();
     $("#audioSRC")[0].currentTime = 0;
-   $("#myModal")[0].style.display = "none";
-   $("#gottoVoiceMessagePopup")[0].style.display = "none";
+   $("#myModal").hide();
+   $("#gottoVoiceMessagePopup").hide();
 }
 
 var audioPLay;
