@@ -202,7 +202,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
     var locationPopup = $("#locationPopup");
     var targetHeight = 0;
-    if ($(window).width() < 600) { 
+    if (isDesktop()) { 
         targetHeight = minimized ? minimizedLocationPopupHeight : locationPopupHeight;
      }
      else {                              
@@ -502,7 +502,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     }, "fast");
 
     setTimeout(function () {
-        if ($(window).width() < 600) {
+        if (!isDesktop()) {
             // Hide only on mobile 
             $("#listView").hide();
          }
@@ -836,7 +836,9 @@ function closeAllPopups() {
     deselectLocation();
     deselectAircraft();
     //closeVoiceMessagePopup();
-    closeMapClusterPopup(true);
+    if (!isDesktop()) {
+        closeMapClusterPopup(true);
+    }
 }
 
 $(document).ready(function () {
@@ -895,4 +897,8 @@ function updateAudioMessageTime() {
     var percentageOfSlider =$('#audioTrack')[0].offsetWidth * percentageOfSong;
 
    $('#trackerPoint')[0].style.left = Math.round(percentageOfSlider) + "px";
+}
+
+function isDesktop() {
+    return $(window).width() > 600;
 }
