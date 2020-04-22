@@ -2287,7 +2287,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         name = aircraft.name;
                         let audioMessage = audioMessages[aircraft.aircraftId] ? audioMessages[aircraft.aircraftId] : audioMessages['default'];
                         document.getElementById("gottoVoiceMessagePopup").style.display = "block";
-                        document.getElementById("aircraftName").innerHTML = `מטוס קרב ${name}`;
+                        document.getElementById("aircraftName").innerHTML = `${aircraft.type} - ${name}`;
                         document.getElementById("aircraftTime").innerHTML = ".יעבור מעלייך בעוד 30 שניות";
                         document.getElementById("youHaveVoicemessage").innerHTML = "יש לך הודעה קולית מהטייס!";
                         document.getElementById("voiceMessageImg").src = "icons/voiceMessage/dictation_glyph.png";
