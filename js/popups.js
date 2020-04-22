@@ -202,7 +202,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
     var locationPopup = $("#locationPopup");
     var targetHeight = 0;
-    if (isDesktop()) { 
+    if (!isDesktop()) { 
         targetHeight = minimized ? minimizedLocationPopupHeight : locationPopupHeight;
      }
      else {                              
