@@ -303,6 +303,8 @@ div.splash {
 #aircraftInfoBannerContainer {
     width: 100%;
     background: white;
+    display: flex;
+    flex-direction: column;
 }
 
 #aircraftInfoBannerBackground {
@@ -1687,10 +1689,21 @@ hr.aircraftLineSeparator.two {}
     margin-right: 14px;
 }
 
+#liveStream {
+    width: 100%;
+}
 
 /* Desktop mode handler */
 
 @media only screen and (min-width: 600px) {
+    #liveStream {
+        z-index: 9999999;
+        border-radius: 20px 20px 0 0;
+        margin-top: auto;
+        width: 400px;
+        height: 170px;
+    }
+
     .listViewContainer {
         width: 400px;
         transform: translateX(100%) !important;
