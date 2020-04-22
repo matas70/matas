@@ -839,54 +839,54 @@ $(document).ready(function () {
 });
 
 function closeGotoVoiceMessagePopup() {
-    document.getElementById("gottoVoiceMessagePopup").style.display = "none";
+   $("#gottoVoiceMessagePopup")[0].style.display = "none";
 }
 
 function showAudioMessagePopup() {
-    document.getElementById("gottoVoiceMessagePopup").style.display = "none";
-    document.getElementById("myModal").style.display = "flex";
+   $("#gottoVoiceMessagePopup")[0].style.display = "none";
+   $("#myModal")[0].style.display = "flex";
     playAudioMessageAndTracker()
 }
 
 function closeVoiceMessagePopup(){
-    document.getElementById("audioSRC").pause();
-    document.getElementById("audioSRC").currentTime = 0;
-    document.getElementById("myModal").style.display = "none";
-    document.getElementById("gottoVoiceMessagePopup").style.display = "none";
+    $("#audioSRC")[0].pause();
+    $("#audioSRC")[0].currentTime = 0;
+   $("#myModal")[0].style.display = "none";
+   $("#gottoVoiceMessagePopup")[0].style.display = "none";
 }
 
 var audioPLay;
 function playAudioMessageAndTracker() {
-    if(document.getElementById("audioSRC").src !== "")
+    if($("#audioSRC")[0].src !== "")
     {
-        document.getElementById("audioSRC").play();
+       $("#audioSRC")[0].play();
         audioPLay = true;
     }
 }
 
 function playBTN() {
-    if(document.getElementById("audioSRC").src !== "")
+    if($("#audioSRC")[0].src !== "")
     {
         if(audioPLay){
             audioPLay = false;
-            document.getElementById("audioSRC").pause();
+           $("#audioSRC")[0].pause();
         }
         else {
             audioPLay = true;
-            document.getElementById("audioSRC").play();
+           $("#audioSRC")[0].play();
         }
     }
 }
 
 function updateAudioMessageTime() {
-    activeVoiceMessage = document.getElementById("audioSRC");
+    activeVoiceMessage =$("#audioSRC")[0];
     var currentSeconds = (Math.floor(activeVoiceMessage.currentTime % 60) < 10 ? '0' : '') + Math.floor(activeVoiceMessage.currentTime % 60);
     var currentMinutes = Math.floor(activeVoiceMessage.currentTime / 60);
 
-    document.getElementById("audioTime").innerHTML = currentMinutes + ":" + currentSeconds;
+   $("#audioTime")[0].innerHTML = currentMinutes + ":" + currentSeconds;
 
     var percentageOfSong = (activeVoiceMessage.currentTime/activeVoiceMessage.duration);
-    var percentageOfSlider = document.getElementById('audioTrack').offsetWidth * percentageOfSong;
+    var percentageOfSlider =$('#audioTrack')[0].offsetWidth * percentageOfSong;
 
-    document.getElementById('trackerPoint').style.left = Math.round(percentageOfSlider) + "px";
+   $('#trackerPoint')[0].style.left = Math.round(percentageOfSlider) + "px";
 }
