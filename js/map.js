@@ -4,10 +4,10 @@ selectedLocationMarker = null;
 selectedLocationMarkerIcon = null;
 aerobaticPoints = null;
 
+
 googleMaps = {
-    //const MAP_URL : "https://maps.googleapis.com/maps/api/js?key=AIzaSyCUHnpGpGO0nDr7Hy3nsnk85eIM75jGBd4&callback=initMap&language=he&region=IL";
     // new production key
-    MAP_URL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyC9SvKqEi2KwCecVLbG6257Xuu9SZf0azk&callback=initMap&language=he&region=IL",
+    MAP_URL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyD6_woFZpfspoPsI7BGcsC2ZtDCue1yTks&callback=initMap&language=he&region=IL",
 
     setAircraftMarkerIcon: (marker, url, anchor = 36) => {
         if (anchor != null) {
