@@ -1772,6 +1772,7 @@ hr.aircraftLineSeparator.two {}
 
     #aircraftInfoBannerContainer {
         display: flex;
+        flex-direction: row;
         justify-content: center;
         position: relative;
         background: black;
