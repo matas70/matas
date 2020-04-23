@@ -835,6 +835,8 @@ function checkIfSimulationEnded() {
 var notifiedNearUser = false;
 
 function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
+    console.log('animate');
+    
     var animationTime = 2000;
 
     var currentTime = getCurrentTime();
@@ -843,7 +845,13 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var nextAircraftStopPosition = getNextLocation(aircraft.path, currentTime);
     var nextAircraftPosition;
 
-    if (!notifiedNearUser) {
+
+    actualStartTime = convertTime(startDate, aircraftData.actualStartTime);
+    let isSimulation = $.urlParam("simulation") != null;
+    let theEventStarted = actualStartTime - new Date().getTime() < 0 ;
+
+    if (!notifiedNearUser && (theEventStarted || isSimulation)) {
+        
         notifyUserIfNear(currentAircraftPosition, aircraft);
     }
     
