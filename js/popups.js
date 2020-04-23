@@ -201,10 +201,15 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     }
 
     var locationPopup = $("#locationPopup");
+    var targetHeight = 0;
+    if (!isDesktop()) { 
+        targetHeight = minimized ? minimizedLocationPopupHeight : locationPopupHeight;
+     }
+     else {                              
+        targetHeight = 350;
+     }
 
     // animate popup coming from bottom
-    var targetHeight = minimized ? minimizedLocationPopupHeight : locationPopupHeight;
-
     locationPopup.height(0);
     locationPopup.show();
     locationPopup.animate({
@@ -432,6 +437,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     }
 
     $("#aircraftInfoBanner").attr("src", aircraft.image);
+    $("#aircraftInfoBannerBackground").attr("src", aircraft.image);
 
     getMapDarker();
 
@@ -496,7 +502,11 @@ function showAircraftInfoPopup(aircraft, collapse) {
     }, "fast");
 
     setTimeout(function () {
-        $("#listView").hide();
+        if (!isDesktop()) {
+            // Hide only on mobile 
+            $("#listView").hide();
+         }
+        
     }, 500);
 }
 
@@ -825,9 +835,70 @@ function closeMapClusterPopup(clearMap) {
 function closeAllPopups() {
     deselectLocation();
     deselectAircraft();
-    closeMapClusterPopup(true);
+    //closeVoiceMessagePopup();
+    if (!isDesktop()) {
+        closeMapClusterPopup(true);
+    }
 }
 
 $(document).ready(function () {
     //window.scrollTo(0,document.body.scrollHeight);
 });
+
+function closeGotoVoiceMessagePopup() {
+   $("#gottoVoiceMessagePopup").hide();
+}
+
+function showAudioMessagePopup() {
+   $("#gottoVoiceMessagePopup").hide();
+   $("#myModal").show();
+   $("#myModal")[0].style.display = "flex";
+    playAudioMessageAndTracker()
+}
+
+function closeVoiceMessagePopup(){
+    $("#audioSRC")[0].pause();
+    $("#audioSRC")[0].currentTime = 0;
+   $("#myModal").hide();
+   $("#gottoVoiceMessagePopup").hide();
+}
+
+var audioPLay;
+function playAudioMessageAndTracker() {
+    if($("#audioSRC")[0].src !== "")
+    {
+       $("#audioSRC")[0].play();
+        audioPLay = true;
+    }
+}
+
+function playBTN() {
+    if($("#audioSRC")[0].src !== "")
+    {
+        if(audioPLay){
+            audioPLay = false;
+           $("#audioSRC")[0].pause();
+        }
+        else {
+            audioPLay = true;
+           $("#audioSRC")[0].play();
+        }
+    }
+}
+
+function updateAudioMessageTime() {
+    activeVoiceMessage =$("#audioSRC")[0];
+    var currentSeconds = (Math.floor(activeVoiceMessage.currentTime % 60) < 10 ? '0' : '') + Math.floor(activeVoiceMessage.currentTime % 60);
+    var currentMinutes = Math.floor(activeVoiceMessage.currentTime / 60);
+
+   $("#audioTime")[0].innerHTML = currentMinutes + ":" + currentSeconds;
+
+    var percentageOfSong = (activeVoiceMessage.currentTime/activeVoiceMessage.duration);
+    var percentageOfSlider =$('#audioTrack')[0].offsetWidth * percentageOfSong;
+
+   $('#trackerPoint')[0].style.left = Math.round(percentageOfSlider) + "px";
+}
+
+function isDesktop() {
+    return $(window).width() > 600;
+}

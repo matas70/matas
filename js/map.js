@@ -4,10 +4,10 @@ selectedLocationMarker = null;
 selectedLocationMarkerIcon = null;
 aerobaticPoints = null;
 
+
 googleMaps = {
-    //const MAP_URL : "https://maps.googleapis.com/maps/api/js?key=AIzaSyCUHnpGpGO0nDr7Hy3nsnk85eIM75jGBd4&callback=initMap&language=he&region=IL";
     // new production key
-    MAP_URL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyC9SvKqEi2KwCecVLbG6257Xuu9SZf0azk&callback=initMap&language=he&region=IL",
+    MAP_URL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBXqrBxK2oQ9phgZNso5oklGl5CwLJu5xo&callback=initMap&language=he&region=IL",
 
     setAircraftMarkerIcon: (marker, url, anchor = 36) => {
         if (anchor != null) {
@@ -127,14 +127,14 @@ googleMaps = {
     },
 
     // location markers
-    getMarkerIcon: (color, clicked, aerobatic, label) => {
+    getMarkerIcon: (color, clicked, aerobatic, label, point) => {
         color = color.toLowerCase();
         var iconUrl;
 
         if (!clicked) {
-            iconUrl = googleMaps.getMarkerIconUrl(color, false, aerobatic, label);
+            iconUrl = googleMaps.getMarkerIconUrl(color, false, aerobatic, label, point);
         } else {
-            iconUrl = googleMaps.getMarkerIconUrl(color, true, aerobatic, label);
+            iconUrl = googleMaps.getMarkerIconUrl(color, true, aerobatic, label, point);
         }
 
         var markerHtml = '<div class=\"locationMarkerDivGmaps\"><div class=\"locationIconContainer\"><img class=\"locationMarkerIcon\" src=\"' + iconUrl + '\"/></div><span class=\"locationMarkerLabel\">' + label + '</span></div>';
@@ -209,19 +209,24 @@ googleMaps = {
         return {aircrafts: aircraftsInCircle, locations: locationsInCircle};
     },
 
-    getMarkerIconUrl: (color, clicked, aerobatic, label) => {
+    getMarkerIconUrl: (color, clicked, aerobatic, label, point) => {
         color = color.toLowerCase();
         iconUrl = "icons/point-" + color + ".svg";
+
 
         if (!clicked) {
             if (!aerobatic) {
                 iconUrl = "icons/point-" + color + ".svg";
+            } else if(point.options?.liveStream) {
+                iconUrl = "icons/live-stream-point.svg";
             } else {
                 iconUrl = "icons/show-" + color + ".svg";
             }
         } else {
             if (!aerobatic) {
                 iconUrl = "icons/pointPress-" + color + ".svg";
+            } else if(point.options && point.options.liveStream) {
+                iconUrl = "icons/live-stream-point.svg";
             } else {
                 iconUrl = "icons/showSelected-" + color + ".svg";
             }
@@ -266,8 +271,8 @@ googleMaps = {
                 var location = convertLocation(point.N, point.E);
 
 
-                var markerHtml = googleMaps.getMarkerIcon(route.color, false, aerobatic, point.pointName);
-                var markerHtmlClicked = googleMaps.getMarkerIcon(route.color, true, aerobatic, point.pointName);
+                var markerHtml = googleMaps.getMarkerIcon(route.color, false, aerobatic, point.pointName, point);
+                var markerHtmlClicked = googleMaps.getMarkerIcon(route.color, true, aerobatic, point.pointName, point);
 
                 // draw marker for this location
                 var marker = new HTMLMarker({
@@ -410,8 +415,8 @@ googleMaps = {
     createMapObject: (clickCallback) => {
         map = new google.maps.Map(document.getElementById('map'),
             {
-                center: {lat: 32.00, lng: 35.00},
-                zoom: 8,
+                center: {lat: 31.20, lng: 34.97},
+                zoom: ($(window).height() > 950) ? 8 : 7,
                 minZoom: 7,
                 gestureHandling: 'greedy',
                 disableDefaultUI: true

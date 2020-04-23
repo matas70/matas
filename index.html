@@ -76,10 +76,14 @@
             </a>
 
             <divv id="headerIconContainer">
-                <img src="icons/header_logo.png" onclick="onAboutButtonClick();" style="width:80px;margin-top:5px;"/>
+                <img src="icons/headerLogo.svg" onclick="onAboutButtonClick();" style="width:80px;margin-top:5px;"/>
                 <div id="aboutMenuTitle" style="display:none">אודות</div>
             </divv>
-            <div>
+            <div style="display: flex; align-items: center;">
+                <div id="goto-press-button" onclick="window.location='press.html'">
+                    <img id="goto-press-icon"  src="icons/printing.svg">
+                    <span id="goto-press-text">גרסא להדפסה</span>
+                </div>
                 <img id="homeButton" src="icons/home.svg" onclick="onHomeButtonClick()" style="visibility: hidden"/>
             </div>
         </div>
@@ -146,6 +150,25 @@
     <div id="map" style="display: none;"></div>
 
     <div class="subheader">
+        <!-- goto voiceMessage popup-->
+        <div id="gottoVoiceMessagePopup" class="gotoVoiceMessagePopup" style="display:none; top:0;height: 98px; position: absolute; width: 100%;">
+            <div id="aircraftDetatilsContainer" style="background-color: white; height: 70%;display: flex;">
+                <img id="aircraftImg" src="" alt="" style="margin: 7px; object-fit: contain;"/>
+                <div id="detatils" style="margin-top: 7px;">
+                    <div id="aircraftName" style="font-weight: bold; font-size: large;"></div>
+                    <div id="aircraftTime" style="font-size: smaller;"></div>
+                </div>
+            </div>
+            <div id="hearTheMessage" onclick="showAudioMessagePopup()" style="background-color: #f7f5f5; height: 50%; border-top: 0.5px solid #e7e7e7;display: inline-flex; width:100%">
+                <img id="voiceMessageImg" src="" style="height: auto;margin-top: auto;margin-bottom: auto;margin-right: 20px;"/>
+                <span style="display: inline-flex;float: left;margin-right: 7px;">
+                    <p id="youHaveVoicemessage" style="font-weight: bolder; font-size: 90%;"></p>
+                </span>
+            </div>
+            <div id="closePopUp" onclick="closeVoiceMessagePopup()" style="margin-top: -30px; margin-left: 15px; float: left; position: relative;">
+                <img id="closeGotoVoiceMessagePopupBTN" src="icons/voiceMessage/group.png" onclick="closeGotoVoiceMessagePopup()" />
+            </div>
+        </div>
         <!-- entrance popup -->
         <div id="entrancePopup" class="entrancePopup" style="display:none">
             <div id="countdownContainer">
@@ -229,11 +252,13 @@
     </div>
 
     <!-- aircraft info popup -->
-    <div id="aircraftInfoPopup" class="infoPopup" style="display: none; overflow: scroll; -webkit-overflow-scrolling: touch;">
+    <div id="aircraftInfoPopup" class="infoPopup" style="display: none; overflow: scroll; -webkit-overflow-scrolling: touch; overflow-x: hidden;">
         <img id="shrinkAircraftInfoPopup" style=" position: absolute; top: 10px; left: 10px;
          display: none; z-index: 10000000;" src="images/arrowCopy.png">
         <div id="aircraftInfoBannerContainer">
+            <img id="aircraftInfoBannerBackground" src=""></img>
             <img id="aircraftInfoBanner" src=""></img>
+            <iframe id="liveStream" src="https://www.youtube.com/embed/GHIRzPgIG0s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="aircraftInfoContentRow aircraftInfoTitle">
             <div id="aircraftIconContainer">
@@ -419,6 +444,28 @@
         <!--<img id="greece" src="icons/countries/greece.svg" class="imageCache"></img>-->
         <!--<img id="austria" src="icons/countries/austria.svg" class="imageCache"></img>-->
         <!--<img id="poland" src="icons/countries/poland.svg" class="imageCache"></img>-->
+    </div>
+
+    <div id="myModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="messagePart">
+                <img class="close" onclick="closeVoiceMessagePopup()" src="icons/voiceMessage/page_1.png"/>
+                <img class="audioImg" src="icons/voiceMessage/group_5.png"/>
+               <div class="audio">
+                    <audio id="audioSRC" src="" ontimeupdate="updateAudioMessageTime()"></audio>
+                    <span id="audioTime" class="audioTime">00:00</span>
+                    <img id="audioTrack" class="audioTrack" src="icons/voiceMessage/rectangle.png"/>
+                    <img id="trackerPoint" class="trackerPoint" src="icons/voiceMessage/blue.png"/>
+                    <img class="audioPlay" onclick="playBTN()" src="icons/voiceMessage/triangle.png"/>
+                </div>
+                <div class="border"></div>
+                <p id="audioMessageText" class="wroteMessage"> </p>
+            </div>
+            <div class="sendPost">
+                <img class="camera" href="https://www.instagram.com/israeliairforce/?hl=en" src="icons/voiceMessage/group_4.png"/>
+                <a class="sendMessage" href="https://www.instagram.com/israeliairforce/?hl=en">העלו תמונה מהמטס והשתתפו בתחרות!</a>
+            </div>
+        </div>
     </div>
 </div>
 </body>

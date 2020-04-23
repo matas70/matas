@@ -832,6 +832,8 @@ function checkIfSimulationEnded() {
     }
 }
 
+var notifiedNearUser = false;
+
 function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var animationTime = 2000;
 
@@ -840,6 +842,11 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var currentAircraftPosition = getCurrentLocation(aircraft.path, currentTime);
     var nextAircraftStopPosition = getNextLocation(aircraft.path, currentTime);
     var nextAircraftPosition;
+
+    if (!notifiedNearUser) {
+        notifyUserIfNear(currentAircraftPosition, aircraft);
+    }
+    
 
     // Should the current time be larger than the next position's time, that means the aircraft landed
     if (convertTime(aircraft.path[aircraft.path.length - 1].date, aircraft.path[aircraft.path.length - 1].time) - plannedStartTime + actualStartTime < getCurrentTime()) {
@@ -1166,6 +1173,7 @@ function setMarkerOnDeselectLocation() {
 
 function selectPoint(pointId, minimized = false) {
     var marker = markersMap[pointId];
+
     var selectedPoint = locations[pointId];
     var selectedRoute = routes.find(route => route.points.includes(selectedPoint));
 
@@ -1297,7 +1305,7 @@ var aircraftHash = "#aircraft";
 var mapHash = "#map";
 
 function onLoad() {
-    if (compatibleDevice() && !checkIframe()) {
+    if (true) {
         // For back button handling
         previousHash.push(mainHash);
         previousHash.push(mapHash);
@@ -2096,7 +2104,7 @@ function initMap() {
         initGenericPopups();
         // } else if (new Date() >= )
 
-        if (compatibleDevice() && !checkIframe()) {
+        if (true) {
             // let splash run for a second before start loading the map
             setTimeout(function () {
                 map = mapAPI.createMapObject(function (e) {
@@ -2211,3 +2219,107 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     var desc = 'יחל ב';
     return `${desc}${locationName} בעוד ${minutes} דקות`;
 }
+
+
+(function () {
+    var userLoc = null;
+    navigator.geolocation.watchPosition(function(newLoc){
+        userLoc = newLoc;
+        userLoc = {lon: userLoc.coords.longitude, lat: userLoc.coords.latitude};
+    });
+
+    var audioMessages;
+    $.getJSON('/data/audio-messages.json', (res) => {
+        audioMessages = res;
+    });
+    console.log(audioMessages);
+    
+
+    var name ="";
+    //check that its not the same popup that has been closed
+    //var timeCount = 0;
+    function notifyUserIfNear(currentLocation, aircraft) {
+        if (userLoc) {
+            currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
+            if(haversineDistance(userLoc,currentLocation) < 2000)
+            {
+                notifiedNearUser = true;
+                //check that its not the same popup that has been closed
+                /*if(name === "")
+                {
+                    console.log("in timer");
+                    var x = setInterval( function () { timeCount++;}, 1000);
+                } */
+                //check that its not the same popup that has been closed - if its not the same aircraft or its has been more then 30 sec
+                //if(timeCount >30 || name !== aircraft.name) {
+                    if($('#myModal:hidden') && $('#gottoVoiceMessagePopup:hidden'))
+                    {
+                        //timeCount = 0;
+                        name = aircraft.name;
+                        let audioMessage = audioMessages[aircraft.aircraftId] ? audioMessages[aircraft.aircraftId] : audioMessages['default'];
+                        $("#gottoVoiceMessagePopup")[0].style.display = "block";
+                        $("#aircraftName").html(`${aircraft.type} - ${name}`);
+                        $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
+                        $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
+                        $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
+                        $('#audioMessageText').html(audioMessage.text);
+
+                        if(audioMessage.audioSrc){
+                            $("#audioSRC").attr("src",audioMessage.audioSrc);
+                        }
+                        else{
+                            $("#audioSRC").attr("src",'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
+                        }
+
+                        console.log(`icons/aircrafts/${aircraft.icon}.svg`);
+                        
+                        if(aircraft.icon){
+                            $("#aircraftImg").attr("src",`icons/aircrafts/${aircraft.icon}.svg`);
+                        }
+                        else{
+                            $("#aircraftImg").attr("src",`icons/genericAircraft.svg`);
+                        }
+                    }
+                //}
+            }
+
+            else if(haversineDistance(userLoc,currentLocation) > 2000)
+            {
+                if ($('#myModal:hidden'))
+                {
+                    $('#gottoVoiceMessagePopup').hide();
+                }
+            }
+        }
+    }
+
+    window.notifyUserIfNear = notifyUserIfNear;
+
+    // taken from https://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
+    function haversineDistance(coords1, coords2) {
+        function toRad(x) {
+            return x * Math.PI / 180;
+        }
+
+        var lon1 = coords1.lon;
+        var lat1 = coords1.lat;
+
+        var lon2 = coords2.lon;
+        var lat2 = coords2.lat;
+
+        var R = 6371; // km
+
+        var x1 = lat2 - lat1;
+        var dLat = toRad(x1);
+        var x2 = lon2 - lon1;
+        var dLon = toRad(x2)
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+
+        return d;
+    }
+})()
+
