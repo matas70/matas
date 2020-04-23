@@ -79,10 +79,10 @@
                 <img src="icons/headerLogo.svg" onclick="onAboutButtonClick();" style="width:80px;margin-top:5px;"/>
                 <div id="aboutMenuTitle" style="display:none">אודות</div>
             </divv>
-            <div style="display: flex;">
-                <div onclick="window.location='press.html'" style="border-radius: 5px; height: 28px; cursor: pointer; background: #3BB5F2; color: white; font-weight: bold; width: max-content; display: flex; align-items: center; padding: 10px;">
-                    <img height="28px" src="icons/printing.svg" style="margin-left: 10px;">
-                    הדפסת תכנית המטס
+            <div style="display: flex; align-items: center;">
+                <div id="goto-press-button" onclick="window.location='press.html'">
+                    <img id="goto-press-icon"  src="icons/printing.svg">
+                    <span id="goto-press-text">גרסא להדפסה</span>
                 </div>
                 <img id="homeButton" src="icons/home.svg" onclick="onHomeButtonClick()" style="visibility: hidden"/>
             </div>

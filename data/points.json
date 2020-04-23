@@ -2127,7 +2127,11 @@
     "pointLocation": "",
     "wazeLink": "",
     "activeTimes": "",
-    "exhibitions": ""
+    "exhibitions": "",
+    "options": {
+      "liveStream": "https://www.youtube.com/embed/K4V2NtAvoNI",
+      "type": "hospital"
+    }
   },
   {
     "hidden": false,

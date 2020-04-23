@@ -1173,6 +1173,7 @@ function setMarkerOnDeselectLocation() {
 
 function selectPoint(pointId, minimized = false) {
     var marker = markersMap[pointId];
+
     var selectedPoint = locations[pointId];
     var selectedRoute = routes.find(route => route.points.includes(selectedPoint));
 
