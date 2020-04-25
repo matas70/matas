@@ -375,7 +375,7 @@ googleMaps = {
                 return {
                     geodesic: true,
                     strokeColor: color,
-                    strokeOpacity: visible ? 1.0 : 0.2,
+                    strokeOpacity: visible ? 1.0 : 0.5,
                     strokeWeight: 3,
                     fillOpacity: 0,
                     zIndex: zIndex,
@@ -383,7 +383,7 @@ googleMaps = {
             } else if (ftype == "dropShadow") {
                 return {
                     geodesic: true,
-                    strokeOpacity: visible ? 0.1 : 0.0,
+                    strokeOpacity: visible ? 0.5 : 0.0,
                     strokeColor: "black",
                     strokeWeight: 6,
                     fillOpacity: 0,
