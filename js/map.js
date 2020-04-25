@@ -217,7 +217,7 @@ googleMaps = {
         if (!clicked) {
             if (!aerobatic) {
                 iconUrl = "icons/point-" + color + ".svg";
-            } else if(point.options?.liveStream) {
+            } else if(point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
             } else {
                 iconUrl = "icons/show-" + color + ".svg";
