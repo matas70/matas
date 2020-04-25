@@ -1691,9 +1691,6 @@ hr.aircraftLineSeparator.two {
     margin-right: 14px;
 }
 
-#liveStream {
-    width: 100%;
-}
 
 #goto-press-button {
     display: none;
@@ -1738,13 +1735,6 @@ hr.aircraftLineSeparator.two {
         height: 22px;
     }
 
-    #liveStream {
-        z-index: 9999999;
-        border-radius: 20px 20px 0 0;
-        margin-top: auto;
-        width: 400px;
-        height: 170px;
-    }
 
     .listViewContainer {
         width: 400px;

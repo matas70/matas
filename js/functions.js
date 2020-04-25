@@ -1156,6 +1156,7 @@ function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, 
 
 
 function deselectLocation(callback) {
+    $('#liveStream').attr('src', $('#liveStream').attr('src'));
     if (selectedLocation != null) {
         // hide selected location
         hideLocationPopup(function () {
