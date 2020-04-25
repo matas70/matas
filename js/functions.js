@@ -2272,6 +2272,17 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
                         $('#audioMessageText').html(audioMessage.text);
 
+                        $('#audioSRC').on('playing', function () {
+                            $('#audioMessagePlayPause').attr('src', 'icons/pause.svg')
+                        });
+                        $('#audioSRC').on('pause', function () {
+                            $('#audioMessagePlayPause').attr('src', 'icons/play.svg')
+                        });
+                        
+                        $('#audioSRC').on('ended', function () {
+                            $('#audioSRC')[0].currentTime = 0
+                        });
+
                         if(audioMessage.audioSrc){
                             $("#audioSRC").attr("src",audioMessage.audioSrc);
                         }

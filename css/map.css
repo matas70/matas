@@ -1699,6 +1699,9 @@ hr.aircraftLineSeparator.two {
     display: none;
 }
 
+#audioMessageText {
+    text-align: justify;
+}
 /* Desktop mode handler */
 
 @media only screen and (min-width: 600px) {

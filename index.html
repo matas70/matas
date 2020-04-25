@@ -453,13 +453,13 @@
         <div class="modal-content">
             <div class="messagePart">
                 <img class="close" onclick="closeVoiceMessagePopup()" src="icons/voiceMessage/page_1.png"/>
-                <img class="audioImg" src="icons/voiceMessage/group_5.png"/>
+                <img class="audioImg" src="icons/voiceMessage/pilot-animated.gif"/>
                <div class="audio">
                     <audio id="audioSRC" src="" ontimeupdate="updateAudioMessageTime()"></audio>
                     <span id="audioTime" class="audioTime">00:00</span>
                     <img id="audioTrack" class="audioTrack" src="icons/voiceMessage/rectangle.png"/>
                     <img id="trackerPoint" class="trackerPoint" src="icons/voiceMessage/blue.png"/>
-                    <img class="audioPlay" onclick="playBTN()" src="icons/voiceMessage/triangle.png"/>
+                    <img id="audioMessagePlayPause" class="audioPlay" onclick="playBTN()" src="icons/play.svg"/>
                 </div>
                 <div class="border"></div>
                 <p id="audioMessageText" class="wroteMessage"> </p>
