@@ -215,20 +215,24 @@ googleMaps = {
 
 
         if (!clicked) {
-            if (!aerobatic) {
-                iconUrl = "icons/point-" + color + ".svg";
+            if (point.type === "hospital") {
+                iconUrl = "icons/hospital.svg";
             } else if(point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
-            } else {
+            } else if(aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
+            } else {
+                iconUrl = "icons/point-" + color + ".svg";
             }
         } else {
-            if (!aerobatic) {
-                iconUrl = "icons/pointPress-" + color + ".svg";
+            if (point.type === "hospital") {
+                iconUrl = "icons/hospital-clicked.svg";
             } else if(point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
-            } else {
+            } else if(aerobatic) {
                 iconUrl = "icons/showSelected-" + color + ".svg";
+            } else {
+                iconUrl = "icons/pointPress-" + color + ".svg";
             }
         }
 
