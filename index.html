@@ -216,19 +216,23 @@
     <!-- location info popup -->
     <div id="locationPopup" class="infoPopup" style="display: none">
         <div id="popupIcon" ><a id="wazeLink" href="https://www.waze.com" target="_blank"><img id="waze" src="icons/waze.svg"></a></div>
-        <div id="popupHeader">
-            <div id="slidepopup"><img id="slide" src="icons/slidepopup.png" ></div>
-            <div  >
-            <div id="popupBody">
-                <div  id="popupDisplay">
-                    <div id="popupTitle"></div>
-                    <div id="popupSubTitle"></div>
+        <div style="display: flex;">
+            <div id="popupHeader" style="flex: 1; height: 91%;">
+                <div id="slidepopup"><img id="slide" src="icons/slidepopup.png" ></div>
+                <div  >
+                <div id="popupBody">
+                    <div  id="popupDisplay">
+                        <div id="popupTitle"></div>
+                        <div id="popupSubTitle"></div>
+                    </div>
+    
+                    <div id="popupTime">13:30-16:00</div>
                 </div>
-
-                <div id="popupTime">13:30-16:00</div>
+                </div>
             </div>
-            </div>
+            <iframe style="flex: 1; min-width: 0;" src="https://www.youtube.com/embed/qvpFwXvd5T0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
+
         <div id="registerToLocationNotifcations">
             <div id="registerToLocationText">שלח לי התראות על מופעים במיקום זה</div>
             <label id="registerToggle" class="switch">
@@ -258,7 +262,6 @@
         <div id="aircraftInfoBannerContainer">
             <img id="aircraftInfoBannerBackground" src=""></img>
             <img id="aircraftInfoBanner" src=""></img>
-            <iframe id="liveStream" src="https://www.youtube.com/embed/GHIRzPgIG0s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="aircraftInfoContentRow aircraftInfoTitle">
             <div id="aircraftIconContainer">

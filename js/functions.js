@@ -2276,7 +2276,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                             $("#audioSRC").attr("src",audioMessage.audioSrc);
                         }
                         else{
-                            $("#audioSRC").attr("src",'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
+                            $("#audioSRC").attr("src",'audio/pilot-message.ogg');
                         }
 
                         console.log(`icons/aircrafts/${aircraft.icon}.svg`);

@@ -215,9 +215,9 @@ googleMaps = {
 
 
         if (!clicked) {
-            if(point.options && point.options.liveStream) {
+            if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
-            } else if (point.type === "hospital") {
+            } else if (point && point.type === "hospital") {
                 iconUrl = "icons/hospital.svg";
             } else if(aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
@@ -225,9 +225,9 @@ googleMaps = {
                 iconUrl = "icons/point-" + color + ".svg";
             }
         } else {
-            if(point.options && point.options.liveStream) {
+            if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
-            } else if (point.type === "hospital") {
+            } else if (point && point.type === "hospital") {
                 iconUrl = "icons/hospital-clicked.svg";
             } else if(aerobatic) {
                 iconUrl = "icons/showSelected-" + color + ".svg";
