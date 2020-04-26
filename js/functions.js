@@ -1616,8 +1616,12 @@ function initSearchBar() {
         basesResults = sortedLocations.filter(location => {
             return !location.hidden && location.type && location.type === "base" && location.pointName.includes(searchInput)
         });
-
+        
         if (basesResults.length > 0) {
+            basesResults.forEach(function (location) {
+                resultsHtml +=
+                    createLocationRow(location, false, true);
+            }, this);
             // Create location category only if we have location results
             resultsHtml += createCategoryRow({category: "בסיסים"}, true);
 
@@ -1820,9 +1824,11 @@ function closeMenu() {
 }
 
 function loadCategories(callback) {
-    $.getJSON("data/categories.json?t=" + (new Date()).getTime(), function (pCategories) {
-        categories = pCategories;
-        callback();
+    getEnv((env) => {
+        $.getJSON(`${config.apiURL}/${env}/categories.json?t=` + (new Date()).getTime(), function (pCategories) {
+            categories = pCategories;
+            callback();
+        });
     });
 }
 
@@ -1873,6 +1879,7 @@ function fillMenu() {
                         categoryAircraft.path.find(point =>
                             getCurrentTime() <= convertTime(point.date, point.time)));
             if (categoryAircrafts.length > 0) {
+                
                 html += createCategoryRow(category, category.special);
                 var prevAircraftTypeId = -1;
                 categoryAircrafts.forEach(categoryAircraft => {
@@ -1921,6 +1928,7 @@ function fillMenu() {
                         || !point.date));
 
             if (aircraftsForCategory.length > 0) {
+                
                 html += createCategoryRow(category, category.special);
                 aircraftsForCategory.forEach(function (aircraftFromCategory) {
                     html += createTableRow(aircraftFromCategory.aircraftId,
@@ -1962,8 +1970,15 @@ function fillMenu() {
     var currTime = getCurrentTime();
 
     if (shouldShowTypeCategory("base")) {
+        var airpalnesOnBasesCount = 0;
         // add bases
-        locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
+        sortedLocations.forEach(function (location) {
+            if (!location.hidden && location.type && location.type === "base") {
+                airpalnesOnBasesCount += location.aircrafts.length;
+            }
+        }, this);
+        if (airpalnesOnBasesCount > 0)
+            locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
 
         sortedLocations.forEach(function (location) {
             if (!location.hidden && location.type && location.type === "base") {
