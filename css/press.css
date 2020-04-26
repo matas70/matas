@@ -76,6 +76,7 @@ html, body {
     height: 108px;
 }
 
+#hospital-container
 #city-container {
     margin-top: 24px;
     display: flex;
@@ -94,9 +95,8 @@ html, body {
     font-size: 18px;
     color: #37474f;
     align-items: center;
-    padding-right: 40px;
+    right: 40px;
     padding-left: 40px;
-    width: 100%;
 }
 
 .footer {

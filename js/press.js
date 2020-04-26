@@ -9,10 +9,30 @@ function initPressPage() {
                 loadCategories(function () {
                     updateLocationsMap(aircrafts);
                     $(".base-table-list").html(createBasesTables());
-                    $(".city-table-list").html(createCityTables());
+                    $("#hospital-table-list").html(createCategoryTables("hospital"));
+                    $("#city-table-list").html(createCityTables());
                 });
             }, this);
         }, this);
+    }
+}
+
+function createCategoryTables(category) {
+    let categoryLocations = locations.filter((location) => {
+        return location.type === category;
+    });
+
+    if (categoryLocations.length > 0) {        
+        $(`#${category}-container`).show();
+        let categoryTables = "";
+        categoryLocations.forEach((categoryLocation) => {
+            categoryTables += createCategoryTable(category, categoryLocation);
+        });
+
+        return categoryTables;
+    } else {  
+        $(`#${category}-container`).hide();      
+        return "";
     }
 }
 
@@ -21,7 +41,7 @@ function createBasesTables() {
         return location.type === "base";
     });
 
-    if (bases.length === 0) {
+    if (bases.length > 0) {        
         $("#base-container").show();
         let baseTables = "";
         bases.forEach((base) => {
@@ -29,25 +49,28 @@ function createBasesTables() {
         });
 
         return baseTables;
+    } else {  
+        $("#base-container").hide();      
+        return "";
     }
 }
 
 function createCityTables() {
-    let cities = locations.filter((location) => {
-        return location.type !== "base";
+    let cities = locations.filter((location) => {        
+        return location.type === undefined;
     }).sort((city1, city2) => {
         return city1.pointName > city2.pointName ? 1 : city1.pointName < city2.pointName ? -1 : 0;
     });
     let cityTables = "";
     cities.forEach((city) => {
-        if (city.aircrafts.length > 0) {
+        if (city.aircrafts.length > 0 && !city.hidden) {
             cityTables += createCityTable(city);
         }
     });
     return cityTables;
 }
 
-function createBaseTable(base) {
+function createBaseTable(base) {        
     return `<div class="base-table">
                 <div id="location-${base.pointId}" class="base-card">
                     ${createBaseTableTitle(base.pointName, base.activeTimes, false)}
@@ -67,6 +90,18 @@ function createCityTable(city) {
                 </div>
                 <div class="base-table-body">
                     ${createTableCategory("מטס", city.aircrafts, "city")}
+                </div>
+            </div>`;
+}
+
+function createCategoryTable(category, categoryLocation) {
+    hasAerobatic = categoryLocation.aircrafts.filter((aircraft) => aircraft.specialInAircraft).length > 0;
+    return `<div class="city-table">
+                <div id="location-${categoryLocation.pointId}" class="base-card">
+                    ${createBaseTableTitle(categoryLocation.pointName, categoryLocation.aircrafts[0].time.substr(0, 5), hasAerobatic)}
+                </div>
+                <div class="base-table-body">
+                    ${createTableCategory("מטס", categoryLocation.aircrafts, "city")}
                 </div>
             </div>`;
 }
