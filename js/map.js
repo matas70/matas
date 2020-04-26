@@ -423,7 +423,16 @@ googleMaps = {
                 zoom: ($(window).height() > 950) ? 8 : 7,
                 minZoom: 7,
                 gestureHandling: 'greedy',
-                disableDefaultUI: true
+                disableDefaultUI: true,
+                styles: [
+                    {
+                        featureType: "poi",
+                        elementType: "labels",
+                        stylers: [
+                              { visibility: "off" }
+                        ]
+                    }
+                ]
             });
 
         map.addListener('click', clickCallback);
