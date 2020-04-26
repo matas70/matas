@@ -161,7 +161,11 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     // }, this);
     $("#aircraftsList").html(html);
     $("#popupTitle").text(point.pointName);
-
+    if (point.options && point.options.liveStream) {
+        $("#liveStream").show();
+    } else {
+        $("#liveStream").hide();
+    }
     // show a description of the location
     if (point.pointLocation)
         $("#popupSubTitle").text(point.pointLocation);
