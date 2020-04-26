@@ -604,7 +604,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
 
 function createLocationRow(location, displayFirstAircraft, isSearchBar = false) {
     if (location.aircrafts.length == 0)
-        displayFirstAircraft = false;
+        return "";
 
     return "<a class='locationRow' href='javascript:void(0);'><div id='location" + location.pointId + "' class='locationRow' onclick='expandLocation(" + location.pointId + "," + isSearchBar + ");'>" +
         "<div class='locationName'>" + location.pointName + "</div>" +
