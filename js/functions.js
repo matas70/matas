@@ -846,9 +846,9 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var nextAircraftPosition;
 
 
-    //actualStartTime = convertTime(startDate, aircraftData.actualStartTime);
+    var eventsStartTime = convertTime(startDate, aircraftData.actualStartTime);
     let isSimulation = $.urlParam("simulation") != null;
-    let theEventStarted = actualStartTime - new Date().getTime() < 0 ;
+    let theEventStarted = eventsStartTime - new Date().getTime() < 0 ;
 
     if (!notifiedNearUser && (theEventStarted || isSimulation)) {
         
