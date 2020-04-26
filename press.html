@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>יום העצמאות 71 למדינת ישראל - מידע על אירועי חיל האוויר</title>
+    <title>יום העצמאות 72 למדינת ישראל - מידע על אירועי חיל האוויר</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -9,7 +9,8 @@
 
     <link rel="stylesheet" href="css/press.css">
     <link rel="stylesheet" href="css/hamburgers.css">
-    <link rel="icon" sizes="192x192" href="icons/logo192x192.png">
+    <link rel="icon" sizes="192x192" href="icons/android_icon.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="icons/ios_icon.png">
     <link rel="stylesheet" href="/js/leaflet/leaflet.css"/>
 
     <link rel="stylesheet" href="/css/jquery-ui.css">
@@ -53,9 +54,17 @@
 <!-- page header -->
 <header>
     <div class="press-header">
-        <img class="iaf-logo" src="icons/air_force.svg">
-        <img class="main-logo" src="icons/press/71_logo.png">
-        <img class="idf-logo" src="icons/press/idf.png">
+        <div style="display: flex; align-items: center; flex: 1;justify-content: center;">
+            <img class="iaf-logo" src="icons/air_force.svg">
+            <div id="goto-press-button" onclick="window.location='index.html'">
+                <span id="goto-press-text">מפת מטוסים</span>
+                <img id="goto-press-icon"  src="icons/location-on-map.svg">
+            </div>
+        </div>
+        <img class="main-logo" src="icons/press/72_logo.png">
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <img class="idf-logo" src="icons/press/idf.png">
+        </div>
     </div>
 </header>
 <div class="main-content">
@@ -63,7 +72,7 @@
         <a class="qrlink" href="https://matas-iaf.com"><img class="qrcode" src="icons/app-qr.png"></a>
         <div id="qrdivtext">לתצוגה בזמן אמת של המטס על גבי מפה ופרטים נוספים אודות הבסיסים הפתוחים סרקו את הקוד המצורף באמצעות מכשיר הסלולר</div>
     </div>
-    <div id="base-container">
+    <div id="base-container" style="display: none">
         <div class="main-title">
             <div class="title-decoration"></div>
             <div class="title-text">בסיסים</div>
@@ -72,13 +81,22 @@
         <div class="base-table-list"><img src="animation/loading.gif" class="loading"></div>
     </div>
 
+    <div id="hospital-container">
+        <div class="main-title">
+            <div class="title-decoration"></div>
+            <div class="title-text">בתי-חולים</div>
+            <div class="title-decoration"></div>
+        </div>
+        <div id="hospital-table-list" class="city-table-list"><img src="animation/loading.gif" class="loading"></div>
+    </div>
+
     <div id="city-container">
         <div class="main-title">
             <div class="title-decoration"></div>
             <div class="title-text">ישובים</div>
             <div class="title-decoration"></div>
         </div>
-        <div class="city-table-list"><img src="animation/loading.gif" class="loading"></div>
+        <div id="city-table-list" class="city-table-list"><img src="animation/loading.gif" class="loading"></div>
     </div>
 </div>
 <footer class="footer">

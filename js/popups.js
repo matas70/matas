@@ -1,5 +1,7 @@
 var locationPopupExpanded = false;
 var locationPopupCloseCallback = null;
+var minimizedLocationPopupHeight = 100;
+var locationPopupHeight = 200;
 
 function initPopups() {
     $("#locationPopup").hide();
@@ -87,27 +89,8 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     locationPopupExpanded = false;
 
     var specials = new Map();
+
     specials.set("מטס", []);
-    // let specialCats = categories.filter((cat) => cat.special);
-    //
-    // specialCats.forEach(specialCat => {
-    //     let matchingAcs = point.aircrafts.filter((ac) => ac.category === specialCat.category);
-    //     if (matchingAcs.length > 0) {
-    //         html += createLocationPopupCategoryRow(specialCat);
-    //
-    //         matchingAcs.forEach((matchingAc) => {
-    //             html += createTableRow(matchingAc.aircraftId,
-    //                 matchingAc.name,
-    //                 matchingAc.icon,
-    //                 matchingAc.aircraftType,
-    //                 matchingAc.time,
-    //                 matchingAc.aerobatic,
-    //                 matchingAc.parachutist, false, true);
-    //
-    //         });
-    //     }
-    // });
-    // html += createLocationPopupCategoryRow({category: "מטס"});
 
     point.aircrafts.forEach((ac) => {
        if (ac.specialInAircraft) {
@@ -140,6 +123,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
        $("#noAircraftMessage").show();
     } else {
         $("#noAircraftMessage").hide();
+
         specials.set("מטס", tmp);
 
         specials.forEach((value, key) => {
@@ -177,7 +161,11 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     // }, this);
     $("#aircraftsList").html(html);
     $("#popupTitle").text(point.pointName);
-
+    if (point.options && point.options.liveStream) {
+        $("#liveStream").show();
+    } else {
+        $("#liveStream").hide();
+    }
     // show a description of the location
     if (point.pointLocation)
         $("#popupSubTitle").text(point.pointLocation);
@@ -203,14 +191,29 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     $("#popupTitle").css("color", "#2b2b2b");
     $("#popupSubTitle").css("color", "#2b2b2b");
 
-    if (!minimized)
+    if (isPointAerobatic(point.pointId) && config.showCrowdingWarnings) {
+        locationPopupHeight = 290;
+        $("#noCrowdingWarning").show();
+        $("#noCrowdingWarningText").text(config.noCrowdingLocationText);
+    } else {
+        locationPopupHeight = 200;
+        $("#noCrowdingWarning").hide();
+    }
+
+    if (!minimized) {
         getMapDarker();
+    }
 
     var locationPopup = $("#locationPopup");
+    var targetHeight = 0;
+    if (!isDesktop()) { 
+        targetHeight = minimized ? minimizedLocationPopupHeight : locationPopupHeight;
+     }
+     else {                              
+        targetHeight = 350;
+     }
 
     // animate popup coming from bottom
-    var targetHeight = minimized ? 100 : 200;
-
     locationPopup.height(0);
     locationPopup.show();
     locationPopup.animate({
@@ -235,7 +238,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
                     if (result === 'granted') {
                         $("#registerCheckbox").prop('checked', true);
                         Notification.permission = result;
-                        subscribe(point.pointId).then(() => {
+                        subscribe("point-" + point.pointId).then(() => {
                             locations[point.pointId].notify = true;
                         }).catch((e) => {
                             console.error(e);
@@ -259,7 +262,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
                     });
                 }
                 else {
-                    subscribe(point.pointId).then(() => {
+                    subscribe("point-" + point.pointId).then(() => {
                         locations[point.pointId].notify = true;
                         $("#registerCheckbox").prop('checked', true);
                     }).catch((e) => {
@@ -438,6 +441,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     }
 
     $("#aircraftInfoBanner").attr("src", aircraft.image);
+    $("#aircraftInfoBannerBackground").attr("src", aircraft.image);
 
     getMapDarker();
 
@@ -502,7 +506,11 @@ function showAircraftInfoPopup(aircraft, collapse) {
     }, "fast");
 
     setTimeout(function () {
-        $("#listView").hide();
+        if (!isDesktop()) {
+            // Hide only on mobile 
+            $("#listView").hide();
+         }
+        
     }, 500);
 }
 
@@ -596,7 +604,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
 
 function createLocationRow(location, displayFirstAircraft, isSearchBar = false) {
     if (location.aircrafts.length == 0)
-        displayFirstAircraft = false;
+        return "";
 
     return "<a class='locationRow' href='javascript:void(0);'><div id='location" + location.pointId + "' class='locationRow' onclick='expandLocation(" + location.pointId + "," + isSearchBar + ");'>" +
         "<div class='locationName'>" + location.pointName + "</div>" +
@@ -664,7 +672,7 @@ function showIncompatibleDevicePopup() {
     $("#incompatibleBrowserPopup").show();
 }
 
-function showConfirmationPopup(title, messageBody) {
+function showConfirmationPopup() {
     getMapDarker();
     closeAllPopups();
     $('#confirmationPopup').show();
@@ -679,6 +687,19 @@ function hideConfirmationPopup() {
             registerToFirebaseNotifications();
         }
     });
+}
+
+function showNoCrowdingPopup() {
+    getMapDarker();
+    closeAllPopups();
+    $('#noCrowdingPopupBody').text(config.noCrowdingGeneralText);
+    $('#noCrowdingPopup').show();
+}
+
+
+function hideNoCrowdingPopup() {
+    $('#noCrowdingPopup').fadeOut();
+    getMapUndark();
 }
 
 function showBasePopup(isAerobatics, special1, special2, minutes, locationName) {
@@ -818,9 +839,70 @@ function closeMapClusterPopup(clearMap) {
 function closeAllPopups() {
     deselectLocation();
     deselectAircraft();
-    closeMapClusterPopup(true);
+    //closeVoiceMessagePopup();
+    if (!isDesktop()) {
+        closeMapClusterPopup(true);
+    }
 }
 
 $(document).ready(function () {
     //window.scrollTo(0,document.body.scrollHeight);
 });
+
+function closeGotoVoiceMessagePopup() {
+   $("#gottoVoiceMessagePopup").hide();
+}
+
+function showAudioMessagePopup() {
+   $("#gottoVoiceMessagePopup").hide();
+   $("#myModal").show();
+   $("#myModal")[0].style.display = "flex";
+    playAudioMessageAndTracker()
+}
+
+function closeVoiceMessagePopup(){
+    $("#audioSRC")[0].pause();
+    $("#audioSRC")[0].currentTime = 0;
+   $("#myModal").hide();
+   $("#gottoVoiceMessagePopup").hide();
+}
+
+var audioPLay;
+function playAudioMessageAndTracker() {
+    if($("#audioSRC")[0].src !== "")
+    {
+       $("#audioSRC")[0].play();
+        audioPLay = true;
+    }
+}
+
+function playBTN() {
+    if($("#audioSRC")[0].src !== "")
+    {
+        if(audioPLay){
+            audioPLay = false;
+           $("#audioSRC")[0].pause();
+        }
+        else {
+            audioPLay = true;
+           $("#audioSRC")[0].play();
+        }
+    }
+}
+
+function updateAudioMessageTime() {
+    activeVoiceMessage =$("#audioSRC")[0];
+    var currentSeconds = (Math.floor(activeVoiceMessage.currentTime % 60) < 10 ? '0' : '') + Math.floor(activeVoiceMessage.currentTime % 60);
+    var currentMinutes = Math.floor(activeVoiceMessage.currentTime / 60);
+
+   $("#audioTime")[0].innerHTML = currentMinutes + ":" + currentSeconds;
+
+    var percentageOfSong = (activeVoiceMessage.currentTime/activeVoiceMessage.duration);
+    var percentageOfSlider =$('#audioTrack')[0].offsetWidth * percentageOfSong;
+
+   $('#trackerPoint')[0].style.left = Math.round(percentageOfSlider) + "px";
+}
+
+function isDesktop() {
+    return $(window).width() > 600;
+}

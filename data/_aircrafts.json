@@ -1,0 +1,377 @@
+{
+  "startDate": "2020-04-04",
+  "plannedStartTime": "11:00:00",
+  "actualStartTime": "11:00:00",
+  "plannedEndTime": "17:00:00",
+  "aircrafts": [
+    {
+      "path": [
+        {
+          "pointId": 153,
+          "time": "11:14:38"
+        },
+        {
+          "pointId": 48,
+          "time": "11:12:30"
+        },
+        {
+          "pointId": 154,
+          "time": "11:22:33"
+        },
+        {
+          "pointId": 155,
+          "time": "11:24:41",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 156,
+          "time": "11:24:42"
+        },
+        {
+          "pointId": 157,
+          "time": "11:25:41"
+        },
+        {
+          "pointId": 158,
+          "time": "11:26:02"
+        },
+        {
+          "pointId": 29,
+          "time": "11:26:50"
+        },
+        {
+          "pointId": 159,
+          "time": "11:27:02",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 160,
+          "time": "11:27:03"
+        },
+        {
+          "pointId": 161,
+          "time": "11:28:32"
+        },
+        {
+          "pointId": 162,
+          "time": "11:29:21"
+        },
+        {
+          "pointId": 164,
+          "time": "11:29:48"
+        },
+        {
+          "pointId": 163,
+          "time": "11:29:47",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 165,
+          "time": "11:31:06"
+        },
+        {
+          "pointId": 166,
+          "time": "11:31:35"
+        },
+        {
+          "pointId": 167,
+          "time": "11:32:12"
+        },
+        {
+          "pointId": 168,
+          "time": "11:32:50",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 169,
+          "time": "11:33:00"
+        },
+        {
+          "pointId": 170,
+          "time": "11:34:23"
+        },
+        {
+          "pointId": 171,
+          "time": "11:35:20",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 172,
+          "time": "11:36:20"
+        },
+        {
+          "pointId": 173,
+          "time": "11:37:20"
+        },
+        {
+          "pointId": 174,
+          "time": "11:37:36"
+        },
+        {
+          "pointId": 175,
+          "time": "11:37:57",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 176,
+          "time": "11:37:58"
+        },
+        {
+          "pointId": 177,
+          "time": "11:38:57"
+        }
+      ],
+      "hide": false,
+      "aircraftId": 1,
+      "aircraftTypeId": 25
+    },
+    {
+      "path": [
+        {
+          "pointId": 126,
+          "time": "13:03:00"
+        },
+        {
+          "pointId": 127,
+          "time": "13:08:37"
+        },
+        {
+          "pointId": 128,
+          "time": "13:12:20"
+        },
+        {
+          "pointId": 129,
+          "time": "13:26:42",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 130,
+          "time": "13:27:42"
+        },
+        {
+          "pointId": 132,
+          "time": "13:33:41",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 133,
+          "time": "13:34:41"
+        },
+        {
+          "pointId": 134,
+          "time": "13:36:32"
+        },
+        {
+          "pointId": 135,
+          "time": "13:39:27",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 136,
+          "time": "13:40:27"
+        },
+        {
+          "pointId": 16,
+          "time": "13:29:32"
+        },
+        {
+          "pointId": 137,
+          "time": "13:42:52"
+        },
+        {
+          "pointId": 138,
+          "time": "13:46:11"
+        },
+        {
+          "pointId": 139,
+          "time": "13:47:44"
+        },
+        {
+          "pointId": 140,
+          "time": "13:49:37",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 141,
+          "time": "13:49:38"
+        },
+        {
+          "pointId": 142,
+          "time": "13:50:37"
+        },
+        {
+          "pointId": 143,
+          "time": "13:51:01",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 144,
+          "time": "13:51:02"
+        },
+        {
+          "pointId": 145,
+          "time": "13:52:01"
+        },
+        {
+          "pointId": 146,
+          "time": "13:55:39"
+        },
+        {
+          "pointId": 147,
+          "time": "13:57:47"
+        },
+        {
+          "pointId": 148,
+          "time": "13:57:48"
+        },
+        {
+          "pointId": 25,
+          "time": "13:58:50"
+        },
+        {
+          "pointId": 149,
+          "time": "14:00:29"
+        },
+        {
+          "pointId": 150,
+          "time": "14:01:29"
+        },
+        {
+          "pointId": 26,
+          "time": "14:01:40"
+        },
+        {
+          "pointId": 151,
+          "time": "14:01:59"
+        },
+        {
+          "pointId": 152,
+          "time": "14:08:54"
+        },
+        {
+          "pointId": 12,
+          "time": "13:32:34"
+        },
+        {
+          "pointId": 201,
+          "time": "13:48:37"
+        }
+      ],
+      "hide": false,
+      "aircraftId": 2,
+      "aircraftTypeId": 25
+    },
+    {
+      "path": [
+        {
+          "pointId": 178,
+          "time": "15:32:30"
+        },
+        {
+          "pointId": 179,
+          "time": "15:38:21"
+        },
+        {
+          "pointId": 181,
+          "time": "15:39:21"
+        },
+        {
+          "pointId": 182,
+          "time": "15:41:50"
+        },
+        {
+          "pointId": 184,
+          "time": "15:44:22"
+        },
+        {
+          "pointId": 185,
+          "time": "15:45:30",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 36,
+          "time": "15:47:09"
+        },
+        {
+          "pointId": 35,
+          "time": "15:47:51"
+        },
+        {
+          "pointId": 187,
+          "time": "15:46:30"
+        },
+        {
+          "pointId": 189,
+          "time": "15:48:58",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 191,
+          "time": "15:55:14",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 193,
+          "time": "15:56:42",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 195,
+          "time": "15:57:42"
+        },
+        {
+          "pointId": 196,
+          "time": "16:01:07"
+        },
+        {
+          "pointId": 42,
+          "time": "16:09:23"
+        },
+        {
+          "pointId": 43,
+          "time": "16:13:25"
+        },
+        {
+          "pointId": 44,
+          "time": "16:15:20"
+        },
+        {
+          "pointId": 197,
+          "time": "16:07:09"
+        },
+        {
+          "pointId": 198,
+          "time": "16:20:15",
+          "special": "מופעים אוויריים"
+        },
+        {
+          "pointId": 200,
+          "time": "16:23:39"
+        },
+        {
+          "pointId": 32,
+          "time": "15:41:32"
+        },
+        {
+          "pointId": 46,
+          "time": "16:22:00"
+        },
+        {
+          "pointId": 50,
+          "time": "15:34:20"
+        },
+        {
+          "pointId": 49,
+          "time": "15:36:01"
+        },
+        {
+          "pointId": 177,
+          "time": "15:48:30"
+        }
+      ],
+      "hide": false,
+      "aircraftId": 3,
+      "aircraftTypeId": 25
+    }
+  ]
+}

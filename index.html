@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>יום העצמאות 2019 - 71 שנים למדינת ישראל - מפת מטס חיל האוויר</title>
-    <meta name="description" content="מטס יום העצמאות 2019: איפה ומתי יחלפו המטוסים?  עשרות כלי טיס, יקחו חלק במטס המסורתי לכבוד יום הולדתה ה-71 של מדינת ישראל, שיחלוף מעל עשרות יישובים מצפון עד דרום. היכנסו לאתר מותאם למכשירים סלולריים המאפשר צפייה בזמן אמת במיקום המטוסים על גבי מפה וקבלו מידע אודות המופעים האווריים, המופעים הקרקעיים, התערוכות והפעילויות השונות בבסיסים הפתוחים של חיל האוויר">
-    <meta name="keywords" content="מטס עצמאות,2019,71,חיל האוויר,חיל האויר,מטס 2019, אירועי חיל האוויר 2019,כלי טיס, מטוסי קרב, מסוקים, בסיסים פתוחים חיל האוויר,חגיגות עצמאות">
+    <title>יום העצמאות 2020 - 72 שנים למדינת ישראל - מפת מטס חיל האוויר</title>
+    <meta name="description" content="מטס יום העצמאות 2020: איפה ומתי יחלפו המטוסים?  עשרות כלי טיס, יקחו חלק במטס המסורתי לכבוד יום הולדתה ה-72 של מדינת ישראל, שיחלוף מעל עשרות יישובים מצפון עד דרום. היכנסו לאתר מותאם למכשירים סלולריים המאפשר צפייה בזמן אמת במיקום המטוסים על גבי מפה וקבלו מידע אודות המופעים האווריים, המופעים הקרקעיים, התערוכות והפעילויות השונות בבסיסים הפתוחים של חיל האוויר">
+    <meta name="keywords" content="מטס עצמאות,2020,72,חיל האוויר,חיל האויר,מטס 2020, אירועי חיל האוויר 2020,כלי טיס, מטוסי קרב, מסוקים, בסיסים פתוחים חיל האוויר,חגיגות עצמאות">
     <meta name="author" content="חיל האוויר">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta charset="utf-8">
@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="css/map.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/hamburgers.css">
-    <link rel="icon" sizes="192x192" href="icons/logo192x192.png">
+    <link rel="icon" sizes="192x192" href="icons/android_icon.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="icons/ios_icon.png">
     <link rel="stylesheet" href="js/leaflet/leaflet.css" />
 
     <link rel="stylesheet" href="css/jquery-ui.css">
@@ -75,10 +76,14 @@
             </a>
 
             <divv id="headerIconContainer">
-                <img src="icons/headerLogo.svg" onclick="onAboutButtonClick();" style="width:90px"/>
+                <img src="icons/headerLogo.svg" onclick="onAboutButtonClick();" style="width:80px;margin-top:5px;"/>
                 <div id="aboutMenuTitle" style="display:none">אודות</div>
             </divv>
-            <div>
+            <div style="display: flex; align-items: center;">
+                <div id="goto-press-button" onclick="window.location='press.html'">
+                    <img id="goto-press-icon"  src="icons/printing.svg">
+                    <span id="goto-press-text">גרסא להדפסה</span>
+                </div>
                 <img id="homeButton" src="icons/home.svg" onclick="onHomeButtonClick()" style="visibility: hidden"/>
             </div>
         </div>
@@ -137,8 +142,7 @@
     </div>
 
     <!-- startup splash screen -->
-    <div class="splash"
-         style="background-image: url('animation/Splash-71 smaller.gif');background-size: contain; visibility: visible;">
+    <div class="splash" style="background-image: url('animation/72_Splash-min.gif');background-size: contain; visibility: visible;">
         <div class="loading" style="background-image: url('animation/loading.gif');background-size: contain; display: none;"></div>
     </div>
 
@@ -146,6 +150,25 @@
     <div id="map" style="display: none;"></div>
 
     <div class="subheader">
+        <!-- goto voiceMessage popup-->
+        <div id="gottoVoiceMessagePopup" class="gotoVoiceMessagePopup" style="display:none; top:0;height: 98px; position: absolute; width: 100%;">
+            <div id="aircraftDetatilsContainer" style="background-color: white; height: 70%;display: flex;">
+                <img id="aircraftImg" src="" alt="" style="margin: 7px; object-fit: contain;"/>
+                <div id="detatils" style="margin-top: 7px;">
+                    <div id="aircraftName" style="font-weight: bold; font-size: large;"></div>
+                    <div id="aircraftTime" style="font-size: smaller;"></div>
+                </div>
+            </div>
+            <div id="hearTheMessage" onclick="showAudioMessagePopup()" style="background-color: #f7f5f5; height: 50%; border-top: 0.5px solid #e7e7e7;display: inline-flex; width:100%">
+                <img id="voiceMessageImg" src="" style="height: auto;margin-top: auto;margin-bottom: auto;margin-right: 20px;"/>
+                <span style="display: inline-flex;float: left;margin-right: 7px;">
+                    <p id="youHaveVoicemessage" style="font-weight: bolder; font-size: 90%;"></p>
+                </span>
+            </div>
+            <div id="closePopUp" onclick="closeVoiceMessagePopup()" style="margin-top: -30px; margin-left: 15px; float: left; position: relative;">
+                <img id="closeGotoVoiceMessagePopupBTN" src="icons/voiceMessage/group.png" onclick="closeGotoVoiceMessagePopup()" />
+            </div>
+        </div>
         <!-- entrance popup -->
         <div id="entrancePopup" class="entrancePopup" style="display:none">
             <div id="countdownContainer">
@@ -163,7 +186,7 @@
                         <div id="minutesText">דקות</div>
                     </div>
                 </div>
-                <div class="entranceBody">לתחילת אירועי חיל האוויר - עצמאות 71</div>
+                <div class="entranceBody">לתחילת אירועי חיל האוויר - עצמאות 72</div>
             </div>
         </div>
         <!-- shows popup -->
@@ -193,25 +216,35 @@
     <!-- location info popup -->
     <div id="locationPopup" class="infoPopup" style="display: none">
         <div id="popupIcon" ><a id="wazeLink" href="https://www.waze.com" target="_blank"><img id="waze" src="icons/waze.svg"></a></div>
-        <div id="popupHeader">
-            <div id="slidepopup"><img id="slide" src="icons/slidepopup.png" ></div>
-            <div  >
-            <div id="popupBody">
-                <div  id="popupDisplay">
-                    <div id="popupTitle"></div>
-                    <div id="popupSubTitle"></div>
+        <div style="display: flex;">
+            <div id="popupHeader" style="flex: 1; height: 91%;">
+                <div id="slidepopup"><img id="slide" src="icons/slidepopup.png" ></div>
+                <div  >
+                <div id="popupBody">
+                    <div  id="popupDisplay">
+                        <div id="popupTitle"></div>
+                        <div id="popupSubTitle"></div>
+                    </div>
+    
+                    <div id="popupTime">13:30-16:00</div>
                 </div>
-
-                <div id="popupTime">13:30-16:00</div>
+                </div>
             </div>
-            </div>
+            <iframe id="liveStream" style="flex: 1; min-width: 0;" src="https://www.youtube.com/embed/qvpFwXvd5T0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
+
         <div id="registerToLocationNotifcations">
             <div id="registerToLocationText">שלח לי התראות על מופעים במיקום זה</div>
             <label id="registerToggle" class="switch">
                 <input id="registerCheckbox" type="checkbox">
                 <span class="slider round"></span>
             </label>
+        </div>
+        <div id="noCrowdingWarning">
+            <img src="icons/no-crowding.svg" class="noCrowdingIcon">
+            <div id="noCrowdingWarningText">
+
+            </div>
         </div>
         <div id="aircraftListContainer">
             <div id="aircraftsList" class="table">
@@ -223,10 +256,11 @@
     </div>
 
     <!-- aircraft info popup -->
-    <div id="aircraftInfoPopup" class="infoPopup" style="display: none; overflow: scroll; -webkit-overflow-scrolling: touch;">
+    <div id="aircraftInfoPopup" class="infoPopup" style="display: none; overflow: scroll; -webkit-overflow-scrolling: touch; overflow-x: hidden;">
         <img id="shrinkAircraftInfoPopup" style=" position: absolute; top: 10px; left: 10px;
          display: none; z-index: 10000000;" src="images/arrowCopy.png">
         <div id="aircraftInfoBannerContainer">
+            <img id="aircraftInfoBannerBackground" src=""></img>
             <img id="aircraftInfoBanner" src=""></img>
         </div>
         <div class="aircraftInfoContentRow aircraftInfoTitle">
@@ -327,7 +361,7 @@
     <div id="aboutHeaderSpacing" class="aboutHeaderSpacing"></div>
     <div id="aboutLogoDiv">
         <div id="aboutHeader" class="aboutHeader"></div>
-        <img id="aboutLogo" class="aboutLogo" src="icons/bigLogo.png"/>
+        <img id="aboutLogo" class="aboutLogo" style="top: -100px;width: 200px;" src="icons/bigLogo72.png"/>
     </div>
     <div class="aboutSpacing"></div>
     <div id="aboutTitle" class="aboutTitle">
@@ -335,7 +369,7 @@
      </div>
     <div class="aboutSpacing"></div>
     <div id="aboutBody" class="aboutBody">
-        האפליקציה פותחה ע"י <span style ="font-weight: 600;">יחידת אופק 324</span >, היחידה הטכנולוגית המבצעית של חיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות לכבוד חגיגות 71 שנה למדינת ישראל
+        האפליקציה פותחה ע"י <span style ="font-weight: 600;">יחידת אופק 324</span >, היחידה הטכנולוגית המבצעית של חיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות לכבוד חגיגות 72 שנה למדינת ישראל
     </div>
     <div class="aboutSpacing"></div>
     <img id="iafLogo"  src="icons/iaf-small.png" class="iafLogo"/>
@@ -353,7 +387,7 @@
     <!-- incompatible browser popup -->
     <div id="incompatibleBrowserPopup" class="aboutPopup" style="display:none">
         <div class="halfBlue">
-            <img class="aboutLogo" src="icons/bigLogo.png"/>
+            <img class="aboutLogo" src="icons/bigLogo72.png"/>
             <img src="screenshots/screenshot1.png" class="screenshot"/>
             <div class="aboutTitle">
                 חג עצמאות שמח!
@@ -387,6 +421,21 @@
         </div>
     </div>
 
+
+    <!-- no crowding popup -->
+    <div id="noCrowdingPopup" class="confirmationPopup" style="display: none">
+        <div id="noCrowdingPopupTitle" class="confirmationMessageTitle">
+            <img src="/icons/no-crowding.svg" class="confirmationMessageIcon">
+            איסור התקהלות
+        </div>
+        <div id="noCrowdingPopupBody" class="confirmationMessageBody">
+
+        </div>
+        <div class="confirmButton" onclick="hideNoCrowdingPopup()">
+            הבנתי
+        </div>
+    </div>
+
     <!-- aircraft images cache -->
     <div id="aircraftImgCache" class="imageCache">
         <img id="arrow" src="icons/arrow.svg" class="imageCache"></img>
@@ -398,6 +447,28 @@
         <!--<img id="greece" src="icons/countries/greece.svg" class="imageCache"></img>-->
         <!--<img id="austria" src="icons/countries/austria.svg" class="imageCache"></img>-->
         <!--<img id="poland" src="icons/countries/poland.svg" class="imageCache"></img>-->
+    </div>
+
+    <div id="myModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="messagePart">
+                <img class="close" onclick="closeVoiceMessagePopup()" src="icons/voiceMessage/page_1.png"/>
+                <img class="audioImg" src="icons/voiceMessage/pilot-animated.gif"/>
+               <div class="audio">
+                    <audio id="audioSRC" src="" ontimeupdate="updateAudioMessageTime()"></audio>
+                    <span id="audioTime" class="audioTime">00:00</span>
+                    <img id="audioTrack" class="audioTrack" src="icons/voiceMessage/rectangle.png"/>
+                    <img id="trackerPoint" class="trackerPoint" src="icons/voiceMessage/blue.png"/>
+                    <img id="audioMessagePlayPause" class="audioPlay" onclick="playBTN()" src="icons/play.svg"/>
+                </div>
+                <div class="border"></div>
+                <p id="audioMessageText" class="wroteMessage"> </p>
+            </div>
+            <div class="sendPost">
+                <img class="camera" href="https://www.instagram.com/israeliairforce/?hl=en" src="icons/voiceMessage/group_4.png"/>
+                <a class="sendMessage" href="https://www.instagram.com/israeliairforce/?hl=en">העלו תמונה מהמטס והשתתפו בתחרות!</a>
+            </div>
+        </div>
     </div>
 </div>
 </body>

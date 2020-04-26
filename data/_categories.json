@@ -1,0 +1,30 @@
+[
+  {
+    "category": "חזרות",
+    "special": true
+  },
+  {
+    "category": "מופעים אוויריים",
+    "aerobatic": true,
+    "special": true
+  },
+  {
+    "category": "מופעים קרקעיים",
+    "special": true
+  },
+  {
+    "category": "מטוסי קרב"
+  },
+  {
+    "category": "מסוקים"
+  },
+  {
+    "category": "תובלה"
+  },
+  {
+    "category": "הדרכה"
+  },
+  {
+    "category": "סיור ובקרה"
+  }
+]

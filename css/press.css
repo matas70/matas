@@ -1,11 +1,9 @@
-
 /* heebo-300 - hebrew_latin */
 @font-face {
     font-family: 'Heebo-Light';
     font-style: normal;
     font-weight: 300;
-    src: local('Heebo Light'), local('Heebo-Light'), url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg');
+    src: local('Heebo Light'), local('Heebo-Light'), url('/fonts/heebo-v3-hebrew_latin-300.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-300.svg#Heebo') format('svg');
     /* Legacy iOS */
 }
 
@@ -14,8 +12,7 @@
     font-family: 'Heebo-Regular';
     font-style: normal;
     font-weight: 400;
-    src: local('Heebo'), local('Heebo-Regular'), url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg');
+    src: local('Heebo'), local('Heebo-Regular'), url('/fonts/heebo-v3-hebrew_latin-regular.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-regular.svg#Heebo') format('svg');
     /* Legacy iOS */
 }
 
@@ -24,8 +21,7 @@
     font-family: 'Heebo-Bold';
     font-style: normal;
     font-weight: 700;
-    src: local('Heebo Bold'), local('Heebo-Bold'), url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */
-    url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg');
+    src: local('Heebo Bold'), local('Heebo-Bold'), url('/fonts/heebo-v3-hebrew_latin-700.woff2') format('woff2'), /* Super Modern Browsers */ url('/fonts/heebo-v3-hebrew_latin-700.svg#Heebo') format('svg');
     /* Legacy iOS */
 }
 
@@ -36,11 +32,7 @@
     font-weight: 500;
     src: url('../fonts/heebo-v4-latin-500.eot'); /* IE9 Compat Modes */
     src: local('Heebo Medium'), local('Heebo-Medium'),
-    url('../fonts/heebo-v4-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('../fonts/heebo-v4-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
-    url('../fonts/heebo-v4-latin-500.woff') format('woff'), /* Modern Browsers */
-    url('../fonts/heebo-v4-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
-    url('../fonts/heebo-v4-latin-500.svg#Heebo') format('svg'); /* Legacy iOS */
+    url('../fonts/heebo-v4-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/heebo-v4-latin-500.woff2') format('woff2'), /* Super Modern Browsers */ url('../fonts/heebo-v4-latin-500.woff') format('woff'), /* Modern Browsers */ url('../fonts/heebo-v4-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */ url('../fonts/heebo-v4-latin-500.svg#Heebo') format('svg'); /* Legacy iOS */
 }
 
 /* Makes the page fill the window. */
@@ -56,15 +48,15 @@ html, body {
 
 .press-header {
 
-display: flex;
+    display: flex;
 
-justify-content: space-around;
+    justify-content: space-around;
 
-direction: ltr;
+    direction: ltr;
 
-height: 85px;
+    height: 85px;
 
-background-image: linear-gradient(#a1e3f9, #7bd1fc);
+    background-image: linear-gradient(#a1e3f9, #7bd1fc);
 }
 
 .idf-logo {
@@ -78,21 +70,79 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
     align-self: center;
 }
 
-.main-logo {margin-top: 10px;width: 148px;height: 108px;}
+.main-logo {
+    margin-top: 10px;
+    width: 148px;
+    height: 108px;
+}
 
-#city-container {margin-top: 24px;display: flex;flex-direction: column;align-items: center;margin-left: 48px;margin-right: 48px;max-width: 1200px;}
+#hospital-container
+#city-container {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 48px;
+    margin-right: 48px;
+    max-width: 1200px;
+}
 
-.main-title {display: flex;justify-content: center;position: relative;font-family: "Heebo-Bold";font-size: 18px;color: #37474f;align-items: center;padding-right: 40px;padding-left: 40px;width: 100%;}
+.main-title {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    font-family: "Heebo-Bold";
+    font-size: 18px;
+    color: #37474f;
+    align-items: center;
+    right: 40px;
+    padding-left: 40px;
+}
 
-.footer {display: flex;justify-content: center;font-size:12px;flex-flow: row;}
+.footer {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    flex-flow: row;
+}
 
-#base-container {margin-top: 17px;display: flex;flex-direction: column;justify-content: center;align-items: center;max-width: 820px;}
+#base-container {
+    margin-top: 17px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 820px;
+}
 
-.title-decoration {width: 100%;height: 2px;background: #cecfcf;border-radius: 1px;}
+.title-decoration {
+    width: 100%;
+    height: 2px;
+    background: #cecfcf;
+    border-radius: 1px;
+}
 
-.title-text {font-size: 18px;padding-left: 21px;padding-right: 21px;}
+.title-text {
+    font-size: 18px;
+    padding-left: 21px;
+    padding-right: 21px;
+}
 
-.base-table-title {background: #53aee7;color: white;height: 23px;padding-right: 10px;font-family: "Heebo-Regular";border-radius: 10px 10px 0 0;align-items: center;display: flex;flex-direction: row;justify-content: center;border-color: #f2f2f6;border-width: 0.5px;border-style: solid;}
+.base-table-title {
+    background: #53aee7;
+    color: white;
+    height: 23px;
+    padding-right: 10px;
+    font-family: "Heebo-Regular";
+    border-radius: 10px 10px 0 0;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-color: #f2f2f6;
+    border-width: 0.5px;
+    border-style: solid;
+}
 
 .base-table-list {
     overflow: hidden;
@@ -118,22 +168,67 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
     flex-direction: column;
 }
 
-.base-table-category {display: flex;align-items: center;margin-bottom: 1px;background: white;padding-left: 10px;padding-right: 10px;border-right: 0.5px solid #f2f2f6;border-left: 0.5px solid #f2f2f6;}
+.base-table-category {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1px;
+    background: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-right: 0.5px solid #f2f2f6;
+    border-left: 0.5px solid #f2f2f6;
+}
 
-.showcase-container {background: white;padding-left: 10px;padding-right: 10px;padding-top: 7px;border-right: 0.5px solid #f2f2f6;border-left:0.5px solid #f2f2f6;font-size: 12px;font-family: 'Heebo-Light', sans-serif;}
+.showcase-container {
+    background: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 7px;
+    border-right: 0.5px solid #f2f2f6;
+    border-left: 0.5px solid #f2f2f6;
+    font-size: 12px;
+    font-family: 'Heebo-Light', sans-serif;
+}
 
 .aircraft-icon {
     width: 25px;
     height: 25px;
 }
 
-.base-table-title-text {letter-spacing: 1px;font-size: 13px;display: inline-block;font-family: 'Heebo-Bold';}
+.base-table-title-text {
+    letter-spacing: 1px;
+    font-size: 13px;
+    display: inline-block;
+    font-family: 'Heebo-Bold';
+}
 
-.base-title-times {font-size: 12px;display: inline-block;}
+.base-title-times {
+    font-size: 12px;
+    display: inline-block;
+}
 
-.aircraft-icon-text {display: flex;flex-direction: column;text-align: center;font-size: 10px;align-items: center;white-space: nowrap;text-overflow: ellipsis;margin-left: 3px;margin-right: 3px;/* font-family: 'Heebo-Light',sans-serif; */color: #596b6a;min-width: 32px;}
+.aircraft-icon-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 10px;
+    align-items: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-left: 3px;
+    margin-right: 3px; /* font-family: 'Heebo-Light',sans-serif; */
+    color: #596b6a;
+    min-width: 32px;
+}
 
-.category-name {color: #37474f;display: flex;flex-direction: column;text-align: right;width: 103px;flex-shrink: 0;}
+.category-name {
+    color: #37474f;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    width: 103px;
+    flex-shrink: 0;
+}
 
 .category-title {
     font-weight: bold;
@@ -144,6 +239,7 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
     font-size: 10px;
     color: #596b6a;
 }
+
 .base-category-icons {
     display: flex;
     flex-direction: row;
@@ -160,7 +256,7 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
 
 .exhibition-category {
     font-size: 12px;
-    font-family: 'Heebo-Regular',sans-serif;
+    font-family: 'Heebo-Regular', sans-serif;
     display: inline;
 }
 
@@ -175,17 +271,17 @@ background-image: linear-gradient(#a1e3f9, #7bd1fc);
     height: 10px;
     border-right: 0.5px solid #f2f2f6;
     border-bottom: 0.5px solid #f2f2f6;
-    border-left:0.5px solid #f2f2f6;
+    border-left: 0.5px solid #f2f2f6;
     background: white;
 }
 
 .line-separator {
 
-width: 100%;
+    width: 100%;
 
-height: 1px;
+    height: 1px;
 
-background: #f2f2f6;
+    background: #f2f2f6;
 }
 
 .city-table-list {
@@ -204,7 +300,17 @@ background: #f2f2f6;
     max-width: 240px;
 }
 
-.city-table-category {display: flex;margin-bottom: 2px;background: white;padding-left: 10px;padding-right: 10px;border-radius: 0 0 10px 10px;border-bottom: 0.5px solid #f2f2f6;border-left: 0.5px solid #f2f2f6;border-right: 0.5px solid #f2f2f6;}
+.city-table-category {
+    display: flex;
+    margin-bottom: 2px;
+    background: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 0 0 10px 10px;
+    border-bottom: 0.5px solid #f2f2f6;
+    border-left: 0.5px solid #f2f2f6;
+    border-right: 0.5px solid #f2f2f6;
+}
 
 .city-category-icons {
     display: flex;
@@ -271,4 +377,36 @@ div.footer-text {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#goto-press-button {
+    margin-top: auto;
+    margin-bottom: 11px;
+    margin-left: 10px;
+    border-radius: 5px;
+    height: 22px;
+    cursor: pointer;
+    color: white;
+    background: hsla(0, 0%, 0%, 0.1);
+    font-weight: bold;
+    width: max-content;
+    display: flex;
+    padding: 6px;
+    align-items: center;
+    transition: all 0.25;
+}
+
+#goto-press-text {
+    font-size: 0.8em;
+    transition: all 0.25s;
+    margin-right: 0;
+    width: max-content;
+    white-space: nowrap;
+    overflow-x: hidden;
+    margin-right: 5px;
+}
+
+
+#goto-press-icon {
+    height: 22px;
 }
