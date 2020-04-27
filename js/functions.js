@@ -407,6 +407,12 @@ function glowOnPoint(location, timeOfAerobaticShow) {
 
         // Actually set the icon
         mapAPI.setMarkerIcon(relevantMarker, mapAPI.getMarkerIconToSet(relevantMarker));
+        
+
+        // Rest merker icon
+        setTimeout(() => {
+            mapAPI.setMarkerHtml(relevantMarker, originalMarkerHtml);
+        }, timeOfAerobaticShow);
 
         if (!aerobaticShows[location.pointId]) {
             aerobaticShows[location.pointId] = setTimeout(() => {
