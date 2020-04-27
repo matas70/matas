@@ -591,6 +591,9 @@ function loadAircrafts(callback) {
                 plannedEndTime = convertTime(startDate, flightData.plannedEndTime);
                 changes = flightData.changes;
 
+                // keep only aircrafts with paths
+                aircrafts = aircrafts.filter(aircraft => aircraft.path.length > 1);
+                
                 // merge info from aircraft type info
                 aircrafts.forEach(function (aircraft) {
                     if (aircraft.aircraftTypeId !== undefined) {
