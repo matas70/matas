@@ -299,6 +299,7 @@ function cleanPreviousLocations(aircraft) {
     if (!userSimulation) {
         pathPassed.forEach(function (path) {
             var location = locations[path.pointId];
+            if (!location) return false;
             location.aircrafts = location.aircrafts.filter(function (aircraftInPath) {
                 return (aircraftInPath.aircraftId !== aircraft.aircraftId ||
                     aircraftInPath.aircraftId === aircraft.aircraftId && currTime < getActualPathTime(aircraftInPath.date, aircraftInPath.time))
