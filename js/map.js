@@ -137,7 +137,7 @@ googleMaps = {
             iconUrl = googleMaps.getMarkerIconUrl(color, true, aerobatic, label, point);
         }
         var markerHtml = /*html*/`
-            <div id="pointMarker-${point.pointId}" class="locationMarkerDivGmaps">
+            <div class="locationMarkerDivGmaps">
                 <div class="locationIconContainer">
                     <img class="locationMarkerIcon" src="${iconUrl}">
                 </div>
