@@ -2274,7 +2274,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     function notifyUserIfNear(currentLocation, aircraft) {
         if (userLoc) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-            if(haversineDistance(userLoc,currentLocation) < 2000)
+            if(haversineDistance(userLoc,currentLocation) < 3)
             {
                 notifiedNearUser = true;
                 //check that its not the same popup that has been closed
@@ -2314,8 +2314,6 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         else{
                             $("#audioSRC").attr("src",'audio/pilot-message.ogg');
                         }
-
-                        console.log(`icons/aircrafts/${aircraft.icon}.svg`);
                         
                         if(aircraft.icon){
                             $("#aircraftImg").attr("src",`icons/aircrafts/${aircraft.icon}.svg`);
@@ -2327,7 +2325,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                 //}
             }
 
-            else if(haversineDistance(userLoc,currentLocation) > 2000)
+            else if(haversineDistance(userLoc,currentLocation) > 3)
             {
                 if ($('#myModal:hidden'))
                 {
