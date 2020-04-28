@@ -1702,6 +1702,11 @@ hr.aircraftLineSeparator.two {
 /* Desktop mode handler */
 
 @media only screen and (min-width: 600px) {
+    #cockpitVideo {
+        border-radius: 20px 20px 0 0;
+        margin-top: 20px;
+    }
+
     #goto-press-button {
         margin-top: 5px;
         border-radius: 5px;
