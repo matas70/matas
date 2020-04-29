@@ -2279,7 +2279,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     function notifyUserIfNear(currentLocation, aircraft) {
         if (userLoc) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-            if(haversineDistance(userLoc,currentLocation) < 3)
+            if(haversineDistance(userLoc,currentLocation) < 6)
             {
                 notifiedNearUser = true;
                 //check that its not the same popup that has been closed
