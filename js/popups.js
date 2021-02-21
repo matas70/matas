@@ -84,6 +84,11 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
     locationPopupCloseCallback = closeCallback;
 
+    gtag('event', 'map_interaction', {
+        'event_category': 'map_point_open',
+        'event_label': point.pointName
+    });
+
     // build popup html
     var html = "";
     locationPopupExpanded = false;
