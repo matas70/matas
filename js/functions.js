@@ -686,8 +686,8 @@ function onAboutButtonClick() {
     previousHash.push(aboutHash);
     window.location.hash = aboutHash;
 
-    gtag('event', 'ui_interaction', {
-        'event_category': 'about_popup_open'
+    gtag('event', 'about_popup_open', {
+        'event_category': 'ui_interaction'
     });
 
     deselectAircraft();

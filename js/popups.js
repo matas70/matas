@@ -84,8 +84,8 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
     locationPopupCloseCallback = closeCallback;
 
-    gtag('event', 'map_interaction', {
-        'event_category': 'map_point_open',
+    gtag('event', 'map_point_open', {
+        'event_category': 'popup_interaction',
         'event_label': point.pointName
     });
 
@@ -517,6 +517,11 @@ function showAircraftInfoPopup(aircraft, collapse) {
          }
         
     }, 500);
+
+    gtag('event', 'aircraft_info_open', {
+        'event_category': 'popup_interaction',
+        'event_label': aircraft.name
+    });
 }
 
 function hideAircraftInfoPopup(callback) {
@@ -626,6 +631,7 @@ function createLocationRow(location, displayFirstAircraft, isSearchBar = false) 
 
 function expandLocation(pointId, isSearchBar = false) {
     var location = locations[pointId];
+    
     var locationSpace = isSearchBar ? $("#search-view #locationSpace" + pointId) : $("#locationSpace" + pointId);
     if (locationSpace.html() === "") {
         var html = "";
@@ -665,6 +671,11 @@ function expandLocation(pointId, isSearchBar = false) {
         });
     }
 
+
+    gtag('event', 'location_expand', {
+        'event_category': 'search_interaction',
+        'event_label': location.pointName
+    });
 }
 
 function createNoAircraftMessageRow() {
