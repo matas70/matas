@@ -111,14 +111,23 @@
         <div class="tabs">
             <!-- Aircrafts -->
             <div class="tab-content" id="aircraft">
-                <p class="timeline-warning">לידיעתכם, ייתכנו שינוים בלוחות הזמנים</p>
+                <div class="quiz-tab">
+                    <div class="quizIcon">
+                        <imgsrc="icons/arrowBlack.png">
+                    </div>
+                    <p class="timeline-warning">כניסה לחידון מטוסי החיל</p>
+                </div>
                 <div id="aircraftsListView">
-
                 </div>
             </div>
             <!-- Locations -->
             <div class="tab-content.active" id="locations">
-                <p class="timeline-warning">לידיעתכם, ייתכנו שינוים בלוחות הזמנים</p>
+                <div class="quiz-tab">
+                    <div class="quizIcon">
+                        <img src="icons/arrowBlack.png">
+                    </div>
+                    <p class="timeline-warning">כניסה לחידון מטוסי החיל</p>
+                </div>
                 <div id="locationsListView" class="locationsTable">
                 </div>
             </div>
@@ -140,7 +149,9 @@
     <!-- map overlay -->
     <div class="map-dark" onclick="closeAllPopups();" style="display: none">
     </div>
-
+    <!--TODO
+    CHANGE THE animation
+    -->
     <!-- startup splash screen -->
     <div class="splash" style="background-image: url('animation/72_Splash-min.gif');background-size: contain; visibility: visible;">
         <div class="loading" style="background-image: url('animation/loading.gif');background-size: contain; display: none;"></div>
@@ -376,7 +387,7 @@
     <img id="iafLogo"  src="icons/iaf-small.png" class="iafLogo"/>
     <div class="aboutSpacing"></div>
     <div class="bottomText">
-        לידיעתכם, ייתכנו שינוים בלוחות הזמנים
+       ב
     </div>
     <div id="aboutBottomLink" class="aboutBottomLink">
         <a id="facebookLink" href="https://www.facebook.com/IsraeliAirForce.HE/"><img src="icons/facebook.svg" class="aboutBottomImg"></a>
