@@ -1745,7 +1745,7 @@ hr.aircraftLineSeparator.two {
     .listViewContainer {
         width: 400px;
         transform: translateX(100%) !important;
-        height: calc(100vh - 50px) !important;
+        height: calc(100vh - 64px) !important;
         margin: 0 400px 0 0;
     }
     .tabs {
