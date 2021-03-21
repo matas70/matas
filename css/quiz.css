@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
 
 .quiz.on-map.button {
     width: 100px;
@@ -38,6 +39,9 @@
 
 #quiz .question {
     position: relative;
+    padding-right: 19px;
+    padding-left: 16px;
+    padding-top: 63px;
 }
 #quiz .question .counter{
     position: absolute;
@@ -48,6 +52,53 @@
     direction: ltr;
     color: #778287;
 }
+#quiz .question .title{
+    font-size: 20px;
+}
 #quiz .question .counter .current{
     font-size: 30px;
+}
+
+#quiz .question .option{
+    border: 1px solid black;
+    margin: 16px 0 17px;
+    padding: 15px 30px 9px 13px;
+    font-family: Heebo;
+    font-size: 22px;
+    border-radius: 13px;
+    border: solid 2px #35405f;  
+    position: relative;
+}
+
+
+#quiz .question .option::after{
+    border: 2px solid black;
+    border-radius: 50%;
+    content: '';
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 16px;
+    text-align: center;
+    color: black;
+}
+
+#quiz .question .option.wrong{
+    background-color: red;
+    color: #e2e3e6;
+    border: none;
+}
+#quiz .question .option.wrong::after{
+    content: '✖';
+}
+#quiz .question .option.correct{
+    background-color: green;
+    border: none;
+    color: #e2e3e6;
+}
+#quiz .question .option.option.correct::after{
+    content: 'v';
 }

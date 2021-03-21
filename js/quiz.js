@@ -42,4 +42,14 @@
         $('#quiz .counter .current').text(count)
         $('#quiz .counter .total').text(maxQuestions)
     }
+
+    $('#quiz .option').on("click", function () {
+        var question = questions[count-1];
+        if(this.classList.contains(question.correct)) {
+            this.classList.add('correct');
+        } else {
+            this.classList.add('wrong');
+        }
+    })
+
 })()
