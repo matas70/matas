@@ -35,3 +35,19 @@
     opacity:0;
     
 }
+
+#quiz .question {
+    position: relative;
+}
+#quiz .question .counter{
+    position: absolute;
+    left: 16px;
+    top: 8px;
+    font-family: Heebo;
+    font-size: 20px;
+    direction: ltr;
+    color: #778287;
+}
+#quiz .question .counter .current{
+    font-size: 30px;
+}
