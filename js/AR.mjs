@@ -592,40 +592,42 @@ setTimeout(() => {
             placeAircraft();
         }
 
-        planeMesh.material.roughness = params.roughness;
-        planeMesh.material.metalness = params.metalness;
+        if (false) {
+            planeMesh.material.roughness = params.roughness;
+            planeMesh.material.metalness = params.metalness;
 
-        let newEnvMap = planeMesh.material.envMap;
-        let background = scene.background;
+            let newEnvMap = planeMesh.material.envMap;
+            let background = scene.background;
 
-        switch (params.envMap) {
+            switch (params.envMap) {
 
-            case 'EXR':
-                newEnvMap = exrCubeRenderTarget ? exrCubeRenderTarget.texture : null;
-                background = exrBackground;
-                break;
-            case 'PNG':
-                newEnvMap = pngCubeRenderTarget ? pngCubeRenderTarget.texture : null;
-                background = pngBackground;
-                break;
+                case 'EXR':
+                    newEnvMap = exrCubeRenderTarget ? exrCubeRenderTarget.texture : null;
+                    background = exrBackground;
+                    break;
+                case 'PNG':
+                    newEnvMap = pngCubeRenderTarget ? pngCubeRenderTarget.texture : null;
+                    background = pngBackground;
+                    break;
 
+            }
+
+            if (newEnvMap !== planeMesh.material.envMap) {
+
+                planeMesh.material.envMap = newEnvMap;
+                planeMesh.material.needsUpdate = true;
+
+                planeMesh.material.map = newEnvMap;
+                planeMesh.material.needsUpdate = true;
+
+            }
+
+            planeMesh.rotation.y += 0.005;
+            planeMesh.visible = params.debug;
+
+            scene.background = background;
+            renderer.toneMappingExposure = params.exposure;
         }
-
-        if (newEnvMap !== planeMesh.material.envMap) {
-
-            planeMesh.material.envMap = newEnvMap;
-            planeMesh.material.needsUpdate = true;
-
-            planeMesh.material.map = newEnvMap;
-            planeMesh.material.needsUpdate = true;
-
-        }
-
-        planeMesh.rotation.y += 0.005;
-        planeMesh.visible = params.debug;
-
-        scene.background = background;
-        renderer.toneMappingExposure = params.exposure;
         renderer.render(scene, camera);
     }
 
