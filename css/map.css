@@ -378,9 +378,6 @@ div.splash {
     position: absolute;
     left: 125px;
     bottom: 20px;
-}
-#aircraftInfo3D::before{
-    content: 'תלת מימד';
     font-family: Heebo;
     font-size: 10px;
     color: #293b57;

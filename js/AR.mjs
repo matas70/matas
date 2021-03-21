@@ -243,7 +243,7 @@ setTimeout(() => {
             endSessionCallback: startup
         });
 
-        document.body.appendChild(arButton);
+        document.getElementById("aircraftInfo3D").appendChild(arButton);
 
         window.addEventListener('load', startup, false);
         var streaming = false;
