@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/map.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/hamburgers.css">
+    <link rel="stylesheet" href="css/quiz.css">
     <link rel="icon" sizes="192x192" href="icons/android_icon.png">
     <link rel="apple-touch-icon" sizes="192x192" href="icons/ios_icon.png">
     <link rel="stylesheet" href="js/leaflet/leaflet.css" />
@@ -45,6 +46,7 @@
                 $.getScript("js/RotateIcon.js"),
                 $.getScript("js/utils.js"),
                 $.getScript("js/firebaseInteraction.js"),
+                $.getScript("js/quiz.js"),
 
                 $.Deferred(function( deferred ){
                     $( deferred.resolve );
@@ -472,5 +474,14 @@
         </div>
     </div>
 </div>
+
+
+<div id="quiz">
+    <div class="cover"></div>
+    <h2 class='title'></h2>
+
+</div>
+
+
 </body>
 </html>
