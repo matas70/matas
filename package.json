@@ -24,6 +24,9 @@
     "jqueryui": "^1.11.1",
     "leaflet": "^1.4.0",
     "leaflet.markercluster": "^1.4.1",
+    "live-server": "^1.2.1",
+    "live-server-https": "0.0.2",
+    "three": "^0.126.1",
     "time-js": "0.0.5"
   }
 }

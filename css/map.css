@@ -374,6 +374,17 @@ div.splash {
     color: #455773;
     font-weight: lighter;
 }
+#aircraftInfo3D {
+    position: absolute;
+    left: 125px;
+    bottom: 20px;
+}
+#aircraftInfo3D::before{
+    content: 'תלת מימד';
+    font-family: Heebo;
+    font-size: 10px;
+    color: #293b57;
+}
 
 #aircraftInfoMore {
     width: 100%;
@@ -763,6 +774,7 @@ HEADER {
     background-color: #f7f5f5;
     z-index: 1;
     box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.08);
+    position: relative;
 }
 
 .listViewContainer {
