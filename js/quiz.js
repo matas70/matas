@@ -463,6 +463,7 @@
 
         $('#confetti').hide()
 
+        $('#quiz .question .option.marked').removeClass('marked');
         $('#quiz .question .option.wrong').removeClass('wrong')
         $('#quiz .question .option.correct').removeClass('correct')
 
@@ -479,32 +480,39 @@
     }
     
     $('#quiz .question .option').on("click", function () {
-        if(disabled) return;
-        disabled = true;
-        var question = questions[count-1];
-        if(this.classList.contains(question.correct)) {
-            this.classList.add('correct');
-            $('#confetti').show()
-            correctCount++
-        } else {
-            this.classList.add('wrong');
-            $('#quiz .question .option.' + question.correct).addClass('correct')
-        }
-        if (count < 5) {
-            setTimeout(showNextQuestion, 3000)
-        } else {
-            setTimeout(()=>{
-                $('#confetti').hide()
-                $('#quiz .finished').show()
-                if(correctCount < 5) {
-                    $('#quiz .finished').addClass('can-be-better')
-                } else {
-                    $('#quiz .finished').removeClass('can-be-better')
-                }
-                $('#quiz .finished .correct.count').text(correctCount)
-                count = correctCount = 0;
-            }, 3000);
-        }
+      $('#quiz .question .option.marked').removeClass('marked');
+      this.classList.add('marked');
+    });
+
+    $('#quiz .question .test').on("click", function () {
+      if(disabled) return;
+      disabled = true;
+      var question = questions[count-1];
+      var marked = document.querySelector('#quiz .question .option.marked')
+
+      if(marked.classList.contains(question.correct)) {
+        marked.classList.add('correct');
+        $('#confetti').show()
+        correctCount++
+      } else {
+        marked.classList.add('wrong');
+        $('#quiz .question .option.' + question.correct).addClass('correct')
+      }
+      if (count < 5) {
+          setTimeout(showNextQuestion, 3000)
+      } else {
+          setTimeout(()=>{
+              $('#confetti').hide()
+              $('#quiz .finished').show()
+              if(correctCount < 5) {
+                  $('#quiz .finished').addClass('can-be-better')
+              } else {
+                  $('#quiz .finished').removeClass('can-be-better')
+              }
+              $('#quiz .finished .correct.count').text(correctCount)
+              count = correctCount = 0;
+          }, 3000);
+      }
     });
 
     $('#quiz .exit').on('click', () => {

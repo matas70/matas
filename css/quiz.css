@@ -30,6 +30,7 @@
     top: 64px;
     left: 0;
     z-index: 6;
+    font-family: Heebo;
     background-color: white;
     display:none;
     opacity:0;
@@ -52,7 +53,6 @@
     position: absolute;
     left: 16px;
     top: 8px;
-    font-family: Heebo;
     font-size: 20px;
     direction: ltr;
     color: #778287;
@@ -71,7 +71,6 @@
     border: 1px solid black;
     margin: 16px 0 17px;
     padding: 15px 30px 9px 13px;
-    font-family: Heebo;
     font-size: 22px;
     border-radius: 13px;
     border: solid 2px #35405f;  
@@ -82,7 +81,6 @@
 #quiz .question .option::after{
     border: 2px solid black;
     border-radius: 50%;
-    content: '';
     width: 16px;
     height: 16px;
     position: absolute;
@@ -90,25 +88,43 @@
     top: 50%;
     transform: translateY(-50%);
     line-height: 16px;
-    text-align: center;
     color: black;
 }
 
+#quiz .question .option.marked{
+    background: rgba(58, 180, 242, 0.3);
+}
+
 #quiz .question .option.wrong{
-    background-color: red;
+    background-color: #f64b58;
     color: #e2e3e6;
     border: none;
 }
 #quiz .question .option.wrong::after{
+    content: '';
     background-image: url('/icons/quiz/true\ icon.svg');
 }
 #quiz .question .option.correct{
-    background-color: green;
+    background-color: #64e1a5;
     border: none;
     color: #e2e3e6;
 }
 #quiz .question .option.option.correct::after{
+    content: '';
     background-image: url('/icons/quiz/true\ icon.svg');
+}
+
+#quiz .question .test {
+    width: 152px;
+    height: 44px;
+    margin: auto;
+    display: block;
+    color: white;
+    border-radius: 22px;
+    background-color: #3ab4f2;
+    font-size: 16px;
+    border: none;
+    font-weight: 500;
 }
 
 #quiz .finished {
@@ -126,7 +142,6 @@
 
 #quiz .finished .title {
     margin-top: 56px;
-    font-family: Heebo;
     font-size: 40px;
     font-weight: 500;
     color: #35405f;
@@ -185,7 +200,6 @@
     margin: 0;
     border-radius: 22px;
     background-color: #3ab4f2;
-    font-family: Heebo;
     font-size: 16px;
     font-weight: 500;
     color: #ffffff;
@@ -211,7 +225,7 @@
 
 
 @media only screen and (max-width: 340px) {
-    #quiz .finished {
+    #quiz {
         transform: scale(0.8);
         width: 125%;
         height: 125%;
