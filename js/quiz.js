@@ -511,6 +511,19 @@
       $('#quiz').hide();
     })
 
+    $('#quiz .share').on('click', async () => {
+      try {
+        var res = await navigator.share({
+          title: `גם אני שיחקתי במטס חיל האוויר ליום העצמאות!`,
+          text: 'גם אני שיחקתי במטס חיל האוויר ליום העצמאות! חג עצמאות שמח, ובואו להתחרות איתי!',
+          url: 'https://www.matas-iaf.com/'
+        })
+        console.log(res)
+      } catch(err) {
+        console.log('cant share', err)
+      }
+    });
+    
 
     /* Confetti by Patrik Sv/* Confetti by Patrik Svensson (http://metervara.net) */
     // under MIT licence. credit: https://codepen.io/aptikas/pen/VwLwyXz
