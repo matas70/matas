@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/map.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/hamburgers.css">
+    <link rel="stylesheet" href="css/quiz.css">
     <link rel="icon" sizes="192x192" href="icons/android_icon.png">
     <link rel="apple-touch-icon" sizes="192x192" href="icons/ios_icon.png">
     <link rel="stylesheet" href="js/leaflet/leaflet.css" />
@@ -45,6 +46,7 @@
                 $.getScript("js/RotateIcon.js"),
                 $.getScript("js/utils.js"),
                 $.getScript("js/firebaseInteraction.js"),
+                $.getScript("js/quiz.js"),
 
                 $.Deferred(function (deferred) {
                     $(deferred.resolve);
@@ -90,7 +92,21 @@
                         style="visibility: hidden" />
                 </div>
             </div>
+
         </header>
+
+            <ul class="menuHeader">
+                <li class="one" class="menuItem" style="padding-right: 20%;"><a id="aircraftLink" class="menuLink" href="#aircraft">כלי טיס</a></li>
+                <li class="two" class="menuItem"><a id="locationsLink" class="menuLink active" href="#locations">מקומות</a></li>
+                <hr/>
+            </ul>
+        </div>
+        <div class="tabs">
+            <!-- Aircrafts -->
+            <div class="tab-content" id="aircraft">
+                <p class="timeline-warning">לידיעתכם, ייתכנו שינוים בלוחות הזמנים</p>
+                <div class="button quiz"></div>
+                <div id="aircraftsListView">
 
         <!-- list view -->
         <div id="listView" class="listViewContainer">
@@ -114,6 +130,7 @@
                     <hr />
                 </ul>
             </div>
+
             <div class="tabs">
                 <!-- Aircrafts -->
                 <div class="tab-content" id="aircraft">
@@ -125,6 +142,7 @@
                     </div>
                     <div id="aircraftsListView">
                     </div>
+
                 </div>
                 <!-- Locations -->
                 <div class="tab-content.active" id="locations">
@@ -519,6 +537,38 @@
             </div>
         </div>
     </div>
+
+    <div id="quiz">
+        <div class="cover"></div>
+        <div class='question'>
+            <h2 class='title'></h2>
+            <div class='option a'></div>
+            <div class='option b'></div>
+            <div class='option c'></div>
+            <button class='test'>בדיקה</button>
+            <div class="counter">
+                <span class="current"></span>
+                /<span class="total"></span>
+            </div>
+        </div>
+        <div class="finished">
+            <h2 class='title'></h2>
+            <h3 class='second title'></h3>
+            <div class="score">
+                <span class="correct count">5</span>/5
+            </div>
+            <nav>
+                <button class='again'>חידון נוסף</button>
+                <button class='exit'>חזרה למפה</button>
+            </nav>
+
+            <button class='share'>שיתוף עם חברים</button>
+        </div>
+        <div id="confetti"></div>
+    </div>
+
+</div>
+
 </body>
 
 </html>

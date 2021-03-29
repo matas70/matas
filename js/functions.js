@@ -1226,6 +1226,10 @@ function onHomeButtonClick() {
         onAboutButtonClick();
     }
 
+    $('#quiz').animate({
+        'opacity': 0
+    }, 1000).css('display', 'none')
+
     deselectAircraft();
     deselectLocation();
 

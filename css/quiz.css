@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
+
+.tabs .quiz.button {
+    height: 29px;
+    padding: 9.5px;
+}
+
+.tabs .quiz.button::before {
+    content: '';
+    width: 29px;
+    height: 29px;
+    background-image: url('/icons/quiz/queez\ icon.svg');
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.tabs .quiz.button::after {
+    content: 'כניסה לחידון מטוסי החיל';
+    margin: 1px 25.3px 3px 0;
+    font-family: Heebo;
+    font-size: 15px;
+    font-weight: 300;
+    color: #293b57;
+}
+
+#quiz {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    top: 64px;
+    left: 0;
+    z-index: 6;
+    font-family: Heebo;
+    background-color: white;
+    display:none;
+    opacity:0;
+    
+}
+
+#quiz .cover {
+    background-image: url("/icons/quiz/pictures/מטוסי קרב 2.jpg");
+    height: 50vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#quiz .question {
+    position: relative;
+    padding-right: 19px;
+    padding-left: 16px;
+    padding-top: 29px;
+}
+#quiz .question .counter{
+    position: absolute;
+    left: 16px;
+    top: 8px;
+    font-size: 20px;
+    direction: ltr;
+    color: #778287;
+}
+#quiz .question .title{
+    font-size: 20px;
+    font-weight: normal;
+    margin: 0;
+    margin-left: 56px;
+}
+#quiz .question .counter .current{
+    font-size: 38px;
+}
+
+#quiz .question .option{
+    border: 1px solid black;
+    margin: 16px 0 17px;
+    padding: 15px 30px 9px 13px;
+    font-size: 22px;
+    border-radius: 13px;
+    border: solid 2px #35405f;  
+    position: relative;
+}
+
+
+#quiz .question .option::after{
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 16px;
+    color: black;
+}
+
+#quiz .question .option.marked{
+    background: rgba(58, 180, 242, 0.3);
+}
+
+#quiz .question .option.wrong{
+    background-color: #f64b58;
+    color: #e2e3e6;
+    border: none;
+}
+#quiz .question .option.wrong::after{
+    content: '';
+    background-image: url('/icons/quiz/true\ icon.svg');
+}
+#quiz .question .option.correct{
+    background-color: #64e1a5;
+    border: none;
+    color: #e2e3e6;
+}
+#quiz .question .option.option.correct::after{
+    content: '';
+    background-image: url('/icons/quiz/true\ icon.svg');
+}
+
+#quiz .question .test {
+    width: 152px;
+    height: 44px;
+    margin: auto;
+    display: block;
+    color: white;
+    border-radius: 22px;
+    background-color: #3ab4f2;
+    font-size: 16px;
+    border: none;
+    font-weight: 500;
+}
+
+#quiz .finished {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: white;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+
+#quiz .finished .title {
+    margin-top: 56px;
+    font-size: 40px;
+    font-weight: 500;
+    color: #35405f;
+}
+
+
+#quiz .finished .title::before {
+    content: 'כל הכבוד!';
+}
+
+#quiz .finished.can-be-better .title::before {
+    content: 'קצת חלודים...';
+}
+
+#quiz .finished .second.title {
+    margin-top: 32px;
+    margin-bottom: 31px;
+    font-size: 22px;
+}
+
+#quiz .finished .second.title::before {
+    content: 'איזה אדירים אתם! עניתם נכון על כל השאלות';
+}
+
+#quiz .finished.can-be-better .second.title::before {
+    content: 'לא נורא, תמיד אפשר לנסות שוב :)';
+}
+
+#quiz .finished .score {
+    width: 128px;
+    height: 128px;
+    border-radius: 64px;
+    background-color: #64e1a5;
+    margin: auto;
+    font-size: 30px;
+    color: white;
+    padding: 22px;
+    box-sizing: border-box;
+}
+#quiz .finished.can-be-better .score {
+    background-color: #f64b58;
+}
+
+#quiz .finished .score .correct.count {
+    font-size: 57px;
+}
+
+.finished nav {
+    margin-top: 32px;
+    margin-bottom: 78px;
+}
+
+.finished button {
+    width: 152px;
+    height: 44px;
+    margin: 0;
+    border-radius: 22px;
+    background-color: #3ab4f2;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    border: none;
+}
+
+.finished button.again {
+    color: #3ab4f2;
+    background-color: white;
+    border: 3px solid #3ab4f2;
+    margin-left: 18px;
+}
+
+#confetti{
+	height: 100%;
+	left: 0px;
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	z-index: 99;
+    display: none;
+}
+
+
+@media only screen and (max-width: 340px) {
+    #quiz {
+        transform: scale(0.8);
+        width: 125%;
+        height: 125%;
+        transform-origin: top right;
+    }
+}
+
+
