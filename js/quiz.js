@@ -437,7 +437,8 @@
 
     var count = 0,
         correctCount = 0,
-        maxQuestions = 5;
+        maxQuestions = 5,
+        disabled = false;
 
     // start the quiz
 
@@ -458,6 +459,8 @@
 
     function showNextQuestion() {
         var question = questions[count++];
+        disabled = false;
+
         $('#confetti').hide()
 
         $('#quiz .question .option.wrong').removeClass('wrong')
@@ -476,6 +479,8 @@
     }
     
     $('#quiz .question .option').on("click", function () {
+        if(disabled) return;
+        disabled = true;
         var question = questions[count-1];
         if(this.classList.contains(question.correct)) {
             this.classList.add('correct');
