@@ -498,10 +498,13 @@
                 }
                 $('#quiz .finished .correct.count').text(correctCount)
                 count = correctCount = 0;
-            }, 3000)
-            
+            }, 3000);
         }
     });
+
+    $('#quiz .exit').on('click', () => {
+      $('#quiz').hide();
+    })
 
 
     /* Confetti by Patrik Sv/* Confetti by Patrik Svensson (http://metervara.net) */
