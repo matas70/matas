@@ -442,6 +442,9 @@
     // start the quiz
 
     $(".quiz.button, #quiz .finished .again").on('click', function () {
+
+        toggleListView();
+
         $('#quiz').css('display', 'block').animate({
             'opacity': 1
         }, 1000)
