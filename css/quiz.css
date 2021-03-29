@@ -36,11 +36,17 @@
     
 }
 
+#quiz .cover {
+    background-image: url("/icons/quiz/pictures/מטוסי קרב 2.jpg");
+    height: 50vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 #quiz .question {
     position: relative;
     padding-right: 19px;
     padding-left: 16px;
-    padding-top: 63px;
+    padding-top: 29px;
 }
 #quiz .question .counter{
     position: absolute;
@@ -53,9 +59,12 @@
 }
 #quiz .question .title{
     font-size: 20px;
+    font-weight: normal;
+    margin: 0;
+    margin-left: 56px;
 }
 #quiz .question .counter .current{
-    font-size: 30px;
+    font-size: 38px;
 }
 
 #quiz .question .option{

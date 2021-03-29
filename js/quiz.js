@@ -409,6 +409,32 @@
         'ג': 'c'
       }[q.correct] || q.correct)
 
+      questions.forEach(q => q.category = {
+        "כללי": [
+            'כללי',
+            'כללי2',
+            'כללי3'
+        ],
+        "מלחמות ישראל": [
+            "מלחמות ישראל",
+            "מלחמות ישראל2",
+            "מלחמות ישראל3"
+        ],
+        "מטוסי קרב": [
+            "מטוס קרב 1",
+            "מטוסי קרב 2"
+        ],
+        "הגנ\"א": ["הגנא"],
+        "יחידות מיוחדות": [
+            "יחידות מיוחדות 1",
+            "יחידות מיוחדות 2",
+            "יחידות מיוחדות 3"
+        ],
+        "כטמ\"ם": ["כטממ"],
+        "מערך הבקרה והפיקוח": ["בקרה ופיקוח"],
+        "מסוקי קרב": ["מסקר"]
+      }[q.category] || [q.category])
+
     var count = 0,
         correctCount = 0,
         maxQuestions = 5;
@@ -434,6 +460,10 @@
         $('#quiz .question .option.wrong').removeClass('wrong')
         $('#quiz .question .option.correct').removeClass('correct')
 
+        $('#quiz .cover').css({
+            "background-image": `url('/icons/quiz/pictures/${question.category.sort(()=>Math.random()-0.5)[0]}.jpg')`
+        })
+
         $('#quiz .question .title').text(question.title)
         $('#quiz .question .option.a').text(question.a)
         $('#quiz .question .option.b').text(question.b)
@@ -441,7 +471,7 @@
         $('#quiz .question .counter .current').text(count)
         $('#quiz .question .counter .total').text(maxQuestions)
     }
-
+    
     $('#quiz .question .option').on("click", function () {
         var question = questions[count-1];
         if(this.classList.contains(question.correct)) {
