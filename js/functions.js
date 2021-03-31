@@ -1085,6 +1085,11 @@ function updateAircraftIcons() {
 var selectedPointId;
 
 function selectLocation(pointId, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor, minimized = false) {
+    localStorage.setItem('recently-opened-location', true);
+    setTimeout(() => {
+        localStorage.setItem('recently-opened-location', false);
+    }, 500);
+    
     if (locations[pointId].options && locations[pointId].options.liveStream) {
         $('#liveStream').attr('src', locations[pointId].options.liveStream);
     }

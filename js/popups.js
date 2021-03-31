@@ -837,7 +837,10 @@ function closeMapClusterPopup(clearMap) {
 }
 
 function closeAllPopups() {
-    deselectLocation();
+    if (localStorage.getItem('recently-opened-location') !== 'true') {
+        deselectLocation();
+    }
+
     deselectAircraft();
     //closeVoiceMessagePopup();
     if (!isDesktop()) {
