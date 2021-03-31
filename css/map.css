@@ -842,10 +842,21 @@ hr {
 
 .timeline-warning {
     font-size: 15px;
-    text-align: center;
+    /* text-align: center; */
     color: #293b57;
     margin-top: 12px;
+    margin-right: 12px;
     margin-bottom: 12px;
+}
+
+div.quiz-tab{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+div.quizIcon{
+    margin-right: 12px;
 }
 
 .aircraftCategory {
