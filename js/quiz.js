@@ -2,38 +2,6 @@
 
     var questions = [
         {
-          "title": "דוגמה - מהו חיל האוויר?",
-          "a": "חייל שיודע לנשום",
-          "b": "זרוע האוויר והחלל של צה\"ל",
-          "c": "אגודת חובבי הרחפנים בישראל",
-          "correct": "ב",
-          "category": "כללי"
-        },
-        {
-          "title": "דוגמה - באיזה מועד היתה מלחמת יום כיפור?",
-          "a": "חנוכה",
-          "b": "פסח",
-          "c": "יום הכיפורים",
-          "correct": "ג",
-          "category": "מלחמות ישראל"
-        },
-        {
-          "title": "דוגמה - איזה מטוס הכי חדש?",
-          "a": "F15",
-          "b": "F16",
-          "c": "F35",
-          "correct": "ג",
-          "category": "מטוסי קרב"
-        },
-        {
-          "title": "דוגמה - מה מהמטוסים הבאים הוא F35?",
-          "a": "אדיר",
-          "b": "יסעור",
-          "c": "בז",
-          "correct": "א",
-          "category": "מטוסי קרב"
-        },
-        {
           "title": "מה תפקידה של מערכת ה\"חץ\"?",
           "a": "יירוט מטוסי אויב",
           "b": "יירוט טילים ארוכי טווח",
@@ -444,7 +412,7 @@
 
     $(".quiz.button, #quiz .finished .again").on('click', function () {
 
-        toggleListView();
+        if(isMenuOpen) toggleListView();
 
         $('#quiz').css('display', 'block').animate({
             'opacity': 1
@@ -486,9 +454,10 @@
 
     $('#quiz .question .test').on("click", function () {
       if(disabled) return;
+      var marked = document.querySelector('#quiz .question .option.marked')
+      if(!marked) return;
       disabled = true;
       var question = questions[count-1];
-      var marked = document.querySelector('#quiz .question .option.marked')
 
       if(marked.classList.contains(question.correct)) {
         marked.classList.add('correct');

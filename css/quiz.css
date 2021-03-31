@@ -36,6 +36,9 @@
     opacity:0;
     
 }
+#quiz * {
+    font-family: Heebo;
+}
 
 #quiz .cover {
     background-image: url("/icons/quiz/pictures/מטוסי קרב 2.jpg");
@@ -213,6 +216,11 @@
     margin-left: 18px;
 }
 
+
+.finished button.exit::before {
+    content: 'חזרה למפה';
+}
+
 #confetti{
 	height: 100%;
 	left: 0px;
@@ -240,5 +248,8 @@
     }
     #quiz .cover{
         height: 200px;
+    }
+    .finished button.exit::before {
+        content: 'יציאה';
     }
 }
