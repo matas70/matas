@@ -463,6 +463,9 @@
 
         $('#confetti').hide()
 
+        $('#quiz .question .option').css({ "display": "none" })
+        setTimeout(() => $('#quiz .question .option').css({ "display": "block" }), 10);
+
         $('#quiz .question .option.marked').removeClass('marked');
         $('#quiz .question .option.wrong').removeClass('wrong')
         $('#quiz .question .option.correct').removeClass('correct')
