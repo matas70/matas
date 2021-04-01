@@ -112,7 +112,7 @@
 }
 #quiz .question .option.wrong::after{
     content: '';
-    background-image: url('/icons/quiz/true\ icon.svg');
+    background-image: url('/icons/quiz/false\ icon.svg');
 }
 #quiz .question .option.correct{
     background-color: #64e1a5;
