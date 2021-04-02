@@ -715,7 +715,7 @@ setTimeout(() => {
 
     function animate() {
         let render;
-        render = isSupported ? baseRender : iosRender;
+        render = () => isSupported ? baseRender() : iosRender();
         renderer.setAnimationLoop(render);
     }
 
