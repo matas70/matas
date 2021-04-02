@@ -845,7 +845,6 @@ function checkIfSimulationEnded() {
 var notifiedNearUser = false;
 
 function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
-    console.log('animate');
     
     var animationTime = 2000;
 
@@ -970,19 +969,17 @@ function calcStep(currentAzimuth, previousAzimuth) {
 function setAircraftIcon(marker, icon, acId, country, azimuth, color, zoomLevel) {
     var imgUrl;
     var staticUrl;
-
-    if (zoomLevel >= 9) {
-        imgUrl = "icons/aircrafts/" + icon + ".svg";
+    
+    if (zoomLevel >= 9) { 
+        imgUrl = '/icons/aircrafts/' + icon + '.svg?' + acId;
         staticUrl = country == null ? null : "icons/countries/" + country + ".svg";
     } else {
-        imgUrl = "icons/arrow.svg";
+        imgUrl = 'icons/arrow.svg?' + acId;
         staticUrl = null;
     }
 
-    imgUrl = '/icons/aircrafts/' + icon + '.svg?' + acId;
     mapAPI.setAircraftMarkerIcon(marker, imgUrl);
     setTimeout(() => {
-        $(`img[src*="?${acId}"]`).css("opacity",  1)
         $(`img[src*="?${acId}"]`).css("transform",  'rotate(' + azimuth + 'deg)')
     }, 300);
 }
