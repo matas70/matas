@@ -36,6 +36,15 @@
   
   #ARButton {
     z-index: 9999;
+    background-image: url('/icons/3d-button.png');
+    text-indent: -1000px;
+    width: 41px;
+    height: 34px;
+    background-size: contain;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    overflow: hidden;
   }
   
   
