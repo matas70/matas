@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "live-server --https=node_modules/live-server-https",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,7 +26,6 @@
     "leaflet.markercluster": "^1.4.1",
     "live-server": "^1.2.1",
     "live-server-https": "0.0.2",
-    "three": "^0.126.1",
     "time-js": "0.0.5"
   }
 }
