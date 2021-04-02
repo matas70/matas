@@ -29,6 +29,13 @@
       position: relative;
       z-index: -1;
   }
+  .ar-active .ar-dom-element {
+    z-index: 998;
+    position: relative;
+  }
+  .ar-active #ar-overly {
+    z-index: 999;
+  }
   
   .is-selecting #ar-overly button {
     opacity: 0;
@@ -82,13 +89,13 @@
   }
   
   #ar-overly #controls #button-reset {
-    background-image: url('./assets/Icon material-undo-1.svg');
+    background-image: url('/assets/Icon material-undo-1.svg');
   }
   #ar-overly  #controls #button-action {
-    background-image: url('./assets/flash.svg');
+    background-image: url('/assets/flash.svg');
   }
   #ar-overly #controls #button-close {
-    background-image: url('./assets/x.svg');
+    background-image: url('/assets/x.svg');
   }
   #ar-overly  #controls #button-mode-toggle {
     color: white;
@@ -104,10 +111,10 @@
   }
   
   #ar-overly #controls #button-mode-toggle .dynamic-mode {
-    background-image: url(./assets/dynamic-mode.svg);
+    background-image: url(/assets/dynamic-mode.svg);
   }
   #ar-overly #controls #button-mode-toggle .static-mode {
-    background-image: url(./assets/static-mode.svg);
+    background-image: url(/assets/static-mode.svg);
   }
   
   #ar-overly #controls #button-mode-toggle::after {

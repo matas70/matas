@@ -118,7 +118,7 @@ class ARButton {
 			button.onmouseenter = null;
 			button.onmouseleave = null;
 
-			button.onclick = null;
+			button.onclick = ()=>document.body.classList.add('ar-active');
 
 		}
 
@@ -126,7 +126,7 @@ class ARButton {
 
 			disableButton();
 
-			button.textContent = 'AR NOT SUPPORTED';
+			button.textContent = 'תלת מימד (ללא AR)';
 
 		}
 

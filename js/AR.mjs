@@ -236,6 +236,7 @@ setTimeout(() => {
         container = document.createElement('div');
         document.body.appendChild(container);
         container.appendChild(renderer.domElement);
+        container.classList.add('ar-dom-element')
 
         const arButton = ARButton.createButton(renderer, {
             optionalFeatures: ['dom-overlay', 'dom-overlay-for-handheld-ar'],
@@ -301,6 +302,7 @@ setTimeout(() => {
 
         document.getElementById("button-close").addEventListener("click", (e) => {
             resetScene();
+            document.body.classList.remove('ar-active')
         });
         document.getElementById('button-mode-toggle').addEventListener("click", function () {
             if (mode == 'static') {
