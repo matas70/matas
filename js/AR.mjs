@@ -1,13 +1,13 @@
-import * as THREE from '../node_modules/three/build/three.module.js';
-import { TubePainter } from '../node_modules/three/examples/jsm/misc/TubePainter.js';
+import * as THREE from 'https://unpkg.com/three@0.126.1/build/three.module.js';
+import { TubePainter } from 'https://unpkg.com/three@0.126.1/examples/jsm/misc/TubePainter.js';
 import { ARButton } from './ARButton.js';
-import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+import { GLTFLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/GLTFLoader.js';
 //import * as HTML from '../node_modules/html2canvas/dist/html2canvas.min.js';
-import { MTLLoader } from '../node_modules/three/examples/jsm/loaders/MTLLoader.js';
-import { OBJLoader } from '../node_modules/three/examples/jsm/loaders/OBJLoader.js';
-import { OrbitControls } from "../node_modules/three/examples/jsm/controls/OrbitControls.js";
+import { MTLLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/MTLLoader.js';
+import { OBJLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/OBJLoader.js';
+import { OrbitControls } from "https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js";
 
-import { EXRLoader } from '../node_modules/three/examples/jsm/loaders/EXRLoader.js';
+import { EXRLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/EXRLoader.js';
 
 const html = `<div id="controls">
 <button id="button-reset" alt="Draw"></body>
@@ -120,7 +120,7 @@ setTimeout(() => {
         // { id: "cake", type: "glb", scale: 0.04, text: "cake" },
         // { id: "present", type: "glb", scale: 0.09, text: "present" },
     ];
-
+    
     init();
     animate();
 
@@ -244,7 +244,7 @@ setTimeout(() => {
         });
 
         document.getElementById("aircraftInfo3D").appendChild(arButton);
-
+        
         window.addEventListener('load', startup, false);
         var streaming = false;
 
