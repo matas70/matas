@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap');
 
 #overlay {
   position: absolute;
@@ -734,4 +734,27 @@ border: none;
 
 #tutorial .step-2, #tutorial .step-3 {
 display: none;
+}
+
+#ar-overly .share {
+  bottom: 30px;
+  position: absolute;
+  width: 189px;
+  height: 44px;
+  border-radius: 22px;
+  text-align: center;
+  text-indent: -1000px;
+  overflow: hidden;
+  background-image: url(/icons/share-button.svg);
+  background-size: cover;
+  background-position: center center;
+}
+
+#ar-overly .share::before {
+  content: "שיתוף עם חברים";
+  color: white;
+  font-family: Heebo;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 44px;
 }
