@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="61.455" height="48.503" viewBox="0 0 61.455 48.503">
+    <defs>
+        <filter id="nnlg85phxa" width="45.354" height="35.386" x="16.101" y="13.117" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="hl0xo05lob" width="45.007" height="45.02" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur-2" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur-2" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g>
+        <g>
+            <g filter="url(#nnlg85phxa)" transform="translate(-188.839 -5.487) translate(-12.414) translate(201.254 5.485)">
+                <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5px" d="M10826.007-4743.271s5.958 7.684 11.05 2.591 9.431-7.051 8-10.721-7.5-5.264-9.657 0 4.389 8.13 10.291 8.13c2.966 0 4.532.854 5.592 2.369-.112-.177-.055-.089 0 0" transform="translate(-10799.85 4774.65)"/>
+            </g>
+        </g>
+        <g filter="url(#hl0xo05lob)" transform="translate(-188.839 -5.487) translate(188.84 5.49)">
+            <path fill="none" stroke="#fff" d="M4.12 3.438l24.988 13.519a.523.523 0 0 1-.038.931l-4.263 1.606a1.008 1.008 0 0 0-.563.525l-3.313 6.819c-.063.3-.619.381-.625.075l.506-5.638a2.009 2.009 0 0 0-.456-1.138L7.4 7.444a.313.313 0 0 0-.281-.081.3.3 0 0 0-.163.475L18.127 21.5a2.5 2.5 0 0 1 .438 1.125l.669 4.869c-.056.425-.388.588-.656.206l-2.406-2.825a.5.5 0 0 0-.706-.119l-6.2 4.519a.5.5 0 0 1-.788-.306L3.389 4a.507.507 0 0 1 .731-.562z" transform="translate(6.13 3.14)"/>
+        </g>
+    </g>
+</svg>

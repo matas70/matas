@@ -102,43 +102,60 @@
 #ar-overly #controls #button-close {
   background-image: url('/assets/x.svg');
 }
-#ar-overly  #controls #button-mode-toggle {
+#ar-overly #controls #button-mode-toggle {
   color: white;
-  width: 130px;
+  width: 140px;
   position: relative;
 }
 
 #ar-overly #controls #button-mode-toggle > * {
   display: inline-block;
-  width: 48px;
-  height: 35px;
   background-repeat: no-repeat;
 }
 
 #ar-overly #controls #button-mode-toggle .dynamic-mode {
-  background-image: url(/assets/dynamic-mode.svg);
+  width: 50px;
+  height: 45px;
 }
+
 #ar-overly #controls #button-mode-toggle .static-mode {
-  background-image: url(/assets/static-mode.svg);
+  width: 55px;
+  height: 45px;
+}
+
+#ar-overly #controls #button-mode-toggle.dynamic .dynamic-mode {
+  background-image: url('/assets/dynamic-icon-selected.svg');
+}
+
+#ar-overly #controls #button-mode-toggle.dynamic .static-mode {
+  background-image: url('/assets/static-icon.svg');
+}
+
+#ar-overly #controls #button-mode-toggle.static .dynamic-mode {
+  background-image: url('/assets/dynamic-icon.svg');
+}
+
+#ar-overly #controls #button-mode-toggle.static .static-mode {
+  background-image: url('/assets/static-icon-selected.svg');
 }
 
 #ar-overly #controls #button-mode-toggle::after {
   content: '';
-  width: 54.5px;
+  width: 50px;
   height: 3px;
-  background-color: lightblue;
+  background-color: #3BB5F2;
   display: block;
   position: absolute;
-  right: 0;
+  right: 10px;
   transition: all 0.2s;
 }
 
-#ar-overly  #controls #button-mode-toggle:focus {
+#ar-overly #controls #button-mode-toggle:focus {
   outline: none;
 }
 
 #ar-overly #controls #button-mode-toggle.static::after {
-  right: 100%;
+  right: 85%;
   transform: translateX(100%);
 }
 
@@ -406,47 +423,6 @@ background-repeat: no-repeat;
 background-size: contain;
 }
 
-#controls #button-reset {
-background-image: url('/assets/Icon material-undo-1.svg');
-}
-#controls #button-action {
-background-image: url('/assets/flash.svg');
-}
-#controls #button-close {
-background-image: url('/assets/x.svg');
-}
-#controls #button-mode-toggle {
-color: white;
-width: 130px;
-position: relative;
-}
-
-#controls #button-mode-toggle > * {
-display: inline-block;
-width: 48px;
-height: 35px;
-background-repeat: no-repeat;
-}
-
-#controls #button-mode-toggle::after {
-content: '';
-width: 54.5px;
-height: 3px;
-background-color: lightblue;
-display: block;
-position: absolute;
-right: 0;
-transition: all 0.2s;
-}
-
-#controls #button-mode-toggle:focus {
-outline: none;
-}
-
-#controls #button-mode-toggle.static::after {
-right: 100%;
-transform: translateX(100%);
-}
 
 .tool-button {
 height: 50px;

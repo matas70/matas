@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60.949" height="47.989" viewBox="0 0 60.949 47.989">
+    <defs>
+        <filter id="aewkxtddia" width="45.354" height="35.386" x="15.595" y="12.604" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="zwzfo59xib" width="44" height="43.999" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur-2" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur-2" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g>
+        <g filter="url(#aewkxtddia)" transform="translate(-189.346 -6.001) translate(189.35 6.005)">
+            <path fill="none" stroke="#3bb5f2" stroke-linecap="round" stroke-width="1.5px" d="M10826.007-4743.271s5.958 7.684 11.05 2.591 9.431-7.051 8-10.721-7.5-5.264-9.657 0 4.389 8.13 10.291 8.13c2.966 0 4.532.854 5.592 2.369-.112-.177-.055-.089 0 0" transform="translate(-10800.36 4774.14)"/>
+        </g>
+        <g filter="url(#zwzfo59xib)" transform="translate(-189.346 -6.001) translate(189.35 6)">
+            <path fill="#3bb5f2" d="M4.12 3.438l24.988 13.519a.523.523 0 0 1-.038.931l-4.263 1.606a1.008 1.008 0 0 0-.563.525l-3.313 6.819c-.063.3-.619.381-.625.075l.506-5.638a2.009 2.009 0 0 0-.456-1.138L7.4 7.444a.313.313 0 0 0-.281-.081.3.3 0 0 0-.163.475L18.127 21.5a2.5 2.5 0 0 1 .438 1.125l.669 4.869c-.056.425-.388.588-.656.206l-2.406-2.825a.5.5 0 0 0-.706-.119l-6.2 4.519a.5.5 0 0 1-.788-.306L3.389 4a.507.507 0 0 1 .731-.562z" transform="translate(5.62 2.62)"/>
+        </g>
+    </g>
+</svg>
