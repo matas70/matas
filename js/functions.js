@@ -686,6 +686,10 @@ function onAboutButtonClick() {
     previousHash.push(aboutHash);
     window.location.hash = aboutHash;
 
+    gtag('event', 'about_popup_open', {
+        'event_category': 'ui_interaction'
+    });
+
     deselectAircraft();
     deselectLocation();
     if (!aboutVisible) {
@@ -2203,6 +2207,17 @@ function initMap() {
                 window.location.replace(window.location.href + "press.html");
             }, 0);
         }
+
+        navigator.permissions.query({name: 'geolocation'}).then(function(PermissionStatus) {
+            if (PermissionStatus.state === 'prompt') {
+                PermissionStatus.onchange = function(){
+                    gtag('event', 'permission_set', {
+                        'event_category': 'geo_location',
+                        'event_label': this.state
+                    });
+                }
+            }
+        })
     });
 }
 
