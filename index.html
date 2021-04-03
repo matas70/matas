@@ -13,6 +13,7 @@
     <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
 
     <link rel="stylesheet" href="css/map.css">
+    <link rel="stylesheet" href="css/AR.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/hamburgers.css">
     <link rel="stylesheet" href="css/quiz.css">
@@ -48,6 +49,8 @@
                 $.getScript("js/utils.js"),
                 $.getScript("js/firebaseInteraction.js"),
                 $.getScript("js/quiz.js"),
+                $.getScript('https://unpkg.com/smooth-scroll-into-view-if-needed/umd/smooth-scroll-into-view-if-needed.min.js'),
+                $.getScript('https://cdn.jsdelivr.net/npm/ua-parser-js@0/dist/ua-parser.min.js'),
 
                 $.Deferred(function( deferred ){
                     $( deferred.resolve );
@@ -55,6 +58,7 @@
             ).done(function(){
                 $.getScript("js/functions.js").then(()=>{
                     onLoad();
+                    initAR();
                 });
             });
         }
@@ -64,6 +68,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-functions.js"></script>
+    <script type="module" src="js/AR.mjs" async></script>
 <div id="wrapper">
     <!-- page header -->
     <header id="headerMobile">
@@ -276,6 +281,7 @@
             <div id="aircraftInfoText">
                 <div id="aircraftInfoName"></div>
                 <div id="aircraftInfoType"></div>
+                <div id="aircraftInfo3D"></div>
             </div>
                 <div id="aircraftInfoEventIconContainer">
                     <img id="aircraftInfoEventIcon" src="icons/aircraft-menu/aerobatic.svg"/>

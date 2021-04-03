@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="486" height="48" viewBox="0 0 486 48">
+  <defs>
+    <clipPath id="clip-path">
+      <rect x="-33" y="-6" width="448" height="48" fill="none"/>
+    </clipPath>
+    <filter id="Ellipse_51" x="409" y="0" width="48" height="48" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_163" data-name="Group 163" transform="translate(147 -10)">
+    <path id="Icon_material-color-lens" data-name="Icon material-color-lens" d="M18,4.5a13.5,13.5,0,0,0,0,27,2.251,2.251,0,0,0,1.665-3.765A2.242,2.242,0,0,1,21.345,24H24a7.5,7.5,0,0,0,7.5-7.5C31.5,9.87,25.455,4.5,18,4.5ZM9.75,18A2.25,2.25,0,1,1,12,15.75,2.247,2.247,0,0,1,9.75,18Zm4.5-6A2.25,2.25,0,1,1,16.5,9.75,2.247,2.247,0,0,1,14.25,12Zm7.5,0A2.25,2.25,0,1,1,24,9.75,2.247,2.247,0,0,1,21.75,12Zm4.5,6a2.25,2.25,0,1,1,2.25-2.25A2.247,2.247,0,0,1,26.25,18Z" transform="translate(307.5 11.5)" fill="#fff"/>
+    <g id="Scroll_Group_6" data-name="Scroll Group 6" transform="translate(-114 16)" clip-path="url(#clip-path)" style="isolation: isolate">
+      <g transform="matrix(1, 0, 0, 1, -33, -6)" filter="url(#Ellipse_51)">
+        <circle id="Ellipse_51-2" data-name="Ellipse 51" cx="15" cy="15" r="15" transform="translate(418 6)" fill="#fff"/>
+      </g>
+      <circle id="Ellipse_52" data-name="Ellipse 52" cx="12.5" cy="12.5" r="12.5" transform="translate(0 4)" fill="#8e8e93"/>
+      <circle id="Ellipse_52-2" data-name="Ellipse 52" cx="12.5" cy="12.5" r="12.5" transform="translate(35 4)" fill="#080c1a"/>
+      <circle id="Ellipse_52-3" data-name="Ellipse 52" cx="12.5" cy="12.5" r="12.5" transform="translate(70 4)" fill="#37474f"/>
+      <circle id="Ellipse_52-4" data-name="Ellipse 52" cx="12.5" cy="12.5" r="12.5" transform="translate(105 4)" fill="#455773"/>
+      <circle id="Ellipse_52-5" data-name="Ellipse 52" cx="12.5" cy="12.5" r="12.5" transform="translate(140 4)" fill="#64e1a5"/>
+      <circle id="Ellipse_52-6" data-name="Ellipse 52" cx="12.5" cy="12.5" r="12.5" transform="translate(175 4)" fill="#3bb5f2"/>
+      <circle id="Ellipse_52-7" data-name="Ellipse 52" cx="12.5" cy="12.5" r="12.5" transform="translate(210 4)" fill="#9789e8"/>
+      <circle id="Ellipse_52-8" data-name="Ellipse 52" cx="12.5" cy="12.5" r="12.5" transform="translate(245 4)" fill="#f64bdc"/>
+      <circle id="Ellipse_52-9" data-name="Ellipse 52" cx="12.5" cy="12.5" r="12.5" transform="translate(280 4)" fill="#f64b58"/>
+      <circle id="Ellipse_52-10" data-name="Ellipse 52" cx="12.5" cy="12.5" r="12.5" transform="translate(315 4)" fill="#f5a623"/>
+      <path id="Path_165" data-name="Path 165" d="M12.5,0A12.5,12.5,0,1,1,0,12.5,12.5,12.5,0,0,1,12.5,0Z" transform="translate(350 4)" fill="#fee857"/>
+    </g>
+  </g>
+</svg>
