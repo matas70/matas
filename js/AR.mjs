@@ -316,7 +316,7 @@ setTimeout(() => {
         planeMesh = new THREE.Mesh(geometry, material);
         planeMesh.position.y = - 50;
         planeMesh.rotation.x = - Math.PI * 0.5;
-        scene.add(planeMesh);
+        // scene.add(planeMesh);
 
         THREE.DefaultLoadingManager.onLoad = function () {
 
