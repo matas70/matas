@@ -186,6 +186,7 @@ setTimeout(() => {
         { id: "f35", type: "glb", scale: 0.1, text: "f35" },
         { id: "f16", type: "gltf", scale: 0.005, text: "f16" },
         { id: "karnaf", type: "glb", scale: 0.035, text: "karnaf" },
+        { id: "lavie", type: "glb", scale: 0.026, text: "lavie" },
     ]
 
     const TRAILS_META_DATA = [
