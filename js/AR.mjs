@@ -42,6 +42,9 @@ const html = `<div id="controls">
         </div>
         <img class="flip-camera" src="./assets/flip-camera.svg" alt="Flip Camera"> -->
     </div>
+    <div class="share">
+        
+    </div>
 </div>
 <div id="tutorial">
     <div class="step step-1">
@@ -372,6 +375,23 @@ setTimeout(() => {
             closebutton: document.getElementById("button-close")
         });
 
+        const shareData = {
+            title: 'כיף לצפות במטוסי חיל האוויר - אצלי בטלפון, בתלת מימד!',
+            text: 'כמה מגניב! באפליקצית מטס יום העצמאות ה73 אני רואה את כל המטוסים בתלת מימד. בואו לנסות גם',
+            url: 'https://matas-iaf.com',
+        }
+        
+        const btn = document.querySelector('#ar-overly .share');
+        
+        // Must be triggered some kind of "user activation"
+        btn.addEventListener('click', async () => {
+            try {
+                await navigator.share(shareData);
+                console.log('המשתמש שיתף בהצלחה את המטס');
+            } catch(err) {
+                console.log('נסיון שיתוף נכשל',err);
+            }
+        }); 
         
 
         window.addEventListener('load', startup, false);
