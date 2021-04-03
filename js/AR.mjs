@@ -385,6 +385,7 @@ setTimeout(() => {
         
         // Must be triggered some kind of "user activation"
         btn.addEventListener('click', async () => {
+            closeScene()
             try {
                 await navigator.share(shareData);
                 console.log('המשתמש שיתף בהצלחה את המטס');
@@ -458,6 +459,11 @@ setTimeout(() => {
 
         window.addEventListener('resize', onWindowResize);
 
+        function closeScene() {
+            arButton.click()
+            document.getElementsByTagName("body")[0].classList.remove("ar-active");
+        }
+
     }
 
     function createVidBackgrounds() {
@@ -504,10 +510,6 @@ setTimeout(() => {
         locations = [];
         scene.remove(painter.mesh);
         loadPainter();
-    }
-
-    function closeScene() {
-        document.getElementsByTagName("body")[0].classList.remove("ar-active");
     }
 
     function resetTrail() {
