@@ -183,10 +183,10 @@ setTimeout(() => {
         { id: "efroni", type: "glb", scale: 0.03, text: "efroni" },
         // { id: "tsofit", type: "glb", scale: 0.2, text: "tsofit" },
         { id: "f15", type: "obj", scale: 0.007, text: "f15" },
-        { id: "sofa", type: "obj", scale: 0.036, text: "sofa" },
         { id: "f35", type: "glb", scale: 0.1, text: "f35" },
         { id: "f16", type: "gltf", scale: 0.005, text: "f16" },
         { id: "karnaf", type: "glb", scale: 0.035, text: "karnaf" },
+        { id: "sofa", type: "obj", scale: 0.036, text: "sofa" },
         { id: "lavie", type: "glb", scale: 0.026, text: "lavie" },
     ]
 
