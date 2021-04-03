@@ -395,9 +395,9 @@ setTimeout(() => {
             }
         })
 
-        // document.getElementById("button-close").addEventListener("click", (e) => {
-        // 	closeScene();
-        // })
+        document.getElementById("button-close").addEventListener("click", (e) => {
+        	closeScene();
+        })
 
         document.getElementById("exit-trail").addEventListener("click", (e) => {
             resetTrail();
@@ -487,8 +487,7 @@ setTimeout(() => {
     }
 
     function closeScene() {
-        let newWindow = window.open("about:blank");
-        window.close();
+        document.getElementsByTagName("body")[0].classList.remove("ar-active");
     }
 
     function resetTrail() {
