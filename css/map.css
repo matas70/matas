@@ -1430,16 +1430,18 @@ hr.aircraftLineSeparator.two {
 
 .locationMarkerIcon {
     display: block;
-    width: 64px;
+    margin-top: -7.25px;
 }
 
 .leafletlocationMarkerIcon {
     display: block;
-    margin-top: -80px;
+    margin-top: -30px;
 }
 
 .locationIconContainer {
-    width: 64px;
+    width: 48px;
+    height: 48px;
+    margin-top: 24px;
     display: inline-flex;
     align-content: center;
     justify-content: center;
@@ -1457,7 +1459,7 @@ hr.aircraftLineSeparator.two {
     white-space: nowrap;
     padding-left: 10px;
     padding-right: 10px;
-    margin-top: -20px;
+    margin-top: -7.5px;
 }
 
 .locationMarkerDiv {
