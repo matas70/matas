@@ -569,7 +569,7 @@ width: 55px;
 height: 55px;
 position: absolute;
 left: calc(50% - 31.5px);
-bottom: 48.5px;
+bottom: 92.5px;
 }
 
 #trails_menu {
@@ -643,7 +643,7 @@ border: 1px solid rgba(255, 255, 255, 0.767);
 
 #settings_menu {
 width: calc(100% - 30px);
-height: 50px;
+height: 94px;
 padding: 0 15px;
 background-color: rgba(0, 0, 0, 0.075);
 backdrop-filter: blur(5px);
