@@ -19,7 +19,7 @@
   "homepage": "https://github.com/matas70/matas#readme",
   "dependencies": {
     "express": "^4.16.3",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "jquery-touch-events": "^1.0.7",
     "jqueryui": "^1.11.1",
     "leaflet": "^1.4.0",
