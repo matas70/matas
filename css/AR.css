@@ -154,7 +154,7 @@
   outline: none;
 }
 
-#ar-overly #controls #button-mode-toggle.static::after {
+#ar-overly #controls #button-mode-toggle.dynamic::after {
   right: 85%;
   transform: translateX(100%);
 }
