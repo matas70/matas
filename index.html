@@ -50,6 +50,7 @@
                 $.getScript("js/firebaseInteraction.js"),
                 $.getScript("js/quiz.js"),
                 $.getScript('https://unpkg.com/smooth-scroll-into-view-if-needed/umd/smooth-scroll-into-view-if-needed.min.js'),
+                $.getScript('https://cdn.jsdelivr.net/npm/ua-parser-js@0/dist/ua-parser.min.js'),
 
                 $.Deferred(function( deferred ){
                     $( deferred.resolve );
@@ -57,6 +58,7 @@
             ).done(function(){
                 $.getScript("js/functions.js").then(()=>{
                     onLoad();
+                    initAR();
                 });
             });
         }

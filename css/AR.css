@@ -50,7 +50,7 @@
   z-index: 9999;
   background-image: url('/icons/3d-button.png');
   text-indent: -1000px;
-  width: 41px;
+  width: 45px;
   height: 34px;
   background-size: contain;
   border: none;
@@ -645,9 +645,9 @@ border: 1px solid rgba(255, 255, 255, 0.767);
 width: calc(100% - 30px);
 height: 94px;
 padding: 0 15px;
-background-color: rgba(0, 0, 0, 0.075);
+/* background-color: rgba(0, 0, 0, 0.075);
 backdrop-filter: blur(5px);
--webkit-backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px); */
 display: flex;
 justify-content: space-between;
 align-items: center;
@@ -737,15 +737,15 @@ display: none;
 }
 
 #ar-overly .share {
-  bottom: 30px;
+  bottom: 23px;
   position: absolute;
   width: 189px;
   height: 44px;
-  border-radius: 22px;
+  border-radius: 23px;
   text-align: center;
   text-indent: -1000px;
   overflow: hidden;
-  background-image: url(/icons/share-button.svg);
+  background-image: url(/assets/share_quiz_result.png);
   background-size: cover;
   background-position: center center;
 }
