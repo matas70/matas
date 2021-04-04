@@ -520,7 +520,7 @@ div #resetbutton.trails_menu_hide {
   line-height: 1.18;
   text-align: center;
   color: #37474f;
-  z-index: 1200;
+  z-index: 12000;
   background-color: #eeeeee;
   border: 1px solid #eff1f1;
   border-radius: 16px;
