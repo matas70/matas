@@ -48,6 +48,14 @@
 	.st1{fill:#596B6A;}
 	.st2{fill:#DBCF9E;}
 	.st3{fill:none;stroke:#EDE2B2;stroke-width:2;stroke-miterlimit:10;}
+  .iaf {
+		transform-box: fill-box;
+		animation: 1s rot infinite linear;
+		transform-origin: center;
+	}
+	@keyframes rot {
+		from { transform: rotate(360deg) }
+	}
 </style><g
      id="g4221"
      transform="matrix(0.2,0,0,0.2,28,27.999998)"><g
@@ -143,7 +151,7 @@
          id="path41"
          d="m 158.6,100.1 -2.1,0 0,-7.3 1.4,-3.3 c 0.4,2.8 0.7,6.1 0.7,9.7 0,0.3 0,0.6 0,0.9 z"
          class="st1" /><g
-         id="g43"><circle
+         id="g43" class="iaf"><circle
            style="fill:#596b6a"
            r="6"
            id="ellipse45"

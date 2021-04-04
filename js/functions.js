@@ -849,7 +849,6 @@ function checkIfSimulationEnded() {
 var notifiedNearUser = false;
 
 function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
-    console.log('animate');
     
     var animationTime = 2000;
 
@@ -921,13 +920,13 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
                 if (calcAngle(currentAircraftAzimuth, angle) < Math.abs(step)) {
                     clearInterval(handle);
                     aircraft.currentAircraftAzimuth = currentAircraftAzimuth % 360;
-                    setAircraftIcon(marker, aircraft.icon, aircraft.country, currentAircraftAzimuth % 360, aircraft.color, zoomLevel);
+                    setAircraftIcon(marker, aircraft.icon, aircraft.aircraftId, aircraft.country, currentAircraftAzimuth % 360, aircraft.color, zoomLevel);
                 } else {
 
                     // console.log("Aircraft " + aircraft.name + ", id: " + aircraft.aircraftId + " is rotating " + step + " degrees from " + angle + " to " + currentAircraftAzimuth+ ", and its distance is " + Math.abs(angle % 360 - currentAircraftAzimuth % 360));
 
                     aircraft.currentAircraftAzimuth = angle += step % 360
-                    setAircraftIcon(marker, aircraft.icon, aircraft.country, angle += step % 360, aircraft.color, zoomLevel);
+                    setAircraftIcon(marker, aircraft.icon, aircraft.aircraftId, aircraft.country, angle += step % 360, aircraft.color, zoomLevel);
                 }
             }, rotationInterval);
         }
@@ -971,19 +970,22 @@ function calcStep(currentAzimuth, previousAzimuth) {
     }
 }
 
-function setAircraftIcon(marker, icon, country, azimuth, color, zoomLevel) {
+function setAircraftIcon(marker, icon, acId, country, azimuth, color, zoomLevel) {
     var imgUrl;
     var staticUrl;
-
-    if (zoomLevel >= 9) {
-        imgUrl = "icons/aircrafts/" + icon + ".svg";
+    
+    if (zoomLevel >= 9) { 
+        imgUrl = '/icons/aircrafts/' + icon + '.svg?' + acId;
         staticUrl = country == null ? null : "icons/countries/" + country + ".svg";
     } else {
-        imgUrl = "icons/arrow.svg";
+        imgUrl = 'icons/arrow.svg?' + acId;
         staticUrl = null;
     }
-    imgUrl = new RotateIcon({url: imgUrl, staticUrl: staticUrl}).setRotation({deg: azimuth}).getUrl();
+
     mapAPI.setAircraftMarkerIcon(marker, imgUrl);
+    setTimeout(() => {
+        $(`img[src*="?${acId}"]`).css("transform",  'rotate(' + azimuth + 'deg)')
+    }, 300);
 }
 
 function startAircraftsAnimation(updateCurrent) {
@@ -1061,7 +1063,7 @@ function addAircraftsToMap() {
 
         var aircraftMarker = mapAPI.createAircraftMarker(currentAircraftPosition, aircraft.name, aircraft.hide, clickCallback);
         if (aircraft.color == undefined) aircraft.color = "darkgray";
-        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.country, currentAircraftAzimuth, aircraft.color, zoomLevel);
+        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.aircraftId, aircraft.country, currentAircraftAzimuth, aircraft.color, zoomLevel);
         aircraftMarker.currentAircraftAzimuth = currentAircraftAzimuth;
         aircraftMarkers[aircraft.aircraftId] = aircraftMarker;
     }, this);
@@ -1082,7 +1084,7 @@ function updateAircraftIcons() {
     var zoomLevel = mapAPI.getZoomLevel();
     aircrafts.forEach(function (aircraft) {
         var aircraftMarker = aircraftMarkers[aircraft.aircraftId];
-        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.country, aircraft.currentAircraftAzimuth, aircraft.color, zoomLevel);
+        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.aircraftId, aircraft.country, aircraft.currentAircraftAzimuth, aircraft.color, zoomLevel);
     }, this);
 }
 
