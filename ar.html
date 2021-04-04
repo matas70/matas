@@ -134,6 +134,10 @@
 					</nav>
 				</div>
 			</div>
+			<div id='no-support-tutorial'>
+				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מסלול" class="index-finger">
+				<span>לחצו כאן כדי להחליף מסלול</span>
+			</div>
 			<!-- <div class="USDZ-container">
         <a rel="ar" href="https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz"><img class="image-model" src="https://developer.apple.com/augmented-reality/quick-look/models/biplane/biplane_2x.jpg" alt="" data-hires-status="replaced"></a>
     </div> -->
@@ -168,6 +172,7 @@
 				if ('xr' in navigator) {
 					navigator.xr.isSessionSupported('immersive-ar').then(function (supported) {
 						isSupported = supported;
+						if(isSupported) document.body.classList.add('is-supported')
 						init();
 						animate();
 						console.log(getCookie('tutorial'));
@@ -209,6 +214,7 @@
 				} else {
 					const message = document.createElement('a');
 					isSupported = false;
+					if(isSupported) document.body.classList.remove('is-supported')
 					init();
 					animate();
 					if (window.isSecureContext == false) {
@@ -535,6 +541,11 @@
 						optionalFeatures: ['dom-overlay', 'dom-overlay-for-handheld-ar'],
 						domOverlay: { root: document.getElementById("ar-overly") },
 						// endSessionCallback: startup,
+						fallback: () =>{
+							document.body.classList.remove('is-supported');
+							arButton.style.display = 'none';
+							isSupported = false;
+						},
 						closebutton: document.getElementById("button-close")
 					});
 
@@ -962,7 +973,7 @@
 
 			function animate() {
 				let render;
-				render = isSupported ? baseRender : iosRender;
+				render = ()=> isSupported ? baseRender() : iosRender();
 				renderer.setAnimationLoop(render);
 			}
 
@@ -1151,8 +1162,15 @@
 			if (getCookie('tutorial')) {
 				const stepFinished = getCookie('tutorial');
 				document.querySelector('.step-1').style.display = 'none';
+				document.querySelector('#no-support-tutorial').style.display = 'none';
 				finishTutorial(stepFinished)
 			}
+
+
+			document.querySelector('#no-support-tutorial').addEventListener('click', () => {
+				document.querySelector('#no-support-tutorial').style.display = 'none';
+				document.cookie = "tutorial=3; expires=Thu, 30 Dec 2021 12:00:00 UTC";
+			})
 
 			function getCookie(cname) {
 				var name = cname + "=";
