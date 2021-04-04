@@ -4,6 +4,7 @@ var minimizedLocationPopupHeight = 100;
 var locationPopupHeight = 200;
 
 
+
 function initPopups() {
     $("#locationPopup").hide();
     $("#aircraftInfoPopup").hide();
