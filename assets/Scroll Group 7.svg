@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="38" height="270" viewBox="0 0 38 270">
+  <defs>
+    <clipPath id="clip-path">
+      <rect y="-194" width="38" height="270" fill="none"/>
+    </clipPath>
+    <filter id="Ellipse_53" x="0" y="194" width="38" height="38" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Scroll_Group_7" data-name="Scroll Group 7" transform="translate(0 194)" clip-path="url(#clip-path)" style="isolation: isolate">
+    <g transform="matrix(1, 0, 0, 1, 0, -194)" filter="url(#Ellipse_53)">
+      <circle id="Ellipse_53-2" data-name="Ellipse 53" cx="10" cy="10" r="10" transform="translate(9 200)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

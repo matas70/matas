@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="46" height="46" viewBox="0 0 46 46">
+  <defs>
+    <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 96 96">
+      <image width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAQAAABIkb+zAAAEmklEQVR4Ae3BfWhVdQDH4e/d+9xM53sKsUhsikgvzn8qG2oQhEqKGUZrRMIqgjIiM+1oRZAoyySwpK2soELxBUtstc0kLSmdopDGHEaKL3OlWW737u5T1LLd/X7n7p7tTM/gPI9CoVAoFAqFQqlgIsuooZE4TezhZQrVf3Av39BVjEoGKfi4iWrcnGCSgo0yLpHMGcYpqIhQQfcOkq4gIsJ6UvOUgocI60jVKTIUNKzEi2kKFkrxZoWChUHsxYtPFTQMZDemFjZzDFOdgoc8akm0ixslRhCnq+8URAygmv+tJ0N/I4c4XdUomMjhc/71ojowC9MmBRXZbAOe1hXUYXpNwUUm9+kKpmMzV/0DGRzGFKNA/QNLsdmq/oFbaMVmhvoDsqjHplr9A8uxiXObUkYGhdxFCcWM0NXFRFqxqVIKyGMWb/MznTWxhUfJ09VAGnuwOUmBusFoVnEBN82sIFd9jcewm6mkGMI6WunOcaaoL1HAWWw+UFI8wjlS08I89R3WYnOaIXJFAdvwIsYs9Q0mEMNmgVwxmUa8ush49QU2YfOVXDGbP+iJXUTkN26nHVOUCXLBQtroqVL5jR3YrJELymmn506RJT9RjE0zQ2VFGXGSi3OZZB6Un9iAzWJZcQ9R3P3Oam4lWyKHySynGZta+YeRtGA6Q54sKOI33FUxRAkYRT2mdsbILyzDZpEsGMyPuGlmjiwopAVTqfxCI6aT5MpAOjtw08h4uaAK0/vyB5OwWSILKnBzgFFyxQOYDskfLMEUZaQMLMRNPUOVBEWY/iQiP7AH0ycyUEIUu0MMU1JkEsO0EgcHBwcHBwcHR16RTxzTdHXBWJqwa+R6uWIYD/Em39NGSuQVUzBdJFMJKOAoducYJyvyKaeONjyRV8zH9KUSkEUtdi3cIQtGsoYL9IC8ohzTOiXgPdyUykAur3KJHpJXPIFptTphOW5el4Gp/EQvyCtKMVXqCspws5U0JSDCEtroFXnFNExH1IHZRLE7SL4SkMnH9Jq8YjQ2cyUiPEsUu7MUKgE57MAH8o7jmGLUcQY3rUxVAtLYhC/kHW/h1UJ1wWp64g0cHBwcHBwcHBx5RzHerFEXzKGdZA6wlDimPPmDGlK3mTQlYDjncBPjXYokijA1yS9MJkZqviZXXVCFm52M1z+4H9N++YeXSMW3DFQXjCWGTYwXiKgDSzB9JP8QYQPdqSZfBiqxiTJLnbAd03PyE2lUkMxasmTgBqKY4sxTJ2RzCdMM+Y0S6rFpYKaseAabVUrAdExRrpP/SGc+H9LMf5r5gofJkgtqMB0lSwmoxLRbfYd0CrmZEkYrKQYTxbRACRjOZUzLdO1xN6bzZCoBr2BTpGuPMkwblYAiWjDtUxDwJKZKdUIe+7ApVxAwH1MD2erAQHZic5pcBQF3YrORoRLpzKYBu+cVDFxHCzatHONX3BwnR0HBdrybqeBgHl69oyAhwl68+IEBChaKaSFVDYxU8LCAdlJxmDEKJh4nSne2MFjBxVRO4u4EZQo6BrCY85h+YRHZ6h/IYgYV1HKERvbzGcuZrFAoFAqFQqFQr/0FR1SBTx160w0AAAAASUVORK5CYII="/>
+    </pattern>
+    <filter id="baseline_gesture_white_48dp" x="0" y="0" width="46" height="46" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#baseline_gesture_white_48dp)">
+    <rect id="baseline_gesture_white_48dp-2" data-name="baseline_gesture_white_48dp" width="28" height="28" rx="14" transform="translate(9 6)" fill="url(#pattern)"/>
+  </g>
+</svg>

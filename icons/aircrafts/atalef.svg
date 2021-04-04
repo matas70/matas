@@ -47,6 +47,14 @@
 	.st0{fill:#6AD6EF;}
 	.st1{fill:#596B6A;}
 	.st2{fill:none;stroke:#90C9E0;stroke-width:2;stroke-miterlimit:10;}
+  .iaf {
+		transform-box: fill-box;
+		animation: 1s rot infinite linear;
+		transform-origin: center;
+	}
+	@keyframes rot {
+		from { transform: rotate(360deg) }
+	}
 </style><g
      id="g5"
      transform="matrix(0.2,0,0,0.2,6.6548151,8.12)"><g
@@ -100,7 +108,7 @@
          inkscape:connector-curvature="0"
          style="fill:#596b6a" /></g><g
        id="g33"><g
-         id="g35"><circle
+         id="g35" class="iaf"><circle
            transform="matrix(0.3229,-0.9464,0.9464,0.3229,-54.3775,241.7227)"
            class="st1"
            cx="141.7"

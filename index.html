@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>יום העצמאות 2020 - 72 שנים למדינת ישראל - מפת מטס חיל האוויר</title>
-    <meta name="description" content="מטס יום העצמאות 2020: איפה ומתי יחלפו המטוסים?  עשרות כלי טיס, יקחו חלק במטס המסורתי לכבוד יום הולדתה ה-72 של מדינת ישראל, שיחלוף מעל עשרות יישובים מצפון עד דרום. היכנסו לאתר מותאם למכשירים סלולריים המאפשר צפייה בזמן אמת במיקום המטוסים על גבי מפה וקבלו מידע אודות המופעים האווריים, המופעים הקרקעיים, התערוכות והפעילויות השונות בבסיסים הפתוחים של חיל האוויר">
-    <meta name="keywords" content="מטס עצמאות,2020,72,חיל האוויר,חיל האויר,מטס 2020, אירועי חיל האוויר 2020,כלי טיס, מטוסי קרב, מסוקים, בסיסים פתוחים חיל האוויר,חגיגות עצמאות">
+    <title>יום העצמאות 2021 - 73 שנים למדינת ישראל - מפת מטס חיל האוויר</title>
+    <meta name="description" content='מטס יום העצמאות 2021: איפה יחלפו המטוסים ומתי? במסגרת אירועי יום העצמאות השנה יתקיים מעבר כלי טיס של הצוות האווירובטי של חיל האוויר. הכנסו לאתר המותאם למכשירים הסלולריים המאפשר צפיה בזמן אמת במיקום המטוסים על גבי מפה, וידאו 360 מתוך הקוקפיט ועוד...'>
+    <meta name="keywords" content="מטס עצמאות,2021,73,חיל האוויר,חיל האויר,מטס 2021, אירועי חיל האוויר 2021,כלי טיס, מטוסי קרב, מסוקים, בסיסים פתוחים חיל האוויר,חגיגות עצמאות">
     <meta name="author" content="חיל האוויר">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="מטס חיל האוויר">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#7bd1fc" />
+    <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
 
     <link rel="stylesheet" href="css/map.css">
+    <link rel="stylesheet" href="css/AR.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/hamburgers.css">
+    <link rel="stylesheet" href="css/quiz.css">
     <link rel="icon" sizes="192x192" href="icons/android_icon.png">
     <link rel="apple-touch-icon" sizes="192x192" href="icons/ios_icon.png">
     <link rel="stylesheet" href="js/leaflet/leaflet.css" />
@@ -24,7 +28,7 @@
     <script src="js/jquery.mobile-events.js"></script>
 
     <link rel="manifest" href="manifest.json">
-
+    
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
     <script>
@@ -45,6 +49,9 @@
                 $.getScript("js/RotateIcon.js"),
                 $.getScript("js/utils.js"),
                 $.getScript("js/firebaseInteraction.js"),
+                $.getScript("js/quiz.js"),
+                $.getScript('https://unpkg.com/smooth-scroll-into-view-if-needed/umd/smooth-scroll-into-view-if-needed.min.js'),
+                $.getScript('https://cdn.jsdelivr.net/npm/ua-parser-js@0/dist/ua-parser.min.js'),
 
                 $.Deferred(function( deferred ){
                     $( deferred.resolve );
@@ -52,6 +59,7 @@
             ).done(function(){
                 $.getScript("js/functions.js").then(()=>{
                     onLoad();
+                    initAR();
                 });
             });
         }
@@ -61,6 +69,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-functions.js"></script>
+    <script type="module" src="js/AR.mjs" async></script>
 <div id="wrapper">
     <!-- page header -->
     <header id="headerMobile">
@@ -76,7 +85,7 @@
             </a>
 
             <divv id="headerIconContainer">
-                <img src="icons/headerLogo.svg" onclick="onAboutButtonClick();" style="width:80px;margin-top:5px;"/>
+                <img src="icons/headerLogo73.svg" onclick="onAboutButtonClick();" style="width:80px;margin-top:5px;"/>
                 <div id="aboutMenuTitle" style="display:none">אודות</div>
             </divv>
             <div style="display: flex; align-items: center;">
@@ -112,6 +121,7 @@
             <!-- Aircrafts -->
             <div class="tab-content" id="aircraft">
                 <p class="timeline-warning">לידיעתכם, ייתכנו שינוים בלוחות הזמנים</p>
+                <div class="button quiz"></div>
                 <div id="aircraftsListView">
 
                 </div>
@@ -119,6 +129,7 @@
             <!-- Locations -->
             <div class="tab-content.active" id="locations">
                 <p class="timeline-warning">לידיעתכם, ייתכנו שינוים בלוחות הזמנים</p>
+                <div class="button quiz"></div>
                 <div id="locationsListView" class="locationsTable">
                 </div>
             </div>
@@ -142,7 +153,7 @@
     </div>
 
     <!-- startup splash screen -->
-    <div class="splash" style="background-image: url('animation/72_Splash-min.gif');background-size: contain; visibility: visible;">
+    <div class="splash" style="background-image: url('animation/73_Splash.gif');background-size: contain; visibility: visible;">
         <div class="loading" style="background-image: url('animation/loading.gif');background-size: contain; display: none;"></div>
     </div>
 
@@ -186,7 +197,7 @@
                         <div id="minutesText">דקות</div>
                     </div>
                 </div>
-                <div class="entranceBody">לתחילת אירועי חיל האוויר - עצמאות 72</div>
+                <div class="entranceBody">לתחילת אירועי חיל האוויר - עצמאות 73</div>
             </div>
         </div>
         <!-- shows popup -->
@@ -230,7 +241,7 @@
                 </div>
                 </div>
             </div>
-            <iframe id="liveStream" style="flex: 1; min-width: 0;" src="https://www.youtube.com/embed/qvpFwXvd5T0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe id="liveStream" style="flex: 1; min-width: 0;" src="https://www.youtube.com/embed/vKnGFIoNEls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <div id="registerToLocationNotifcations">
@@ -250,7 +261,7 @@
             <div id="aircraftsList" class="table">
             </div>
             <div id="noAircraftMessage">
-                אין מטוסים נוספים הצפויים לעבור בנקודה זו השנה
+                המטס כבר חלף מעל נקודה זו
             </div>
         </div>
     </div>
@@ -262,6 +273,7 @@
         <div id="aircraftInfoBannerContainer">
             <img id="aircraftInfoBannerBackground" src=""></img>
             <img id="aircraftInfoBanner" src=""></img>
+            <iframe id="cockpitVideo" style="z-index: 1000000;" src="https://www.youtube.com/embed/Sj-QGdsoelE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="aircraftInfoContentRow aircraftInfoTitle">
             <div id="aircraftIconContainer">
@@ -270,6 +282,7 @@
             <div id="aircraftInfoText">
                 <div id="aircraftInfoName"></div>
                 <div id="aircraftInfoType"></div>
+                <div id="aircraftInfo3D"></div>
             </div>
                 <div id="aircraftInfoEventIconContainer">
                     <img id="aircraftInfoEventIcon" src="icons/aircraft-menu/aerobatic.svg"/>
@@ -338,7 +351,8 @@
                             <div class="aircraftInfoContentText" id="aircraftInfoContentEngine"></div>
                         </div>
                     </div>
-                    <div id="aircraftInfoArmament" class="aircraftInfoContentRowFlex" id="aircraftInfoContentArmamentContainer">
+                    <div id="aircraftInfoArmament" class="aircraftInfoContentRowFlex"
+                        id="aircraftInfoContentArmamentContainer">
                         <img class="aircraftInfoContentIcon" src="images/armament@2x.png">
                         <div class="aircraftInfoContentGroup">
                             <div class="aircraftInfoContentTitle">חימוש</div>
@@ -361,15 +375,17 @@
     <div id="aboutHeaderSpacing" class="aboutHeaderSpacing"></div>
     <div id="aboutLogoDiv">
         <div id="aboutHeader" class="aboutHeader"></div>
-        <img id="aboutLogo" class="aboutLogo" style="top: -100px;width: 200px;" src="icons/bigLogo72.png"/>
+        <img id="aboutLogo" class="aboutLogo" style="top: -100px;width: 200px;" src="icons/bigLogo73.svg"/>
     </div>
     <div class="aboutSpacing"></div>
     <div id="aboutTitle" class="aboutTitle">
-            חג עצמאות שמח!
-     </div>
+        חג עצמאות שמח!
+    </div>
     <div class="aboutSpacing"></div>
     <div id="aboutBody" class="aboutBody">
-        האפליקציה פותחה ע"י <span style ="font-weight: 600;">יחידת אופק 324</span >, היחידה הטכנולוגית המבצעית של חיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות לכבוד חגיגות 72 שנה למדינת ישראל
+        האפליקציה פותחה ע"י <span style="font-weight: 600;">יחידת אופק 324</span>, היחידה הטכנולוגית המבצעית של
+        חיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות לכבוד חגיגות 73 שנה
+        למדינת ישראל
     </div>
     <div class="aboutSpacing"></div>
     <img id="iafLogo"  src="icons/iaf-small.png" class="iafLogo"/>
@@ -387,7 +403,7 @@
     <!-- incompatible browser popup -->
     <div id="incompatibleBrowserPopup" class="aboutPopup" style="display:none">
         <div class="halfBlue">
-            <img class="aboutLogo" src="icons/bigLogo72.png"/>
+            <img class="aboutLogo" src="icons/bigLogo73.svg"/>
             <img src="screenshots/screenshot1.png" class="screenshot"/>
             <div class="aboutTitle">
                 חג עצמאות שמח!
@@ -470,6 +486,42 @@
             </div>
         </div>
     </div>
+
+
+    <div id="quiz">
+        <div class="cover">
+            <img src="/assets/x.svg" class="exit" alt="יציאה מהחידון">
+        </div>
+        <div class='question'>
+            <h2 class='title'></h2>
+            <div class="question-cluster">
+                <div class='option a' style="animation-delay: .0s;"></div>
+                <div class='option b' style="animation-delay: .1s;"></div>
+                <div class='option c' style="animation-delay: .2s;"></div>
+            </div>
+            <button class='test'>בדיקה</button>
+            <div class="counter">
+                <span class="current"></span>
+                /<span class="total"></span>
+            </div>
+        </div>
+        <div class="finished">
+            <h2 class='title'></h2>
+            <h3 class='second title'></h3>
+            <div class="score">
+                <span class="correct count">5</span>/5
+            </div>
+            <nav>
+                <button class='again'>חידון נוסף</button>
+                <button class='exit'></button>
+            </nav>
+
+            <button class='share'>שיתוף עם חברים</button>
+        </div>
+        <div id="confetti"></div>
+    </div>
+
 </div>
+
 </body>
 </html>

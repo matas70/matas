@@ -57,7 +57,16 @@
 	.st0{fill:#DBCF9E;}
 	.st1{fill:#596B6A;}
 	.st2{fill:none;stroke:#EDE2B2;stroke-width:2;stroke-miterlimit:10;}
-</style><title
+  .rotate-helli {
+		transform-box: fill-box;
+		animation: 1s rot infinite linear;
+		transform-origin: center;
+	}
+	@keyframes rot {
+		from { transform: rotate(360deg) }
+	}
+</style>
+<title
      id="title5">Asset 1</title><g
      id="g4206"
      transform="scale(0.2,0.2)"><g
@@ -290,7 +299,7 @@
          id="path45"
          d="m 151.7,81.6 c -1.2,-1.4 -3,-2 -4.7,-2.2 l 0,3.7 c 3.7,0.2 4.9,2.3 4.9,2.3 0,0 0.6,-0.6 1.2,-1.2 -0.3,-1.1 -0.8,-2 -1.4,-2.6 z"
          class="st1" /><g
-         id="g47"><circle
+         id="g47" class="rotate-helli"><circle
            style="fill:#596b6a"
            r="8.6000004"
            id="ellipse49"

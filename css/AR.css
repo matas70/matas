@@ -1,0 +1,777 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap');
+
+#overlay {
+  position: absolute;
+  font-size: 16px;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+#overlay button {
+  background: transparent;
+  border: 0;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 4px;
+  color: #ffffff;
+  padding: 12px 18px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 1s;
+}
+
+#ar-overly *{
+    z-index: -1 !important;
+}
+.ar-active .ar-dom-element {
+  z-index: 998;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+.ar-active #ar-overly *{
+  z-index: 999 !important;
+}
+
+.is-selecting #ar-overly button {
+  opacity: 0;
+}
+
+#ARButton {
+  z-index: 9999;
+  background-image: url('/icons/3d-button.png');
+  text-indent: -1000px;
+  width: 45px;
+  height: 34px;
+  background-size: contain;
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+
+#notSupported {
+  width: 50%;
+  margin: auto;
+  background-color: #f00;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+#ar-overly {
+  direction: ltr;
+}
+
+#ar-overly #controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: calc(100% - 40px);
+  height: 47px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border: none;
+}
+
+#ar-overly #controls button {
+  width: 45px;
+  background-color: rgba(0,0,0,0);
+  box-shadow: none;
+  border: none;
+  height: 45px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#ar-overly #controls #button-reset {
+  background-image: url('/assets/Icon material-undo-1.svg');
+}
+#ar-overly  #controls #button-action {
+  background-image: url('/assets/flash.svg');
+}
+#ar-overly #controls #button-close {
+  background-image: url('/assets/x.svg');
+}
+#ar-overly #controls #button-mode-toggle {
+  color: white;
+  width: 140px;
+  position: relative;
+}
+
+#ar-overly #controls #button-mode-toggle > * {
+  display: inline-block;
+  background-repeat: no-repeat;
+}
+
+#ar-overly #controls #button-mode-toggle .dynamic-mode {
+  width: 50px;
+  height: 45px;
+}
+
+#ar-overly #controls #button-mode-toggle .static-mode {
+  width: 55px;
+  height: 45px;
+}
+
+#ar-overly #controls #button-mode-toggle.dynamic .dynamic-mode {
+  background-image: url('/assets/dynamic-icon-selected.svg');
+}
+
+#ar-overly #controls #button-mode-toggle.dynamic .static-mode {
+  background-image: url('/assets/static-icon.svg');
+}
+
+#ar-overly #controls #button-mode-toggle.static .dynamic-mode {
+  background-image: url('/assets/dynamic-icon.svg');
+}
+
+#ar-overly #controls #button-mode-toggle.static .static-mode {
+  background-image: url('/assets/static-icon-selected.svg');
+}
+
+#ar-overly #controls #button-mode-toggle::after {
+  content: '';
+  width: 50px;
+  height: 3px;
+  background-color: #3BB5F2;
+  display: block;
+  position: absolute;
+  right: 10px;
+  transition: all 0.2s;
+}
+
+#ar-overly #controls #button-mode-toggle:focus {
+  outline: none;
+}
+
+#ar-overly #controls #button-mode-toggle.static::after {
+  right: 85%;
+  transform: translateX(100%);
+}
+
+.tool-button {
+  height: 50px;
+  outline: none;
+  background-color: #ffffff;
+  opacity: 0.3;
+  border-radius: 50px;
+  backdrop-filter: blur(5px);
+  font-size: 15px;
+  font-weight: 900;
+  color: #3d3d3d;
+  margin: 10px;
+}
+
+#screenshot-button{
+    display:inline-block;
+    padding:0.3em 1.2em;
+    margin:0 0.3em 0.3em 0;
+    border-radius:2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#FFFFFF;
+    background-color:#4eb5f1;
+    text-align:center;
+    transition: all 0.2s;
+}
+#screenshot-button:hover{
+    background-color:#4095c6;
+}
+
+#share_fb{
+    display:inline-block;
+    padding:0.3em 1.2em;
+    margin:0 0.3em 0.3em 0;
+    border-radius:2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#FFFFFF;
+    background-color:#4eb5f1;
+    text-align:center;
+    transition: all 0.2s;
+}
+
+#video {
+    border: 1px solid black;
+    box-shadow: 2px 2px 3px black;
+    width: 100%;
+    height: 100%;
+  opacity: 0;
+  }
+  
+  #canvas {
+    display: none;
+  }
+  
+  .camera {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .output {
+    width: 340px;
+    display:inline-block;
+  }
+  
+  #startbutton {
+    display:block;
+    position:relative;
+    margin-left:auto;
+    margin-right:auto;
+    bottom:32px;
+    background-color: rgba(0, 150, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    font-family: "Lucida Grande", "Arial", sans-serif;
+    color: rgba(255, 255, 255, 1.0);
+  }
+  
+  .contentarea {
+    font-size: 16px;
+    font-family: "Lucida Grande", "Arial", sans-serif;
+    width: 760px;
+  }
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#camrea {
+  z-index: -1;
+  position: relative;
+}
+
+#canvas {
+  display: none;
+}
+
+#ar-overly {
+  margin: 0;
+  background-color: #000;
+  color: #fff;
+  font-family: Heebo;
+  font-size: 13px;
+  line-height: 24px;
+  overscroll-behavior: none;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+.buffer {
+  min-width: calc(50vw - 30px);
+}
+
+/*hide scrollbar on mobile*/
+::-webkit-scrollbar {
+display: none;
+}
+/*hide scrollbar on mobile*/
+#style-1::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.1);
+background-color: transparent;
+}
+/*hide scrollbar on mobile*/
+#style-1::-webkit-scrollbar {
+background-color: transparent;
+}
+/*hide scrollbar on mobile*/
+#style-1::-webkit-scrollbar-thumb {
+-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+background-color: transparent;
+}
+
+a {
+color: #ff0;
+text-decoration: none;
+}
+
+a:hover {
+text-decoration: underline;
+}
+
+button {
+cursor: pointer;
+text-transform: uppercase;
+}
+
+canvas {
+height: 100vh;
+width: 100vw;
+}
+
+#info {
+position: absolute;
+top: 0px;
+width: 100%;
+padding: 10px;
+box-sizing: border-box;
+text-align: center;
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+user-select: none;
+pointer-events: none;
+z-index: 1; /* TODO Solve this in HTML */
+}
+
+a,
+button,
+input,
+select {
+pointer-events: auto;
+}
+
+.dg.ac {
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+user-select: none;
+z-index: 2 !important; /* TODO Solve this in HTML */
+}
+
+#overlay {
+position: absolute;
+font-size: 16px;
+z-index: 2;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+background: rgba(0, 0, 0, 0.7);
+}
+
+#overlay button {
+background: transparent;
+border: 0;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 4px;
+color: #ffffff;
+padding: 12px 18px;
+text-transform: uppercase;
+cursor: pointer;
+transition: all 1s;
+}
+
+.is-selecting #ar-overly button {
+opacity: 0;
+}
+
+#ARButton {
+z-index: 9999;
+}
+
+
+#notSupported {
+width: 50%;
+margin: auto;
+background-color: #f00;
+margin-top: 20px;
+padding: 10px;
+}
+
+#controls {
+position: absolute;
+top: 0;
+left: 0;
+z-index: 100;
+width: calc(100% - 40px);
+height: 47px;
+padding: 20px;
+display: flex;
+justify-content: space-between;
+border: none;
+}
+
+#controls button {
+width: 45px;
+background-color: rgba(0,0,0,0);
+box-shadow: none;
+border: none;
+height: 45px;
+background-repeat: no-repeat;
+background-size: contain;
+}
+
+
+.tool-button {
+height: 50px;
+outline: none;
+background-color: #ffffff;
+opacity: 0.3;
+border-radius: 50px;
+backdrop-filter: blur(5px);
+font-size: 15px;
+font-weight: 900;
+color: #3d3d3d;
+margin: 10px;
+}
+
+#screenshot-button{
+display:inline-block;
+padding:0.3em 1.2em;
+margin:0 0.3em 0.3em 0;
+border-radius:2em;
+box-sizing: border-box;
+text-decoration:none;
+font-family:'Roboto',sans-serif;
+font-weight:300;
+color:#FFFFFF;
+background-color:#4eb5f1;
+text-align:center;
+transition: all 0.2s;
+}
+#screenshot-button:hover{
+background-color:#4095c6;
+}
+
+#share_fb{
+display:inline-block;
+padding:0.3em 1.2em;
+margin:0 0.3em 0.3em 0;
+border-radius:2em;
+box-sizing: border-box;
+text-decoration:none;
+font-family:'Roboto',sans-serif;
+font-weight:300;
+color:#FFFFFF;
+background-color:#4eb5f1;
+text-align:center;
+transition: all 0.2s;
+}
+
+
+
+.camera {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+#video {
+  border: 1px solid black;
+  box-shadow: 2px 2px 3px black;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  }
+
+.output {
+width: 340px;
+display:inline-block;
+}
+
+#startbutton {
+display:block;
+position:relative;
+margin-left:auto;
+margin-right:auto;
+bottom:32px;
+background-color: rgba(0, 150, 0, 0.5);
+border: 1px solid rgba(255, 255, 255, 0.7);
+box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.2);
+font-size: 14px;
+font-family: "Lucida Grande", "Arial", sans-serif;
+color: rgba(255, 255, 255, 1.0);
+}
+
+.contentarea {
+font-size: 16px;
+font-family: "Lucida Grande", "Arial", sans-serif;
+width: 760px;
+}
+
+#camrea {
+position: relative;
+}
+
+
+
+
+#aircrafts_menu {
+width: 100%;
+overflow: scroll;
+display: flex;
+align-items: center;
+min-width: 0;
+scroll-snap-type: inline mandatory;
+z-index: 9999;
+}
+
+#aircrafts_menu img {
+display: inline-block;
+width: 100%;
+}
+
+.aircraft-option {
+  padding: 0 !important;
+  flex: 1 0 auto;
+  scroll-snap-align: center;
+  height: 50px;
+  width: 50px;
+  outline: none;
+  background-color: #ffffff6b;
+  border-radius: 50px;
+  backdrop-filter: blur(5px);
+  border: none;
+  box-shadow: 0px 0px 20px 5px rgba(87, 87, 87, 0.445);
+  font-size: 15px;
+  font-weight: 900;
+  color: #3d3d3d;
+  margin: 5px;
+}
+
+.aircraft-option.selected {
+background-color: #ffffff;
+}
+
+.middleCircle {
+border: 4px solid #ffffffd8;
+border-radius: 500px;
+width: 55px;
+height: 55px;
+position: absolute;
+left: calc(50% - 31.5px);
+bottom: 92.5px;
+}
+
+#trails_menu {
+width: 100%;
+overflow: scroll;
+display: flex;
+align-items: center;
+min-width: 0;
+scroll-snap-type: inline mandatory;
+}
+
+div #trails_menu.trails_menu_hide{
+display:  none;
+}
+
+div #resetbutton.trails_menu_hide {
+
+visibility: hidden;
+
+}
+
+#trails_menu img {
+display: inline-block;
+width: 22px;
+}
+
+.trails-option {
+  flex: 1 0 auto;
+  scroll-snap-align: center;
+  height: 28px;
+  width: 28px;
+  outline: none;
+  background-color: #ffffff36;
+  border-radius: 50px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: none;
+  box-shadow: 0px 0px 20px 5px rgba(87, 87, 87, 0.445);
+  font-size: 15px;
+  font-weight: 900;
+  color: #3d3d3d;
+  margin: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0);
+}
+
+.trails-option.selected {
+border: 1px solid rgba(255, 255, 255, 0.767);
+}
+
+.small-x-button {
+  padding: 3px 2px 1px;
+  border-radius: 50px;
+  background-color: black;
+}
+
+
+#menus {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#settings_menu {
+width: calc(100% - 30px);
+height: 94px;
+padding: 0 15px;
+/* background-color: rgba(0, 0, 0, 0.075);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px); */
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.mode-menu {
+display: flex;
+}
+
+.mode-menu div {
+font-size: 17px;
+font-weight: 400;
+width: 50px;
+text-align: center;
+}
+
+.mode-menu .selected {
+font-weight: 600;
+}
+
+/* USDZ */
+.image-model {
+width: 200px;
+border-radius: 10px;
+}
+
+/*********** tutorial **************/
+
+#tutorial {
+width: 65.8%;
+padding: 0 0 48px 0;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+font-family: Heebo;
+font-size: 17px;
+font-weight: bold;
+line-height: 1.18;
+text-align: center;
+color: #37474f;
+z-index: 1200;
+background-color: #eeeeee;
+border: 1px solid #eff1f1;
+border-radius: 16px;
+box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+direction: rtl;
+}
+
+#tutorial p {
+font-size: 14px;
+font-weight: normal;
+line-height: 1.29;
+}
+#tutorial .screen-example {
+height: 337px;
+background-color: #eeeeee;
+}
+
+#tutorial nav > :not(button) {
+width: 10px;
+height: 10px;
+border-radius: 5px;
+display: inline-block;
+margin: 0 11px;
+background-color: #d8d8d8;
+}
+
+#tutorial nav > .active {
+background-color: #8b8b8b;
+}
+
+#tutorial .next {
+height: 48px;
+border-radius: 0 0 16px 16px;
+background-color: #3bb5f2;
+position: absolute;
+left: 0;
+right: 0;
+bottom: 0;
+width: 100%;
+border: none;
+}
+
+#tutorial .step-2, #tutorial .step-3 {
+display: none;
+}
+
+#ar-overly .share {
+  bottom: 23px;
+  position: absolute;
+  width: 189px;
+  height: 44px;
+  border-radius: 23px;
+  text-align: center;
+  text-indent: -1000px;
+  overflow: hidden;
+  background-image: url(/assets/share_quiz_result.png);
+  background-size: cover;
+  background-position: center center;
+}
+
+#ar-overly .share::before {
+  content: "שיתוף עם חברים";
+  color: white;
+  font-family: Heebo;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 44px;
+}
+
+
+#tutorial .screen-example {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+#tutorial .step-1 .screen-example {
+  background-image: url('/images/tutorial/step\ 1.svg');
+}
+#tutorial .step-2 .screen-example {
+  background-image: url('/images/tutorial/step\ 2.png');
+}
+#tutorial .step-3 .screen-example {
+  background-image: url('/images/tutorial/step\ 3.png');
+}

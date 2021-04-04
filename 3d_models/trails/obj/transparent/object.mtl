@@ -1,0 +1,4 @@
+newmtl Variable Gradient Linear _1fb4db42-66a9-46a5-af31-9c6a18c65a47
+Kd 1.000 1.000 1.000
+d 1.000
+map_Kd colorTexture&gradient22.png

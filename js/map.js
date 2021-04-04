@@ -136,8 +136,14 @@ googleMaps = {
         } else {
             iconUrl = googleMaps.getMarkerIconUrl(color, true, aerobatic, label, point);
         }
-
-        var markerHtml = '<div class=\"locationMarkerDivGmaps\"><div class=\"locationIconContainer\"><img class=\"locationMarkerIcon\" src=\"' + iconUrl + '\"/></div><span class=\"locationMarkerLabel\">' + label + '</span></div>';
+        var markerHtml = /*html*/`
+            <div class="locationMarkerDivGmaps">
+                <div class="locationIconContainer">
+                    <img class="locationMarkerIcon" src="${iconUrl}">
+                </div>
+                <span class="locationMarkerLabel">${label}</span>
+            </div>
+        `;
 
         return markerHtml;
     },

@@ -374,6 +374,14 @@ div.splash {
     color: #455773;
     font-weight: lighter;
 }
+#aircraftInfo3D {
+    position: absolute;
+    left: 125px;
+    bottom: 20px;
+    font-family: Heebo;
+    font-size: 10px;
+    color: #293b57;
+}
 
 #aircraftInfoMore {
     width: 100%;
@@ -763,6 +771,7 @@ HEADER {
     background-color: #f7f5f5;
     z-index: 1;
     box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.08);
+    position: relative;
 }
 
 .listViewContainer {
@@ -842,10 +851,21 @@ hr {
 
 .timeline-warning {
     font-size: 15px;
-    text-align: center;
+    /* text-align: center; */
     color: #293b57;
     margin-top: 12px;
+    margin-right: 12px;
     margin-bottom: 12px;
+}
+
+div.quiz-tab{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+div.quizIcon{
+    margin-right: 12px;
 }
 
 .aircraftCategory {
@@ -1410,17 +1430,18 @@ hr.aircraftLineSeparator.two {
 
 .locationMarkerIcon {
     display: block;
-    margin-top: -25px;
+    margin-top: -7.25px;
 }
 
 .leafletlocationMarkerIcon {
     display: block;
-    margin-top: -80px;
+    margin-top: -30px;
 }
 
 .locationIconContainer {
-    width: 128px;
-    height: 128px;
+    width: 48px;
+    height: 48px;
+    margin-top: 24px;
     display: inline-flex;
     align-content: center;
     justify-content: center;
@@ -1438,7 +1459,7 @@ hr.aircraftLineSeparator.two {
     white-space: nowrap;
     padding-left: 10px;
     padding-right: 10px;
-    margin-top: -50px;
+    margin-top: -7.5px;
 }
 
 .locationMarkerDiv {
@@ -1702,6 +1723,12 @@ hr.aircraftLineSeparator.two {
 /* Desktop mode handler */
 
 @media only screen and (min-width: 600px) {
+    
+    #cockpitVideo {
+        border-radius: 20px 20px 0 0;
+        margin-top: 20px;
+    }
+
     #goto-press-button {
         margin-top: 5px;
         border-radius: 5px;
@@ -1739,7 +1766,7 @@ hr.aircraftLineSeparator.two {
     .listViewContainer {
         width: 400px;
         transform: translateX(100%) !important;
-        height: calc(100vh - 50px) !important;
+        height: calc(100vh - 64px) !important;
         margin: 0 400px 0 0;
     }
     .tabs {

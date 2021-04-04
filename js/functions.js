@@ -299,6 +299,7 @@ function cleanPreviousLocations(aircraft) {
     if (!userSimulation) {
         pathPassed.forEach(function (path) {
             var location = locations[path.pointId];
+            if (!location) return false;
             location.aircrafts = location.aircrafts.filter(function (aircraftInPath) {
                 return (aircraftInPath.aircraftId !== aircraft.aircraftId ||
                     aircraftInPath.aircraftId === aircraft.aircraftId && currTime < getActualPathTime(aircraftInPath.date, aircraftInPath.time))
@@ -407,6 +408,12 @@ function glowOnPoint(location, timeOfAerobaticShow) {
 
         // Actually set the icon
         mapAPI.setMarkerIcon(relevantMarker, mapAPI.getMarkerIconToSet(relevantMarker));
+        
+
+        // Rest merker icon
+        setTimeout(() => {
+            mapAPI.setMarkerHtml(relevantMarker, originalMarkerHtml);
+        }, timeOfAerobaticShow);
 
         if (!aerobaticShows[location.pointId]) {
             aerobaticShows[location.pointId] = setTimeout(() => {
@@ -591,6 +598,9 @@ function loadAircrafts(callback) {
                 plannedEndTime = convertTime(startDate, flightData.plannedEndTime);
                 changes = flightData.changes;
 
+                // keep only aircrafts with paths
+                aircrafts = aircrafts.filter(aircraft => aircraft.path.length > 1);
+                
                 // merge info from aircraft type info
                 aircrafts.forEach(function (aircraft) {
                     if (aircraft.aircraftTypeId !== undefined) {
@@ -675,6 +685,10 @@ var selectedAircraftMarkerIcon = null;
 function onAboutButtonClick() {
     previousHash.push(aboutHash);
     window.location.hash = aboutHash;
+
+    gtag('event', 'about_popup_open', {
+        'event_category': 'ui_interaction'
+    });
 
     deselectAircraft();
     deselectLocation();
@@ -835,7 +849,6 @@ function checkIfSimulationEnded() {
 var notifiedNearUser = false;
 
 function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
-    console.log('animate');
     
     var animationTime = 2000;
 
@@ -907,13 +920,13 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
                 if (calcAngle(currentAircraftAzimuth, angle) < Math.abs(step)) {
                     clearInterval(handle);
                     aircraft.currentAircraftAzimuth = currentAircraftAzimuth % 360;
-                    setAircraftIcon(marker, aircraft.icon, aircraft.country, currentAircraftAzimuth % 360, aircraft.color, zoomLevel);
+                    setAircraftIcon(marker, aircraft.icon, aircraft.aircraftId, aircraft.country, currentAircraftAzimuth % 360, aircraft.color, zoomLevel);
                 } else {
 
                     // console.log("Aircraft " + aircraft.name + ", id: " + aircraft.aircraftId + " is rotating " + step + " degrees from " + angle + " to " + currentAircraftAzimuth+ ", and its distance is " + Math.abs(angle % 360 - currentAircraftAzimuth % 360));
 
                     aircraft.currentAircraftAzimuth = angle += step % 360
-                    setAircraftIcon(marker, aircraft.icon, aircraft.country, angle += step % 360, aircraft.color, zoomLevel);
+                    setAircraftIcon(marker, aircraft.icon, aircraft.aircraftId, aircraft.country, angle += step % 360, aircraft.color, zoomLevel);
                 }
             }, rotationInterval);
         }
@@ -957,19 +970,22 @@ function calcStep(currentAzimuth, previousAzimuth) {
     }
 }
 
-function setAircraftIcon(marker, icon, country, azimuth, color, zoomLevel) {
+function setAircraftIcon(marker, icon, acId, country, azimuth, color, zoomLevel) {
     var imgUrl;
     var staticUrl;
-
-    if (zoomLevel >= 9) {
-        imgUrl = "icons/aircrafts/" + icon + ".svg";
+    
+    if (zoomLevel >= 9) { 
+        imgUrl = '/icons/aircrafts/' + icon + '.svg?' + acId;
         staticUrl = country == null ? null : "icons/countries/" + country + ".svg";
     } else {
-        imgUrl = "icons/arrow.svg";
+        imgUrl = 'icons/arrow.svg?' + acId;
         staticUrl = null;
     }
-    imgUrl = new RotateIcon({url: imgUrl, staticUrl: staticUrl}).setRotation({deg: azimuth}).getUrl();
+
     mapAPI.setAircraftMarkerIcon(marker, imgUrl);
+    setTimeout(() => {
+        $(`img[src*="?${acId}"]`).css("transform",  'rotate(' + azimuth + 'deg)')
+    }, 300);
 }
 
 function startAircraftsAnimation(updateCurrent) {
@@ -1047,7 +1063,7 @@ function addAircraftsToMap() {
 
         var aircraftMarker = mapAPI.createAircraftMarker(currentAircraftPosition, aircraft.name, aircraft.hide, clickCallback);
         if (aircraft.color == undefined) aircraft.color = "darkgray";
-        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.country, currentAircraftAzimuth, aircraft.color, zoomLevel);
+        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.aircraftId, aircraft.country, currentAircraftAzimuth, aircraft.color, zoomLevel);
         aircraftMarker.currentAircraftAzimuth = currentAircraftAzimuth;
         aircraftMarkers[aircraft.aircraftId] = aircraftMarker;
     }, this);
@@ -1068,13 +1084,17 @@ function updateAircraftIcons() {
     var zoomLevel = mapAPI.getZoomLevel();
     aircrafts.forEach(function (aircraft) {
         var aircraftMarker = aircraftMarkers[aircraft.aircraftId];
-        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.country, aircraft.currentAircraftAzimuth, aircraft.color, zoomLevel);
+        setAircraftIcon(aircraftMarker, aircraft.icon, aircraft.aircraftId, aircraft.country, aircraft.currentAircraftAzimuth, aircraft.color, zoomLevel);
     }, this);
 }
 
 var selectedPointId;
 
 function selectLocation(pointId, location, marker, markerIcon, markerIconClicked, color, titleColor, subtitleColor, minimized = false) {
+    if (locations[pointId].options && locations[pointId].options.liveStream) {
+        $('#liveStream').attr('src', locations[pointId].options.liveStream);
+    }
+    
     deselectAircraft();
     selectedPointId = pointId;
 
@@ -1211,6 +1231,10 @@ function onHomeButtonClick() {
     if (aboutVisible) {
         onAboutButtonClick();
     }
+
+    $('#quiz').animate({
+        'opacity': 0
+    }, 1000).css('display', 'none')
 
     deselectAircraft();
     deselectLocation();
@@ -2185,6 +2209,17 @@ function initMap() {
                 window.location.replace(window.location.href + "press.html");
             }, 0);
         }
+
+        navigator.permissions.query({name: 'geolocation'}).then(function(PermissionStatus) {
+            if (PermissionStatus.state === 'prompt') {
+                PermissionStatus.onchange = function(){
+                    gtag('event', 'permission_set', {
+                        'event_category': 'geo_location',
+                        'event_label': this.state
+                    });
+                }
+            }
+        })
     });
 }
 
@@ -2265,7 +2300,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     function notifyUserIfNear(currentLocation, aircraft) {
         if (userLoc) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-            if(haversineDistance(userLoc,currentLocation) < 2000)
+            if(haversineDistance(userLoc,currentLocation) < 10)
             {
                 notifiedNearUser = true;
                 //check that its not the same popup that has been closed
@@ -2305,8 +2340,6 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         else{
                             $("#audioSRC").attr("src",'audio/pilot-message.ogg');
                         }
-
-                        console.log(`icons/aircrafts/${aircraft.icon}.svg`);
                         
                         if(aircraft.icon){
                             $("#aircraftImg").attr("src",`icons/aircrafts/${aircraft.icon}.svg`);
@@ -2318,7 +2351,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                 //}
             }
 
-            else if(haversineDistance(userLoc,currentLocation) > 2000)
+            else if(haversineDistance(userLoc,currentLocation) > 3)
             {
                 if ($('#myModal:hidden'))
                 {

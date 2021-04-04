@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="63.557" height="51.004" viewBox="0 0 63.557 51.004">
+    <defs>
+        <filter id="Path_42" width="23.695" height="25.592" x="18.981" y="25.412" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="Path_43" width="41.728" height="29.157" x="0" y="19" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur-2" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur-2" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="Path_44" width="35.102" height="28.875" x="28.455" y="18.996" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur-3" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur-3" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="Icon_ionic-ios-paper-plane" width="40.969" height="40.968" x="11.294" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur-4" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur-4" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-1{fill:#3bb5f2}
+        </style>
+    </defs>
+    <g id="static_icon_filled" transform="translate(12.329 13.008)">
+        <g id="Group_30">
+            <g filter="url(#Path_42)" transform="translate(-3.329 -4.137) translate(-9 -8.87)">
+                <path id="Path_42-2" d="M2918.483-2029.939a.945.945 0 0 1-.759-.379.949.949 0 0 1 .189-1.329l2.783-2.088-2.783-2.088a.949.949 0 0 1-.189-1.329.95.95 0 0 1 1.328-.19l3.8 2.847a.949.949 0 0 1 .38.759.949.949 0 0 1-.38.759l-3.8 2.848a.953.953 0 0 1-.57.189z" class="cls-1" transform="translate(-2889.55 2068.94)"/>
+            </g>
+            <g filter="url(#Path_43)" transform="translate(-3.329 -4.137) translate(-9 -8.87)">
+                <path id="Path_43-2" d="M2863.173-2052.431a75.935 75.935 0 0 1-8.075-.4c-3.443-.347-14.7-1.824-14.7-6.239 0-1.8 1.858-3.307 5.519-4.472a.974.974 0 0 1 1.248.905.943.943 0 0 1-.751.93c-3.037.978-4.117 2.031-4.117 2.636 0 1.264 4.033 3.448 13 4.351a73.88 73.88 0 0 0 7.878.4.95.95 0 0 1 .949.948.95.95 0 0 1-.951.941z" class="cls-1" transform="translate(-2831.39 2088.59)"/>
+            </g>
+            <g filter="url(#Path_44)" transform="translate(-3.329 -4.137) translate(-9 -8.87)">
+                <path id="Path_44-2" d="M2956.979-2052.726a.948.948 0 0 1-.945-.871.95.95 0 0 1 .869-1.023c9.776-.8 14.331-3.136 14.331-4.465 0-.611-1.1-1.676-4.2-2.663a.951.951 0 0 1-.617-1.192.949.949 0 0 1 1.192-.617c3.664 1.165 5.522 2.671 5.522 4.472 0 4.679-12.3 6.048-16.076 6.357h-.078z" class="cls-1" transform="translate(-2918.58 2088.6)"/>
+            </g>
+        </g>
+        <g filter="url(#Icon_ionic-ios-paper-plane)" transform="translate(-12.33 -13.01)">
+            <path id="Icon_ionic-ios-paper-plane-2" d="M4.033 3.43l22.075 11.943a.462.462 0 0 1-.033.823l-3.765 1.419a.891.891 0 0 0-.5.464L18.886 24.1c-.055.265-.547.337-.552.066l.447-4.98a1.775 1.775 0 0 0-.4-1L6.932 6.97a.276.276 0 0 0-.248-.07.262.262 0 0 0-.144.42l9.867 12.07a2.206 2.206 0 0 1 .387.994l.591 4.3c-.05.375-.342.519-.58.182l-2.126-2.5a.445.445 0 0 0-.624-.1l-5.477 3.99a.441.441 0 0 1-.7-.271L3.387 3.927a.448.448 0 0 1 .646-.497z" class="cls-1" transform="translate(16.92 2.62)"/>
+        </g>
+    </g>
+</svg>
