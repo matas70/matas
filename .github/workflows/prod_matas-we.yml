@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - matas-we
+name: Build and deploy Node.js app to Azure Web App - matas-we
 
 on:
   push:
@@ -16,22 +16,22 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up .NET Core
-      uses: actions/setup-dotnet@v1
+    - name: Set up Node.js version
+      uses: actions/setup-node@v1
       with:
-        dotnet-version: '5.0.x'
+        node-version: '14.x'
 
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
-
-    - name: dotnet publish
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+    - name: npm install, build, and test
+      run: |
+        npm install
+        npm run build --if-present
+        npm run test --if-present
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
-        name: .net-app
-        path: ${{env.DOTNET_ROOT}}/myapp
+        name: node-app
+        path: .
 
   deploy:
     runs-on: windows-latest
@@ -44,13 +44,13 @@ jobs:
     - name: Download artifact from build job
       uses: actions/download-artifact@v2
       with:
-        name: .net-app
+        name: node-app
 
-    - name: Deploy to Azure Web App
+    - name: 'Deploy to Azure Web App'
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'matas-we'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_00bc42b255ac484b8dd69d706b37ee6e }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_668d3e0bdc6245fda18ff3ac2d975a18 }}
         package: .
