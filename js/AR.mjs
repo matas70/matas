@@ -9,10 +9,10 @@ import { OrbitControls } from "https://unpkg.com/three@0.126.1/examples/jsm/cont
 
 import { EXRLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/EXRLoader.js';
 
-window.initAR = function() {
+window.initAR = function () {
     const html = `<div id="controls">
         <div id="resetbutton">
-            <button id="button-reset" alt="Draw"></button>
+            <button id="button-reset" class="support" alt="Draw"></button>
         </div>
         <!-- <button id="button-action" alt="Toggle Flash"></button> -->
         <button id="button-mode-toggle" alt="Toggle mode" class="dynamic">
@@ -87,7 +87,7 @@ window.initAR = function() {
 
     setTimeout(() => {
 
-        
+
         let container;
         let camera, controls, scene, renderer;
         let mixer, clock, action, delta;
@@ -261,7 +261,7 @@ window.initAR = function() {
 
             document.getElementById('controls').addEventListener('beforexrselect', ev => ev.preventDefault());
             document.getElementById('menus').addEventListener('beforexrselect', ev => ev.preventDefault());
-            
+
             AIRCRAFTS_META_DATA.forEach(aircraft => {
                 const elem = document.createElement('button');
                 elem.classList.add("aircraft-option");
@@ -381,20 +381,20 @@ window.initAR = function() {
                 text: 'כמה מגניב! באפליקצית מטס יום העצמאות ה73 אני רואה את כל המטוסים בתלת מימד. בואו לנסות גם',
                 url: 'https://matas-iaf.com',
             }
-            
+
             const btn = document.querySelector('#ar-overly .share');
-            
+
             // Must be triggered some kind of "user activation"
             btn.addEventListener('click', async () => {
                 closeScene()
                 try {
                     await navigator.share(shareData);
                     console.log('המשתמש שיתף בהצלחה את המטס');
-                } catch(err) {
-                    console.log('נסיון שיתוף נכשל',err);
+                } catch (err) {
+                    console.log('נסיון שיתוף נכשל', err);
                 }
-            }); 
-            
+            });
+
 
             window.setTimeout(startup, 0);
             var streaming = false;
@@ -456,7 +456,7 @@ window.initAR = function() {
             loadLight();
             loadPainter();
             loadController();
-            changeTrails(TRAILS_META_DATA[TRAILS_META_DATA.length-1]);
+            changeTrails(TRAILS_META_DATA[TRAILS_META_DATA.length - 1]);
 
             window.addEventListener('resize', onWindowResize);
 
@@ -966,7 +966,11 @@ window.initAR = function() {
             navigator.xr.isSessionSupported('immersive-ar').then(function (supported) {
                 isSupported = supported;
             }).catch();
-        } else isSupported = false;
+        } else {
+            isSupported = false;
+            document.getElementById("button-reset").classList.remove("support");
+            document.getElementById("button-reset").classList.add("notsupport");
+        }
 
         init();
         animate();

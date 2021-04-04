@@ -95,9 +95,14 @@
   background-size: contain;
 }
 
-#ar-overly #controls #button-reset {
+#ar-overly #controls #button-reset.support {
   background-image: url('/assets/Icon material-undo-1.svg');
 }
+
+#ar-overly #controls #button-reset.notsupport {
+  background-image: url('/assets/scribble.svg');
+}
+
 #ar-overly  #controls #button-action {
   background-image: url('/assets/flash.svg');
 }
