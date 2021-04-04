@@ -134,6 +134,10 @@
 					</nav>
 				</div>
 			</div>
+			<div id='no-support-tutorial'>
+				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מסלול" class="index-finger">
+				<span>לחצו כאן כדי להחליף מסלול</span>
+			</div>
 			<!-- <div class="USDZ-container">
         <a rel="ar" href="https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz"><img class="image-model" src="https://developer.apple.com/augmented-reality/quick-look/models/biplane/biplane_2x.jpg" alt="" data-hires-status="replaced"></a>
     </div> -->
@@ -1153,8 +1157,15 @@
 			if (getCookie('tutorial')) {
 				const stepFinished = getCookie('tutorial');
 				document.querySelector('.step-1').style.display = 'none';
+				document.querySelector('#no-support-tutorial').style.display = 'none';
 				finishTutorial(stepFinished)
 			}
+
+
+			document.querySelector('#no-support-tutorial').addEventListener('click', () => {
+				document.querySelector('#no-support-tutorial').style.display = 'none';
+				document.cookie = "tutorial=3; expires=Thu, 30 Dec 2021 12:00:00 UTC";
+			})
 
 			function getCookie(cname) {
 				var name = cname + "=";
