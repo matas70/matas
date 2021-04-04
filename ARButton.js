@@ -69,7 +69,7 @@ class ARButton {
 
 				currentSession.removeEventListener( 'end', onSessionEnded );
 
-				button.textContent = 'תלת מימד';
+				button.textContent = 'להתחיל תלת מימד';
 				sessionInit.domOverlay.root.style.display = 'none';
 
 				currentSession = null;
@@ -80,7 +80,7 @@ class ARButton {
 
 			button.style.display = '';
 
-			button.textContent = 'תלת מימד';
+			button.textContent = 'להתחיל תלת מימד';
 
 			button.onmouseenter = function () {
 
