@@ -541,6 +541,11 @@
 						optionalFeatures: ['dom-overlay', 'dom-overlay-for-handheld-ar'],
 						domOverlay: { root: document.getElementById("ar-overly") },
 						// endSessionCallback: startup,
+						fallback: () =>{
+							document.body.classList.remove('is-supported');
+							arButton.style.display = 'none';
+							isSupported = false;
+						},
 						closebutton: document.getElementById("button-close")
 					});
 
@@ -968,7 +973,7 @@
 
 			function animate() {
 				let render;
-				render = isSupported ? baseRender : iosRender;
+				render = ()=> isSupported ? baseRender() : iosRender();
 				renderer.setAnimationLoop(render);
 			}
 
