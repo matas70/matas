@@ -1137,7 +1137,7 @@
 			}
 
 			function getCurrentTravelPercent() {
-				const totalMillis = travelLength(locations) * 5000;
+				const totalMillis = travelLength(locations) * 10000;
 				if (Date.now() - animationCycleStart > totalMillis)
 					animationCycleStart = Date.now();
 

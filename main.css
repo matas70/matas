@@ -128,7 +128,7 @@ select {
   text-align: center;
   text-indent: -1000px;
   overflow: hidden;
-  background-image: url(/icons/share-button.svg);
+  background-image: url(/assets/share_ar.png);
   background-size: cover;
   background-position: center center;
 }
