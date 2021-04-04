@@ -100,6 +100,9 @@
 					</div>
 					<img class="flip-camera" src="./assets/flip-camera.svg" alt="Flip Camera"> -->
 				</div>
+				<div class="share">
+        
+				</div>
 			</div>
 			<div id="tutorial">
 				<div class="step step-1">
@@ -341,6 +344,9 @@
 				{ id: "f15", type: "obj", scale: 0.007, text: "f15" },
 				{ id: "f35", type: "glb", scale: 0.1, text: "f35" },
 				{ id: "f16", type: "gltf", scale: 0.005, text: "f16" },
+				// { id: "sofa", type: "glb", scale: 0.036, text: "sofa" },
+				// { id: "f16", type: "gltf", scale: 0.005, text: "f16" },
+				{ id: "lavie", type: "glb", scale: 0.026, text: "lavie" },
 				{ id: "karnaf", type: "glb", scale: 0.035, text: "karnaf" },
 			]
 
@@ -490,7 +496,7 @@
 				planeMesh = new THREE.Mesh(geometry, material);
 				planeMesh.position.y = - 50;
 				planeMesh.rotation.x = - Math.PI * 0.5;
-				scene.add(planeMesh);
+				// scene.add(planeMesh);
 
 				THREE.DefaultLoadingManager.onLoad = function () {
 
@@ -551,6 +557,24 @@
 
 					document.body.appendChild(arButton);
 				}
+
+				const shareData = {
+            title: 'כיף לצפות במטוסי חיל האוויר - אצלי בטלפון, בתלת מימד!',
+            text: 'כמה מגניב! באפליקצית מטס יום העצמאות ה73 אני רואה את כל המטוסים בתלת מימד. בואו לנסות גם',
+            url: 'https://matas-iaf.com',
+        }
+        
+        const btn = document.querySelector('#ar-overly .share');
+        
+        // Must be triggered some kind of "user activation"
+        btn.addEventListener('click', async () => {
+            try {
+                await navigator.share(shareData);
+                console.log('המשתמש שיתף בהצלחה את המטס');
+            } catch(err) {
+                console.log('נסיון שיתוף נכשל',err);
+            }
+        });
 
 				window.addEventListener('load', startup, false);
 				var streaming = false;
@@ -1124,7 +1148,7 @@
 			}
 
 			function getCurrentTravelPercent() {
-				const totalMillis = travelLength(locations) * 5000;
+				const totalMillis = travelLength(locations) * 10000;
 				if (Date.now() - animationCycleStart > totalMillis)
 					animationCycleStart = Date.now();
 
