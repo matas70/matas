@@ -981,7 +981,7 @@ function setAircraftIcon(marker, icon, acId, country, azimuth, color, zoomLevel)
     mapAPI.setAircraftMarkerIcon(marker, imgUrl);
     setTimeout(() => {
         $(`img[src*="?${acId}"]`).css("transform",  'rotate(' + azimuth + 'deg)')
-    }, 300);
+    }, 500);
 }
 
 function startAircraftsAnimation(updateCurrent) {
