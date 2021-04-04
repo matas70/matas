@@ -53,7 +53,7 @@
 #quiz .cover {
     background-image: url("/icons/quiz/pictures/מטוסי קרב 2.jpg");
     height: 35vh;
-    max-width: 100%;
+    max-height: 235px;
     background-size: cover;
     background-repeat: no-repeat;
 }
