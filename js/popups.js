@@ -611,7 +611,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
     return "<div onclick='onAircraftSelected(" + aircraftId + "," + collapse.toString() + ","+ showSchedule + "," + showAllPoints + ");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
         ".svg\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>" + name +
         "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class='date'>" + (date ? date : '') + "</div>"+
-        "<div id='aircraftInfo3D'></div>" + "<div class=\"time\">" +
+        "<button id=\"ARButton\" onclick='window.location.href=\"ar.html\"'></button>" + "<div class=\"time\">" +
         (displayTime ? roundToMinute(time) : "") + (displayTime && from ? (" - " + roundToMinute(from)) : "") + "</div></div></div></div>";
 }
 
