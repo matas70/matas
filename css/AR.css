@@ -678,7 +678,7 @@ border-radius: 10px;
 
 #tutorial {
 width: 65.8%;
-padding: 6.3% 6.3% 48px 6.3%;
+padding: 0 0 48px 0;
 position: absolute;
 top: 50%;
 left: 50%;
@@ -757,4 +757,21 @@ display: none;
   font-size: 16px;
   font-weight: 500;
   line-height: 44px;
+}
+
+
+#tutorial .screen-example {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+#tutorial .step-1 .screen-example {
+  background-image: url('/images/tutorial/step\ 1.svg');
+}
+#tutorial .step-2 .screen-example {
+  background-image: url('/images/tutorial/step\ 2.png');
+}
+#tutorial .step-3 .screen-example {
+  background-image: url('/images/tutorial/step\ 3.png');
 }

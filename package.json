@@ -1,31 +1,30 @@
 {
-  "name": "matas",
+  "name": "3d-planes",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
+  "dependencies": {
+    "firebase": "^8.2.9",
+    "html2canvas": "^1.0.0-rc.7",
+    "live-server": "^1.2.1",
+    "live-server-https": "0.0.2",
+    "three": "^0.126.1",
+    "ua-parser-js": "^0.7.24",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {},
   "scripts": {
-    "start": "live-server --https=node_modules/live-server-https",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server --https=node_modules/live-server-https"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matas70/matas.git"
+    "url": "git+https://github.com/NoamGaash/3d-planes.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/matas70/matas/issues"
+    "url": "https://github.com/NoamGaash/3d-planes/issues"
   },
-  "homepage": "https://github.com/matas70/matas#readme",
-  "dependencies": {
-    "express": "^4.16.3",
-    "jquery": "^3.5.0",
-    "jquery-touch-events": "^1.0.7",
-    "jqueryui": "^1.11.1",
-    "leaflet": "^1.4.0",
-    "leaflet.markercluster": "^1.4.1",
-    "live-server": "^1.2.1",
-    "live-server-https": "0.0.2",
-    "time-js": "0.0.5"
-  }
+  "homepage": "https://github.com/NoamGaash/3d-planes#readme"
 }
