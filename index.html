@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="מטס חיל האוויר">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#7bd1fc" />
     <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
@@ -488,12 +489,16 @@
 
 
     <div id="quiz">
-        <div class="cover"></div>
+        <div class="cover">
+            <img src="/assets/x.svg" class="exit" alt="יציאה מהחידון">
+        </div>
         <div class='question'>
             <h2 class='title'></h2>
-            <div class='option a' style="animation-delay: .0s;"></div>
-            <div class='option b' style="animation-delay: .1s;"></div>
-            <div class='option c' style="animation-delay: .2s;"></div>
+            <div class="question-cluster">
+                <div class='option a' style="animation-delay: .0s;"></div>
+                <div class='option b' style="animation-delay: .1s;"></div>
+                <div class='option c' style="animation-delay: .2s;"></div>
+            </div>
             <button class='test'>בדיקה</button>
             <div class="counter">
                 <span class="current"></span>

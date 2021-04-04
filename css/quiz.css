@@ -35,15 +35,24 @@
     background-color: white;
     display:none;
     opacity:0;
-    
+    overflow: scroll;
+    transform: scale(0.8);
+    width: 125%;
+    height: 125%;
+    transform-origin: top right;
 }
 #quiz * {
     font-family: Heebo;
 }
 
+#quiz .exit {
+    cursor: pointer;
+    margin: 13px;
+}
+
 #quiz .cover {
     background-image: url("/icons/quiz/pictures/מטוסי קרב 2.jpg");
-    height: 50vw;
+    height: 35vh;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -51,7 +60,11 @@
     position: relative;
     padding-right: 19px;
     padding-left: 16px;
-    padding-top: 29px;
+    padding-top: 9px;
+}
+#quiz .question .question-cluster {
+    display: flex;
+    flex-direction: column;
 }
 #quiz .question .counter{
     position: absolute;
@@ -66,6 +79,7 @@
     font-weight: normal;
     margin: 0;
     margin-left: 56px;
+    padding: 15px 0;
 }
 #quiz .question .counter .current{
     font-size: 38px;
@@ -73,7 +87,7 @@
 
 #quiz .question .option{
     border: 1px solid black;
-    margin: 16px 0 17px;
+    margin: 0 0 8px;
     padding: 15px 30px 9px 13px;
     font-size: 22px;
     border-radius: 13px;
@@ -142,6 +156,7 @@
     outline: none;
     cursor: pointer;
     transition: all .1s;
+    margin-bottom: 10px;
 }
 
 #quiz .question .test:hover {
@@ -254,23 +269,13 @@
     display: none;
 }
 
-
-@media only screen and (max-width: 340px) {
-    #quiz {
-        transform: scale(0.8);
-        width: 125%;
-        height: 125%;
-        transform-origin: top right;
-    }
-}
-
 @media only screen and (min-width: 600px) {
     #quiz {
-        width: 400px;
+        width: 500px;
         z-index: 10000;
     }
     #quiz .cover{
-        height: 200px;
+        height: 250px;
         animation: option .5s cubic-bezier(0.075, 0.82, 0.165, 1);
     }
     .finished button.exit::before {
