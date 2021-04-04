@@ -516,6 +516,23 @@ div #resetbutton.trails_menu_hide {
   direction: rtl;
 }
 
+
+#tutorial .screen-example {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+#tutorial .step-1 .screen-example {
+  background-image: url('/images/tutorial/step\ 1.svg');
+}
+#tutorial .step-2 .screen-example {
+  background-image: url('/images/tutorial/step\ 2.png');
+}
+#tutorial .step-3 .screen-example {
+  background-image: url('/images/tutorial/step\ 3.png');
+}
+
 #tutorial p {
   font-size: 14px;
   font-weight: normal;
