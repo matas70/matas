@@ -76,7 +76,9 @@
 					<span class='static-mode'></span>
 					<span class='dynamic-mode'></span>
 				</button>
-				<button id="button-close" alt="Close"></button>
+				<button id="button-close" alt="Close">
+					<div id="blob" style="transform: scale(0); background-color: #3bb5f2; border-radius: 100%; width: 30px; height: 30px;"></div>
+				</button>
 			</div>
 			<div id="menus">
 				<div id="trails_menu">
@@ -415,10 +417,9 @@
 					clearInterval(isTrailScrolling);
 					isTrailScrolling = setTimeout(() => {
 						const centeredElement = document.elementFromPoint(
-							document.body.offsetWidth / 2, document.documentElement.clientHeight - 130
+							document.body.offsetWidth / 2, document.documentElement.clientHeight - 160
 						);
 						let selected = centeredElement.parentElement.innerHTML.replace('<img src="./assets/', '').replace('.png">', '');
-						console.log(selected);
 						TRAILS_META_DATA.forEach((e) => {
 							if (e.id === selected) changeTrails(e);
 						})
@@ -675,7 +676,8 @@
 				})
 
 				document.getElementById("button-close").addEventListener("click", (e) => {
-					window.location.href = '/'
+					document.getElementById('blob').classList.add('animateScale');
+					setTimeout(() => window.location.href = '/', 1000);
 				})
 
 				document.getElementById("exit-trail").addEventListener("click", (e) => {

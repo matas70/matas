@@ -204,6 +204,14 @@ select {
   position: relative;
 }
 
+.animateScale {
+  animation: scaleUp 1s cubic-bezier(0.785, 0.035, 0.15, 0.86) forwards;
+}
+@keyframes scaleUp {
+  from { transform: scale(0); }
+  to { transform: scale(100); }
+}
+
 #controls #button-mode-toggle > * {
   display: inline-block;
   background-repeat: no-repeat;
