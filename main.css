@@ -121,6 +121,18 @@ select {
 
 #ARButton {
   z-index: 9999;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  font-family: 'Heebo';
+  color: white;
+  background: #3bb5f3;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  border: 3px dotted white;
 }
 
 
