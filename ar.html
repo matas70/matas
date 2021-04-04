@@ -50,16 +50,16 @@
 
 
 			firebase.database().ref('error-logs/ ' + dateTime + " | " + uuid.v4()).set({
-					date: dateTime,
-					user_agent: navigator.userAgent,
-					browser: cur_user_agent.getBrowser(),
-					device: cur_user_agent.getDevice(),
-					OS: cur_user_agent.getOS(),
-					engine: cur_user_agent.getEngine(),
-					message: errorMsg,
-					url: url,
-					line_number: lineNumber,
-				});
+				date: dateTime,
+				user_agent: navigator.userAgent,
+				browser: cur_user_agent.getBrowser(),
+				device: cur_user_agent.getDevice(),
+				OS: cur_user_agent.getOS(),
+				engine: cur_user_agent.getEngine(),
+				message: errorMsg,
+				url: url,
+				line_number: lineNumber,
+			});
 			return false;
 		}
 	</script>
@@ -69,7 +69,7 @@
 		<div id="ar-overly">
 			<div id="controls">
 				<div id="resetbutton">
-					<button id="button-reset" alt="Draw"></button>
+					<button id="button-reset" class="support" alt="Draw"></button>
 				</div>
 				<!-- <button id="button-action" alt="Toggle Flash"></button> -->
 				<button id="button-mode-toggle" alt="Toggle mode" class="dynamic">
@@ -114,8 +114,8 @@
 				</div>
 				<div class="step step-2">
 					<h2>צפו במטוסים על המסלול</h2>
-					<p>הזיזו את המצלמה ותוכלו לראות את 
-					המסלולים שציירתם</p>
+					<p>הזיזו את המצלמה ותוכלו לראות את
+						המסלולים שציירתם</p>
 					<div class="screen-example">
 					</div>
 					<nav>
@@ -207,6 +207,8 @@
 						}
 					}).catch();
 				} else {
+					document.getElementById("button-reset").classList.remove("support");
+					document.getElementById("button-reset").classList.add("notsupport");
 					const message = document.createElement('a');
 					isSupported = false;
 					init();
@@ -423,7 +425,7 @@
 
 				document.getElementById('controls').addEventListener('beforexrselect', ev => ev.preventDefault());
 				document.getElementById('menus').addEventListener('beforexrselect', ev => ev.preventDefault());
-				
+
 				AIRCRAFTS_META_DATA.forEach(aircraft => {
 					const elem = document.createElement('button');
 					elem.classList.add("aircraft-option");
@@ -678,7 +680,7 @@
 				loadLight();
 				loadPainter();
 				loadController();
-				changeTrails(TRAILS_META_DATA[TRAILS_META_DATA.length-1]);
+				changeTrails(TRAILS_META_DATA[TRAILS_META_DATA.length - 1]);
 
 				window.addEventListener('resize', onWindowResize);
 
@@ -1210,7 +1212,8 @@
 
 		</script>
 
-		<script src="https://unpkg.com/smooth-scroll-into-view-if-needed/umd/smooth-scroll-into-view-if-needed.min.js"></script>
+		<script
+			src="https://unpkg.com/smooth-scroll-into-view-if-needed/umd/smooth-scroll-into-view-if-needed.min.js"></script>
 
 		<!-- <script>
 		function isIOS() {
