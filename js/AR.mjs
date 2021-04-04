@@ -59,8 +59,9 @@ window.initAR = function() {
             </nav>
         </div>
         <div class="step step-2">
-            <h2>צפו במטוסים על המסלוול</h2>
-            <p>שלום עולם כאן מטוס גדול</p>
+            <h2>צפו במטוסים על המסלול</h2>
+            <p>הזיזו את המצלמה ותוכלו לראות את 
+            המסלולים שציירתם</p>
             <div class="screen-example">
             </div>
             <nav>
@@ -69,8 +70,8 @@ window.initAR = function() {
             </nav>
         </div>
         <div class="step step-3">
-            <h2>ציירו מסלול במרחב</h2>
-            <p>התחילו ללכת תוך כדי ציור המסלול על גבי המסך</p>
+            <h2>צלמו תמונה או סרטון</h2>
+            <p>שתפו את התמונה/סרטון ברשתות החברתיות או שמרו בטלפון</p>
             <div class="screen-example">
             </div>
             <nav>
