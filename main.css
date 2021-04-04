@@ -119,6 +119,29 @@ select {
   opacity: 0;
 }
 
+#ar-overly .share {
+  bottom: 20px;
+  position: absolute;
+  width: 189px;
+  height: 44px;
+  border-radius: 22px;
+  text-align: center;
+  text-indent: -1000px;
+  overflow: hidden;
+  background-image: url(/icons/share-button.svg);
+  background-size: cover;
+  background-position: center center;
+}
+
+#ar-overly .share::before {
+  content: "שיתוף עם חברים";
+  color: white;
+  font-family: Heebo;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 44px;
+}
+
 #ARButton {
   z-index: 9999;
   position: fixed;
@@ -134,7 +157,6 @@ select {
   border-radius: 100px;
   border: 3px dotted white;
 }
-
 
 #notSupported {
   width: 50%;
@@ -398,7 +420,7 @@ canvas {
   height: 55px;
   position: absolute;
   left: calc(50% - 31.5px);
-  bottom: 48.5px;
+  bottom: 82.5px;
 }
 
 #trails_menu {
@@ -471,11 +493,11 @@ div #resetbutton.trails_menu_hide {
 
 #settings_menu {
   width: calc(100% - 30px);
-  height: 50px;
+  height: 84px;
   padding: 0 15px;
-  background-color: rgba(0, 0, 0, 0.075);
+  /* background-color: rgba(0, 0, 0, 0.075);
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); */
   display: flex;
   justify-content: space-between;
   align-items: center;
