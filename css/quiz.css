@@ -196,6 +196,7 @@
     background-color: white;
     background-image: url('/assets/share_quiz_resultt.png');
     border: none;
+    margin-left: 15px;
     background-size:cover;
     background-repeat: no-repeat;
 
