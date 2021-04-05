@@ -121,12 +121,6 @@ class ARButton {
 
 			};
 
-			sessionInit.closebutton.onclick = function () {
-
-				currentSession.end();
-
-			};
-
 
 		}
 
