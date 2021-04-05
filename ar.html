@@ -50,15 +50,15 @@
 
 
 			firebase.database().ref('error-logs/ ' + dateTime + " | " + uuid.v4()).set({
-					date: dateTime,
-					user_agent: navigator.userAgent,
-					browser: cur_user_agent.getBrowser(),
-					device: cur_user_agent.getDevice(),
-					OS: cur_user_agent.getOS(),
-					engine: cur_user_agent.getEngine(),
-					message: errorMsg,
-					url: url,
-					line_number: lineNumber,
+					date: String(dateTime),
+					user_agent: String(navigator.userAgent),
+					browser: String(cur_user_agent.getBrowser()),
+					device: String(cur_user_agent.getDevice()),
+					OS: String(cur_user_agent.getOS()),
+					engine: String(cur_user_agent.getEngine()),
+					message: String(errorMsg),
+					url: String(url),
+					line_number: String(lineNumber),
 				});
 			return false;
 		}
@@ -149,16 +149,16 @@
 		</div>
 
 		<script type="module">
-			import * as THREE from './node_modules/three/build/three.module.js';
-			import { TubePainter } from './node_modules/three/examples/jsm/misc/TubePainter.js';
+			import * as THREE from 'https://unpkg.com/three@0.126.1/build/three.module.js';
+			import { TubePainter } from 'https://unpkg.com/three@0.126.1/examples/jsm/misc/TubePainter.js';
 			import { ARButton } from './ARButton.js';
-			import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader.js';
-			import * as HTML from './node_modules/html2canvas/dist/html2canvas.min.js';
-			import { MTLLoader } from './node_modules/three/examples/jsm/loaders/MTLLoader.js';
-			import { OBJLoader } from './node_modules/three/examples/jsm/loaders/OBJLoader.js';
-			import { OrbitControls } from "./node_modules/three/examples/jsm/controls/OrbitControls.js";
+			import { GLTFLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/GLTFLoader.js';
+			//import * as HTML from '../node_modules/html2canvas/dist/html2canvas.min.js';
+			import { MTLLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/MTLLoader.js';
+			import { OBJLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/OBJLoader.js';
+			import { OrbitControls } from "https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js";
+			import { EXRLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/EXRLoader.js';
 
-			import { EXRLoader } from './node_modules/three/examples/jsm/loaders/EXRLoader.js';
 
 			const today = new Date();
 			const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
@@ -190,12 +190,12 @@
 								cur_user_agent.getBrowser().name + " " +
 								cur_user_agent.getBrowser().version.replaceAll(".", ":") + " | " +
 								dateTime).set({
-									date: dateTime,
-									user_agent: navigator.userAgent,
-									browser: cur_user_agent.getBrowser(),
-									device: cur_user_agent.getDevice(),
-									OS: cur_user_agent.getOS(),
-									engine: cur_user_agent.getEngine()
+									date: String(dateTime),
+									user_agent: String(navigator.userAgent),
+									browser: String(cur_user_agent.getBrowser()),
+									device: String(cur_user_agent.getDevice()),
+									OS: String(cur_user_agent.getOS()),
+									engine: String(cur_user_agent.getEngine())
 								});
 						}
 						else if (getCookie('tutorial') !== 3) {
@@ -207,12 +207,12 @@
 								cur_user_agent.getBrowser().name + " " +
 								cur_user_agent.getBrowser().version.replaceAll(".", ":") + " | " +
 								dateTime).set({
-									date: dateTime,
-									user_agent: navigator.userAgent,
-									browser: cur_user_agent.getBrowser(),
-									device: cur_user_agent.getDevice(),
-									OS: cur_user_agent.getOS(),
-									engine: cur_user_agent.getEngine()
+									date: String(dateTime),
+									user_agent: String(navigator.userAgent),
+									browser: String(cur_user_agent.getBrowser()),
+									device: String(cur_user_agent.getDevice()),
+									OS: String(cur_user_agent.getOS()),
+									engine: String(cur_user_agent.getEngine())
 								});
 						}
 					}).catch();
@@ -236,12 +236,12 @@
 							cur_user_agent.getBrowser().name + " " +
 							cur_user_agent.getBrowser().version.replaceAll(".", ":") + " | " +
 							dateTime).set({
-								date: dateTime,
-								user_agent: navigator.userAgent,
-								browser: cur_user_agent.getBrowser(),
-								device: cur_user_agent.getDevice(),
-								OS: cur_user_agent.getOS(),
-								engine: cur_user_agent.getEngine()
+								date: String(dateTime),
+								user_agent: String(navigator.userAgent),
+								browser: String(cur_user_agent.getBrowser()),
+								device: String(cur_user_agent.getDevice()),
+								OS: String(cur_user_agent.getOS()),
+								engine: String(cur_user_agent.getEngine())
 							});
 					}
 				}
