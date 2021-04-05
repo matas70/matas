@@ -66,11 +66,11 @@ function initPopups() {
                 if (locationPopupCloseCallback != null)
                     locationPopupCloseCallback.call(this);
             } else if (targetHeight >= 0.5 * maxHeight) {
-                locationPopup.animate({height: maxHeight + "px"}, "fast");
-                aircraftListContainer.animate({height: maxHeight - 50 + "px"}, "fast");
+                locationPopup.animate({ height: maxHeight + "px" }, "fast");
+                aircraftListContainer.animate({ height: maxHeight - 50 + "px" }, "fast");
             } else {
-                locationPopup.animate({height: normalHeight + "px"}, "fast");
-                aircraftListContainer.animate({height: normalHeight - 50 + "px"}, "fast");
+                locationPopup.animate({ height: normalHeight + "px" }, "fast");
+                aircraftListContainer.animate({ height: normalHeight - 50 + "px" }, "fast");
             }
             dragStartTopY = null;
         }
@@ -98,23 +98,23 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
     specials.set("מטס", []);
 
     point.aircrafts.forEach((ac) => {
-       if (ac.specialInAircraft) {
-           if (!specials.has(ac.specialInAircraft) && (getCurrentTime() < getActualPathTime(ac.date, ac.time))) {
-               specials.set(ac.specialInAircraft, []);
-           }
+        if (ac.specialInAircraft) {
+            if (!specials.has(ac.specialInAircraft) && (getCurrentTime() < getActualPathTime(ac.date, ac.time))) {
+                specials.set(ac.specialInAircraft, []);
+            }
 
-           if (specials.get(ac.specialInAircraft)) {
-               specials.get(ac.specialInAircraft).push(ac);
-           }
-       } else if (ac.specialInPath) {
-           if (!specials.has(ac.specialInPath)) {
-               specials.set(ac.specialInPath, []);
-           }
+            if (specials.get(ac.specialInAircraft)) {
+                specials.get(ac.specialInAircraft).push(ac);
+            }
+        } else if (ac.specialInPath) {
+            if (!specials.has(ac.specialInPath)) {
+                specials.set(ac.specialInPath, []);
+            }
 
-           specials.get(ac.specialInPath).push(ac);
-       } else {
-           specials.get("מטס").push(ac);
-       }
+            specials.get(ac.specialInPath).push(ac);
+        } else {
+            specials.get("מטס").push(ac);
+        }
     });
 
     // Filter out empty categories
@@ -125,38 +125,38 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
     // Check to see if aircraftList is empty in this location
     if (specials.size === 0 && (!tmp || tmp.length === 0)) {
-       $("#noAircraftMessage").show();
+        $("#noAircraftMessage").show();
     } else {
         $("#noAircraftMessage").hide();
 
         specials.set("מטס", tmp);
 
         specials.forEach((value, key) => {
-           if (value && value.length > 0) {
-               html += createLocationPopupCategoryRow(key);
-               value.forEach((ac) => {
-                   var date = undefined;
+            if (value && value.length > 0) {
+                html += createLocationPopupCategoryRow(key);
+                value.forEach((ac) => {
+                    var date = undefined;
 
-                   if (ac.date) {
-                       var split = ac.date.split('-');
-                       date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
-                   }
+                    if (ac.date) {
+                        var split = ac.date.split('-');
+                        date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
+                    }
 
-                   html += createTableRow(ac.aircraftId,
-                       ac.name,
-                       ac.icon,
-                       ac.aircraftType,
-                       ac.time,
-                       ac.aerobatic || key === "מופעים אווירובטיים" || key === "חזרות",
-                       ac.parachutist,
-                       false,
-                       true,
-                       date,
-                       false,
-                       false,
-                       ac.from);
-               });
-           }
+                    html += createTableRow(ac.aircraftId,
+                        ac.name,
+                        ac.icon,
+                        ac.aircraftType,
+                        ac.time,
+                        ac.aerobatic || key === "מופעים אווירובטיים" || key === "חזרות",
+                        ac.parachutist,
+                        false,
+                        true,
+                        date,
+                        false,
+                        false,
+                        ac.from);
+                });
+            }
         });
     }
 
@@ -211,12 +211,12 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
     var locationPopup = $("#locationPopup");
     var targetHeight = 0;
-    if (!isDesktop()) { 
+    if (!isDesktop()) {
         targetHeight = minimized ? minimizedLocationPopupHeight : locationPopupHeight;
-     }
-     else {                              
+    }
+    else {
         targetHeight = 350;
-     }
+    }
 
     // animate popup coming from bottom
     locationPopup.height(0);
@@ -286,12 +286,12 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
 function hideLocationPopup(callback) {
     var locationPopup = $("#locationPopup");
-    locationPopup.animate({height: "0px"}, "fast", function () {
+    locationPopup.animate({ height: "0px" }, "fast", function () {
         locationPopup.hide();
         if (callback != null)
             callback.call(this);
     });
-    $("#aircraftListContainer").animate({height: "150px"}, "fast");
+    $("#aircraftListContainer").animate({ height: "150px" }, "fast");
 
     window.location.hash = mainHash;
     previousHash.push(mainHash);
@@ -299,7 +299,7 @@ function hideLocationPopup(callback) {
 
 function removeDuplicatesBy(keyFn, array) {
     var mySet = new Set();
-    return array.filter(function(x) {
+    return array.filter(function (x) {
         var key = keyFn(x), isNew = !mySet.has(key);
         if (isNew) mySet.add(key);
         return isNew;
@@ -321,8 +321,8 @@ function fillAircraftSchedule(aircraft, showAllPoints = false) {
         aircraftPath =
             removeDuplicatesBy((point => point.pointId),
                 [].concat.apply([],
-                                aircrafts.filter(otherAircraft => otherAircraft.aircraftTypeId === aircraft.aircraftTypeId)
-                                         .map(relevantAircraft => relevantAircraft.path)))
+                    aircrafts.filter(otherAircraft => otherAircraft.aircraftTypeId === aircraft.aircraftTypeId)
+                        .map(relevantAircraft => relevantAircraft.path)))
                 .sort((point1, point2) => locations[point1.pointId].pointName.localeCompare(locations[point2.pointId].pointName));
     } else {
         aircraftPath = aircraft.path;
@@ -359,7 +359,7 @@ function manageAircraftTabs(elem) {
     if (!globalCollapse) {
         $("#aircraftInfoMore").css("display", "none");
         var height = $(window).height();
-        $("#aircraftInfoPopup").animate({"height": height + "px"}, 500);
+        $("#aircraftInfoPopup").animate({ "height": height + "px" }, 500);
         $("#shrinkAircraftInfoPopup").css("display", "block");
         $("#expandedInfo").css("display", "block");
         $("aircraftScheduleContent").height('auto');
@@ -382,13 +382,16 @@ function toggleAircraftContentSeparator(shouldShow) {
 }
 
 function showAircraftInfoPopup(aircraft, collapse) {
+
     $("#aircraftInfoName").text(aircraft.name);
     $("#aircraftInfoType").text(aircraft.type);
-
+    if (aircraft.name === 'יסעור' | aircraft.name === 'עפרוני' | aircraft.name === 'ברק' | aircraft.name === 'אדיר' | aircraft.name === 'קרנף' | aircraft.name === 'לביא' | aircraft.name === 'בז' | aircraft.name === 'סופה' | aircraft.name === 'שמשון') {
+        $("#aircraftInfo3D").show();
+    } else $("#aircraftInfo3D").hide();
     if (aircraft.aerobatic) {
         $("#aircraftInfoTimeLabel").text("תחילת מופע");
         $("#aircraftInfoEventIcon").show();
-    } else if (!aircraft.special){
+    } else if (!aircraft.special) {
         $("#aircraftInfoTimeLabel").text("זמן המראה");
         $("#aircraftInfoEventIcon").hide();
     } else {
@@ -396,9 +399,9 @@ function showAircraftInfoPopup(aircraft, collapse) {
         $("#aircraftInfoEventIcon").hide();
     }
 
-    var startTime = aircraft.path[0].from? aircraft.path[0].from : aircraft.path[0].time;
-    var endTime = aircraft.path[0].from? aircraft.path[aircraft.path.length-1].time : aircraft.path[0].time;
-    $("#aircraftInfoStartTime").text((startTime!=endTime?(roundToMinute(startTime)+ " - "):"") + roundToMinute(endTime));
+    var startTime = aircraft.path[0].from ? aircraft.path[0].from : aircraft.path[0].time;
+    var endTime = aircraft.path[0].from ? aircraft.path[aircraft.path.length - 1].time : aircraft.path[0].time;
+    $("#aircraftInfoStartTime").text((startTime != endTime ? (roundToMinute(startTime) + " - ") : "") + roundToMinute(endTime));
     $("#aircraftInfoIcon").attr("src", "icons/aircraft-menu/" + aircraft.icon + ".svg");
     $("#aircraftInfoContentDescription").text(aircraft.description);
     $("#aircraftInfoContentClassification").text(aircraft.classification);
@@ -467,7 +470,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
             $("#aircraftInfoButton").click();
             var height = $(window).height();
             $("#aircraftInfoMore").css("display", "none");
-            $("#aircraftInfoPopup").animate({"height": height + "px"}, 500);
+            $("#aircraftInfoPopup").animate({ "height": height + "px" }, 500);
             $("#shrinkAircraftInfoPopup").css("display", "block");
             $("#expandedInfo").css("display", "block");
         });
@@ -484,7 +487,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
             $('.aircraftTabs #aircraftInfoContent').show().siblings().hide();
 
             var autoHeight = $aircraftInfoPopup.height();
-            $aircraftInfoPopup.height(curHeight).animate({height: autoHeight}, 500, function () {
+            $aircraftInfoPopup.height(curHeight).animate({ height: autoHeight }, 500, function () {
                 $aircraftInfoPopup.height('auto');
             });
         });
@@ -494,7 +497,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
         var height = $(window).height();
         $("#aircraftInfoMore").css("display", "none");
         $("#aircraftInfoPopup").height("0px");
-        $("#aircraftInfoPopup").animate({"height": height + "px"}, 500);
+        $("#aircraftInfoPopup").animate({ "height": height + "px" }, 500);
         $("#shrinkAircraftInfoPopup").css("display", "block");
         $("#expandedInfo").css("display", "block");
 
@@ -514,8 +517,8 @@ function showAircraftInfoPopup(aircraft, collapse) {
         if (!isDesktop()) {
             // Hide only on mobile 
             $("#listView").hide();
-         }
-        
+        }
+
     }, 500);
 
     gtag('event', 'aircraft_info_open', {
@@ -557,22 +560,22 @@ function hidePopup(popup, callback) {
 
 function createParachutistRow(location, time, from) {
     return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ")\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/parachutist.svg\" class=\"parachutistIcon\"></img> <div class=\"aircraftName\"><b>"
-        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time)  + (from ? " - " +roundToMinute(from): "")  +  "</div></div>";
+        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + (from ? " - " + roundToMinute(from) : "") + "</div></div>";
 }
 
 function createAerobaticRow(location, time, from) {
     return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ")\" class=\"tableRow aerobatic\"><img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticIcon\"></img> <div class=\"aircraftName\"><b>"
-        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + (from ? " - " +roundToMinute(from): "")  + "</div></div>";
+        + location.pointName + "</b></div><div class=\"time\">" + roundToMinute(time) + (from ? " - " + roundToMinute(from) : "") + "</div></div>";
 }
 
 function createCategoryLocationRow(location, time, from) {
     return "<div onclick=\"selectPointFromSchedule(" + location.pointId + ")\" class=\"tableRow indented\"><div class=\"aircraftName\"><b>"
-        + location.pointName + "</b></div><div class=\"time\">" + (from?(roundToMinute(from)+ " - "):"") + roundToMinute(time)+"</div></div>";
+        + location.pointName + "</b></div><div class=\"time\">" + (from ? (roundToMinute(from) + " - ") : "") + roundToMinute(time) + "</div></div>";
 }
 
 function createLocationScheduleRow(aircraft, location, time, from) {
     return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/point-${location.color}.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
-            ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} ${(from ? " - " + roundToMinute(from): "")} </div></div>`;
+            ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} ${(from ? " - " + roundToMinute(from) : "")} </div></div>`;
 }
 
 function selectPointFromSchedule(pointId, minimized = false) {
@@ -596,10 +599,10 @@ function createScheduleRow(aircraft, location) {
     return "";
 }
 
-function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule=false, showAllPoints=false, from) {
+function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule = false, showAllPoints = false, from) {
     var aerobaticIcon = "<div/>";
     var classname = "";
-    if (name === 'יסעור' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון'){
+    if (name === 'יסעור' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון') {
         classname = "<button class=\"show\" id=\"ARButton\" onclick='window.location.href=\"ar.html\"'></button>"
     } else classname = "<button class=\"hide\" id=\"ARButton\" onclick='window.location.href=\"ar.html\"'></button>"
     if (aerobatic) {
@@ -609,8 +612,8 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
         aerobaticIcon = "<img src=\"icons/aircraft-menu/parachutist.svg\" class=\"aerobaticTableIcon\"></img>";
         aircraftType = "הצנחת צנחנים";
     }
-    
-    return "<div onclick='onAircraftSelected(" + aircraftId + "," + collapse.toString() + ","+ showSchedule + "," + showAllPoints + ");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
+
+    return "<div onclick='onAircraftSelected(" + aircraftId + "," + collapse.toString() + "," + showSchedule + "," + showAllPoints + ");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
         ".svg\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>" + name +
         "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class='date'>" + (date ? date : '') + "</div>" + classname + "<div class=\"time\">" +
         (displayTime ? roundToMinute(time) : "") + (displayTime && from ? (" - " + roundToMinute(from)) : "") + "</div></div></div></div>";
@@ -635,7 +638,7 @@ function createLocationRow(location, displayFirstAircraft, isSearchBar = false) 
 
 function expandLocation(pointId, isSearchBar = false) {
     var location = locations[pointId];
-    
+
     var locationSpace = isSearchBar ? $("#search-view #locationSpace" + pointId) : $("#locationSpace" + pointId);
     if (locationSpace.html() === "") {
         var html = "";
@@ -732,7 +735,7 @@ function showBasePopup(isAerobatics, special1, special2, minutes, locationName) 
         $("#showAeroplanIcon").show();
         $("#showParachutingIcon").hide();
         $("#popupHeaderIcon").hide();
-    } else if (special1 === "הצנחת צנחנים" ||special2 === "הצנחת צנחנים" ) {
+    } else if (special1 === "הצנחת צנחנים" || special2 === "הצנחת צנחנים") {
         $("#showAeroplanIcon").hide();
         $("#showParachutingIcon").show();
         $("#popupHeaderIcon").hide();
@@ -741,7 +744,7 @@ function showBasePopup(isAerobatics, special1, special2, minutes, locationName) 
     html += "</b><br class=\"baseData\">";
     html += getEventDescription(isAerobatics, locationName, minutes);
     $("#showData").html(html);
-    $("#basePopup").css("top", -64).css("opacity",0);
+    $("#basePopup").css("top", -64).css("opacity", 0);
     $(".alert-header").show();
     $("#basePopup").show();
     animateBasePopup();
@@ -764,10 +767,10 @@ function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link 
     $(`#${iconId}`).show();
     if (link) {
         $("#basePopup").click(() => {
-           var win = window.open(link);
-           if (win) {
-               win.focus();
-           }
+            var win = window.open(link);
+            if (win) {
+                win.focus();
+            }
         });
     } else {
         $("#basePopup").off('click');
@@ -777,7 +780,7 @@ function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link 
     // var eventDetails = `${desc}${baseName} בעוד ${minute} דקות`;
     html += subtitle;
     $("#showData").html(html);
-    $("#basePopup").css("top", -64).css("opacity",0);
+    $("#basePopup").css("top", -64).css("opacity", 0);
     $("#basePopup").show();
     animateBasePopup();
 
@@ -814,7 +817,7 @@ function getMapUndark() {
 }
 
 function createClusterLocationRow(location) {
-    return "<div onclick='selectPoint(" + location.pointId + ");' class=\"tableRow\"><img src=\"icons/point-"+location.color+".svg\" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
+    return "<div onclick='selectPoint(" + location.pointId + ");' class=\"tableRow\"><img src=\"icons/point-" + location.color + ".svg\" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
         + location.pointName + "</b></div></div></div>";
 }
 
@@ -870,57 +873,55 @@ $(document).ready(function () {
 });
 
 function closeGotoVoiceMessagePopup() {
-   $("#gottoVoiceMessagePopup").hide();
+    $("#gottoVoiceMessagePopup").hide();
 }
 
 function showAudioMessagePopup() {
-   $("#gottoVoiceMessagePopup").hide();
-   $("#myModal").show();
-   $("#myModal")[0].style.display = "flex";
+    $("#gottoVoiceMessagePopup").hide();
+    $("#myModal").show();
+    $("#myModal")[0].style.display = "flex";
     playAudioMessageAndTracker()
 }
 
-function closeVoiceMessagePopup(){
+function closeVoiceMessagePopup() {
     $("#audioSRC")[0].pause();
     $("#audioSRC")[0].currentTime = 0;
-   $("#myModal").hide();
-   $("#gottoVoiceMessagePopup").hide();
+    $("#myModal").hide();
+    $("#gottoVoiceMessagePopup").hide();
 }
 
 var audioPLay;
 function playAudioMessageAndTracker() {
-    if($("#audioSRC")[0].src !== "")
-    {
-       $("#audioSRC")[0].play();
+    if ($("#audioSRC")[0].src !== "") {
+        $("#audioSRC")[0].play();
         audioPLay = true;
     }
 }
 
 function playBTN() {
-    if($("#audioSRC")[0].src !== "")
-    {
-        if(audioPLay){
+    if ($("#audioSRC")[0].src !== "") {
+        if (audioPLay) {
             audioPLay = false;
-           $("#audioSRC")[0].pause();
+            $("#audioSRC")[0].pause();
         }
         else {
             audioPLay = true;
-           $("#audioSRC")[0].play();
+            $("#audioSRC")[0].play();
         }
     }
 }
 
 function updateAudioMessageTime() {
-    activeVoiceMessage =$("#audioSRC")[0];
+    activeVoiceMessage = $("#audioSRC")[0];
     var currentSeconds = (Math.floor(activeVoiceMessage.currentTime % 60) < 10 ? '0' : '') + Math.floor(activeVoiceMessage.currentTime % 60);
     var currentMinutes = Math.floor(activeVoiceMessage.currentTime / 60);
 
-   $("#audioTime")[0].innerHTML = currentMinutes + ":" + currentSeconds;
+    $("#audioTime")[0].innerHTML = currentMinutes + ":" + currentSeconds;
 
-    var percentageOfSong = (activeVoiceMessage.currentTime/activeVoiceMessage.duration);
-    var percentageOfSlider =$('#audioTrack')[0].offsetWidth * percentageOfSong;
+    var percentageOfSong = (activeVoiceMessage.currentTime / activeVoiceMessage.duration);
+    var percentageOfSlider = $('#audioTrack')[0].offsetWidth * percentageOfSong;
 
-   $('#trackerPoint')[0].style.left = Math.round(percentageOfSlider) + "px";
+    $('#trackerPoint')[0].style.left = Math.round(percentageOfSlider) + "px";
 }
 
 function isDesktop() {
