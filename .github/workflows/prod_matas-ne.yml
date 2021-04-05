@@ -61,5 +61,5 @@ jobs:
       with:
         app-name: 'matas-we'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_668d3e0bdc6245fda18ff3ac2d975a18 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_ce00719f3c49470391deaa784676939d }}
         package: .
