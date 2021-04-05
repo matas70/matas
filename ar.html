@@ -50,15 +50,15 @@
 
 
 			firebase.database().ref('error-logs/ ' + dateTime + " | " + uuid.v4()).set({
-					date: dateTime,
-					user_agent: navigator.userAgent,
-					browser: cur_user_agent.getBrowser(),
-					device: cur_user_agent.getDevice(),
-					OS: cur_user_agent.getOS(),
-					engine: cur_user_agent.getEngine(),
-					message: errorMsg,
-					url: url,
-					line_number: lineNumber,
+					date: String(dateTime),
+					user_agent: String(navigator.userAgent),
+					browser: String(cur_user_agent.getBrowser()),
+					device: String(cur_user_agent.getDevice()),
+					OS: String(cur_user_agent.getOS()),
+					engine: String(cur_user_agent.getEngine()),
+					message: String(errorMsg),
+					url: String(url),
+					line_number: String(lineNumber),
 				});
 			return false;
 		}
@@ -185,12 +185,12 @@
 								cur_user_agent.getBrowser().name + " " +
 								cur_user_agent.getBrowser().version.replaceAll(".", ":") + " | " +
 								dateTime).set({
-									date: dateTime,
-									user_agent: navigator.userAgent,
-									browser: cur_user_agent.getBrowser(),
-									device: cur_user_agent.getDevice(),
-									OS: cur_user_agent.getOS(),
-									engine: cur_user_agent.getEngine()
+									date: String(dateTime),
+									user_agent: String(navigator.userAgent),
+									browser: String(cur_user_agent.getBrowser()),
+									device: String(cur_user_agent.getDevice()),
+									OS: String(cur_user_agent.getOS()),
+									engine: String(cur_user_agent.getEngine())
 								});
 						}
 						else if (getCookie('tutorial') !== 3) {
@@ -202,12 +202,12 @@
 								cur_user_agent.getBrowser().name + " " +
 								cur_user_agent.getBrowser().version.replaceAll(".", ":") + " | " +
 								dateTime).set({
-									date: dateTime,
-									user_agent: navigator.userAgent,
-									browser: cur_user_agent.getBrowser(),
-									device: cur_user_agent.getDevice(),
-									OS: cur_user_agent.getOS(),
-									engine: cur_user_agent.getEngine()
+									date: String(dateTime),
+									user_agent: String(navigator.userAgent),
+									browser: String(cur_user_agent.getBrowser()),
+									device: String(cur_user_agent.getDevice()),
+									OS: String(cur_user_agent.getOS()),
+									engine: String(cur_user_agent.getEngine())
 								});
 						}
 					}).catch();
@@ -229,12 +229,12 @@
 							cur_user_agent.getBrowser().name + " " +
 							cur_user_agent.getBrowser().version.replaceAll(".", ":") + " | " +
 							dateTime).set({
-								date: dateTime,
-								user_agent: navigator.userAgent,
-								browser: cur_user_agent.getBrowser(),
-								device: cur_user_agent.getDevice(),
-								OS: cur_user_agent.getOS(),
-								engine: cur_user_agent.getEngine()
+								date: String(dateTime),
+								user_agent: String(navigator.userAgent),
+								browser: String(cur_user_agent.getBrowser()),
+								device: String(cur_user_agent.getDevice()),
+								OS: String(cur_user_agent.getOS()),
+								engine: String(cur_user_agent.getEngine())
 							});
 					}
 				}
