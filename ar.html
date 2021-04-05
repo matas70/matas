@@ -43,13 +43,13 @@
 			const today = new Date();
 			const date = today.getFullYear() + '-' + (today.getMonth() + 1) + "-" + today.getDate();
 			const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + ":" + (+ today) % 1000;
-			const dateTime = date + ' ' + time;
+			const dateTime = date + '/' + time;
 			const cur_user_agent = new UAParser();
 			cur_user_agent.setUA(navigator.userAgent);
 			const result = cur_user_agent.getResult();
 
 
-			firebase.database().ref('error-logs/ ' + dateTime + " | " + Math.random()).set({
+			firebase.database().ref('error-logs/' + dateTime + "/" + Math.random()).set({
 					date: String(dateTime),
 					user_agent: String(navigator.userAgent),
 					browser: String(cur_user_agent.getBrowser()),
