@@ -751,7 +751,7 @@ function animateBasePopup() {
     }, 600);
 }
 
-function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link = undefined) {
+function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link = undefined, after = () => {}) {
     var html = "<b class=\"baseData\">";
     html += title;
 
@@ -777,6 +777,7 @@ function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link 
     $("#basePopup").show();
     animateBasePopup();
 
+    after();
 }
 
 function getEventIcon(isAerobatics) {
