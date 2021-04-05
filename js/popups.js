@@ -382,12 +382,17 @@ function toggleAircraftContentSeparator(shouldShow) {
 }
 
 function showAircraftInfoPopup(aircraft, collapse) {
-
+    $("#cockpitVideo").hide();
+    if (aircraft.icon === "efroni")
+        $("#cockpitVideo").show();
+        
     $("#aircraftInfoName").text(aircraft.name);
     $("#aircraftInfoType").text(aircraft.type);
+
     if (aircraft.name === 'יסעור' | aircraft.name === 'עפרוני' | aircraft.name === 'ברק' | aircraft.name === 'אדיר' | aircraft.name === 'קרנף' | aircraft.name === 'לביא' | aircraft.name === 'בז' | aircraft.name === 'סופה' | aircraft.name === 'שמשון') {
         $("#aircraftInfo3D").show();
     } else $("#aircraftInfo3D").hide();
+    
     if (aircraft.aerobatic) {
         $("#aircraftInfoTimeLabel").text("תחילת מופע");
         $("#aircraftInfoEventIcon").show();
