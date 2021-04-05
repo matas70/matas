@@ -431,12 +431,12 @@ canvas {
   bottom: 82.5px;
 }
 
-#ar-overly #controls #button-reset.support {
-  background-image: url('/assets/Icon material-undo-1.svg');
+#ar-overly #controls #button-reset {
+  background-image: url('/assets/scribble.svg');
 }
 
-#ar-overly #controls #button-reset.notsupport {
-  background-image: url('/assets/scribble.svg');
+.is-supported #ar-overly #controls #button-reset {
+  background-image: url('/assets/Icon material-undo-1.svg');
 }
 
 #trails_menu {
