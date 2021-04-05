@@ -46,11 +46,20 @@ jobs:
       with:
         name: node-app
 
-    - name: 'Deploy to Azure Web App'
-      id: deploy-to-webapp
+    - name: 'Deploy to Azure Web App (East)'
+      id: deploy-to-webapp-east
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'matas-ne'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_4171f965a7b54797ba5ff14f987a0106 }}
+        package: .
+    
+    - name: 'Deploy to Azure Web App (West)'
+      id: deploy-to-webapp-west
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'matas-we'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_668d3e0bdc6245fda18ff3ac2d975a18 }}
         package: .
