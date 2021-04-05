@@ -115,9 +115,10 @@ select {
   transition: all 1s;
 }
 
-.is-selecting #ar-overly button {
+.is-selecting #ar-overly {
   opacity: 0;
 }
+
 
 #ar-overly .share {
   bottom: 20px;
