@@ -598,6 +598,10 @@ function createScheduleRow(aircraft, location) {
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule=false, showAllPoints=false, from) {
     var aerobaticIcon = "<div/>";
+    var classname = "";
+    if (name === 'יסעור' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון'){
+        classname = "<button class=\"show\" id=\"ARButton\" onclick='window.location.href=\"ar.html\"'></button>"
+    } else classname = "<button class=\"hide\" id=\"ARButton\" onclick='window.location.href=\"ar.html\"'></button>"
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
         //aircraftType = "מופע אווירובטי";
@@ -605,10 +609,10 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
         aerobaticIcon = "<img src=\"icons/aircraft-menu/parachutist.svg\" class=\"aerobaticTableIcon\"></img>";
         aircraftType = "הצנחת צנחנים";
     }
-
+    
     return "<div onclick='onAircraftSelected(" + aircraftId + "," + collapse.toString() + ","+ showSchedule + "," + showAllPoints + ");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
         ".svg\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>" + name +
-        "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class='date'>" + (date ? date : '') + "</div>" + "<button id=\"ARButton\" onclick='window.location.href=\"ar.html\"'></button>" + "<div class=\"time\">" +
+        "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class='date'>" + (date ? date : '') + "</div>" + classname + "<div class=\"time\">" +
         (displayTime ? roundToMinute(time) : "") + (displayTime && from ? (" - " + roundToMinute(from)) : "") + "</div></div></div></div>";
 }
 
