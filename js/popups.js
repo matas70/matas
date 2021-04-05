@@ -382,6 +382,10 @@ function toggleAircraftContentSeparator(shouldShow) {
 }
 
 function showAircraftInfoPopup(aircraft, collapse) {
+    $("#cockpitVideo").hide();
+    if (aircraft.icon === "efroni")
+        $("#cockpitVideo").show();
+        
     $("#aircraftInfoName").text(aircraft.name);
     $("#aircraftInfoType").text(aircraft.type);
 
