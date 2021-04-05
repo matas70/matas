@@ -1196,8 +1196,8 @@
                     </g>
                   </g>
                 </g>
-                <g
-                   id="g4430">
+                <g id="g123">
+                <g id="g4430">
                   <g
                      clip-path="url(#clipPath4278-3)"
                      id="g4432">
@@ -1244,6 +1244,7 @@
                     </g>
                   </g>
                 </g>
+                </g>
                 <g
                    id="g4462">
                   <g
@@ -1285,5 +1286,15 @@
          id="g4478"
          transform="translate(-1.4142136,1.4142136)" />
     </g>
+    <style>
+      #g123 {
+         transform-box: fill-box;
+         animation: 0.7s rot infinite linear;
+         transform-origin: 23px 21.6px;
+      }
+      @keyframes rot {
+         from { transform: rotate(-360deg) }
+      }
+    </style>
   </g>
 </svg>

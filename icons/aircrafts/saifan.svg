@@ -1972,5 +1972,15 @@
         </g>
       </g>
     </g>
+    <style>
+      #g8357 {
+         transform-box: fill-box;
+         animation: 0.7s rot infinite linear;
+         transform-origin: center;
+      }
+      @keyframes rot {
+         from { transform: rotate(-360deg) }
+      }
+    </style>
   </g>
 </svg>

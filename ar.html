@@ -76,7 +76,9 @@
 					<span class='static-mode'></span>
 					<span class='dynamic-mode'></span>
 				</button>
-				<button id="button-close" alt="Close"></button>
+				<button id="button-close" alt="Close">
+					<div id="blob" style="transform: scale(0); background-color: #3bb5f2; border-radius: 100%; width: 30px; height: 30px;"></div>
+				</button>
 			</div>
 			<div id="menus">
 				<div id="trails_menu">
@@ -99,6 +101,9 @@
 						<div>סרטון</div>
 					</div>
 					<img class="flip-camera" src="./assets/flip-camera.svg" alt="Flip Camera"> -->
+				</div>
+				<div class="share">
+        
 				</div>
 			</div>
 			<div id="tutorial">
@@ -134,6 +139,10 @@
 					</nav>
 				</div>
 			</div>
+			<div id='no-support-tutorial'>
+				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מסלול" class="index-finger">
+				<span>לחצו כאן כדי להחליף מסלול</span>
+			</div>
 			<!-- <div class="USDZ-container">
         <a rel="ar" href="https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz"><img class="image-model" src="https://developer.apple.com/augmented-reality/quick-look/models/biplane/biplane_2x.jpg" alt="" data-hires-status="replaced"></a>
     </div> -->
@@ -168,6 +177,7 @@
 				if ('xr' in navigator) {
 					navigator.xr.isSessionSupported('immersive-ar').then(function (supported) {
 						isSupported = supported;
+						if(isSupported) document.body.classList.add('is-supported')
 						init();
 						animate();
 						console.log(getCookie('tutorial'));
@@ -211,6 +221,7 @@
 					document.getElementById("button-reset").classList.add("notsupport");
 					const message = document.createElement('a');
 					isSupported = false;
+					if(isSupported) document.body.classList.remove('is-supported')
 					init();
 					animate();
 					if (window.isSecureContext == false) {
@@ -337,6 +348,9 @@
 				{ id: "f15", type: "obj", scale: 0.007, text: "f15" },
 				{ id: "f35", type: "glb", scale: 0.1, text: "f35" },
 				{ id: "f16", type: "gltf", scale: 0.005, text: "f16" },
+				// { id: "sofa", type: "glb", scale: 0.036, text: "sofa" },
+				// { id: "f16", type: "gltf", scale: 0.005, text: "f16" },
+				{ id: "lavie", type: "glb", scale: 0.026, text: "lavie" },
 				{ id: "karnaf", type: "glb", scale: 0.035, text: "karnaf" },
 			]
 
@@ -405,10 +419,9 @@
 					clearInterval(isTrailScrolling);
 					isTrailScrolling = setTimeout(() => {
 						const centeredElement = document.elementFromPoint(
-							document.body.offsetWidth / 2, document.documentElement.clientHeight - 130
+							document.body.offsetWidth / 2, document.documentElement.clientHeight - 160
 						);
 						let selected = centeredElement.parentElement.innerHTML.replace('<img src="./assets/', '').replace('.png">', '');
-						console.log(selected);
 						TRAILS_META_DATA.forEach((e) => {
 							if (e.id === selected) changeTrails(e);
 						})
@@ -486,7 +499,7 @@
 				planeMesh = new THREE.Mesh(geometry, material);
 				planeMesh.position.y = - 50;
 				planeMesh.rotation.x = - Math.PI * 0.5;
-				scene.add(planeMesh);
+				// scene.add(planeMesh);
 
 				THREE.DefaultLoadingManager.onLoad = function () {
 
@@ -537,11 +550,34 @@
 						optionalFeatures: ['dom-overlay', 'dom-overlay-for-handheld-ar'],
 						domOverlay: { root: document.getElementById("ar-overly") },
 						// endSessionCallback: startup,
+						fallback: () =>{
+							document.body.classList.remove('is-supported');
+							arButton.style.display = 'none';
+							isSupported = false;
+						},
 						closebutton: document.getElementById("button-close")
 					});
 
 					document.body.appendChild(arButton);
 				}
+
+				const shareData = {
+            title: 'כיף לצפות במטוסי חיל האוויר - אצלי בטלפון, בתלת מימד!',
+            text: 'כמה מגניב! באפליקצית מטס יום העצמאות ה73 אני רואה את כל המטוסים בתלת מימד. בואו לנסות גם',
+            url: 'https://matas-iaf.com',
+        }
+        
+        const btn = document.querySelector('#ar-overly .share');
+        
+        // Must be triggered some kind of "user activation"
+        btn.addEventListener('click', async () => {
+            try {
+                await navigator.share(shareData);
+                console.log('המשתמש שיתף בהצלחה את המטס');
+            } catch(err) {
+                console.log('נסיון שיתוף נכשל',err);
+            }
+        });
 
 				window.addEventListener('load', startup, false);
 				var streaming = false;
@@ -642,7 +678,8 @@
 				})
 
 				document.getElementById("button-close").addEventListener("click", (e) => {
-					window.location.href = '/'
+					document.getElementById('blob').classList.add('animateScale');
+					setTimeout(() => window.location.href = '/', 1000);
 				})
 
 				document.getElementById("exit-trail").addEventListener("click", (e) => {
@@ -964,7 +1001,7 @@
 
 			function animate() {
 				let render;
-				render = isSupported ? baseRender : iosRender;
+				render = ()=> isSupported ? baseRender() : iosRender();
 				renderer.setAnimationLoop(render);
 			}
 
@@ -1115,7 +1152,7 @@
 			}
 
 			function getCurrentTravelPercent() {
-				const totalMillis = travelLength(locations) * 5000;
+				const totalMillis = travelLength(locations) * 10000;
 				if (Date.now() - animationCycleStart > totalMillis)
 					animationCycleStart = Date.now();
 
@@ -1153,8 +1190,15 @@
 			if (getCookie('tutorial')) {
 				const stepFinished = getCookie('tutorial');
 				document.querySelector('.step-1').style.display = 'none';
+				document.querySelector('#no-support-tutorial').style.display = 'none';
 				finishTutorial(stepFinished)
 			}
+
+
+			document.querySelector('#no-support-tutorial').addEventListener('click', () => {
+				document.querySelector('#no-support-tutorial').style.display = 'none';
+				document.cookie = "tutorial=3; expires=Thu, 30 Dec 2021 12:00:00 UTC";
+			})
 
 			function getCookie(cname) {
 				var name = cname + "=";

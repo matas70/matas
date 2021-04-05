@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="39.969" height="38.993" viewBox="0 0 39.969 38.993">
+    <defs>
+        <filter id="cam78uhlga" width="39.969" height="38.993" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g filter="url(#cam78uhlga)">
+        <path fill="none" stroke="#fff" stroke-width="2.7px" d="M1863.316 1158.864c-15.715 1.048-10.893 8.884-6.871 7.082s4.7-11.19-.546-12.049-8.65 10.394-11.778 7.553 4.141-10.234 3.072-12.578-4.9.808-4.9.808" transform="translate(-1832.44 -1140.6)"/>
+    </g>
+</svg>

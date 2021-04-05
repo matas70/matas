@@ -109,8 +109,15 @@ class ARButton {
 			// };
 
 			button.onclick = function () {
-				if ( currentSession === null ) {
-				navigator.xr.requestSession('immersive-ar', sessionInit).then(onSessionStarted);}
+				try {
+					if ( currentSession === null ) {
+						navigator.xr.requestSession('immersive-ar', sessionInit).then(onSessionStarted);
+					}
+				} catch (e) {
+					if(sessionInit.fallback) {
+						sessionInit.fallback();
+					}
+				}
 
 			};
 

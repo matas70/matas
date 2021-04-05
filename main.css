@@ -119,6 +119,29 @@ select {
   opacity: 0;
 }
 
+#ar-overly .share {
+  bottom: 20px;
+  position: absolute;
+  width: 189px;
+  height: 44px;
+  border-radius: 22px;
+  text-align: center;
+  text-indent: -1000px;
+  overflow: hidden;
+  background-image: url(/assets/share_ar.png);
+  background-size: cover;
+  background-position: center center;
+}
+
+#ar-overly .share::before {
+  content: "שיתוף עם חברים";
+  color: white;
+  font-family: Heebo;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 44px;
+}
+
 #ARButton {
   z-index: 9999;
   position: fixed;
@@ -134,7 +157,6 @@ select {
   border-radius: 100px;
   border: 3px dotted white;
 }
-
 
 #notSupported {
   width: 50%;
@@ -168,7 +190,7 @@ select {
 }
 
 #controls #button-reset {
-  background-image: url('./assets/Icon material-undo-1.svg');
+  background-image: url('./icons/scribble.svg');
 }
 #controls #button-action {
   background-image: url('./assets/flash.svg');
@@ -180,6 +202,14 @@ select {
   color: white;
   width: 140px;
   position: relative;
+}
+
+.animateScale {
+  animation: scaleUp 1s cubic-bezier(0.785, 0.035, 0.15, 0.86) forwards;
+}
+@keyframes scaleUp {
+  from { transform: scale(0); }
+  to { transform: scale(100); }
 }
 
 #controls #button-mode-toggle > * {
@@ -398,7 +428,7 @@ canvas {
   height: 55px;
   position: absolute;
   left: calc(50% - 31.5px);
-  bottom: 48.5px;
+  bottom: 82.5px;
 }
 
 #ar-overly #controls #button-reset.support {
@@ -479,11 +509,11 @@ div #resetbutton.trails_menu_hide {
 
 #settings_menu {
   width: calc(100% - 30px);
-  height: 50px;
+  height: 84px;
   padding: 0 15px;
-  background-color: rgba(0, 0, 0, 0.075);
+  /* background-color: rgba(0, 0, 0, 0.075);
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -516,6 +546,7 @@ div #resetbutton.trails_menu_hide {
 /*********** tutorial **************/
 
 #tutorial {
+  display: none;
   width: 65.8%;
   padding: 6.3% 6.3% 48px 6.3%;
   position: absolute;
@@ -534,6 +565,10 @@ div #resetbutton.trails_menu_hide {
   border-radius: 16px;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
   direction: rtl;
+}
+
+.is-supported #tutorial {
+  display: block;
 }
 
 
@@ -590,4 +625,41 @@ div #resetbutton.trails_menu_hide {
 
 #tutorial .step-2, #tutorial .step-3 {
   display: none;
+}
+
+.is-supported #no-support-tutorial {
+  display: none;
+}
+
+#no-support-tutorial {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 99999;
+}
+
+#no-support-tutorial .index-finger {
+  width: 61.6px;
+  height: 79.8px;
+  object-fit: contain;
+  left: 4.2px;
+  top: 55px;
+  position: fixed;
+}
+
+#no-support-tutorial span {
+  font-family: Heebo;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  color: #ffffff;
+  position: absolute;
+  left: 42px;
+  top: 109px;
+  width: 290.3px;
+  text-align: center;
 }

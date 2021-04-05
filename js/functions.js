@@ -985,7 +985,7 @@ function setAircraftIcon(marker, icon, acId, country, azimuth, color, zoomLevel)
     mapAPI.setAircraftMarkerIcon(marker, imgUrl);
     setTimeout(() => {
         $(`img[src*="?${acId}"]`).css("transform",  'rotate(' + azimuth + 'deg)')
-    }, 300);
+    }, 500);
 }
 
 function startAircraftsAnimation(updateCurrent) {
@@ -2300,7 +2300,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     function notifyUserIfNear(currentLocation, aircraft) {
         if (userLoc) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-            if(haversineDistance(userLoc,currentLocation) < 10)
+            if(haversineDistance(userLoc,currentLocation) < 3)
             {
                 notifiedNearUser = true;
                 //check that its not the same popup that has been closed
