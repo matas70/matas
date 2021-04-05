@@ -49,7 +49,7 @@
 			const result = cur_user_agent.getResult();
 
 
-			firebase.database().ref('error-logs/ ' + dateTime + " | " + uuid.v4()).set({
+			firebase.database().ref('error-logs/ ' + dateTime + " | " + Math.random()).set({
 					date: String(dateTime),
 					user_agent: String(navigator.userAgent),
 					browser: String(cur_user_agent.getBrowser()),
