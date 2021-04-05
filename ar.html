@@ -38,6 +38,20 @@
 		firebase.analytics();
 		var database = firebase.database();
 
+		function dataToFirebase(data) {
+			if(data == null) data = "null"
+			if(data == undefined) data = "undefined"
+			if(Array.isArray(data)) {
+				return data.map(item => dataToFirebase(item))
+			}
+			if(typeof data == 'object') {
+				Object.keys(data).map(function(key, index) {
+					data[key] = dataToFirebase(data[key]);
+				});
+			}
+			return data
+		}
+
 		window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
 
 			const today = new Date();
@@ -50,15 +64,15 @@
 
 
 			firebase.database().ref('error-logs/' + dateTime + "/" + Math.floor(Math.random()*10000)).set({
-					date: String(dateTime),
-					user_agent: String(navigator.userAgent),
-					browser: String(cur_user_agent.getBrowser()),
-					device: String(cur_user_agent.getDevice()),
-					OS: String(cur_user_agent.getOS()),
-					engine: String(cur_user_agent.getEngine()),
-					message: String(errorMsg),
-					url: String(url),
-					line_number: String(lineNumber),
+					date: dataToFirebase(dateTime),
+					user_agent: dataToFirebase(navigator.userAgent),
+					browser: dataToFirebase(cur_user_agent.getBrowser()),
+					device: dataToFirebase(cur_user_agent.getDevice()),
+					OS: dataToFirebase(cur_user_agent.getOS()),
+					engine: dataToFirebase(cur_user_agent.getEngine()),
+					message: dataToFirebase(errorMsg),
+					url: dataToFirebase(url),
+					line_number: dataToFirebase(lineNumber),
 				});
 			return false;
 		}
@@ -190,12 +204,12 @@
 								cur_user_agent.getBrowser().name + " " +
 								cur_user_agent.getBrowser().version.replaceAll(".", ":") + " | " +
 								dateTime).set({
-									date: String(dateTime),
-									user_agent: String(navigator.userAgent),
-									browser: String(cur_user_agent.getBrowser()),
-									device: String(cur_user_agent.getDevice()),
-									OS: String(cur_user_agent.getOS()),
-									engine: String(cur_user_agent.getEngine())
+									date: dataToFirebase(dateTime),
+									user_agent: dataToFirebase(navigator.userAgent),
+									browser: dataToFirebase(cur_user_agent.getBrowser()),
+									device: dataToFirebase(cur_user_agent.getDevice()),
+									OS: dataToFirebase(cur_user_agent.getOS()),
+									engine: dataToFirebase(cur_user_agent.getEngine())
 								});
 						}
 						else if (getCookie('tutorial') !== 3) {
@@ -207,12 +221,12 @@
 								cur_user_agent.getBrowser().name + " " +
 								cur_user_agent.getBrowser().version.replaceAll(".", ":") + " | " +
 								dateTime).set({
-									date: String(dateTime),
-									user_agent: String(navigator.userAgent),
-									browser: String(cur_user_agent.getBrowser()),
-									device: String(cur_user_agent.getDevice()),
-									OS: String(cur_user_agent.getOS()),
-									engine: String(cur_user_agent.getEngine())
+									date: dataToFirebase(dateTime),
+									user_agent: dataToFirebase(navigator.userAgent),
+									browser: dataToFirebase(cur_user_agent.getBrowser()),
+									device: dataToFirebase(cur_user_agent.getDevice()),
+									OS: dataToFirebase(cur_user_agent.getOS()),
+									engine: dataToFirebase(cur_user_agent.getEngine())
 								});
 						}
 					}).catch();
@@ -236,12 +250,12 @@
 							cur_user_agent.getBrowser().name + " " +
 							cur_user_agent.getBrowser().version.replaceAll(".", ":") + " | " +
 							dateTime).set({
-								date: String(dateTime),
-								user_agent: String(navigator.userAgent),
-								browser: String(cur_user_agent.getBrowser()),
-								device: String(cur_user_agent.getDevice()),
-								OS: String(cur_user_agent.getOS()),
-								engine: String(cur_user_agent.getEngine())
+								date: dataToFirebase(dateTime),
+								user_agent: dataToFirebase(navigator.userAgent),
+								browser: dataToFirebase(cur_user_agent.getBrowser()),
+								device: dataToFirebase(cur_user_agent.getDevice()),
+								OS: dataToFirebase(cur_user_agent.getOS()),
+								engine: dataToFirebase(cur_user_agent.getEngine())
 							});
 					}
 				}
