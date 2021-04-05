@@ -49,6 +49,14 @@
 	.st2{fill:#DBCF9E;}
 	.st3{fill:#596B6A;stroke:#596B6A;stroke-width:2;stroke-miterlimit:10;}
 	.st4{fill:none;stroke:#EDE2B2;stroke-width:2;stroke-miterlimit:10;}
+  #g53 {
+		transform-box: fill-box;
+		animation: 0.7s rot infinite linear;
+		transform-origin: center;
+	}
+	@keyframes rot {
+		from { transform: rotate(360deg) }
+	}
 </style><g
      id="g4225"
      transform="matrix(0.2,0,0,0.2,6.6200012,54.339999)"><g
