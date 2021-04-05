@@ -15,24 +15,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Setup MSBuild path
-      uses: microsoft/setup-msbuild@v1.0.2
-
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.0.5
-
-    - name: Restore NuGet packages
-      run: nuget restore
-
-    - name: Publish to folder
-      run: msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
-
+    
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
-        name: ASP-app
-        path: '/published/**'
+        name: node-app
+        path: .
 
   deploy:
     runs-on: 'windows-latest'
@@ -45,7 +33,7 @@ jobs:
     - name: Download artifact from build job
       uses: actions/download-artifact@v2
       with:
-        name: ASP-app
+        name: node-app
 
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
