@@ -956,7 +956,7 @@
 				
 				document.getElementsByClassName('static-mode')[0].remove();
 				let node = document.createElement('a');
-				node.href = './3d_models/aircrafts/usdz/' + currentAircraft + '.usdz';
+				node.href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
 				node.classList.add('static-mode');
 				document.getElementById('button-mode-toggle').prepend(node);
 			}
