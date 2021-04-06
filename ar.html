@@ -169,6 +169,7 @@
 			const result = cur_user_agent.getResult();
 
 			let isSupported;
+			let currentAircraft = "f35";
 
 			function checkDeviceSupport() {
 				console.log(cur_user_agent.getResult())
@@ -698,6 +699,12 @@
 						if (locations.length) locations.pop();
 						painter.mesh.material.opacity = 0.3;
 					} else {
+						
+						if (isIOS()) {
+							location.href = '/3d_models/aircrafts/usdz/' + currentAircraft + '.usdz';
+							return;
+						}
+						
 						mode = 'static'
 						this.classList.add('static');
 						this.classList.remove('dynamic');
@@ -935,6 +942,7 @@
 				AIRCRAFTS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
 				document.getElementById(selectedAircraft.id).classList.add("selected");
 				loadAircraft(selectedAircraft);
+				currentAircraft = selectedAircraft.id;
 			}
 
 			function changeTrails(selectedTrails) {
@@ -1257,24 +1265,6 @@
 		</script>
 
 		<script src="https://unpkg.com/smooth-scroll-into-view-if-needed/umd/smooth-scroll-into-view-if-needed.min.js"></script>
-
-		<!-- <script>
-		function isIOS() {
-			return [
-				'iPad Simulator',
-				'iPhone Simulator',
-				'iPod Simulator',
-				'iPad',
-				'iPhone',
-				'iPod'
-			].includes(navigator.platform)
-			|| (navigator.userAgent.includes("Mac") && "ontouchend" in document)
-		}
-
-		if (!isIOS()) {
-			document.getElementsByClassName('USDZ-container')[0].innerHTML = "USDZ not supported 😢"
-		}
-	</script> -->
 
 
 	</body>
