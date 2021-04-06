@@ -954,11 +954,13 @@
 				loadAircraft(selectedAircraft);
 				currentAircraft = selectedAircraft.id;
 				
-				document.getElementsByClassName('static-mode')[0].remove();
-				let node = document.createElement('a');
-				node.href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
-				node.classList.add('static-mode');
-				document.getElementById('button-mode-toggle').prepend(node);
+				if (isIOS()) {
+					document.getElementsByClassName('static-mode')[0].remove();
+					let node = document.createElement('a');
+					node.href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
+					node.classList.add('static-mode');
+					document.getElementById('button-mode-toggle').prepend(node);
+				}
 			}
 
 			function changeTrails(selectedTrails) {
