@@ -2106,20 +2106,33 @@ function getISODate(date) {
 }
 
 function initGenericPopups() {
+    
     if (userSimulation) {
-        showGenericPopup("מחממים מנועים!", "המטוסים המופיעים על המפה לפני המטס הינם הדמייה בלבד");
+        showGenericPopup("מחממים מנועים!", "המטוסים המופיעים על המפה לפני המטס הינם הדמייה בלבד", undefined, null, () => {
+            setTimeout(() => {
+                showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
+            }, 30*1000);
+        });
     } else if (getCurrentTime() >= realActualStartTime - 4 * 60 * 60 * 1000 && getCurrentTime() <= realActualStartTime + 3 * 60 * 60 * 1000) {
         if (!changes) {
             let displayed = "false";
             if (localStorage)
                 displayed = localStorage.getItem("good_morning_displayed_2019");
             if (!(displayed === "true")) {
-                showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon");
+                showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon", () => {
+                    setTimeout(() => {
+                        showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
+                    }, 30*1000);
+                });
                 if (localStorage)
                     localStorage.setItem("good_morning_displayed_2019", "true");
             }
         } else {
-            showGenericPopup("עקב תנאי מזג האוויר", `חלו שינויים קלים בנתיבים ובמופעים, אך אנחנו עדיין באים! (: חג שמח!`, "flightStartChangesIcon");
+            showGenericPopup("עקב תנאי מזג האוויר", `חלו שינויים קלים בנתיבים ובמופעים, אך אנחנו עדיין באים! (: חג שמח!`, "flightStartChangesIcon", () => {
+                setTimeout(() => {
+                    showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
+                }, 30*1000);
+            });
         }
     } else {
         var timeToFlightEnd = new Date(realActualStartTime).addHours(6) - new Date();

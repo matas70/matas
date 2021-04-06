@@ -38,27 +38,41 @@
 		firebase.analytics();
 		var database = firebase.database();
 
+		function dataToFirebase(data) {
+			if(data == null) data = "null"
+			if(data == undefined) data = "undefined"
+			if(Array.isArray(data)) {
+				return data.map(item => dataToFirebase(item))
+			}
+			if(typeof data == 'object') {
+				Object.keys(data).map(function(key, index) {
+					data[key] = dataToFirebase(data[key]);
+				});
+			}
+			return data
+		}
+
 		window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
 
 			const today = new Date();
 			const date = today.getFullYear() + '-' + (today.getMonth() + 1) + "-" + today.getDate();
 			const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + ":" + (+ today) % 1000;
-			const dateTime = date + ' ' + time;
+			const dateTime = date + '/' + time;
 			const cur_user_agent = new UAParser();
 			cur_user_agent.setUA(navigator.userAgent);
 			const result = cur_user_agent.getResult();
 
 
-			firebase.database().ref('error-logs/ ' + dateTime + " | " + uuid.v4()).set({
-					date: dateTime,
-					user_agent: navigator.userAgent,
-					browser: cur_user_agent.getBrowser(),
-					device: cur_user_agent.getDevice(),
-					OS: cur_user_agent.getOS(),
-					engine: cur_user_agent.getEngine(),
-					message: errorMsg,
-					url: url,
-					line_number: lineNumber,
+			firebase.database().ref('error-logs/' + dateTime + "/" + Math.floor(Math.random()*10000)).set({
+					date: dataToFirebase(dateTime),
+					user_agent: dataToFirebase(navigator.userAgent),
+					browser: dataToFirebase(cur_user_agent.getBrowser()),
+					device: dataToFirebase(cur_user_agent.getDevice()),
+					OS: dataToFirebase(cur_user_agent.getOS()),
+					engine: dataToFirebase(cur_user_agent.getEngine()),
+					message: dataToFirebase(errorMsg),
+					url: dataToFirebase(url),
+					line_number: dataToFirebase(lineNumber),
 				});
 			return false;
 		}
@@ -73,7 +87,7 @@
 				</div>
 				<!-- <button id="button-action" alt="Toggle Flash"></button> -->
 				<button id="button-mode-toggle" alt="Toggle mode" class="dynamic">
-					<span class='static-mode'></span>
+					<a class='static-mode'></a>
 					<span class='dynamic-mode'></span>
 				</button>
 				<button id="button-close" alt="Close">
@@ -149,16 +163,16 @@
 		</div>
 
 		<script type="module">
-			import * as THREE from './node_modules/three/build/three.module.js';
-			import { TubePainter } from './node_modules/three/examples/jsm/misc/TubePainter.js';
+			import * as THREE from 'https://unpkg.com/three@0.126.1/build/three.module.js';
+			import { TubePainter } from 'https://unpkg.com/three@0.126.1/examples/jsm/misc/TubePainter.js';
 			import { ARButton } from './ARButton.js';
-			import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader.js';
-			import * as HTML from './node_modules/html2canvas/dist/html2canvas.min.js';
-			import { MTLLoader } from './node_modules/three/examples/jsm/loaders/MTLLoader.js';
-			import { OBJLoader } from './node_modules/three/examples/jsm/loaders/OBJLoader.js';
-			import { OrbitControls } from "./node_modules/three/examples/jsm/controls/OrbitControls.js";
+			import { GLTFLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/GLTFLoader.js';
+			//import * as HTML from '../node_modules/html2canvas/dist/html2canvas.min.js';
+			import { MTLLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/MTLLoader.js';
+			import { OBJLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/OBJLoader.js';
+			import { OrbitControls } from "https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js";
+			import { EXRLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/EXRLoader.js';
 
-			import { EXRLoader } from './node_modules/three/examples/jsm/loaders/EXRLoader.js';
 
 			const today = new Date();
 			const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
@@ -169,6 +183,7 @@
 			const result = cur_user_agent.getResult();
 
 			let isSupported;
+			let currentAircraft = "f35";
 
 			function checkDeviceSupport() {
 				console.log(cur_user_agent.getResult())
@@ -190,12 +205,12 @@
 								cur_user_agent.getBrowser().name + " " +
 								cur_user_agent.getBrowser().version.replaceAll(".", ":") + " | " +
 								dateTime).set({
-									date: dateTime,
-									user_agent: navigator.userAgent,
-									browser: cur_user_agent.getBrowser(),
-									device: cur_user_agent.getDevice(),
-									OS: cur_user_agent.getOS(),
-									engine: cur_user_agent.getEngine()
+									date: dataToFirebase(dateTime),
+									user_agent: dataToFirebase(navigator.userAgent),
+									browser: dataToFirebase(cur_user_agent.getBrowser()),
+									device: dataToFirebase(cur_user_agent.getDevice()),
+									OS: dataToFirebase(cur_user_agent.getOS()),
+									engine: dataToFirebase(cur_user_agent.getEngine())
 								});
 						}
 						else if (getCookie('tutorial') !== 3) {
@@ -207,12 +222,12 @@
 								cur_user_agent.getBrowser().name + " " +
 								cur_user_agent.getBrowser().version.replaceAll(".", ":") + " | " +
 								dateTime).set({
-									date: dateTime,
-									user_agent: navigator.userAgent,
-									browser: cur_user_agent.getBrowser(),
-									device: cur_user_agent.getDevice(),
-									OS: cur_user_agent.getOS(),
-									engine: cur_user_agent.getEngine()
+									date: dataToFirebase(dateTime),
+									user_agent: dataToFirebase(navigator.userAgent),
+									browser: dataToFirebase(cur_user_agent.getBrowser()),
+									device: dataToFirebase(cur_user_agent.getDevice()),
+									OS: dataToFirebase(cur_user_agent.getOS()),
+									engine: dataToFirebase(cur_user_agent.getEngine())
 								});
 						}
 					}).catch();
@@ -236,12 +251,12 @@
 							cur_user_agent.getBrowser().name + " " +
 							cur_user_agent.getBrowser().version.replaceAll(".", ":") + " | " +
 							dateTime).set({
-								date: dateTime,
-								user_agent: navigator.userAgent,
-								browser: cur_user_agent.getBrowser(),
-								device: cur_user_agent.getDevice(),
-								OS: cur_user_agent.getOS(),
-								engine: cur_user_agent.getEngine()
+								date: dataToFirebase(dateTime),
+								user_agent: dataToFirebase(navigator.userAgent),
+								browser: dataToFirebase(cur_user_agent.getBrowser()),
+								device: dataToFirebase(cur_user_agent.getDevice()),
+								OS: dataToFirebase(cur_user_agent.getOS()),
+								engine: dataToFirebase(cur_user_agent.getEngine())
 							});
 					}
 				}
@@ -547,15 +562,14 @@
 				if (isSupported) {
 
 					const arButton = ARButton.createButton(renderer, {
-						optionalFeatures: ['dom-overlay', 'dom-overlay-for-handheld-ar'],
+						optionalFeatures: ['dom-overlay'],
 						domOverlay: { root: document.getElementById("ar-overly") },
 						// endSessionCallback: startup,
 						fallback: () =>{
 							document.body.classList.remove('is-supported');
 							arButton.style.display = 'none';
 							isSupported = false;
-						},
-						closebutton: document.getElementById("button-close")
+						}
 					});
 
 					document.body.appendChild(arButton);
@@ -698,6 +712,9 @@
 						if (locations.length) locations.pop();
 						painter.mesh.material.opacity = 0.3;
 					} else {
+						
+						if (isIOS()) return;
+						
 						mode = 'static'
 						this.classList.add('static');
 						this.classList.remove('dynamic');
@@ -935,6 +952,13 @@
 				AIRCRAFTS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
 				document.getElementById(selectedAircraft.id).classList.add("selected");
 				loadAircraft(selectedAircraft);
+				currentAircraft = selectedAircraft.id;
+				
+				document.getElementsByClassName('static-mode')[0].remove();
+				let node = document.createElement('a');
+				node.href = './3d_models/aircrafts/usdz/' + currentAircraft + '.usdz';
+				node.classList.add('static-mode');
+				document.getElementById('button-mode-toggle').prepend(node);
 			}
 
 			function changeTrails(selectedTrails) {
@@ -1257,24 +1281,6 @@
 		</script>
 
 		<script src="https://unpkg.com/smooth-scroll-into-view-if-needed/umd/smooth-scroll-into-view-if-needed.min.js"></script>
-
-		<!-- <script>
-		function isIOS() {
-			return [
-				'iPad Simulator',
-				'iPhone Simulator',
-				'iPod Simulator',
-				'iPad',
-				'iPhone',
-				'iPod'
-			].includes(navigator.platform)
-			|| (navigator.userAgent.includes("Mac") && "ontouchend" in document)
-		}
-
-		if (!isIOS()) {
-			document.getElementsByClassName('USDZ-container')[0].innerHTML = "USDZ not supported 😢"
-		}
-	</script> -->
 
 
 	</body>
