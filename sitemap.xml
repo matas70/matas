@@ -13,5 +13,16 @@
   <changefreq>always</changefreq>
 </url>
 
+<url>
+  <loc>https://www.matas-iaf.com/ar.html</loc>
+  <lastmod>2021-04-06</lastmod>
+  <changefreq>always</changefreq>
+</url>
+
+<url>
+  <loc>https://www.matas-iaf.com/press.html</loc>
+  <lastmod>2021-04-06</lastmod>
+  <changefreq>always</changefreq>
+</url>
 
 </urlset>
