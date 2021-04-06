@@ -73,7 +73,7 @@
 				</div>
 				<!-- <button id="button-action" alt="Toggle Flash"></button> -->
 				<button id="button-mode-toggle" alt="Toggle mode" class="dynamic">
-					<span class='static-mode'></span>
+					<a class='static-mode'></a>
 					<span class='dynamic-mode'></span>
 				</button>
 				<button id="button-close" alt="Close">
@@ -700,10 +700,7 @@
 						painter.mesh.material.opacity = 0.3;
 					} else {
 						
-						if (isIOS()) {
-							location.href = '/3d_models/aircrafts/usdz/' + currentAircraft + '.usdz';
-							return;
-						}
+						if (isIOS()) return;
 						
 						mode = 'static'
 						this.classList.add('static');
@@ -943,6 +940,12 @@
 				document.getElementById(selectedAircraft.id).classList.add("selected");
 				loadAircraft(selectedAircraft);
 				currentAircraft = selectedAircraft.id;
+				
+				document.getElementsByClassName('static-mode')[0].remove();
+				let node = document.createElement('a');
+				node.href = './3d_models/aircrafts/usdz/' + currentAircraft + '.usdz';
+				node.classList.add('static-mode');
+				document.getElementById('button-mode-toggle').prepend(node);
 			}
 
 			function changeTrails(selectedTrails) {
