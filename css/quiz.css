@@ -219,6 +219,10 @@
     content: 'איזה אדירים אתם! עניתם נכון על כל השאלות';
 }
 
+#quiz .finished.almost-all-right .second.title::before {
+    content: 'איזה אדירים אתם! עניתם על רוב השאלות נכון';
+}
+
 #quiz .finished.can-be-better .second.title::before {
     content: 'לא נורא, תמיד אפשר לנסות שוב :)';
 }
@@ -234,6 +238,7 @@
     padding: 22px;
     box-sizing: border-box;
 }
+
 #quiz .finished.can-be-better .score {
     background-color: #f64b58;
 }
