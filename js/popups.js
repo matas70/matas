@@ -389,7 +389,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     $("#aircraftInfoName").text(aircraft.name);
     $("#aircraftInfoType").text(aircraft.type);
 
-    if (aircraft.name === 'יסעור' | aircraft.name === 'עפרוני' | aircraft.name === 'ברק' | aircraft.name === 'אדיר' | aircraft.name === 'קרנף' | aircraft.name === 'לביא' | aircraft.name === 'בז' | aircraft.name === 'סופה' | aircraft.name === 'שמשון') {
+    if (aircraft.name === 'צופית' | aircraft.name === 'עפרוני' | aircraft.name === 'ברק' | aircraft.name === 'אדיר' | aircraft.name === 'קרנף' | aircraft.name === 'לביא' | aircraft.name === 'בז' | aircraft.name === 'סופה' | aircraft.name === 'שמשון') {
         $("#aircraftInfo3D").show();
     } else $("#aircraftInfo3D").hide();
     
@@ -607,7 +607,7 @@ function createScheduleRow(aircraft, location) {
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule = false, showAllPoints = false, from) {
     var aerobaticIcon = "<div/>";
     var classname = "";
-    if (name === 'יסעור' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון') {
+    if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון') {
         classname = "<button class=\"show\" id=\"ARButton\" onclick='window.location.href=\"ar.html\"'></button>"
     } else classname = "<button class=\"hide\" id=\"ARButton\" onclick='window.location.href=\"ar.html\"'></button>"
     if (aerobatic) {
