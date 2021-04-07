@@ -1,5 +1,5 @@
 function initPressPage() {
-    if (compatibleDevice() && !checkIframe()) {
+    if (false /*compatibleDevice() && !checkIframe()*/) {
         window.location.replace(window.location.href.substr(0, window.location.href.lastIndexOf('/')));
     } else {
         loadAircrafts((pAircrafts) => {
