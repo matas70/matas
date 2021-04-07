@@ -57,7 +57,7 @@ function createBasesTables() {
 
 function createCityTables() {
     let cities = locations.filter((location) => {        
-        return location.type === undefined;
+        return location.type !== "base";
     }).sort((city1, city2) => {
         return city1.pointName > city2.pointName ? 1 : city1.pointName < city2.pointName ? -1 : 0;
     });
