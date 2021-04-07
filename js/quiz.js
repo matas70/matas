@@ -478,6 +478,7 @@
         $('#quiz .finished').show()
         if (correctCount < 3) {
           $('#quiz .finished').addClass('can-be-better')
+          $('#quiz .finished').removeClass('almost-all-right')
         } else if (correctCount === 3 | correctCount === 4) {
           $('#quiz .finished').removeClass('can-be-better')
           $('#quiz .finished').addClass('almost-all-right')
