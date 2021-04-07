@@ -267,7 +267,9 @@ googleMaps = {
         pathFeature.setProperty("visibile", route.visible);
 
         map.data.add(dropShadowFeature);
-        map.data.add(pathFeature);
+        
+        if(window.location.href.indexOf('no-lines') === -1)
+            map.data.add(pathFeature);
 
         var allMarkers = [];
         var specialMarkers = [];
