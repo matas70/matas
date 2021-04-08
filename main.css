@@ -2,8 +2,7 @@
 
 body {
   margin: 0;
-  background-color: #000;
-  color: #fff;
+  background-color: rgba(58, 180, 242, 0.5);
   font-family: Heebo;
   font-size: 13px;
   line-height: 24px;
@@ -143,20 +142,30 @@ select {
   line-height: 44px;
 }
 
+/* #ARButton::before{
+  z-index: 999999;
+  content: 'שנתחיל';
+  color: #3d3d3d;
+  background-color:rgba(58, 180, 242, 0.5);
+  height: 500px;
+  width: 500px;
+} */
+
 #ARButton {
   z-index: 9999;
   position: fixed;
-  top: 50%;
+  top: 62%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 37px;
-  font-family: 'Heebo';
-  color: white;
-  background: #3bb5f3;
-  width: 200px;
-  height: 200px;
+  background-image: url(/icons/ar-btn.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:170px,170px;
+  background-color:rgba(0, 0, 0, 0);
+  width: 165px;
+  height: 165px;
   border-radius: 100px;
-  border: 3px dotted white;
+  border: none;
 }
 
 #notSupported {
@@ -432,6 +441,56 @@ canvas {
   bottom: 82.5px;
 }
 
+#at-overly{
+  opacity: 0;
+}
+
+.not-supported #ar-overly{
+  opacity: 1;
+}
+.is-supported #ar-overly{
+  opacity: 0;
+} 
+
+.is-supported #ar-overly .start{
+  opacity: 1;
+} 
+
+.is-supported .ar-starts-text{
+  margin: 0 6px 10.4px 7px;
+  padding: 130.6px 61.3px 0.5px 60.3px;
+  color: white;
+  font-family: Heebo;
+  font-size: 40px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+}
+
+.is-supported #ar-start .d-open{
+  margin-top:11px;
+}
+
+.is-supported #ar-start .arrow{
+  margin-bottom: 11px;
+  content: url(/icons/arrow-down.svg);
+}
+
+.is-supported #ar-start #arrows{
+  display: flex;
+  flex-direction: column;
+}
+
+.is-supported #ar-start .arrow#sec-arrow{
+  opacity: 0.93;
+}
+
+.is-supported #ar-start .arrow#rd-arrow{
+  opacity: 0.64;
+}
+
 #ar-overly #controls #button-reset {
   background-image: url('/assets/scribble.svg');
 }
@@ -551,7 +610,7 @@ div #resetbutton.trails_menu_hide {
   width: 65.8%;
   padding: 6.3% 6.3% 48px 6.3%;
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: Heebo;
@@ -568,7 +627,7 @@ div #resetbutton.trails_menu_hide {
   direction: rtl;
 }
 
-.is-supported #tutorial {
+.is-supported #ar-overly.show #tutorial {
   display: block;
 }
 

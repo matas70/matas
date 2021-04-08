@@ -2122,7 +2122,7 @@ function initGenericPopups() {
                 showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon", () => {
                     setTimeout(() => {
                         showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
-                    }, 30*1000);
+                    }, 10*1000);
                 });
                 if (localStorage)
                     localStorage.setItem("good_morning_displayed_2019", "true");
@@ -2131,7 +2131,7 @@ function initGenericPopups() {
             showGenericPopup("עקב תנאי מזג האוויר", `חלו שינויים קלים בנתיבים ובמופעים, אך אנחנו עדיין באים! (: חג שמח!`, "flightStartChangesIcon", () => {
                 setTimeout(() => {
                     showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
-                }, 30*1000);
+                }, 10*1000);
             });
         }
     } else {

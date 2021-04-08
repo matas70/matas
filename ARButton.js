@@ -3,7 +3,7 @@ class ARButton {
 	static createButton( renderer, sessionInit = {} ) {
 
 		const button = document.createElement( 'button' );
-
+		
 		function showStartAR( /*device*/ ) {
 
 			if ( sessionInit.domOverlay === undefined ) {
@@ -53,10 +53,12 @@ class ARButton {
 				renderer.xr.setReferenceSpaceType( 'local' );
 
 				await renderer.xr.setSession( session );
-
+			
 				button.textContent = 'STOP AR';
 				sessionInit.domOverlay.root.style.display = '';
-
+				sessionInit.domOverlay.root.classList.add('show');
+				sessionInit.domOverlay.root.style.opacity = '1';
+				
 				currentSession = session;
 
 			}
@@ -69,7 +71,8 @@ class ARButton {
 
 				currentSession.removeEventListener( 'end', onSessionEnded );
 
-				button.textContent = 'להתחיל תלת מימד';
+				//button.textContent = 'להתחיל תלת מימד';
+				//button.style.backgroundImage = url('/icons/ar.svg');
 				sessionInit.domOverlay.root.style.display = 'none';
 
 				currentSession = null;
@@ -80,7 +83,7 @@ class ARButton {
 
 			button.style.display = '';
 
-			button.textContent = 'להתחיל תלת מימד';
+			//button.textContent = 'להתחיל תלת מימד';
 
 			button.onmouseenter = function () {
 
@@ -88,11 +91,11 @@ class ARButton {
 
 			};
 
-			button.onmouseleave = function () {
+			// button.onmouseleave = function () {
 
-				button.style.opacity = '0.5';
+			// 	button.style.opacity = '0.5';
 
-			};
+			// };
 
 			// button.onclick = function () {
 			// 	debugger
@@ -112,6 +115,7 @@ class ARButton {
 				try {
 					if ( currentSession === null ) {
 						await navigator.xr.requestSession('immersive-ar', sessionInit).then(onSessionStarted);
+						sessionInit.animate();
 					}
 				} catch (e) {
 					if(sessionInit.fallback) {
@@ -148,6 +152,8 @@ class ARButton {
 		}
 
 		function stylizeElement( element ) {
+
+	
 
 
 		}
