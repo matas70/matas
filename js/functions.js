@@ -2304,7 +2304,6 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     $.getJSON('/data/audio-messages.json', (res) => {
         audioMessages = res;
     });
-    console.log(audioMessages);
     
 
     var name ="";
