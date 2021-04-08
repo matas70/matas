@@ -975,16 +975,16 @@ function setAircraftIcon(marker, icon, acId, country, azimuth, color, zoomLevel)
     var staticUrl;
     
     if (zoomLevel >= 9) { 
-        imgUrl = 'icons/aircrafts/' + icon + '.svg?' + acId;
+        imgUrl = 'icons/aircrafts/' + icon + '.svg?a=' + acId;
         staticUrl = country == null ? null : "icons/countries/" + country + ".svg";
     } else {
-        imgUrl = 'icons/arrow.svg?' + acId;
+        imgUrl = 'icons/arrow.svg?a=' + acId;
         staticUrl = null;
     }
 
     mapAPI.setAircraftMarkerIcon(marker, imgUrl);
     setTimeout(() => {
-        $(`img[src*="?${acId}"]`).css("transform",  'rotate(' + azimuth + 'deg)')
+        $(`img[src*="?a=${acId}"]`).css("transform",  'rotate(' + azimuth + 'deg)')
     }, 500);
 }
 
