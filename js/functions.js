@@ -710,7 +710,7 @@ function onAboutButtonClick() {
 
 function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+        navigator.serviceWorker.register('./service-worker.js').then(function (registration) {
             // Registration was successful
             console.log('ServiceWorker registration successful with scope: ', registration.scope);
         }, function (err) {
@@ -975,10 +975,10 @@ function setAircraftIcon(marker, icon, acId, country, azimuth, color, zoomLevel)
     var staticUrl;
     
     if (zoomLevel >= 9) { 
-        imgUrl = '/icons/aircrafts/' + icon + '.svg?' + acId;
+        imgUrl = 'icons/aircrafts/' + icon + '.svg?a=' + acId;
         staticUrl = country == null ? null : "icons/countries/" + country + ".svg";
     } else {
-        imgUrl = 'icons/arrow.svg?' + acId;
+        imgUrl = 'icons/arrow.svg?a=' + acId;
         staticUrl = null;
     }
 
@@ -2122,7 +2122,7 @@ function initGenericPopups() {
                 showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon", () => {
                     setTimeout(() => {
                         showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
-                    }, 30*1000);
+                    }, 10*1000);
                 });
                 if (localStorage)
                     localStorage.setItem("good_morning_displayed_2019", "true");
@@ -2131,7 +2131,7 @@ function initGenericPopups() {
             showGenericPopup("עקב תנאי מזג האוויר", `חלו שינויים קלים בנתיבים ובמופעים, אך אנחנו עדיין באים! (: חג שמח!`, "flightStartChangesIcon", () => {
                 setTimeout(() => {
                     showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
-                }, 30*1000);
+                }, 10*1000);
             });
         }
     } else {
