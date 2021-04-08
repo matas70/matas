@@ -710,7 +710,7 @@ function onAboutButtonClick() {
 
 function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+        navigator.serviceWorker.register('./service-worker.js').then(function (registration) {
             // Registration was successful
             console.log('ServiceWorker registration successful with scope: ', registration.scope);
         }, function (err) {
@@ -975,7 +975,7 @@ function setAircraftIcon(marker, icon, acId, country, azimuth, color, zoomLevel)
     var staticUrl;
     
     if (zoomLevel >= 9) { 
-        imgUrl = '/icons/aircrafts/' + icon + '.svg?' + acId;
+        imgUrl = 'icons/aircrafts/' + icon + '.svg?' + acId;
         staticUrl = country == null ? null : "icons/countries/" + country + ".svg";
     } else {
         imgUrl = 'icons/arrow.svg?' + acId;
