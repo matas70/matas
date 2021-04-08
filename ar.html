@@ -357,11 +357,11 @@
 				{ id: "efroni", type: "glb", scale: 0.025, text: "planes_efroni.svg" },
 				{ id: "tsofit", type: "glb", scale: 0.003, text: "Planes_zufit.svg" },
 				{ id: "baz", type: "glb", scale: 0.007, text: "Planes_baz.svg" },
-				{ id: "bazi", type: "glb", scale: 0.007, text: "bazi.png" },
+				{ id: "bazi", type: "glb", scale: 0.007, text: "Planes_raam.svg" },
 				{ id: "f35", type: "glb", scale: 0.1, text: "Planes_adir.svg" },
-				{ id: "sofa", type: "glb", scale: 0.036, text: "Planes_sufa.svg" },
+				// { id: "sofa", type: "glb", scale: 0.036, text: "Planes_sufa.svg" },
 				{ id: "barak", type: "glb", scale: 0.006, text: "Planes_barak.svg" },
-				{ id: "peten", type: "glb", scale: 0.006, text: "peten.png" },
+				{ id: "peten", type: "glb", scale: 0.006, text: "Planes_peten.svg" },
 				{ id: "lavie", type: "glb", scale: 0.026, text: "Planes_lavi.svg" },
 				{ id: "shimshon", type: "glb", scale: 0.032, text: "Planes_shimshon.svg" },
 				{ id: "karnaf", type: "glb", scale: 0.035, text: "Planes_karnaf.svg" },
@@ -379,8 +379,6 @@
 				// { id: "basketball", type: "glb", scale: 0.025, text: "Basketball" },
 				// { id: "cake", type: "glb", scale: 0.04, text: "cake" },
 				// { id: "present", type: "glb", scale: 0.09, text: "present" },
-				{ id: "disco", type: "glb", scale: 0.019, text: "blue" },
-				{ id: "heart", type: "glb", scale: 0.005, text: "heart" },
 				// { id: "blue", type: "glb", scale: 0.0001, text: "blue" },
 				// { id: "fire1", type: "glb", scale: 0.0001, text: "blue" },
 				// { id: "fire", type: "glb", scale: 0.0001, text: "blue" },
@@ -389,11 +387,13 @@
 				// { id: "avocado", type: "glb", scale: 0.0001, text: "blue" },
 				// { id: "candy", type: "glb", scale: 0.0001, text: "blue" },
 				// { id: "earth", type: "glb", scale: 0.0001, text: "blue" },
-				{ id: "love", type: "glb", scale: 0.5, text: "love" },
-				{ id: "star", type: "glb", scale: 0.05, text: "star" },
-				{ id: "doughnut", type: "glb", scale: 0.09, text: "doughnut" },
-				{ id: "cheeseburger", type: "glb", scale: 0.07, text: "cheeseburger" },
 				{ id: "beachball", type: "glb", scale: 0.25, text: "beachball" },
+				{ id: "cheeseburger", type: "glb", scale: 0.07, text: "cheeseburger" },
+				{ id: "star", type: "glb", scale: 0.05, text: "star" },
+				{ id: "love", type: "glb", scale: 0.5, text: "love" },
+				{ id: "doughnut", type: "glb", scale: 0.49, text: "candy" },
+				{ id: "heart", type: "glb", scale: 0.005, text: "heart" },
+				{ id: "disco", type: "glb", scale: 0.019, text: "blue" },
 			]
 
 			let mode = 'dynamic';
@@ -739,7 +739,7 @@
 				loadLight();
 				loadPainter();
 				loadController();
-				changeTrails(TRAILS_META_DATA[0]);
+				changeTrails(TRAILS_META_DATA[TRAILS_META_DATA.length-1]);
 
 				window.addEventListener('resize', onWindowResize);
 
