@@ -607,8 +607,8 @@ div #resetbutton.trails_menu_hide {
 
 #tutorial {
   display: none;
-  width: 65.8%;
-  padding: 6.3% 6.3% 48px 6.3%;
+  width: 250px;
+  padding: 10px 10px 48px 10px;
   position: absolute;
   top: 45%;
   left: 50%;
@@ -620,17 +620,31 @@ div #resetbutton.trails_menu_hide {
   text-align: center;
   color: #37474f;
   z-index: 12000;
-  background-color: #eeeeee;
-  border: 1px solid #eff1f1;
+  background-color: white;
   border-radius: 16px;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
   direction: rtl;
+  animation: animateUp .5s 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes animateUp {
+  from { margin-top: 30px; }
+  to { opacity: 1; }
 }
 
 .is-supported #ar-overly.show #tutorial {
   display: block;
 }
 
+#tutorial .blocker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vh;
+  height: 100vh;
+  background-color: black;
+}
 
 #tutorial .screen-example {
   background-repeat: no-repeat;
@@ -648,10 +662,15 @@ div #resetbutton.trails_menu_hide {
   background-image: url('/images/tutorial/step\ 3.png');
 }
 
+#tutorial .step h2 {
+  font-size: 17px;
+}
+
 #tutorial p {
   font-size: 14px;
   font-weight: normal;
-  line-height: 1.29;
+  line-height: 18px;
+  margin-top: 0;
 }
 #tutorial .screen-example {
   height: 337px;
@@ -663,7 +682,7 @@ div #resetbutton.trails_menu_hide {
   height: 10px;
   border-radius: 5px;
   display: inline-block;
-  margin: 0 11px;
+  margin: 10px 11px 5px;
   background-color: #d8d8d8;
 }
 
@@ -675,12 +694,15 @@ div #resetbutton.trails_menu_hide {
   height: 48px;
   border-radius: 0 0 16px 16px;
   background-color: #3bb5f2;
+  color: white;
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   width: 100%;
   border: none;
+  font-size: 13px;
+  font-family: Heebo;
 }
 
 #tutorial .step-2, #tutorial .step-3 {

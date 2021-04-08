@@ -36,6 +36,13 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'UA-98360124-1');
+
+        $(window).resize(() => {
+            $('#main').css("display", "none");
+            setInterval(() => {
+                $('#main').css("display", "block")
+            }, 1);
+        })
     </script>
     <script>
         function loadScripts() {
@@ -46,7 +53,6 @@
                 $.getScript("js/leaflet-map.js"),
                 $.getScript("js/leaflet/leaflet.js"),
                 $.getScript("js/popups.js"),
-                $.getScript("js/RotateIcon.js"),
                 $.getScript("js/utils.js"),
                 $.getScript("js/firebaseInteraction.js"),
                 $.getScript("js/quiz.js"),
@@ -65,7 +71,7 @@
         }
     </script>
 </head>
-<body onload="loadScripts()" class="body">
+<body onload="loadScripts()" class="body" id="main">
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-functions.js"></script>
@@ -85,7 +91,7 @@
             </a>
 
             <divv id="headerIconContainer">
-                <img src="icons/headerLogo73.svg" onclick="onAboutButtonClick();" style="width:80px;margin-top:5px;"/>
+                <img src="icons/headerLogo73.svg" onclick="onAboutButtonClick();" style="width:70px;margin-top:5px;"/>
                 <div id="aboutMenuTitle" style="display:none">אודות</div>
             </divv>
             <div style="display: flex; align-items: center;">
