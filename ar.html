@@ -255,10 +255,9 @@
 						isSupported = supported;
 						if (isSupported) document.body.classList.add('is-supported')
 						init();
-						//animate();
+						animate();
 						// console.log(getCookie('tutorial'));
 						// if (supported && getCookie('tutorial') != 3) {
-						// animate();
 						console.log(getCookie('tut'));
 						if (supported && getCookie('tut') != 2) {
 							firebase.database().ref('devices/supported/' +
@@ -299,7 +298,6 @@
 					const message = document.createElement('a');
 					isSupported = false;
 					document.body.classList.remove('is-supported');
-					document.body.classList.add('not-supported');
 					init();
 					animate();
 					if (window.isSecureContext == false) {
@@ -638,7 +636,7 @@
 						}
 					});
 
-					document.body.appendChild(arButton);
+					document.body.querySelector('#ar-start').appendChild(arButton);
 				}
 
 				const shareData = {

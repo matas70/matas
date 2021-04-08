@@ -142,21 +142,10 @@ select {
   line-height: 44px;
 }
 
-/* #ARButton::before{
-  z-index: 999999;
-  content: 'שנתחיל';
-  color: #3d3d3d;
-  background-color:rgba(58, 180, 242, 0.5);
-  height: 500px;
-  width: 500px;
-} */
-
 #ARButton {
-  z-index: 9999;
-  position: fixed;
-  top: 62%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: auto;
+  display: block;
+  margin-top: 11.1px;
   background-image: url(/icons/ar-btn.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -445,7 +434,7 @@ canvas {
   opacity: 0;
 }
 
-.not-supported #ar-overly{
+body:not(.is-supported) #ar-overly{
   opacity: 1;
 }
 .is-supported #ar-overly{
@@ -456,24 +445,39 @@ canvas {
   opacity: 1;
 } 
 
-.is-supported .ar-starts-text{
-  margin: 0 6px 10.4px 7px;
-  padding: 130.6px 61.3px 0.5px 60.3px;
+body:not(.is-supported) #ar-start {
+  display: none;
+}
+
+.ar-starts-text{
   color: white;
   font-family: Heebo;
   font-size: 40px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   text-align: center;
+  line-height: 2em;
+  margin-top: 56px;
 }
+
+#ar-start {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  overflow: hidden;
+  background: #9cd9f8;
+}
+
 
 .is-supported #ar-start .d-open{
   margin-top:11px;
 }
 
 .is-supported #ar-start .arrow{
+  width: 30.5px;
+  margin: auto;
   margin-bottom: 11px;
   content: url(/icons/arrow-down.svg);
 }
