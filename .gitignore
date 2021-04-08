@@ -1,5 +1,5 @@
 .idea*
 .vscode*
 Thumbs*
-node_modules/*
+node_modules
 /data/env.json

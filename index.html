@@ -65,7 +65,6 @@
             ).done(function(){
                 $.getScript("js/functions.js").then(()=>{
                     onLoad();
-                    initAR();
                 });
             });
         }
@@ -448,7 +447,7 @@
     <!-- no crowding popup -->
     <div id="noCrowdingPopup" class="confirmationPopup" style="display: none">
         <div id="noCrowdingPopupTitle" class="confirmationMessageTitle">
-            <img src="/icons/no-crowding.svg" class="confirmationMessageIcon">
+            <img src="icons/no-crowding.svg" class="confirmationMessageIcon">
             איסור התקהלות
         </div>
         <div id="noCrowdingPopupBody" class="confirmationMessageBody">
@@ -497,7 +496,7 @@
 
     <div id="quiz">
         <div class="cover">
-            <img src="/assets/x.svg" class="exit" alt="יציאה מהחידון">
+            <img src="./assets/x.svg" class="exit" alt="יציאה מהחידון">
         </div>
         <div class='question'>
             <h2 class='title'></h2>

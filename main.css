@@ -129,7 +129,7 @@ select {
   text-align: center;
   text-indent: -1000px;
   overflow: hidden;
-  background-image: url(/assets/share_ar.png);
+  background-image: url('./assets/share_ar.png');
   background-size: cover;
   background-position: center center;
 }
@@ -433,11 +433,11 @@ canvas {
 }
 
 #ar-overly #controls #button-reset {
-  background-image: url('/assets/scribble.svg');
+  background-image: url('./assets/scribble.svg');
 }
 
 .is-supported #ar-overly #controls #button-reset {
-  background-image: url('/assets/Icon material-undo-1.svg');
+  background-image: url('./assets/Icon material-undo-1.svg');
 }
 
 #trails_menu {
@@ -594,13 +594,13 @@ div #resetbutton.trails_menu_hide {
 }
 
 #tutorial .step-1 .screen-example {
-  background-image: url('/images/tutorial/step\ 1.svg');
+  background-image: url('./images/tutorial/step\ 1.svg');
 }
 #tutorial .step-2 .screen-example {
-  background-image: url('/images/tutorial/step\ 2.png');
+  background-image: url('./images/tutorial/step\ 2.png');
 }
 #tutorial .step-3 .screen-example {
-  background-image: url('/images/tutorial/step\ 3.png');
+  background-image: url('./images/tutorial/step\ 3.png');
 }
 
 #tutorial .step h2 {

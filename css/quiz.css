@@ -9,7 +9,7 @@
     content: '';
     width: 29px;
     height: 29px;
-    background-image: url('/icons/quiz/queez\ icon.svg');
+    background-image: url('../icons/quiz/queez\ icon.svg');
     display: inline-block;
     vertical-align: middle;
 }
@@ -130,7 +130,7 @@
 }
 #quiz .question .option.wrong::after{
     content: '';
-    background-image: url('/icons/quiz/false\ icon.svg');
+    background-image: url('../icons/quiz/false\ icon.svg');
 }
 #quiz .question .option.correct{
     background-color: #64e1a5;
@@ -140,7 +140,7 @@
 }
 #quiz .question .option.option.correct::after{
     content: '';
-    background-image: url('/icons/quiz/true\ icon.svg');
+    background-image: url('../icons/quiz/true\ icon.svg');
 }
 
 #quiz .question .test {

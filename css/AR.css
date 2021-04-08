@@ -56,7 +56,7 @@
 
 #ARButton {
   z-index: 9999;
-  background-image: url('/icons/3d-button.png');
+  background-image: url('../icons/3d-button.png');
   text-indent: -1000px;
   width: 40px;
   height: 40px;
@@ -104,13 +104,13 @@
 }
 
 #ar-overly #controls #button-reset {
-  background-image: url('/assets/Icon material-undo-1.svg');
+  background-image: url('../assets/Icon material-undo-1.svg');
 }
 #ar-overly  #controls #button-action {
-  background-image: url('/assets/flash.svg');
+  background-image: url('../assets/flash.svg');
 }
 #ar-overly #controls #button-close {
-  background-image: url('/assets/x.svg');
+  background-image: url('../assets/x.svg');
 }
 #ar-overly #controls #button-mode-toggle {
   color: white;
@@ -134,19 +134,19 @@
 }
 
 #ar-overly #controls #button-mode-toggle.dynamic .dynamic-mode {
-  background-image: url('/assets/dynamic-icon-selected.svg');
+  background-image: url('../assets/dynamic-icon-selected.svg');
 }
 
 #ar-overly #controls #button-mode-toggle.dynamic .static-mode {
-  background-image: url('/assets/static-icon.svg');
+  background-image: url('../assets/static-icon.svg');
 }
 
 #ar-overly #controls #button-mode-toggle.static .dynamic-mode {
-  background-image: url('/assets/dynamic-icon.svg');
+  background-image: url('../assets/dynamic-icon.svg');
 }
 
 #ar-overly #controls #button-mode-toggle.static .static-mode {
-  background-image: url('/assets/static-icon-selected.svg');
+  background-image: url('../assets/static-icon-selected.svg');
 }
 
 #ar-overly #controls #button-mode-toggle::after {
@@ -775,11 +775,11 @@ display: none;
 }
 
 #tutorial .step-1 .screen-example {
-  background-image: url('/images/tutorial/step\ 1.svg');
+  background-image: url('../images/tutorial/step\ 1.svg');
 }
 #tutorial .step-2 .screen-example {
-  background-image: url('/images/tutorial/step\ 2.png');
+  background-image: url('../images/tutorial/step\ 2.png');
 }
 #tutorial .step-3 .screen-example {
-  background-image: url('/images/tutorial/step\ 3.png');
+  background-image: url('../images/tutorial/step\ 3.png');
 }
