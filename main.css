@@ -2,8 +2,7 @@
 
 body {
   margin: 0;
-  background-color: #000;
-  color: #fff;
+  background-color: rgba(58, 180, 242, 0.5);
   font-family: Heebo;
   font-size: 13px;
   line-height: 24px;
@@ -144,19 +143,18 @@ select {
 }
 
 #ARButton {
-  z-index: 9999;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 37px;
-  font-family: 'Heebo';
-  color: white;
-  background: #3bb5f3;
-  width: 200px;
-  height: 200px;
+  margin: auto;
+  display: block;
+  margin-top: 11.1px;
+  background-image: url(/icons/ar-btn.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:170px,170px;
+  background-color:rgba(0, 0, 0, 0);
+  width: 165px;
+  height: 165px;
   border-radius: 100px;
-  border: 3px dotted white;
+  border: none;
 }
 
 #notSupported {
@@ -432,6 +430,71 @@ canvas {
   bottom: 82.5px;
 }
 
+#at-overly{
+  opacity: 0;
+}
+
+body:not(.is-supported) #ar-overly{
+  opacity: 1;
+}
+.is-supported #ar-overly{
+  opacity: 0;
+} 
+
+.is-supported #ar-overly .start{
+  opacity: 1;
+} 
+
+body:not(.is-supported) #ar-start {
+  display: none;
+}
+
+.ar-starts-text{
+  color: white;
+  font-family: Heebo;
+  font-size: 40px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 2em;
+  margin-top: 56px;
+}
+
+#ar-start {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  overflow: hidden;
+  background: #9cd9f8;
+}
+
+
+.is-supported #ar-start .d-open{
+  margin-top:11px;
+}
+
+.is-supported #ar-start .arrow{
+  width: 30.5px;
+  margin: auto;
+  margin-bottom: 11px;
+  content: url(/icons/arrow-down.svg);
+}
+
+.is-supported #ar-start #arrows{
+  display: flex;
+  flex-direction: column;
+}
+
+.is-supported #ar-start .arrow#sec-arrow{
+  opacity: 0.93;
+}
+
+.is-supported #ar-start .arrow#rd-arrow{
+  opacity: 0.64;
+}
+
 #ar-overly #controls #button-reset {
   background-image: url('./assets/scribble.svg');
 }
@@ -551,7 +614,7 @@ div #resetbutton.trails_menu_hide {
   width: 250px;
   padding: 10px 10px 48px 10px;
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: Heebo;
@@ -574,7 +637,7 @@ div #resetbutton.trails_menu_hide {
   to { opacity: 1; }
 }
 
-.is-supported #tutorial {
+.is-supported #ar-overly.show #tutorial {
   display: block;
 }
 
