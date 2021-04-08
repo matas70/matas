@@ -133,11 +133,11 @@
 			<div id="tutorial">
 				<div class="step step-1">
 					<h2>ציירו מסלול במרחב</h2>
-					<p>התחילו ללכת תוך כדי ציור המסלול על גבי המסך</p>
+					<p>כדי להתחיל לטוס לחצו במרכז המסך והזיזו את המכשיר במסלול הרצוי בחלל</p>
 					<div class="screen-example">
 					</div>
 					<nav>
-						<span class='active'></span><span></span><span></span>
+						<span class='active'></span><span></span>
 						<button class='next' onclick="finishTutorial(1)">הבא</button>
 					</nav>
 				</div>
@@ -148,18 +148,8 @@
 					<div class="screen-example">
 					</div>
 					<nav>
-						<span></span><span class='active'></span><span></span>
+						<span></span><span class='active'></span>
 						<button class='next' onclick="finishTutorial(2)">הבא</button>
-					</nav>
-				</div>
-				<div class="step step-3">
-					<h2>צלמו תמונה או סרטון</h2>
-					<p>שתפו את התמונה/סרטון ברשתות החברתיות או שמרו בטלפון</p>
-					<div class="screen-example">
-					</div>
-					<nav>
-						<span></span><span></span><span class='active'></span>
-						<button class='next' onclick="finishTutorial(3)">הבא</button>
 					</nav>
 				</div>
 			</div>
@@ -202,11 +192,11 @@
 				if ('xr' in navigator) {
 					navigator.xr.isSessionSupported('immersive-ar').then(function (supported) {
 						isSupported = supported;
-						if(isSupported) document.body.classList.add('is-supported')
+						if (isSupported) document.body.classList.add('is-supported')
 						init();
 						animate();
-						console.log(getCookie('tutorial'));
-						if (supported && getCookie('tutorial') != 3) {
+						console.log(getCookie('tut'));
+						if (supported && getCookie('tut') != 2) {
 							firebase.database().ref('devices/supported/' +
 								cur_user_agent.getDevice().vendor + " " +
 								cur_user_agent.getDevice().model + " | " +
@@ -223,7 +213,7 @@
 									engine: dataToFirebase(cur_user_agent.getEngine())
 								});
 						}
-						else if (getCookie('tutorial') !== 3) {
+						else if (getCookie('tut') !== 2) {
 							firebase.database().ref('devices/not-supported/' +
 								cur_user_agent.getDevice().vendor + " " +
 								cur_user_agent.getDevice().model + " | " +
@@ -251,7 +241,7 @@
 					animate();
 					if (window.isSecureContext == false) {
 						message.innerHTML = 'WEBXR NEEDS HTTPS';
-					} else if (getCookie('tutorial') !== 3) {
+					} else if (getCookie('tut') !== 2) {
 						message.innerHTML = 'WEBXR NOT AVAILABLE';
 						firebase.database().ref('devices/not-available/' +
 							cur_user_agent.getDevice().vendor + " " +
@@ -1220,11 +1210,11 @@
 				} else {
 					document.getElementById('tutorial').style.display = 'none'
 				}
-				document.cookie = "tutorial=" + stepFinished + "; expires=Thu, 30 Dec 2021 12:00:00 UTC";
+				document.cookie = "tut=" + stepFinished + "; expires=Thu, 30 Dec 2021 12:00:00 UTC";
 			}
 
-			if (getCookie('tutorial')) {
-				const stepFinished = getCookie('tutorial');
+			if (getCookie('tut')) {
+				const stepFinished = getCookie('tut');
 				document.querySelector('.step-1').style.display = 'none';
 				document.querySelector('#no-support-tutorial').style.display = 'none';
 				finishTutorial(stepFinished)
@@ -1233,7 +1223,7 @@
 
 			document.querySelector('#no-support-tutorial').addEventListener('click', () => {
 				document.querySelector('#no-support-tutorial').style.display = 'none';
-				document.cookie = "tutorial=3; expires=Thu, 30 Dec 2021 12:00:00 UTC";
+				document.cookie = "tut=2; expires=Thu, 30 Dec 2021 12:00:00 UTC";
 			})
 
 			function getCookie(cname) {
@@ -1292,7 +1282,7 @@
 
 		</script>
 
-		<script src="https://unpkg.com/smooth-scroll-into-view-if-needed/umd/smooth-scroll-into-view-if-needed.min.js"></script>
+		<script src="js/smooth-scroll-into-view-if-needed.min.js"></script>
 
 
 	</body>

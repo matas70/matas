@@ -2111,7 +2111,7 @@ function initGenericPopups() {
         showGenericPopup("מחממים מנועים!", "המטוסים המופיעים על המפה לפני המטס הינם הדמייה בלבד", undefined, null, () => {
             setTimeout(() => {
                 showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
-            }, 30*1000);
+            }, 10*1000);
         });
     } else if (getCurrentTime() >= realActualStartTime - 4 * 60 * 60 * 1000 && getCurrentTime() <= realActualStartTime + 3 * 60 * 60 * 1000) {
         if (!changes) {
@@ -2304,7 +2304,6 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     $.getJSON('/data/audio-messages.json', (res) => {
         audioMessages = res;
     });
-    console.log(audioMessages);
     
 
     var name ="";
