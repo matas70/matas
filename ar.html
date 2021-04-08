@@ -415,15 +415,15 @@
 
 
 			const AIRCRAFTS_META_DATA = [
-				{ id: "efroni", type: "glb", scale: 0.025, text: "planes_efroni.svg" },
-				{ id: "tsofit", type: "glb", scale: 0.003, text: "Planes_zufit.svg" },
+				{ id: "efroni", type: "glb", scale: 0.025, text: "Planes_efroni.svg" },
+				{ id: "tsofit", type: "glb", scale: 0.003, text: "Planes_tsofit.svg" },
 				{ id: "baz", type: "glb", scale: 0.007, text: "Planes_baz.svg" },
-				{ id: "bazi", type: "glb", scale: 0.007, text: "Planes_raam.svg" },
-				{ id: "f35", type: "glb", scale: 0.1, text: "Planes_adir.svg" },
+				{ id: "bazi", type: "glb", scale: 0.007, text: "Planes_bazi.svg" },
+				{ id: "f35", type: "glb", scale: 0.1, text: "Planes_f35.svg" },
 				// { id: "sofa", type: "glb", scale: 0.036, text: "Planes_sufa.svg" },
 				{ id: "barak", type: "glb", scale: 0.006, text: "Planes_barak.svg" },
 				{ id: "peten", type: "glb", scale: 0.006, text: "Planes_peten.svg" },
-				{ id: "lavie", type: "glb", scale: 0.026, text: "Planes_lavi.svg" },
+				{ id: "lavie", type: "glb", scale: 0.026, text: "Planes_lavie.svg" },
 				{ id: "shimshon", type: "glb", scale: 0.032, text: "Planes_shimshon.svg" },
 				{ id: "karnaf", type: "glb", scale: 0.035, text: "Planes_karnaf.svg" },
 			]
@@ -452,9 +452,9 @@
 				{ id: "cheeseburger", type: "glb", scale: 0.07, text: "cheeseburger" },
 				{ id: "star", type: "glb", scale: 0.05, text: "star" },
 				{ id: "love", type: "glb", scale: 0.5, text: "love" },
-				{ id: "doughnut", type: "glb", scale: 0.49, text: "candy" },
+				{ id: "doughnut", type: "glb", scale: 0.49, text: "doughnut" },
 				{ id: "heart", type: "glb", scale: 0.005, text: "heart" },
-				{ id: "disco", type: "glb", scale: 0.019, text: "blue" },
+				{ id: "disco", type: "glb", scale: 0.019, text: "disco" },
 			]
 
 			let mode = 'dynamic';
@@ -486,9 +486,9 @@
 					clearInterval(isAircraftScrolling);
 					isAircraftScrolling = setTimeout(() => {
 						const centeredElement = document.elementFromPoint(
-							document.body.offsetWidth / 2, document.documentElement.clientHeight - 90
+							document.body.offsetWidth / 2, document.documentElement.clientHeight - 93
 						);
-						let selected = centeredElement.parentElement.innerHTML.replace('<img src="./assets/', '').replace('.png">', '');
+						let selected = centeredElement.parentElement.innerHTML.replace('<img src="./assets/Planes_', '').replace('.svg">', '');
 						AIRCRAFTS_META_DATA.forEach((e) => {
 							if (e.id === selected) changeAircraft(e);
 						})
