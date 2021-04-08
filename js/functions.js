@@ -975,10 +975,10 @@ function setAircraftIcon(marker, icon, acId, country, azimuth, color, zoomLevel)
     var staticUrl;
     
     if (zoomLevel >= 9) { 
-        imgUrl = 'icons/aircrafts/' + icon + '.svg?a=' + acId;
+        imgUrl = 'icons/aircrafts/' + icon + '.svg?' + acId;
         staticUrl = country == null ? null : "icons/countries/" + country + ".svg";
     } else {
-        imgUrl = 'icons/arrow.svg?a=' + acId;
+        imgUrl = 'icons/arrow.svg?' + acId;
         staticUrl = null;
     }
 
