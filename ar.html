@@ -350,23 +350,21 @@
 			]
 
 
-			let locations = addMidpoints(locationsOptions[2], 20)
+			let locations = addMidpoints(locationsOptions[1], 20)
 
 
 			const AIRCRAFTS_META_DATA = [
-				// { id: "yasur", type: "glb", scale: 0.000007, text: "yasur" },
-				// { id: "kfir", type: "glb", scale: 0.005, text: "kfir" },
-				// { id: "aero", type: "glb", scale: 0.005, text: "aero" },
-				// { id: "rafael", type: "gltf", scale: 0.005, text: "f99" }
-				{ id: "efroni", type: "glb", scale: 0.03, text: "efroni" },
-				// { id: "tsofit", type: "glb", scale: 0.2, text: "tsofit" },
-				{ id: "f15", type: "obj", scale: 0.007, text: "f15" },
-				{ id: "f35", type: "glb", scale: 0.1, text: "f35" },
-				{ id: "f16", type: "gltf", scale: 0.005, text: "f16" },
-				// { id: "sofa", type: "glb", scale: 0.036, text: "sofa" },
-				// { id: "f16", type: "gltf", scale: 0.005, text: "f16" },
-				{ id: "lavie", type: "glb", scale: 0.026, text: "lavie" },
-				{ id: "karnaf", type: "glb", scale: 0.035, text: "karnaf" },
+				{ id: "efroni", type: "glb", scale: 0.025, text: "planes_efroni.svg" },
+				{ id: "tsofit", type: "glb", scale: 0.003, text: "Planes_zufit.svg" },
+				{ id: "baz", type: "glb", scale: 0.007, text: "Planes_baz.svg" },
+				{ id: "bazi", type: "glb", scale: 0.007, text: "bazi.png" },
+				{ id: "f35", type: "glb", scale: 0.1, text: "Planes_adir.svg" },
+				{ id: "sofa", type: "glb", scale: 0.036, text: "Planes_sufa.svg" },
+				{ id: "barak", type: "glb", scale: 0.006, text: "Planes_barak.svg" },
+				{ id: "peten", type: "glb", scale: 0.006, text: "peten.png" },
+				{ id: "lavie", type: "glb", scale: 0.026, text: "Planes_lavi.svg" },
+				{ id: "shimshon", type: "glb", scale: 0.032, text: "Planes_shimshon.svg" },
+				{ id: "karnaf", type: "glb", scale: 0.035, text: "Planes_karnaf.svg" },
 			]
 
 			const TRAILS_META_DATA = [
@@ -376,18 +374,25 @@
 				// { id: "moustache", type: "glb", scale: 0.05, text: "moustache" },
 				// { id: "crown", type: "glb", scale: 0.01, text: "crown" },
 				// { id: "cloud", type: "glb", scale: 0.12, text: "cloud" },
-				// { id: "cheeseburger", type: "glb", scale: 0.07, text: "cheeseburger" },
 				// { id: "happyface", type: "glb", scale: 0.5, text: "Happy Face" },
-				// { id: "poo", type: "glb", scale: 0.5, text: "poo" },
-				// { id: "disco", type: "glb", scale: 0.009, text: "Disco Ball" },
+				// { id: "poo", type: "glb", scale: 0.005, text: "poo" },
 				// { id: "basketball", type: "glb", scale: 0.025, text: "Basketball" },
 				// { id: "cake", type: "glb", scale: 0.04, text: "cake" },
 				// { id: "present", type: "glb", scale: 0.09, text: "present" },
+				{ id: "disco", type: "glb", scale: 0.019, text: "blue" },
 				{ id: "heart", type: "glb", scale: 0.005, text: "heart" },
-				{ id: "blue", type: "obj", scale: 0.0001, text: "blue" },
+				// { id: "blue", type: "glb", scale: 0.0001, text: "blue" },
+				// { id: "fire1", type: "glb", scale: 0.0001, text: "blue" },
+				// { id: "fire", type: "glb", scale: 0.0001, text: "blue" },
+				// { id: "hotdog", type: "glb", scale: 0.0001, text: "blue" },
+				// { id: "watermelon", type: "glb", scale: 0.0001, text: "blue" },
+				// { id: "avocado", type: "glb", scale: 0.0001, text: "blue" },
+				// { id: "candy", type: "glb", scale: 0.0001, text: "blue" },
+				// { id: "earth", type: "glb", scale: 0.0001, text: "blue" },
 				{ id: "love", type: "glb", scale: 0.5, text: "love" },
 				{ id: "star", type: "glb", scale: 0.05, text: "star" },
 				{ id: "doughnut", type: "glb", scale: 0.09, text: "doughnut" },
+				{ id: "cheeseburger", type: "glb", scale: 0.07, text: "cheeseburger" },
 				{ id: "beachball", type: "glb", scale: 0.25, text: "beachball" },
 			]
 
@@ -459,7 +464,7 @@
 					elem.classList.add("aircraft-option");
 					elem.type = "button";
 					elem.id = aircraft.id;
-					elem.innerHTML = `<img src="./assets/${aircraft.text}.png"/>`;
+					elem.innerHTML = `<img src="./assets/${aircraft.text}"/>`;
 					document.getElementById('aircrafts_menu').insertBefore(elem, document.getElementById('aircrafts_menu').children[1]);
 					elem.addEventListener('click', (e) => {
 						window.scrollIntoView(e.target, {
@@ -734,7 +739,7 @@
 				loadLight();
 				loadPainter();
 				loadController();
-				changeTrails(TRAILS_META_DATA[TRAILS_META_DATA.length-1]);
+				changeTrails(TRAILS_META_DATA[0]);
 
 				window.addEventListener('resize', onWindowResize);
 
@@ -1114,7 +1119,7 @@
 						aircraft.lookAt(...nextLoc);
 
 						for (let i = 0; i < trails.length; i++) {
-							const currTrailLoc = currentLocationByPercent(smoothLocations, currentTravelPercent + 0.97 - (i / 50));
+							const currTrailLoc = currentLocationByPercent(smoothLocations, currentTravelPercent + 0.92 - (i / 50));
 							trails[i].position.set(...currTrailLoc);
 							trails[i].rotation.x += (0.01 + i / 700);
 							trails[i].rotation.y += (0.02 + i / 600);
