@@ -770,11 +770,16 @@ function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link 
     $(".baseEventIcon").hide();
     $(".alert-header").hide();
     $(`#${iconId}`).show();
-    if (link) {
-        $("#bannerLink").attr("href", link);           
+    /*if (link) {
+        $("#basePopup").click(() => {
+            var win = window.open(link);
+            if (win) {
+                win.focus();
+            }
+        });
     } else {
-        $("#bannerLink").attr("href", "javascript:void(0);");
-    }
+        $("#basePopup").off('click');
+    }*/
 
     html += "</b><br class=\"baseData\">";
     // var eventDetails = `${desc}${baseName} בעוד ${minute} דקות`;
