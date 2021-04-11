@@ -308,8 +308,7 @@ html, body {
     display: flex;
     margin-bottom: 2px;
     background: white;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 5px 10px;
     border-radius: 0 0 10px 10px;
     border-bottom: 0.5px solid #f2f2f6;
     border-left: 0.5px solid #f2f2f6;
