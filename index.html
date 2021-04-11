@@ -58,6 +58,7 @@
                 $.getScript("js/quiz.js"),
                 $.getScript('js/smooth-scroll-into-view-if-needed.min.js'),
                 $.getScript('https://cdn.jsdelivr.net/npm/ua-parser-js@0/dist/ua-parser.min.js'),
+                $.getScript('https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js'),
 
                 $.Deferred(function( deferred ){
                     $( deferred.resolve );
@@ -527,8 +528,29 @@
             <button class='share' id='sharebutton'></button>
         </div>
         <div id="confetti"></div>
+
     </div>
 
+    <div class="new-popup">
+        <div class="inner">
+            <h2 class="title">אז מה חדש השנה?</h2>
+            <ul>
+                <li class='ar'>
+                    עד שנוכל לבקר שוב בבסיסים, הבאנו את מטוסי החיל
+                    <br>
+                    אליכם לסלון
+                    <br>
+                    <a href="ar.html">כניסה לתלת מימד</a>
+                </li>
+                <li class='quiz'>
+                    חושבים שאתם מכירים את חיל האוויר?
+                    <br>
+                    <a href="#">כניסה לחידון</a>
+                </li>
+            </ul>
+            <button>מגניב!</button>
+        </div>
+    </div>
 </div>
 
 </body>
