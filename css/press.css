@@ -220,6 +220,11 @@ html, body {
     min-width: 32px;
 }
 
+.aircraft-icon-text .time {
+    font-size: 7px;
+    margin: 0;
+}
+
 .category-name {
     color: #37474f;
     display: flex;
