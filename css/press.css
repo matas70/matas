@@ -131,7 +131,6 @@ html, body {
 .base-table-title {
     background: #53aee7;
     color: white;
-    height: 23px;
     padding-right: 10px;
     font-family: "Heebo-Regular";
     border-radius: 10px 10px 0 0;
@@ -219,6 +218,11 @@ html, body {
     margin-right: 3px; /* font-family: 'Heebo-Light',sans-serif; */
     color: #596b6a;
     min-width: 32px;
+}
+
+.aircraft-icon-text .time {
+    font-size: 7px;
+    margin: 0;
 }
 
 .category-name {
