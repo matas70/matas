@@ -158,6 +158,8 @@ function createTableCategory(categoryName, categoryAircrafts, type) {
             flightCategoryIcons += `<div class="aircraft-icon-text">
                             <img class="aircraft-icon" src="icons/aircraft-menu/${aircraft.icon}.svg" title="${aircraft.time.substr(0, 5)}">
                             ${aircraft.name}
+                            <p class="time">${aircraft.time.slice(0, -3)}</p>
+                            
                         </div>`;
             aircraftShown[aircraft.name] = true;
         }
