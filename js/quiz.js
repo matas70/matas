@@ -501,7 +501,7 @@
       var res = await navigator.share({
         title: `גם אני שיחקתי במטס חיל האוויר ליום העצמאות!`,
         text: 'גם אני שיחקתי במטס חיל האוויר ליום העצמאות! חג עצמאות שמח, ובואו להתחרות איתי!',
-        url: 'https://www.matas-iaf.com/'
+        url: 'https://www.matas.iaf.org.il/'
       })
       console.log(res)
     } catch (err) {
