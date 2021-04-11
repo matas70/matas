@@ -16,6 +16,7 @@
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
     background-color: #3ab4f2;
     display: inline-block;
+    cursor: pointer;
 }
 #quiz-background{
     display: flex;
