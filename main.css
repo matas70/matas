@@ -426,7 +426,8 @@ canvas {
   width: 55px;
   height: 55px;
   position: absolute;
-  left: calc(50% - 31.5px);
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 82.5px;
 }
 
