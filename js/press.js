@@ -86,7 +86,7 @@ function createCityTable(city) {
     hasAerobatic = city.aircrafts.filter((aircraft) => aircraft.specialInAircraft).length > 0;
     return `<div class="city-table">
                 <div id="location-${city.pointId}" class="base-card">
-                    ${createBaseTableTitle(city.pointName, `${city.aircrafts[0].time.substr(0, 5)} - ${city.aircrafts[city.aircrafts.length-1].time.substr(0, 5)}`, hasAerobatic)}
+                    ${createBaseTableTitle(city.pointName, `${city.aircrafts[0]?.time.substr(0, 5)} - ${city.aircrafts[city.aircrafts.length-1]?.time.substr(0, 5)}`, hasAerobatic)}
                 </div>
                 <div class="base-table-body">
                     ${createTableCategory("מטס", city.aircrafts, "city")}
@@ -98,7 +98,7 @@ function createCategoryTable(category, categoryLocation) {
     hasAerobatic = categoryLocation.aircrafts.filter((aircraft) => aircraft.specialInAircraft).length > 0;
     return `<div class="city-table">
                 <div id="location-${categoryLocation.pointId}" class="base-card">
-                    ${createBaseTableTitle(categoryLocation.pointName, categoryLocation.aircrafts[0].time.substr(0, 5), hasAerobatic)}
+                    ${createBaseTableTitle(categoryLocation.pointName, categoryLocation.aircrafts[0]?.time.substr(0, 5), hasAerobatic)}
                 </div>
                 <div class="base-table-body">
                     ${createTableCategory("מטס", categoryLocation.aircrafts, "city")}
