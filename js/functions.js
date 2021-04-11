@@ -1541,7 +1541,7 @@ function displaySearchView() {
 
         if (shouldShowTypeCategory("hospital")) {
             // add bases
-            searchViewHtml += createCategoryRow({category: "נקודות תצפית"}, true);
+            searchViewHtml += createCategoryRow({category: "בתי חולים"}, true);
 
             sortedLocations.forEach(function (location) {
                 if (!location.hidden && location.type && location.type === "hospital") {
@@ -2013,7 +2013,7 @@ function fillMenu() {
 
     if (shouldShowTypeCategory("hospital")) {
         // add hospitals
-        locationsViewHtml += createCategoryRow({category: "נקודות תצפית"}, true);
+        locationsViewHtml += createCategoryRow({category: "בתי חולים"}, true);
 
         sortedLocations.forEach(function (location) {
             if (!location.hidden && location.type && location.type === "hospital") {
