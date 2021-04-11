@@ -217,6 +217,7 @@ googleMaps = {
 
     getMarkerIconUrl: (color, clicked, aerobatic, label, point) => {
         color = color.toLowerCase();
+        color = color.replace("#ff0000", "ffffff00")
         iconUrl = "icons/point-" + color + ".svg";
 
 
