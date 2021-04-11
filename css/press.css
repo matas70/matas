@@ -130,6 +130,7 @@ html, body {
 
 .base-table-title {
     background: #53aee7;
+    -webkit-print-color-adjust: exact;
     color: white;
     padding-right: 10px;
     font-family: "Heebo-Regular";
