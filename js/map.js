@@ -224,7 +224,7 @@ googleMaps = {
             if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
-                iconUrl = "icons/lookout.svg";
+                iconUrl = "icons/hospital.svg";
             } else if(aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
             } else {
