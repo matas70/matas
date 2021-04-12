@@ -410,7 +410,7 @@
 
   // start the quiz
 
-  $(".quiz.button, #quiz .finished .again, .new-popup .quiz a").on('click', function () {
+  $(".quiz.button, #quiz .finished .again, .new-popup .quiz").on('click', function () {
 
     if (isMenuOpen) toggleListView();
 
