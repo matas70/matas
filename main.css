@@ -16,7 +16,7 @@ body {
 }
 
 .buffer {
-  min-width: calc(50vw - 30px);
+  min-width: calc(50vw - 44px);
 }
 
 /*hide scrollbar on mobile*/
@@ -95,6 +95,7 @@ select {
   left: 0;
   width: 100%;
   height: 100%;
+  height: -webkit-fill-available;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -330,6 +331,7 @@ select {
     box-shadow: 2px 2px 3px black;
     width: 100%;
     height: 100%;
+    height: -webkit-fill-available;
     opacity: 0;
     }
   
@@ -402,8 +404,8 @@ canvas {
   padding: 0 !important;
   flex: 1 0 auto;
   scroll-snap-align: center;
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   outline: none;
   background-color: #ffffff6b;
   border-radius: 50px;
@@ -414,19 +416,48 @@ canvas {
   font-weight: 900;
   color: #3d3d3d;
   margin: 5px 14px;
+  transition: all 0.2s;
 }
 
 .aircraft-option.selected {
   background-color: #ffffff;
+  width: 60px;
+  height: 60px;
 }
+
+#aircrafts_menu .aircraft-option.selected img {
+  max-width: 100%;
+  max-height: 80%;
+  margin-bottom: -16px;
+}
+
+.aircraft-option .name {
+  font-size: 0px;
+  /* transition: all 0.2s; */
+  font-family: Heebo;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.36px;
+  text-align: center;
+  color: #37474f;
+}
+
+.aircraft-option.selected .name {
+  font-size: 0px;
+  font-size: 13px;
+}
+
 
 .middleCircle {
   border: 4px solid #ffffffd8;
   border-radius: 500px;
-  width: 55px;
-  height: 55px;
+  width: 66px;
+  height: 66px;
   position: absolute;
-  left: calc(50% - 31.5px);
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 82.5px;
 }
 
@@ -464,6 +495,7 @@ body:not(.is-supported) #ar-start {
   top: 0;
   left: 0;
   height: 100%;
+  height: -webkit-fill-available;
   width: 100%;
   z-index: 999;
   overflow: hidden;
@@ -749,3 +781,76 @@ div #resetbutton.trails_menu_hide {
   width: 290.3px;
   text-align: center;
 }
+
+
+/* Loader */
+
+.spinner {
+  -webkit-animation: rotator 1.4s linear infinite;
+          animation: rotator 1.4s linear infinite;
+}
+
+@-webkit-keyframes rotator {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+}
+
+@keyframes rotator {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+}
+.path {
+  stroke: rgb(24, 201, 255);
+  stroke-width: 6px;
+  stroke-dasharray: 187;
+  stroke-dashoffset: 0;
+  -webkit-transform-origin: center;
+      -ms-transform-origin: center;
+          transform-origin: center;
+  -webkit-animation: dash 1.4s ease-in-out infinite;
+          animation: dash 1.4s ease-in-out infinite;
+}
+
+@-webkit-keyframes dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    -webkit-transform: rotate(450deg);
+            transform: rotate(450deg);
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    -webkit-transform: rotate(450deg);
+            transform: rotate(450deg);
+  }
+} 
+

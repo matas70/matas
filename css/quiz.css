@@ -1,28 +1,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
 
-.tabs .quiz.button {
+/* .tabs .quiz.button {
     height: 29px;
     padding: 9.5px;
-}
+} */
 
-.tabs .quiz.button::before {
-    content: '';
-    width: 29px;
-    height: 29px;
-    background-image: url('../icons/quiz/queez\ icon.svg');
+.quiz.button::before{
+    content:"כניסה";
+    width: 79px;
+    color: white;
+    padding: 5px;
+    font-family: Heebo;
+    margin: 4px 8.7px 3.7px 4px;
+    border-radius: 22px;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    background-color: #3ab4f2;
     display: inline-block;
-    vertical-align: middle;
+    cursor: pointer;
+}
+#quiz-background{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+    background-image: url('/icons/quiz/quiz_patern.svg');
+    background-position-x: -30px;
+    background-position-y: -5px;
+    transition: display 0.6s, background 0.5s;
 }
 
-.tabs .quiz.button::after {
-    content: 'כניסה לחידון חיל האוויר';
+#quiz-text::before{
+    content: '';
+    height:50px;
+    width: 256px;
+    background-repeat: no-repeat;
+    background-image: url('/icons/quiz/quiz_baner.svg');
+    background-size:255px 60px;
+    display: inline-block;
+    
+}
+/* .quiz.button::after {
+    content: '';
     margin: 1px 25.3px 3px 0;
     font-family: Heebo;
+    background-image: url('/icons/quiz/quiz_baner.svg');
     font-size: 15px;
     font-weight: 300;
     color: #293b57;
     cursor: pointer;
-}
+} */
 
 #quiz {
     position: fixed;
@@ -298,4 +325,14 @@
     .finished button.exit::before {
         content: 'יציאה';
     }
+}
+@media only screen and (max-width: 350px) {
+    #quiz-text::before {
+        background-size:230px 60px;
+    }
+    .quiz.button::before{
+        width: 55px;
+        margin-left: 35px ;
+    }
+
 }

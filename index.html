@@ -13,6 +13,8 @@
     <meta name="theme-color" content="#7bd1fc" />
     <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
 
+    <link rel="canonical" href="https://matas.iaf.org.il/" />
+
     <link rel="stylesheet" href="css/map.css">
     <link rel="stylesheet" href="css/AR.css">
     <link rel="stylesheet" href="css/components.css">
@@ -58,6 +60,7 @@
                 $.getScript("js/quiz.js"),
                 $.getScript('js/smooth-scroll-into-view-if-needed.min.js'),
                 $.getScript('https://cdn.jsdelivr.net/npm/ua-parser-js@0/dist/ua-parser.min.js'),
+                $.getScript('https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js'),
 
                 $.Deferred(function( deferred ){
                     $( deferred.resolve );
@@ -106,6 +109,10 @@
     <!-- list view -->
     <div id="listView" class="listViewContainer">
         <div id="listHeader" class="container">
+            <div id="quiz-background">
+                <div id="quiz-text"></div>
+                <div class="button quiz"></div>
+            </div>
             <div id="search-bar" class="search-bar">
                 <span class="search-icon" >
                 </span>
@@ -126,7 +133,6 @@
             <!-- Aircrafts -->
             <div class="tab-content" id="aircraft">
                 <p class="timeline-warning">לידיעתכם, ייתכנו שינוים בלוחות הזמנים</p>
-                <div class="button quiz"></div>
                 <div id="aircraftsListView">
 
                 </div>
@@ -134,7 +140,6 @@
             <!-- Locations -->
             <div class="tab-content.active" id="locations">
                 <p class="timeline-warning">לידיעתכם, ייתכנו שינוים בלוחות הזמנים</p>
-                <div class="button quiz"></div>
                 <div id="locationsListView" class="locationsTable">
                 </div>
             </div>
@@ -216,7 +221,7 @@
                     <img id="showAeroplanIcon" src="images/aeroplan.png" class="baseEventIcon">
                     <img id="showParachutingIcon" src="images/parachuting.png" class="baseEventIcon">
                     <img id="genericAircraftIcon" src="icons/genericAircraft.svg" class="baseEventIcon">
-                    <img id="arIcon" src="icons/ar.svg" class="baseEventIcon">
+                    <img id="arIcon" src="icons/popup_buttonn3d.svg" class="baseEventIcon">
                     <img id="flightStartIcon" src="icons/flightStart.svg" class="baseEventIcon">
                     <img id="flightEndIcon" src="icons/flightEnd.svg" class="baseEventIcon">
                     <img id="flightStartChangesIcon" src="icons/flightStartChanges.svg" class="baseEventIcon">
@@ -525,8 +530,29 @@
             <button class='share' id='sharebutton'></button>
         </div>
         <div id="confetti"></div>
+
     </div>
 
+    <div class="new-popup">
+        <div class="inner">
+            <h2 class="title">אז מה חדש השנה?</h2>
+            <ul>
+                <li class='ar'>
+                    עד שנוכל לבקר שוב בבסיסים, הבאנו את מטוסי החיל
+                    <br>
+                    אליכם לסלון
+                    <br>
+                    <a href="ar.html">כניסה לתלת מימד</a>
+                </li>
+                <li class='quiz'>
+                    חושבים שאתם מכירים את חיל האוויר?
+                    <br>
+                    <a href="#">כניסה לחידון</a>
+                </li>
+            </ul>
+            <button>מגניב!</button>
+        </div>
+    </div>
 </div>
 
 </body>

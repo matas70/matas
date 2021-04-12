@@ -1435,6 +1435,10 @@ function loadMapApi() {
                 // if there is a connection - load google maps
                 $.getScript(mapAPI.MAP_URL, function () {
                     mapLoaded = true;
+                    gtag('event', 'map_loaded', {
+                        'event_category': 'google_maps',
+                        'event_label': Date.now()
+                    });
                 });
             }).catch((err) => {
                 console.warn("no internet connection - working offline");
@@ -1519,7 +1523,8 @@ function displaySearchView() {
         });
         $("#search-prompt").hide();
         $('.tabs #search').show().siblings().hide();
-        $("#listHeader #search-bar").show().siblings().hide("fast");
+        $('.menuHeader').show().hide("fast");
+
 
         listViewHeight = $("#listView").height();
 
@@ -1541,7 +1546,7 @@ function displaySearchView() {
 
         if (shouldShowTypeCategory("hospital")) {
             // add bases
-            searchViewHtml += createCategoryRow({category: "בתי חולים"}, true);
+            searchViewHtml += createCategoryRow({category: "נקודות תצפית"}, true);
 
             sortedLocations.forEach(function (location) {
                 if (!location.hidden && location.type && location.type === "hospital") {
@@ -2013,7 +2018,7 @@ function fillMenu() {
 
     if (shouldShowTypeCategory("hospital")) {
         // add hospitals
-        locationsViewHtml += createCategoryRow({category: "בתי חולים"}, true);
+        locationsViewHtml += createCategoryRow({category: "נקודות תצפית"}, true);
 
         sortedLocations.forEach(function (location) {
             if (!location.hidden && location.type && location.type === "hospital") {
@@ -2401,5 +2406,19 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 
         return d;
     }
+
+    if (Cookies.get('seen_welcome_2021') != '1') {
+        
+        $('.new-popup').show()
+        $('.new-popup button, .new-popup .quiz, .new-popup .ar').on('click', () => {
+            $('.new-popup').fadeOut(200);
+            Cookies.set('seen_welcome_2021', '1', { expires: 10000});
+        })
+        $('.new-popup .ar').on('click', ()=>{
+            window.location.href="https://matas.iaf.org.il/ar.html"
+        });
+    };
+
+
 })()
 

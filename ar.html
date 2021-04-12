@@ -9,6 +9,16 @@
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-98360124-1');
+	</script>
 </head>
 
 <style>
@@ -164,7 +174,13 @@
 				</div>
 
 				<div id="settings_menu">
-					<div class="middleCircle"></div>
+					<div class="middleCircle">
+						<div id="loadingIndicator">
+							<svg class="spinner" width="66px" height="66px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+								<circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+							</svg>
+						</div>
+					</div>
 					<div style="width: 40px;"></div>
 					<!-- <div class="mode-menu">
 						<div>GIF</div>
@@ -332,6 +348,7 @@
 			let planeMesh;
 			let pngCubeRenderTarget, exrCubeRenderTarget;
 			let pngBackground, exrBackground;
+			let resetSceneForFirstDraw = false;
 			const cursor = new THREE.Vector3();
 
 			const params = {
@@ -415,17 +432,17 @@
 
 
 			const AIRCRAFTS_META_DATA = [
-				{ id: "efroni", type: "glb", scale: 0.025, text: "Planes_efroni.svg" },
-				{ id: "tsofit", type: "glb", scale: 0.003, text: "Planes_tsofit.svg" },
-				{ id: "baz", type: "glb", scale: 0.007, text: "Planes_baz.svg" },
-				{ id: "bazi", type: "glb", scale: 0.007, text: "Planes_bazi.svg" },
-				{ id: "f35", type: "glb", scale: 0.1, text: "Planes_f35.svg" },
-				// { id: "sofa", type: "glb", scale: 0.036, text: "Planes_sufa.svg" },
-				{ id: "barak", type: "glb", scale: 0.006, text: "Planes_barak.svg" },
-				{ id: "peten", type: "glb", scale: 0.006, text: "Planes_peten.svg" },
-				{ id: "lavie", type: "glb", scale: 0.026, text: "Planes_lavie.svg" },
-				{ id: "shimshon", type: "glb", scale: 0.032, text: "Planes_shimshon.svg" },
-				{ id: "karnaf", type: "glb", scale: 0.035, text: "Planes_karnaf.svg" },
+				{ id: "efroni", type: "glb", scale: 0.025, text: "Planes_efroni.svg", name: "עפרוני" },
+				{ id: "tsofit", type: "glb", scale: 0.003, text: "Planes_tsofit.svg", name: "צופית" },
+				{ id: "baz", type: "glb", scale: 0.007, text: "Planes_baz.svg", name: "בז" },
+				{ id: "bazi", type: "glb", scale: 0.007, text: "Planes_bazi.svg", name: "רעם" },
+				{ id: "f35", type: "glb", scale: 0.1, text: "Planes_f35.svg", name: "אדיר" },
+				{ id: "barak", type: "glb", scale: 0.006, text: "Planes_barak.svg", name: "ברק" },
+				{ id: "sofa", type: "glb", scale: 0.15, text: "Planes_sofa.svg", name: "סופה" },
+				{ id: "peten", type: "glb", scale: 0.15, text: "Planes_peten.svg", name: "פתן" },
+				{ id: "lavie", type: "glb", scale: 0.026, text: "Planes_lavie.svg", name: "לביא" },
+				{ id: "shimshon", type: "glb", scale: 0.032, text: "Planes_shimshon.svg", name: "שמשון" },
+				{ id: "karnaf", type: "glb", scale: 0.035, text: "Planes_karnaf.svg", name: "קרנף" },
 			]
 
 			const TRAILS_META_DATA = [
@@ -486,9 +503,9 @@
 					clearInterval(isAircraftScrolling);
 					isAircraftScrolling = setTimeout(() => {
 						const centeredElement = document.elementFromPoint(
-							document.body.offsetWidth / 2, document.documentElement.clientHeight - 93
+							document.body.offsetWidth / 2, document.documentElement.clientHeight - 140
 						);
-						let selected = centeredElement.parentElement.innerHTML.replace('<img src="./assets/Planes_', '').replace('.svg">', '');
+						let selected = centeredElement.parentElement.children[0].src?.split('Planes_')[1].replace('.svg', '')
 						AIRCRAFTS_META_DATA.forEach((e) => {
 							if (e.id === selected) changeAircraft(e);
 						})
@@ -500,7 +517,7 @@
 					clearInterval(isTrailScrolling);
 					isTrailScrolling = setTimeout(() => {
 						const centeredElement = document.elementFromPoint(
-							document.body.offsetWidth / 2, document.documentElement.clientHeight - 160
+							document.body.offsetWidth / 2, document.documentElement.clientHeight - 180
 						);
 						let selected = centeredElement.parentElement.innerHTML.replace('<img src="./assets/', '').replace('.png">', '');
 						TRAILS_META_DATA.forEach((e) => {
@@ -515,6 +532,7 @@
 						block: 'center',
 						inline: 'center'
 					});
+					changeAircraft(AIRCRAFTS_META_DATA[4]);
 				}, 20);
 
 				document.getElementById('controls').addEventListener('beforexrselect', ev => ev.preventDefault());
@@ -526,6 +544,7 @@
 					elem.type = "button";
 					elem.id = aircraft.id;
 					elem.innerHTML = `<img src="./assets/${aircraft.text}"/>`;
+					elem.innerHTML += `<span class="name">${aircraft.name}</name>`;
 					document.getElementById('aircrafts_menu').insertBefore(elem, document.getElementById('aircrafts_menu').children[1]);
 					elem.addEventListener('click', (e) => {
 						window.scrollIntoView(e.target, {
@@ -647,7 +666,7 @@
 				const shareData = {
 					title: 'כיף לצפות במטוסי חיל האוויר - אצלי בטלפון, בתלת מימד!',
 					text: 'כמה מגניב! באפליקצית מטס יום העצמאות ה73 אני רואה את כל המטוסים בתלת מימד. בואו לנסות גם',
-					url: 'https://matas-iaf.com',
+					url: 'https://matas.iaf.org.il',
 				}
 
 				const btn = document.querySelector('#ar-overly .share');
@@ -896,6 +915,9 @@
 
 
 			function loadAircraftGLTF(selectedAircraft) {
+				
+				document.getElementById("loadingIndicator").style.display = "block";
+
 				new GLTFLoader()
 					.load('./3d_models/aircrafts/gltf/' + selectedAircraft.id + '/object.' + selectedAircraft.type, function (gltf) {
 						if (aircraft)
@@ -912,6 +934,8 @@
 							action = mixer.clipAction(animation);
 							action.play();
 						});
+
+						document.getElementById("loadingIndicator").style.display = "none";
 
 					}, undefined, function (error) {
 						console.error(error);
@@ -1018,18 +1042,20 @@
 			}
 
 			function changeAircraft(selectedAircraft) {
-				AIRCRAFTS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
-				document.getElementById(selectedAircraft.id).classList.add("selected");
-				loadAircraft(selectedAircraft);
-				currentAircraft = selectedAircraft.id;
+				setTimeout(()=>{
+					AIRCRAFTS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
+					document.getElementById(selectedAircraft.id).classList.add("selected");
+					loadAircraft(selectedAircraft);
+					currentAircraft = selectedAircraft.id;
 
-				if (isIOS()) {
-					document.getElementsByClassName('static-mode')[0].remove();
-					let node = document.createElement('a');
-					node.href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
-					node.classList.add('static-mode');
-					document.getElementById('button-mode-toggle').prepend(node);
-				}
+					if (isIOS()) {
+						document.getElementsByClassName('static-mode')[0].remove();
+						let node = document.createElement('a');
+						node.href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
+						node.classList.add('static-mode');
+						document.getElementById('button-mode-toggle').prepend(node);
+					}
+				}, 10)
 			}
 
 			function changeTrails(selectedTrails) {
@@ -1081,12 +1107,17 @@
 				//cursor.set( 0, 0, - 0.2 ).applyMatrix4( controller.matrixWorld );
 
 				if (userData.isSelecting === true) {
+					
 					if (userData.skipFrames >= 0) {
 						// TODO(mrdoob) Revisit this
 
 						userData.skipFrames--;
 						painter.moveTo(cursor);
 					} else {
+						if(!resetSceneForFirstDraw) {
+							resetSceneForFirstDraw = true;
+							resetScene();
+						}
 						painter.lineTo(cursor);
 						locations.push([cursor.x, cursor.y, cursor.z])
 						painter.update();
@@ -1138,7 +1169,6 @@
 			}
 
 			function renderAircraft() {
-
 				handleController(controller);
 				if (aircraft) {
 					placeAircraft();
@@ -1331,8 +1361,8 @@
 
 			{
 				let counter = 0;
-				document.querySelector('#button-mode-toggle').addEventListener('click', e => {
-					if (counter++ >= 20) {
+				document.querySelector('#exit-trail').addEventListener('click', e => {
+					if (counter++ >= 10) {
 						loadAircraft({ id: "bee", type: "glb", scale: 0.15, text: "karnaf" })
 						counter = 0;
 					}

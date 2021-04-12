@@ -803,6 +803,7 @@ HEADER {
 .menuHeader li {
     display: inline;
     text-align: center;
+    transition: display 0.3s;
 }
 
 .menuLink {
@@ -1854,4 +1855,98 @@ hr.aircraftLineSeparator.two {
     #aircraftListContainer {
         height: inherit;
     }
+}
+
+
+
+.new-popup {
+    content: '';
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 99999;
+}
+.new-popup .inner{
+    width: 270px;
+    height: 290px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 16px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+    border: solid 1px #eff1f1;
+    background-color: #ffffff;
+    padding: 0 13px;
+}
+
+.new-popup .title {
+    font-family: Heebo;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1.18;
+    text-align: center;
+    color: #37474f;  
+}
+
+.new-popup ul {
+    font-family: Heebo;
+    font-size: 15px;
+    line-height: 1.2;
+    color: #37474f;
+    padding-right: 56px;
+    list-style: none;
+}
+
+.new-popup ul li {
+    margin-top: 21px;
+}
+
+.new-popup ul li.ar::before, .new-popup ul li.quiz::before {
+    content: '';
+    width: 44px;
+    height: 31.7px;
+    background-image: url('../icons/popup_buttonn3d.svg');
+    background-size: contain;
+    display: block;
+    position: absolute;
+    top: 62px;
+    right: 12.5px;
+    background-position: top right;
+    background-repeat: no-repeat;
+}
+
+.new-popup ul li.quiz::before {
+    background-image: url('../icons/queezicon.svg');
+    top: 160px;
+    right: 22px;
+}
+
+.new-popup a {
+    font-family: Heebo;
+    font-size: 16px;
+    font-weight: 500;
+    color: #3bb5f2;
+    margin-top: 8px;
+    display: block;  
+}
+
+
+.new-popup button {
+    color: white;
+    font-family: Heebo;
+    font-weight: bold;
+    font-size:18px;
+    background-color: #3bb5f2;
+    border-radius: 0 0 15px 15px;
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    height: 48px;
+    border: none;
+    width: calc(100% + 3px);
 }

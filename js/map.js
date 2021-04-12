@@ -217,6 +217,7 @@ googleMaps = {
 
     getMarkerIconUrl: (color, clicked, aerobatic, label, point) => {
         color = color.toLowerCase();
+        color = color.replace("#ff0000", "ffffff00")
         iconUrl = "icons/point-" + color + ".svg";
 
 
@@ -224,7 +225,7 @@ googleMaps = {
             if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
-                iconUrl = "icons/hospital.svg";
+                iconUrl = "icons/lookout.svg";
             } else if(aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
             } else {

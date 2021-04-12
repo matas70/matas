@@ -430,7 +430,7 @@ function notifyForEventOnLocation(locationName, timeBefore, showType) {
                     lang: 'he',
                     badge: '../icons/logo192x192.png',
                     vibrate: [300, 100, 400],
-                    data: {url: 'https://matas-iaf.com'}
+                    data: {url: 'https://matas.iaf.org.il'}
                 };
 
             // If it's okay let's create a notification
