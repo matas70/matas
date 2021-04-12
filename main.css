@@ -16,7 +16,7 @@ body {
 }
 
 .buffer {
-  min-width: calc(50vw - 39px);
+  min-width: calc(50vw - 44px);
 }
 
 /*hide scrollbar on mobile*/
