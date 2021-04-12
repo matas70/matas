@@ -433,7 +433,7 @@ canvas {
 
 .aircraft-option .name {
   font-size: 0px;
-  transition: all 0.2s;
+  /* transition: all 0.2s; */
   font-family: Heebo;
   font-weight: 500;
   font-stretch: normal;
