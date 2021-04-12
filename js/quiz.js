@@ -18,14 +18,6 @@
       "category": "מטוסי קרב"
     },
     {
-      "title": "מהי המלחמה הראשונה בה השתתף מטוס ה\"ברק",
-      "a": "יום כיפור",
-      "b": "לבנון הראשונה",
-      "c": "עצמאות",
-      "correct": "ב",
-      "category": "מלחמות ישראל"
-    },
-    {
       "title": "מהו השם העברי של מטוס-הקרב F-15I",
       "a": "אדיר",
       "b": "סופה",
@@ -410,7 +402,7 @@
 
   // start the quiz
 
-  $(".quiz.button, #quiz .finished .again, .new-popup .quiz a").on('click', function () {
+  $(".quiz.button, #quiz .finished .again, .new-popup .quiz").on('click', function () {
 
     if (isMenuOpen) toggleListView();
 
