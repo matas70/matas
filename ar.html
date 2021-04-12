@@ -497,9 +497,9 @@
 					clearInterval(isAircraftScrolling);
 					isAircraftScrolling = setTimeout(() => {
 						const centeredElement = document.elementFromPoint(
-							document.body.offsetWidth / 2, document.documentElement.clientHeight - 93
+							document.body.offsetWidth / 2, document.documentElement.clientHeight - 140
 						);
-						let selected = centeredElement.parentElement.innerHTML.replace('<img src="./assets/Planes_', '').replace('.svg">', '');
+						let selected = centeredElement.parentElement.children[0].src?.split('Planes_')[1].replace('.svg', '')
 						AIRCRAFTS_META_DATA.forEach((e) => {
 							if (e.id === selected) changeAircraft(e);
 						})
@@ -538,6 +538,7 @@
 					elem.type = "button";
 					elem.id = aircraft.id;
 					elem.innerHTML = `<img src="./assets/${aircraft.text}"/>`;
+					elem.innerHTML += `<span class="name">${aircraft.name}</name>`;
 					document.getElementById('aircrafts_menu').insertBefore(elem, document.getElementById('aircrafts_menu').children[1]);
 					elem.addEventListener('click', (e) => {
 						window.scrollIntoView(e.target, {
@@ -1030,18 +1031,20 @@
 			}
 
 			function changeAircraft(selectedAircraft) {
-				AIRCRAFTS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
-				document.getElementById(selectedAircraft.id).classList.add("selected");
-				loadAircraft(selectedAircraft);
-				currentAircraft = selectedAircraft.id;
+				setTimeout(()=>{
+					AIRCRAFTS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
+					document.getElementById(selectedAircraft.id).classList.add("selected");
+					loadAircraft(selectedAircraft);
+					currentAircraft = selectedAircraft.id;
 
-				if (isIOS()) {
-					document.getElementsByClassName('static-mode')[0].remove();
-					let node = document.createElement('a');
-					node.href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
-					node.classList.add('static-mode');
-					document.getElementById('button-mode-toggle').prepend(node);
-				}
+					if (isIOS()) {
+						document.getElementsByClassName('static-mode')[0].remove();
+						let node = document.createElement('a');
+						node.href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
+						node.classList.add('static-mode');
+						document.getElementById('button-mode-toggle').prepend(node);
+					}
+				}, 10)
 			}
 
 			function changeTrails(selectedTrails) {
