@@ -332,6 +332,7 @@
 			let planeMesh;
 			let pngCubeRenderTarget, exrCubeRenderTarget;
 			let pngBackground, exrBackground;
+			let resetSceneForFirstDraw = false;
 			const cursor = new THREE.Vector3();
 
 			const params = {
@@ -1082,12 +1083,17 @@
 				//cursor.set( 0, 0, - 0.2 ).applyMatrix4( controller.matrixWorld );
 
 				if (userData.isSelecting === true) {
+					
 					if (userData.skipFrames >= 0) {
 						// TODO(mrdoob) Revisit this
 
 						userData.skipFrames--;
 						painter.moveTo(cursor);
 					} else {
+						if(!resetSceneForFirstDraw) {
+							resetSceneForFirstDraw = true;
+							resetScene();
+						}
 						painter.lineTo(cursor);
 						locations.push([cursor.x, cursor.y, cursor.z])
 						painter.update();
@@ -1139,7 +1145,6 @@
 			}
 
 			function renderAircraft() {
-
 				handleController(controller);
 				if (aircraft) {
 					placeAircraft();
