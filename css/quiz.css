@@ -27,6 +27,7 @@
     background-image: url('/icons/quiz/quiz_patern.svg');
     background-position-x: -30px;
     background-position-y: -5px;
+    transition: display 0.6s, background 0.5s;
 }
 
 #quiz-text::before{

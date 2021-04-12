@@ -1519,7 +1519,8 @@ function displaySearchView() {
         });
         $("#search-prompt").hide();
         $('.tabs #search').show().siblings().hide();
-        $("#listHeader #search-bar").show().siblings().hide("fast");
+        $('.menuHeader').show().hide("fast");
+
 
         listViewHeight = $("#listView").height();
 
@@ -2406,7 +2407,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
         
         $('.new-popup').show()
         $('.new-popup button, .new-popup .quiz, .new-popup .ar').on('click', () => {
-            $('.new-popup').fadeOut(2000);
+            $('.new-popup').fadeOut(200);
             Cookies.set('seen_welcome_2021', '1', { expires: 10000});
         })
         $('.new-popup .ar').on('click', ()=>{
