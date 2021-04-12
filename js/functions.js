@@ -1338,7 +1338,7 @@ var aircraftHash = "#aircraft";
 var mapHash = "#map";
 
 function onLoad() {
-    if (!checkIframe) {
+    if (true) {
         // For back button handling
         previousHash.push(mainHash);
         previousHash.push(mapHash);
