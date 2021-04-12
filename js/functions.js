@@ -1338,7 +1338,7 @@ var aircraftHash = "#aircraft";
 var mapHash = "#map";
 
 function onLoad() {
-    if (true) {
+    if (!checkIframe) {
         // For back button handling
         previousHash.push(mainHash);
         previousHash.push(mapHash);
@@ -1435,6 +1435,12 @@ function loadMapApi() {
                 // if there is a connection - load google maps
                 $.getScript(mapAPI.MAP_URL, function () {
                     mapLoaded = true;
+                    ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'Google Maps',
+                        eventAction: 'loaded',
+                        eventLabel: 'Successfull loading of Google Maps'
+                      });
                 });
             }).catch((err) => {
                 console.warn("no internet connection - working offline");
