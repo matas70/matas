@@ -517,7 +517,7 @@
 					clearInterval(isTrailScrolling);
 					isTrailScrolling = setTimeout(() => {
 						const centeredElement = document.elementFromPoint(
-							document.body.offsetWidth / 2, document.documentElement.clientHeight - 160
+							document.body.offsetWidth / 2, document.documentElement.clientHeight - 180
 						);
 						let selected = centeredElement.parentElement.innerHTML.replace('<img src="./assets/', '').replace('.png">', '');
 						TRAILS_META_DATA.forEach((e) => {
