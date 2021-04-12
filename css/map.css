@@ -1938,6 +1938,9 @@ hr.aircraftLineSeparator.two {
 
 .new-popup button {
     color: white;
+    font-family: Heebo;
+    font-weight: bold;
+    font-size:18px;
     background-color: #3bb5f2;
     border-radius: 0 0 15px 15px;
     position: absolute;
