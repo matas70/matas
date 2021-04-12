@@ -1337,8 +1337,8 @@
 
 			{
 				let counter = 0;
-				document.querySelector('#button-mode-toggle').addEventListener('click', e => {
-					if (counter++ >= 20) {
+				document.querySelector('#exit-trail').addEventListener('click', e => {
+					if (counter++ >= 10) {
 						loadAircraft({ id: "bee", type: "glb", scale: 0.15, text: "karnaf" })
 						counter = 0;
 					}
