@@ -1436,12 +1436,16 @@ function loadMapApi() {
                 $.getScript(mapAPI.MAP_URL, function () {
                     mapLoaded = true;
                     gtag('event', 'map_loaded', {
-                        'event_category': 'google_maps',
-                        'event_label': Date.now()
+                        'event_category': 'maps',
+                        'event_label': window.location.href
                     });
                 });
             }).catch((err) => {
                 console.warn("no internet connection - working offline");
+                gtag('event', 'offline_mode', {
+                    'event_category': 'maps',
+                    'event_label': window.location.href
+                });
                 // if there is no connection - load leaflet maps (offline)
                 mapAPI = leafletMaps;
                 mapLoaded = true;
