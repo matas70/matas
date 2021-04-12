@@ -1519,7 +1519,8 @@ function displaySearchView() {
         });
         $("#search-prompt").hide();
         $('.tabs #search').show().siblings().hide();
-        $("#listHeader #search-bar").show().siblings().hide("fast");
+        $('.menuHeader').show().hide("fast");
+
 
         listViewHeight = $("#listView").height();
 

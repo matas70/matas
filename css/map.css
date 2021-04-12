@@ -803,6 +803,7 @@ HEADER {
 .menuHeader li {
     display: inline;
     text-align: center;
+    transition: display 0.3s;
 }
 
 .menuLink {
