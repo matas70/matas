@@ -174,7 +174,13 @@
 				</div>
 
 				<div id="settings_menu">
-					<div class="middleCircle"></div>
+					<div class="middleCircle">
+						<div id="loadingIndicator">
+							<svg class="spinner" width="66px" height="66px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+								<circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+							</svg>
+						</div>
+					</div>
 					<div style="width: 40px;"></div>
 					<!-- <div class="mode-menu">
 						<div>GIF</div>
@@ -909,6 +915,9 @@
 
 
 			function loadAircraftGLTF(selectedAircraft) {
+				
+				document.getElementById("loadingIndicator").style.display = "block";
+
 				new GLTFLoader()
 					.load('./3d_models/aircrafts/gltf/' + selectedAircraft.id + '/object.' + selectedAircraft.type, function (gltf) {
 						if (aircraft)
@@ -925,6 +934,8 @@
 							action = mixer.clipAction(animation);
 							action.play();
 						});
+
+						document.getElementById("loadingIndicator").style.display = "none";
 
 					}, undefined, function (error) {
 						console.error(error);
