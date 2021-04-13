@@ -183,6 +183,9 @@
 				</div>
 			</div>
 			<div id="menus">
+				<div class="slidecontainer">
+					<input type="range" min="3000" max="15000" value="10000" class="slider" id="myRange">
+				  </div>
 				<div id="trails_menu">
 					<div style="min-width: calc(50vw - 45px); height: 50px; flex: 1 0 auto;"></div>
 					<img id="exit-trail" class="small-x-button" src="./assets/small-x.svg" alt="Exit Trail">
@@ -379,6 +382,7 @@
 			let pngCubeRenderTarget, exrCubeRenderTarget;
 			let pngBackground, exrBackground;
 			let resetSceneForFirstDraw = false;
+			let curSpeed = 10000;
 			const cursor = new THREE.Vector3();
 
 			const params = {
@@ -811,6 +815,19 @@
 				document.getElementById("button-close").addEventListener("click", (e) => {
 					document.getElementById('blob').classList.add('animateScale');
 					setTimeout(() => window.location.href = '/', 1000);
+				})
+
+				document.getElementById("myRange").oninput = function() {
+					curSpeed = this.value;
+				}
+				document.getElementById("myRange").addEventListener('touchstart', (e) => {
+					document.getElementById('myRange').classList.add('focussss');
+				})
+				document.getElementById("myRange").addEventListener('touchmove', (e) => {
+					document.getElementById('myRange').classList.add('focussss');
+				})
+				document.getElementById("myRange").addEventListener('touchend', (e) => {
+					document.getElementById('myRange').classList.remove('focussss');
 				})
 
 				document.getElementById("exit-trail").addEventListener("click", (e) => {
@@ -1305,7 +1322,7 @@
 			}
 
 			function getCurrentTravelPercent() {
-				const totalMillis = travelLength(locations) * 10000;
+				const totalMillis = travelLength(locations) * curSpeed;
 				if (Date.now() - animationCycleStart > totalMillis)
 					animationCycleStart = Date.now();
 
