@@ -741,7 +741,7 @@ div #resetbutton.trails_menu_hide {
   font-family: Heebo;
 }
 
-#tutorial .step-2, #tutorial .step-3 {
+#tutorial .step-2,#no-support-tutorial .step-2, #tutorial .step-3 {
   display: none;
 }
 
@@ -755,7 +755,6 @@ div #resetbutton.trails_menu_hide {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5);
   z-index: 99999;
 }
 
@@ -766,6 +765,12 @@ div #resetbutton.trails_menu_hide {
   left: 4.2px;
   top: 55px;
   position: fixed;
+}
+
+#no-support-tutorial .step-2 .index-finger {
+  left:initial;
+  right:50%;
+  top: 85px;
 }
 
 #no-support-tutorial span {
@@ -780,6 +785,40 @@ div #resetbutton.trails_menu_hide {
   top: 109px;
   width: 290.3px;
   text-align: center;
+}
+
+
+#no-support-tutorial .step-1::before {
+  content: '';
+  display: block;
+  width: 58px;
+  height: 53px;
+  left: 13px;
+  position: absolute;
+  top: 12px;
+  box-shadow: 0 0 0 99999px rgb(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 0 99999px rgb(0, 0, 0, 0.5);
+  border-radius: 62px;
+}
+#no-support-tutorial .step-2::before {
+  content: '';
+  display: block;
+  width: 151px;
+  height: 75px;
+  left: 50%;
+  position: absolute;
+  top: 10px;
+  transform: translate(-50%,0);
+  box-shadow: 0 0 0 99999px rgb(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 0 99999px rgb(0, 0, 0, 0.5);
+  border-radius: 36px;
+}
+
+#no-support-tutorial .step-2 span {
+  left:0;
+  right:0;
+  width: 100%;
+  top: 175px;
 }
 
 
