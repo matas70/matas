@@ -1,3 +1,4 @@
+//# sourceURL=js/functions.js
 window.gm_authFailure = function () {
     mapFail = true;
     $("#closeIcon").hide();
