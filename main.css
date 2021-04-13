@@ -936,4 +936,6 @@ input[type="range"] {
   /* opacity: 0.8; */
 }
 
-
+#slidecontainer.slidecontainer_hide {
+  display: none;
+}

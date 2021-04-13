@@ -183,7 +183,7 @@
 				</div>
 			</div>
 			<div id="menus">
-				<div class="slidecontainer">
+				<div id="slidecontainer">
 					<input type="range" min="3000" max="15000" value="10000" class="slider" id="myRange">
 				  </div>
 				<div id="trails_menu">
@@ -843,6 +843,7 @@
 						trails_menu.classList.remove('trails_menu_hide');
 						let buttonreset = document.getElementById("resetbutton");
 						buttonreset.classList.remove('trails_menu_hide');
+						document.getElementById("slidecontainer").classList.remove('slidecontainer_hide');
 						if (locations.length) locations.pop();
 						painter.mesh.material.opacity = 0.3;
 					} else {
@@ -854,6 +855,7 @@
 						this.classList.remove('dynamic');
 						let trails_menu = document.getElementById("trails_menu");
 						trails_menu.classList.add('trails_menu_hide');
+						document.getElementById("slidecontainer").classList.add('slidecontainer_hide');
 						let buttonreset = document.getElementById("resetbutton");
 						buttonreset.classList.add('trails_menu_hide');
 						locations.push([cursor.x, cursor.y, cursor.z]);
