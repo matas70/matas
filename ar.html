@@ -118,10 +118,15 @@
 					<button id="button-reset" class="support" alt="Draw"></button>
 				</div>
 				<!-- <button id="button-action" alt="Toggle Flash"></button> -->
-				<button id="button-mode-toggle" alt="Toggle mode" class="dynamic">
+				<button id="button-mode-toggle" alt="Toggle mode" class="dynamic" style="display: none;">
 					<a class='static-mode'></a>
 					<span class='dynamic-mode'></span>
 				</button>
+
+				<a id="usdz-button" style="display: none;">
+					<img width="160px" src="./assets/usdz-button.svg" alt="הדמייה במרחב שלך">
+				</a>
+
 				<button id="button-close" alt="Close">
 					<div id="blob"
 						style="transform: scale(0); background-color: #3bb5f2; border-radius: 100%; width: 30px; height: 30px;">
@@ -165,7 +170,7 @@
 				<div id="trails_menu">
 					<div style="min-width: calc(50vw - 45px); height: 50px; flex: 1 0 auto;"></div>
 					<img id="exit-trail" class="small-x-button" src="./assets/small-x.svg" alt="Exit Trail">
-					<div style="min-width: 200px; height: 50px; flex: 1 0 auto;"></div>
+					<div style="min-width: calc(50vw - 20px); height: 50px; flex: 1 0 auto;"></div>
 				</div>
 
 				<div id="aircrafts_menu">
@@ -174,7 +179,13 @@
 				</div>
 
 				<div id="settings_menu">
-					<div class="middleCircle"></div>
+					<div class="middleCircle">
+						<div id="loadingIndicator">
+							<svg class="spinner" width="66px" height="66px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+								<circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+							</svg>
+						</div>
+					</div>
 					<div style="width: 40px;"></div>
 					<!-- <div class="mode-menu">
 						<div>GIF</div>
@@ -511,7 +522,7 @@
 					clearInterval(isTrailScrolling);
 					isTrailScrolling = setTimeout(() => {
 						const centeredElement = document.elementFromPoint(
-							document.body.offsetWidth / 2, document.documentElement.clientHeight - 160
+							document.body.offsetWidth / 2, document.documentElement.clientHeight - 180
 						);
 						let selected = centeredElement.parentElement.innerHTML.replace('<img src="./assets/', '').replace('.png">', '');
 						TRAILS_META_DATA.forEach((e) => {
@@ -909,6 +920,9 @@
 
 
 			function loadAircraftGLTF(selectedAircraft) {
+				
+				document.getElementById("loadingIndicator").style.display = "block";
+
 				new GLTFLoader()
 					.load('./3d_models/aircrafts/gltf/' + selectedAircraft.id + '/object.' + selectedAircraft.type, function (gltf) {
 						if (aircraft)
@@ -925,6 +939,8 @@
 							action = mixer.clipAction(animation);
 							action.play();
 						});
+
+						document.getElementById("loadingIndicator").style.display = "none";
 
 					}, undefined, function (error) {
 						console.error(error);
@@ -1038,11 +1054,10 @@
 					currentAircraft = selectedAircraft.id;
 
 					if (isIOS()) {
-						document.getElementsByClassName('static-mode')[0].remove();
-						let node = document.createElement('a');
-						node.href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
-						node.classList.add('static-mode');
-						document.getElementById('button-mode-toggle').prepend(node);
+						document.getElementById('usdz-button').style.display = "block";
+						document.getElementById('usdz-button').href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
+					} else {
+						document.getElementById('button-mode-toggle').style.display = "block";
 					}
 				}, 10)
 			}

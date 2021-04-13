@@ -467,6 +467,7 @@ function updateLocationsMap(aircrafts) {
                 location = locations[location.pointId];
             } else {
                 console.warn(`warning - aircraft is moving above non existing location, point id: ${location.pointId}, time: ${item.time}`)
+                aircraft.path = aircraft.path.filter(point => point.pointId !== location.pointId)
                 location.aircrafts = [];
                 location.hidden = true;
                 location.pointName = "";
@@ -1435,9 +1436,17 @@ function loadMapApi() {
                 // if there is a connection - load google maps
                 $.getScript(mapAPI.MAP_URL, function () {
                     mapLoaded = true;
+                    gtag('event', 'map_loaded', {
+                        'event_category': 'maps',
+                        'event_label': window.location.href
+                    });
                 });
             }).catch((err) => {
                 console.warn("no internet connection - working offline");
+                gtag('event', 'offline_mode', {
+                    'event_category': 'maps',
+                    'event_label': window.location.href
+                });
                 // if there is no connection - load leaflet maps (offline)
                 mapAPI = leafletMaps;
                 mapLoaded = true;
