@@ -3,10 +3,6 @@ leafletMaps = {
     MAP_URL: "",
 
     setAircraftMarkerIcon: (marker, url, anchor = 36) => {
-        // marker.setIcon(L.icon({
-        //     iconUrl: url,
-        //     // iconAnchor: anchor != null ? undefined : [anchor, anchor],
-        //     className: "marker-fix"
         marker.setIcon(new L.DivIcon({
             className: 'aircraftMarkerIcon',
             html: `<img src="${url}" class="leaflet-marker-icon marker-fix leaflet-interactive">`
