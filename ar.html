@@ -184,7 +184,7 @@
 			</div>
 			<div id="menus">
 				<div id="slidecontainer">
-					<input type="range" min="3000" max="15000" value="10000" class="slider" id="myRange">
+					<input type="range" min="3000" max="15000" value="10000" class="slider" id="speed_slider">
 				  </div>
 				<div id="trails_menu">
 					<div style="min-width: calc(50vw - 45px); height: 50px; flex: 1 0 auto;"></div>
@@ -817,17 +817,17 @@
 					setTimeout(() => window.location.href = '/', 1000);
 				})
 
-				document.getElementById("myRange").oninput = function() {
+				document.getElementById("speed_slider").oninput = function() {
 					curSpeed = this.value;
 				}
-				document.getElementById("myRange").addEventListener('touchstart', (e) => {
-					document.getElementById('myRange').classList.add('focussss');
+				document.getElementById("speed_slider").addEventListener('touchstart', (e) => {
+					document.getElementById('speed_slider').classList.add('speed_slider_focused');
 				})
-				document.getElementById("myRange").addEventListener('touchmove', (e) => {
-					document.getElementById('myRange').classList.add('focussss');
+				document.getElementById("speed_slider").addEventListener('touchmove', (e) => {
+					document.getElementById('speed_slider').classList.add('speed_slider_focused');
 				})
-				document.getElementById("myRange").addEventListener('touchend', (e) => {
-					document.getElementById('myRange').classList.remove('focussss');
+				document.getElementById("speed_slider").addEventListener('touchend', (e) => {
+					document.getElementById('speed_slider').classList.remove('speed_slider_focused');
 				})
 
 				document.getElementById("exit-trail").addEventListener("click", (e) => {

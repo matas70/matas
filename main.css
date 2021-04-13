@@ -900,7 +900,7 @@ input[type="range"] {
   transform: rotate(90deg);
 }
 
-.slider {
+#speed_slider {
   -webkit-appearance: none;
   appearance: none;
   width: 170px;
@@ -917,14 +917,14 @@ input[type="range"] {
   background-size: 100%;
 }
 
-.slider.focussss {
+#speed_slider.speed_slider_focused {
   opacity: 1;
   left: -45px;
   transition: all 0.3s;
 }
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-.slider::-webkit-slider-thumb {
+#speed_slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 25px;
