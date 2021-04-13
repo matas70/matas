@@ -183,6 +183,9 @@
 				</div>
 			</div>
 			<div id="menus">
+				<div id="slidecontainer">
+					<input type="range" min="3000" max="15000" value="10000" class="slider" id="speed_slider">
+				  </div>
 				<div id="trails_menu">
 					<div style="min-width: calc(50vw - 45px); height: 50px; flex: 1 0 auto;"></div>
 					<img id="exit-trail" class="small-x-button" src="./assets/small-x.svg" alt="Exit Trail">
@@ -379,6 +382,7 @@
 			let pngCubeRenderTarget, exrCubeRenderTarget;
 			let pngBackground, exrBackground;
 			let resetSceneForFirstDraw = false;
+			let curSpeed = 10000;
 			const cursor = new THREE.Vector3();
 
 			const params = {
@@ -813,6 +817,19 @@
 					setTimeout(() => window.location.href = '/', 1000);
 				})
 
+				document.getElementById("speed_slider").oninput = function() {
+					curSpeed = this.value;
+				}
+				document.getElementById("speed_slider").addEventListener('touchstart', (e) => {
+					document.getElementById('speed_slider').classList.add('speed_slider_focused');
+				})
+				document.getElementById("speed_slider").addEventListener('touchmove', (e) => {
+					document.getElementById('speed_slider').classList.add('speed_slider_focused');
+				})
+				document.getElementById("speed_slider").addEventListener('touchend', (e) => {
+					document.getElementById('speed_slider').classList.remove('speed_slider_focused');
+				})
+
 				document.getElementById("exit-trail").addEventListener("click", (e) => {
 					resetTrail();
 				})
@@ -826,6 +843,7 @@
 						trails_menu.classList.remove('trails_menu_hide');
 						let buttonreset = document.getElementById("resetbutton");
 						buttonreset.classList.remove('trails_menu_hide');
+						document.getElementById("slidecontainer").classList.remove('slidecontainer_hide');
 						if (locations.length) locations.pop();
 						painter.mesh.material.opacity = 0.3;
 					} else {
@@ -837,6 +855,7 @@
 						this.classList.remove('dynamic');
 						let trails_menu = document.getElementById("trails_menu");
 						trails_menu.classList.add('trails_menu_hide');
+						document.getElementById("slidecontainer").classList.add('slidecontainer_hide');
 						let buttonreset = document.getElementById("resetbutton");
 						buttonreset.classList.add('trails_menu_hide');
 						locations.push([cursor.x, cursor.y, cursor.z]);
@@ -1305,7 +1324,7 @@
 			}
 
 			function getCurrentTravelPercent() {
-				const totalMillis = travelLength(locations) * 10000;
+				const totalMillis = travelLength(locations) * curSpeed;
 				if (Date.now() - animationCycleStart > totalMillis)
 					animationCycleStart = Date.now();
 
