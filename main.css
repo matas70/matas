@@ -411,7 +411,7 @@ canvas {
   border-radius: 50px;
   backdrop-filter: blur(5px);
   border: none;
-  box-shadow: 0px 0px 20px 5px rgba(87, 87, 87, 0.445);
+  box-shadow: 0px 0px 5px 3px #0c0c0c38;;
   font-size: 15px;
   font-weight: 900;
   color: #3d3d3d;
@@ -570,7 +570,7 @@ div #resetbutton.trails_menu_hide {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: none;
-  box-shadow: 0px 0px 20px 5px rgba(87, 87, 87, 0.445);
+  box-shadow: 0px 0px 5px 3px #0c0c0c38;
   font-size: 15px;
   font-weight: 900;
   color: #3d3d3d;
@@ -893,3 +893,49 @@ div #resetbutton.trails_menu_hide {
   }
 } 
 
+input[type="range"] {
+  position: absolute;
+  top: -25vh;
+  left: -84px;
+  transform: rotate(90deg);
+}
+
+#speed_slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 170px;
+  height: 24px;
+  outline: none;
+  -webkit-transition: .2s;
+  transition: all 0.3s;
+  /* background: linear-gradient( to bottom left, transparent 40%, #d5d5d56e 50% ); */
+  background-size: contain;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(./assets/triangle.svg);
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  background-size: 100%;
+}
+
+#speed_slider.speed_slider_focused {
+  opacity: 1;
+  left: -45px;
+  transition: all 0.3s;
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+#speed_slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #ffffff;
+  cursor: pointer;
+  border-radius: 50px;
+  box-shadow: 0px 0px 5px 3px #1f1f1f56;
+  /* opacity: 0.8; */
+}
+
+#slidecontainer.slidecontainer_hide {
+  display: none;
+}

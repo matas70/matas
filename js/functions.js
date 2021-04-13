@@ -1,3 +1,4 @@
+//# sourceURL=js/functions.js
 window.gm_authFailure = function () {
     mapFail = true;
     $("#closeIcon").hide();
@@ -976,16 +977,17 @@ function setAircraftIcon(marker, icon, acId, country, azimuth, color, zoomLevel)
     var staticUrl;
     
     if (zoomLevel >= 9) { 
-        imgUrl = 'icons/aircrafts/' + icon + '.svg?a=' + acId;
+        imgUrl = 'icons/aircrafts/' + icon + '.svg?a=' + acId + 'i';
         staticUrl = country == null ? null : "icons/countries/" + country + ".svg";
     } else {
-        imgUrl = 'icons/arrow.svg?a=' + acId;
+        imgUrl = 'icons/arrow.svg?a=' + acId + 'i';
         staticUrl = null;
     }
 
     mapAPI.setAircraftMarkerIcon(marker, imgUrl);
+    
     setTimeout(() => {
-        $(`img[src*="?a=${acId}"]`).css("transform",  'rotate(' + azimuth + 'deg)')
+        $(`img[src*="?a=${acId}i"]`).css("transform",  'rotate(' + azimuth + 'deg)');
     }, 500);
 }
 
