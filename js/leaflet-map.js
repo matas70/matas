@@ -3,11 +3,13 @@ leafletMaps = {
     MAP_URL: "",
 
     setAircraftMarkerIcon: (marker, url, anchor = 36) => {
+        // marker.setIcon(L.icon({
+        //     iconUrl: url,
+        //     // iconAnchor: anchor != null ? undefined : [anchor, anchor],
+        //     className: "marker-fix"
         marker.setIcon(new L.DivIcon({
             className: 'aircraftMarkerIcon',
-            html: `<img src="${url}" class="markerFix">`
-            //TODO: need to make sure the icon is anchored correctly
-            //      use to be "iconAnchor: anchor != null ? undefined : [anchor, anchor]" but now we don't use leaflet icon so we need to do that ourselves
+            html: `<img src="${url}" class="leaflet-marker-icon marker-fix leaflet-interactive">`
         }));
     },
 
@@ -191,7 +193,7 @@ leafletMaps = {
         }
 
         // add lines as data layer
-        if (route.visible) {
+        if (route.visible || route.visible === undefined) {
             var pathLine = L.polyline(path, {color: "#" + route.color, weight: 4, riseOffset: route.routeId});
             var pathShadow = L.polyline(path, {color: "black", weight: 5, opacity: 0.5, riseOffset: 0});
             pathShadow.addTo(map);
