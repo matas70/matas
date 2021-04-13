@@ -9,12 +9,12 @@
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-	
+
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
+		function gtag() { dataLayer.push(arguments); }
 		gtag('js', new Date());
 
 		gtag('config', 'UA-98360124-1');
@@ -176,8 +176,10 @@
 				<div id="settings_menu">
 					<div class="middleCircle">
 						<div id="loadingIndicator">
-							<svg class="spinner" width="66px" height="66px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-								<circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+							<svg class="spinner" width="66px" height="66px" viewBox="0 0 66 66"
+								xmlns="http://www.w3.org/2000/svg">
+								<circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33"
+									r="30"></circle>
 							</svg>
 						</div>
 					</div>
@@ -192,7 +194,7 @@
 				<div class="share">
 
 				</div>
-				
+
 			</div>
 			<!-- <div id="tutorial">
 				<div class="step step-1">
@@ -227,13 +229,20 @@
 					</nav>
 				</div>
 			</div> -->
-			</div>
-			<div id='no-support-tutorial'>
+		</div>
+		<div id='no-support-tutorial'>
+			<div class='step-1'>
 				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מסלול"
 					class="index-finger">
 				<span>לחצו כאן כדי להחליף מסלול</span>
 			</div>
-			<!-- <div class="USDZ-container">
+			<div class='step-2'>
+				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מצב תצוגה"
+					class="index-finger">
+				<span>לחצו כאן על מנת <br> להחליף מצב תצוגה</span>
+			</div>
+		</div>
+		<!-- <div class="USDZ-container">
         <a rel="ar" href="https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz"><img class="image-model" src="https://developer.apple.com/augmented-reality/quick-look/models/biplane/biplane_2x.jpg" alt="" data-hires-status="replaced"></a>
     </div> -->
 
@@ -915,7 +924,7 @@
 
 
 			function loadAircraftGLTF(selectedAircraft) {
-				
+
 				document.getElementById("loadingIndicator").style.display = "block";
 
 				new GLTFLoader()
@@ -1042,7 +1051,7 @@
 			}
 
 			function changeAircraft(selectedAircraft) {
-				setTimeout(()=>{
+				setTimeout(() => {
 					AIRCRAFTS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
 					document.getElementById(selectedAircraft.id).classList.add("selected");
 					loadAircraft(selectedAircraft);
@@ -1107,14 +1116,14 @@
 				//cursor.set( 0, 0, - 0.2 ).applyMatrix4( controller.matrixWorld );
 
 				if (userData.isSelecting === true) {
-					
+
 					if (userData.skipFrames >= 0) {
 						// TODO(mrdoob) Revisit this
 
 						userData.skipFrames--;
 						painter.moveTo(cursor);
 					} else {
-						if(!resetSceneForFirstDraw) {
+						if (!resetSceneForFirstDraw) {
 							resetSceneForFirstDraw = true;
 							resetScene();
 						}
@@ -1319,9 +1328,16 @@
 				finishTutorial(stepFinished)
 			}
 
-
+			let noSopportTutorial = 0;
 			document.querySelector('#no-support-tutorial').addEventListener('click', () => {
-				document.querySelector('#no-support-tutorial').style.display = 'none';
+				noSopportTutorial ++;
+				if (noSopportTutorial === 1){
+					document.querySelector('#no-support-tutorial .step-1').style.display = 'none';
+					document.querySelector('#no-support-tutorial .step-2').style.display = 'block';
+				}
+				else
+					document.querySelector('#no-support-tutorial').style.display = 'none';
+
 				document.cookie = "tut=2; expires=Thu, 30 Dec 2021 12:00:00 UTC";
 			})
 
