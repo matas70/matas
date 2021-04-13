@@ -118,10 +118,15 @@
 					<button id="button-reset" class="support" alt="Draw"></button>
 				</div>
 				<!-- <button id="button-action" alt="Toggle Flash"></button> -->
-				<button id="button-mode-toggle" alt="Toggle mode" class="dynamic">
+				<button id="button-mode-toggle" alt="Toggle mode" class="dynamic" style="display: none;">
 					<a class='static-mode'></a>
 					<span class='dynamic-mode'></span>
 				</button>
+
+				<a id="usdz-button" style="display: none;">
+					<img width="160px" src="./assets/usdz-button.svg" alt="הדמייה במרחב שלך">
+				</a>
+
 				<button id="button-close" alt="Close">
 					<div id="blob"
 						style="transform: scale(0); background-color: #3bb5f2; border-radius: 100%; width: 30px; height: 30px;">
@@ -1049,11 +1054,10 @@
 					currentAircraft = selectedAircraft.id;
 
 					if (isIOS()) {
-						document.getElementsByClassName('static-mode')[0].remove();
-						let node = document.createElement('a');
-						node.href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
-						node.classList.add('static-mode');
-						document.getElementById('button-mode-toggle').prepend(node);
+						document.getElementById('usdz-button').style.display = "block";
+						document.getElementById('usdz-button').href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
+					} else {
+						document.getElementById('button-mode-toggle').style.display = "block";
 					}
 				}, 10)
 			}
