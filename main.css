@@ -411,7 +411,7 @@ canvas {
   border-radius: 50px;
   backdrop-filter: blur(5px);
   border: none;
-  box-shadow: 0px 0px 20px 5px rgba(87, 87, 87, 0.445);
+  box-shadow: 0px 0px 5px 3px #0c0c0c38;;
   font-size: 15px;
   font-weight: 900;
   color: #3d3d3d;
@@ -570,7 +570,7 @@ div #resetbutton.trails_menu_hide {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: none;
-  box-shadow: 0px 0px 20px 5px rgba(87, 87, 87, 0.445);
+  box-shadow: 0px 0px 5px 3px #0c0c0c38;
   font-size: 15px;
   font-weight: 900;
   color: #3d3d3d;
