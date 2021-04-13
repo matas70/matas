@@ -1,11 +1,13 @@
+//# sourceURL=js/leaflet-map.js
 leafletMaps = {
     MAP_URL: "",
 
     setAircraftMarkerIcon: (marker, url, anchor = 36) => {
-        marker.setIcon(L.icon({
-            iconUrl: url,
-            iconAnchor: anchor != null ? undefined : [anchor, anchor],
-            className: "marker-fix"
+        marker.setIcon(new L.DivIcon({
+            className: 'aircraftMarkerIcon',
+            html: `<img src="${url}" class="markerFix">`
+            //TODO: need to make sure the icon is anchored correctly
+            //      use to be "iconAnchor: anchor != null ? undefined : [anchor, anchor]" but now we don't use leaflet icon so we need to do that ourselves
         }));
     },
 

@@ -1,3 +1,4 @@
+//# sourceURL=js/map.js
 markersMap = {};
 selectedLocation = null;
 selectedLocationMarker = null;
