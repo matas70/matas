@@ -467,6 +467,7 @@ function updateLocationsMap(aircrafts) {
                 location = locations[location.pointId];
             } else {
                 console.warn(`warning - aircraft is moving above non existing location, point id: ${location.pointId}, time: ${item.time}`)
+                aircraft.path = aircraft.path.filter(point => point.pointId !== location.pointId)
                 location.aircrafts = [];
                 location.hidden = true;
                 location.pointName = "";
