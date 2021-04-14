@@ -2319,6 +2319,8 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     
 
     var name ="";
+    let lastKnownAC = -1;
+    let inti = setTimeout(() => {}, 0);
     //check that its not the same popup that has been closed
     //var timeCount = 0;
     function notifyUserIfNear(currentLocation, aircraft) {
@@ -2328,6 +2330,17 @@ function getEventDescription(isAerobatics, locationName, minutes) {
             if (haversineDistance(userLoc,currentLocation) < 3)
             {
                 notifiedNearUser = true;
+                
+                if (aircraft.aircraftTypeId != lastKnownAC) {
+                    inti.clearTimeout();
+                    inti = setTimeout(() => {
+                        closeVoiceMessagePopup();
+                    }, 2*60*1000);
+                }
+
+                lastKnownAC = aircraft.aircraftTypeId;
+
+
                 //check that its not the same popup that has been closed
                 /*if(name === "")
                 {
