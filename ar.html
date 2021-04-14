@@ -1380,6 +1380,21 @@
 				document.cookie = "tut=2; expires=Thu, 30 Dec 2021 12:00:00 UTC";
 			})
 
+
+			document.querySelector('#ar_info').addEventListener('click', ()=>{
+				if(isSupported) {
+					document.getElementById('tutorial').style.display="block";
+					document.querySelector('.step-1').style.display="block";
+				} else {
+					noSopportTutorial = 0;
+					document.querySelector('#no-support-tutorial').style.display = 'block';
+					document.querySelector('#no-support-tutorial .step-1').style.display = 'block';
+					document.querySelector('#no-support-tutorial .step-2').style.display = 'none';
+
+				}
+			})
+
+
 			function getCookie(cname) {
 				var name = cname + "=";
 				var decodedCookie = decodeURIComponent(document.cookie);
