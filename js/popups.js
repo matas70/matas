@@ -608,8 +608,8 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
     var aerobaticIcon = "<div/>";
     var classname = "";
     if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון') {
-        classname = "<button class=\"show\" id=\"ARButton\" onclick='window.location.href=\"ar.html\"'></button>"
-    } else classname = "<button class=\"hide\" id=\"ARButton\" onclick='window.location.href=\"ar.html\"'></button>"
+        classname = "<button class=\"show\" id=\"ARButton\" onclick='openAR()'></button>"
+    } else classname = "<button class=\"hide\" id=\"ARButton\" onclick='openAR()'></button>"
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
         //aircraftType = "מופע אווירובטי";
@@ -763,6 +763,17 @@ function animateBasePopup() {
     }, 600);
 }
 
+function openExternal(link) {
+    var win = window.open(link);
+    if (win) {
+        win.focus();
+    }
+}
+
+function openAR() {
+    openExternal("ar.html");
+}
+
 function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link = undefined, after = () => {}) {
     var html = "<b class=\"baseData\">";
     html += title;
@@ -772,10 +783,7 @@ function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link 
     $(`#${iconId}`).show();
     if (link) {
         $("#basePopup").click(() => {
-            var win = window.open(link);
-            if (win) {
-                win.focus();
-            }
+            openExternal(link);
         });
     } else {
         $("#basePopup").off('click');
