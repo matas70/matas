@@ -143,6 +143,18 @@ select {
   line-height: 44px;
 }
 
+#ar-overly #ar_info {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  background-image: url('./assets/ar_info.svg');
+  background-size: cover;
+  background-position: center center;
+}
+
 #ARButton {
   margin: auto;
   display: block;
@@ -896,7 +908,7 @@ div #resetbutton.trails_menu_hide {
 input[type="range"] {
   position: absolute;
   top: -25vh;
-  left: -84px;
+  left: -87px;
   transform: rotate(90deg);
 }
 
