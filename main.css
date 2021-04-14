@@ -921,7 +921,9 @@ div #resetbutton.trails_menu_hide {
   background-size: 100%;
   perspective: 50em;
 }
-input[type="range"] {
+
+/* noam only css version */
+/* input[type="range"] {
   position: absolute;
   top: -25vh;
   left: -85px;
@@ -941,7 +943,34 @@ input[type="range"] {
   box-shadow: 0 0 1px 0px rgba(2, 2, 2, 0.479);
   z-index: -1;
   opacity: 0.5;
+} */
+
+/* idan version with svg */
+input[type="range"] {
+  position: absolute;
+  top: -25vh;
+  left: -84px;
+  transform: rotate(90deg);
 }
+
+#speed_slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 170px;
+  height: 24px;
+  outline: none;
+  -webkit-transition: .2s;
+  transition: all 0.3s;
+  /* background: linear-gradient( to bottom left, transparent 40%, #d5d5d56e 50% ); */
+  background-size: contain;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(./assets/triangle.svg);
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  background-size: 100%;
+}
+
+/* /////////////// */
 
 #speed_slider.speed_slider_focused {
   opacity: 1;
