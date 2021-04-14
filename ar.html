@@ -215,8 +215,9 @@
 					</div>
 					<img class="flip-camera" src="./assets/flip-camera.svg" alt="Flip Camera"> -->
 				</div>
+				<div id="ar_info">
+				</div>
 				<div class="share">
-
 				</div>
 
 			</div>
@@ -264,6 +265,9 @@
 				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מצב תצוגה"
 					class="index-finger">
 				<span>לחצו כאן על מנת <br> להחליף מצב תצוגה</span>
+				<div id="usdz_info">
+
+				</div>
 			</div>
 		</div>
 		<!-- <div class="USDZ-container">
@@ -813,8 +817,20 @@
 				})
 
 				document.getElementById("button-close").addEventListener("click", (e) => {
-					document.getElementById('blob').classList.add('animateScale');
-					setTimeout(() => window.location.href = '/', 1000);
+					document.getElementById('blob').classList.add('animateScale');					
+					setTimeout(() => {
+						let targetUrl = document.location.href.substr(0,document.location.href.lastIndexOf("/")+1);
+
+						if (document.referrer == targetUrl) 
+							window.close();
+						else 
+							window.location.href = targetUrl; 
+					 } , 1000);
+
+					 // additional timeout in case the previous timeout didn't close the app 
+					 setTimeout(() => {
+						window.location.href = targetUrl; 
+					 } , 1200);
 				})
 
 				document.getElementById("speed_slider").oninput = function() {
@@ -1099,8 +1115,10 @@
 					if (isIOS()) {
 						document.getElementById('usdz-button').style.display = "block";
 						document.getElementById('usdz-button').href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
+						document.getElementById('usdz_info').style.display = "block";
 					} else {
 						document.getElementById('button-mode-toggle').style.display = "block";
+						document.getElementById('usdz_info').style.display = "none";
 					}
 				}, 10)
 			}
@@ -1378,6 +1396,21 @@
 
 				document.cookie = "tut=2; expires=Thu, 30 Dec 2021 12:00:00 UTC";
 			})
+
+
+			document.querySelector('#ar_info').addEventListener('click', ()=>{
+				if(isSupported) {
+					document.getElementById('tutorial').style.display="block";
+					document.querySelector('.step-1').style.display="block";
+				} else {
+					noSopportTutorial = 0;
+					document.querySelector('#no-support-tutorial').style.display = 'block';
+					document.querySelector('#no-support-tutorial .step-1').style.display = 'block';
+					document.querySelector('#no-support-tutorial .step-2').style.display = 'none';
+
+				}
+			})
+
 
 			function getCookie(cname) {
 				var name = cname + "=";

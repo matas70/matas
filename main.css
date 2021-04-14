@@ -143,6 +143,18 @@ select {
   line-height: 44px;
 }
 
+#ar-overly #ar_info {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  background-image: url('./assets/ar_info.svg');
+  background-size: cover;
+  background-position: center center;
+}
+
 #ARButton {
   margin: auto;
   display: block;
@@ -893,6 +905,47 @@ div #resetbutton.trails_menu_hide {
   }
 } 
 
+#speed_slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 170px;
+  height: 203px;
+  outline: none;
+  -webkit-transition: .2s;
+  transition: all 0.3s;
+  /* background: linear-gradient( to bottom left, transparent 40%, #d5d5d56e 50% ); */
+  background-size: contain;
+  background-color: rgba(0, 0, 0, 0);
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  background-size: 100%;
+  perspective: 50em;
+}
+
+/* noam only css version */
+/* input[type="range"] {
+  position: absolute;
+  top: -25vh;
+  left: -85px;
+  transform: rotate(90deg);
+}
+#speed_slider::before {
+  width: 540%;
+  height: 7px;
+  background: rgb(255, 255, 255);
+  position: absolute;
+  display: block;
+  content: '';
+  bottom: 99px;
+  transform: translateX(-50%) rotateY(81deg);
+  top: calc(50% + -4px);
+  left: 132px;
+  box-shadow: 0 0 1px 0px rgba(2, 2, 2, 0.479);
+  z-index: -1;
+  opacity: 0.5;
+} */
+
+/* idan version with svg */
 input[type="range"] {
   position: absolute;
   top: -25vh;
@@ -917,6 +970,8 @@ input[type="range"] {
   background-size: 100%;
 }
 
+/* /////////////// */
+
 #speed_slider.speed_slider_focused {
   opacity: 1;
   left: -45px;
@@ -939,3 +994,21 @@ input[type="range"] {
 #slidecontainer.slidecontainer_hide {
   display: none;
 }
+
+#usdz_info {
+  left: 0;
+  right: 0;
+  top: 235px;
+  margin: auto;
+  position: absolute;
+  width: 275px;
+  height: 290px;
+  /* left: 30vw;
+  top: 30vh; */
+  background-size: contain;
+  background-color: #00000047;
+  background-image: url(./assets/usdz_info.svg);
+  background-size: 100%;
+  border-radius: 20px;
+}
+
