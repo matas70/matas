@@ -814,7 +814,7 @@
 
 				document.getElementById("button-close").addEventListener("click", (e) => {
 					document.getElementById('blob').classList.add('animateScale');
-					setTimeout(() => window.location.href = '/', 1000);
+					setTimeout(() => window.close() , 1000);
 				})
 
 				document.getElementById("speed_slider").oninput = function() {
