@@ -630,7 +630,6 @@
 				});
 
 				let geometry = new THREE.PlaneGeometry(200, 200);
-
 				material = new THREE.MeshBasicMaterial();
 
 				planeMesh = new THREE.Mesh(geometry, material);
@@ -656,15 +655,10 @@
 					});
 
 				new THREE.TextureLoader().load('assets/textures/equirectangular.png', function (texture) {
-
 					texture.encoding = THREE.sRGBEncoding;
-
 					pngCubeRenderTarget = pmremGenerator.fromEquirectangular(texture);
-
 					pngBackground = pngCubeRenderTarget.texture;
-
 					texture.dispose();
-
 				});
 
 				const pmremGenerator = new THREE.PMREMGenerator(renderer);
@@ -799,12 +793,8 @@
 					}, false);
 					*/
 				}
+
 				// model
-
-				/*document.getElementById("button-action").addEventListener("click", (e) => {
-					takeScreenshot();
-				})*/
-
 				document.getElementById("button-reset").addEventListener("click", () => {
 					if (isSupported) {
 						resetScene();
@@ -843,7 +833,9 @@
 					document.getElementById('speed_slider').classList.add('speed_slider_focused');
 				})
 				document.getElementById("speed_slider").addEventListener('touchend', (e) => {
-					document.getElementById('speed_slider').classList.remove('speed_slider_focused');
+					setTimeout(() => {
+						document.getElementById('speed_slider').classList.remove('speed_slider_focused'); 
+					 } , 1200);
 				})
 
 				document.getElementById("exit-trail").addEventListener("click", (e) => {
@@ -899,8 +891,6 @@
 				let w, h
 				for (let i = 0, len = videos.length; i < len; i++) {
 					const v = videos[i]
-					//debugger
-					//if (!v.src) continue // no video here
 					try {
 						w = v.videoWidth
 						h = v.videoHeight
@@ -1175,7 +1165,6 @@
 
 					if (userData.skipFrames >= 0) {
 						// TODO(mrdoob) Revisit this
-
 						userData.skipFrames--;
 						painter.moveTo(cursor);
 					} else {
@@ -1213,22 +1202,17 @@
 						newEnvMap = pngCubeRenderTarget ? pngCubeRenderTarget.texture : null;
 						background = pngBackground;
 						break;
-
 				}
 
 				if (newEnvMap !== planeMesh.material.envMap) {
-
 					planeMesh.material.envMap = newEnvMap;
 					planeMesh.material.needsUpdate = true;
-
 					planeMesh.material.map = newEnvMap;
 					planeMesh.material.needsUpdate = true;
-
 				}
 
 				planeMesh.rotation.y += 0.005;
 				planeMesh.visible = params.debug;
-
 				scene.background = background;
 				renderer.toneMappingExposure = params.exposure;
 			}
@@ -1273,10 +1257,8 @@
 						//document.getElementById("button-reset").innerHTML = (currentTravelPercent*100).toFixed(2);
 						const currLoc = currentLocationByPercent(smoothLocations, currentTravelPercent),
 							nextLoc = currentLocationByPercent(smoothLocations, currentTravelPercent + 0.01);
-
 						aircraft?.position.set(...currLoc);
 						aircraft.lookAt(...nextLoc);
-
 						for (let i = 0; i < trails.length; i++) {
 							const currTrailLoc = currentLocationByPercent(smoothLocations, currentTravelPercent + 0.92 - (i / 50));
 							trails[i].position.set(...currTrailLoc);
@@ -1450,8 +1432,9 @@
 				let counter = 0;
 				document.querySelector('#exit-trail').addEventListener('click', e => {
 					if (counter++ >= 10) {
+						loadAircraft({ id: "bee", type: "glb", scale: 0.15, text: "bee" })
+						document.getElementById('usdz-button').href = `https://matasstorage.blob.core.windows.net/models/usdz%2Fbee.usdz`;
 						alert("Dracarys.");
-						loadAircraft({ id: "bee", type: "glb", scale: 0.15, text: "karnaf" })
 						counter = 0;
 					}
 				})

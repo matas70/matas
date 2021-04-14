@@ -217,8 +217,9 @@ select {
 }
 
 .animateScale {
-  animation: scaleUp 1s cubic-bezier(0.785, 0.035, 0.15, 0.86) forwards;
+  animation: scaleUp 0.5s cubic-bezier(0.785, 0.035, 0.15, 0.86) forwards;
 }
+
 @keyframes scaleUp {
   from { transform: scale(0); }
   to { transform: scale(100); }
@@ -949,15 +950,15 @@ div #resetbutton.trails_menu_hide {
 input[type="range"] {
   position: absolute;
   top: -25vh;
-  left: -84px;
+  left: -110px;
   transform: rotate(90deg);
 }
 
 #speed_slider {
   -webkit-appearance: none;
   appearance: none;
-  width: 170px;
-  height: 24px;
+  width: 221px;
+  height: 27px;
   outline: none;
   -webkit-transition: .2s;
   transition: all 0.3s;
@@ -974,7 +975,7 @@ input[type="range"] {
 
 #speed_slider.speed_slider_focused {
   opacity: 1;
-  left: -45px;
+  left: -65px;
   transition: all 0.3s;
 }
 
@@ -982,8 +983,8 @@ input[type="range"] {
 #speed_slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px;
+  width: 33px;
+  height: 33px;
   background: #ffffff;
   cursor: pointer;
   border-radius: 50px;
