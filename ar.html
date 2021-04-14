@@ -813,8 +813,20 @@
 				})
 
 				document.getElementById("button-close").addEventListener("click", (e) => {
-					document.getElementById('blob').classList.add('animateScale');
-					setTimeout(() => window.close() , 1000);
+					document.getElementById('blob').classList.add('animateScale');					
+					setTimeout(() => {
+						let targetUrl = document.location.href.substr(0,document.location.href.lastIndexOf("/")+1);
+
+						if (document.referrer == targetUrl) 
+							window.close();
+						else 
+							window.location.href = targetUrl; 
+					 } , 1000);
+
+					 // additional timeout in case the previous timeout didn't close the app 
+					 setTimeout(() => {
+						window.location.href = targetUrl; 
+					 } , 1200);
 				})
 
 				document.getElementById("speed_slider").oninput = function() {
