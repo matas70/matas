@@ -2322,9 +2322,10 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     //check that its not the same popup that has been closed
     //var timeCount = 0;
     function notifyUserIfNear(currentLocation, aircraft) {
+        
         if (userLoc) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-            if(haversineDistance(userLoc,currentLocation) < 3)
+            if (haversineDistance(userLoc,currentLocation) < 3)
             {
                 notifiedNearUser = true;
                 //check that its not the same popup that has been closed
@@ -2343,9 +2344,12 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         $("#gottoVoiceMessagePopup")[0].style.display = "block";
                         $("#aircraftName").html(`${aircraft.type} - ${name}`);
                         $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
-                        $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
-                        $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
-                        $('#audioMessageText').html(audioMessage.text);
+
+                        if (aircraft.aircraftTypeId === 25) {
+                            $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
+                            $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
+                            $('#audioMessageText').html(audioMessage.text);
+                        }
 
                         $('#audioSRC').on('playing', function () {
                             $('#audioMessagePlayPause').attr('src', 'icons/pause.svg')
