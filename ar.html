@@ -265,6 +265,9 @@
 				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מצב תצוגה"
 					class="index-finger">
 				<span>לחצו כאן על מנת <br> להחליף מצב תצוגה</span>
+				<div id="usdz_info">
+
+				</div>
 			</div>
 		</div>
 		<!-- <div class="USDZ-container">
@@ -1100,8 +1103,10 @@
 					if (isIOS()) {
 						document.getElementById('usdz-button').style.display = "block";
 						document.getElementById('usdz-button').href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
+						document.getElementById('usdz_info').style.display = "block";
 					} else {
 						document.getElementById('button-mode-toggle').style.display = "block";
+						document.getElementById('usdz_info').style.display = "none";
 					}
 				}, 10)
 			}
