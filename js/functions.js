@@ -2234,17 +2234,25 @@ function initMap() {
                 window.location.replace(window.location.href + "press.html");
             }, 0);
         }
-
-        navigator.permissions.query({name: 'geolocation'}).then(function(PermissionStatus) {
-            if (PermissionStatus.state === 'prompt') {
-                PermissionStatus.onchange = function(){
-                    gtag('event', 'permission_set', {
-                        'event_category': 'geo_location',
-                        'event_label': this.state
-                    });
+        if ( navigator.permissions && navigator.permissions.query) {
+            navigator.permissions.query({name: 'geolocation'}).then(function(PermissionStatus) {
+                if (PermissionStatus.state === 'prompt') {
+                    PermissionStatus.onchange = function(){
+                        gtag('event', 'permission_set', {
+                            'event_category': 'geo_location',
+                            'event_label': this.state
+                        });
+                    }
                 }
-            }
-        })
+            })
+        } else if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                gtag('event', 'permission_set', {
+                    'event_category': 'geo_location',
+                    'event_label': this.state
+                });
+            })
+        }
     });
 }
 
@@ -2322,11 +2330,14 @@ function getEventDescription(isAerobatics, locationName, minutes) {
     //check that its not the same popup that has been closed
     //var timeCount = 0;
     function notifyUserIfNear(currentLocation, aircraft) {
+        
         if (userLoc) {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-            if(haversineDistance(userLoc,currentLocation) < 3)
+            if (haversineDistance(userLoc,currentLocation) < 3)
             {
                 notifiedNearUser = true;
+
+
                 //check that its not the same popup that has been closed
                 /*if(name === "")
                 {
@@ -2343,9 +2354,12 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         $("#gottoVoiceMessagePopup")[0].style.display = "block";
                         $("#aircraftName").html(`${aircraft.type} - ${name}`);
                         $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
-                        $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
-                        $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
-                        $('#audioMessageText').html(audioMessage.text);
+
+                        if (aircraft.aircraftTypeId === 25) {
+                            $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
+                            $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
+                            $('#audioMessageText').html(audioMessage.text);
+                        }
 
                         $('#audioSRC').on('playing', function () {
                             $('#audioMessagePlayPause').attr('src', 'icons/pause.svg')
