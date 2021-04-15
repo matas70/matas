@@ -1158,8 +1158,8 @@
 			function handleController(controller) {
 				const userData = controller.userData;
 				const zoom = controls.target.distanceTo(controls.object.position)
-				cursor.set(0, 0, - zoom).applyMatrix4(camera.matrixWorld);
-				//cursor.set( 0, 0, - 0.2 ).applyMatrix4( controller.matrixWorld );
+				//cursor.set(0, 0, - zoom).applyMatrix4(camera.matrixWorld);
+				cursor.set( 0, 0, - 0.2 ).applyMatrix4( controller.matrixWorld );
 
 				if (userData.isSelecting === true) {
 
