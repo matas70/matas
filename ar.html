@@ -130,13 +130,9 @@
 		</div>
 		<div id="ar-overly">
 			<div id="controls">
-				<div id="resetbutton">
-					<button id="button-reset" class="support" alt="Draw"></button>
-				</div>
 				<!-- <button id="button-action" alt="Toggle Flash"></button> -->
 				<button id="button-mode-toggle" alt="Toggle mode" class="dynamic" style="display: none;">
 					<a class='static-mode'></a>
-					<span class='dynamic-mode'></span>
 				</button>
 
 				<a id="usdz-button" style="display: none;">
@@ -183,14 +179,6 @@
 				</div>
 			</div>
 			<div id="menus">
-				<div id="slidecontainer">
-					<input type="range" min="3000" max="15000" value="10000" class="slider" id="speed_slider">
-				  </div>
-				<div id="trails_menu">
-					<div style="min-width: calc(50vw - 45px); height: 50px; flex: 1 0 auto;"></div>
-					<img id="exit-trail" class="small-x-button" src="./assets/small-x.svg" alt="Exit Trail">
-					<div style="min-width: calc(50vw - 20px); height: 50px; flex: 1 0 auto;"></div>
-				</div>
 
 				<div id="aircrafts_menu">
 					<div class="buffer" style="height: 50px; flex: 1 0 auto;"></div>
@@ -255,21 +243,7 @@
 				</div>
 			</div> -->
 		</div>
-		<div id='no-support-tutorial'>
-			<div class='step-1'>
-				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מסלול"
-					class="index-finger">
-				<span>לחצו כאן כדי להחליף מסלול</span>
-			</div>
-			<div class='step-2'>
-				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מצב תצוגה"
-					class="index-finger">
-				<span>לחצו כאן על מנת <br> להחליף מצב תצוגה</span>
-				<div id="usdz_info">
 
-				</div>
-			</div>
-		</div>
 		<!-- <div class="USDZ-container">
         <a rel="ar" href="https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz"><img class="image-model" src="https://developer.apple.com/augmented-reality/quick-look/models/biplane/biplane_2x.jpg" alt="" data-hires-status="replaced"></a>
     </div> -->
@@ -512,7 +486,8 @@
 				{ id: "disco", type: "glb", scale: 0.019, text: "disco" },
 			]
 
-			let mode = 'dynamic';
+			let mode = 'static';
+			trails.forEach(trail => { scene.remove(trail) });
 
 			var pathRef = firebase.database().ref('path');
 			pathRef.on('value', (snapshot) => {
@@ -551,18 +526,6 @@
 				}
 
 				let isTrailScrolling = setTimeout(() => { }, 0);
-				document.getElementById('trails_menu').onscroll = () => {
-					clearInterval(isTrailScrolling);
-					isTrailScrolling = setTimeout(() => {
-						const centeredElement = document.elementFromPoint(
-							document.body.offsetWidth / 2, document.documentElement.clientHeight - 180
-						);
-						let selected = centeredElement.parentElement.innerHTML.replace('<img src="./assets/', '').replace('.png">', '');
-						TRAILS_META_DATA.forEach((e) => {
-							if (e.id === selected) changeTrails(e);
-						})
-					}, 100);
-				}
 
 				setTimeout(() => {
 					window.scrollIntoView(document.getElementById('f35'), {
@@ -599,7 +562,7 @@
 					elem.type = "button";
 					elem.id = trail.id;
 					elem.innerHTML = `<img src="./assets/${trail.text}.png">`;
-					document.getElementById('trails_menu').insertBefore(elem, document.getElementById('trails_menu').children[2]);
+					
 					elem.addEventListener('click', (e) => {
 						window.scrollIntoView(e.target, {
 							behavior: 'smooth',
@@ -795,16 +758,6 @@
 				}
 
 				// model
-				document.getElementById("button-reset").addEventListener("click", () => {
-					if (isSupported) {
-						resetScene();
-					}
-					else {
-						locations = addMidpoints(locationsOptions[Math.floor(Math.random() * locationsOptions.length)], 20)
-						scene.remove(painter.mesh);
-						loadPainter();
-					}
-				})
 
 				document.getElementById("button-close").addEventListener("click", (e) => {
 					document.getElementById('blob').classList.add('animateScale');					
@@ -823,62 +776,21 @@
 					 } , 1200);
 				})
 
-				document.getElementById("speed_slider").oninput = function() {
-					curSpeed = this.value;
-				}
-				document.getElementById("speed_slider").addEventListener('touchstart', (e) => {
-					document.getElementById('speed_slider').classList.add('speed_slider_focused');
-				})
-				document.getElementById("speed_slider").addEventListener('touchmove', (e) => {
-					document.getElementById('speed_slider').classList.add('speed_slider_focused');
-				})
-				document.getElementById("speed_slider").addEventListener('touchend', (e) => {
-					setTimeout(() => {
-						document.getElementById('speed_slider').classList.remove('speed_slider_focused'); 
-					 } , 1200);
-				})
-
-				document.getElementById("exit-trail").addEventListener("click", (e) => {
-					resetTrail();
-				})
-
 				document.getElementById('button-mode-toggle').addEventListener("click", function () {
-					if (mode == 'static') {
-						mode = 'dynamic';
-						this.classList.add('dynamic');
-						this.classList.remove('static');
-						let trails_menu = document.getElementById("trails_menu");
-						trails_menu.classList.remove('trails_menu_hide');
-						let buttonreset = document.getElementById("resetbutton");
-						buttonreset.classList.remove('trails_menu_hide');
-						document.getElementById("slidecontainer").classList.remove('slidecontainer_hide');
-						if (locations.length) locations.pop();
-						painter.mesh.material.opacity = 0.3;
-					} else {
 
 						if (isIOS()) return;
 
 						mode = 'static'
-						this.classList.add('static');
-						this.classList.remove('dynamic');
-						let trails_menu = document.getElementById("trails_menu");
-						trails_menu.classList.add('trails_menu_hide');
-						document.getElementById("slidecontainer").classList.add('slidecontainer_hide');
+
 						let buttonreset = document.getElementById("resetbutton");
-						buttonreset.classList.add('trails_menu_hide');
+
 						locations.push([cursor.x, cursor.y, cursor.z]);
-						painter.mesh.material.opacity = 0;
-						// trails.forEach(trail => trail.children[0].children[0].material.opacity = 0)
-						// trails.forEach(trail => trail.children[0].children[0].material.transparent = true)
 						trails.forEach(trail => scene.remove(trail))
-					}
 				})
 
 				changeAircraft(AIRCRAFTS_META_DATA[5]);
 				loadLight();
-				loadPainter();
 				loadController();
-				changeTrails(TRAILS_META_DATA[TRAILS_META_DATA.length - 1]);
 
 				window.addEventListener('resize', onWindowResize);
 
@@ -1017,24 +929,6 @@
 					});
 			}
 
-			function loadPainter() {
-				painter = new TubePainter();
-				painter.setSize(0.1);
-				painter.mesh.material.transparent = true;
-				painter.mesh.material.opacity = 0.3;
-				painter.mesh.material.side = THREE.DoubleSide;
-				painter.moveTo(locations[0] || [0, 0, 0])
-				for (let location of locations)
-					painter.lineTo({
-						x: location[0],
-						y: location[1],
-						z: location[2]
-					})
-				painter.update()
-
-				scene.add(painter.mesh);
-			}
-
 			function loadAircraft(selectedAircraft) {
 				if (selectedAircraft.type == "gltf" || selectedAircraft.type == "glb") {
 					loadAircraftGLTF(selectedAircraft);
@@ -1106,17 +1000,8 @@
 						document.getElementById('usdz-button').style.display = "block";
 						document.getElementById('usdz-button').href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
 						document.getElementById('usdz_info').style.display = "block";
-					} else {
-						document.getElementById('button-mode-toggle').style.display = "block";
-						document.getElementById('usdz_info').style.display = "none";
 					}
 				}, 10)
-			}
-
-			function changeTrails(selectedTrails) {
-				TRAILS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
-				document.getElementById(selectedTrails.id).classList.add("selected");
-				loadTrails(selectedTrails);
 			}
 
 			function loadLight() {
@@ -1365,36 +1250,10 @@
 			if (getCookie('tut')) {
 				const stepFinished = getCookie('tut');
 				document.querySelector('.step-1').style.display = 'none';
-				document.querySelector('#no-support-tutorial').style.display = 'none';
 				finishTutorial(stepFinished)
 			}
 
-			let noSopportTutorial = 0;
-			document.querySelector('#no-support-tutorial').addEventListener('click', () => {
-				noSopportTutorial ++;
-				if (noSopportTutorial === 1){
-					document.querySelector('#no-support-tutorial .step-1').style.display = 'none';
-					document.querySelector('#no-support-tutorial .step-2').style.display = 'block';
-				}
-				else
-					document.querySelector('#no-support-tutorial').style.display = 'none';
-
-				document.cookie = "tut=2; expires=Thu, 30 Dec 2021 12:00:00 UTC";
-			})
-
-
-			document.querySelector('#ar_info').addEventListener('click', ()=>{
-				if(isSupported) {
-					document.getElementById('tutorial').style.display="block";
-					document.querySelector('.step-1').style.display="block";
-				} else {
-					noSopportTutorial = 0;
-					document.querySelector('#no-support-tutorial').style.display = 'block';
-					document.querySelector('#no-support-tutorial .step-1').style.display = 'block';
-					document.querySelector('#no-support-tutorial .step-2').style.display = 'none';
-
-				}
-			})
+			let noSopportTutorial = 1;
 
 
 			function getCookie(cname) {
@@ -1428,21 +1287,6 @@
 
 			checkDeviceSupport()
 
-
-			/******************** Easter Egg *************************/
-
-			{
-				let counter = 0;
-				document.querySelector('#exit-trail').addEventListener('click', e => {
-					if (counter++ >= 10) {
-						loadAircraft({ id: "bee", type: "glb", scale: 0.15, text: "bee" })
-						document.getElementById('usdz-button').href = `https://matasstorage.blob.core.windows.net/models/usdz%2Fbee.usdz`;
-						alert("Dracarys.");
-						counter = 0;
-					}
-				})
-
-			}
 
 
 		// var isScrolling;
