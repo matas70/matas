@@ -130,11 +130,11 @@
 		</div>
 		<div id="ar-overly">
 			<div id="controls">
-				<div id="resetbutton">
+				<div id="resetbutton" class="trails_menu_hide">
 					<button id="button-reset" class="support" alt="Draw"></button>
 				</div>
 				<!-- <button id="button-action" alt="Toggle Flash"></button> -->
-				<button id="button-mode-toggle" alt="Toggle mode" class="dynamic" style="display: none;">
+				<button id="button-mode-toggle" alt="Toggle mode" class="static" style="display: none;">
 					<a class='static-mode'></a>
 					<span class='dynamic-mode'></span>
 				</button>
@@ -254,21 +254,6 @@
 					</nav>
 				</div>
 			</div> -->
-		</div>
-		<div id='no-support-tutorial'>
-			<div class='step-1'>
-				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מסלול"
-					class="index-finger">
-				<span>לחצו כאן כדי להחליף מסלול</span>
-			</div>
-			<div class='step-2'>
-				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מצב תצוגה"
-					class="index-finger">
-				<span>לחצו כאן על מנת <br> להחליף מצב תצוגה</span>
-				<div id="usdz_info">
-
-				</div>
-			</div>
 		</div>
 		<!-- <div class="USDZ-container">
         <a rel="ar" href="https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz"><img class="image-model" src="https://developer.apple.com/augmented-reality/quick-look/models/biplane/biplane_2x.jpg" alt="" data-hires-status="replaced"></a>
@@ -462,11 +447,13 @@
 				poo.map(point => point.map(coord => coord / 20)),
 				infinityTriangle.map(point => point.map(coord => coord / 40)),
 				infShape.map((point, idx) => [point[0], - Math.sin(idx / (infShape.length - 1) * Math.PI * 2), point[2]]).map(point => point.map(coord => coord / 30)),
+				[0, 0 ,0]
 				// spiral.map(point=>point.map(coord => coord/10))
 			]
 
 
-			let locations = addMidpoints(locationsOptions[1], 20)
+			let locations = [[0, 0, 0]]
+
 
 
 			const AIRCRAFTS_META_DATA = [
@@ -512,7 +499,8 @@
 				{ id: "disco", type: "glb", scale: 0.019, text: "disco" },
 			]
 
-			let mode = 'dynamic';
+			let mode = 'static';
+
 
 			var pathRef = firebase.database().ref('path');
 			pathRef.on('value', (snapshot) => {
@@ -615,7 +603,7 @@
 				clock = new THREE.Clock();
 
 				camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);
-				camera.position.set(.2, .06, 0);
+				camera.position.set(.15, .06, 0);
 
 				renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 				renderer.setPixelRatio(window.devicePixelRatio);
@@ -800,9 +788,11 @@
 						resetScene();
 					}
 					else {
-						locations = addMidpoints(locationsOptions[Math.floor(Math.random() * locationsOptions.length)], 20)
+						locations = addMidpoints(locationsOptions[Math.floor(Math.random() * locationsOptions.length) - 1], 20);
 						scene.remove(painter.mesh);
 						loadPainter();
+						painter.mesh.material.opacity = 0.3;
+						
 					}
 				})
 
@@ -852,7 +842,10 @@
 						let buttonreset = document.getElementById("resetbutton");
 						buttonreset.classList.remove('trails_menu_hide');
 						document.getElementById("slidecontainer").classList.remove('slidecontainer_hide');
-						if (locations.length) locations.pop();
+						if (locations.length) {
+							locations = addMidpoints(locationsOptions[1], 20)
+							loadPainter();
+						};
 						painter.mesh.material.opacity = 0.3;
 					} else {
 
@@ -878,7 +871,7 @@
 				loadLight();
 				loadPainter();
 				loadController();
-				changeTrails(TRAILS_META_DATA[TRAILS_META_DATA.length - 1]);
+
 
 				window.addEventListener('resize', onWindowResize);
 
@@ -1021,7 +1014,7 @@
 				painter = new TubePainter();
 				painter.setSize(0.1);
 				painter.mesh.material.transparent = true;
-				painter.mesh.material.opacity = 0.3;
+				painter.mesh.material.opacity = 0;
 				painter.mesh.material.side = THREE.DoubleSide;
 				painter.moveTo(locations[0] || [0, 0, 0])
 				for (let location of locations)
@@ -1108,7 +1101,6 @@
 						document.getElementById('usdz_info').style.display = "block";
 					} else {
 						document.getElementById('button-mode-toggle').style.display = "block";
-						document.getElementById('usdz_info').style.display = "none";
 					}
 				}, 10)
 			}
@@ -1370,18 +1362,6 @@
 			}
 
 			let noSopportTutorial = 0;
-			document.querySelector('#no-support-tutorial').addEventListener('click', () => {
-				noSopportTutorial ++;
-				if (noSopportTutorial === 1){
-					document.querySelector('#no-support-tutorial .step-1').style.display = 'none';
-					document.querySelector('#no-support-tutorial .step-2').style.display = 'block';
-				}
-				else
-					document.querySelector('#no-support-tutorial').style.display = 'none';
-
-				document.cookie = "tut=2; expires=Thu, 30 Dec 2021 12:00:00 UTC";
-			})
-
 
 			document.querySelector('#ar_info').addEventListener('click', ()=>{
 				if(isSupported) {
