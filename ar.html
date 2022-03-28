@@ -447,7 +447,6 @@
 				poo.map(point => point.map(coord => coord / 20)),
 				infinityTriangle.map(point => point.map(coord => coord / 40)),
 				infShape.map((point, idx) => [point[0], - Math.sin(idx / (infShape.length - 1) * Math.PI * 2), point[2]]).map(point => point.map(coord => coord / 30)),
-				[0, 0 ,0]
 				// spiral.map(point=>point.map(coord => coord/10))
 			]
 
@@ -788,10 +787,9 @@
 						resetScene();
 					}
 					else {
-						locations = addMidpoints(locationsOptions[Math.floor(Math.random() * locationsOptions.length) - 1], 20);
+						locations = addMidpoints(locationsOptions[Math.floor(Math.random() * locationsOptions.length)], 20);
 						scene.remove(painter.mesh);
 						loadPainter();
-						painter.mesh.material.opacity = 0.3;
 						
 					}
 				})
@@ -1014,7 +1012,7 @@
 				painter = new TubePainter();
 				painter.setSize(0.1);
 				painter.mesh.material.transparent = true;
-				painter.mesh.material.opacity = 0;
+				painter.mesh.material.opacity = 0.3;
 				painter.mesh.material.side = THREE.DoubleSide;
 				painter.moveTo(locations[0] || [0, 0, 0])
 				for (let location of locations)
