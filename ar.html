@@ -796,6 +796,9 @@
 
 				// model
 				document.getElementById("button-reset").addEventListener("click", () => {
+					gtag("event", "ar_onReset", {
+                      event_category: "ar_interaction",
+                      });
 					if (isSupported) {
 						resetScene();
 					}
@@ -843,6 +846,9 @@
 				})
 
 				document.getElementById('button-mode-toggle').addEventListener("click", function () {
+					gtag("event", "ar_onToggle", {
+                      event_category: "ar_interaction",
+                      });
 					if (mode == 'static') {
 						mode = 'dynamic';
 						this.classList.add('dynamic');
@@ -1096,6 +1102,9 @@
 			}
 
 			function changeAircraft(selectedAircraft) {
+				gtag("event", "ar_changedAircaft", {
+                      event_category: "ar_interaction",
+                      });
 				setTimeout(() => {
 					AIRCRAFTS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
 					document.getElementById(selectedAircraft.id).classList.add("selected");
@@ -1114,6 +1123,9 @@
 			}
 
 			function changeTrails(selectedTrails) {
+				gtag("event", "ar_onChangeTrail", {
+                      event_category: "ar_interaction",
+                      });
 				TRAILS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
 				document.getElementById(selectedTrails.id).classList.add("selected");
 				loadTrails(selectedTrails);
