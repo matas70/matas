@@ -1,4 +1,4 @@
-.idea*
+a.idea*
 .vscode*
 Thumbs*
 node_modules
