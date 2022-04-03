@@ -1,0 +1,31 @@
+{
+  "name": "matas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "live-server --https=node_modules/live-server-https",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matas70/matas.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matas70/matas/issues"
+  },
+  "homepage": "https://github.com/matas70/matas#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "jquery": "^3.5.0",
+    "jquery-touch-events": "^1.0.7",
+    "jqueryui": "^1.11.1",
+    "leaflet": "^1.4.0",
+    "leaflet.markercluster": "^1.4.1",
+    "live-server": "^1.2.1",
+    "live-server-https": "0.0.2",
+    "time-js": "0.0.5"
+  }
+}
