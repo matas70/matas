@@ -404,7 +404,7 @@
 
   $(".quiz.button, #quiz .finished .again, .new-popup .quiz").on('click', function () {
 
-    gtag("event", "quiz_onClick", {
+    gtag("event", "quiz_onFinishedQuiz", {
       event_category: "quiz_interaction",
     });
 
@@ -445,12 +445,10 @@
     $('#quiz .question .counter .current').text(count)
     $('#quiz .question .counter .total').text(maxQuestions)
 
-    gtag("event", "quiz_onClick", {
+  $('#quiz .question .option').on("click", function () {
+    gtag("event", "quiz_onNextQuestionMark", {
       event_category: "quiz_interaction",
     });
-  }
-
-  $('#quiz .question .option').on("click", function () {
     $('#quiz .question .option.marked').removeClass('marked');
     this.classList.add('marked');
   });
