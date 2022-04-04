@@ -404,7 +404,7 @@
 
   $(".quiz.button, #quiz .finished .again, .new-popup .quiz").on('click', function () {
 
-    gtag("event", "quiz_onFinishedQuiz", {
+    gtag("event", "quiz_onParticipation", {
       event_category: "quiz_interaction",
     });
 
@@ -445,9 +445,6 @@
     $('#quiz .question .counter .current').text(count)
     $('#quiz .question .counter .total').text(maxQuestions)
 
-    gtag("event", "quiz_onNextQuiestion", {
-      event_category: "quiz_interaction",
-    });
   }
 
   $('#quiz .question .option').on("click", function () {
@@ -479,12 +476,22 @@
         if (correctCount < 3) {
           $('#quiz .finished').addClass('can-be-better')
           $('#quiz .finished').removeClass('almost-all-right')
+
+          gtag("event", "quiz_onAnsweredLessThan2Questions", {
+            event_category: "quiz_interaction",
+          });
         } else if (correctCount === 3 | correctCount === 4) {
           $('#quiz .finished').removeClass('can-be-better')
           $('#quiz .finished').addClass('almost-all-right')
+          gtag("event", "quiz_onAnswered3Or4Questions", {
+            event_category: "quiz_interaction",
+          });
         } else {
           $('#quiz .finished').removeClass('can-be-better')
           $('#quiz .finished').removeClass('almost-all-right')
+          gtag("event", "quiz_onFinished", {
+            event_category: "quiz_interaction",
+          });
         }
         $('#quiz .finished .correct.count').text(correctCount)
         count = correctCount = 0;
