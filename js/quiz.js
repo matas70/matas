@@ -479,7 +479,11 @@
 
           gtag("event", "quiz_onAnsweredLessThan2Questions", {
             event_category: "quiz_interaction",
-          });
+gtag('event', 'quiz_finish', {
+  'event_category': 'quiz_interaction',
+  'event_label': 'quiz_finish',
+  'value': 'correctCount'
+});
         } else if (correctCount === 3 | correctCount === 4) {
           $('#quiz .finished').removeClass('can-be-better')
           $('#quiz .finished').addClass('almost-all-right')
