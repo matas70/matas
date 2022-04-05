@@ -484,15 +484,9 @@
         } else if (correctCount === 3 | correctCount === 4) {
           $('#quiz .finished').removeClass('can-be-better')
           $('#quiz .finished').addClass('almost-all-right')
-          gtag("event", "quiz_onAnswered3Or4Questions", {
-            event_category: "quiz_interaction",
-          });
         } else {
           $('#quiz .finished').removeClass('can-be-better')
           $('#quiz .finished').removeClass('almost-all-right')
-          gtag("event", "quiz_onFinished", {
-            event_category: "quiz_interaction",
-          });
         }
         $('#quiz .finished .correct.count').text(correctCount)
         count = correctCount = 0;
