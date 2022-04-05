@@ -119,7 +119,7 @@
 	<body>
 		<div id="ar-start">
 			<div class="ar-starts-text">
-				<div>?שנתחיל</div>
+				<div>?שנתחיל עומר</div>
 				<div>לחצו כאן</div>
 			</div>
 			<div class="d-open" id="arrows">
@@ -142,6 +142,11 @@
 				<a id="usdz-button" style="display: none;">
 					<img width="160px" src="./assets/usdz-button.svg" alt="הדמייה במרחב שלך">
 				</a>
+				<div id="usdz-info-popup">
+					<div id="popup-bottom">
+
+					</div>
+				</div>
 
 				<button id="button-close" alt="Close">
 					<div id="blob"
@@ -266,7 +271,7 @@
 					class="index-finger">
 				<span>לחצו כאן על מנת <br> להחליף מצב תצוגה</span>
 				<div id="usdz_info">
-
+					
 				</div>
 			</div>
 		</div>
@@ -1103,12 +1108,14 @@
 					currentAircraft = selectedAircraft.id;
 
 					if (isIOS()) {
+						document.getElementById('usdz-info-popup').style.display = "block";
 						document.getElementById('usdz-button').style.display = "block";
 						document.getElementById('usdz-button').href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
 						document.getElementById('usdz_info').style.display = "block";
 					} else {
 						document.getElementById('button-mode-toggle').style.display = "block";
 						document.getElementById('usdz_info').style.display = "none";
+						document.getElementsByClassName('usdz-info-popup').style.display = "none";
 					}
 				}, 10)
 			}
@@ -1240,7 +1247,7 @@
 				renderer.render(scene, camera);
 			}
 
-			function iosRender() {
+			function iosRender() { // no supporting
 				renderEnvironment();
 				baseRender();
 			}

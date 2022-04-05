@@ -15,6 +15,30 @@ body {
   user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 
+
+/*usdz popup*/
+#usdz-info-popup{
+  width: 67.1vw;
+  height: 78.45vw;
+  background-color: #3BB5F2;
+  display: none;
+  position: absolute;
+  background: #FFFFFF;
+  border: 1px solid #EFF1F1;
+  box-shadow: 0 0 15px 0 rgba(0,0,0,0.30);
+  border-radius: 16px;
+  /* display: flex;
+  align-items: flex-end;
+  flex-direction: column; */
+}
+#popup-bottom{
+  height: 12.5vw;
+  width: 100%;
+  background: #3BB5F2;
+  border-radius: 0 0 16px 16px;
+}
+
+
 .buffer {
   min-width: calc(50vw - 44px);
 }
@@ -121,7 +145,10 @@ select {
 
 
 #ar-overly .share {
-  bottom: 20px;
+  /* background-color: #3BB5F2;
+  width: 10vw;
+  height: 10vh; */
+  /* bottom: 20px;
   position: absolute;
   width: 189px;
   height: 44px;
@@ -129,22 +156,22 @@ select {
   text-align: center;
   text-indent: -1000px;
   overflow: hidden;
-  background-image: url('./assets/share_ar.png');
+  background-image: url('./assets/share_ar.png'); 
   background-size: cover;
-  background-position: center center;
+  background-position: center center;  */
 }
 
-#ar-overly .share::before {
-  content: "שיתוף עם חברים";
+/* #ar-overly .share::before {
+  content: "שיתוף";
   color: white;
   font-family: Heebo;
   font-size: 16px;
   font-weight: 500;
   line-height: 44px;
-}
+} */
 
 #ar-overly #ar_info {
-  position: absolute;
+  /* position: absolute;
   bottom: 20px;
   left: 20px;
   width: 44px;
@@ -152,7 +179,7 @@ select {
   overflow: hidden;
   background-image: url('./assets/ar_info.svg');
   background-size: cover;
-  background-position: center center;
+  background-position: center center; */
 }
 
 #ARButton {
@@ -406,6 +433,7 @@ canvas {
   min-width: 0;
   scroll-snap-type: inline mandatory;
   z-index: 9999;
+  /* transition: all 1s; */
 }
 
 #aircrafts_menu img {
@@ -430,11 +458,15 @@ canvas {
   font-weight: 900;
   color: #3d3d3d;
   margin: 5px 5px;
-  transition: all 0.2s;
+  transition: all 0.5s;
+  background: linear-gradient(to top, #3bb5f234 50%, transparent 50%);
+  background-size: 100% 200%;
+  background-position: top left;
 }
-
+.aircraft-option.selected{
+  background-position: bottom left; 
+}
 .aircraft-option.selected {
-  background-color: #3bb5f234;
   width: 59px;
   height: 80px;
   border: 2px solid #3BB5F2;
