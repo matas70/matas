@@ -31,6 +31,9 @@ body {
   align-items: flex-end;
   flex-direction: column; */
 }
+#popup-conteiner{
+
+}
 #popup-bottom{
   height: 12.5vw;
   width: 100%;
