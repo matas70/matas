@@ -463,6 +463,11 @@
       marked.classList.add('correct');
       $('#confetti').show()
       correctCount++
+      gtag('event', 'quiz_finish', {
+        'event_category': 'quiz_interaction',
+         'event_label': 'quiz_finish',
+        'value': 'correctCount'
+      });
     } else {
       marked.classList.add('wrong');
       $('#quiz .question .option.' + question.correct).addClass('correct')
@@ -476,14 +481,6 @@
         if (correctCount < 3) {
           $('#quiz .finished').addClass('can-be-better')
           $('#quiz .finished').removeClass('almost-all-right')
-
-          gtag("event", "quiz_onAnsweredLessThan2Questions", {
-            event_category: "quiz_interaction",
-gtag('event', 'quiz_finish', {
-  'event_category': 'quiz_interaction',
-  'event_label': 'quiz_finish',
-  'value': 'correctCount'
-});
         } else if (correctCount === 3 | correctCount === 4) {
           $('#quiz .finished').removeClass('can-be-better')
           $('#quiz .finished').addClass('almost-all-right')
