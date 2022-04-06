@@ -796,6 +796,9 @@
 
 				// model
 				document.getElementById("button-reset").addEventListener("click", () => {
+					gtag("event", "ar_onPressReset", {
+                      event_category: "quiz_interaction",
+                    });
 					if (isSupported) {
 						resetScene();
 					}
@@ -844,6 +847,9 @@
 
 				document.getElementById('button-mode-toggle').addEventListener("click", function () {
 					if (mode == 'static') {
+						gtag('event', 'ar_dynamic', {
+                            'event_category': 'ar_interaction',
+                        });
 						mode = 'dynamic';
 						this.classList.add('dynamic');
 						this.classList.remove('static');
@@ -857,7 +863,9 @@
 					} else {
 
 						if (isIOS()) return;
-
+						gtag('event', 'ar_static', {
+                            'event_category': 'ar_interaction',
+                        });
 						mode = 'static'
 						this.classList.add('static');
 						this.classList.remove('dynamic');
@@ -1101,6 +1109,11 @@
 					document.getElementById(selectedAircraft.id).classList.add("selected");
 					loadAircraft(selectedAircraft);
 					currentAircraft = selectedAircraft.id;
+					gtag('event', 'ar_aircraft_type', {
+                        'event_category': 'ar_interaction',
+                        'event_label': 'ar_aircraft_type',
+                        'value': 'currentAircraft'
+                    });
 
 					if (isIOS()) {
 						document.getElementById('usdz-button').style.display = "block";
