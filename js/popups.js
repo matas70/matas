@@ -771,7 +771,24 @@ function openExternal(link) {
 }
 
 function openAR() {
-    openExternal("ar.html");
+    if(isIOS()){
+        document.getElementById("usdz-info-popup").style.display = "block";
+    }else{
+        openExternal("ar.html");
+    }
+}
+
+function isIOS() {
+    return [
+        'iPad Simulator',
+        'iPhone Simulator',
+        'iPod Simulator',
+        'iPad',
+        'iPhone',
+        'iPod'
+    ].includes(navigator.platform)
+        // iPad on iOS 13 detection
+        || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
 }
 
 function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link = undefined, after = () => {}) {

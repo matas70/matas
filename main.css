@@ -16,24 +16,6 @@ body {
 }
 
 
-/*usdz popup*/
-#usdz-info-popup{
-  width: 67.1vw;
-  height: 78.45vw;
-  background-color: #3BB5F2;
-  display: none;
-  position: absolute;
-  background: #FFFFFF;
-  border: 1px solid #EFF1F1;
-  box-shadow: 0 0 15px 0 rgba(0,0,0,0.30);
-  border-radius: 16px;
-  /* display: flex;
-  align-items: flex-end;
-  flex-direction: column; */
-}
-#popup-conteiner{
-
-}
 #popup-bottom{
   height: 12.5vw;
   width: 100%;
@@ -41,11 +23,9 @@ body {
   border-radius: 0 0 16px 16px;
 }
 
-
 .buffer {
   min-width: calc(50vw - 44px);
 }
-
 /*hide scrollbar on mobile*/
 ::-webkit-scrollbar {
   display: none;

@@ -83,7 +83,24 @@
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-functions.js"></script>
     <script type="module" src="js/AR.mjs" async></script>
+
+   
+    
 <div id="wrapper">
+<!-- explain ios user how to use usdz  -->
+<div id="usdz-info-popup">
+    
+    <div id="usdz-block">
+        <p class="title">מיד תועברו לעמוד חדש</p>
+    <p class="explain">לחצו על המטוס כדי לצפות בו במציאות רבודה</p>
+        <img id="usdz-info-popoup-img" src="./images/display.png" alt="ios-tutorial">
+    <div id="popup-bottom">
+        <p class="continue">הבנתי, המשך</p>
+    </div>
+    </div>
+    
+</div>
+
     <!-- page header -->
     <header id="headerMobile">
         <div id="headerBg">
@@ -435,6 +452,10 @@
         </div>
     </div>
 
+    <div id="box"> 
+
+    </div>
+
     <div id="mapClusterPopup" class="mapClusterPopup">
         <div class="mapClusterPopupHeader">אני רוצה לצפות ב:</div>
         <div id="mapClusterPopupContent" class="mapClusterPopupContent"></div>
@@ -560,6 +581,8 @@
         </div>
     </div>
 </div>
+
+
 
 </body>
 </html>
