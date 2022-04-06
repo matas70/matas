@@ -601,6 +601,18 @@ div.infoPopup {
     width: 209.17px;
     height: 228px;
 }
+
+#dim-background{
+    background-color: rgba(0, 0, 0, 0.297);
+    z-index: 100000;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+
+
+
 #popupDisplay {
     display: block;
 }

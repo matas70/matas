@@ -1138,19 +1138,27 @@ function selectInfoButtonWithoutClicking() {
 }
 arClick = false;
 
-function openAR() {
+function openAR(aircraft) {
+    
     if(isIOS()){
+        alert(aircraft);
         arClick = true;
         document.getElementById("usdz-info-popup").style.display = "block";
+        document.getElementById("dim-background").style.display = "block";
+        document.getElementById("popup-bottom").addEventListener('click', () => {
+            openExternal('https://matasstorage.blob.core.windows.net/models/usdz%2Ff35.usdz');
+        });
     }else{
+
         arClick = false;
         openExternal("ar.html");
     }
 }
 
 function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllPoints = false) {
-    
+
     if(!isIOS() || (isIOS() && arClick === false)){
+        
         var aircraft = aircrafts[aircraftId - 1];
     window.scrollTo(0, 1);
 
