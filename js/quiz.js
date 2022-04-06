@@ -404,10 +404,6 @@
 
   $(".quiz.button, #quiz .finished .again, .new-popup .quiz").on('click', function () {
 
-    gtag("event", "quiz_onClick", {
-      event_category: "quiz_interaction",
-    });
-
     if (isMenuOpen) toggleListView();
 
     $('#quiz').css('display', 'block').animate({
@@ -444,10 +440,6 @@
     $('#quiz .question .option.c').text(question.c)
     $('#quiz .question .counter .current').text(count)
     $('#quiz .question .counter .total').text(maxQuestions)
-
-    gtag("event", "quiz_onClick", {
-      event_category: "quiz_interaction",
-    });
   }
 
   $('#quiz .question .option').on("click", function () {
