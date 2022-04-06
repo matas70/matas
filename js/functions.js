@@ -1136,13 +1136,26 @@ function selectInfoButtonWithoutClicking() {
 
     currAircraftTab = "#aircraftInfoContent";
 }
+arClick = false;
+
+function openAR() {
+    if(isIOS()){
+        arClick = true;
+        document.getElementById("usdz-info-popup").style.display = "block";
+    }else{
+        arClick = false;
+        openExternal("ar.html");
+    }
+}
 
 function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllPoints = false) {
-    var aircraft = aircrafts[aircraftId - 1];
+    
+    if(!isIOS() || (isIOS() && arClick === false)){
+        var aircraft = aircrafts[aircraftId - 1];
     window.scrollTo(0, 1);
 
     // Manages selected tab in aircraft view
-    // $("#aircraftInfoButton").click();
+    // $("#aircraftInfoButton").click();b  
     selectInfoButtonWithoutClicking();
 
     selectAircraft(aircraft, aircraftMarkers[aircraftId - 1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse, showAllPoints);
@@ -1151,6 +1164,9 @@ function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllP
         // show schedule instead of aircraft info
         $("#aircraftScheduleButton").click();
     }
+    }
+    
+    
 }
 
 var globalCollapse;
@@ -2440,4 +2456,16 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 
 
 })()
+function isIOS() {
+    return [
+        'iPad Simulator',
+        'iPhone Simulator',
+        'iPod Simulator',
+        'iPad',
+        'iPhone',
+        'iPod'
+    ].includes(navigator.platform)
+        // iPad on iOS 13 detection
+        || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+}
 

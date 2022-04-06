@@ -617,11 +617,11 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
         aerobaticIcon = "<img src=\"icons/aircraft-menu/parachutist.svg\" class=\"aerobaticTableIcon\"></img>";
         aircraftType = "הצנחת צנחנים";
     }
-
     return "<div onclick='onAircraftSelected(" + aircraftId + "," + collapse.toString() + "," + showSchedule + "," + showAllPoints + ");' class=\"tableRow\"><img src=\"icons/aircraft-menu/" + icon +
         ".svg\" class=\"aircraftIcon\"><div class=\"aircraftName\"><b>" + name +
         "</b> " + aircraftType + "</div>" + aerobaticIcon + "<div class='date'>" + (date ? date : '') + "</div>" + classname + "<div class=\"time\">" +
         (displayTime ? roundToMinute(time) : "") + (displayTime && from ? (" - " + roundToMinute(from)) : "") + "</div></div></div></div>";
+       
 }
 
 function createLocationRow(location, displayFirstAircraft, isSearchBar = false) {
@@ -768,27 +768,6 @@ function openExternal(link) {
     if (win) {
         win.focus();
     }
-}
-
-function openAR() {
-    if(isIOS()){
-        document.getElementById("usdz-info-popup").style.display = "block";
-    }else{
-        openExternal("ar.html");
-    }
-}
-
-function isIOS() {
-    return [
-        'iPad Simulator',
-        'iPhone Simulator',
-        'iPod Simulator',
-        'iPad',
-        'iPhone',
-        'iPod'
-    ].includes(navigator.platform)
-        // iPad on iOS 13 detection
-        || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
 }
 
 function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link = undefined, after = () => {}) {
