@@ -404,7 +404,7 @@
 
   $(".quiz.button, #quiz .finished .again, .new-popup .quiz").on('click', function () {
 
-    gtag("event", "quiz_onFinishedQuiz", {
+    gtag("event", "quiz_onClick", {
       event_category: "quiz_interaction",
     });
 
@@ -445,10 +445,12 @@
     $('#quiz .question .counter .current').text(count)
     $('#quiz .question .counter .total').text(maxQuestions)
 
-  $('#quiz .question .option').on("click", function () {
-    gtag("event", "quiz_onNextQuestionMark", {
+    gtag("event", "quiz_onClick", {
       event_category: "quiz_interaction",
     });
+  }
+
+  $('#quiz .question .option').on("click", function () {
     $('#quiz .question .option.marked').removeClass('marked');
     this.classList.add('marked');
   });
@@ -862,5 +864,4 @@
   });
 
 
-  }
-})
+})()
