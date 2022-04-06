@@ -1374,6 +1374,18 @@
 
 			let noSopportTutorial = 0;
 
+			document.querySelector('#no-support-tutorial').addEventListener('click', () => {
+				noSopportTutorial ++;
+				if (noSopportTutorial === 1){
+					document.querySelector('#no-support-tutorial .step-1').style.display = 'none';
+					document.querySelector('#no-support-tutorial .step-2').style.display = 'block';
+				}
+				else
+					document.querySelector('#no-support-tutorial').style.display = 'none';
+
+				document.cookie = "tut=2; expires=Thu, 30 Dec 2022 12:00:00 UTC";
+			})
+
 			document.querySelector('#ar_info').addEventListener('click', ()=>{
 				if(isSupported) {
 					document.getElementById('tutorial').style.display="block";
