@@ -1,3 +1,17 @@
+const aircraftUsdzObjData = [
+    { id: 1, name: "lavie",hebName: "לביא"},
+    { id: 2, name: "baz",hebName: "בז"},
+    { id: 3, name: "sofa",hebName: "סופה"},
+    { id: 4,  name: "tsofit",hebName: "צופית"},
+    { id: 8, name: "f35",hebName: "אדיר"},
+    { id: 9, name: "shimshon",hebName: "שמשון"},
+    { id: 10, name: "karnaf",hebName: 'קרנף'},
+    { id: 14, name: "efroni",hebName:'עפרוני'},
+    //{ name: "bazi"},
+    //{ name: "barak"},
+    //{ name: "peten"},
+]
+
 var locationPopupExpanded = false;
 var locationPopupCloseCallback = null;
 var minimizedLocationPopupHeight = 100;
@@ -417,8 +431,17 @@ function showAircraftInfoPopup(aircraft, collapse) {
     } else {
         $("#aircraftInfoCountry").hide();
     }
-    document.getElementById('aircraftInfo3D').innerHTML =
-    "<button id='ARButton' onclick='openAR(aircraft)'></button>";
+
+    let currAircraftName = aircraftUsdzObjData.find(obj => obj.hebName === aircraft.name);
+
+    if(currAircraftName !== undefined){
+        document.getElementById('aircraftInfo3D').innerHTML =
+    "<button id='ARButton' onclick='openAR("+JSON.stringify(currAircraftName.name)+")'></button>";
+    }else{
+        document.getElementById('aircraftInfo3D').innerHTML =
+        "<button id='ARButton' onclick='openAR()'></button>";
+    }
+    
     if (aircraft.dimensions) {
         $("#aircraftInfoContentDimensions").text(aircraft.dimensions);
         $("#aircraftInfoDimensions").show();
@@ -609,9 +632,10 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
     
     var aerobaticIcon = "<div/>";
     var classname = "";
-    if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון') {
-        classname = "<button class=\"show\" id=\"ARButton\" onclick='openAR("+ name +")'></button>"
-    } else classname = "<button class=\"hide\" id=\"ARButton\" onclick='openAR("+ name +")'></button>"
+    let currAircraftName = aircraftUsdzObjData.find(obj => obj.hebName === name);
+    if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון'&& currAircraftName !== undefined) {
+        classname = "<button class=\"show\" id=\"ARButton\" onclick='openAR("+ JSON.stringify(currAircraftName.name) +")'></button>"
+    } else classname = "<button class=\"hide\" id=\"ARButton\" onclick='openAR("+ JSON.stringify(currAircraftName)+")'></button>"
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
         //aircraftType = "מופע אווירובטי";

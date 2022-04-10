@@ -544,7 +544,7 @@ div.infoPopup {
 #usdz-info-popup{
     display: none;
     position: absolute;
-    z-index: 100000;
+    z-index: 200000;
     left: 50%;
     right: 12%;
     top: 18%;
@@ -587,6 +587,10 @@ div.infoPopup {
     border-radius: 0 0 16px 16px;
     border-bottom: 4px solid #3BB5F2;
 }
+#popup-bottom:active{
+    background: #339ace;
+    border-bottom: 4px solid #339ace;
+}
 #popup-bottom .continue{
     font-family: Heebo-Medium;
     font-size: 16px;
@@ -604,7 +608,7 @@ div.infoPopup {
 
 #dim-background{
     background-color: rgba(0, 0, 0, 0.297);
-    z-index: 100000;
+    z-index: 200000;
     position: absolute;
     width: 100vw;
     height: 100vh;

@@ -1,17 +1,3 @@
-const aircraftUsdzData = [
-    { id: 1, name: "lavie"},
-    { id: 2, name: "baz"},
-    { id: 3, name: "sofa"},
-    { id: 4,  name: "tsofit"},
-    { id: 8, name: "f35"},
-    { id: 9, name: "shimshon"},
-    { id: 10, name: "karnaf"},
-    { id: 14, name: "efroni"},
-    //{ name: "bazi"},
-    //{ name: "barak"},
-    //{ name: "peten"},
-]
-
 //# sourceURL=js/functions.js
 window.gm_authFailure = function () {
     mapFail = true;
@@ -1152,19 +1138,17 @@ function selectInfoButtonWithoutClicking() {
 }
 arClick = false;
 
-function openAR(aircraftId) {
+function openAR(aircraftName) {
     
     if(isIOS()){
-        
+        alert(aircraftName);
         arClick = true;
         document.getElementById("usdz-info-popup").style.display = "block";
         document.getElementById("dim-background").style.display = "block";
         document.getElementById("popup-bottom").addEventListener('click', () => {
-            let currAircraft = aircraftUsdzData.find(aircraft => aircraft.id === aircraftId).name
-            openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${currAircraft}.usdz`);
+            openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
         });
     }else{
-        console.log(aircraftId);
         arClick = false;
         openExternal("ar.html");
     }
