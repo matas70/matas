@@ -1141,7 +1141,6 @@ arClick = false;
 function openAR(aircraftName) {
     
     if(isIOS()){
-        alert(aircraftName);
         arClick = true;
         document.getElementById("usdz-info-popup").style.display = "block";
         document.getElementById("dim-background").style.display = "block";
