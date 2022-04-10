@@ -417,7 +417,8 @@ function showAircraftInfoPopup(aircraft, collapse) {
     } else {
         $("#aircraftInfoCountry").hide();
     }
-
+    document.getElementById('aircraftInfo3D').innerHTML =
+    "<button id='ARButton' onclick='openAR(aircraft)'></button>";
     if (aircraft.dimensions) {
         $("#aircraftInfoContentDimensions").text(aircraft.dimensions);
         $("#aircraftInfoDimensions").show();
@@ -605,12 +606,12 @@ function createScheduleRow(aircraft, location) {
 }
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule = false, showAllPoints = false, from) {
-    alert(name);
+    
     var aerobaticIcon = "<div/>";
     var classname = "";
     if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון') {
-        classname = "<button class=\"show\" id=\"ARButton\" onclick='openAR("+ aircraftId +")'></button>"
-    } else classname = "<button class=\"hide\" id=\"ARButton\" onclick='openAR("+ aircraftId +")'></button>"
+        classname = "<button class=\"show\" id=\"ARButton\" onclick='openAR("+ name +")'></button>"
+    } else classname = "<button class=\"hide\" id=\"ARButton\" onclick='openAR("+ name +")'></button>"
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
         //aircraftType = "מופע אווירובטי";
