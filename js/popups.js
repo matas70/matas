@@ -1,12 +1,12 @@
 const aircraftUsdzObjData = [
-    { id: 1, name: "lavie",hebName: "לביא"},
-    { id: 2, name: "baz",hebName: "בז"},
-    { id: 3, name: "sofa",hebName: "סופה"},
-    { id: 4,  name: "tsofit",hebName: "צופית"},
-    { id: 8, name: "f35",hebName: "אדיר"},
-    { id: 9, name: "shimshon",hebName: "שמשון"},
-    { id: 10, name: "karnaf",hebName: 'קרנף'},
-    { id: 14, name: "efroni",hebName:'עפרוני'},
+    { name: "lavie",hebName: "לביא"},
+    { name: "baz",hebName: "בז"},
+    { name: "sofa",hebName: "סופה"},
+    { name: "tsofit",hebName: "צופית"},
+    { name: "f35",hebName: "אדיר"},
+    { name: "shimshon",hebName: "שמשון"},
+    { name: "karnaf",hebName: 'קרנף'},
+    { name: "efroni",hebName:'עפרוני'},
     //{ name: "bazi"},
     //{ name: "barak"},
     //{ name: "peten"},
@@ -627,6 +627,7 @@ function createScheduleRow(aircraft, location) {
 
     return "";
 }
+
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule = false, showAllPoints = false, from) {
     

@@ -1,3 +1,3 @@
-document.getElementById('aircraftInfo3D').innerHTML = `
-<button id="ARButton" onclick='openar()'></button>
-`;
+// document.getElementById('aircraftInfo3D').innerHTML = `
+// <button id="ARButton" onclick='window.open("ar.html")'></button>
+// `;

@@ -15,14 +15,6 @@ body {
   user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 
-
-#popup-bottom{
-  height: 12.5vw;
-  width: 100%;
-  background: #3BB5F2;
-  border-radius: 0 0 16px 16px;
-}
-
 .buffer {
   min-width: calc(50vw - 44px);
 }
@@ -441,10 +433,15 @@ canvas {
   font-weight: 900;
   color: #3d3d3d;
   margin: 5px 5px;
-  transition: all 0.5s;
-  background: linear-gradient(to top, #3bb5f234 50%, transparent 50%);
-  background-size: 100% 200%;
-  background-position: top left;
+}
+@keyframes fillAnimation {
+  0%{
+    background-position: 0 0;
+  }
+  33%,
+  100%{
+    background-position: 0% 100%;
+  }
 }
 .aircraft-option.selected{
   background-position: bottom left; 
@@ -454,6 +451,12 @@ canvas {
   height: 80px;
   border: 2px solid #3BB5F2;
   box-shadow: 0 0 4px 0 rgba(0,0,0,0.50);
+}
+.aircraftAnimation{
+  transition: all 1s  ;
+  background-size: 100% 200%;
+  background-image: linear-gradient(to top, #3bb5f234 50%, transparent 50%); 
+  animation: fillAnimation 1.5s infinite;
 }
 
 #aircrafts_menu .aircraft-option.selected img {
@@ -495,7 +498,103 @@ font-weight: 500;
   transform: translateX(-50%);
   bottom: 82.5px;
 } */
-
+/* #space{
+  z-index: 2;
+  width: 100vw;
+  height: 120px;
+  background-color: transparent;
+  border-bottom: 10px solid;
+  border-radius: 40px;
+} */
+#space{
+  margin-top: -45px;
+  margin-bottom: -14px;
+  background-color: transparent;
+  width: 101vw;
+  height: 60px;
+  border-bottom: 15px solid;
+  border-radius: 30vh;
+  display: none;
+}
+#supported-menu{
+  background-color: black;
+  height: 72px;
+  width: 100%;
+  display: none;
+}
+#menu-block{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+#menu-block #share{
+  display: flex;
+  align-items: center;
+}
+#menu-block #share p{
+  padding-right: 5px ;
+  font-family: Heebo-Medium;
+  font-size: 15px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+  font-weight: 500;
+}
+#menu-block #change-ar-toggle{
+  height: 42px;
+  width: 124px;
+  background-color: #1C1C1C;;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+}
+#menu-block #change-ar-toggle #toggle{
+  margin-left: 4px;
+  opacity: 0.63;
+  background: #3BB5F2;
+  border-radius: 5px;
+  height: 36px;
+  width: 59px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#menu-block #change-ar-toggle #icons{
+  width: 124px;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  position:absolute;
+  justify-content: space-around;
+}
+#menu-block #change-ar-toggle #icons svg:first-child{
+  margin-left: -7px;
+}
+#menu-block #change-ar-toggle #icons svg:last-child{
+  margin-left: -22px;
+}
+#menu-block #help{
+  display: flex;
+  font-family: Heebo-Medium;
+  font-size: 15px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+  font-weight: 500;
+  fill: white;
+  align-items: center;
+}
+#menu-block #help svg{
+  margin-left: 4px;
+}
+.is-supported #space{
+  display: block;
+}
+.is-supported #supported-menu{
+  display: block;
+}
 #at-overly{
   opacity: 0;
 }

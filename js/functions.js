@@ -1146,11 +1146,11 @@ function openAR(aircraftName) {
                 document.getElementById("usdz-info-popup").style.display = "none";
                 document.getElementById("dim-background").style.display = "none";}
             });
-        let opendPopup;
-        arClick = true;
-        document.getElementById("usdz-info-popup").style.display = "block";
-        document.getElementById("dim-background").style.display = "block";
-        document.getElementById("popup-bottom").addEventListener('click', () => {
+            let opendPopup;
+            arClick = true;
+            document.getElementById("usdz-info-popup").style.display = "block";
+            document.getElementById("dim-background").style.display = "block";
+            document.getElementById("popup-bottom").addEventListener('click', () => {
             openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
             opendPopup = true;
         });
