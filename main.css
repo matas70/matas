@@ -506,6 +506,69 @@ font-weight: 500;
   border-bottom: 10px solid;
   border-radius: 40px;
 } */
+
+#help-supported-ar{
+  bottom: 120%;
+  background: #FFFFFF;
+  border: 1px solid #EFF1F1;
+  box-shadow: 0 0 15px 0 rgba(0,0,0,0.30);
+  border-radius: 16px;
+  height: 402px;
+  width: 270px;
+  position: absolute;
+  display: none;
+}
+#supported-ar-conteiner{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+#supported-ar-conteiner .description{
+  font-family: Heebo-Regular;
+  font-size: 14px;
+  color: #37474F;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 18px;
+  font-weight: 400;
+}
+#supported-ar-conteiner .title{
+  font-family: Heebo-Bold;
+  font-size: 17px;
+  color: #37474F;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 20px;
+  font-weight: 700;
+}
+#supported-ar-conteiner img{
+  width: 85%;
+}
+#supported-ar-conteiner .conteiner-bottom {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+#supported-ar-conteiner .conteiner-bottom button{
+  width: 86px;
+  height: 34.98px;
+  background: #3BB5F2;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  font-family: Heebo-Medium;
+  font-size: 13px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 15px;
+  font-weight: 500;
+}
+.show-hid-check-box{
+  display: flex;
+  align-items: center;
+}
 #space{
   margin-top: -45px;
   margin-bottom: -14px;
@@ -520,7 +583,7 @@ font-weight: 500;
   background-color: black;
   height: 72px;
   width: 100%;
-  display: none;
+  display: block;
 }
 #menu-block{
   display: flex;

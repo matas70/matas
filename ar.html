@@ -196,10 +196,42 @@
 					<div class="buffer" style="height: 50px; flex: 1 0 auto;"></div>
 					<div class="buffer" style="height: 50px; flex: 1 0 auto;"></div>
 				</div>
+				
+				<div id="help-supported-ar">
+					<div id="supported-ar-conteiner">
+						<p class="title">מיד תועברו לעמוד חדש</p>
+						<p class="description">לחצו על המטוס כדי לצפות בו במציאות רבודה</p>
+						<img src="./assets/pictureInYourLivingRoom.png" alt="">
+						<div class="conteiner-bottom">
+							<button>הבנתי</button>
+							<div class="show-hid-check-box">
+								<p>אל תציג שוב</p>
+								<input type="checkbox">
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<div id="space"></div>
+
 				<div id="supported-menu">
 					<div id="menu-block">
 						<div id="share">
+							<script>
+								// document.getElementById("share").addEventListener('click', ()=>{
+								// 	if(navigator.share){
+								// 		navigator.share({
+                                //         title: 'matas.iaf ar',
+                                //         url: 'https://matas.iaf.org.il/ar.html'
+                                //         }).then(() => {
+                                //         console.log('Thanks for sharing!');
+                                //         })
+                                //         .catch(console.error);
+								// 	} else {
+								// 		// fallback
+								// 	}
+								// })
+							</script>
 							<p>שיתוף</p>
 							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="19px" viewBox="0 0 17 19" version="1.1">
 								<g id="2022" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
@@ -253,30 +285,37 @@
 									</g>
 								</svg>
 							</div>
-							<script>
-								let click;
-								document.getElementById("change-ar-toggle").addEventListener('click', () =>{
-									click = !click;
-									document.getElementById("toggle").style.transition = 'all 0.3s';
-									if(click){
-										document.getElementById("toggle").style.marginLeft = '61px';
-										document.getElementById('camera-icon').style.fill = 'white';
-										document.getElementById('dynamic-icon-part-2').style.fill = 'rgb(170 170 170)';
-										document.getElementById('dynamic-icon-part').style.stroke = 'rgb(170 170 170)';
-										
-									}else{
-										document.getElementById('camera-icon').style.fill = 'rgb(170 170 170)';
-										document.getElementById("toggle").style.marginLeft = '4px';
-										document.getElementById('dynamic-icon-part-2').style.fill = 'white';
-										document.getElementById('dynamic-icon-part').style.stroke = 'white';
-									}
-								})
-							</script>
+							
 						</div>
 						<div id="help">
 							<p>עזרה</p>
 							<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 18.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25c.691 0 1.25.56 1.25 1.25s-.559 1.25-1.25 1.25zm1.961-5.928c-.904.975-.947 1.514-.935 2.178h-2.005c-.007-1.475.02-2.125 1.431-3.468.573-.544 1.025-.975.962-1.821-.058-.805-.73-1.226-1.365-1.226-.709 0-1.538.527-1.538 2.013h-2.01c0-2.4 1.409-3.95 3.59-3.95 1.036 0 1.942.339 2.55.955.57.578.865 1.372.854 2.298-.016 1.383-.857 2.291-1.534 3.021z"/></svg>
 						</div>
+						<script>
+							let environmentToggleClick;
+							document.getElementById("change-ar-toggle").addEventListener('click', () =>{
+								environmentToggleClick = !environmentToggleClick;
+								document.getElementById("toggle").style.transition = 'all 0.3s';
+								if(environmentToggleClick){
+									document.getElementById("toggle").style.marginLeft = '61px';
+									document.getElementById('camera-icon').style.fill = 'white';
+									document.getElementById('dynamic-icon-part-2').style.fill = 'rgb(170 170 170)';
+									document.getElementById('dynamic-icon-part').style.stroke = 'rgb(170 170 170)';
+									
+								}else{
+									document.getElementById('camera-icon').style.fill = 'rgb(170 170 170)';
+									document.getElementById("toggle").style.marginLeft = '4px';
+									document.getElementById('dynamic-icon-part-2').style.fill = 'white';
+									document.getElementById('dynamic-icon-part').style.stroke = 'white';
+								}
+							})
+							document.getElementById("help").addEventListener('click', () =>{
+								document.getElementById('help-supported-ar').style.display = 'block';
+								document.querySelector('.conteiner-bottom button').addEventListener('click', ()=>{
+									document.getElementById('help-supported-ar').style.display = 'none';
+								})
+							})
+						</script>
 					</div>
 				</div>
 
@@ -1078,6 +1117,8 @@
 						});
 						// document.querySelector('.aircraft-option.selected').style.backgroundColor = '#3bb5f234';
 						document.querySelector('.aircraft-option.selected').classList.remove('aircraftAnimation');
+						// document.querySelector('.aircraft-option.selected').style.backgroundColor = "blue";
+						// document.querySelectorAll('.aircraft-option').style.backgroundColor = "transparent";
 					}, undefined, function (error) {
 						console.error(error);
 					});
@@ -1324,6 +1365,7 @@
 			}
 
 			function baseRender() {
+				
 				renderAircraft();
 				renderAnimations();
 				renderer.render(scene, camera);
