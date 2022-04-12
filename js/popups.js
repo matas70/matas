@@ -203,7 +203,7 @@ function showBaseLoactionPopup(point) {
                 <h1>תערוכה קרקעית</h1>
                 <p>בבסיס תוכלו לראות תערוכה של מטוסי החיל, משגר הכנה אווירית,חימושים ושלל מערכות אחרות</p>
                 ${(point.baseMapPath !== '')?`<a href=${point.baseMapPath}><button class="base-map">למפת התערוכות</button></a>`:''}
-                document.body.innerHTML += (showBaseLoactionPopup(point))   </div>
+            </div>
         </div>`;
     
     
