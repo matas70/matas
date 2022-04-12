@@ -110,12 +110,15 @@ class ARButton {
 			// 	}
 
 			// };
+			
 
 			button.onclick = async function () {
+				
 				try {
 					if ( currentSession === null ) {
 						await navigator.xr.requestSession('immersive-ar', sessionInit).then(onSessionStarted);
 						sessionInit.animate();
+
 					}
 				} catch (e) {
 					if(sessionInit.fallback) {

@@ -415,7 +415,12 @@ canvas {
   display: inline-block;
   width: 100%;
 }
-
+.aircraft-text-shadow{
+  background-color: rgba(0, 0, 0, 0.317);
+  width: 40px;
+  align-self: center;
+  height: 20px; 
+}
 .aircraft-option {
   padding: 0 !important;
   flex: 1 0 auto;
@@ -433,6 +438,7 @@ canvas {
   font-weight: 900;
   color: #3d3d3d;
   margin: 5px 5px;
+  
 }
 @keyframes fillAnimation {
   0%{
@@ -485,6 +491,7 @@ color: #FFFFFF;
 letter-spacing: 0;
 text-align: center;
 font-weight: 500;
+
 }
 
 
@@ -583,7 +590,7 @@ font-weight: 500;
   background-color: black;
   height: 72px;
   width: 100%;
-  display: block;
+  display: none;
 }
 #menu-block{
   display: flex;
@@ -614,7 +621,7 @@ font-weight: 500;
   align-items: center;
 }
 #menu-block #change-ar-toggle #toggle{
-  margin-left: 4px;
+  margin-left: 61px;
   opacity: 0.63;
   background: #3BB5F2;
   border-radius: 5px;
