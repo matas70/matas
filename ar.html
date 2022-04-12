@@ -130,10 +130,30 @@
 		</div>
 		<div id="ar-overly">
 			<div id="controls">
+				<div id="share-button">
+					<p>שיתוף</p>
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="19px" viewBox="0 0 17 19" version="1.1">
+								<g id="2022" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+									<g id="3" transform="translate(-74.000000, -622.000000)" stroke="#FFFFFF" stroke-width="1.75">
+										<g id="Group-11" transform="translate(28.086022, 621.319500)">
+											<g id="Group-9" transform="translate(46.949844, 2.500000)">
+												<path d="M14.3898412,2.39979628 C14.3898412,3.7249809 13.3159953,4.79959256 11.9917549,4.79959256 C10.6675145,4.79959256 9.59366857,3.7249809 9.59366857,2.39979628 C9.59366857,1.07461166 10.6664967,0.00101858925 11.990737,0 C13.3149774,0 14.3888234,1.07461166 14.3888234,2.39979628 L14.3898412,2.39979628 Z" id="Stroke-2829"/>
+												<path d="M4.79617267,8 C4.79617267,9.32518462 3.72232671,10.3997963 2.39808634,10.3997963 C1.07384596,10.3997963 0,9.32518462 0,8 C0,6.67481538 1.0728281,5.60122231 2.39706847,5.60020299 C3.72130885,5.59918513 4.79617267,6.67379679 4.79617267,7.99898141 L4.79617267,8 Z" id="Stroke-2831"/>
+												<path d="M14.3898412,13.6002037 C14.3898412,14.9253883 13.3159953,16 11.9917549,16 C10.6675145,16 9.59366857,14.9253883 9.59366857,13.6002037 C9.59366857,12.2750191 10.6664967,11.201426 11.990737,11.2004067 C13.3149774,11.1993888 14.3898412,12.2740005 14.3898412,13.5991851 L14.3898412,13.6002037 Z" id="Stroke-2833"/>
+												<line x1="4.46862421" y1="9.20906544" x2="9.92946173" y2="12.3931755" id="Stroke-2835"/>
+												<line x1="9.92121704" y1="3.60784314" x2="4.46852242" y2="6.79195314" id="Stroke-2837"/>
+											</g>
+										</g>
+									</g>
+								</g>
+					</svg>
+					
+				</div>
+				<p id="url-copied">הקישור הועתק! פרסם את זה עם חברים שלך</p>
 				<div id="resetbutton">
 					<button id="button-reset" class="support" alt="Draw"></button>
 				</div>
-				<button id="button-action" alt="Toggle Flash"></button>
+				<!-- <button id="button-action" alt="Toggle Flash"></button> -->
 				<button id="button-mode-toggle" alt="Toggle mode" class="dynamic" style="display: none;">
 					<a class='static-mode'></a>
 					<span class='dynamic-mode'></span>
@@ -390,7 +410,7 @@
 			import { OrbitControls } from "https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js";
 			import { EXRLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/EXRLoader.js';
 
-
+			
 			const today = new Date();
 			const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
 			const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -1328,8 +1348,9 @@
 				scene.background = background;
 				renderer.toneMappingExposure = params.exposure;
 			}
+			let showInfoPopup = true;
 			function renderAircraft() {
-
+				
 				if(environmentToggleClick || !isSupported){
 					renderEnvironment();
 					handleController(controller);
@@ -1337,6 +1358,17 @@
 				 	    placeAircraft();
 				    }
 				}else{
+					// if(showInfoPopup){
+					// 	document.getElementById('help-supported-ar').style.display = 'block';
+					// 	document.querySelector('#help-supported-ar .conteiner-bottom button').addEventListener('click', ()=>{
+					// 		document.getElementById('help-supported-ar').style.display = 'none';
+					// 	});
+					// }else{
+					// 	document.getElementById('help-supported-ar').style.display = 'none';
+					// }
+					// document.querySelector('#help-supported-ar .conteiner-bottom .show-hid-check-box input').addEventListener('click', () =>{
+					//     showInfoPopup = !showInfoPopup;
+					// });
 					scene.background = null;
 					handleController(controller);
 					if (aircraft) {
@@ -1406,10 +1438,6 @@
 					document.getElementById('dynamic-icon-part').style.stroke = 'white';
 					
 				}else{
-					// for (let index = 0; index < document.getElementsByClassName('aircraft-option').length; index++) {
-						
-					// 	document.querySelectorAll('.aircraft-option .aircraft-text-shadow')[index].style.display = 'none';
-					// }
 					document.getElementById('camera-icon').style.fill = 'white';
 					document.getElementById("toggle").style.marginLeft = '61px';
 					document.getElementById('dynamic-icon-part-2').style.fill = 'rgb(170 170 170)';
@@ -1418,9 +1446,20 @@
 			})
 			document.getElementById("help").addEventListener('click', () =>{
 				document.getElementById('help-supported-ar').style.display = 'block';
+				document.querySelector('#help-supported-ar .title').innerText = "! עזרה"
+				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '20px';
+				document.querySelector('#help-supported-ar .conteiner-bottom .show-hid-check-box').style.display = 'none';
 				document.querySelector('.conteiner-bottom button').addEventListener('click', ()=>{
 					document.getElementById('help-supported-ar').style.display = 'none';
 				})
+			})
+
+			document.getElementById('share-button').addEventListener('click', ()=>{
+				navigator.clipboard.writeText("https://matas.iaf.org.il/ar.html");
+				document.getElementById('url-copied').style.display = 'block';
+				setTimeout(() => {
+					document.getElementById('url-copied').style.display = 'none';
+				}, 1000);
 			})
 			function smooth(locations) {
 				let result = [locations[0]];

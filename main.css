@@ -202,7 +202,25 @@ select {
   background-repeat: no-repeat;
   background-size: contain;
 }
-
+#share-button{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+#url-copied{
+  display: none;
+  position: absolute;
+  margin-top: 6vh;
+}
+#share-button p{
+  padding-right: 5px;
+  font-family: Heebo-Medium;
+  font-size: 15px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+  font-weight: 500;
+}
 #controls #button-reset {
   background-image: url('./icons/scribble.svg');
 }
