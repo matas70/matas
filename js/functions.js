@@ -1137,23 +1137,30 @@ function selectInfoButtonWithoutClicking() {
     currAircraftTab = "#aircraftInfoContent";
 }
 arClick = false;
+let showHelpArPopup = false
 
 function openAR(aircraftName) {
-    
+
+   
     if(isIOS()){
-        document.addEventListener("visibilitychange", (event) => {
-            if (document.visibilityState == "visible" && opendPopup ) {
-                document.getElementById("usdz-info-popup").style.display = "none";
-                document.getElementById("dim-background").style.display = "none";}
-            });
-            let opendPopup;
-            arClick = true;
+        
+        if(!showHelpArPopup){
             document.getElementById("usdz-info-popup").style.display = "block";
             document.getElementById("dim-background").style.display = "block";
-            document.getElementById("popup-bottom").addEventListener('click', () => {
+            document.querySelector("#popup-bottom button").addEventListener('click', () =>{
+                document.getElementById("usdz-info-popup").style.display = "none";
+                document.getElementById("dim-background").style.display = "none";
+                openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
+            });
+            document.querySelector("#popup-bottom #checkbox").addEventListener('click', () => {
+                showHelpArPopup = !showHelpArPopup;
+            });
+        }else{
             openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
-            opendPopup = true;
-        });
+        }
+        
+       
+        //openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
     }else{
         arClick = false;
         openExternal("ar.html");
