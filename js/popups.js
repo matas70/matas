@@ -78,6 +78,148 @@ function initPopups() {
 
 }
 
+point = {
+    baseThemePath: `theme.jpg`,
+    baseName: 'בסיס חצור',
+    iconBasePath: 'hatsor.jpeg',
+    baseWazeDestinationLink: 'https://waze.com',
+    basePassage: 'בסיס זה קרוב ל70 שנה שומר על העליונות האווירית של מדינת ישראל, אז בוא עכשיו לראות את המטוסים ביום העצמאות',
+    baseArrivalTime: '9:00-15:00',
+    baseArrivalTimeIcon: 'randomIcon.svg',
+    baseArrivalExplanation: 'יש לחפש בוייז "בסיס רמת אביב" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים',
+    baseMapPath: 'a'
+}
+
+
+function onClose() {
+    let basePopUpElement = document.getElementById(`open-bases-popup`);
+    let id = null;
+    let pos = 0;
+    clearInterval(id);
+    id = setInterval(frame, 5);
+    function frame() {
+        if (pos >= window.innerHeight) {
+          clearInterval(id);
+          basePopUpElement.style.display = 'none'
+
+        } else {
+          pos += 15;
+          basePopUpElement.style.top = pos + 'px';
+        }
+    }
+
+}
+
+
+function onGrab(event) { 
+    let basePopUpElement = document.getElementById(`open-bases-popup`);
+    let currentWindowHeight = window.innerHeight;
+
+    //Dragging proccess for computers
+    basePopUpElement.addEventListener('drag', function(event) {
+        if (event.clientY !== 0){
+        basePopUpElement.style.transform = `translateY(${event.clientY}px)`};
+    });
+
+    //Final positioning for computers
+    basePopUpElement.addEventListener('dragend', function(event) {
+        currentWindowHeight = window.innerHeight;
+        if (currentWindowHeight - event.clientY >= currentWindowHeight * 0.667) {
+            basePopUpElement.style.transform = `translateY(0px)`;
+        } else if (currentWindowHeight - event.clientY >= currentWindowHeight * 0.333) {
+            basePopUpElement.style.transform = `translateY(300px)`;
+        } else {
+            basePopUpElement.style.transform = `translateY(${currentWindowHeight}px)`;
+            basePopUpElement.style.display = 'none';
+        }
+    });
+
+    //Dragging proccess for mobiles
+    basePopUpElement.addEventListener('touchmove', function(event) {
+        currentWindowHeight = window.innerHeight;
+        if (event.targetTouches[0].pageY >= 0) {
+            basePopUpElement.style.transform = `translateY(${event.targetTouches[0].pageY}px)`
+        } else if (event.targetTouches[0].pageY >= currentWindowHeight * 0.333) {
+            basePopUpElement.style.transform = `translateY(${currentWindowHeight}px)`
+        }
+    })
+
+    
+}
+
+function showBaseLoactionPopup(point) {
+    let baseHeaderHtml = `
+        <div id="header-base-popup" class="header-base-popup">
+            <div class="header-theme">
+                <img src="${point.baseThemePath}">
+                <div class="header-menu">
+                    <div class="close-handler" onclick="onClose()">
+                       <div class="close-left-stick"></div>
+                       <div class="close-right-stick"></div>
+                    </div>
+                    <button class="drag" draggable="true" ondrag="onGrab(event)"></button>
+                </div>
+            </div>
+            <div class="header-general-title">
+                <img src=${point.iconBasePath}>
+                <div class="header-title">
+                    <h1>${point.baseName}</h1>
+                    <p>בסיס פתוח</p>
+                </div>
+                <a href=${point.baseWazeDestinationLink}>
+                    <img src=/waze.jpg>
+                </a>
+            </div>
+        </div>`;
+    
+    let baseInformationHtml = `
+        <div id="base-general-information" class="base-general-information">
+            <p class="base-passage">${point.basePassage}</p>
+            <div class="base-info-with-icon">
+                <img src=${point.baseArrivalTimeIcon}>
+                <div class="base-info">
+                    <h2>שעות פתיחה</h2>
+                    <p>${point.baseArrivalTime}</p>
+                </div>
+            </div>
+            <div class="base-info-with-icon">
+                <img src=${point.baseArrivalTimeIcon}>
+                <div class="base-info">
+                    <h2>הוראות הגעה</h2>
+                    <p>${point.baseArrivalExplanation}</p>
+                </div>
+            </div>
+            <div class="base-info-with-icon">
+                <img src=${point.baseArrivalTimeIcon}>
+                <div class="base-info">
+                    <h2>קורונה</h2>
+                    <p>
+                    הכניסה לבסיס בהתאם ל
+                    <a href="https://corona.health.gov.il/green-pass/">מגבלות התו הירוק</a>
+                    </p>
+                </div>
+            </div>
+            <div class="airplane-card">
+                <h1>תערוכה קרקעית</h1>
+                <p>בבסיס תוכלו לראות תערוכה של מטוסי החיל, משגר הכנה אווירית,חימושים ושלל מערכות אחרות</p>
+                ${(point.baseMapPath !== '')?`<a href=${point.baseMapPath}><button class="base-map">למפת התערוכות</button></a>`:''}
+                document.body.innerHTML += (showBaseLoactionPopup(point))   </div>
+        </div>`;
+    
+    
+    
+    
+    let mainHtml = `
+       <div class="open-bases-popup" id="open-bases-popup">
+           ${baseHeaderHtml}
+           ${baseInformationHtml}
+        </div>
+        `;
+    
+    return  mainHtml;
+    }
+
+
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized = false, closeCallback) {
     window.location.hash = locationPopupHash;
     previousHash.push(locationPopupHash);

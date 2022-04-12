@@ -1013,3 +1013,242 @@ input[type="range"] {
   border-radius: 20px;
 }
 
+div.open-bases-popup {
+  overflow : scroll;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #003366;
+}
+
+div.open-bases-popup div.header-base-popup {
+}
+
+div.header-base-popup div.header-theme {
+  display: flex;     
+  position: relative; 
+  height: auto;
+}
+
+div.header-base-popup div.header-theme img{
+  position: absolute;
+  object-fit: cover;
+  height: auto;
+  max-height: 200px;
+  width: 100%;
+  -webkit-user-drag: none;
+}
+
+div.header-theme div.header-menu {
+  display: flex;
+  justify-content: center;
+  z-index: 999;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+div.header-menu button.drag {
+  height: 7.5px;
+  width: 70px;
+  cursor: pointer;
+  border: 0px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px 1px #888888;
+  margin-left: auto;
+  margin-right: auto;
+  align-self: center;
+}
+
+div.header-menu button:active {
+  cursor: grab;
+}
+
+div.header-menu div.close-handler {
+  position: relative;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  align-self:center;
+  cursor: pointer;
+  -webkit-user-select: none;
+  position: relative;
+}
+
+div.close-handler div.close-left-stick {
+  background-color: white;
+  width: 25px;
+  height: 5px;
+  box-shadow: 0.25px -0.25px 8px 1px#888888;
+  border-radius: 5px;
+  position: absolute;
+  transform: rotate(45deg);
+
+}
+
+div.close-handler div.close-right-stick {
+  background-color: white;
+  width: 25px;
+  height: 5px;
+  transform: rotate(-45deg);
+  box-shadow: 0.2px 0.2px 8px 1px#888888;
+  border-radius: 5px;
+  position: absolute;
+  margin-left: 14.5px;
+  z-index: 999;
+}
+
+div.header-base-popup div.header-general-title {
+  width: 100%;
+  position: relative;
+  top: 172.75px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border-bottom: 1px solid #c3c3c3;
+}
+
+div.header-base-popup div.header-general-title img {
+  width: 4rem;
+  height: 4rem;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  margin-right: 2.5%;
+}
+
+div.header-general-title div.header-title {
+  margin-right: 2.5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+div.header-general-title h1 {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+div.header-general-title p {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+div.header-general-title a {
+  margin-right: auto;
+  margin-left: 2.5%;
+  display: flex;
+  align-items: center;
+}
+
+
+div.header-general-title a img {
+  max-width: 2.5em;
+  max-height: 2.5em;
+}
+
+div.open-bases-popup div.base-general-information {
+  position: relative;
+  top: 172.75px;
+  height: 100%;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+  margin-top: 20px;
+  max-width: 85%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+div.open-bases-popup div.base-general-information p.base-passage {
+  margin-right: auto;
+  margin-left: auto;
+  padding-bottom: 15px;
+  line-height: 20px;
+  border-bottom: 1px solid #c3c3c3;
+}
+
+div.base-general-information div.base-info-with-icon {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 20px;
+  height: 6rem;
+  
+}
+
+div.base-info-with-icon img {
+  display: flex;
+  align-self: flex-start;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  max-width: 4em;
+  max-height: 4em;
+  margin-right: 5%;
+}
+
+div.base-info-with-icon div.base-info {
+  margin-right: 5%;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  font-size: 0.9rem;
+}
+
+div.base-info-with-icon div.base-info p {
+  margin-top: 0.5rem;
+  line-height: 20px;
+}
+
+div.base-info-with-icon div.base-info p a{
+  color: cyan;
+  font-weight: 600;
+}
+
+div.base-general-information div.airplane-card{
+  margin-top: 30px;
+  align-self: center;
+  background-image: url();
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 4px 4px 10px 0px #888888;
+  display: flex;
+  flex-direction: column;
+}
+
+div.airplane-card h1 {
+  margin: 10px;
+}
+
+div.airplane-card p {
+  max-width: 70%;
+  margin: 10px;
+  line-height: 20px;
+  
+}
+
+div.airplane-card a {
+  display: flex;
+  margin-right: 15%;
+  margin-top : 10px;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+div.airplane-card a button.base-map {
+  background-color: cyan;
+  color: white;
+  font-weight: 600;
+  padding: 9px;
+  border-radius: 18px;
+  border: 0px;
+  cursor: pointer;
+  
+}
