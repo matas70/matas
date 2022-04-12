@@ -130,11 +130,11 @@
 		</div>
 		<div id="ar-overly">
 			<div id="controls">
-				<div id="resetbutton">
+				<div id="resetbutton" class="trails_menu_hide">
 					<button id="button-reset" class="support" alt="Draw"></button>
 				</div>
 				<!-- <button id="button-action" alt="Toggle Flash"></button> -->
-				<button id="button-mode-toggle" alt="Toggle mode" class="dynamic" style="display: none;">
+				<button id="button-mode-toggle" alt="Toggle mode" class="static" style="display: none;">
 					<a class='static-mode'></a>
 					<span class='dynamic-mode'></span>
 				</button>
@@ -466,7 +466,8 @@
 			]
 
 
-			let locations = addMidpoints(locationsOptions[1], 20)
+			let locations = [[0, 0, 0]]
+
 
 
 			const AIRCRAFTS_META_DATA = [
@@ -512,7 +513,8 @@
 				{ id: "disco", type: "glb", scale: 0.019, text: "disco" },
 			]
 
-			let mode = 'dynamic';
+			let mode = 'static';
+
 
 			var pathRef = firebase.database().ref('path');
 			pathRef.on('value', (snapshot) => {
@@ -803,9 +805,10 @@
 						resetScene();
 					}
 					else {
-						locations = addMidpoints(locationsOptions[Math.floor(Math.random() * locationsOptions.length)], 20)
+						locations = addMidpoints(locationsOptions[Math.floor(Math.random() * locationsOptions.length)], 20);
 						scene.remove(painter.mesh);
 						loadPainter();
+						
 					}
 				})
 
@@ -858,7 +861,11 @@
 						let buttonreset = document.getElementById("resetbutton");
 						buttonreset.classList.remove('trails_menu_hide');
 						document.getElementById("slidecontainer").classList.remove('slidecontainer_hide');
-						if (locations.length) locations.pop();
+						if (locations.length) {
+							// Loads airplane route and display it
+							locations = addMidpoints(locationsOptions[1], 20)
+							loadPainter();
+						};
 						painter.mesh.material.opacity = 0.3;
 					} else {
 
@@ -886,7 +893,7 @@
 				loadLight();
 				loadPainter();
 				loadController();
-				changeTrails(TRAILS_META_DATA[TRAILS_META_DATA.length - 1]);
+
 
 				window.addEventListener('resize', onWindowResize);
 
@@ -1121,7 +1128,6 @@
 						document.getElementById('usdz_info').style.display = "block";
 					} else {
 						document.getElementById('button-mode-toggle').style.display = "block";
-						document.getElementById('usdz_info').style.display = "none";
 					}
 				}, 10)
 			}
@@ -1383,6 +1389,7 @@
 			}
 
 			let noSopportTutorial = 0;
+
 			document.querySelector('#no-support-tutorial').addEventListener('click', () => {
 				noSopportTutorial ++;
 				if (noSopportTutorial === 1){
@@ -1394,7 +1401,6 @@
 
 				document.cookie = "tut=2; expires=Thu, 30 Dec 2022 12:00:00 UTC";
 			})
-
 
 			document.querySelector('#ar_info').addEventListener('click', ()=>{
 				if(isSupported) {

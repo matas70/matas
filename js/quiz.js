@@ -444,8 +444,8 @@
     $('#quiz .question .option.c').text(question.c)
     $('#quiz .question .counter .current').text(count)
     $('#quiz .question .counter .total').text(maxQuestions)
-
   }
+  
 
   $('#quiz .question .option').on("click", function () {
     $('#quiz .question .option.marked').removeClass('marked');
