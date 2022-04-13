@@ -89,7 +89,7 @@ point = {
     wazeArrivalIcon: 'randomIcon.svg',
     coronaIcon: 'randomIcon.svg',
     baseArrivalExplanation: 'יש לחפש בוייז "בסיס רמת אביב" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים',
-    baseMapPath: 'a'
+    baseMapPath: 'https://mida.org.il/wp-content/uploads/2013/02/47635.pdf'
 }
 
 
