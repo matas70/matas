@@ -233,24 +233,27 @@
 				</div>
 
 				<div id="space"></div>
-
+				<div class="tringle-conteiner">
+					<div class="tringle"></div>
+				    <div class="tringle"></div>
+				</div>
 				<div id="supported-menu">
 					<div id="menu-block">
 						<div id="share">
 							<script>
-								// document.getElementById("share").addEventListener('click', ()=>{
-								// 	if(navigator.share){
-								// 		navigator.share({
-                                //         title: 'matas.iaf ar',
-                                //         url: 'https://matas.iaf.org.il/ar.html'
-                                //         }).then(() => {
-                                //         console.log('Thanks for sharing!');
-                                //         })
-                                //         .catch(console.error);
-								// 	} else {
-								// 		// fallback
-								// 	}
-								// })
+								document.getElementById("share").addEventListener('click', ()=>{
+									if(navigator.share){
+										navigator.share({
+                                        title: 'matas.iaf ar',
+                                        url: 'https://matas.iaf.org.il/ar.html'
+                                        }).then(() => {
+                                        console.log('Thanks for sharing!');
+                                        })
+                                        .catch(console.error);
+									} else {
+										// fallback
+									}
+								})
 							</script>
 							<p>שיתוף</p>
 							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="19px" viewBox="0 0 17 19" version="1.1">

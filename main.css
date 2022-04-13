@@ -531,7 +531,28 @@ font-weight: 500;
   border-bottom: 10px solid;
   border-radius: 40px;
 } */
-
+.tringle-conteiner{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.tringle{
+  width: 0;
+  height: 0;
+  border: 12px solid transparent;
+  border-top: 0;
+  border-bottom: 34px solid black;
+  margin-bottom: -20px;
+  margin-top: -16px;
+}
+.tringle:first-child{
+  margin-left: -6.5px;
+  transform: rotate(-17deg);
+}
+.tringle:last-child{
+  margin-right: -6px;
+  transform: rotate(20deg);
+}
 #help-supported-ar{
   bottom: 120%;
   background: #FFFFFF;
@@ -594,6 +615,7 @@ font-weight: 500;
   display: flex;
   align-items: center;
 }
+
 #space{
   margin-top: -45px;
   margin-bottom: -14px;
@@ -617,6 +639,7 @@ font-weight: 500;
   align-items: center;
   justify-content: space-around;
 }
+
 #menu-block #share{
   display: flex;
   align-items: center;
@@ -676,6 +699,9 @@ font-weight: 500;
 }
 #menu-block #help svg{
   margin-left: 4px;
+}
+.is-supported #share-button{
+  display: none;
 }
 .is-supported #space{
   display: block;
