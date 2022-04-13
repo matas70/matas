@@ -216,21 +216,23 @@
 					<div class="buffer" style="height: 50px; flex: 1 0 auto;"></div>
 					<div class="buffer" style="height: 50px; flex: 1 0 auto;"></div>
 				</div>
-				
-				<div id="help-supported-ar">
-					<div id="supported-ar-conteiner">
-						<p class="title">מיד תועברו לעמוד חדש</p>
-						<p class="description">לחצו על המטוס כדי לצפות בו במציאות רבודה</p>
-						<img src="./assets/pictureInYourLivingRoom.png" alt="">
-						<div class="conteiner-bottom">
-							<button>הבנתי</button>
-							<div class="show-hid-check-box">
-								<p>אל תציג שוב</p>
-								<input type="checkbox">
+				<div id="help-supported-ar-conteiner">
+					<div id="help-supported-ar">
+						<div id="supported-ar-conteiner">
+							<p class="title">מיד תועברו לעמוד חדש</p>
+							<p class="description">לחצו על המטוס כדי לצפות בו במציאות רבודה</p>
+							<img src="./assets/pictureInYourLivingRoom.png" alt="">
+							<div class="conteiner-bottom">
+								<button>הבנתי</button>
+								<div class="show-hid-check-box">
+									<p>אל תציג שוב</p>
+									<input type="checkbox">
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				
 
 				<div id="supported-menu-borders">
 					<div id="space"></div>
@@ -1353,8 +1355,7 @@
 				scene.background = background;
 				renderer.toneMappingExposure = params.exposure;
 			}
-			let InfoPopupshow = false;
-			let helpSupportedArPopup = document.getElementById('help-supported-ar');
+			
 			function renderAircraft() {
 				
 				if(environmentToggleClick || !isSupported){
@@ -1421,8 +1422,28 @@
 					}
 				}
 			}
-
+			let helpSupportedArPopup = document.getElementById('help-supported-ar');
 			let environmentToggleClick;
+			
+			//suppurted AR info popup
+			function ARSupportedsInfopopup(){
+
+				let InfoPopupshowcheckbox = document.querySelector('.show-hid-check-box input').checked;
+				document.querySelector('#help-supported-ar .title').innerText = "מיד תועברו לעמוד חדש";
+				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '0px';
+				document.querySelector('#help-supported-ar .conteiner-bottom .show-hid-check-box').style.display = 'flex';
+				if(!InfoPopupshowcheckbox){
+					helpSupportedArPopup.style.display = 'block';
+				    document.querySelector('#supported-ar-conteiner .conteiner-bottom button').addEventListener('click', ()=>{
+						helpSupportedArPopup.style.display = 'none'; 
+					});
+				}else{
+					helpSupportedArPopup.style.display = 'none';
+			    }
+			}
+			ARSupportedsInfopopup();
+
+
 			document.getElementById("change-ar-toggle").addEventListener('click', () =>{
 				environmentToggleClick = !environmentToggleClick;
 				document.getElementById("toggle").style.transition = 'all 0.3s';
@@ -1433,6 +1454,7 @@
 					document.getElementById('dynamic-icon-part').style.stroke = 'white';
 					
 				}else{
+					ARSupportedsInfopopup();
 					document.getElementById('camera-icon').style.fill = 'white';
 					document.getElementById("toggle").style.marginLeft = '61px';
 					document.getElementById('dynamic-icon-part-2').style.fill = 'rgb(170 170 170)';
@@ -1454,7 +1476,7 @@
 				document.getElementById('url-copied').style.display = 'block';
 				setTimeout(() => {
 					document.getElementById('url-copied').style.display = 'none';
-				}, 2000);
+				}, 1500);
 			})
 			function smooth(locations) {
 				let result = [locations[0]];

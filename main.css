@@ -560,16 +560,25 @@ font-weight: 500;
   margin-right: -6px;
   transform: rotate(20deg);
 }
-#help-supported-ar{
+
+#help-supported-ar-conteiner{
+  display: none;
+  position: absolute;
+  display: none;
   bottom: 120%;
+}
+.is-supported #help-supported-ar-conteiner{
+  display: block;
+}
+#help-supported-ar{
+ 
   background: #FFFFFF;
   border: 1px solid #EFF1F1;
   box-shadow: 0 0 15px 0 rgba(0,0,0,0.30);
   border-radius: 16px;
   height: 402px;
   width: 270px;
-  position: absolute;
-  display: none;
+  
 }
 #supported-ar-conteiner{
   display: flex;
