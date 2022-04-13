@@ -149,7 +149,7 @@
 					</svg>
 					
 				</div>
-				<p id="url-copied">הקישור הועתק! פרסם את זה עם חברים שלך</p>
+				<p id="url-copied">הקישור הועתק!</p>
 				<div id="resetbutton">
 					<button id="button-reset" class="support" alt="Draw"></button>
 				</div>
@@ -232,10 +232,12 @@
 					</div>
 				</div>
 
-				<div id="space"></div>
+				<div id="supported-menu-borders">
+					<div id="space"></div>
 				<div class="tringle-conteiner">
 					<div class="tringle"></div>
 				    <div class="tringle"></div>
+				</div>
 				</div>
 				<div id="supported-menu">
 					<div id="menu-block">
@@ -1351,7 +1353,8 @@
 				scene.background = background;
 				renderer.toneMappingExposure = params.exposure;
 			}
-			let showInfoPopup = true;
+			let InfoPopupshow = false;
+			let helpSupportedArPopup = document.getElementById('help-supported-ar');
 			function renderAircraft() {
 				
 				if(environmentToggleClick || !isSupported){
@@ -1361,17 +1364,6 @@
 				 	    placeAircraft();
 				    }
 				}else{
-					// if(showInfoPopup){
-					// 	document.getElementById('help-supported-ar').style.display = 'block';
-					// 	document.querySelector('#help-supported-ar .conteiner-bottom button').addEventListener('click', ()=>{
-					// 		document.getElementById('help-supported-ar').style.display = 'none';
-					// 	});
-					// }else{
-					// 	document.getElementById('help-supported-ar').style.display = 'none';
-					// }
-					// document.querySelector('#help-supported-ar .conteiner-bottom .show-hid-check-box input').addEventListener('click', () =>{
-					//     showInfoPopup = !showInfoPopup;
-					// });
 					scene.background = null;
 					handleController(controller);
 					if (aircraft) {
@@ -1458,11 +1450,11 @@
 			})
 
 			document.getElementById('share-button').addEventListener('click', ()=>{
-				navigator.clipboard.writeText("https://matas.iaf.org.il/ar.html");
+				navigator.clipboard.writeText("https://matas.iaf.org.il/ar.html : צפו במטוסי חיל האוויר בתלת-מימד, באתר של מטס יום העצמאות!");
 				document.getElementById('url-copied').style.display = 'block';
 				setTimeout(() => {
 					document.getElementById('url-copied').style.display = 'none';
-				}, 1000);
+				}, 2000);
 			})
 			function smooth(locations) {
 				let result = [locations[0]];

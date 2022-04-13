@@ -211,6 +211,7 @@ select {
   display: none;
   position: absolute;
   margin-top: 6vh;
+  color: white;
 }
 #share-button p{
   padding-right: 5px;
@@ -531,6 +532,12 @@ font-weight: 500;
   border-bottom: 10px solid;
   border-radius: 40px;
 } */
+.is-supported #supported-menu-borders{
+  display: block;
+}
+#supported-menu-borders{
+  display: none;
+}
 .tringle-conteiner{
   width: 100%;
   display: flex;
