@@ -386,6 +386,66 @@
         </div>
     </div>
 
+     <!-- open bases info popup -->
+    <div class="open-bases-popup" id="open-bases-popup">
+        <div id="header-base-popup" class="header-base-popup">
+            <div class="header-theme">
+                <img id="baseTheme">
+                <div class="header-menu">
+                    <div class="close-handler" onclick="onClose()">
+                       <div class="close-left-stick"></div>
+                       <div class="close-right-stick"></div>
+                    </div>
+                    <button class="drag" draggable="true" ondrag="onGrab(event)"></button>
+                </div>
+            </div>
+            <div class="header-general-title">
+                <img id="iconBase">
+                <div class="header-title">
+                    <h1 id="baseName"></h1>
+                    <p>בסיס פתוח</p>
+                </div>
+                <a id="wazeLink">
+                    <img src=/waze.jpg>
+                </a>
+            </div>
+        </div>
+        <div id="base-general-information" class="base-general-information">
+            <p class="base-passage" id="base-passage"></p>
+            <div class="base-info-with-icon">
+                <img id="baseArrivalTimeIcon">
+                <div class="base-info">
+                    <h2>שעות פתיחה</h2>
+                    <p id="baseArrivalTime"></p>
+                </div>
+            </div>
+            <div class="base-info-with-icon">
+                <img id="baseArrivalDestinationIcon">
+                <div class="base-info">
+                    <h2>הוראות הגעה</h2>
+                    <p id="baseArrivalExplanation"></p>
+                </div>
+            </div>
+            <div class="base-info-with-icon">
+                <img id="coronaIcon">
+                <div class="base-info">
+                    <h2>קורונה</h2>
+                    <p>
+                        הכניסה לבסיס בהתאם ל
+                    <a href="https://corona.health.gov.il/green-pass/">מגבלות התו הירוק</a>
+                    </p>
+                </div>
+            </div>
+            <div class="airplane-card" id="base-airplane-card">
+                <h1>תערוכה קרקעית</h1>
+                <p>בבסיס תוכלו לראות תערוכה של מטוסי החיל, משגר הכנה אווירית,חימושים ושלל מערכות אחרות</p>
+                <div id="base-map-button-handler"></div>
+            </div>
+        </div>`;
+     </div>
+     
+
+
 <!-- about popup -->
 <div id="aboutPopup" class="aboutPopup" style="display:none">
     <img id="aboutExitLogo" class="aboutExitLogo" src = "icons/aboutExitLogo.svg"/>
