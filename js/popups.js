@@ -160,7 +160,8 @@ point = {
     wazeArrivalIcon: 'randomIcon.svg',
     coronaIcon: 'randomIcon.svg',
     baseArrivalExplanation: 'יש לחפש בוייז "בסיס רמת אביב" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים',
-    baseMapPath: 'a'
+    baseMapLink: 'https://mida.org.il/wp-content/uploads/2013/02/47635.pdf',
+
 }
 
 function showBaseLoactionPopup() {
@@ -184,7 +185,7 @@ function showBaseLoactionPopup() {
     document.getElementById('baseArrivalExplanation').innerHTML = point.baseArrivalExplanation;
     document.getElementById('coronaIcon').src = point.coronaIcon;
 
-    let mapButton = (point.baseMapPath !== '')?`<a href=${point.baseMapPath}><button class="base-map">למפת התערוכות</button></a>`:'';
+    let mapButton = (point.baseMapLink !== '')?`<a href=${point.baseMapLink} target="_blank"><button class="base-map">למפת התערוכות</button></a>`:'';
 
     document.getElementById('base-map-button-handler').innerHTML = mapButton;
     }
