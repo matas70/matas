@@ -130,7 +130,7 @@
 		</div>
 		<div id="ar-overly">
 			<div id="controls">
-				<div id="share-button">
+				<div id="unsupported-share-button">
 					<p>שיתוף</p>
 					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="19px" viewBox="0 0 17 19" version="1.1">
 								<g id="2022" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
@@ -1099,12 +1099,23 @@
 				scene.add(controller);
 			}
 
+			// let previousSelectedAircraft; 
+			// previousSelectedAircraft =
+
+
+
+
+
+
+
+
+
+
+
 
 			function loadAircraftGLTF(selectedAircraft) {
 
 				document.querySelector('.aircraft-option.selected').classList.add('aircraftAnimation');
-				
-
 				new GLTFLoader()
 					.load('./3d_models/aircrafts/gltf/' + selectedAircraft.id + '/object.' + selectedAircraft.type, function (gltf) {
 						if (aircraft)
@@ -1121,10 +1132,7 @@
 							action = mixer.clipAction(animation);
 							action.play();
 						});
-						// document.querySelector('.aircraft-option.selected').style.backgroundColor = '#3bb5f234';
 						document.querySelector('.aircraft-option.selected').classList.remove('aircraftAnimation');
-						// document.querySelector('.aircraft-option.selected').style.backgroundColor = "blue";
-						// document.querySelectorAll('.aircraft-option').style.backgroundColor = "transparent";
 					}, undefined, function (error) {
 						console.error(error);
 					});
@@ -1471,7 +1479,7 @@
 				})
 			})
 
-			document.getElementById('share-button').addEventListener('click', ()=>{
+			document.getElementById('unsupported-share-button').addEventListener('click', ()=>{
 				navigator.clipboard.writeText("https://matas.iaf.org.il/ar.html : צפו במטוסי חיל האוויר בתלת-מימד, באתר של מטס יום העצמאות!");
 				document.getElementById('url-copied').style.display = 'block';
 				setTimeout(() => {

@@ -436,7 +436,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
 
     if(currAircraftName !== undefined){
         document.getElementById('aircraftInfo3D').innerHTML =
-    "<button id='ARButton' onclick='openAR("+JSON.stringify(currAircraftName.name)+")'></button>";
+    "<button id='ARButton' onclick='openAR(" + JSON.stringify(currAircraftName.name) + ")'></button>";
     }else{
         document.getElementById('aircraftInfo3D').innerHTML =
         "<button id='ARButton' onclick='openAR()'></button>";
