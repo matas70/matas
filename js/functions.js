@@ -1171,7 +1171,7 @@ function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllP
     window.scrollTo(0, 1);
 
     // Manages selected tab in aircraft view
-    // $("#aircraftInfoButton").click();b  
+    // $("#aircraftInfoButton").click(); 
     selectInfoButtonWithoutClicking();
 
     selectAircraft(aircraft, aircraftMarkers[aircraftId - 1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse, showAllPoints);
