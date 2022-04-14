@@ -150,33 +150,29 @@ function onGrab(event) {
 }
 
 point = {
-    baseThemePath: `theme.jpg`,
-    baseName: 'בסיס חצור',
-    iconBasePath: 'hatsor.jpeg',
-    baseWazeDestinationLink: 'https://waze.com',
-    basePassage: 'בסיס זה קרוב ל70 שנה שומר על העליונות האווירית של מדינת ישראל, אז בוא עכשיו לראות את המטוסים ביום העצמאות',
+    baseThemePath: `experimental-assets/theme.jpg`,
+    baseName: 'בסיס תל נוף',
+    iconBasePath: 'experimental-assets/tel-nof.svg',
+    basePassage: 'נפתח בסיס תל נוף לקהל הרחב ואתם מוזמנים! בואו לראות מבפנים בסיס חיל האוויר הכניסה חינם.',
     baseArrivalTime: '9:00-15:00',
-    baseArrivalTimeIcon: 'randomIcon.svg',
-    wazeArrivalIcon: 'randomIcon.svg',
-    coronaIcon: 'randomIcon.svg',
+    baseArrivalTimeIcon: 'experimental-assets/location-icon.svg',
+    wazeArrivalIcon: 'experimental-assets/location-icon.svg',
+    coronaIcon: 'experimental-assets/location-icon.svg',
     baseArrivalExplanation: 'יש לחפש בוייז "בסיס רמת אביב" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים',
     baseMapPath: 'a'
 }
 
 function showBaseLoactionPopup() {
-    
     let basePopUpElement = $("#open-bases-popup");
     basePopUpElement.animate({
-        height: window.innerHeight + "px",
-        top: '0px',
+        height: (window.innerHeight- document.getElementById('headerBg').clientHeight) + "px",
+        top: `${( document.getElementById('headerBg').clientHeight)}px`,
     }, "fast");
 
     document.getElementById('open-bases-popup').style.display = 'block';
-
     document.getElementById('baseTheme').src = point.baseThemePath;
     document.getElementById('iconBase').src = point.iconBasePath;
     document.getElementById('baseName').innerHTML = point.baseName;
-    document.getElementById('wazeLink').setAttribute("href", point.baseWazeDestinationLink);
     document.getElementById('base-passage').innerHTML = point.basePassage;
     document.getElementById('baseArrivalTimeIcon').src = point.baseArrivalTimeIcon;
     document.getElementById('baseArrivalTime').innerHTML = point.baseArrivalTime;
@@ -184,7 +180,8 @@ function showBaseLoactionPopup() {
     document.getElementById('baseArrivalExplanation').innerHTML = point.baseArrivalExplanation;
     document.getElementById('coronaIcon').src = point.coronaIcon;
 
-    let mapButton = (point.baseMapPath !== '')?`<a href=${point.baseMapPath}><button class="base-map">למפת התערוכות</button></a>`:'';
+
+    let mapButton = (point.baseMapPath !== '')?`<a href=${point.baseMapPath} target="_blank"><button class="base-map">למפת התערוכה</button></a>`:'';
 
     document.getElementById('base-map-button-handler').innerHTML = mapButton;
     }
