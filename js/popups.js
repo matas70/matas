@@ -156,9 +156,6 @@ point = {
     baseWazeDestinationLink: 'https://waze.com',
     basePassage: 'בסיס זה קרוב ל70 שנה שומר על העליונות האווירית של מדינת ישראל, אז בוא עכשיו לראות את המטוסים ביום העצמאות',
     baseArrivalTime: '9:00-15:00',
-    baseArrivalTimeIcon: 'randomIcon.svg',
-    wazeArrivalIcon: 'randomIcon.svg',
-    coronaIcon: 'randomIcon.svg',
     baseArrivalExplanation: 'יש לחפש בוייז "בסיס רמת אביב" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים',
     baseMapLink: 'https://mida.org.il/wp-content/uploads/2013/02/47635.pdf',
 
@@ -179,11 +176,8 @@ function showBaseLoactionPopup() {
     document.getElementById('baseName').innerHTML = point.baseName;
     document.getElementById('wazeLink').setAttribute("href", point.baseWazeDestinationLink);
     document.getElementById('base-passage').innerHTML = point.basePassage;
-    document.getElementById('baseArrivalTimeIcon').src = point.baseArrivalTimeIcon;
     document.getElementById('baseArrivalTime').innerHTML = point.baseArrivalTime;
-    document.getElementById('baseArrivalDestinationIcon').src = point.wazeArrivalIcon;
     document.getElementById('baseArrivalExplanation').innerHTML = point.baseArrivalExplanation;
-    document.getElementById('coronaIcon').src = point.coronaIcon;
 
     let mapButton = (point.baseMapLink !== '')?`<a href=${point.baseMapLink} target="_blank"><button class="base-map">למפת התערוכות</button></a>`:'';
 
