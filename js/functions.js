@@ -1136,13 +1136,42 @@ function selectInfoButtonWithoutClicking() {
 
     currAircraftTab = "#aircraftInfoContent";
 }
+arClick = false;
+let showHelpArPopup = false
+
+function openAR(aircraftName) {
+  
+    if(isIOS()){
+        
+        if(!showHelpArPopup){
+            document.getElementById("usdz-info-popup").style.display = "block";
+            document.getElementById("dim-background").style.display = "block";
+            document.querySelector("#popup-bottom button").addEventListener('click', () =>{
+                document.getElementById("usdz-info-popup").style.display = "none";
+                document.getElementById("dim-background").style.display = "none";
+                openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
+            });
+            document.querySelector("#popup-bottom #checkbox").addEventListener('click', () => {
+                showHelpArPopup = !showHelpArPopup;
+            });
+        }else{
+            openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
+        }
+    }else{
+        arClick = false;
+        openExternal("ar.html");
+    }
+}
 
 function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllPoints = false) {
-    var aircraft = aircrafts[aircraftId - 1];
+
+    if(!isIOS() || (isIOS() && arClick === false)){
+        
+        var aircraft = aircrafts[aircraftId - 1];
     window.scrollTo(0, 1);
 
     // Manages selected tab in aircraft view
-    // $("#aircraftInfoButton").click();
+    // $("#aircraftInfoButton").click(); 
     selectInfoButtonWithoutClicking();
 
     selectAircraft(aircraft, aircraftMarkers[aircraftId - 1], aircraft.name, aircraft.type, aircraft.icon, aircraft.image, aircraft.path[0].time, aircraft.infoUrl, collapse, showAllPoints);
@@ -1151,6 +1180,9 @@ function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllP
         // show schedule instead of aircraft info
         $("#aircraftScheduleButton").click();
     }
+    }
+    
+    
 }
 
 var globalCollapse;
@@ -2440,4 +2472,16 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 
 
 })()
+function isIOS() {
+    return [
+        'iPad Simulator',
+        'iPhone Simulator',
+        'iPod Simulator',
+        'iPad',
+        'iPhone',
+        'iPod'
+    ].includes(navigator.platform)
+        // iPad on iOS 13 detection
+        || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+}
 
