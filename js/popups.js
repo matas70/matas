@@ -82,14 +82,14 @@ point = {
     baseThemePath: `theme.jpg`,
     baseName: 'בסיס חצור',
     iconBasePath: 'hatsor.jpeg',
-    baseWazeDestinationLink: 'https://waze.com',
+    baseWazeDestinationLink: 'https://ul.waze.com/ul?place=ChIJ8R1rwS7s9z4RzvpRntOVsEA&ll=32.42790800%2C53.68804600&navigate=yes',
     basePassage: 'בסיס זה קרוב ל70 שנה שומר על העליונות האווירית של מדינת ישראל, אז בוא עכשיו לראות את המטוסים ביום העצמאות',
     baseArrivalTime: '9:00-15:00',
     baseArrivalTimeIcon: 'randomIcon.svg',
     wazeArrivalIcon: 'randomIcon.svg',
     coronaIcon: 'randomIcon.svg',
     baseArrivalExplanation: 'יש לחפש בוייז "בסיס רמת אביב" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים',
-    baseMapPath: 'a'
+    baseMapPath: 'https://mida.org.il/wp-content/uploads/2013/02/47635.pdf'
 }
 
 
