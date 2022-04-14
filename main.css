@@ -202,7 +202,7 @@ select {
   background-repeat: no-repeat;
   background-size: contain;
 }
-#share-button{
+#unsupported-share-button{
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -213,7 +213,7 @@ select {
   margin-top: 6vh;
   color: white;
 }
-#share-button p{
+#unsupported-share-button p{
   padding-right: 5px;
   font-family: Heebo-Medium;
   font-size: 15px;
@@ -560,16 +560,25 @@ font-weight: 500;
   margin-right: -6px;
   transform: rotate(20deg);
 }
-#help-supported-ar{
+
+#help-supported-ar-conteiner{
+  display: none;
+  position: absolute;
+  display: none;
   bottom: 120%;
+}
+.is-supported #help-supported-ar-conteiner{
+  display: block;
+}
+#help-supported-ar{
+ 
   background: #FFFFFF;
   border: 1px solid #EFF1F1;
   box-shadow: 0 0 15px 0 rgba(0,0,0,0.30);
   border-radius: 16px;
   height: 402px;
   width: 270px;
-  position: absolute;
-  display: none;
+  
 }
 #supported-ar-conteiner{
   display: flex;
@@ -707,7 +716,7 @@ font-weight: 500;
 #menu-block #help svg{
   margin-left: 4px;
 }
-.is-supported #share-button{
+.is-supported #unsupported-share-button{
   display: none;
 }
 .is-supported #space{

@@ -130,7 +130,7 @@
 		</div>
 		<div id="ar-overly">
 			<div id="controls">
-				<div id="share-button">
+				<div id="unsupported-share-button">
 					<p>שיתוף</p>
 					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="19px" viewBox="0 0 17 19" version="1.1">
 								<g id="2022" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
@@ -216,21 +216,23 @@
 					<div class="buffer" style="height: 50px; flex: 1 0 auto;"></div>
 					<div class="buffer" style="height: 50px; flex: 1 0 auto;"></div>
 				</div>
-				
-				<div id="help-supported-ar">
-					<div id="supported-ar-conteiner">
-						<p class="title">מיד תועברו לעמוד חדש</p>
-						<p class="description">לחצו על המטוס כדי לצפות בו במציאות רבודה</p>
-						<img src="./assets/pictureInYourLivingRoom.png" alt="">
-						<div class="conteiner-bottom">
-							<button>הבנתי</button>
-							<div class="show-hid-check-box">
-								<p>אל תציג שוב</p>
-								<input type="checkbox">
+				<div id="help-supported-ar-conteiner">
+					<div id="help-supported-ar">
+						<div id="supported-ar-conteiner">
+							<p class="title">מיד תועברו לעמוד חדש</p>
+							<p class="description">לחצו על המטוס כדי לצפות בו במציאות רבודה</p>
+							<img src="./assets/pictureInYourLivingRoom.png" alt="">
+							<div class="conteiner-bottom">
+								<button>הבנתי</button>
+								<div class="show-hid-check-box">
+									<p>אל תציג שוב</p>
+									<input type="checkbox">
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				
 
 				<div id="supported-menu-borders">
 					<div id="space"></div>
@@ -1097,12 +1099,23 @@
 				scene.add(controller);
 			}
 
+			// let previousSelectedAircraft; 
+			// previousSelectedAircraft =
+
+
+
+
+
+
+
+
+
+
+
 
 			function loadAircraftGLTF(selectedAircraft) {
 
 				document.querySelector('.aircraft-option.selected').classList.add('aircraftAnimation');
-				
-
 				new GLTFLoader()
 					.load('./3d_models/aircrafts/gltf/' + selectedAircraft.id + '/object.' + selectedAircraft.type, function (gltf) {
 						if (aircraft)
@@ -1119,10 +1132,7 @@
 							action = mixer.clipAction(animation);
 							action.play();
 						});
-						// document.querySelector('.aircraft-option.selected').style.backgroundColor = '#3bb5f234';
 						document.querySelector('.aircraft-option.selected').classList.remove('aircraftAnimation');
-						// document.querySelector('.aircraft-option.selected').style.backgroundColor = "blue";
-						// document.querySelectorAll('.aircraft-option').style.backgroundColor = "transparent";
 					}, undefined, function (error) {
 						console.error(error);
 					});
@@ -1353,8 +1363,7 @@
 				scene.background = background;
 				renderer.toneMappingExposure = params.exposure;
 			}
-			let InfoPopupshow = false;
-			let helpSupportedArPopup = document.getElementById('help-supported-ar');
+			
 			function renderAircraft() {
 				
 				if(environmentToggleClick || !isSupported){
@@ -1421,8 +1430,28 @@
 					}
 				}
 			}
-
+			let helpSupportedArPopup = document.getElementById('help-supported-ar');
 			let environmentToggleClick;
+			
+			//suppurted AR info popup
+			function ARSupportedsInfopopup(){
+
+				let InfoPopupshowcheckbox = document.querySelector('.show-hid-check-box input').checked;
+				document.querySelector('#help-supported-ar .title').innerText = "מיד תועברו לעמוד חדש";
+				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '0px';
+				document.querySelector('#help-supported-ar .conteiner-bottom .show-hid-check-box').style.display = 'flex';
+				if(!InfoPopupshowcheckbox){
+					helpSupportedArPopup.style.display = 'block';
+				    document.querySelector('#supported-ar-conteiner .conteiner-bottom button').addEventListener('click', ()=>{
+						helpSupportedArPopup.style.display = 'none'; 
+					});
+				}else{
+					helpSupportedArPopup.style.display = 'none';
+			    }
+			}
+			ARSupportedsInfopopup();
+
+
 			document.getElementById("change-ar-toggle").addEventListener('click', () =>{
 				environmentToggleClick = !environmentToggleClick;
 				document.getElementById("toggle").style.transition = 'all 0.3s';
@@ -1433,6 +1462,7 @@
 					document.getElementById('dynamic-icon-part').style.stroke = 'white';
 					
 				}else{
+					ARSupportedsInfopopup();
 					document.getElementById('camera-icon').style.fill = 'white';
 					document.getElementById("toggle").style.marginLeft = '61px';
 					document.getElementById('dynamic-icon-part-2').style.fill = 'rgb(170 170 170)';
@@ -1449,12 +1479,12 @@
 				})
 			})
 
-			document.getElementById('share-button').addEventListener('click', ()=>{
+			document.getElementById('unsupported-share-button').addEventListener('click', ()=>{
 				navigator.clipboard.writeText("https://matas.iaf.org.il/ar.html : צפו במטוסי חיל האוויר בתלת-מימד, באתר של מטס יום העצמאות!");
 				document.getElementById('url-copied').style.display = 'block';
 				setTimeout(() => {
 					document.getElementById('url-copied').style.display = 'none';
-				}, 2000);
+				}, 1500);
 			})
 			function smooth(locations) {
 				let result = [locations[0]];

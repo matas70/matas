@@ -1140,8 +1140,7 @@ arClick = false;
 let showHelpArPopup = false
 
 function openAR(aircraftName) {
-
-   
+  
     if(isIOS()){
         
         if(!showHelpArPopup){
@@ -1158,9 +1157,6 @@ function openAR(aircraftName) {
         }else{
             openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
         }
-        
-       
-        //openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
     }else{
         arClick = false;
         openExternal("ar.html");
