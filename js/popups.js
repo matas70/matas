@@ -92,6 +92,118 @@ function initPopups() {
 
 }
 
+point = {
+    baseThemePath: `theme.jpg`,
+    baseName: 'בסיס חצור',
+    iconBasePath: 'hatsor.jpeg',
+    baseWazeDestinationLink: 'https://ul.waze.com/ul?place=ChIJ8R1rwS7s9z4RzvpRntOVsEA&ll=32.42790800%2C53.68804600&navigate=yes',
+    basePassage: 'בסיס זה קרוב ל70 שנה שומר על העליונות האווירית של מדינת ישראל, אז בוא עכשיו לראות את המטוסים ביום העצמאות',
+    baseArrivalTime: '9:00-15:00',
+    baseArrivalTimeIcon: 'randomIcon.svg',
+    wazeArrivalIcon: 'randomIcon.svg',
+    coronaIcon: 'randomIcon.svg',
+    baseArrivalExplanation: 'יש לחפש בוייז "בסיס רמת אביב" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים',
+    baseMapPath: 'https://mida.org.il/wp-content/uploads/2013/02/47635.pdf'
+}
+
+
+function onClose() {
+    let basePopUpElement = document.getElementById(`open-bases-popup`);
+    let id = null;
+    let pos = 0;
+    clearInterval(id);
+    id = setInterval(frame, 5);
+    function frame() {
+        if (pos >= window.innerHeight) {
+          clearInterval(id);
+          basePopUpElement.style.display = 'none'
+
+        } else {
+          pos += 15;
+          basePopUpElement.style.top = pos + 'px';
+        }
+    }
+
+}
+
+
+function onGrab(event) { 
+    let basePopUpElement = document.getElementById(`open-bases-popup`);
+    let currentWindowHeight = window.innerHeight;
+
+    //Dragging proccess for computers
+    basePopUpElement.addEventListener('drag', function(event) {
+        if (event.clientY !== 0){
+        basePopUpElement.style.transform = `translateY(${event.clientY}px)`};
+    });
+
+    //Final positioning for computers
+    basePopUpElement.addEventListener('dragend', function(event) {
+        currentWindowHeight = window.innerHeight;
+        if (currentWindowHeight - event.clientY >= currentWindowHeight * 0.667) {
+            basePopUpElement.style.transform = `translateY(0px)`;
+        } else if (currentWindowHeight - event.clientY >= currentWindowHeight * 0.333) {
+            basePopUpElement.style.transform = `translateY(300px)`;
+        } else {
+            basePopUpElement.style.transform = `translateY(${currentWindowHeight}px)`;
+            basePopUpElement.style.display = 'none';
+        }
+    });
+
+    //Dragging proccess for mobiles
+    basePopUpElement.addEventListener('touchmove', function(event) {
+        currentWindowHeight = window.innerHeight;
+        if (event.targetTouches[0].pageY >= 0) {
+            basePopUpElement.style.transform = `translateY(${event.targetTouches[0].pageY}px)`
+        } else if (event.targetTouches[0].pageY >= currentWindowHeight * 0.333) {
+            basePopUpElement.style.transform = `translateY(${currentWindowHeight}px)`
+        }
+    })
+
+    
+}
+
+point = {
+    baseThemePath: `theme.jpg`,
+    baseName: 'בסיס חצור',
+    iconBasePath: 'hatsor.jpeg',
+    baseWazeDestinationLink: 'https://waze.com',
+    basePassage: 'בסיס זה קרוב ל70 שנה שומר על העליונות האווירית של מדינת ישראל, אז בוא עכשיו לראות את המטוסים ביום העצמאות',
+    baseArrivalTime: '9:00-15:00',
+    baseArrivalTimeIcon: 'randomIcon.svg',
+    wazeArrivalIcon: 'randomIcon.svg',
+    coronaIcon: 'randomIcon.svg',
+    baseArrivalExplanation: 'יש לחפש בוייז "בסיס רמת אביב" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים',
+    baseMapPath: 'a'
+}
+
+function showBaseLoactionPopup() {
+    
+    let basePopUpElement = $("#open-bases-popup");
+    basePopUpElement.animate({
+        height: window.innerHeight + "px",
+        top: '0px',
+    }, "fast");
+
+    document.getElementById('open-bases-popup').style.display = 'block';
+
+    document.getElementById('baseTheme').src = point.baseThemePath;
+    document.getElementById('iconBase').src = point.iconBasePath;
+    document.getElementById('baseName').innerHTML = point.baseName;
+    document.getElementById('wazeLink').setAttribute("href", point.baseWazeDestinationLink);
+    document.getElementById('base-passage').innerHTML = point.basePassage;
+    document.getElementById('baseArrivalTimeIcon').src = point.baseArrivalTimeIcon;
+    document.getElementById('baseArrivalTime').innerHTML = point.baseArrivalTime;
+    document.getElementById('baseArrivalDestinationIcon').src = point.wazeArrivalIcon;
+    document.getElementById('baseArrivalExplanation').innerHTML = point.baseArrivalExplanation;
+    document.getElementById('coronaIcon').src = point.coronaIcon;
+
+    let mapButton = (point.baseMapPath !== '')?`<a href=${point.baseMapPath}><button class="base-map">למפת התערוכות</button></a>`:'';
+
+    document.getElementById('base-map-button-handler').innerHTML = mapButton;
+    }
+
+
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized = false, closeCallback) {
     window.location.hash = locationPopupHash;
     previousHash.push(locationPopupHash);

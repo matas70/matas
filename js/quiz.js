@@ -404,6 +404,10 @@
 
   $(".quiz.button, #quiz .finished .again, .new-popup .quiz").on('click', function () {
 
+    gtag("event", "quiz_onParticipation", {
+      event_category: "quiz_interaction",
+    });
+
     if (isMenuOpen) toggleListView();
 
     $('#quiz').css('display', 'block').animate({
@@ -441,6 +445,7 @@
     $('#quiz .question .counter .current').text(count)
     $('#quiz .question .counter .total').text(maxQuestions)
   }
+  
 
   $('#quiz .question .option').on("click", function () {
     $('#quiz .question .option.marked').removeClass('marked');
@@ -458,6 +463,11 @@
       marked.classList.add('correct');
       $('#confetti').show()
       correctCount++
+      gtag('event', 'quiz_finish', {
+        'event_category': 'quiz_interaction',
+         'event_label': 'quiz_finish',
+        'value': 'correctCount'
+      });
     } else {
       marked.classList.add('wrong');
       $('#quiz .question .option.' + question.correct).addClass('correct')
