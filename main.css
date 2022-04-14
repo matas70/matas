@@ -232,6 +232,7 @@ select {
   background-image: url('./assets/x.svg');
 }
 #controls #button-mode-toggle {
+  display: none;
   color: white;
   width: 140px;
   position: relative;
@@ -578,6 +579,7 @@ font-weight: 500;
   border-radius: 16px;
   height: 402px;
   width: 270px;
+  z-index: 1000000;
   
 }
 #supported-ar-conteiner{
@@ -739,7 +741,6 @@ body:not(.is-supported) #ar-overly{
 .is-supported #ar-overly .start{
   opacity: 1;
 } 
-
 body:not(.is-supported) #ar-start {
   display: none;
 }
@@ -764,6 +765,7 @@ body:not(.is-supported) #ar-start {
   z-index: 999;
   overflow: hidden;
   background: #9cd9f8;
+  /* display: none; */
 }
 
 
@@ -816,6 +818,10 @@ div #resetbutton.trails_menu_hide {
   
   visibility: hidden;
  
+}
+#resetbutton{
+  display: none;
+
 }
 
 #trails_menu img {
