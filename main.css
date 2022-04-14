@@ -232,7 +232,6 @@ select {
   background-image: url('./assets/x.svg');
 }
 #controls #button-mode-toggle {
-  display: none;
   color: white;
   width: 140px;
   position: relative;
@@ -460,31 +459,28 @@ canvas {
   margin: 5px 5px;
   
 }
-@keyframes fillAnimation {
-  0%{
-    background-position: 0 0;
-  }
-  33%,
-  100%{
-    background-position: 0% 100%;
-  }
-}
-.aircraft-option.selected{
-  background-position: bottom left; 
-}
+
 .aircraft-option.selected {
   width: 59px;
   height: 80px;
   border: 2px solid #3BB5F2;
   box-shadow: 0 0 4px 0 rgba(0,0,0,0.50);
-}
-.aircraftAnimation{
-  transition: all 1s  ;
-  background-size: 100% 200%;
-  background-image: linear-gradient(to top, #3bb5f234 50%, transparent 50%); 
-  animation: fillAnimation 1.5s infinite;
+  transition: all 1s;
 }
 
+.aircraftAnimation{
+  background-size: 200% 100%;
+  background-image: linear-gradient(to left, #3bb5f234 50%, transparent 50%);
+}
+
+@keyframes fillAnimation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
 #aircrafts_menu .aircraft-option.selected img {
   max-width: 100%;
   max-height: 80%;

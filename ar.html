@@ -827,7 +827,7 @@
 							isSupported = false;
 						}
 					});
-					document.body.querySelector('#ar-start').appendChild(arButton);
+					document.body.querySelector('#ARButton').appendChild(arButton);
 				}
 
 				const shareData = {
@@ -1103,9 +1103,13 @@
 				scene.add(controller);
 			}
 
+			
 			function loadAircraftGLTF(selectedAircraft) {
-
+				
+				let startTimer = Date.now();
+				let endTime; 
 				document.querySelector('.aircraft-option.selected').classList.add('aircraftAnimation');
+				document.querySelector('.aircraftAnimation').style.animation = `animation: fillAnimation 5s`;
 				new GLTFLoader()
 					.load('./3d_models/aircrafts/gltf/' + selectedAircraft.id + '/object.' + selectedAircraft.type, function (gltf) {
 						if (aircraft)
@@ -1122,7 +1126,11 @@
 							action = mixer.clipAction(animation);
 							action.play();
 						});
-						document.querySelector('.aircraft-option.selected').classList.remove('aircraftAnimation');
+						// document.querySelector('.aircraft-option.selected').classList.remove('aircraftAnimation');
+						endTime = Math.floor((Date.now() - startTimer )/ 1000) ;
+						endTime = 5;
+						
+						console.log(endTime);
 					}, undefined, function (error) {
 						console.error(error);
 					});
