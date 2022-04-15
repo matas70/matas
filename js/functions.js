@@ -1137,22 +1137,18 @@ function selectInfoButtonWithoutClicking() {
     currAircraftTab = "#aircraftInfoContent";
 }
 arClick = false;
-let showHelpArPopup = false
 
 function openAR(aircraftName) {
   
     if(isIOS()){
         
-        if(!showHelpArPopup){
+        if(!document.querySelector("#popup-bottom #checkbox").checked){
             document.getElementById("usdz-info-popup").style.display = "block";
             document.getElementById("dim-background").style.display = "block";
             document.querySelector("#popup-bottom button").addEventListener('click', () =>{
                 document.getElementById("usdz-info-popup").style.display = "none";
                 document.getElementById("dim-background").style.display = "none";
                 openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
-            });
-            document.querySelector("#popup-bottom #checkbox").addEventListener('click', () => {
-                showHelpArPopup = !showHelpArPopup;
             });
         }else{
             openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
