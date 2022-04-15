@@ -149,7 +149,7 @@
 					</svg>
 					
 				</div>
-				<p id="url-copied">הקישור הועתק!</p>
+				<p id="url-copied">!הקישור הועתק</p>
 				<div id="resetbutton">
 					<button id="button-reset" class="support" alt="Draw" dis></button>
 				</div>
@@ -1476,8 +1476,8 @@
 			})
 
 			document.getElementById('unsupported-share-button').addEventListener('click', ()=>{
-				navigator.clipboard.writeText("https://matas.iaf.org.il/ar.html : צפו במטוסי חיל האוויר בתלת-מימד, באתר של מטס יום העצמאות!");
 				document.getElementById('url-copied').style.display = 'block';
+				//navigator.clipboard.writeText("https://matas.iaf.org.il/ar.html צפו במטוסי חיל האוויר בתלת-מימד, באתר של מטס יום העצמאות!");
 				setTimeout(() => {
 					document.getElementById('url-copied').style.display = 'none';
 				}, 1500);

@@ -203,15 +203,20 @@ select {
   background-size: contain;
 }
 #unsupported-share-button{
+  margin-left: 2vw;
   cursor: pointer;
   display: flex;
   align-items: center;
 }
 #url-copied{
-  display: none;
   position: absolute;
-  margin-top: 6vh;
+  margin-top: 4vh;
+  display: none;
   color: white;
+  background-color: #0000004f;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 #unsupported-share-button p{
   padding-right: 5px;
