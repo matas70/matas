@@ -1137,7 +1137,6 @@ function selectInfoButtonWithoutClicking() {
     currAircraftTab = "#aircraftInfoContent";
 }
 arClick = false;
-let showHelpArPopup = false
 
 function openAR(aircraftName) {
   
