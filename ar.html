@@ -1108,9 +1108,8 @@
 				
 				let startTimer = Date.now();
 				let endTime; 
-				document.querySelector('.aircraft-option.selected').classList.add('aircraftAnimation');
-				document.querySelector('.aircraftAnimation').style.animation = `animation: fillAnimation 5s`;
 				new GLTFLoader()
+				
 					.load('./3d_models/aircrafts/gltf/' + selectedAircraft.id + '/object.' + selectedAircraft.type, function (gltf) {
 						if (aircraft)
 							scene.remove(aircraft);
@@ -1126,11 +1125,14 @@
 							action = mixer.clipAction(animation);
 							action.play();
 						});
-						// document.querySelector('.aircraft-option.selected').classList.remove('aircraftAnimation');
-						endTime = Math.floor((Date.now() - startTimer )/ 1000) ;
-						endTime = 5;
-						
+
+						endTime = Math.floor((Date.now() - startTimer)/ 1000) ;
+						document.querySelector('.aircraft-option.selected').style.animation = `fillAnimation ${5}s`;
 						console.log(endTime);
+						//document.querySelector('.aircraft-option.selected').style.animation = '';
+							
+							
+						
 					}, undefined, function (error) {
 						console.error(error);
 					});

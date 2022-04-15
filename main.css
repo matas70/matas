@@ -465,13 +465,11 @@ canvas {
   height: 80px;
   border: 2px solid #3BB5F2;
   box-shadow: 0 0 4px 0 rgba(0,0,0,0.50);
+  background-size: 200% 100%;
+  background-image: linear-gradient(to left, #3bb5f234 50%, transparent 50%);
   transition: all 1s;
 }
 
-.aircraftAnimation{
-  background-size: 200% 100%;
-  background-image: linear-gradient(to left, #3bb5f234 50%, transparent 50%);
-}
 
 @keyframes fillAnimation {
   0% {
