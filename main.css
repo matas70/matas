@@ -957,15 +957,15 @@ div #resetbutton.trails_menu_hide {
   background-size: contain;
 }
 
-#tutorial .step-1 .screen-example {
+/* #tutorial .step-1 .screen-example {
   background-image: url('./images/tutorial/step\ 1.svg');
-}
-#tutorial .step-2 .screen-example {
+} */
+/* #tutorial .step-2 .screen-example {
   background-image: url('./images/tutorial/step\ 2.png');
-}
-#tutorial .step-3 .screen-example {
+} */
+/* #tutorial .step-3 .screen-example {
   background-image: url('./images/tutorial/step\ 3.png');
-}
+} */
 
 #tutorial .step h2 {
   font-size: 17px;
@@ -1042,7 +1042,7 @@ div #resetbutton.trails_menu_hide {
   top: 85px;
 }
 
-#no-support-tutorial span {
+/* #no-support-tutorial span {
   font-family: Heebo;
   font-size: 20px;
   font-weight: bold;
@@ -1088,7 +1088,7 @@ div #resetbutton.trails_menu_hide {
   right:0;
   width: 100%;
   top: 175px;
-}
+} */
 
 
 /* Loader */

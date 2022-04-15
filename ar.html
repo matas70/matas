@@ -387,13 +387,10 @@
 		</div>
 		<div id='no-support-tutorial'>
 			<div class='step-1'>
-				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מסלול"
-					class="index-finger">
-				<span>לחצו כאן כדי להחליף מסלול</span>
 			</div>
 			<div class='step-2'>
 				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מצב תצוגה"
-					class="index-finger">
+					class="index-finger"  style="display: none;">
 				<span>לחצו כאן על מנת <br> להחליף מצב תצוגה</span>
 				<div id="usdz_info">
 					
@@ -827,7 +824,7 @@
 							isSupported = false;
 						}
 					});
-					document.body.querySelector('#ARButton').appendChild(arButton);
+					document.body.querySelector('#ar-start').appendChild(arButton);
 				}
 
 				const shareData = {
@@ -1580,7 +1577,7 @@
 				noSopportTutorial ++;
 				if (noSopportTutorial === 1){
 					document.querySelector('#no-support-tutorial .step-1').style.display = 'none';
-					document.querySelector('#no-support-tutorial .step-2').style.display = 'block';
+					document.querySelector('#no-support-tutorial .step-2').style.display = 'none';
 				}
 				else
 					document.querySelector('#no-support-tutorial').style.display = 'none';
@@ -1595,8 +1592,8 @@
 					document.querySelector('.step-1').style.display="block";
 				} else {
 					noSopportTutorial = 0;
-					document.querySelector('#no-support-tutorial').style.display = 'block';
-					document.querySelector('#no-support-tutorial .step-1').style.display = 'block';
+					document.querySelector('#no-support-tutorial').style.display = 'none';
+					document.querySelector('#no-support-tutorial .step-1').style.display = 'none';
 					document.querySelector('#no-support-tutorial .step-2').style.display = 'none';
 
 				}
