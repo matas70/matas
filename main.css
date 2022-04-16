@@ -587,7 +587,7 @@ font-weight: 500;
 }
 #supported-ar-conteiner .description{
   font-family: Heebo-Regular;
-  font-size: 14px;
+  font-size: 15px;
   color: #37474F;
   letter-spacing: 0;
   text-align: center;
@@ -598,7 +598,7 @@ font-weight: 500;
 }
 #supported-ar-conteiner .title{
   font-family: Heebo-Bold;
-  font-size: 17px;
+  font-size: 18px;
   color: #37474F;
   letter-spacing: 0;
   text-align: center;
@@ -618,22 +618,26 @@ font-weight: 500;
 }
 #supported-ar-conteiner .conteiner-bottom button{
   width: 86px;
-  height: 34.98px;
+  height: 36px;
   background: #3BB5F2;
   border-radius: 5px;
   outline: none;
   border: none;
   font-family: Heebo-Medium;
-  font-size: 13px;
+  font-size: 16px;
   color: #FFFFFF;
   letter-spacing: 0;
   text-align: center;
   line-height: 15px;
   font-weight: 500;
 }
+#supported-ar-conteiner .conteiner-bottom button:active{
+  background: #34a1d8;
+}
 .show-hid-check-box{
   display: flex;
-  align-items: center;
+  margin-top: 5px;
+  font-size: 15px;
 }
 
 #space{
