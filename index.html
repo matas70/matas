@@ -191,9 +191,15 @@
     </div>
 
     <!-- startup splash screen -->
-    <div class="splash" style="background-image: url('animation/Splash-74.gif');background-size: contain; visibility: visible;">
+    <div class="splash" style="background-image: url('animation/Splash-74.gif');background-size: contain; visibility: visible;">      
+        <script>
+            setTimeout(() => {
+                $(".splash").css("background-image", "url(/animation/74-gif-last-frame.gif)");
+            }, 2700);
+        </script>  
         <div class="loading" style="background-image: url('animation/loading.gif');background-size: contain; display: none;"></div>
     </div>
+    
 
     <!-- the map itself -->
     <div id="map" style="display: none;"></div>

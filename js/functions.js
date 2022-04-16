@@ -1302,8 +1302,8 @@ function countdown() {
             setTimeout(() => {
                 $(".splash").fadeOut();
                 $(".loading").fadeOut();
-            }, 2500);
-        }, 2800);
+            }, 1000);
+        }, 100);
     }
 
     // Time to remove the entrancePopup
