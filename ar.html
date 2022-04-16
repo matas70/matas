@@ -520,6 +520,7 @@
 			let curSpeed = 10000;
 			const cursor = new THREE.Vector3();
 
+			
 			const params = {
 				envMap: 'EXR',
 				roughness: 0.0,
@@ -1253,7 +1254,6 @@
 					}
 				}, 10)
 			}
-
 			function changeTrails(selectedTrails) {
 				TRAILS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
 				document.getElementById(selectedTrails.id).classList.add("selected");
