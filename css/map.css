@@ -546,8 +546,8 @@ div.infoPopup {
     position: absolute;
     z-index: 200000;
     left: 50%;
-    right: 12%;
-    top: 18%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 #usdz-block{
     width: 270px;
@@ -570,6 +570,8 @@ div.infoPopup {
     text-align: center;
     line-height: 18px;
     font-weight: 400;
+    width: 180px;
+    margin-top: -8px;
 }
 #usdz-block .title{
     font-family: Heebo-Bold;
@@ -610,7 +612,7 @@ div.infoPopup {
     flex-direction: row-reverse;
 }
 #usdz-info-popoup-img{
-    width: 75%;
+    width: 72%;
 }
 
 #dim-background{
