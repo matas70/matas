@@ -149,12 +149,12 @@
 					</svg>
 					
 				</div>
-				<p id="url-copied">הקישור הועתק!</p>
-				<div id="resetbutton" class="trails_menu_hide">
-					<button id="button-reset" class="support" alt="Draw"></button>
+				<p id="url-copied">!הקישור הועתק</p>
+				<div id="resetbutton">
+					<button id="button-reset" class="support" alt="Draw" dis></button>
 				</div>
 				<!-- <button id="button-action" alt="Toggle Flash"></button> -->
-				<button id="button-mode-toggle" alt="Toggle mode" class="static" style="display: none;">
+				<button id="button-mode-toggle" alt="Toggle mode" class="dynamic" style="display: none;">
 					<a class='static-mode'></a>
 					<span class='dynamic-mode'></span>
 				</button>
@@ -203,10 +203,10 @@
 				</div>
 			</div>
 			<div id="menus">
-				<div id="slidecontainer">
+				<div id="slidecontainer" class="slidecontainer_hide">
 					<input type="range" min="3000" max="15000" value="10000" class="slider" id="speed_slider">
 				  </div>
-				<div id="trails_menu">
+				<div id="trails_menu" class="trails_menu_hide" style="display: none;">
 					<div style="min-width: calc(50vw - 45px); height: 50px; flex: 1 0 auto;"></div>
 					<img id="exit-trail" class="small-x-button" src="./assets/small-x.svg" alt="Exit Trail">
 					<div style="min-width: calc(50vw - 20px); height: 50px; flex: 1 0 auto;"></div>
@@ -338,7 +338,7 @@
 					</div>
 					<div style="width: 40px;"></div>
 					<div class="mode-menu">
-						<div>GIF</div>
+						<div></div>
 						<div class="selected">תמונה</div>
 						<div>סרטון</div>
 					</div>
@@ -387,13 +387,10 @@
 		</div>
 		<div id='no-support-tutorial'>
 			<div class='step-1'>
-				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מסלול"
-					class="index-finger">
-				<span>לחצו כאן כדי להחליף מסלול</span>
 			</div>
 			<div class='step-2'>
 				<img src="icons/index finger.svg" alt="יד המדגימה היכן יש ללחוץ על מנת להחליף מצב תצוגה"
-					class="index-finger">
+					class="index-finger"  style="display: none;">
 				<span>לחצו כאן על מנת <br> להחליף מצב תצוגה</span>
 				<div id="usdz_info">
 					
@@ -407,6 +404,7 @@
 		</div>
 
 		<script type="module">
+			let ShowArButton;
 			import * as THREE from 'https://unpkg.com/three@0.126.1/build/three.module.js';
 			import { TubePainter } from 'https://unpkg.com/three@0.126.1/examples/jsm/misc/TubePainter.js';
 			import { ARButton } from './ARButton.js';
@@ -435,6 +433,7 @@
 
 				if ('xr' in navigator) {
 					navigator.xr.isSessionSupported('immersive-ar').then(function (supported) {
+
 						isSupported = supported;
 						if (isSupported) document.body.classList.add('is-supported')
 						init();
@@ -459,6 +458,7 @@
 									engine: dataToFirebase(cur_user_agent.getEngine())
 								});
 						}
+						
 						else if (getCookie('tut') !== 2) {
 							firebase.database().ref('devices/not-supported/' +
 								cur_user_agent.getDevice().vendor + " " +
@@ -476,6 +476,7 @@
 									engine: dataToFirebase(cur_user_agent.getEngine())
 								});
 						}
+						
 					}).catch();
 				} else {
 					const message = document.createElement('a');
@@ -519,6 +520,7 @@
 			let curSpeed = 10000;
 			const cursor = new THREE.Vector3();
 
+			
 			const params = {
 				envMap: 'EXR',
 				roughness: 0.0,
@@ -596,8 +598,7 @@
 			]
 
 
-			let locations = [[0, 0, 0]]
-
+			let locations = []
 
 
 			const AIRCRAFTS_META_DATA = [
@@ -644,7 +645,6 @@
 			]
 
 			let mode = 'static';
-
 
 			var pathRef = firebase.database().ref('path');
 			pathRef.on('value', (snapshot) => {
@@ -809,6 +809,7 @@
 				document.body.appendChild(container);
 				container.appendChild(renderer.domElement);
 
+				
 				if (isSupported) {
 					const arButton = ARButton.createButton(renderer, {
 						
@@ -824,7 +825,6 @@
 							isSupported = false;
 						}
 					});
-
 					document.body.querySelector('#ar-start').appendChild(arButton);
 				}
 
@@ -930,17 +930,13 @@
 
 				// model
 				document.getElementById("button-reset").addEventListener("click", () => {
-					gtag("event", "ar_onPressReset", {
-                      event_category: "quiz_interaction",
-                    });
 					if (isSupported) {
 						resetScene();
 					}
 					else {
-						locations = addMidpoints(locationsOptions[Math.floor(Math.random() * locationsOptions.length)], 20);
+						locations = addMidpoints(locationsOptions[Math.floor(Math.random() * locationsOptions.length)], 20)
 						scene.remove(painter.mesh);
 						loadPainter();
-						
 					}
 				})
 
@@ -982,29 +978,20 @@
 
 				document.getElementById('button-mode-toggle').addEventListener("click", function () {
 					if (mode == 'static') {
-						gtag('event', 'ar_dynamic', {
-                            'event_category': 'ar_interaction',
-                        });
 						mode = 'dynamic';
 						this.classList.add('dynamic');
 						this.classList.remove('static');
 						let trails_menu = document.getElementById("trails_menu");
-						trails_menu.classList.remove('trails_menu_hide');
+						trails_menu.classList.add('trails_menu_hide');
 						let buttonreset = document.getElementById("resetbutton");
-						buttonreset.classList.remove('trails_menu_hide');
-						document.getElementById("slidecontainer").classList.remove('slidecontainer_hide');
-						if (locations.length) {
-							// Loads airplane route and display it
-							locations = addMidpoints(locationsOptions[1], 20)
-							loadPainter();
-						};
-						painter.mesh.material.opacity = 0.3;
+						buttonreset.classList.add('trails_menu_hide');
+						//document.getElementById("slidecontainer").classList.remove('slidecontainer_hide');
+						locations.push([cursor.x, cursor.y, cursor.z]);
+						painter.mesh.material.opacity = 0;
 					} else {
 
 						if (isIOS()) return;
-						gtag('event', 'ar_static', {
-                            'event_category': 'ar_interaction',
-                        });
+
 						mode = 'static'
 						this.classList.add('static');
 						this.classList.remove('dynamic');
@@ -1025,7 +1012,7 @@
 				loadLight();
 				loadPainter();
 				loadController();
-
+				// changeTrails(TRAILS_META_DATA[TRAILS_META_DATA.length - 1]);
 
 				window.addEventListener('resize', onWindowResize);
 
@@ -1114,24 +1101,13 @@
 				scene.add(controller);
 			}
 
-			// let previousSelectedAircraft; 
-			// previousSelectedAircraft =
-
-
-
-
-
-
-
-
-
-
-
-
+			
 			function loadAircraftGLTF(selectedAircraft) {
-
-				document.querySelector('.aircraft-option.selected').classList.add('aircraftAnimation');
+				
+				let startTimer = Date.now();
+				let endTime; 
 				new GLTFLoader()
+				
 					.load('./3d_models/aircrafts/gltf/' + selectedAircraft.id + '/object.' + selectedAircraft.type, function (gltf) {
 						if (aircraft)
 							scene.remove(aircraft);
@@ -1147,7 +1123,14 @@
 							action = mixer.clipAction(animation);
 							action.play();
 						});
-						document.querySelector('.aircraft-option.selected').classList.remove('aircraftAnimation');
+
+						endTime = Math.floor((Date.now() - startTimer)/ 1000) ;
+						document.querySelector('.aircraft-option.selected').style.animation = `fillAnimation ${5}s`;
+						console.log(endTime);
+						//document.querySelector('.aircraft-option.selected').style.animation = '';
+							
+							
+						
 					}, undefined, function (error) {
 						console.error(error);
 					});
@@ -1258,11 +1241,6 @@
 					document.getElementById(selectedAircraft.id).classList.add("selected");
 					loadAircraft(selectedAircraft);
 					currentAircraft = selectedAircraft.id;
-					gtag('event', 'ar_aircraft_type', {
-                        'event_category': 'ar_interaction',
-                        'event_label': 'ar_aircraft_type',
-                        'value': 'currentAircraft'
-                    });
 
 					if (isIOS()) {
 						document.getElementById('usdz-info-popup').style.display = "block";
@@ -1270,13 +1248,12 @@
 						document.getElementById('usdz-button').href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
 						document.getElementById('usdz_info').style.display = "block";
 					} else {
-						document.getElementById('button-mode-toggle').style.display = "block";
+						document.getElementById('button-mode-toggle').style.display = "none";
 						document.getElementById('usdz_info').style.display = "none";
 						document.getElementsByClassName('usdz-info-popup').style.display = "none";
 					}
 				}, 10)
 			}
-
 			function changeTrails(selectedTrails) {
 				TRAILS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
 				document.getElementById(selectedTrails.id).classList.add("selected");
@@ -1387,11 +1364,8 @@
 			function renderAircraft() {
 				
 				if(environmentToggleClick || !isSupported){
-					renderEnvironment();
-					handleController(controller);
-				    if (aircraft) {
-				 	    placeAircraft();
-				    }
+
+					
 				}else{
 					scene.background = null;
 					handleController(controller);
@@ -1470,8 +1444,7 @@
 			    }
 			}
 			ARSupportedsInfopopup();
-
-
+			
 			document.getElementById("change-ar-toggle").addEventListener('click', () =>{
 				environmentToggleClick = !environmentToggleClick;
 				document.getElementById("toggle").style.transition = 'all 0.3s';
@@ -1500,8 +1473,8 @@
 			})
 
 			document.getElementById('unsupported-share-button').addEventListener('click', ()=>{
-				navigator.clipboard.writeText("https://matas.iaf.org.il/ar.html : צפו במטוסי חיל האוויר בתלת-מימד, באתר של מטס יום העצמאות!");
 				document.getElementById('url-copied').style.display = 'block';
+				//navigator.clipboard.writeText("https://matas.iaf.org.il/ar.html צפו במטוסי חיל האוויר בתלת-מימד, באתר של מטס יום העצמאות!");
 				setTimeout(() => {
 					document.getElementById('url-copied').style.display = 'none';
 				}, 1500);
@@ -1600,12 +1573,11 @@
 			}
 
 			let noSopportTutorial = 0;
-
 			document.querySelector('#no-support-tutorial').addEventListener('click', () => {
 				noSopportTutorial ++;
 				if (noSopportTutorial === 1){
 					document.querySelector('#no-support-tutorial .step-1').style.display = 'none';
-					document.querySelector('#no-support-tutorial .step-2').style.display = 'block';
+					document.querySelector('#no-support-tutorial .step-2').style.display = 'none';
 				}
 				else
 					document.querySelector('#no-support-tutorial').style.display = 'none';
@@ -1613,14 +1585,15 @@
 				document.cookie = "tut=2; expires=Thu, 30 Dec 2022 12:00:00 UTC";
 			})
 
+
 			document.querySelector('#ar_info').addEventListener('click', ()=>{
 				if(isSupported) {
 					document.getElementById('tutorial').style.display="block";
 					document.querySelector('.step-1').style.display="block";
 				} else {
 					noSopportTutorial = 0;
-					document.querySelector('#no-support-tutorial').style.display = 'block';
-					document.querySelector('#no-support-tutorial .step-1').style.display = 'block';
+					document.querySelector('#no-support-tutorial').style.display = 'none';
+					document.querySelector('#no-support-tutorial .step-1').style.display = 'none';
 					document.querySelector('#no-support-tutorial .step-2').style.display = 'none';
 
 				}
