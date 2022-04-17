@@ -2373,7 +2373,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
         if (userLoc) 
         {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-            // if (haversineDistance(userLoc,currentLocation) < 3)          
+            if (haversineDistance(userLoc,currentLocation) < 3)          
             {
                     if($('#myModal:hidden') && $('#gottoVoiceMessagePopup:hidden'))
                     {
@@ -2390,7 +2390,6 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
                         $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
                         $('#audioMessageText').html(audioMessage.text);
-                        console.log(aircraft.aircraftTypeId);
 
 
                         $('#audioSRC').on('playing', function () {
