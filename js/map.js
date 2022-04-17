@@ -230,7 +230,9 @@ googleMaps = {
                 iconUrl = "icons/lookout.svg";
             } else if(aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
-            } else {
+            } else if(point.type === "base") {
+                iconUrl = "openBaseMap/.svg";
+            }  else {
                 iconUrl = "icons/point-" + color + ".svg";
             }
         } else {
@@ -240,6 +242,8 @@ googleMaps = {
                 iconUrl = "icons/hospital-clicked.svg";
             } else if(aerobatic) {
                 iconUrl = "icons/showSelected-" + color + ".svg";
+            } else if(point.type === "base") {
+                iconUrl = "openBaseMap/.svg";
             } else {
                 iconUrl = "icons/pointPress-" + color + ".svg";
             }
@@ -247,7 +251,6 @@ googleMaps = {
 
         return iconUrl;
     },
-
     drawRouteOnMap: (route) => {
         // create the line path
         var path = [];
