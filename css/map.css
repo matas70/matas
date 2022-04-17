@@ -1952,18 +1952,23 @@ hr.aircraftLineSeparator.two {
 }
 
 div.open-bases-popup {
-  direction: ltr;
-  left:0;
-  margin-left: auto;
-  background-color: white;
-  overflow : scroll;
-  position: fixed;
-  width: calc(100% - 400px);
-  height: 0;
-  position: fixed;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #003366;
-  z-index: 9999999;
+    overflow: scroll;
+    direction: ltr;
+    left:0;
+    margin-left: auto;
+    background-color: white;
+    overflow : scroll;
+    position: fixed;
+    width: calc(100% - 400px);
+    max-width: 475px;
+    height: 0;
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #003366;
+    z-index: 9999999;
+    margin-bottom: auto;
+    background: #FFFFFF;
+    box-shadow: 0 2px 25px 0 rgba(0,0,0,0.50);
 }
 
 div.open-bases-popup div.header-base-popup {
@@ -1972,10 +1977,10 @@ div.open-bases-popup div.header-base-popup {
 div.header-base-popup div.header-theme {
   display: flex;     
   position: relative; 
-  height: auto;
+  height: 160px;
 }
 
-div.header-base-popup div.header-theme img{
+div.header-base-popup div.header-theme img.base-theme{
   position: absolute;
   object-fit: cover;
   height: auto;
@@ -1985,71 +1990,41 @@ div.header-base-popup div.header-theme img{
 }
 
 div.header-theme div.header-menu {
-  display: flex;
-  justify-content: center;
-  z-index: 999;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  margin-top: 20px;
+    margin:0;
+    position: relative;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    z-index: 999;
 }
 
-div.header-menu button.drag {
-  height: 7.5px;
-  width: 70px;
-  cursor: pointer;
-  border: 0px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 4px 1px #888888;
-  margin-left: auto;
-  margin-right: auto;
-  align-self: center;
+div.header-menu img.drag {
+    width: 35px;
+    height: 5px;
+    background: #FFFFFF;
+    border-radius: 100px;
+    margin-right: calc(50% - 56.5px);
+    -webkit-user-select: none;
 }
 
-div.header-menu button:active {
-  cursor: grab;
-}
-
-div.header-menu div.close-handler {
-  position: relative;
-  margin-left: 20px;
-  display: flex;
-  flex-direction: row;
-  align-self:center;
-  cursor: pointer;
-  -webkit-user-select: none;
-  position: relative;
-}
-
-div.close-handler div.close-left-stick {
-  background-color: white;
-  width: 25px;
-  height: 5px;
-  box-shadow: 0.25px -0.25px 8px 1px#888888;
-  border-radius: 5px;
-  position: absolute;
-  transform: rotate(45deg);
-
-}
-
-div.close-handler div.close-right-stick {
-  background-color: white;
-  width: 25px;
-  height: 5px;
-  transform: rotate(-45deg);
-  box-shadow: 0.2px 0.2px 8px 1px#888888;
-  border-radius: 5px;
-  position: absolute;
-  margin-left: 14.5px;
-  z-index: 999;
+div.header-menu img.close-handler {
+    position: static;
+    height: 30px;
+    width: 30px;
+    margin-right: 9px;
+    margin-top: 9px;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    cursor:pointer;
 }
 
 div.header-base-popup div.header-general-title {
-  width: 100%;
   position: relative;
-  top: 132.75px;
-  display: flex;
+  margin: 0;
   height: 76px;
+  display: flex;
   flex-direction: row-reverse;
   background: #F7F5F5;
   border-bottom: 1px solid #c3c3c3;
@@ -2057,51 +2032,47 @@ div.header-base-popup div.header-general-title {
 }
 
 div.header-base-popup div.header-general-title img {
+  margin: 0;
   width: 50px;
   height: 50px;
   margin-right: 20px;
   -webkit-user-drag: none;
   -webkit-user-select: none;
-  margin-top: auto;
-  margin-bottom: auto;
 }
 
 div.header-general-title div.header-title {
-    font-family: Heebo-Light;
-    height: 76px;
-    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin-right: 14px;
+    height: 100%;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
 }
 
 div.header-general-title h1 {
-  position: static;
-  padding: 0;
-  margin: 0;
-  font-family: Heebo-Bold;
-  font-size: 26px;
-  color: #293B57;
-  letter-spacing: 0;
-  text-align: right;
-  font-weight: 700;
-  margin-right: 15px;
-  margin-top: 10px;
+    margin: 0;
+    font-family: Heebo-Bold;
+    font-size: 26px;
+    color: #293B57;
+    letter-spacing: 0;
+    font-weight: 700;
+    direction: rtl;
+    transform: translateY(10px);
 }
 
 div.header-general-title p {
-  height: 25px;
-  width: auto;
-  padding: 0;
-  margin: 0;
-  font-family: Heebo-Light;
-  font-size: 17px;
-  color: #455773;
-  letter-spacing: 0;
-  text-align: right;
-  font-weight: 200;
-  margin-right: 14px;
-  margin-bottom: 10px;
+    margin: 0;
+    font-family: Heebo-Light;
+    font-size: 17px;
+    color: #455773;
+    letter-spacing: 0;
+    font-weight: 200;
+    direction: rtl;
+    margin-right: 1px;
+    transform: translateY(-10px);
 }
 
 div.header-general-title a {
@@ -2119,11 +2090,9 @@ div.header-general-title a img {
 }
 
 div.open-bases-popup div.base-general-information {
-  top: 132.75px;
+  height: 100%;
   background: #FFFFFF;
   position: relative;
-  top: 117.25px;
-  height: 100%;
   display: flex;
   flex-direction: column;
   direction: rtl;
@@ -2131,9 +2100,10 @@ div.open-bases-popup div.base-general-information {
 }
 
 div.open-bases-popup div.base-general-information p.base-passage {
-    margin: auto;
-    margin-top: 14px;
+    margin: 0;
     margin-bottom: 10.5px;
+    margin-left: auto;
+    margin-right: auto;
     width: 85%;
     font-family: Heebo-Regular;
     font-size: 14px;
@@ -2159,65 +2129,80 @@ div.base-general-information div.base-passage-line {
 
 div.base-general-information div.base-info-with-icon {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  gap: -100px;
+  margin: 0;
+  margin-right: 5%;
   margin-bottom: 2%;
-  margin-right: 6.2%;
-}
-
-div.base-info-with-icon img {
-  display: flex;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  height: 24px;
-  width: 24px;
 }
 
 div.base-info-with-icon div.base-info {
     margin: 0;
-    height: 100%;
+    height: auto;
     display: flex;
-    flex-direction: column;
-    transform: translateY(-7.5px);
-    margin-right: 13.5px;
+    align-items: center;
+    column-gap: 13.5px;
+  }
+
+  div.base-info-with-icon div.base-info img {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    height: 24px;
+    width: 24px;
   }
 
 div.base-info-with-icon div.base-info h1 {
+    margin: 0;
     font-family: Heebo-Bold;
     font-size: 17px;
-    height: 19px;
     color: #37474F;
     letter-spacing: 0;
-    text-align: right;
-    line-height: 19px;
     font-weight: 700;
-    width: 200px;
-    margin-bottom: 10px;
+    
   }
 
-div.base-info-with-icon div.base-info p {
+div.base-info-with-icon p {
+    margin: 0;
+    margin-right: 37.5px;
+    margin-bottom: 4px;
     font-family: Heebo-Regular;
     font-size: 14px;
     color: #37474F;
     letter-spacing: 0;
-    text-align: right;
-    line-height: 20px;
     font-weight: 400;
+    max-width: 73.3%;
 }
 
-div.base-info-with-icon div.base-info p a{
-  color: #37474F 100%;
-  font-weight: 600;
+a.corona-link {
+    text-decoration: underline;
+    font-family: Heebo-Regular;
+    font-size: 14px;
+    color: cyan;
+    letter-spacing: 0;
+    text-align: right;
+    line-height: 20px;
+    font-weight: 600;
 }
+
+div.base-info-with-icon div.base-info p a:active{
+    color: #1c516c 100%;
+    font-weight: 600;
+  }
 
 div.airplane-card {
     display: flex;
     flex-direction: row;
     margin: 0;
-    width: 321px;
+    width: 91%;
+    max-width: 100%;
     height: 140px;
     background: #FFFFFF;
     box-shadow: 0 2px 9px 0 rgba(0,0,0,0.16);
     border-radius: 10px;
+    margin-right: 5%;
+    margin-top: 0.5%;
+    margin-bottom: 3%;
+
 
 }
 
@@ -2257,8 +2242,8 @@ div.airplane-card-info-handler p {
 }
 
 div.airplane-card-info-handler #base-map-button-handler {
-    margin-right:12px;
-    margin-top: 8.5px;
+    margin-right: 4.5%;
+    margin-top: 3.5%;
 }
 
 div.airplane-card-info-handler a {
@@ -2286,26 +2271,38 @@ div.airplane-card-info-handler a button.base-map {
   letter-spacing: 0;
   text-align: right;
   font-weight: 600;
+
 }
-div.airplane-card-info-handler img {
+div.airplane-card img {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    margin-right: auto;
     height: 100%;
-    width: 100%;
 }
 
+div.airplanes-show-header {
+    margin: 0;
+    background: #F7F5F5;
+    border-top: 1px solid #E1E1E1;
+    border-bottom: 1px solid #E1E1E1;
+}
+
+div.airplanes-show-header h2.title{
+    font-family: Heebo-Bold;
+    font-size: 17px;
+    color: #37474F;
+    letter-spacing: 0;
+    text-align: right;
+    line-height: 19px;
+    font-weight: 700;
+    margin-right: 7%;
+    -webkit-user-select: none;
+}
 
 @media only screen and (max-width: 600px) {
     div.open-bases-popup {
         width: 100%;
+        max-width: 600px;
         left: 0;
-    }
-}
-
-@media only screen and (max-width: 325px) {
-    div.header-general-title h1 {
-        font-size: 20px;
-        margin-top: 5px;
-    }
-    div.header-general-title p {
-        margin-bottom: 5px;
     }
 }

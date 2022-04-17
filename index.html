@@ -386,16 +386,13 @@
     </div>
 
      <!-- open bases info popup -->
-    <div class="open-bases-popup" id="open-bases-popup">
+    <div class="open-bases-popup" id="open-bases-popup" style="height: 576px; top: 64px; display: none;">
         <div id="header-base-popup" class="header-base-popup">
             <div class="header-theme">
-                <img id="baseTheme">
+                <img id="baseTheme" class="base-theme">
                 <div class="header-menu">
-                    <div class="close-handler" onclick="onClose()">
-                       <div class="close-left-stick"></div>
-                       <div class="close-right-stick"></div>
-                    </div>
-                    <button class="drag" draggable="true" ondrag="onGrab(event)"></button>
+                    <img class="close-handler" src="experimental-assets/close-icon.svg" onclick="onClose()">
+                    <img class="drag" id="drag-button" src="experimental-assets/drag-button.svg" draggable="true" onclick="onGrab(event)">
                 </div>
             </div>
             <div class="header-general-title">
@@ -413,28 +410,27 @@
             <p class="base-passage" id="base-passage"></p>
             <div class="base-passage-line"></div>
             <div class="base-info-with-icon">
-                <img id="baseArrivalTimeIcon">
                 <div class="base-info">
+                    <img id="baseArrivalTimeIcon" src="experimental-assets/clock-icon.svg">
                     <h1>שעות פתיחה</h1>
-                    <p id="baseArrivalTime"></p>
                 </div>
+                <p id="baseArrivalTime"></p>
             </div>
             <div class="base-info-with-icon">
-                <img id="baseArrivalDestinationIcon">
                 <div class="base-info">
+                    <img id="baseArrivalDestinationIcon" src="experimental-assets/location-icon.svg">
                     <h1>הוראות הגעה</h1>
-                    <p id="baseArrivalExplanation"></p>
                 </div>
+                <p id="baseArrivalExplanation"></p>
             </div>
             <div class="base-info-with-icon">
-                <img id="coronaIcon">
                 <div class="base-info">
+                    <img id="coronaIcon" src="experimental-assets/corona-icon.svg">
                     <h1>קורונה</h1>
-                    <p>
-                        הכניסה לבסיס בהתאם ל
-                    <a href="https://corona.health.gov.il/green-pass/">מגבלות התו הירוק</a>
-                    </p>
                 </div>
+                <p>
+                    הכניסה לבסיס בהתאם ל<a class="corona-link" href="https://corona.health.gov.il/green-pass/">מגבלות התו הירוק</a>
+                </p>
             </div>
             <div class="airplane-card" id="base-airplane-card">
                 <div class="airplane-card-info-handler">
@@ -442,8 +438,12 @@
                     <p>בבסיס תוכלו לראות תערוכה של מטוסי החיל, משגר הכנה אווירית,חימושים ושלל מערכות אחרות</p>
                     <div id="base-map-button-handler"></div>
                 </div>
-                <img src="experimental-assets/tel-nof.svg"> 
+                <img src="experimental-assets/base-card-airplane.png"> 
             </div>
+            <div class="airplanes-show-header" id="airplanes-show-header">
+                <h2 class="title">מטסים ומופעים</h2>
+            </div>
+            <div class="airplanes-show" id="airplanes-show"></div>
         </div>
      </div>
      
