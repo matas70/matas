@@ -872,10 +872,12 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     let isSimulation = $.urlParam("simulation") != null;
     let theEventStarted = eventsStartTime - new Date().getTime() < 0 ;
 
-    //Checking weather aircraftType has not already been notified and if audio message for aircraftType is avalibale 
-    if ( !(aircraft.aircraftTypeId in notifiedNearUser) && aircraft.aircraftTypeId in audioMessages && (theEventStarted || isSimulation)) {
-        
-        notifyUserIfNear(currentAircraftPosition, aircraft);
+    //Checking weather audioMessages is not undifined
+    if (audioMessages){
+        //Checking weather aircraftType has not already been notified and if audio message for aircraftType is avalibale 
+        if (!(aircraft.aircraftTypeId in notifiedNearUser) && aircraft.aircraftTypeId in audioMessages && (theEventStarted || isSimulation)) {
+            notifyUserIfNear(currentAircraftPosition, aircraft);
+       }
     }
     
 
@@ -2368,9 +2370,10 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 
         var closePopupTime = 60;
 
-        if (userLoc) {
+        if (userLoc) 
+        {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-            if (haversineDistance(userLoc,currentLocation) < 3)          
+            // if (haversineDistance(userLoc,currentLocation) < 3)          
             {
                     if($('#myModal:hidden') && $('#gottoVoiceMessagePopup:hidden'))
                     {
@@ -2387,6 +2390,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
                         $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
                         $('#audioMessageText').html(audioMessage.text);
+                        console.log(aircraft.aircraftTypeId);
 
 
                         $('#audioSRC').on('playing', function () {
