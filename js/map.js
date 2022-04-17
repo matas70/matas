@@ -222,7 +222,6 @@ googleMaps = {
         color = color.replace("#ff0000", "ffffff00")
         iconUrl = "icons/point-" + color + ".svg";
 
-
         if (!clicked) {
             if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
@@ -230,8 +229,9 @@ googleMaps = {
                 iconUrl = "icons/lookout.svg";
             } else if(aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
-            } else if(point.type === "base") {
-                iconUrl = "openBaseMap/.svg";
+            } else if(point.color === "00000000") {
+                console.log(point)
+                iconUrl = "icons/OpenBaseMap.svg";
             }  else {
                 iconUrl = "icons/point-" + color + ".svg";
             }
@@ -242,8 +242,9 @@ googleMaps = {
                 iconUrl = "icons/hospital-clicked.svg";
             } else if(aerobatic) {
                 iconUrl = "icons/showSelected-" + color + ".svg";
-            } else if(point.type === "base") {
-                iconUrl = "openBaseMap/.svg";
+            } else if(point.color === "00000000") {
+                console.log(point)
+                iconUrl = "icons/OpenBaseMap.svg";
             } else {
                 iconUrl = "icons/pointPress-" + color + ".svg";
             }
