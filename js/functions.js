@@ -1136,32 +1136,33 @@ function selectInfoButtonWithoutClicking() {
 
     currAircraftTab = "#aircraftInfoContent";
 }
-arClick = false;
+let openAircraftInfo = true;
 
 function openAR(aircraftName) {
   
     if(isIOS()){
-        
+
         if(!document.querySelector("#popup-bottom #checkbox").checked){
+            openAircraftInfo = false;
             document.getElementById("usdz-info-popup").style.display = "block";
             document.getElementById("dim-background").style.display = "block";
             document.querySelector("#popup-bottom button").addEventListener('click', () =>{
                 document.getElementById("usdz-info-popup").style.display = "none";
                 document.getElementById("dim-background").style.display = "none";
+                openAircraftInfo = true;
                 openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
             });
         }else{
             openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
         }
     }else{
-        arClick = false;
         openExternal("ar.html");
     }
 }
 
 function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllPoints = false) {
 
-    if(!isIOS() || (isIOS() && arClick === false)){
+    if(!isIOS() || (openAircraftInfo && isIOS())){
         
         var aircraft = aircrafts[aircraftId - 1];
     window.scrollTo(0, 1);
