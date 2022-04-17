@@ -84,9 +84,14 @@ point = {
     iconBasePath: 'experimental-assets/tel-nof.svg',
     basePassage: 'כמיטב המסורת, ביום העצמאות נפתח בסיס תל נוף לקהל הרחב ואתם מוזמנים! בואו לראות מבפנים בסיס חיל האוויר הכניסה חינם.',
     baseArrivalTime: '9:00-15:00',
-    wazeArrivalIcon: 'experimental-assets/location-icon.svg',
+    wazeLink: 'https://www.waze.com/live-map/directions/%D7%AA%D7%9C-%D7%A0%D7%95%D7%A3-%D7%A9%D7%92-%D7%A6%D7%A4%D7%95%D7%9F-%D7%91%D7%99%D7%AA-%D7%90%D7%9C%D7%A2%D7%96%D7%A8%D7%99?navigate=yes&to=place.w.22806847.228199537.446258',
     baseArrivalExplanation: 'יש לחפש בוייז "בסיס רמת אביב" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים',
-    baseMapPath: 'a'
+    baseMapPath: 'a',
+    airShows: [
+        ['09:00','הופעה','רעם'],
+        ['09:00','הופעה','רעם'],
+    ]
+    
 }
 
 function onClose() {
@@ -150,6 +155,7 @@ function showBaseLoactionPopup() {
     document.getElementById('open-bases-popup').style.display = 'block';
     document.getElementById('baseTheme').src = point.baseThemePath;
     document.getElementById('iconBase').src = point.iconBasePath;
+    document.getElementById('waze-base-link').href = point.wazeLink;
     document.getElementById('baseName').innerHTML = point.baseName;
     document.getElementById('base-passage').innerHTML = point.basePassage;
     document.getElementById('baseArrivalTime').innerHTML = point.baseArrivalTime;

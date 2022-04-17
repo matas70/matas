@@ -1167,7 +1167,8 @@ function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, 
 
     globalCollapse = collapse;
     deselectLocation();
-    showAircraftInfoPopup(aircraft, collapse);
+    showBaseLoactionPopup()
+    //showAircraftInfoPopup(aircraft, collapse);
     fillAircraftSchedule(aircraft, showAllPoints);
     //map.panTo(location);
     //marker.setIcon(markerIconClicked);

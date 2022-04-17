@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>close icon</title>
+    <g id="2022" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="21-copy" transform="translate(-437.000000, -72.000000)">
+            <g id="close-icon" transform="translate(437.000000, 72.000000)">
+                <circle id="Oval" fill-opacity="0.699279358" fill="#010101" cx="15" cy="15" r="12"></circle>
+                <rect id="Rectangle" x="0" y="0" width="30" height="30"></rect>
+                <polygon id="Path" fill="#FFFFFF" fill-rule="nonzero" points="21 19.538 16.408 14.9905 20.954 10.4035 19.538 9 14.993 13.5895 10.405 9.0455 9 10.4505 13.593 15.003 9.0455 19.595 10.4505 21 15.0065 16.404 19.5965 20.954"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
