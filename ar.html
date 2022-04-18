@@ -151,10 +151,10 @@
 				</div>
 				<p id="url-copied">!הקישור הועתק</p>
 				<div id="resetbutton">
-					<button id="button-reset" class="support" alt="Draw" dis></button>
+					<button id="button-reset" class="support" alt="Draw"></button>
 				</div>
 				<!-- <button id="button-action" alt="Toggle Flash"></button> -->
-				<button id="button-mode-toggle" alt="Toggle mode" class="dynamic" style="display: none;">
+				<button id="button-mode-toggle" alt="Toggle mode" class="static" style="display: none;">
 					<a class='static-mode'></a>
 					<span class='dynamic-mode'></span>
 				</button>
@@ -994,7 +994,7 @@
 					resetTrail();
 				})
 
-				document.getElementById('button-mode-toggle').addEventListener("click", function () {
+				/*document.getElementById('button-mode-toggle').addEventListener("click", function () {
 					if (mode == 'static') {
 						mode = 'dynamic';
 						this.classList.add('dynamic');
@@ -1025,7 +1025,7 @@
 						trails.forEach(trail => scene.remove(trail))
 					}
 				})
-
+				*/
 				changeAircraft(AIRCRAFTS_META_DATA[5]);
 				loadLight();
 				loadPainter();
@@ -1143,7 +1143,7 @@
 						});
 
 						endTime = Math.floor((Date.now() - startTimer)/ 1000) ;
-						document.querySelector('.aircraft-option.selected').style.animation = `fillAnimation ${endTime}s`;
+						document.querySelector('.aircraft-option.selected').style.animation = `fillAnimation ${endTime}s`;						
 						console.log(endTime);
 						//document.querySelector('.aircraft-option.selected').style.animation = '';
 							
