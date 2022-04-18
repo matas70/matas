@@ -128,7 +128,7 @@ class ARButton {
 
 			};
 
-
+			
 		}
 
 		function disableButton() {

@@ -427,6 +427,7 @@
 			let isSupported;
 			let currentAircraft = "f35";
 
+			
 			function checkDeviceSupport() {
 				console.log(cur_user_agent.getResult())
 				console.log(cur_user_agent.getBrowser())
@@ -826,14 +827,31 @@
 						}
 					});
 					document.body.querySelector('#ar-start').appendChild(arButton);
-				}
+					
+					//try on removing the start page of the ar 
 
+					//function eventFire(el, etype){
+					//	if (el.fireEvent) {
+					//	  el.fireEvent('on' + etype);
+					//	} else {
+					//	  var evObj = document.createEvent('Events');
+					//	  evObj.initEvent(etype, true, false);
+					//	  el.dispatchEvent(evObj);
+					//	}
+					//  }
+					//setTimeout(() => {eventFire(document.getElementById('ARButton'), 'click');}, 2000);
+				}
 				const shareData = {
 					// title: 'כיף לצפות במטוסי חיל האוויר - אצלי בטלפון, בתלת מימד!',
 					// text: 'כמה מגניב! באפליקצית מטס יום העצמאות ה74 אני רואה את כל המטוסים בתלת מימד. בואו לנסות גם',
 					url: 'https://matas.iaf.org.il',
 				}
 
+				//setTimeout(()=>{if(isSupported){
+				//	alert('walla im supported');
+				//}else{
+				//	alert('im wallk not supported');
+				//}}, 4000)
 				const btn = document.querySelector('#ar-overly .share');
 
 				// Must be triggered some kind of "user activation"
@@ -1474,7 +1492,7 @@
 
 			document.getElementById('unsupported-share-button').addEventListener('click', ()=>{
 				document.getElementById('url-copied').style.display = 'block';
-				//navigator.clipboard.writeText("https://matas.iaf.org.il/ar.html צפו במטוסי חיל האוויר בתלת-מימד, באתר של מטס יום העצמאות!");
+				navigator.clipboard.writeText("https://matas.iaf.org.il/ar.html צפו במטוסי חיל האוויר בתלת-מימד, באתר של מטס יום העצמאות!");
 				setTimeout(() => {
 					document.getElementById('url-copied').style.display = 'none';
 				}, 1500);
