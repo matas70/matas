@@ -225,10 +225,10 @@ googleMaps = {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
                 iconUrl = "icons/lookout.svg";
-            } else if(aerobatic) {
-                iconUrl = "icons/show-" + color + ".svg";
-            } else if (point.color==="00000000") {
+            } else if ((point.pointName.includes('בסיס')) || (point.pointName.includes('מוזיאון'))){
                 iconUrl = "icons/OpenBaseMap.svg";
+            } else if (aerobatic) {
+                iconUrl = "icons/show-" + color + ".svg";
             } else {
                 iconUrl = "icons/point-" + color + ".svg";
             }
@@ -237,10 +237,10 @@ googleMaps = {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
                 iconUrl = "icons/hospital-clicked.svg";
-            } else if(aerobatic) {
-                iconUrl = "icons/showSelected-" + color + ".svg";
-            } else if (point.color==="00000000") {
+            } else if ((point.pointName.includes('בסיס')) || (point.pointName.includes('מוזיאון'))) {
                 iconUrl = "icons/OpenBaseMap.svg";
+            } else if (aerobatic) {
+                iconUrl = "icons/show-" + color + ".svg";
             } else {
                 iconUrl = "icons/pointPress-" + color + ".svg";
             }

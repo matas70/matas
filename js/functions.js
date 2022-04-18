@@ -131,10 +131,16 @@ loadOpenBasesLocation();
 
 //create base category in navbar 
 function createBaseCategory(point) {
+    let base;
+    baseData.forEach(element => {
+        if(element.baseName === point.pointName) {
+            base = element
+        }
+    })
     return `<div class="base-category-container" onclick=showBaseLoactionPopup("${point.pointId}")>
-                <h2 class="header">${point.pointName}</h2>
-                <a href="waze.com">
-                   <img class="waze-icon" src="icons/waze.svg">
+                <h2 class="header">${base.baseName}</h2>
+                <a target="_blank" href="${base.baseWazeDestinationLink}">
+                        <img class="waze-icon" src="icons/waze.svg">
                 </a>
             </div>`
 }
@@ -1572,7 +1578,6 @@ function displaySearchView() {
         if (shouldShowTypeCategory("base")) {
             // add bases
             searchViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
-            console.log(location)
             sortedLocations.forEach(function (location) {
                 if (location.pointName.includes('בסיס')) {
                     searchViewHtml += createLocationRow(location, false, true);
@@ -2035,6 +2040,8 @@ function fillMenu() {
 
     var currTime = getCurrentTime();
 
+    
+
     if (shouldShowTypeCategory("base")) {
         var airpalnesOnBasesCount = 0;
         // add bases
@@ -2046,7 +2053,7 @@ function fillMenu() {
         if (airpalnesOnBasesCount > 0)
             locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
         sortedLocations.forEach(function (location) {
-            if (location.pointName.includes('בסיס')) {
+            if (location.pointName.includes('בסיס') && (location.pointId !== 245)) {
                 locationsViewHtml += createBaseCategory(location)
             } else if (location.pointName.includes('מוזיאון')) {
                 locationsViewHtml += createBaseCategory(location)
