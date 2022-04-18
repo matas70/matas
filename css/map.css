@@ -2302,6 +2302,43 @@ div.airplanes-show-header h2.title{
     -webkit-user-select: none;
 }
 
+div.base-category-container {
+    cursor: pointer;
+    margin-bottom: 4px;
+    background: #F7F5F5;
+    width: 100%;
+    height: 56px;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.base-category-container h2 {
+    font-family: Heebo-Bold;
+    font-size: 17px;
+    color: #37474F;
+    letter-spacing: -0.41px;
+    text-align: right;
+    font-weight: 700;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    margin-right: 23px;
+}
+
+div.base-category-container a{
+    margin-left: 23px;
+}
+
+div.base-category-container a img {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
 @media only screen and (max-width: 600px) {
     div.open-bases-popup {
         width: 100%;

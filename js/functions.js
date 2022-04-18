@@ -69,7 +69,7 @@ function getEnv(callback) {
         })
         .catch(() => {
             console.error("Matas: Couldn't load env from server, using defauls.");
-            appStage = "matas";
+            appStage = "matas-dev";
             callback(appStage);
         });
     }
@@ -113,6 +113,16 @@ function calcAzimuth(source, target) {
         azimuth = 360 + azimuth;
     }
     return azimuth;
+}
+
+//create base category in navbar 
+function createBaseCategory(point){
+    return `<div class="base-category-container" onclick=showBaseLoactionPopup()>
+                <h2 class="header">${point.pointName}</h2>
+                <a href="waze.com">
+                   <img class="waze-icon" src="icons/waze.svg">
+                </a>
+            </div>`
 }
 
 function getRelativeLocation(prevLocation, nextLocation, ratio) {
@@ -1111,7 +1121,7 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     selectedLocationMarker = marker;
     selectedLocationMarkerIcon = markerIcon;
     mapAPI.panTo(map, location);
-
+    
     showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, setMarkerOnDeselectLocation);
 }
 
@@ -1167,8 +1177,7 @@ function selectAircraft(aircraft, marker, aircraftName, aircraftType, iconName, 
 
     globalCollapse = collapse;
     deselectLocation();
-    showBaseLoactionPopup()
-    //showAircraftInfoPopup(aircraft, collapse);
+    showAircraftInfoPopup(aircraft, collapse);
     fillAircraftSchedule(aircraft, showAllPoints);
     //map.panTo(location);
     //marker.setIcon(markerIconClicked);
@@ -1545,7 +1554,7 @@ function displaySearchView() {
             searchViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
 
             sortedLocations.forEach(function (location) {
-                if (!location.hidden && location.type && location.type === "base") {
+                if (location.pointName.includes('בסיס')) {
                     searchViewHtml += createLocationRow(location, false, true);
                 }
             }, this);
@@ -2010,7 +2019,7 @@ function fillMenu() {
         var airpalnesOnBasesCount = 0;
         // add bases
         sortedLocations.forEach(function (location) {
-            if (!location.hidden && location.type && location.type === "base") {
+            if (location.pointName.includes('בסיס')) {
                 airpalnesOnBasesCount += location.aircrafts.length;
             }
         }, this);
@@ -2018,8 +2027,11 @@ function fillMenu() {
             locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
 
         sortedLocations.forEach(function (location) {
-            if (!location.hidden && location.type && location.type === "base") {
-                locationsViewHtml += createLocationRow(location, false);
+            console.log(location)
+            if (location.pointName.includes('בסיס')) {
+                locationsViewHtml += createBaseCategory(location)
+            } else if (location.pointName.includes('מוזיאון')) {
+                locationsViewHtml += createBaseCategory(location)
             }
         }, this);
     }

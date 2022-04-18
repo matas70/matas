@@ -174,9 +174,7 @@ function showBaseLoactionPopup() {
     navBarHeaderElement.addEventListener('click', function handleClick() {
         onClose()
     });
-    mapElement.addEventListener('click', function handleClick() {
-        onClose()
-    });
+
 
     const airshowElement = `
       <div>

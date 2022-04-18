@@ -222,7 +222,6 @@ googleMaps = {
         color = color.replace("#ff0000", "ffffff00")
         iconUrl = "icons/point-" + color + ".svg";
 
-
         if (!clicked) {
             if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
@@ -230,6 +229,8 @@ googleMaps = {
                 iconUrl = "icons/lookout.svg";
             } else if(aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
+            } else if (point.color==="00000000") {
+                iconUrl = "icons/OpenBaseMap.svg";
             } else {
                 iconUrl = "icons/point-" + color + ".svg";
             }
@@ -240,6 +241,8 @@ googleMaps = {
                 iconUrl = "icons/hospital-clicked.svg";
             } else if(aerobatic) {
                 iconUrl = "icons/showSelected-" + color + ".svg";
+            } else if (point.color==="00000000") {
+                iconUrl = "icons/OpenBaseMap.svg";
             } else {
                 iconUrl = "icons/pointPress-" + color + ".svg";
             }
@@ -305,13 +308,22 @@ googleMaps = {
                         } else {
                             // first hide the previous popup
                             if (selectedLocation != null) {
+                                if (point.pointName.includes('בסיס'||'מוזיאון')) {
+                                    showBaseLoactionPopup()
+                                } else {
                                 deselectLocation(() => {
                                     // then show a new popup
-                                    selectLocation(point.pointId, location, marker, markerHtml, markerHtmlClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
-                                });
+
+                                        selectLocation(point.pointId, location, marker, markerHtml, markerHtmlClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                                    })
+                                }
                             } else {
                                 // then show a new popup
-                                selectLocation(point.pointId, location, marker, markerHtml, markerHtmlClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                                if (point.pointName.includes('בסיס'||'מוזיאון')) {
+                                    showBaseLoactionPopup()
+                                } else {
+                                    selectLocation(point.pointId, location, marker, markerHtml, markerHtmlClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                                }
                             }
                         }
                     } else {
