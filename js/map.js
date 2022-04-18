@@ -9,9 +9,7 @@ const USE_TEMP_TOKEN = window.location.href.indexOf('TEMP_TOCKEN') >= 0;
 
 googleMaps = {
     // new production key
-    MAP_URL: USE_TEMP_TOKEN ? 
-        "https://maps.googleapis.com/maps/api/js?key=AIzaSyCW13iCQb0Z0Napej-7y-DPj76uUvmzV54&map_ids=6571b907d96d29e6&callback=initMap&language=he&region=IL" :
-        "https://maps.googleapis.com/maps/api/js?key=AIzaSyD6_woFZpfspoPsI7BGcsC2ZtDCue1yTks&map_ids=6571b907d96d29e6&callback=initMap&language=he&region=IL",
+    MAP_URL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyDiA8uriGzJyqXwSVlqghHMUOvoOcskbsE&map_ids=6571b907d96d29e6&callback=initMap&language=he&region=IL",
     setAircraftMarkerIcon: (marker, url, anchor = 36) => {
         if (anchor != null) {
             marker.setIcon({
