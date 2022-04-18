@@ -5,7 +5,6 @@ selectedLocationMarker = null;
 selectedLocationMarkerIcon = null;
 aerobaticPoints = null;
 
-const USE_TEMP_TOKEN = window.location.href.indexOf('TEMP_TOCKEN') >= 0;
 
 googleMaps = {
     // new production key
