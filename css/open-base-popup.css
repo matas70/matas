@@ -386,6 +386,35 @@ div.base-category-container a img {
     height: 30px;
 }
 
+@media only screen and (max-width: 300px) {
+  div.header-general-title h1{
+    font-size: 20px;
+    width: 100px;
+  }
+  div.header-general-title p{
+    font-size: 14px;
+  }
+
+  div.header-general-title a{
+    transform: translateX(20px);
+  }
+}
+
+
+@media only screen and (max-width: 360px) {
+  div.header-general-title h1{
+    font-size: 24px;
+    width: 200px;
+  }
+  div.header-general-title p{
+    font-size: 14px;
+  }
+
+  div.header-general-title a{
+    transform: translateX(20%);
+  }
+}
+
 @media only screen and (max-width: 600px) {
     div.open-bases-popup {
         width: 100%;
