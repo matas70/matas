@@ -1,0 +1,49 @@
+[{
+    "pointId": 319,
+    "baseThemePath": "experimental-assets/theme.jpg",
+    "baseName": "בסיס תל נוף",
+    "iconBasePath": "experimental-assets/tel-nof.svg",
+    "baseWazeDestinationLink": "https://www.waze.com/live-map/directions/%D7%AA%D7%9C-%D7%A0%D7%95%D7%A3-%D7%A9%D7%92-%D7%A6%D7%A4%D7%95%D7%9F-%D7%91%D7%99%D7%AA-%D7%90%D7%9C%D7%A2%D7%96%D7%A8%D7%99?navigate=yes&to=place.w.22806847.228199537.446258",
+    "basePassage": "כמיטב המסורת, ביום העצמאות נפתח בסיס תל נוף לקהל הרחב ואתם מוזמנים! בואו לראות מבפנים בסיס חיל האוויר הכניסה חינם.",
+    "baseArrivalTime": "9:00-15:00",
+    "baseArrivalTimeIcon": "randomIcon.svg",
+    "baseArrivalExplanation": "ש לחפש בוייז \"בסיס רמת אביב\" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים",
+    "baseMapPath": "https://meyda.education.gov.il/files/noar/willing_service14.pdf"
+},
+{
+    "pointId": 256,
+    "baseThemePath": "experimental-assets/theme.jpg",
+    "baseName": "בסיס חצור",
+    "iconBasePath": "experimental-assets/tel-nof.svg",
+    "baseWazeDestinationLink": "https://www.waze.com/live-map/directions/%D7%AA%D7%9C-%D7%A0%D7%95%D7%A3-%D7%A9%D7%92-%D7%A6%D7%A4%D7%95%D7%9F-%D7%91%D7%99%D7%AA-%D7%90%D7%9C%D7%A2%D7%96%D7%A8%D7%99?navigate=yes&to=place.w.22806847.228199537.446258",
+    "basePassage": "כמיטב המסורת, ביום העצמאות נפתח בסיס תל נוף לקהל הרחב ואתם מוזמנים! בואו לראות מבפנים בסיס חיל האוויר הכניסה חינם.",
+    "baseArrivalTime": "11:00-19:00",
+    "baseArrivalTimeIcon": "randomIcon.svg",
+    "baseArrivalExplanation": "ש לחפש בוייז \"בסיס רמת אביב\" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים",
+    "baseMapPath": "https://meyda.education.gov.il/files/noar/willing_service14.pdf"
+},
+{
+    "pointId": 284,
+    "baseThemePath": "experimental-assets/theme.jpg",
+    "baseName": "בסיס רמת דוד",
+    "iconBasePath": "experimental-assets/tel-nof.svg",
+    "baseWazeDestinationLink": "https://www.waze.com/live-map/directions/%D7%AA%D7%9C-%D7%A0%D7%95%D7%A3-%D7%A9%D7%92-%D7%A6%D7%A4%D7%95%D7%9F-%D7%91%D7%99%D7%AA-%D7%90%D7%9C%D7%A2%D7%96%D7%A8%D7%99?navigate=yes&to=place.w.22806847.228199537.446258",
+    "basePassage": "כמיטב המסורת, ביום העצמאות נפתח בסיס תל נוף לקהל הרחב ואתם מוזמנים! בואו לראות מבפנים בסיס חיל האוויר הכניסה חינם.",
+    "baseArrivalTime": "12:00-18:00",
+    "baseArrivalTimeIcon": "randomIcon.svg",
+    "baseArrivalExplanation": "ש לחפש בוייז \"בסיס רמת אביב\" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים",
+    "baseMapPath": "https://meyda.education.gov.il/files/noar/willing_service14.pdf"
+},
+{
+    "pointId": 295,
+    "baseThemePath": "experimental-assets/theme.jpg",
+    "baseName": "מוזיאון חיל האוויר",
+    "iconBasePath": "experimental-assets/tel-nof.svg",
+    "baseWazeDestinationLink": "https://www.waze.com/live-map/directions/%D7%AA%D7%9C-%D7%A0%D7%95%D7%A3-%D7%A9%D7%92-%D7%A6%D7%A4%D7%95%D7%9F-%D7%91%D7%99%D7%AA-%D7%90%D7%9C%D7%A2%D7%96%D7%A8%D7%99?navigate=yes&to=place.w.22806847.228199537.446258",
+    "basePassage": "כמיטב המסורת, ביום העצמאות נפתח בסיס תל נוף לקהל הרחב ואתם מוזמנים! בואו לראות מבפנים בסיס חיל האוויר הכניסה חינם.",
+    "baseArrivalTime": "7:00-23:00",
+    "baseArrivalTimeIcon": "randomIcon.svg",
+    "baseArrivalExplanation": "ש לחפש בוייז \"בסיס רמת אביב\" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים",
+    "baseMapPath": "https://meyda.education.gov.il/files/noar/willing_service14.pdf"
+}
+]

@@ -308,22 +308,14 @@ googleMaps = {
                         } else {
                             // first hide the previous popup
                             if (selectedLocation != null) {
-                                if (point.pointName.includes('בסיס'||'מוזיאון')) {
-                                    showBaseLoactionPopup()
-                                } else {
                                 deselectLocation(() => {
                                     // then show a new popup
 
                                         selectLocation(point.pointId, location, marker, markerHtml, markerHtmlClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
                                     })
-                                }
-                            } else {
-                                // then show a new popup
-                                if (point.pointName.includes('בסיס'||'מוזיאון')) {
-                                    showBaseLoactionPopup()
                                 } else {
+                                    // then show a new popup
                                     selectLocation(point.pointId, location, marker, markerHtml, markerHtmlClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
-                                }
                             }
                         }
                     } else {

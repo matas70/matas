@@ -115,9 +115,23 @@ function calcAzimuth(source, target) {
     return azimuth;
 }
 
+let baseData = [];
+
+function loadOpenBasesLocation(callback) {
+    getEnv((env) => {
+        $.getJSON(`${config.apiURL}/${env}/openBases.json?t=`+(new Date()).getTime(), function (baseLocations) {
+            baseLocations.forEach(element => {
+                baseData.push(element)
+            })
+        });
+    });
+}
+
+loadOpenBasesLocation();
+
 //create base category in navbar 
-function createBaseCategory(point){
-    return `<div class="base-category-container" onclick=showBaseLoactionPopup()>
+function createBaseCategory(point) {
+    return `<div class="base-category-container" onclick=showBaseLoactionPopup("${point.pointId}")>
                 <h2 class="header">${point.pointName}</h2>
                 <a href="waze.com">
                    <img class="waze-icon" src="icons/waze.svg">
@@ -1122,7 +1136,13 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     selectedLocationMarkerIcon = markerIcon;
     mapAPI.panTo(map, location);
     
-    showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, setMarkerOnDeselectLocation);
+    if (locations[pointId].pointName.includes('בסיס')) {
+        showBaseLoactionPopup(pointId)
+    } else if (locations[pointId].pointName.includes('מוזיאון')) {
+        showBaseLoactionPopup(pointId)
+    } else {
+        showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, setMarkerOnDeselectLocation);
+    }
 }
 
 function deselectAircraft(callback) {
@@ -1552,7 +1572,7 @@ function displaySearchView() {
         if (shouldShowTypeCategory("base")) {
             // add bases
             searchViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
-
+            console.log(location)
             sortedLocations.forEach(function (location) {
                 if (location.pointName.includes('בסיס')) {
                     searchViewHtml += createLocationRow(location, false, true);
@@ -2025,11 +2045,10 @@ function fillMenu() {
         }, this);
         if (airpalnesOnBasesCount > 0)
             locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
-
         sortedLocations.forEach(function (location) {
-            console.log(location)
             if (location.pointName.includes('בסיס')) {
                 locationsViewHtml += createBaseCategory(location)
+                console.log(location)
             } else if (location.pointName.includes('מוזיאון')) {
                 locationsViewHtml += createBaseCategory(location)
             }

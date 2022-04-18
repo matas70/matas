@@ -1,3 +1,5 @@
+const { point } = require("leaflet");
+
 var locationPopupExpanded = false;
 var locationPopupCloseCallback = null;
 var minimizedLocationPopupHeight = 100;
@@ -78,22 +80,6 @@ function initPopups() {
 
 }
 
-point = {
-    baseThemePath: `experimental-assets/theme.jpg`,
-    baseName: 'בסיס תל נוף',
-    iconBasePath: 'experimental-assets/tel-nof.svg',
-    basePassage: 'כמיטב המסורת, ביום העצמאות נפתח בסיס תל נוף לקהל הרחב ואתם מוזמנים! בואו לראות מבפנים בסיס חיל האוויר הכניסה חינם.',
-    baseArrivalTime: '9:00-15:00',
-    wazeLink: 'https://www.waze.com/live-map/directions/%D7%AA%D7%9C-%D7%A0%D7%95%D7%A3-%D7%A9%D7%92-%D7%A6%D7%A4%D7%95%D7%9F-%D7%91%D7%99%D7%AA-%D7%90%D7%9C%D7%A2%D7%96%D7%A8%D7%99?navigate=yes&to=place.w.22806847.228199537.446258',
-    baseArrivalExplanation: 'יש לחפש בוייז "בסיס רמת אביב" ואז לפנות שמאלה לנהריה שמה תהיה פניה לשער ירושלים',
-    baseMapPath: 'a',
-    airShows: [
-        ['09:00','הופעה','רעם'],
-        ['09:00','הופעה','רעם'],
-    ]
-    
-}
-
 function onClose() {
     let basePopUpElement = $("#open-bases-popup");
     let fullHeight = window.innerHeight;
@@ -116,7 +102,6 @@ function onClose() {
 let dragPopUpElement = document.getElementById('drag-button');
 dragPopUpElement.addEventListener("touchmove", function myFunction1(event) {
     document.getElementById('open-bases-popup').style.top = `${event.changedTouches[0].clientY}px`;
-    console.log(event.changedTouches[0].clientY)
 });
 
 //phone onDrag event for open bases
@@ -128,16 +113,32 @@ dragPopUpElement.addEventListener("touchend", function myFunction2(event) {
 
 
     document.getElementById('open-bases-popup').style.top = `${(currentPosition > windowFullSize * 0.3 && currentPosition <  windowFullSize * 0.7)?popupMinimizedPosition:(currentPosition >= windowFullSize * 0.3)?fullSizedPosition:0}px`;
-    console.log(currentPosition)
 });
 
-function showBaseLoactionPopup() {
+
+loadOpenBasesLocation();
+
+
+function showBaseLoactionPopup(pointId) {
+
+    let point;
+
+    baseData.forEach(element => {
+        console.log(element);
+        if (element.pointId === Number(pointId)) {
+            point = element;
+        }
+    })
+
+    console.log(point);
+
     let basePopUpElement = $("#open-bases-popup");
     let fullHeight = window.innerHeight;
     let fullWidth = window.innerWidth;
     const headerElement = document.getElementById(`headerBg`);
     const navBarHeaderElement = document.getElementById(`listHeader`);
     const mapElement = document.getElementById(`map`);
+    let html;
 
     if( fullWidth <= 600 ) {
         basePopUpElement.animate({
@@ -165,6 +166,8 @@ function showBaseLoactionPopup() {
     let mapButton = (point.baseMapPath !== '')?`<a href=${point.baseMapPath} target="_blank"><button class="base-map">למפת התערוכה</button></a>`:'';
 
     document.getElementById('base-map-button-handler').innerHTML = mapButton;
+
+    
 
 
     // Close Event only when user doesn't click on openBasePopup it self.
