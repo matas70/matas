@@ -875,7 +875,7 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     //Checking weather audioMessages is not undifined
     if (audioMessages){
         //Checking weather aircraftType has not already been notified and if audio message for aircraftType is avalibale 
-        if (!(aircraft.aircraftTypeId in notifiedNearUser) && aircraft.aircraftTypeId in audioMessages && (theEventStarted || isSimulation)) {
+        if (!(aircraft.aircraftTypeId in notifiedNearUser) && audioMessages[aircraft.aircraftTypeId].audioSrc  && (theEventStarted || isSimulation)) {
             notifyUserIfNear(currentAircraftPosition, aircraft);
        }
     }
@@ -2383,7 +2383,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         //Adding to array so the user won't get notifed twice  
                         notifiedNearUser.push(aircraft.aircraftTypeId);
                         
-                        let audioMessage = audioMessages[aircraft.aircraftTypeId] ? audioMessages[aircraft.aircraftTypeId] : audioMessages['default'];
+                        let audioMessage = audioMessages[aircraft.aircraftTypeId];
                         $("#gottoVoiceMessagePopup")[0].style.display = "block";
                         $("#aircraftName").html(`${aircraft.type} - ${name}`);
                         $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
