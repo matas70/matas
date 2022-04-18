@@ -101,6 +101,7 @@ function onClose() {
 //phone onDrag event for open bases
 let dragPopUpElement = document.getElementById('drag-button');
 dragPopUpElement.addEventListener("touchmove", function myFunction1(event) {
+    console.log(event.changedTouches[0].clientY)
     document.getElementById('open-bases-popup').style.top = `${event.changedTouches[0].clientY}px`;
 });
 
@@ -125,13 +126,10 @@ function showBaseLoactionPopup(pointId) {
     let point;
 
     baseData.forEach(element => {
-        console.log(element);
         if (element.pointId === Number(pointId)) {
             point = element;
         }
     })
-
-    console.log(point);
 
     let basePopUpElement = $("#open-bases-popup");
     let fullHeight = window.innerHeight;

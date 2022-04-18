@@ -2048,7 +2048,6 @@ function fillMenu() {
         sortedLocations.forEach(function (location) {
             if (location.pointName.includes('בסיס')) {
                 locationsViewHtml += createBaseCategory(location)
-                console.log(location)
             } else if (location.pointName.includes('מוזיאון')) {
                 locationsViewHtml += createBaseCategory(location)
             }

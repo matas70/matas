@@ -7,8 +7,6 @@ aerobaticPoints = null;
 
 
 googleMaps = {
-    //real key https://maps.googleapis.com/maps/api/js?key=AIzaSyCW13iCQb0Z0Napej-7y-DPj76uUvmzV54&map_ids=6571b907d96d29e6&callback=initMap&language=he&region=IL
-    // new production key
     MAP_URL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyCW13iCQb0Z0Napej-7y-DPj76uUvmzV54&map_ids=6571b907d96d29e6&callback=initMap&language=he&region=IL",
 
     setAircraftMarkerIcon: (marker, url, anchor = 36) => {
