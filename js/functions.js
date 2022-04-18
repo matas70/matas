@@ -40,6 +40,11 @@ var appLoaded = false;
 var changes = false;
 var appStage;
 
+var audioMessages;
+$.getJSON('/data/audio-messages.json', (res) => {
+    audioMessages = res;
+});
+
 // set default configuration
 var config = {
     "timeOfAerobaticShow" : 2,
@@ -848,7 +853,9 @@ function checkIfSimulationEnded() {
     }
 }
 
-var notifiedNearUser = false;
+//array of aircaftTypes that were notified as near
+var notifiedNearUser = [];
+
 
 function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     
@@ -865,10 +872,16 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     let isSimulation = $.urlParam("simulation") != null;
     let theEventStarted = eventsStartTime - new Date().getTime() < 0 ;
 
-    if (!notifiedNearUser && (theEventStarted || isSimulation)) {
-        
-        notifyUserIfNear(currentAircraftPosition, aircraft);
+    //Checking weather audioMessages is not undifined    
+    //Checking weather aircraftType has not already been notified and if audio message for aircraftType is avalibale 
+    if (audioMessages &&
+        !(aircraft.aircraftTypeId in notifiedNearUser) &&
+        aircraft.aircraftTypeId in audioMessages && 
+        audioMessages[aircraft.aircraftTypeId]["audioSrc"] &&
+        (theEventStarted || isSimulation)) {
+                notifyUserIfNear(currentAircraftPosition, aircraft);
     }
+    
     
 
     // Should the current time be larger than the next position's time, that means the aircraft landed
@@ -2348,46 +2361,35 @@ function getEventDescription(isAerobatics, locationName, minutes) {
         userLoc = {lon: userLoc.coords.longitude, lat: userLoc.coords.latitude};
     });
 
-    var audioMessages;
-    $.getJSON('/data/audio-messages.json', (res) => {
-        audioMessages = res;
-    });
+
     
 
-    var name ="";
-    //check that its not the same popup that has been closed
-    //var timeCount = 0;
+    
     function notifyUserIfNear(currentLocation, aircraft) {
-        
-        if (userLoc) {
+
+        var closePopupTime = 60;
+
+        if (userLoc) 
+        {
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-            if (haversineDistance(userLoc,currentLocation) < 3)
+            if (haversineDistance(userLoc,currentLocation) < 3)          
             {
-                notifiedNearUser = true;
-
-
-                //check that its not the same popup that has been closed
-                /*if(name === "")
-                {
-                    console.log("in timer");
-                    var x = setInterval( function () { timeCount++;}, 1000);
-                } */
-                //check that its not the same popup that has been closed - if its not the same aircraft or its has been more then 30 sec
-                //if(timeCount >30 || name !== aircraft.name) {
                     if($('#myModal:hidden') && $('#gottoVoiceMessagePopup:hidden'))
                     {
-                        //timeCount = 0;
-                        name = aircraft.name;
-                        let audioMessage = audioMessages[aircraft.aircraftId] ? audioMessages[aircraft.aircraftId] : audioMessages['default'];
+                        //Closing popup After closePopupCount seconds
+                        setTimeout(()=>{$('#gottoVoiceMessagePopup').hide();},1000*closePopupTime);
+                        
+                        //Adding to array so the user won't get notifed twice  
+                        notifiedNearUser.push(aircraft.aircraftTypeId);
+                        
+                        let audioMessage = audioMessages[aircraft.aircraftTypeId];
                         $("#gottoVoiceMessagePopup")[0].style.display = "block";
                         $("#aircraftName").html(`${aircraft.type} - ${name}`);
                         $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
+                        $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
+                        $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
+                        $('#audioMessageText').html(audioMessage.text);
 
-                        if (aircraft.aircraftTypeId === 25) {
-                            $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
-                            $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
-                            $('#audioMessageText').html(audioMessage.text);
-                        }
 
                         $('#audioSRC').on('playing', function () {
                             $('#audioMessagePlayPause').attr('src', 'icons/pause.svg')
@@ -2416,14 +2418,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                     }
                 //}
             }
-
-            else if(haversineDistance(userLoc,currentLocation) > 3)
-            {
-                if ($('#myModal:hidden'))
-                {
-                    $('#gottoVoiceMessagePopup').hide();
-                }
-            }
+            
         }
     }
 
