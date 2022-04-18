@@ -120,6 +120,7 @@ loadOpenBasesLocation();
 
 
 function showBaseLoactionPopup(pointId) {
+    onClose()
 
     let point;
 
