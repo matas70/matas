@@ -872,13 +872,16 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     let isSimulation = $.urlParam("simulation") != null;
     let theEventStarted = eventsStartTime - new Date().getTime() < 0 ;
 
-    //Checking weather audioMessages is not undifined
-    if (audioMessages){
-        //Checking weather aircraftType has not already been notified and if audio message for aircraftType is avalibale 
-        if (!(aircraft.aircraftTypeId in notifiedNearUser) && audioMessages[aircraft.aircraftTypeId].audioSrc  && (theEventStarted || isSimulation)) {
-            notifyUserIfNear(currentAircraftPosition, aircraft);
-       }
+    //Checking weather audioMessages is not undifined    
+    //Checking weather aircraftType has not already been notified and if audio message for aircraftType is avalibale 
+    if (audioMessages &&
+        !(aircraft.aircraftTypeId in notifiedNearUser) &&
+        aircraft.aircraftTypeId in audioMessages && 
+        audioMessages[aircraft.aircraftTypeId]["audioSrc"] &&
+        (theEventStarted || isSimulation)) {
+                notifyUserIfNear(currentAircraftPosition, aircraft);
     }
+    
     
 
     // Should the current time be larger than the next position's time, that means the aircraft landed
