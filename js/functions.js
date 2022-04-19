@@ -2045,7 +2045,7 @@ function fillMenu() {
         var airpalnesOnBasesCount = 0;
         // add bases
         sortedLocations.forEach(function (location) {
-            if (location.type === "base") {
+            if (location.pointName.includes('בסיס')) {
                 airpalnesOnBasesCount += location.aircrafts.length;
             }
         }, this);
