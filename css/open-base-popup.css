@@ -386,6 +386,19 @@ div.base-category-container a img {
     height: 30px;
 }
 
+div.airplanes-show p.aircraft-no-show {
+  padding: 0;
+  margin-right: center;
+  margin-left: center;
+  font-family: Heebo-Regular;
+  font-size: 24px;
+  color: #37474F;
+  letter-spacing: 0;
+  text-align: right;
+  line-height: 24px;
+  font-weight: 700;
+}
+
 @media only screen and (max-width: 300px) {
   div.header-general-title h1{
     font-size: 20px;
@@ -413,6 +426,11 @@ div.base-category-container a img {
   div.header-general-title a{
     transform: translateX(20%);
   }
+}
+
+div.aircraft-show div.tableRow  div.time{
+  display: flex;
+  align-items: center;
 }
 
 @media only screen and (max-width: 600px) {

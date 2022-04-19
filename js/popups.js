@@ -139,6 +139,7 @@ function showBaseLoactionPopup(pointId) {
     const headerElement = document.getElementById(`headerBg`);
     const navBarHeaderElement = document.getElementById(`listHeader`);
     const mapElement = document.getElementById(`map`);
+    let airplaneShowsElement = document.getElementById('airplanes-show');
     let html;
 
     if( fullWidth <= 600 ) {
@@ -180,12 +181,85 @@ function showBaseLoactionPopup(pointId) {
     });
 
 
-    const airshowElement = `
-      <div>
 
-      </div>
-    `;
+
+
+
+    let OpenBaseAircraftshtml = "";
+    let OpenBaseAircraftspecials = new Map();
+
+    OpenBaseAircraftspecials.set("מטס", []);
+
+    let pointInSortedLocation;
+
+    sortedLocations.forEach((e) => {
+        if(e.pointId === point.pointId) {
+            pointInSortedLocation = e;
+        }
+    });
+
+    pointInSortedLocation.aircrafts.forEach((ac) => {
+        if (ac.specialInAircraft) {
+            if (!OpenBaseAircraftspecials.has(ac.specialInAircraft) && (getCurrentTime() < getActualPathTime(ac.date, ac.time))) {
+                OpenBaseAircraftspecials.set(ac.specialInAircraft, []);
+            }
+
+            if (OpenBaseAircraftspecials.get(ac.specialInAircraft)) {
+                OpenBaseAircraftspecials.get(ac.specialInAircraft).push(ac);
+            }
+        } else if (ac.specialInPath) {
+            if (!OpenBaseAircraftspecials.has(ac.specialInPath)) {
+                OpenBaseAircraftspecials.set(ac.specialInPath, []);
+            }
+            OpenBaseAircraftspecials.get(ac.specialInPath).push(ac);
+        } else {
+            OpenBaseAircraftspecials.get("מטס").push(ac);
+        }
+    });
+
+    // Filter out empty categories
+    OpenBaseAircraftspecials = new Map([...OpenBaseAircraftspecials].filter(([key, value]) => value.length > 0));
+
+    let openBaseTmp = OpenBaseAircraftspecials.get("מטס");
+    OpenBaseAircraftspecials.delete("מטס");
+
+    // Check to see if aircraftList is empty in this location
+    if (OpenBaseAircraftspecials.size === 0 && (!openBaseTmp || openBaseTmp.length === 0)) {
+        airplaneShowsElement.innerHTML = '<p class="aircraft-no-show">המטס כבר עבר!</p>'
+    } else {
+        OpenBaseAircraftspecials.set("מטס", openBaseTmp);
+
+        OpenBaseAircraftspecials.forEach((value, key) => {
+            if (value && value.length > 0) {
+            OpenBaseAircraftshtml += createLocationPopupCategoryRow(key);
+            value.forEach((ac) => {
+                var date = undefined;
+
+                if (ac.date) {
+                    var split = ac.date.split('-');
+                    date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
+                }
+
+                OpenBaseAircraftshtml += createTableRow(ac.aircraftId,
+                    ac.name,
+                    ac.icon,
+                    ac.aircraftType,
+                    ac.time,
+                    ac.aerobatic || key === "מופעים אווירובטיים" || key === "חזרות",
+                    ac.parachutist,
+                    false,
+                    true,
+                    date,
+                    false,
+                    false,
+                    ac.from);
+                });
+                airplaneShowsElement.innerHTML = OpenBaseAircraftshtml;
+            }
+        });  
     }
+}
+
 
 
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized = false, closeCallback) {
