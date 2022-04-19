@@ -176,7 +176,7 @@
 					<img id="exit-trail" class="small-x-button" src="./assets/small-x.svg" alt="Exit Trail">
 					<div style="min-width: calc(50vw - 20px); height: 50px; flex: 1 0 auto;"></div>
 				</div>
-
+				<p class="load-aircraft">בטעינה</p>
 				<div id="aircrafts_menu">
 					<div class="buffer" style="height: 50px; flex: 1 0 auto;"></div>
 					<div class="buffer" style="height: 50px; flex: 1 0 auto;"></div>
@@ -1032,7 +1032,9 @@
 				
 				let startTimer = Date.now();
 				let endTime; 
+				document.querySelector('.load-aircraft').style.display = 'block';
 				new GLTFLoader()
+
 				
 					.load('./3d_models/aircrafts/gltf/' + selectedAircraft.id + '/object.' + selectedAircraft.type, function (gltf) {
 						if (aircraft)
@@ -1054,7 +1056,7 @@
 						document.querySelector('.aircraft-option.selected').style.animation = `fillAnimation ${5}s`;						
 						console.log(endTime);
 						//document.querySelector('.aircraft-option.selected').style.animation = '';		
-						
+						document.querySelector('.load-aircraft').style.display = 'none';
 					}, undefined, function (error) {
 						console.error(error);
 					});
