@@ -7,7 +7,7 @@ aerobaticPoints = null;
 
 const mapEnvFake = true;
 
-const USE_TEMP_TOKEN = window.location.href.indexOf('TEMP_TOCKEN') >= 0;
+const USE_TEMP_TOKEN = window.location.href.indexOf('TEMP_TOCKEN') < 0;
 
 googleMaps = {
     MAP_URL: USE_TEMP_TOKEN ? 
@@ -224,13 +224,14 @@ googleMaps = {
         color = color.toLowerCase();
         color = color.replace("#ff0000", "ffffff00")
         iconUrl = "icons/point-" + color + ".svg";
+        console.log(point);
 
         if (!clicked) {
             if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
                 iconUrl = "icons/lookout.svg";
-            } else if ((point.pointName.includes('בסיס')) || (point.pointName.includes('מוזיאון'))){
+            } else if (point.type === "base"){
                 iconUrl = "icons/OpenBaseMap.svg";
             } else if (aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
@@ -242,7 +243,7 @@ googleMaps = {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
                 iconUrl = "icons/hospital-clicked.svg";
-            } else if ((point.pointName.includes('בסיס')) || (point.pointName.includes('מוזיאון'))) {
+            } else if (point.type === "base"){
                 iconUrl = "icons/OpenBaseMap.svg";
             } else if (aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";

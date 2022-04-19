@@ -1141,10 +1141,9 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     selectedLocationMarker = marker;
     selectedLocationMarkerIcon = markerIcon;
     mapAPI.panTo(map, location);
+    console.log(locations[pointId])
     
-    if (locations[pointId].pointName.includes('בסיס')) {
-        showBaseLoactionPopup(pointId)
-    } else if (locations[pointId].pointName.includes('מוזיאון')) {
+    if (locations[pointId].type === "base") {
         showBaseLoactionPopup(pointId)
     } else {
         showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, setMarkerOnDeselectLocation);
@@ -1579,7 +1578,7 @@ function displaySearchView() {
             // add bases
             searchViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
             sortedLocations.forEach(function (location) {
-                if (location.pointName.includes('בסיס')) {
+                if (location.type === "base") {
                     searchViewHtml += createLocationRow(location, false, true);
                 }
             }, this);
@@ -2053,9 +2052,7 @@ function fillMenu() {
         if (airpalnesOnBasesCount > 0)
             locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
         sortedLocations.forEach(function (location) {
-            if (location.pointName.includes('בסיס') && (location.pointId !== 245)) {
-                locationsViewHtml += createBaseCategory(location)
-            } else if (location.pointName.includes('מוזיאון')) {
+            if (location.type === "base") {
                 locationsViewHtml += createBaseCategory(location)
             }
         }, this);

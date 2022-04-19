@@ -102,7 +102,6 @@ function onGrab(event) {
     //phone onDrag event for open bases
     let dragPopUpElement = document.getElementById('drag-button');
     dragPopUpElement.addEventListener("touchmove", function myFunction1(event) {
-        console.log(event.changedTouches[0].clientY)
         document.getElementById('open-bases-popup').style.top = `${event.changedTouches[0].clientY}px`;
     });
 
@@ -154,7 +153,7 @@ function showBaseLoactionPopup(pointId) {
         }, "fast");
     }
 
-    console.log(point)
+
     document.getElementById('open-bases-popup').style.display = 'block';
     document.getElementById('baseTheme').src = point.baseThemePath;
     document.getElementById('iconBase').src = point.iconBasePath;
