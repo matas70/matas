@@ -149,6 +149,7 @@
 					</svg>
 					
 				</div>
+        
 				<p id="url-copied">הקישור הועתק !</p>
 	<!-- <button id="button-action" alt="Toggle Flash"></button> -->
 				<button id="button-mode-toggle" alt="Toggle mode" class="static" style="display: none;">
@@ -365,8 +366,7 @@
 			import { OrbitControls } from "https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js";
 			import { EXRLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/EXRLoader.js';
 
-			
-			
+			localStorage.setItem("finishedLoadingSupported", false);
 			const today = new Date();
 			const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
 			const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -729,7 +729,7 @@
 
 				
 				if (isSupported) {
-
+					localStorage.setItem("finishedLoadingSupported", true);
 					const arButton = ARButton.createButton(renderer, {
 						
 						optionalFeatures: ['dom-overlay'],
@@ -782,12 +782,10 @@
 						console.log('נסיון שיתוף נכשל', err);
 					}
 				});
-
-				window.addEventListener('load', startup, false);
 				var streaming = false;
 
 				var video = null;
-
+        
 				// function startup() {
 				// 	video = document.getElementById('video');
 				// 	navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia);
@@ -935,6 +933,7 @@
 					}
 				})
 				*/
+        
 				changeAircraft(AIRCRAFTS_META_DATA[5]);
 				loadLight();
 				loadPainter();
@@ -1053,7 +1052,8 @@
 
 						endTime = Math.floor((Date.now() - startTimer)/ 1000) ;
 						document.querySelector('.aircraft-option.selected').style.animation = `fillAnimation ${5}s`;						
-						console.log(endTime);		
+						console.log(endTime);
+						//document.querySelector('.aircraft-option.selected').style.animation = '';		
 						
 					}, undefined, function (error) {
 						console.error(error);
@@ -1165,17 +1165,6 @@
 					document.getElementById(selectedAircraft.id).classList.add("selected");
 					loadAircraft(selectedAircraft);
 					currentAircraft = selectedAircraft.id;
-
-					if (isIOS()) {
-						document.getElementById('usdz-info-popup').style.display = "block";
-						document.getElementById('usdz-button').style.display = "block";
-						document.getElementById('usdz-button').href = `https://matasstorage.blob.core.windows.net/models/usdz%2F${currentAircraft}.usdz`;
-						document.getElementById('usdz_info').style.display = "block";
-					} else {
-						document.getElementById('button-mode-toggle').style.display = "none";
-						document.getElementById('usdz_info').style.display = "none";
-						document.getElementsByClassName('usdz-info-popup').style.display = "none";
-					}
 				}, 10)
 			}
 			function changeTrails(selectedTrails) {

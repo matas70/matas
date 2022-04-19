@@ -203,15 +203,20 @@ select {
   background-size: contain;
 }
 #unsupported-share-button{
+  margin-left: 2vw;
   cursor: pointer;
   display: flex;
   align-items: center;
 }
 #url-copied{
-  display: none;
   position: absolute;
-  margin-top: 6vh;
+  margin-top: 4vh;
+  display: none;
   color: white;
+  background-color: #0000004f;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   direction: rtl;
 }
 #unsupported-share-button p{
@@ -460,31 +465,26 @@ canvas {
   margin: 5px 5px;
   
 }
-@keyframes fillAnimation {
-  0%{
-    background-position: 0 0;
-  }
-  33%,
-  100%{
-    background-position: 0% 100%;
-  }
-}
-.aircraft-option.selected{
-  background-position: bottom left; 
-}
+
 .aircraft-option.selected {
   width: 59px;
   height: 80px;
   border: 2px solid #3BB5F2;
   box-shadow: 0 0 4px 0 rgba(0,0,0,0.50);
-}
-.aircraftAnimation{
-  transition: all 1s  ;
-  background-size: 100% 200%;
-  background-image: linear-gradient(to top, #3bb5f234 50%, transparent 50%); 
-  animation: fillAnimation 1.5s infinite;
+  background-size: 200% 100%;
+  background-image: linear-gradient(to left, #3bb5f234 5 0%, transparent 50%);
+  transition: all 1s;
 }
 
+
+@keyframes fillAnimation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
 #aircrafts_menu .aircraft-option.selected img {
   max-width: 100%;
   max-height: 80%;
@@ -579,6 +579,7 @@ font-weight: 500;
   border-radius: 16px;
   height: 402px;
   width: 270px;
+  z-index: 1000000;
   
 }
 #supported-ar-conteiner{
@@ -748,7 +749,6 @@ body:not(.is-supported) #ar-overly{
 .is-supported #ar-overly .start{
   opacity: 1;
 } 
-
 body:not(.is-supported) #ar-start {
   display: none;
 }
@@ -772,10 +772,9 @@ body:not(.is-supported) #ar-start {
   width: 100%;
   z-index: 999;
   overflow: hidden;
-  background: #9cd9f8;
+  background: black;
+  /* display: none; */
 }
-
-
 .is-supported #ar-start .d-open{
   margin-top:11px;
 }
@@ -799,15 +798,6 @@ body:not(.is-supported) #ar-start {
 .is-supported #ar-start .arrow#rd-arrow{
   opacity: 0.64;
 }
-
-#ar-overly #controls #button-reset {
-  background-image: url('./assets/scribble.svg');
-}
-
-.is-supported #ar-overly #controls #button-reset {
-  background-image: url('./assets/Icon material-undo-1.svg');
-}
-
 #trails_menu {
   width: 100%;
   overflow: scroll;
@@ -825,6 +815,10 @@ div #resetbutton.trails_menu_hide {
   
   visibility: hidden;
  
+}
+#resetbutton{
+  display: none;
+
 }
 
 #trails_menu img {
@@ -908,192 +902,6 @@ div #resetbutton.trails_menu_hide {
   width: 200px;
   border-radius: 10px;
 }
-
-
-
-
-/*********** tutorial **************/
-
-#tutorial {
-  display: none;
-  width: 250px;
-  padding: 10px 10px 48px 10px;
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: Heebo;
-  font-size: 17px;
-  font-weight: bold;
-  line-height: 1.18;
-  text-align: center;
-  color: #37474f;
-  z-index: 12000;
-  background-color: white;
-  border-radius: 16px;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
-  direction: rtl;
-  animation: animateUp .5s 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
-  opacity: 0;
-}
-
-@keyframes animateUp {
-  from { margin-top: 30px; }
-  to { opacity: 1; }
-}
-
-.is-supported #ar-overly.show #tutorial {
-  display: block;
-}
-
-#tutorial .blocker {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vh;
-  height: 100vh;
-  background-color: black;
-}
-
-#tutorial .screen-example {
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-}
-
-#tutorial .step-1 .screen-example {
-  background-image: url('./images/tutorial/step\ 1.svg');
-}
-#tutorial .step-2 .screen-example {
-  background-image: url('./images/tutorial/step\ 2.png');
-}
-#tutorial .step-3 .screen-example {
-  background-image: url('./images/tutorial/step\ 3.png');
-}
-
-#tutorial .step h2 {
-  font-size: 17px;
-}
-
-#tutorial p {
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 18px;
-  margin-top: 0;
-}
-#tutorial .screen-example {
-  height: 337px;
-  background-color: #eeeeee;
-}
-
-#tutorial nav > :not(button) {
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  display: inline-block;
-  margin: 10px 11px 5px;
-  background-color: #d8d8d8;
-}
-
-#tutorial nav > .active {
-  background-color: #8b8b8b;
-}
-
-#tutorial .next {
-  height: 48px;
-  border-radius: 0 0 16px 16px;
-  background-color: #3bb5f2;
-  color: white;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  border: none;
-  font-size: 13px;
-  font-family: Heebo;
-}
-
-#tutorial .step-2,#no-support-tutorial .step-2, #tutorial .step-3 {
-  display: none;
-}
-
-.is-supported #no-support-tutorial {
-  display: none;
-}
-
-#no-support-tutorial {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 99999;
-}
-
-#no-support-tutorial .index-finger {
-  width: 61.6px;
-  height: 79.8px;
-  object-fit: contain;
-  left: 4.2px;
-  top: 55px;
-  position: fixed;
-}
-
-#no-support-tutorial .step-2 .index-finger {
-  left:initial;
-  right:50%;
-  top: 85px;
-}
-
-#no-support-tutorial span {
-  font-family: Heebo;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 1;
-  text-align: center;
-  color: #ffffff;
-  position: absolute;
-  left: 42px;
-  top: 109px;
-  width: 290.3px;
-  text-align: center;
-}
-
-
-#no-support-tutorial .step-1::before {
-  content: '';
-  display: block;
-  width: 58px;
-  height: 53px;
-  left: 13px;
-  position: absolute;
-  top: 12px;
-  box-shadow: 0 0 0 99999px rgb(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0 0 0 99999px rgb(0, 0, 0, 0.5);
-  border-radius: 62px;
-}
-#no-support-tutorial .step-2::before {
-  content: '';
-  display: block;
-  width: 151px;
-  height: 75px;
-  left: 50%;
-  position: absolute;
-  top: 10px;
-  transform: translate(-50%,0);
-  box-shadow: 0 0 0 99999px rgb(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0 0 0 99999px rgb(0, 0, 0, 0.5);
-  border-radius: 36px;
-}
-
-#no-support-tutorial .step-2 span {
-  left:0;
-  right:0;
-  width: 100%;
-  top: 175px;
-}
-
 
 /* Loader */
 
