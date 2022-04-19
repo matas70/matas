@@ -117,7 +117,7 @@
 	</head>
 
 	<body>
-		<div id="ar-start">
+		<!-- <div id="ar-start">
 			<div class="ar-starts-text">
 				<div>?שנתחיל</div>
 				<div>לחצו כאן</div>
@@ -127,7 +127,7 @@
 				<div class="arrow" id="sec-arrow"></div>
 				<div class="arrow" id="rd-arrow"></div>
 			</div>
-		</div>
+		</div> -->
 		<div id="ar-overly">
 			<div id="controls">
 				<div id="unsupported-share-button">
@@ -382,7 +382,7 @@
 			function checkDeviceSupport() {
 				console.log(cur_user_agent.getResult())
 				console.log(cur_user_agent.getBrowser())
-				
+				/*
 				if ('xr' in navigator) {
 					
 					navigator.xr.isSessionSupported('immersive-ar').then(function (supported) {
@@ -396,7 +396,8 @@
 						// console.log(getCookie('tutorial'));
 						// if (supported && getCookie('tutorial') != 3) {
 					}).catch();
-				} else {
+				} */
+				
 					const message = document.createElement('a');
 					isSupported = false;
 					document.body.classList.remove('is-supported');
@@ -421,10 +422,9 @@
 								OS: dataToFirebase(cur_user_agent.getOS()),
 								engine: dataToFirebase(cur_user_agent.getEngine())
 							});
-					}
+					
 				}
 			}
-
 			let container, stats;
 			let camera, controls, scene, renderer;
 			let mixer, clock, action, delta;
@@ -745,7 +745,8 @@
 							isSupported = false;
 						}
 					});
-					document.body.querySelector('#ar-start').appendChild(arButton);
+					
+					document.querySelector('#supported-menu #icons').appendChild(arButton);
 					
 					//try on removing the start page of the ar 
 
@@ -1337,12 +1338,19 @@
 					}
 				}
 			}
+
+			let movear = false;
+			if(cur_user_agent.getResult().os.name === 'Android'){
+				isSupported = true;
+				document.getElementById('supported-menu').style.display = 'block';
+				document.getElementById('supported-menu-borders').style.display = 'block';
+				document.getElementById('space').style.display = 'flex';
+			}
 			let helpSupportedArPopup = document.getElementById('help-supported-ar');
 			let environmentToggleClick;
 			
 			//suppurted AR info popup
 			function ARSupportedsInfopopup(){
-
 				let InfoPopupshowcheckbox = document.querySelector('.show-hid-check-box input').checked;
 				document.querySelector('#help-supported-ar .title').innerText = "מיד תועברו לעמוד חדש";
 				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '0px';
@@ -1362,6 +1370,7 @@
 				environmentToggleClick = !environmentToggleClick;
 				document.getElementById("toggle").style.transition = 'all 0.3s';
 				if(environmentToggleClick){
+					
 					document.getElementById("toggle").style.marginLeft = '4px';
 					document.getElementById('camera-icon').style.fill = 'rgb(170 170 170)';
 					document.getElementById('dynamic-icon-part-2').style.fill = 'white';
@@ -1369,6 +1378,8 @@
 					
 				}else{
 					ARSupportedsInfopopup();
+					isSupported = false;
+					document.body.classList.remove('is-supported');
 					document.getElementById('camera-icon').style.fill = 'white';
 					document.getElementById("toggle").style.marginLeft = '61px';
 					document.getElementById('dynamic-icon-part-2').style.fill = 'rgb(170 170 170)';
@@ -1382,9 +1393,27 @@
 				document.querySelector('#help-supported-ar .conteiner-bottom .show-hid-check-box').style.display = 'none';
 				document.querySelector('.conteiner-bottom button').addEventListener('click', ()=>{
 					document.getElementById('help-supported-ar').style.display = 'none';
-				})
+				});
 			})
 
+
+			function moveToSupportedVR(){
+					if ('xr' in navigator) {
+					
+						navigator.xr.isSessionSupported('immersive-ar').then(function (supported) {
+	
+							isSupported = supported;
+							if (isSupported){
+								document.body.classList.add('is-supported');
+							}
+							init();
+							animate();
+							// console.log(getCookie('tutorial'));
+							// if (supported && getCookie('tutorial') != 3) {
+						}).catch();
+					}
+			}
+			
 			document.getElementById('unsupported-share-button').addEventListener('click', ()=>{
 				document.getElementById('url-copied').style.display = 'block';
 				navigator.clipboard.writeText("https://matas.iaf.org.il/ar.html צפו במטוסי חיל האוויר בתלת-מימד, באתר של מטס יום העצמאות!");
