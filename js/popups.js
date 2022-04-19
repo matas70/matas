@@ -1,17 +1,5 @@
 const { point } = require("leaflet");
-const aircraftUsdzObjData = [
-    { name: "lavie",hebName: "לביא"},
-    { name: "baz",hebName: "בז"},
-    { name: "sofa",hebName: "סופה"},
-    { name: "tsofit",hebName: "צופית"},
-    { name: "f35",hebName: "אדיר"},
-    { name: "shimshon",hebName: "שמשון"},
-    { name: "karnaf",hebName: 'קרנף'},
-    { name: "efroni",hebName:'עפרוני'},
-    //{ name: "bazi"},
-    //{ name: "barak"},
-    //{ name: "peten"},
-]
+
 
 var locationPopupExpanded = false;
 var locationPopupCloseCallback = null;
@@ -813,6 +801,19 @@ function createScheduleRow(aircraft, location) {
 
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule = false, showAllPoints = false, from) {
+    const aircraftUsdzObjData = [
+        { name: "lavie",hebName: "לביא"},
+        { name: "baz",hebName: "בז"},
+        { name: "sofa",hebName: "סופה"},
+        { name: "tsofit",hebName: "צופית"},
+        { name: "f35",hebName: "אדיר"},
+        { name: "shimshon",hebName: "שמשון"},
+        { name: "karnaf",hebName: 'קרנף'},
+        { name: "efroni",hebName:'עפרוני'},
+        //{ name: "bazi"},
+        //{ name: "barak"},
+        //{ name: "peten"},
+    ];    
     
     var aerobaticIcon = "<div/>";
     var classname = "";
