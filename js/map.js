@@ -6,9 +6,13 @@ selectedLocationMarkerIcon = null;
 aerobaticPoints = null;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const mapEnvFake = true;
 
 const USE_TEMP_TOKEN = window.location.href.indexOf('TEMP_TOCKEN') < 0;
+=======
+const mapEnvFake = false;
+>>>>>>> parent of dc02d53 (official copy of map token from master)
 =======
 const mapEnvFake = false;
 >>>>>>> parent of dc02d53 (official copy of map token from master)
