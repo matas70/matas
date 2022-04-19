@@ -75,6 +75,8 @@ function getEnv(callback) {
     }
 }
 
+
+
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
     var latMinutes = north - latDegrees * 100;
@@ -129,7 +131,6 @@ loadOpenBasesLocation();
 
 //create base category in navbar 
 function createBaseCategory(point) {
-    console.log(point)
     let base;
     baseData.forEach(element => {
         if(element.baseName === point.pointName) {
@@ -560,7 +561,7 @@ function loadLocations(callback) {
                 }
             }, this);
             callback(points);
-            })
+        });
     });
 }
 
@@ -1141,7 +1142,9 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     selectedLocationMarkerIcon = markerIcon;
     mapAPI.panTo(map, location);
     
-    if (locations[pointId].type === "base") {
+    if (locations[pointId].pointName.includes('בסיס')) {
+        showBaseLoactionPopup(pointId)
+    } else if (locations[pointId].pointName.includes('מוזיאון')) {
         showBaseLoactionPopup(pointId)
     } else {
         showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, setMarkerOnDeselectLocation);
@@ -1419,7 +1422,6 @@ function onLoad() {
             loadAircrafts(function (pAircrafts) {
                 aircrafts = pAircrafts;
                 loadLocations(function (points) {
-
                     // load all routes
                     loadRoutes(function (routes) {
                         this.routes = routes;
@@ -1577,7 +1579,7 @@ function displaySearchView() {
             // add bases
             searchViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
             sortedLocations.forEach(function (location) {
-                if (location.type === "base") {
+                if (location.pointName.includes('בסיס')) {
                     searchViewHtml += createLocationRow(location, false, true);
                 }
             }, this);
@@ -1600,7 +1602,7 @@ function displaySearchView() {
         sortedLocations.forEach(function (location) {
             if (!location.hidden &&
                 !!routes.find(route => route.points.find(point => location.pointId === point.pointId)) &&
-                (location.type !== "base")) {
+                (!location.type || location.type !== "base")) {
                 searchViewHtml += createLocationRow(location, false, true);
             }
         }, this);
@@ -2026,7 +2028,6 @@ function fillMenu() {
     // sort locations by name
     sortedLocations = locations.slice();
 
-
     sortedLocations.sort(function (item1, item2) {
         var keyA = item1.pointName,
             keyB = item2.pointName;
@@ -2039,8 +2040,7 @@ function fillMenu() {
 
     var currTime = getCurrentTime();
 
-    let locationForBases;
-
+    
 
     if (shouldShowTypeCategory("base")) {
         var airpalnesOnBasesCount = 0;
@@ -2052,16 +2052,15 @@ function fillMenu() {
         }, this);
         if (airpalnesOnBasesCount > 0)
             locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
-
-        loadLocations(points => {
-            points.forEach(point => {
-                if(point.type === "base") {
-                    console.log(point)
-                    locationsViewHtml += createBaseCategory(location)
-                }
-            })
-        })
+        sortedLocations.forEach(function (location) {
+            if (location.pointName.includes('בסיס') && (location.pointId !== 245)) {
+                locationsViewHtml += createBaseCategory(location)
+            } else if (location.pointName.includes('מוזיאון')) {
+                locationsViewHtml += createBaseCategory(location)
+            }
+        }, this);
     }
+
     if (shouldShowTypeCategory("hospital")) {
         // add hospitals
         locationsViewHtml += createCategoryRow({category: "נקודות תצפית"}, true);

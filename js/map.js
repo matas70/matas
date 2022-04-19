@@ -5,22 +5,9 @@ selectedLocationMarker = null;
 selectedLocationMarkerIcon = null;
 aerobaticPoints = null;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-const mapEnvFake = true;
-
-const USE_TEMP_TOKEN = window.location.href.indexOf('TEMP_TOCKEN') < 0;
-=======
-const mapEnvFake = false;
->>>>>>> parent of dc02d53 (official copy of map token from master)
-=======
-const mapEnvFake = false;
->>>>>>> parent of dc02d53 (official copy of map token from master)
 
 googleMaps = {
-    MAP_URL: mapEnvFake ? 
-        "https://maps.googleapis.com/maps/api/js?key=AIzaSyCW13iCQb0Z0Napej-7y-DPj76uUvmzV54&map_ids=6571b907d96d29e6&callback=initMap&language=he&region=IL" :
-        "https://maps.googleapis.com/maps/api/js?key=AIzaSyD6_woFZpfspoPsI7BGcsC2ZtDCue1yTks&map_ids=6571b907d96d29e6&callback=initMap&language=he&region=IL",
+    MAP_URL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyCW13iCQb0Z0Napej-7y-DPj76uUvmzV54&map_ids=6571b907d96d29e6&callback=initMap&language=he&region=IL",
 
     setAircraftMarkerIcon: (marker, url, anchor = 36) => {
         if (anchor != null) {
@@ -238,7 +225,7 @@ googleMaps = {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
                 iconUrl = "icons/lookout.svg";
-            } else if (point.type === "base"){
+            } else if ((point.pointName.includes('בסיס')) || (point.pointName.includes('מוזיאון'))){
                 iconUrl = "icons/OpenBaseMap.svg";
             } else if (aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
@@ -250,7 +237,7 @@ googleMaps = {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
                 iconUrl = "icons/hospital-clicked.svg";
-            } else if (point.type === "base"){
+            } else if ((point.pointName.includes('בסיס')) || (point.pointName.includes('מוזיאון'))) {
                 iconUrl = "icons/OpenBaseMap.svg";
             } else if (aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";

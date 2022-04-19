@@ -77,6 +77,7 @@ function initPopups() {
             dragStartTopY = null;
         }
     });
+
 }
 
 function onClose() {
@@ -97,26 +98,24 @@ function onClose() {
 
 }
 
-function onGrab (event) {
+function onGrab(event) {
     //phone onDrag event for open bases
     let dragPopUpElement = document.getElementById('drag-button');
-    document.getElementById('drag-button').addEventListener("touchmove", (event) => {
-        console.log(event)
+    dragPopUpElement.addEventListener("touchmove", function myFunction1(event) {
+        console.log(event.changedTouches[0].clientY)
         document.getElementById('open-bases-popup').style.top = `${event.changedTouches[0].clientY}px`;
-        console.log(document.getElementById('open-bases-popup').style.top = `${event.changedTouches[0].clientY}px`)
     });
 
     //phone onDrag event for open bases
-    document.getElementById('drag-button').addEventListener("touchend",  (event) => {
+    dragPopUpElement.addEventListener("touchend", function myFunction2(event) {
         let currentPosition = event.changedTouches[0].clientY
         let popupMinimizedPosition = document.getElementById(`headerBg`).clientHeight + (document.getElementById(`map`).clientHeight * 0.4);
         let fullSizedPosition = document.getElementById('open-bases-popup').clientHeight;
         let windowFullSize = window.innerHeight;
 
 
-    document.getElementById('open-bases-popup').style.top = `${(currentPosition > windowFullSize * 0.3 && currentPosition <  windowFullSize * 0.7)?popupMinimizedPosition:(currentPosition >= windowFullSize * 0.3)?fullSizedPosition:0}px`;
-});
-
+        document.getElementById('open-bases-popup').style.top = `${(currentPosition > windowFullSize * 0.3 && currentPosition <  windowFullSize * 0.7)?popupMinimizedPosition:(currentPosition >= windowFullSize * 0.3)?fullSizedPosition:0}px`;
+    });
 }
 
 loadOpenBasesLocation();
@@ -140,7 +139,7 @@ function showBaseLoactionPopup(pointId) {
     const headerElement = document.getElementById(`headerBg`);
     const navBarHeaderElement = document.getElementById(`listHeader`);
     const mapElement = document.getElementById(`map`);
-    let airplaneShowsElement = document.getElementById('airplanes-show');
+    let html;
 
     if( fullWidth <= 600 ) {
         basePopUpElement.animate({
@@ -155,11 +154,10 @@ function showBaseLoactionPopup(pointId) {
         }, "fast");
     }
 
-
     document.getElementById('open-bases-popup').style.display = 'block';
     document.getElementById('baseTheme').src = point.baseThemePath;
     document.getElementById('iconBase').src = point.iconBasePath;
-    document.getElementById('waze-base-link').href = point.baseWazeDestinationLink;
+    document.getElementById('waze-base-link').href = point.wazeLink;
     document.getElementById('baseName').innerHTML = point.baseName;
     document.getElementById('base-passage').innerHTML = point.basePassage;
     document.getElementById('baseArrivalTime').innerHTML = point.baseArrivalTime;
@@ -182,80 +180,11 @@ function showBaseLoactionPopup(pointId) {
     });
 
 
-    let OpenBaseAircraftshtml = "";
-    let OpenBaseAircraftspecials = new Map();
-    
-    OpenBaseAircraftspecials.set("מטס", []);
+    const airshowElement = `
+      <div>
 
-    let pointInSortedLocation;
-
-    sortedLocations.forEach((e) => {
-        if(e.pointId === point.pointId) {
-            pointInSortedLocation = e;
-        }
-    });
-    
-    pointInSortedLocation.aircrafts.forEach((ac) => {
-        if (ac.specialInAircraft) {
-            if (!OpenBaseAircraftspecials.has(ac.specialInAircraft) && (getCurrentTime() < getActualPathTime(ac.date, ac.time))) {
-                OpenBaseAircraftspecials.set(ac.specialInAircraft, []);
-            }
-    
-            if (OpenBaseAircraftspecials.get(ac.specialInAircraft)) {
-                OpenBaseAircraftspecials.get(ac.specialInAircraft).push(ac);
-            }
-        } else if (ac.specialInPath) {
-            if (!OpenBaseAircraftspecials.has(ac.specialInPath)) {
-                OpenBaseAircraftspecials.set(ac.specialInPath, []);
-            }
-            OpenBaseAircraftspecials.get(ac.specialInPath).push(ac);
-        } else {
-            OpenBaseAircraftspecials.get("מטס").push(ac);
-        }
-    });
-
-    // Filter out empty categories
-    OpenBaseAircraftspecials = new Map([...OpenBaseAircraftspecials].filter(([key, value]) => value.length > 0));
-
-    let openBaseTmp = OpenBaseAircraftspecials.get("מטס");
-    OpenBaseAircraftspecials.delete("מטס");
-
-    // Check to see if aircraftList is empty in this location
-    if (OpenBaseAircraftspecials.size === 0 && (!openBaseTmp || openBaseTmp.length === 0)) {
-        airplaneShowsElement.innerHTML = '<p class="aircraft-no-show">המטס כבר עבר!</p>'
-    } else {
-
-        OpenBaseAircraftspecials.set("מטס", openBaseTmp);
-
-        OpenBaseAircraftspecials.forEach((value, key) => {
-            if (value && value.length > 0) {
-                OpenBaseAircraftshtml += createLocationPopupCategoryRow(key);
-                value.forEach((ac) => {
-                    var date = undefined;
-
-                    if (ac.date) {
-                        var split = ac.date.split('-');
-                        date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
-                    }
-
-                    OpenBaseAircraftshtml += createTableRow(ac.aircraftId,
-                        ac.name,
-                        ac.icon,
-                        ac.aircraftType,
-                        ac.time,
-                        ac.aerobatic || key === "מופעים אווירובטיים" || key === "חזרות",
-                        ac.parachutist,
-                        false,
-                        true,
-                        date,
-                        false,
-                        false,
-                        ac.from);
-                    });
-                    airplaneShowsElement.innerHTML = OpenBaseAircraftshtml;
-                }
-        });  
-    }
+      </div>
+    `;
     }
 
 
