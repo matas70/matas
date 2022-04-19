@@ -124,6 +124,8 @@ loadOpenBasesLocation();
 
 function showBaseLoactionPopup(pointId) {
     onClose()
+    deselectLocation()
+    deselectAircraft()
 
     let point;
 
