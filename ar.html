@@ -1026,13 +1026,12 @@
 				controller.userData.skipFrames = 0;
 				scene.add(controller);
 			}
-
-			
 			function loadAircraftGLTF(selectedAircraft) {
 				
 				let startTimer = Date.now();
 				let endTime; 
 				document.querySelector('.load-aircraft').style.display = 'block';
+				
 				new GLTFLoader()
 
 				
@@ -1051,17 +1050,13 @@
 							action = mixer.clipAction(animation);
 							action.play();
 						});
-
-						endTime = Math.floor((Date.now() - startTimer)/ 1000) ;
-						document.querySelector('.aircraft-option.selected').style.animation = `fillAnimation ${5}s`;						
-						console.log(endTime);
-						//document.querySelector('.aircraft-option.selected').style.animation = '';		
 						document.querySelector('.load-aircraft').style.display = 'none';
+						
 					}, undefined, function (error) {
 						console.error(error);
 					});
 			}
-
+			
 			function loadAircraftOBJ(selectedAircraft) {
 				new MTLLoader()
 					.setPath('./3d_models/aircrafts/obj/' + selectedAircraft.id + '/')
