@@ -414,6 +414,18 @@ div.base-category-container a img {
     transform: translateX(20%);
   }
 }
+div.airplanes-show p.aircraft-no-show {
+  padding: 0;
+  margin-right: center;
+  margin-left: center;
+  font-family: Heebo-Regular;
+  font-size: 24px;
+  color: #37474F;
+  letter-spacing: 0;
+  text-align: right;
+  line-height: 24px;
+  font-weight: 700;
+}
 
 @media only screen and (max-width: 600px) {
     div.open-bases-popup {

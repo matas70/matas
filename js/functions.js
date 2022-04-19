@@ -1601,7 +1601,7 @@ function displaySearchView() {
         sortedLocations.forEach(function (location) {
             if (!location.hidden &&
                 !!routes.find(route => route.points.find(point => location.pointId === point.pointId)) &&
-                (!location.type || location.type !== "base")) {
+                (location.type !== "base")) {
                 searchViewHtml += createLocationRow(location, false, true);
             }
         }, this);
@@ -2045,7 +2045,7 @@ function fillMenu() {
         var airpalnesOnBasesCount = 0;
         // add bases
         sortedLocations.forEach(function (location) {
-            if (location.pointName.includes('בסיס')) {
+            if (location.type === "base") {
                 airpalnesOnBasesCount += location.aircrafts.length;
             }
         }, this);

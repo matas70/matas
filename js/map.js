@@ -224,7 +224,6 @@ googleMaps = {
         color = color.toLowerCase();
         color = color.replace("#ff0000", "ffffff00")
         iconUrl = "icons/point-" + color + ".svg";
-        console.log(point);
 
         if (!clicked) {
             if(point && point.options && point.options.liveStream) {
