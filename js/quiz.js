@@ -74,14 +74,6 @@
       "category": "כטמ\"ם"
     },
     {
-      "title": "כמה טייסות \"אדיר\" יש בחיל-האוויר?",
-      "a": 0,
-      "b": 1,
-      "c": 2,
-      "correct": "ג",
-      "category": "מטוסי קרב"
-    },
-    {
       "title": "באיזה בסיס נמצא בית הספר לטיסה?",
       "a": "חצור",
       "b": "חצרים",
@@ -115,7 +107,7 @@
     },
     {
       "title": "מהו שמו של מפקד חיל-האוויר הנוכחי?",
-      "a": "אלוף עמיקם נורקין",
+      "a": "אלוף תומר בר",
       "b": "אלוף אמיר אשל",
       "c": "רב-אלוף אביב כוכבי",
       "correct": "א",
@@ -266,14 +258,6 @@
       "category": "המערך הטכני"
     },
     {
-      "title": "השנה, מטוסי קרב של חיל-האוויר פרסו לראשונה ל...",
-      "a": "יוון",
-      "b": "גרמניה",
-      "c": "צרפת",
-      "correct": "ב",
-      "category": "כללי"
-    },
-    {
       "title": "היכן ממוקם הבסיס הטכני של חיל-האוויר?",
       "a": "חיפה",
       "b": "ערד",
@@ -360,6 +344,94 @@
       "c": "לביא",
       "correct": "א",
       "category": "כללי"
+    },
+    {
+      "title": "איזה מטוס מפעילה טייסת הפילים?",
+      "a": "סופה",
+      "b": "קרנף",
+      "c": "שמשון",
+      "correct": "ג",
+      "category": "כללי"
+    },
+    {
+      "title": "אלוף תומר בר הוא מפקדו ה___ של חיל האוויר",
+      "a": "16",
+      "b": "19",
+      "c": "20",
+      "correct": "ב",
+      "category": "כללי"
+    },
+    {
+      "title": "איזה כלי טיס גדול יותר?",
+      "a": "פתן",
+      "b": "זיק",
+      "c": "איתן",
+      "correct": "ג",
+      "category": "כללי"
+    },
+    {
+      "title": "מאיזה שנה קיים הצוות האווירובטי?",
+      "a": "1969",
+      "b": "1983",
+      "c": "1991",
+      "correct": "א",
+      "category": "כללי"
+    },
+    {
+      "title": "מה היה שמו של חיל האוויר לפני הקמת המדינה?",
+      "a": "זרוע האוויר",
+      "b": "כוח המטוסים",
+      "c": "שירות האוויר",
+      "correct": "ג",
+      "category": "כללי"
+    },
+    {
+      "title": "כמה סוגים של טיל חץ קיימים?",
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "correct": "ב",
+      "category": "כללי"
+    },
+    {
+      "title": "מאיזה שנה פועלת מערכת ״יהלום״ פטריוט?",
+      "a": "2001",
+      "b": "1990",
+      "c": "1996",
+      "correct": "ב",
+      "category": "כללי"
+    },
+    {
+      "title": "״ראם״ הוא?",
+      "a": "מטוס תדלוק",
+      "b": "מטוס קרב",
+      "c": "כטמ\"מ",
+      "correct": "א",
+      "category": "כללי"
+    },
+    {
+      "title": "מה שמה של היחידה הטכנולוגית של חיל האוויר?",
+      "a": "אופק 324",
+      "b": "ממדס",
+      "c": "שקד",
+      "correct": "א",
+      "category": "כללי"
+    },
+    {
+      "title": "מתי הוקמה להקת חיל האוויר?",
+      "a": "1995",
+      "b": "1970",
+      "c": "1948",
+      "correct": "ב",
+      "category": "כללי"
+    },
+    {
+      "title": "כמה תקליטים הוציאה להקת חיל האוויר?",
+      "a": "3",
+      "b": "9",
+      "c": "4",
+      "correct": "ג",
+      "category": "כללי"
     }
   ];
 
@@ -404,7 +476,7 @@
 
   $(".quiz.button, #quiz .finished .again, .new-popup .quiz").on('click', function () {
 
-    gtag("event", "quiz_onFinishedQuiz", {
+    gtag("event", "quiz_onParticipation", {
       event_category: "quiz_interaction",
     });
 
@@ -444,11 +516,10 @@
     $('#quiz .question .option.c').text(question.c)
     $('#quiz .question .counter .current').text(count)
     $('#quiz .question .counter .total').text(maxQuestions)
+  }
+  
 
   $('#quiz .question .option').on("click", function () {
-    gtag("event", "quiz_onNextQuestionMark", {
-      event_category: "quiz_interaction",
-    });
     $('#quiz .question .option.marked').removeClass('marked');
     this.classList.add('marked');
   });
@@ -464,6 +535,11 @@
       marked.classList.add('correct');
       $('#confetti').show()
       correctCount++
+      gtag('event', 'quiz_finish', {
+        'event_category': 'quiz_interaction',
+         'event_label': 'quiz_finish',
+        'value': 'correctCount'
+      });
     } else {
       marked.classList.add('wrong');
       $('#quiz .question .option.' + question.correct).addClass('correct')
@@ -862,5 +938,4 @@
   });
 
 
-  }
-})
+})()

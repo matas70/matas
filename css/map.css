@@ -541,6 +541,91 @@ div.infoPopup {
     -webkit-box-shadow: 0px -2.5px 10px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0px -2.5px 10px 0px rgba(0, 0, 0, 0.1);
 }
+/*usdz popup for ios*/
+#usdz-info-popup{
+    display: none;
+    position: absolute;
+    z-index: 200000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+#usdz-block{
+    width: 270px;
+    height: 383px;
+    background-color: #3BB5F2;
+    background: #FFFFFF;
+    border: 1px solid #EFF1F1;
+    box-shadow: 0 0 15px 0 rgba(0,0,0,0.30);
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+#usdz-block .explain{
+    font-family: Heebo-Regular;
+    font-size: 15px;
+    color: #37474F;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 18px;
+    font-weight: 400;
+    width: 180px;
+    margin-top: -8px;
+}
+#usdz-block .title{
+    font-family: Heebo-Bold;
+    font-size: 17px;
+    color: #37474F;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 20px;
+    font-weight: 700;
+}
+#popup-bottom{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-around;
+}
+#popup-bottom button{
+    width: 86px;
+    height: 34.98px;
+    background: #3BB5F2;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    font-family: Heebo-Medium;
+    font-size: 15px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 15px;
+    font-weight: 500;
+}
+#popup-bottom .show-hid-check-box{
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+#usdz-info-popoup-img{
+    width: 72%;
+}
+
+#dim-background{
+    background-color: rgba(0, 0, 0, 0.297);
+    z-index: 200000;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+
+
 
 #popupDisplay {
     display: block;
