@@ -1138,6 +1138,9 @@ function selectInfoButtonWithoutClicking() {
 }
 arClick = false;
 
+const cur_user_agent = new UAParser();
+cur_user_agent.setUA(navigator.userAgent);
+
 function openAR(aircraftName) {
   
     if(isIOS()){
@@ -1155,7 +1158,15 @@ function openAR(aircraftName) {
         }
     }else{
         arClick = false;
-        openExternal("ar.html");
+        if(cur_user_agent.getResult().os.name === 'Android'){
+            openExternal("loadingar.html");
+            window.close();
+        }
+        else{
+            openExternal("ar.html");
+            window.close();
+        }
+        
     }
 }
 

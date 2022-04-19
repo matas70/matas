@@ -471,7 +471,7 @@ canvas {
   border: 2px solid #3BB5F2;
   box-shadow: 0 0 4px 0 rgba(0,0,0,0.50);
   background-size: 200% 100%;
-  background-image: linear-gradient(to left, #3bb5f234 50%, transparent 50%);
+  background-image: linear-gradient(to left, #3bb5f234 5 0%, transparent 50%);
   transition: all 1s;
 }
 
@@ -763,11 +763,9 @@ body:not(.is-supported) #ar-start {
   width: 100%;
   z-index: 999;
   overflow: hidden;
-  background: #9cd9f8;
+  background: black;
   /* display: none; */
 }
-
-
 .is-supported #ar-start .d-open{
   margin-top:11px;
 }
@@ -791,15 +789,6 @@ body:not(.is-supported) #ar-start {
 .is-supported #ar-start .arrow#rd-arrow{
   opacity: 0.64;
 }
-
-#ar-overly #controls #button-reset {
-  background-image: url('./assets/scribble.svg');
-}
-
-.is-supported #ar-overly #controls #button-reset {
-  background-image: url('./assets/Icon material-undo-1.svg');
-}
-
 #trails_menu {
   width: 100%;
   overflow: scroll;
@@ -910,7 +899,7 @@ div #resetbutton.trails_menu_hide {
 
 /*********** tutorial **************/
 
-#tutorial {
+/* #tutorial {
   display: none;
   width: 250px;
   padding: 10px 10px 48px 10px;
@@ -955,7 +944,7 @@ div #resetbutton.trails_menu_hide {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
-}
+} */
 
 /* #tutorial .step-1 .screen-example {
   background-image: url('./images/tutorial/step\ 1.svg');
@@ -967,7 +956,7 @@ div #resetbutton.trails_menu_hide {
   background-image: url('./images/tutorial/step\ 3.png');
 } */
 
-#tutorial .step h2 {
+/* #tutorial .step h2 {
   font-size: 17px;
 }
 
@@ -1040,7 +1029,7 @@ div #resetbutton.trails_menu_hide {
   left:initial;
   right:50%;
   top: 85px;
-}
+} */
 
 /* #no-support-tutorial span {
   font-family: Heebo;
