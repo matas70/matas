@@ -81,6 +81,7 @@ function initPopups() {
 
 }
 
+//on close for openBasePopup
 function onClose() {
     let basePopUpElement = $("#open-bases-popup");
     let fullHeight = window.innerHeight;
