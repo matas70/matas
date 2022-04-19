@@ -149,8 +149,9 @@
 					</svg>
 					
 				</div>
-				<p id="url-copied">!הקישור הועתק</p>
-				<!-- <button id="button-action" alt="Toggle Flash"></button> -->
+        
+				<p id="url-copied">הקישור הועתק !</p>
+	<!-- <button id="button-action" alt="Toggle Flash"></button> -->
 				<button id="button-mode-toggle" alt="Toggle mode" class="static" style="display: none;">
 					<a class='static-mode'></a>
 					<span class='dynamic-mode'></span>
@@ -784,6 +785,83 @@
 				var streaming = false;
 
 				var video = null;
+        
+				// function startup() {
+				// 	video = document.getElementById('video');
+				// 	navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia);
+				// 	navigator.getUserMedia({ video: true, audio: false })
+				// 		.then(function (stream) {
+				// 			video.srcObject = stream;
+				// 			video.play();
+				// 			arButton.addEventListener('click', () => {
+				// 				stream.getTracks().forEach(function(track) {
+				// 					track.stop();
+				// 				});
+				async function startup() {
+					/*video = document.getElementById('video');
+					const getUserMedia = (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+					getUserMedia({ video: true, audio: false })
+
+					// get the rear camera
+					const devices = await navigator.mediaDevices.enumerateDevices();
+					let frontDeviceId;
+					let backDeviceId;
+
+					if (devices.length > 0) {
+						// defaults so all this will work on a desktop
+						frontDeviceId = devices[0].deviceId;
+						backDeviceId = devices[0].deviceId;
+					}
+
+					devices.forEach(device => {
+						if (device.kind === 'videoinput') {
+							if (device.label && device.label.length > 0) {
+								if (device.label.toLowerCase().indexOf('back') >= 0)
+									backDeviceId = device.deviceId
+								else if (device.label.toLowerCase().indexOf('front') >= 0)
+									frontDeviceId = device.deviceId
+							}
+						}
+					});
+
+					const constraints = {
+						audio: false, video: {
+							width: screen.height,
+							height: screen.width,
+							deviceId: { exact: backDeviceId }
+						}
+					};
+
+					// get the stream
+
+					navigator.mediaDevices.getUserMedia(constraints)
+						.then(function (stream) {
+							video.srcObject = stream;
+							video.play();
+							arButton.addEventListener('click', () => {
+								stream.getTracks().forEach(function (track) {
+									track.stop();
+								});
+							})
+						})
+						.catch(function (err) {
+							console.log("An error occurred: " + err);
+						});
+					video.addEventListener('canplay', function (ev) {
+						let width = window.screen.width;
+						if (!streaming) {
+							let height = video.videoHeight / (video.videoWidth / width);
+							if (isNaN(height)) {
+								height = width / (4 / 3);
+							}
+
+							video.setAttribute('width', width);
+							video.setAttribute('height', height);
+							streaming = true;
+						}
+					}, false);
+					*/
+				}
 
 				document.getElementById("button-close").addEventListener("click", (e) => {
 					document.getElementById('blob').classList.add('animateScale');					
@@ -823,7 +901,39 @@
 					resetTrail();
 				})
 
+				/*document.getElementById('button-mode-toggle').addEventListener("click", function () {
+					if (mode == 'static') {
+						mode = 'dynamic';
+						this.classList.add('dynamic');
+						this.classList.remove('static');
+						let trails_menu = document.getElementById("trails_menu");
+						trails_menu.classList.add('trails_menu_hide');
+						let buttonreset = document.getElementById("resetbutton");
+						buttonreset.classList.add('trails_menu_hide');
+						//document.getElementById("slidecontainer").classList.remove('slidecontainer_hide');
+						locations.push([cursor.x, cursor.y, cursor.z]);
+						painter.mesh.material.opacity = 0;
+					} else {
 
+						if (isIOS()) return;
+
+						mode = 'static'
+						this.classList.add('static');
+						this.classList.remove('dynamic');
+						let trails_menu = document.getElementById("trails_menu");
+						trails_menu.classList.add('trails_menu_hide');
+						document.getElementById("slidecontainer").classList.add('slidecontainer_hide');
+						let buttonreset = document.getElementById("resetbutton");
+						buttonreset.classList.add('trails_menu_hide');
+						locations.push([cursor.x, cursor.y, cursor.z]);
+						painter.mesh.material.opacity = 0;
+						// trails.forEach(trail => trail.children[0].children[0].material.opacity = 0)
+						// trails.forEach(trail => trail.children[0].children[0].material.transparent = true)
+						trails.forEach(trail => scene.remove(trail))
+					}
+				})
+				*/
+        
 				changeAircraft(AIRCRAFTS_META_DATA[5]);
 				loadLight();
 				loadPainter();
