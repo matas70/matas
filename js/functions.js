@@ -131,6 +131,7 @@ loadOpenBasesLocation();
 
 //create base category in navbar 
 function createBaseCategory(point) {
+    console.log(locations)
     let base;
     baseData.forEach(element => {
         if(element.baseName === point.pointName) {
@@ -561,7 +562,7 @@ function loadLocations(callback) {
                 }
             }, this);
             callback(points);
-        });
+            })
     });
 }
 
@@ -1141,7 +1142,6 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     selectedLocationMarker = marker;
     selectedLocationMarkerIcon = markerIcon;
     mapAPI.panTo(map, location);
-    console.log(locations[pointId])
     
     if (locations[pointId].type === "base") {
         showBaseLoactionPopup(pointId)
@@ -2057,7 +2057,6 @@ function fillMenu() {
             }
         }, this);
     }
-
     if (shouldShowTypeCategory("hospital")) {
         // add hospitals
         locationsViewHtml += createCategoryRow({category: "נקודות תצפית"}, true);

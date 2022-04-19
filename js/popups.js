@@ -97,23 +97,26 @@ function onClose() {
 
 }
 
-function onGrab(event) {
+function onGrab (event) {
     //phone onDrag event for open bases
     let dragPopUpElement = document.getElementById('drag-button');
-    dragPopUpElement.addEventListener("touchmove", function myFunction1(event) {
+    document.getElementById('drag-button').addEventListener("touchmove", (event) => {
+        console.log(event)
         document.getElementById('open-bases-popup').style.top = `${event.changedTouches[0].clientY}px`;
+        console.log(document.getElementById('open-bases-popup').style.top = `${event.changedTouches[0].clientY}px`)
     });
 
     //phone onDrag event for open bases
-    dragPopUpElement.addEventListener("touchend", function myFunction2(event) {
+    document.getElementById('drag-button').addEventListener("touchend",  (event) => {
         let currentPosition = event.changedTouches[0].clientY
         let popupMinimizedPosition = document.getElementById(`headerBg`).clientHeight + (document.getElementById(`map`).clientHeight * 0.4);
         let fullSizedPosition = document.getElementById('open-bases-popup').clientHeight;
         let windowFullSize = window.innerHeight;
 
 
-        document.getElementById('open-bases-popup').style.top = `${(currentPosition > windowFullSize * 0.3 && currentPosition <  windowFullSize * 0.7)?popupMinimizedPosition:(currentPosition >= windowFullSize * 0.3)?fullSizedPosition:0}px`;
-    });
+    document.getElementById('open-bases-popup').style.top = `${(currentPosition > windowFullSize * 0.3 && currentPosition <  windowFullSize * 0.7)?popupMinimizedPosition:(currentPosition >= windowFullSize * 0.3)?fullSizedPosition:0}px`;
+});
+
 }
 
 loadOpenBasesLocation();
