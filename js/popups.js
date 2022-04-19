@@ -136,6 +136,8 @@ loadOpenBasesLocation();
 
 function showBaseLoactionPopup(pointId) {
     onClose()
+    deselectLocation();
+    deselectAircraft();
 
     let point;
 
@@ -276,6 +278,7 @@ function showBaseLoactionPopup(pointId) {
 
 
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized = false, closeCallback) {
+    onClose()
     window.location.hash = locationPopupHash;
     previousHash.push(locationPopupHash);
 
