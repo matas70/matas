@@ -75,8 +75,6 @@ function getEnv(callback) {
     }
 }
 
-
-
 function convertLocation(north, east) {
     var latDegrees = Math.floor(north / 100);
     var latMinutes = north - latDegrees * 100;
@@ -131,7 +129,7 @@ loadOpenBasesLocation();
 
 //create base category in navbar 
 function createBaseCategory(point) {
-    console.log(locations)
+    console.log(point)
     let base;
     baseData.forEach(element => {
         if(element.baseName === point.pointName) {
@@ -1421,6 +1419,7 @@ function onLoad() {
             loadAircrafts(function (pAircrafts) {
                 aircrafts = pAircrafts;
                 loadLocations(function (points) {
+
                     // load all routes
                     loadRoutes(function (routes) {
                         this.routes = routes;
@@ -2027,6 +2026,7 @@ function fillMenu() {
     // sort locations by name
     sortedLocations = locations.slice();
 
+
     sortedLocations.sort(function (item1, item2) {
         var keyA = item1.pointName,
             keyB = item2.pointName;
@@ -2039,7 +2039,8 @@ function fillMenu() {
 
     var currTime = getCurrentTime();
 
-    
+    let locationForBases;
+
 
     if (shouldShowTypeCategory("base")) {
         var airpalnesOnBasesCount = 0;
@@ -2051,11 +2052,15 @@ function fillMenu() {
         }, this);
         if (airpalnesOnBasesCount > 0)
             locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
-        sortedLocations.forEach(function (location) {
-            if (location.type === "base") {
-                locationsViewHtml += createBaseCategory(location)
-            }
-        }, this);
+
+        loadLocations(points => {
+            points.forEach(point => {
+                if(point.type === "base") {
+                    console.log(point)
+                    locationsViewHtml += createBaseCategory(location)
+                }
+            })
+        })
     }
     if (shouldShowTypeCategory("hospital")) {
         // add hospitals
