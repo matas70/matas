@@ -10,9 +10,12 @@
 		</div>
         <iframe id="iframe" src="ar.html" frameborder="0" style="position:fixed;  transform: scale(2.5); top:60vh; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; z-index:1;"  height="100%" width="100%"></iframe>
         <script>
-            setTimeout(() => {
-                document.querySelector('.loading-ar').style.display = "none";
-            }, 3000);
+           
+                if(localStorage.getItem("finishedLoadingSupported")){
+                    setTimeout(() => {
+                    document.querySelector('.loading-ar').style.display = "none";
+                }, 1500);
+                }
         </script>
     </body>
 </html>
