@@ -212,6 +212,7 @@ select {
   position: absolute;
   margin-top: 6vh;
   color: white;
+  direction: rtl;
 }
 #unsupported-share-button p{
   padding-right: 5px;
