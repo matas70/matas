@@ -356,7 +356,7 @@
 
 			let isSupported;
 			let currentAircraft = "f35";
-			
+
 			function checkDeviceSupport() {
 				console.log(cur_user_agent.getResult())
 				console.log(cur_user_agent.getBrowser())
@@ -1288,6 +1288,8 @@
 				document.getElementById('supported-menu-borders').style.display = 'block';
 				document.getElementById('space').style.display = 'flex';
 			}
+
+
 			let helpSupportedArPopup = document.getElementById('help-supported-ar');
 			let environmentToggleClick;
 
@@ -1302,7 +1304,10 @@
 			  }
 
 			//suppurted AR info popup
+			
 			function ARSupportedsInfopopup(){
+
+				helpSupportedArPopup.style.visibility ='visible';
 				let InfoPopupshowcheckbox = document.querySelector('.show-hid-check-box input').checked;
 				document.querySelector('#help-supported-ar .title').innerText = "מיד תועברו לעמוד חדש";
 				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '0px';
@@ -1316,7 +1321,6 @@
 					helpSupportedArPopup.style.display = 'none';
 			    }
 			}
-			ARSupportedsInfopopup();
 			
 			document.querySelector("#change-ar-toggle #toggle").addEventListener('click', () =>{
 				environmentToggleClick = !environmentToggleClick;
@@ -1340,6 +1344,7 @@
 				}
 			})
 			document.getElementById("help").addEventListener('click', () =>{
+				helpSupportedArPopup.style.visibility ='visible';
 				document.getElementById('help-supported-ar').style.display = 'block';
 				document.querySelector('#help-supported-ar .title').innerText = "! עזרה"
 				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '20px';

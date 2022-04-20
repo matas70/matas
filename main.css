@@ -570,6 +570,7 @@ font-weight: 500;
   bottom: 120%;
 }
 .is-supported #help-supported-ar-conteiner{
+  visibility: hidden;
   display: block;
 }
 #help-supported-ar{
