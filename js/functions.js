@@ -1208,16 +1208,16 @@ function openAR(aircraftName) {
             openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
         }
     }else{
-      
+        openExternal("ar.html");
         arClick = false;
-        if(cur_user_agent.getResult().os.name === 'Android'){
-            openExternal("loadingar.html");
-            window.close();
-        }
-        else{
-            openExternal("ar.html");
-            window.close();
-        }
+        // if(cur_user_agent.getResult().os.name === 'Android'){
+        //     openExternal("loadingar.html");
+        //     window.close();
+        // }
+        // else{
+        //     openExternal("ar.html");
+        //     window.close();
+        // }
     }
 }
 
