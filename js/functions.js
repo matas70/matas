@@ -74,7 +74,7 @@ function getEnv(callback) {
         })
         .catch(() => {
             console.error("Matas: Couldn't load env from server, using defauls.");
-            appStage = "matas-dev";
+            appStage = "matas";
             callback(appStage);
         });
     }
@@ -142,6 +142,9 @@ function createBaseCategory(point) {
             base = element
         }
     })
+
+    if(base === undefined) return '';
+    
     return `<div class="base-category-container" onclick=showBaseLoactionPopup("${point.pointId}")>
                 <h2 class="header">${base.baseName}</h2>
                 <a target="_blank" href="${base.baseWazeDestinationLink}">
@@ -2097,26 +2100,26 @@ function fillMenu() {
 
     var currTime = getCurrentTime();
 
-    
-
     if (shouldShowTypeCategory("base")) {
-        var airpalnesOnBasesCount = 0;
+       // var airpalnesOnBasesCount = 0;
+        
         // add bases
-        locations.forEach(function (location) {
+       /* locations.forEach(function (location) {
             if (location.pointName.includes('בסיס')) {
                 airpalnesOnBasesCount += location.aircrafts.length;
-            }
-        }, this);
-        if (airpalnesOnBasesCount > 0)
+            } 
+        }, this); */
+
+        //if (airpalnesOnBasesCount > 0)
             locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
-        locations.forEach(function (location) {
-            if (location.pointName.includes('בסיס') && (location.pointId !== 245)) {
-                locationsViewHtml += createBaseCategory(location)
-            } else if (location.pointName.includes('מוזיאון')) {
-                locationsViewHtml += createBaseCategory(location)
-            }
-        }, this);
-    }
+            sortedLocations.forEach(function (location) {
+                if (location.pointName.includes('בסיס') ) {
+                    locationsViewHtml += createBaseCategory(location)
+                } else if (location.pointName.includes('מוזיאון')) {
+                    locationsViewHtml += createBaseCategory(location)
+                } 
+            }, this); 
+    } 
 
     if (shouldShowTypeCategory("hospital")) {
         // add hospitals
@@ -2138,6 +2141,7 @@ function fillMenu() {
             locationsViewHtml += createLocationRow(location, false);
         }
     }, this);
+
 
     $("#locationsListView").html(locationsViewHtml);
 }
