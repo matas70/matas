@@ -351,11 +351,9 @@
 			</div> -->
 		</div>
 
-		</div>
-		
+		</div>		
 
 		<script type="module">
-			let ShowArButton;
 			import * as THREE from 'https://unpkg.com/three@0.126.1/build/three.module.js';
 			import { TubePainter } from 'https://unpkg.com/three@0.126.1/examples/jsm/misc/TubePainter.js';
 			import { ARButton } from './ARButton.js';
@@ -378,17 +376,28 @@
 			let isSupported;
 			let currentAircraft = "f35";
 
-			
+			/*
+			let supportedArOrVr;
+
+			window.addEventListener("message", (event) => {
+				if (event.origin !== "https://127.0.0.1:63573/supported-ar.html")
+				  return;
+
+				  alert('no');
+				// ...
+			  }, false);
+			  */
+
 			function checkDeviceSupport() {
 				console.log(cur_user_agent.getResult())
 				console.log(cur_user_agent.getBrowser())
-				/*
+				
 				if ('xr' in navigator) {
 					
 					navigator.xr.isSessionSupported('immersive-ar').then(function (supported) {
 
 						isSupported = supported;
-						if (isSupported){
+						if (isSupported){ 
 							document.body.classList.add('is-supported');
 						}
 						init();
@@ -396,8 +405,7 @@
 						// console.log(getCookie('tutorial'));
 						// if (supported && getCookie('tutorial') != 3) {
 					}).catch();
-				} */
-				
+				} 
 					const message = document.createElement('a');
 					isSupported = false;
 					document.body.classList.remove('is-supported');
@@ -600,21 +608,7 @@
 						})
 					}, 100);
 				}
-
-				let isTrailScrolling = setTimeout(() => { }, 0);
-				document.getElementById('trails_menu').onscroll = () => {
-					clearInterval(isTrailScrolling);
-					isTrailScrolling = setTimeout(() => {
-						const centeredElement = document.elementFromPoint(
-							document.body.offsetWidth / 2, document.documentElement.clientHeight - 180
-						);
-						let selected = centeredElement.parentElement.innerHTML.replace('<img src="./assets/', '').replace('.png">', '');
-						TRAILS_META_DATA.forEach((e) => {
-							if (e.id === selected) changeTrails(e);
-						})
-					}, 100);
-				}
-
+				
 				setTimeout(() => {
 					window.scrollIntoView(document.getElementById('f35'), {
 						behavior: 'smooth',
@@ -642,23 +636,6 @@
 							inline: 'center'
 						});
 						changeAircraft(aircraft);
-					})
-				})
-
-				TRAILS_META_DATA.forEach(trail => {
-					const elem = document.createElement('button');
-					elem.classList.add("trails-option");
-					elem.type = "button";
-					elem.id = trail.id;
-					elem.innerHTML = `<img src="./assets/${trail.text}.png">`;
-					document.getElementById('trails_menu').insertBefore(elem, document.getElementById('trails_menu').children[2]);
-					elem.addEventListener('click', (e) => {
-						window.scrollIntoView(e.target, {
-							behavior: 'smooth',
-							block: 'center',
-							inline: 'center'
-						});
-						changeTrails(trail);
 					})
 				})
 
@@ -746,7 +723,7 @@
 						}
 					});
 					
-					document.querySelector('#supported-menu #icons').appendChild(arButton);
+					document.querySelector('#change-ar-toggle').appendChild(arButton);
 					
 					//try on removing the start page of the ar 
 
@@ -1275,11 +1252,20 @@
 				renderer.toneMappingExposure = params.exposure;
 			}
 			
-			function renderAircraft() {
-				
-				if(environmentToggleClick || !isSupported){
+			function openFullscreen() {
+				if (elem.requestFullscreen) {
+				  elem.requestFullscreen();
+				} else if (elem.webkitRequestFullscreen) { /* Safari */
+				  elem.webkitRequestFullscreen();
+				} else if (elem.msRequestFullscreen) { /* IE11 */
+				  elem.msRequestFullscreen();
+				}
+			  }
 
-					
+			  let count = 0;
+			function renderAircraft() {
+				if(!environmentToggleClick){
+					renderEnvironment();
 				}else{
 					scene.background = null;
 					handleController(controller);
@@ -1289,7 +1275,6 @@
 				}
 				
 			}
-
 			function renderAnimations() {
 				delta = clock.getDelta();
 				if (mixer) {
@@ -1338,14 +1323,15 @@
 					}
 				}
 			}
-
-			let movear = false;
+			
 			if(cur_user_agent.getResult().os.name === 'Android'){
 				isSupported = true;
 				document.getElementById('supported-menu').style.display = 'block';
 				document.getElementById('supported-menu-borders').style.display = 'block';
 				document.getElementById('space').style.display = 'flex';
 			}
+			
+
 			let helpSupportedArPopup = document.getElementById('help-supported-ar');
 			let environmentToggleClick;
 			
@@ -1395,24 +1381,6 @@
 					document.getElementById('help-supported-ar').style.display = 'none';
 				});
 			})
-
-
-			function moveToSupportedVR(){
-					if ('xr' in navigator) {
-					
-						navigator.xr.isSessionSupported('immersive-ar').then(function (supported) {
-	
-							isSupported = supported;
-							if (isSupported){
-								document.body.classList.add('is-supported');
-							}
-							init();
-							animate();
-							// console.log(getCookie('tutorial'));
-							// if (supported && getCookie('tutorial') != 3) {
-						}).catch();
-					}
-			}
 			
 			document.getElementById('unsupported-share-button').addEventListener('click', ()=>{
 				document.getElementById('url-copied').style.display = 'block';

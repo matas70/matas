@@ -535,9 +535,12 @@ font-weight: 500;
 } */
 .is-supported #supported-menu-borders{
   display: block;
+  z-index: 99999999;
 }
+
 #supported-menu-borders{
   display: none;
+  z-index: 99999999;
 }
 .tringle-conteiner{
   width: 100%;
