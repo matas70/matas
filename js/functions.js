@@ -6,6 +6,7 @@ window.gm_authFailure = function () {
 
 var mapFail = false;
 var mapAPI = null;
+var sortedLocations;
 
 function convertPath(path) {
     var convertedPath = [];
@@ -554,6 +555,7 @@ function updateLocations(route) {
         locations[point.pointId].color = route.color;
     }, this);
 }
+
 
 function loadLocations(callback) {
     getEnv((env) => {
@@ -1965,10 +1967,10 @@ function createLocationPopupCategoryRow(name) {
     return "<div class='aircraftLocationCategory'>" + name + "</div>"
 }
 
-var sortedLocations;
 var aircraftMap;
 
 function fillMenu() {
+    
     var html = "";
     aircraftMap = new Map();
 
@@ -1989,6 +1991,7 @@ function fillMenu() {
     if (categories.length === 0) {
         return;
     }
+
 
     categories.forEach(function (category) {
         var categorizedAircrafts = [].concat(aircrafts);
@@ -2081,6 +2084,7 @@ function fillMenu() {
 
     // sort locations by name
     sortedLocations = locations.slice();
+    
 
     sortedLocations.sort(function (item1, item2) {
         var keyA = item1.pointName,
@@ -2099,15 +2103,15 @@ function fillMenu() {
     if (shouldShowTypeCategory("base")) {
         var airpalnesOnBasesCount = 0;
         // add bases
-        sortedLocations.forEach(function (location) {
+        locations.forEach(function (location) {
             if (location.pointName.includes('בסיס')) {
                 airpalnesOnBasesCount += location.aircrafts.length;
             }
         }, this);
         if (airpalnesOnBasesCount > 0)
             locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
-        sortedLocations.forEach(function (location) {
-            if (location.pointName.includes('בסיס') && (location.pointId !== 245)) {
+        locations.forEach(function (location) {
+            if (location.pointName.includes('בסיס') && (location.pointId !== (245 || 256))) {
                 locationsViewHtml += createBaseCategory(location)
             } else if (location.pointName.includes('מוזיאון')) {
                 locationsViewHtml += createBaseCategory(location)
@@ -2138,14 +2142,13 @@ function fillMenu() {
 
     $("#locationsListView").html(locationsViewHtml);
 }
-
 /**
  *
  * @param typeCategory - base, hospital, etc.
  * @returns {boolean}
  */
 function shouldShowTypeCategory(typeCategory) {
-    return !!sortedLocations.find(location => location && location.type === typeCategory);
+    return !!locations.find(location => location && location.type === typeCategory);
 }
 
 function makeTwoDigitTime(t) {
