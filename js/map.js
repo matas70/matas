@@ -236,7 +236,7 @@ googleMaps = {
             if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
-                iconUrl = "icons/hospital-clicked.svg";
+               // iconUrl = "icons/hospital-clicked.svg";
             } else if ((point.pointName.includes('בסיס')) || (point.pointName.includes('מוזיאון'))) {
                 iconUrl = "icons/OpenBaseMap.svg";
             } else if (aerobatic) {
