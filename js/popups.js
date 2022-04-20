@@ -119,15 +119,17 @@ function onGrab(event) {
     let popupMinimizedPosition = document.getElementById(`headerBg`).clientHeight + (document.getElementById(`map`).clientHeight * 0.55);
     let openBasePopupPosition = Number(document.getElementById('open-bases-popup').style.top.replace("px", ""));
     let dragPopUpElement = document.getElementById('header-base-popup');
+    let bottomArea = windowFullSize * 0.4;
+    let topArea = windowFullSize * 0.7;
 
     //phone onDrag event for open bases
     dragPopUpElement.addEventListener("touchmove", (event) => {
 
         document.getElementById('open-bases-popup').style.top = `${event.changedTouches[0].clientY}px`;
 
-        if (currentPosition <= (windowFullSize * 0.4)) {
+        if (currentPosition <= bottomArea) {
             document.getElementById('open-bases-popup').style.setProperty("overflow", "hidden");
-        } else if (currentPosition > windowFullSize * 0.4 && currentPosition <  windowFullSize * 0.7) {
+        } else if (currentPosition > bottomArea && currentPosition <  topArea) {
             document.getElementById('open-bases-popup').style.setProperty("overflow", "hidden");
         } else {
             document.getElementById('open-bases-popup').style.setProperty("overflow", "scroll");
@@ -136,9 +138,9 @@ function onGrab(event) {
     
     //phone onDrag event for open bases
     dragPopUpElement.addEventListener("touchend", (event) => {
-        if (currentPosition <= (windowFullSize * 0.4)) {
+        if (currentPosition <= bottomArea) {
             document.getElementById('open-bases-popup').style.top = `${windowFullSize + headerHeight}px`;
-        } else if (currentPosition > windowFullSize * 0.4 && currentPosition <  windowFullSize * 0.7) {
+        } else if (currentPosition > bottomArea && currentPosition < topArea) {
             document.getElementById('open-bases-popup').style.top = `${popupMinimizedPosition}px`;
         } else {
             document.getElementById('open-bases-popup').style.top = `${headerHeight}px`;
