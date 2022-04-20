@@ -1,17 +1,5 @@
 const { point } = require("leaflet");
-const aircraftUsdzObjData = [
-    { name: "lavie",hebName: "לביא"},
-    { name: "baz",hebName: "בז"},
-    { name: "sofa",hebName: "סופה"},
-    { name: "tsofit",hebName: "צופית"},
-    { name: "f35",hebName: "אדיר"},
-    { name: "shimshon",hebName: "שמשון"},
-    { name: "karnaf",hebName: 'קרנף'},
-    { name: "efroni",hebName:'עפרוני'},
-    //{ name: "bazi"},
-    //{ name: "barak"},
-    //{ name: "peten"},
-]
+
 
 var locationPopupExpanded = false;
 var locationPopupCloseCallback = null;
@@ -93,6 +81,7 @@ function initPopups() {
 
 }
 
+//on close for openBasePopup
 function onClose() {
     let basePopUpElement = $("#open-bases-popup");
     let fullHeight = window.innerHeight;
@@ -153,8 +142,8 @@ loadOpenBasesLocation();
 
 function showBaseLoactionPopup(pointId) {
     onClose()
-    deselectLocation();
-    deselectAircraft();
+    deselectLocation()
+    deselectAircraft()
 
     let point;
 
@@ -635,6 +624,20 @@ function showAircraftInfoPopup(aircraft, collapse) {
         $("#aircraftInfoCountry").hide();
     }
 
+    aircraftUsdzObjData = [
+        { name: "lavie",hebName: "לביא"},
+        { name: "baz",hebName: "בז"},
+        { name: "sofa",hebName: "סופה"},
+        { name: "tsofit",hebName: "צופית"},
+        { name: "f35",hebName: "אדיר"},
+        { name: "shimshon",hebName: "שמשון"},
+        { name: "karnaf",hebName: 'קרנף'},
+        { name: "efroni",hebName:'עפרוני'},
+        //{ name: "bazi"},
+        //{ name: "barak"},
+        //{ name: "peten"},
+    ];   
+
     let currAircraftName = aircraftUsdzObjData.find(obj => obj.hebName === aircraft.name);
 
     if(currAircraftName !== undefined){
@@ -833,6 +836,19 @@ function createScheduleRow(aircraft, location) {
 
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule = false, showAllPoints = false, from) {
+    aircraftUsdzObjData = [
+        { name: "lavie",hebName: "לביא"},
+        { name: "baz",hebName: "בז"},
+        { name: "sofa",hebName: "סופה"},
+        { name: "tsofit",hebName: "צופית"},
+        { name: "f35",hebName: "אדיר"},
+        { name: "shimshon",hebName: "שמשון"},
+        { name: "karnaf",hebName: 'קרנף'},
+        { name: "efroni",hebName:'עפרוני'},
+        //{ name: "bazi"},
+        //{ name: "barak"},
+        //{ name: "peten"},
+    ];    
     
     var aerobaticIcon = "<div/>";
     var classname = "";
@@ -855,9 +871,10 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
 }
 
 function createLocationRow(location, displayFirstAircraft, isSearchBar = false) {
-    if (location.aircrafts.length == 0)
+    
+    /*if (location.aircrafts.length == 0)
         return "";
-
+*/
     return "<a class='locationRow' href='javascript:void(0);'><div id='location" + location.pointId + "' class='locationRow' onclick='expandLocation(" + location.pointId + "," + isSearchBar + ");'>" +
         "<div class='locationName'>" + location.pointName + "</div>" +
         "<div class='nextAircraftSection'>" +

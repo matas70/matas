@@ -142,6 +142,9 @@ function createBaseCategory(point) {
             base = element
         }
     })
+
+    if(base === undefined) return '';
+    
     return `<div class="base-category-container" onclick=showBaseLoactionPopup("${point.pointId}")>
                 <h2 class="header">${base.baseName}</h2>
                 <a target="_blank" href="${base.baseWazeDestinationLink}">
@@ -555,6 +558,7 @@ function updateLocations(route) {
     }, this);
 }
 
+
 function loadLocations(callback) {
     getEnv((env) => {
         $.getJSON(`${config.apiURL}/${env}/points.json?t=` + (new Date()).getTime(), function (points) {
@@ -756,6 +760,16 @@ function registerServiceWorker() {
         });
     }
 }
+
+/**
+ *
+ * @param typeCategory - base, hospital, etc.
+ * @returns {boolean}
+ */
+ function shouldShowTypeCategory(typeCategory) {
+    return !!locations.find(location => location && location.type === typeCategory);
+}
+
 
 var currentLocationMarker;
 var currentPosition;
@@ -1965,10 +1979,10 @@ function createLocationPopupCategoryRow(name) {
     return "<div class='aircraftLocationCategory'>" + name + "</div>"
 }
 
-var sortedLocations;
 var aircraftMap;
 
 function fillMenu() {
+    
     var html = "";
     aircraftMap = new Map();
 
@@ -1989,6 +2003,7 @@ function fillMenu() {
     if (categories.length === 0) {
         return;
     }
+
 
     categories.forEach(function (category) {
         var categorizedAircrafts = [].concat(aircrafts);
@@ -2081,6 +2096,7 @@ function fillMenu() {
 
     // sort locations by name
     sortedLocations = locations.slice();
+    
 
     sortedLocations.sort(function (item1, item2) {
         var keyA = item1.pointName,
@@ -2094,25 +2110,25 @@ function fillMenu() {
 
     var currTime = getCurrentTime();
 
-    
-
     if (shouldShowTypeCategory("base")) {
-        var airpalnesOnBasesCount = 0;
+       // var airpalnesOnBasesCount = 0;
+        
         // add bases
-        sortedLocations.forEach(function (location) {
+       /* locations.forEach(function (location) {
             if (location.pointName.includes('בסיס')) {
                 airpalnesOnBasesCount += location.aircrafts.length;
-            }
-        }, this);
-        if (airpalnesOnBasesCount > 0)
+            } 
+        }, this); */
+
+        //if (airpalnesOnBasesCount > 0)
             locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
-        sortedLocations.forEach(function (location) {
-            if (location.pointName.includes('בסיס') && !(location.pointName.includes('בסיס חצור'))) {
-                locationsViewHtml += createBaseCategory(location)
-            } else if (location.pointName.includes('מוזיאון')) {
-                locationsViewHtml += createBaseCategory(location)
-            }
-        }, this);
+            sortedLocations.forEach(function (location) {
+                if (location.pointName.includes('בסיס') && !(location.pointName.includes('בסיס חצור'))) {
+                    locationsViewHtml += createBaseCategory(location)
+                } else if (location.pointName.includes('מוזיאון')) {
+                    locationsViewHtml += createBaseCategory(location)
+                } 
+            }, this); 
     }
 
     if (shouldShowTypeCategory("hospital")) {
@@ -2120,7 +2136,7 @@ function fillMenu() {
         locationsViewHtml += createCategoryRow({category: "נקודות תצפית"}, true);
 
         sortedLocations.forEach(function (location) {
-            if ((!location.hidden && location.type && location.type === "hospital") || location.name.includes('נקודת תצפית')) {
+            if ( location.pointName.includes('תצפית למטס')) {
                 locationsViewHtml += createLocationRow(location, false);
             }
         }, this);
@@ -2136,16 +2152,8 @@ function fillMenu() {
         }
     }, this);
 
-    $("#locationsListView").html(locationsViewHtml);
-}
 
-/**
- *
- * @param typeCategory - base, hospital, etc.
- * @returns {boolean}
- */
-function shouldShowTypeCategory(typeCategory) {
-    return !!sortedLocations.find(location => location && location.type === typeCategory);
+    $("#locationsListView").html(locationsViewHtml);
 }
 
 function makeTwoDigitTime(t) {
