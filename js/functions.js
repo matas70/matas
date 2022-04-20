@@ -6,7 +6,6 @@ window.gm_authFailure = function () {
 
 var mapFail = false;
 var mapAPI = null;
-var sortedLocations;
 
 function convertPath(path) {
     var convertedPath = [];
