@@ -111,23 +111,38 @@ function onClose() {
 
 }
 
+
 function onGrab(event) {
+    let headerHeight = document.getElementById('headerBg').clientHeight;
+    let windowFullSize = window.innerHeight - headerHeight;
+    let currentPosition =  windowFullSize - event.changedTouches[0].clientY;
+    let popupMinimizedPosition = document.getElementById(`headerBg`).clientHeight + (document.getElementById(`map`).clientHeight * 0.55);
+    let openBasePopupPosition = Number(document.getElementById('open-bases-popup').style.top.replace("px", ""));
+    let dragPopUpElement = document.getElementById('header-base-popup');
+
     //phone onDrag event for open bases
-    let dragPopUpElement = document.getElementById('drag-button');
-    dragPopUpElement.addEventListener("touchmove", function myFunction1(event) {
-        console.log(event.changedTouches[0].clientY)
+    dragPopUpElement.addEventListener("touchmove", (event) => {
+
         document.getElementById('open-bases-popup').style.top = `${event.changedTouches[0].clientY}px`;
+
+        if (currentPosition <= (windowFullSize * 0.4)) {
+            document.getElementById('open-bases-popup').style.setProperty("overflow", "hidden");
+        } else if (currentPosition > windowFullSize * 0.4 && currentPosition <  windowFullSize * 0.7) {
+            document.getElementById('open-bases-popup').style.setProperty("overflow", "hidden");
+        } else {
+            document.getElementById('open-bases-popup').style.setProperty("overflow", "scroll");
+        }
     });
-
+    
     //phone onDrag event for open bases
-    dragPopUpElement.addEventListener("touchend", function myFunction2(event) {
-        let currentPosition = event.changedTouches[0].clientY
-        let popupMinimizedPosition = document.getElementById(`headerBg`).clientHeight + (document.getElementById(`map`).clientHeight * 0.4);
-        let fullSizedPosition = document.getElementById('open-bases-popup').clientHeight;
-        let windowFullSize = window.innerHeight;
-
-
-        document.getElementById('open-bases-popup').style.top = `${(currentPosition > windowFullSize * 0.3 && currentPosition <  windowFullSize * 0.7)?popupMinimizedPosition:(currentPosition >= windowFullSize * 0.3)?fullSizedPosition:0}px`;
+    dragPopUpElement.addEventListener("touchend", (event) => {
+        if (currentPosition <= (windowFullSize * 0.4)) {
+            document.getElementById('open-bases-popup').style.top = `${windowFullSize + headerHeight}px`;
+        } else if (currentPosition > windowFullSize * 0.4 && currentPosition <  windowFullSize * 0.7) {
+            document.getElementById('open-bases-popup').style.top = `${popupMinimizedPosition}px`;
+        } else {
+            document.getElementById('open-bases-popup').style.top = `${headerHeight}px`;
+        }
     });
 }
 
