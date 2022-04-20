@@ -1,4 +1,17 @@
 const { point } = require("leaflet");
+var aircraftUsdzObjData = [
+    { name: "lavie",hebName: "לביא"},
+    { name: "baz",hebName: "בז"},
+    { name: "sofa",hebName: "סופה"},
+    { name: "tsofit",hebName: "צופית"},
+    { name: "f35",hebName: "אדיר"},
+    { name: "shimshon",hebName: "שמשון"},
+    { name: "karnaf",hebName: 'קרנף'},
+    { name: "efroni",hebName:'עפרוני'},
+    //{ name: "bazi"},
+    //{ name: "barak"},
+    //{ name: "peten"},
+];  
 
 
 var locationPopupExpanded = false;
@@ -606,6 +619,20 @@ function showAircraftInfoPopup(aircraft, collapse) {
         $("#aircraftInfoCountry").hide();
     }
 
+    aircraftUsdzObjData = [
+        { name: "lavie",hebName: "לביא"},
+        { name: "baz",hebName: "בז"},
+        { name: "sofa",hebName: "סופה"},
+        { name: "tsofit",hebName: "צופית"},
+        { name: "f35",hebName: "אדיר"},
+        { name: "shimshon",hebName: "שמשון"},
+        { name: "karnaf",hebName: 'קרנף'},
+        { name: "efroni",hebName:'עפרוני'},
+        //{ name: "bazi"},
+        //{ name: "barak"},
+        //{ name: "peten"},
+    ];   
+
     let currAircraftName = aircraftUsdzObjData.find(obj => obj.hebName === aircraft.name);
 
     if(currAircraftName !== undefined){
@@ -804,7 +831,7 @@ function createScheduleRow(aircraft, location) {
 
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule = false, showAllPoints = false, from) {
-    const aircraftUsdzObjData = [
+    aircraftUsdzObjData = [
         { name: "lavie",hebName: "לביא"},
         { name: "baz",hebName: "בז"},
         { name: "sofa",hebName: "סופה"},
