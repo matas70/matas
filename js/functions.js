@@ -2107,7 +2107,7 @@ function fillMenu() {
         if (airpalnesOnBasesCount > 0)
             locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
         sortedLocations.forEach(function (location) {
-            if (location.pointName.includes('בסיס') && (location.pointId !== 245)) {
+            if (location.pointName.includes('בסיס') && (location.pointId !== (245 || 256))) {
                 locationsViewHtml += createBaseCategory(location)
             } else if (location.pointName.includes('מוזיאון')) {
                 locationsViewHtml += createBaseCategory(location)
