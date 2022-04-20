@@ -2116,11 +2116,11 @@ function fillMenu() {
     }
 
     if (shouldShowTypeCategory("hospital")) {
-        // add hospitals
+        // add view points
         locationsViewHtml += createCategoryRow({category: "נקודות תצפית"}, true);
 
         sortedLocations.forEach(function (location) {
-            if (!location.hidden && location.type && location.type === "hospital") {
+            if ((!location.hidden && location.type && location.type === "hospital") || location.name.includes('נקודת תצפית')) {
                 locationsViewHtml += createLocationRow(location, false);
             }
         }, this);
