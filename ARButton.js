@@ -54,7 +54,6 @@ class ARButton {
 
 				await renderer.xr.setSession( session );
 			
-				button.textContent = 'STOP AR';
 				sessionInit.domOverlay.root.style.display = '';
 				sessionInit.domOverlay.root.classList.add('show');
 				sessionInit.domOverlay.root.style.opacity = '1';
@@ -110,7 +109,6 @@ class ARButton {
 			// 	}
 
 			// };
-			
 			
 			button.onclick = async function () {
 				
