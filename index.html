@@ -418,16 +418,16 @@
     </div>
 
      <!-- open bases info popup -->
-    <div class="open-bases-popup" id="open-bases-popup" style="height: 576px; top: 64px; display: none;">
-        <div id="header-base-popup" class="header-base-popup">
+    <div class="open-bases-popup" id="open-bases-popup" ontouchmove="onGrab(event)" style="height: 100%; top: 64px; display: none; overflow: hidden">
+        <div id="header-base-popup" class="header-base-popup" ontouchmove="onGrab(event)">
             <div class="header-theme">
                 <img id="baseTheme" class="base-theme">
                 <div class="header-menu">
                     <img class="close-handler" src="experimental-assets/close-icon.svg" onclick="onClose()">
-                    <img class="drag" id="drag-button" src="experimental-assets/drag-button.svg" draggable="true"  ontouchmove="onGrab(event)">
+                    <img class="drag" id="drag-button" src="experimental-assets/drag-button.svg" >
                 </div>
             </div>
-            <div class="header-general-title">
+            <div class="header-general-title" ontouchmove="onGrab(event)">
                 <img id="iconBase">
                 <div class="header-title">
                     <h1 id="baseName"></h1>
@@ -638,7 +638,7 @@
 
     </div>
 
-    <!-- <div class="new-popup">
+    <div class="new-popup">
         <div class="inner">
             <h2 class="title">אז מה חדש השנה?</h2>
             <ul>
@@ -647,7 +647,7 @@
                     <br>
                     אליכם לסלון
                     <br>
-                    <a onclick="openAR()">כניסה לתלת מימד</a>
+                    <a onclick="openAR('adir')">כניסה לתלת מימד</a>
                 </li>
                 <li class='quiz'>
                     חושבים שאתם מכירים את חיל האוויר?
@@ -657,7 +657,7 @@
             </ul>
             <button>מגניב!</button>
         </div>
-    </div> -->
+    </div>
 </div>
 
 

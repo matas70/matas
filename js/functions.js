@@ -761,6 +761,16 @@ function registerServiceWorker() {
     }
 }
 
+/**
+ *
+ * @param typeCategory - base, hospital, etc.
+ * @returns {boolean}
+ */
+ function shouldShowTypeCategory(typeCategory) {
+    return !!locations.find(location => location && location.type === typeCategory);
+}
+
+
 var currentLocationMarker;
 var currentPosition;
 
@@ -2113,20 +2123,20 @@ function fillMenu() {
         //if (airpalnesOnBasesCount > 0)
             locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
             sortedLocations.forEach(function (location) {
-                if (location.pointName.includes('בסיס') ) {
+                if (location.pointName.includes('בסיס') && !(location.pointName.includes('בסיס חצור'))) {
                     locationsViewHtml += createBaseCategory(location)
                 } else if (location.pointName.includes('מוזיאון')) {
                     locationsViewHtml += createBaseCategory(location)
                 } 
             }, this); 
-    } 
+    }
 
     if (shouldShowTypeCategory("hospital")) {
-        // add hospitals
+        // add view points
         locationsViewHtml += createCategoryRow({category: "נקודות תצפית"}, true);
 
         sortedLocations.forEach(function (location) {
-            if (!location.hidden && location.type && location.type === "hospital") {
+            if ( location.pointName.includes('תצפית למטס')) {
                 locationsViewHtml += createLocationRow(location, false);
             }
         }, this);
@@ -2144,14 +2154,6 @@ function fillMenu() {
 
 
     $("#locationsListView").html(locationsViewHtml);
-}
-/**
- *
- * @param typeCategory - base, hospital, etc.
- * @returns {boolean}
- */
-function shouldShowTypeCategory(typeCategory) {
-    return !!locations.find(location => location && location.type === typeCategory);
 }
 
 function makeTwoDigitTime(t) {

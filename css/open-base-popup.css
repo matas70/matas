@@ -1,10 +1,9 @@
 div.open-bases-popup {
-    overflow: scroll;
     direction: ltr;
     left:0;
     margin-left: auto;
     background-color: white;
-    overflow : scroll;
+    overflow : hidden;
     position: fixed;
     width: calc(100% - 400px);
     max-width: 475px;
