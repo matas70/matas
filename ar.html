@@ -49,6 +49,13 @@
 </style>
 
 <body>
+	<div class="full-screen-popup">
+		<p>בשביל לחוות את החוויה במלואה יש לאשר כניסה למסך מלא</p>
+		<button>הכנס אותי</button>
+	</div>
+	<div class="dim-background">
+
+	</div>
 	<div class="camera">
 		<video id="video">Video stream not available.</video>
 	</div>
@@ -318,7 +325,6 @@
 						isSupported = supported;
 						if (isSupported){ 
 							document.body.classList.add('is-supported');
-							executeLoader();
 						}
 						init();
 						animate();
@@ -1074,6 +1080,14 @@
 					loadAircraft(selectedAircraft);
 					currentAircraft = selectedAircraft.id;
 				}, 10)
+				setTimeout(()=>{
+					document.querySelector('.loading-ar').style.display = 'none';
+					if(currentAircraft === "f35" && isSupported){
+						document.querySelector('.full-screen-popup').style.display = 'flex';
+						document.querySelector('.dim-background').style.display = 'block';
+					}
+				}, 3000)
+				
 			}
 			function changeTrails(selectedTrails) {
 				TRAILS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
@@ -1098,7 +1112,6 @@
 				const SpotLight = new THREE.SpotLight(0xffffff, 0.1);
 				SpotLight.position.set(-50, 50, 50);
 				scene.add(SpotLight);
-
 				// const LightHelper1 = new THREE.HemisphereLightHelper(HemisphereLight);
 				// const LightHelper2 = new THREE.HemisphereLightHelper(HemisphereLight1);
 				// const LightHelper3 = new THREE.SpotLightHelper(SpotLight);
@@ -1184,6 +1197,7 @@
 			function renderAircraft() {
 				if(!environmentToggleClick){
 					renderEnvironment();
+					
 				}else{
 					scene.background = null;
 					handleController(controller);
@@ -1204,6 +1218,7 @@
 				renderAircraft();
 				renderAnimations();
 				renderer.render(scene, camera);
+				
 			}
 
 			function iosRender() { // no supporting
@@ -1240,6 +1255,7 @@
 						aircraft.rotation.set(0, 0, 0);
 					}
 				}
+				
 			}
 			
 			let helpSupportedArPopup = document.getElementById('help-supported-ar');
@@ -1255,6 +1271,12 @@
 				}
 			  }
 
+			
+			document.querySelector('.full-screen-popup').addEventListener('click', () =>{
+				openFullscreen(document.documentElement);
+				document.querySelector('.full-screen-popup').style.display = 'none';
+				document.querySelector('.dim-background').style.display = 'none';
+			})
 			//suppurted AR info popup
 			
 			function ARSupportedsInfopopup(){
@@ -1276,6 +1298,7 @@
 
 			function executeLoader(){
 				document.querySelector('.loading-ar').style.display = 'flex';
+				document.querySelector('.loading-ar').style.backgroundColor = 'rgba(0, 0, 0, 0.438)';
 			    setTimeout(()=>{document.querySelector('.loading-ar').style.display = 'none';}, 3500);
 			}
 			
@@ -1331,7 +1354,7 @@
 				result.push(locations[locations.length - 1])
 				return result;
 			}
-
+			
 			function addMidpoints(locations, iterations = 1) {
 				let result = [locations[0]];
 				for (let i = 1; i < locations.length; i++) {
@@ -1402,7 +1425,6 @@
 					// iPad on iOS 13 detection
 					|| (navigator.userAgent.includes("Mac") && "ontouchend" in document)
 			}
-
 			checkDeviceSupport()
 
 

@@ -1303,11 +1303,9 @@ div.airplane-card a button.base-map {
   cursor: pointer;
   
 }
-.is-supported .loading-ar{
-  display: flex;
-}
+
 .loading-ar{
-  display: none;
+  display: flex;
   position: fixed;
   top: 0;
   left: 0;
@@ -1316,11 +1314,48 @@ div.airplane-card a button.base-map {
   width: 100%;
   height: 100%;
   height: -webkit-fill-available;
-  background: rgba(0, 0, 0, 0.678);
+  background: black;
   align-items: center;
   justify-content: center;
 }
 .loading-ar img{
   width: 11vmin;
   height: 5vmax;
+}
+.is-supported .full-screen-popup{
+  display: none;
+}
+.full-screen-popup{
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  position: fixed;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: fit-content;
+  width: 200px;
+  background-color: white;
+  box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+.full-screen-popup p{
+  width: 180px;
+  direction:rtl;
+}
+.full-screen-popup button{
+  margin-bottom: 10px;
+}
+.is-supported .dim-background{
+  display: none;
+}
+.dim-background{
+  display: none;
+  background-color: rgba(0, 0, 0, 0.507);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 998;
 }
