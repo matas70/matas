@@ -331,7 +331,7 @@
 						// console.log(getCookie('tutorial'));
 						// if (supported && getCookie('tutorial') != 3) {
 					}).catch();
-				} 
+				} else{
 					const message = document.createElement('a');
 					isSupported = false;
 					document.body.classList.remove('is-supported');
@@ -356,7 +356,7 @@
 								OS: dataToFirebase(cur_user_agent.getOS()),
 								engine: dataToFirebase(cur_user_agent.getEngine())
 							});
-					
+					}
 				}
 			}
 			let container, stats;

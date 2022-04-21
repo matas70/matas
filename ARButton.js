@@ -62,6 +62,7 @@ class ARButton {
 
 			}
 
+			
 			function onSessionEnded( /*event*/ ) {
 
 				// if(sessionInit.endSessionCallback) {
