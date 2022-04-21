@@ -1,0 +1,445 @@
+div.open-bases-popup {
+    direction: ltr;
+    left:0;
+    margin-left: auto;
+    background-color: white;
+    overflow : hidden;
+    position: fixed;
+    width: calc(100% - 400px);
+    max-width: 475px;
+    height: 0;
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #003366;
+    z-index: 9999999;
+    margin-bottom: auto;
+    background: #FFFFFF;
+    box-shadow: 0 2px 25px 0 rgba(0,0,0,0.50);
+}
+
+
+div.header-base-popup div.header-theme {
+  display: flex;     
+  position: relative; 
+  height: 160px;
+}
+
+div.header-base-popup div.header-theme img.base-theme{
+  position: absolute;
+  object-fit: cover;
+  height: auto;
+  height: 160px;
+  width: 100%;
+  -webkit-user-drag: none;
+}
+
+div.header-theme div.header-menu {
+    margin:0;
+    position: relative;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    z-index: 999;
+}
+
+div.header-menu img.drag {
+    width: 35px;
+    height: 5px;
+    background: #FFFFFF;
+    border-radius: 100px;
+    margin-right: calc(50% - 56.5px);
+    -webkit-user-select: none;
+}
+
+div.header-menu img.close-handler {
+    position: static;
+    height: 30px;
+    width: 30px;
+    margin-right: 9px;
+    margin-top: 9px;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    cursor:pointer;
+}
+
+div.header-base-popup div.header-general-title {
+  position: relative;
+  margin: 0;
+  height: 76px;
+  display: flex;
+  flex-direction: row-reverse;
+  background: #F7F5F5;
+  border-bottom: 1px solid #c3c3c3;
+  align-items: center;
+}
+
+div.header-base-popup div.header-general-title img {
+  margin: 0;
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+}
+
+div.header-general-title div.header-title {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin-right: 14px;
+    height: 100%;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+
+div.header-general-title h1 {
+    margin: 0;
+    font-family: Heebo-Bold;
+    font-size: 26px;
+    color: #293B57;
+    letter-spacing: 0;
+    font-weight: 700;
+    direction: rtl;
+    transform: translateY(10px);
+}
+
+div.header-general-title p {
+    margin: 0;
+    font-family: Heebo-Light;
+    font-size: 17px;
+    color: #455773;
+    letter-spacing: 0;
+    font-weight: 200;
+    direction: rtl;
+    margin-right: 1px;
+    transform: translateY(-10px);
+}
+
+div.header-general-title a {
+  margin-left: 24px;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+
+div.header-general-title a img {
+  max-width: 29.25px;
+  max-height: 27px;
+}
+
+div.open-bases-popup div.base-general-information {
+  height: 150%;
+  background: #FFFFFF;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+  margin-top: 16px;
+}
+
+div.open-bases-popup div.base-general-information p.base-passage {
+    margin: 0;
+    margin-bottom: 10.5px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 85%;
+    font-family: Heebo-Regular;
+    font-size: 14px;
+    color: #37474F;
+    letter-spacing: 0;
+    text-align: right;
+    line-height: 20px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+}
+
+
+div.base-general-information div.base-passage-line {
+    width: 85%;
+    height: 3px;
+    opacity: 0.2;
+    border-bottom: 2px solid #455773;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 16px;
+}
+
+div.base-general-information div.base-info-with-icon {
+  display: flex;
+  flex-direction: column;
+  gap: -100px;
+  margin: 0;
+  margin-right: 5%;
+  margin-bottom: 2%;
+}
+
+div.base-info-with-icon div.base-info {
+    margin: 0;
+    height: auto;
+    display: flex;
+    align-items: center;
+    column-gap: 13.5px;
+  }
+
+  div.base-info-with-icon div.base-info img {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    height: 24px;
+    width: 24px;
+  }
+
+div.base-info-with-icon div.base-info h2 {
+    margin: 0;
+    font-family: Heebo-Bold;
+    font-size: 17px;
+    color: #37474F;
+    letter-spacing: 0;
+    font-weight: 700;
+    
+  }
+
+div.base-info-with-icon p {
+    margin: 0;
+    margin-right: 37.5px;
+    margin-bottom: 4px;
+    font-family: Heebo-Regular;
+    font-size: 14px;
+    color: #37474F;
+    letter-spacing: 0;
+    font-weight: 400;
+    max-width: 73.3%;
+}
+
+a.corona-link {
+    text-decoration: underline;
+    font-family: Heebo-Regular;
+    font-size: 14px;
+    color: #3BB5F2;
+    letter-spacing: 0;
+    text-align: right;
+    line-height: 20px;
+    font-weight: 600;
+}
+
+div.base-info-with-icon div.base-info p a:active{
+    color: #1c516c 100%;
+    font-weight: 600;
+  }
+
+div.airplane-card {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    width: auto;
+    max-width: 100%;
+    height: 140px;
+    background: #FFFFFF;
+    box-shadow: 0 0px 9px 0 rgba(0,0,0,0.16);
+    border-radius: 10px;
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-top: 22.5px;
+    margin-bottom: 29PX;
+
+
+}
+
+div.airplane-card div.airplane-card-info-handler{
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  position: relative;
+}
+
+div.airplane-card-info-handler h1 {
+    margin-top: 10.5px;
+    margin-right: 13.5px;
+    margin-bottom: 6px;
+    font-family: Heebo-Bold;
+    font-size: 17px;
+    color: #37474F;
+    letter-spacing: 0;
+    text-align: right;
+    line-height: 19px;
+    font-weight: 700;
+}
+
+div.airplane-card-info-handler p {
+    padding: 0;
+    margin: 0;
+    margin-right: 13.75px;
+    font-family: Heebo-Regular;
+    font-size: 12px;
+    color: #37474F;
+    letter-spacing: 0;
+    text-align: right;
+    line-height: 18px;
+    font-weight: 400;
+    width: 200px;
+}
+
+div.airplane-card-info-handler #base-map-button-handler {
+    margin-right: 4.5%;
+    margin-top: 3.5%;
+}
+
+div.airplane-card-info-handler a {
+    margin: 0;
+    -webkit-user-select: none;
+    text-decoration: none;
+}
+
+div.airplane-card-info-handler a button.base-map {
+    padding: 0;
+    margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 112px;
+  height: 30px;
+  background-color: cyan;
+  background: #3BB5F2;
+  border-radius: 15px;
+  border: 0px;
+  cursor: pointer;
+  font-family: Heebo-Regular;
+  font-size: 13px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: right;
+  font-weight: 600;
+
+}
+div.airplane-card img {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    margin-right: auto;
+    height: 100%;
+    width: 44%;
+}
+
+div.airplanes-show-header {
+    margin: 0;
+    background: #F7F5F5;
+    border-top: 1px solid #E1E1E1;
+    border-bottom: 1px solid #E1E1E1;
+}
+
+div.airplanes-show-header h2.title{
+    margin: 0;
+    font-family: Heebo-Bold;
+    font-size: 17px;
+    color: #37474F;
+    letter-spacing: 0;
+    text-align: right;
+    line-height: 19px;
+    font-weight: 700;
+    margin-right: 7%;
+    margin-top: 1.3375%;
+    margin-bottom: 1.6225%;
+    -webkit-user-select: none;
+}
+
+div.base-category-container {
+    cursor: pointer;
+    margin-bottom: 4px;
+    background: #F7F5F5;
+    width: 100%;
+    height: 56px;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.base-category-container h2 {
+    font-family: Heebo-Bold;
+    font-size: 17px;
+    color: #37474F;
+    letter-spacing: -0.41px;
+    text-align: right;
+    font-weight: 700;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    margin-right: 23px;
+}
+
+div.base-category-container a{
+    margin-left: 23px;
+}
+
+div.base-category-container a img {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+div.airplanes-show p.aircraft-no-show {
+  padding: 0;
+  margin-right: center;
+  margin-left: center;
+  font-family: Heebo-Regular;
+  font-size: 24px;
+  color: #37474F;
+  letter-spacing: 0;
+  text-align: right;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 300px) {
+  div.header-general-title h1{
+    font-size: 20px;
+    width: 100px;
+  }
+  div.header-general-title p{
+    font-size: 14px;
+  }
+
+  div.header-general-title a{
+    transform: translateX(20px);
+  }
+}
+
+
+@media only screen and (max-width: 360px) {
+  div.header-general-title h1{
+    font-size: 24px;
+    width: 200px;
+  }
+  div.header-general-title p{
+    font-size: 14px;
+  }
+
+  div.header-general-title a{
+    transform: translateX(20%);
+  }
+}
+
+div.aircraft-show div.tableRow  div.time{
+  display: flex;
+  align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+    div.open-bases-popup {
+        width: 100%;
+        max-width: 600px;
+        left: 0;
+    }
+
+    div.airplane-card img {
+        width: auto;
+    }
+}

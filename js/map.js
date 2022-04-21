@@ -7,8 +7,7 @@ aerobaticPoints = null;
 
 
 googleMaps = {
-    // new production key
-    MAP_URL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyD6_woFZpfspoPsI7BGcsC2ZtDCue1yTks&map_ids=6571b907d96d29e6&callback=initMap&language=he&region=IL",
+    MAP_URL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyDiA8uriGzJyqXwSVlqghHMUOvoOcskbsE&map_ids=6571b907d96d29e6&callback=initMap&language=he&region=IL",
 
     setAircraftMarkerIcon: (marker, url, anchor = 36) => {
         if (anchor != null) {
@@ -221,13 +220,14 @@ googleMaps = {
         color = color.replace("#ff0000", "ffffff00")
         iconUrl = "icons/point-" + color + ".svg";
 
-
         if (!clicked) {
             if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
                 iconUrl = "icons/lookout.svg";
-            } else if(aerobatic) {
+            } else if ((point.pointName.includes('בסיס')) || (point.pointName.includes('מוזיאון'))){
+                iconUrl = "icons/OpenBaseMap.svg";
+            } else if (aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
             } else {
                 iconUrl = "icons/point-" + color + ".svg";
@@ -236,9 +236,11 @@ googleMaps = {
             if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
-                iconUrl = "icons/hospital-clicked.svg";
-            } else if(aerobatic) {
-                iconUrl = "icons/showSelected-" + color + ".svg";
+               // iconUrl = "icons/hospital-clicked.svg";
+            } else if ((point.pointName.includes('בסיס')) || (point.pointName.includes('מוזיאון'))) {
+                iconUrl = "icons/OpenBaseMap.svg";
+            } else if (aerobatic) {
+                iconUrl = "icons/show-" + color + ".svg";
             } else {
                 iconUrl = "icons/pointPress-" + color + ".svg";
             }
@@ -306,11 +308,12 @@ googleMaps = {
                             if (selectedLocation != null) {
                                 deselectLocation(() => {
                                     // then show a new popup
+
+                                        selectLocation(point.pointId, location, marker, markerHtml, markerHtmlClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                                    })
+                                } else {
+                                    // then show a new popup
                                     selectLocation(point.pointId, location, marker, markerHtml, markerHtmlClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
-                                });
-                            } else {
-                                // then show a new popup
-                                selectLocation(point.pointId, location, marker, markerHtml, markerHtmlClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
                             }
                         }
                     } else {

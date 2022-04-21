@@ -54,7 +54,6 @@ class ARButton {
 
 				await renderer.xr.setSession( session );
 			
-				button.textContent = 'STOP AR';
 				sessionInit.domOverlay.root.style.display = '';
 				sessionInit.domOverlay.root.classList.add('show');
 				sessionInit.domOverlay.root.style.opacity = '1';
@@ -63,6 +62,7 @@ class ARButton {
 
 			}
 
+			
 			function onSessionEnded( /*event*/ ) {
 
 				// if(sessionInit.endSessionCallback) {
@@ -73,7 +73,7 @@ class ARButton {
 
 				//button.textContent = 'להתחיל תלת מימד';
 				//button.style.backgroundImage = url('/icons/ar.svg');
-				sessionInit.domOverlay.root.style.display = 'none';
+				//sessionInit.domOverlay.root.style.display = 'none';
 
 				currentSession = null;
 
@@ -110,12 +110,17 @@ class ARButton {
 			// 	}
 
 			// };
-
+			
 			button.onclick = async function () {
+				
 				try {
 					if ( currentSession === null ) {
 						await navigator.xr.requestSession('immersive-ar', sessionInit).then(onSessionStarted);
 						sessionInit.animate();
+
+					}else{
+						currentSession.end();
+						currentSession = null;
 					}
 				} catch (e) {
 					if(sessionInit.fallback) {
@@ -125,7 +130,7 @@ class ARButton {
 
 			};
 
-
+			
 		}
 
 		function disableButton() {
@@ -161,7 +166,7 @@ class ARButton {
 		if ( 'xr' in navigator ) {
 
 			button.id = 'ARButton';
-			button.style.display = 'none';
+			//button.style.display = 'none';
 
 			stylizeElement( button );
 
