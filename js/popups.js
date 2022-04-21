@@ -246,7 +246,7 @@ function showBaseLoactionPopup(pointId) {
 
     // Check to see if aircraftList is empty in this location
     if (OpenBaseAircraftspecials.size === 0 && (!openBaseTmp || openBaseTmp.length === 0)) {
-        airplaneShowsElement.innerHTML = '<p class="aircraft-no-show">המטס כבר עבר!</p>'
+        airplaneShowsElement.innerHTML = '<div id="noAircraftMessage"> המטס כבר חלף מעל נקודה זו</div>'
     } else {
         OpenBaseAircraftspecials.set("מטס", openBaseTmp);
 
