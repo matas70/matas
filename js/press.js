@@ -107,10 +107,11 @@ function createCategoryTable(category, categoryLocation) {
 }
 
 function createBaseTableTitle(name, activeTimes, hasAerobatic) {
+    let tempActiveTimes = activeTimes? activeTimes : '';
     return `<div class="base-table-title">
                     <div class="base-table-title-group">
                         <div class="base-table-title-text">${name}</div>&nbsp;|&nbsp;
-                        <div class="base-title-times">${activeTimes}</div>
+                        <div class="base-title-times">${tempActiveTimes}</div>
                     </div>
                     <img src="icons/aerobatic.svg" class="aerobatic-icon" style="visibility:${hasAerobatic ? "visible" : "hidden"}">
                 </div>`;
