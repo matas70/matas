@@ -2517,9 +2517,9 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 
     if (Cookies.get('seen_welcome_2021') != '1') {
         
-        $('.new-popup').show()
+       // $('.new-popup').show()
         $('.new-popup button, .new-popup .quiz, .new-popup .ar').on('click', () => {
-            $('.new-popup').fadeOut(200);
+           // $('.new-popup').fadeOut(200);
             Cookies.set('seen_welcome_2021', '1', { expires: 10000});
         })
         $('.new-popup .ar').on('click', ()=>openAR());
