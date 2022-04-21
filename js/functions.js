@@ -1236,6 +1236,7 @@ function openAR(aircraftName) {
 }
 
 function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllPoints = false) {
+    onClose()
 
     if(!isIOS() || (openAircraftInfo && isIOS())){
         
