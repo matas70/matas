@@ -2147,8 +2147,9 @@ function fillMenu() {
     sortedLocations.forEach(function (location) {
         if ((!location.hidden &&
             !!routes.find(route => route.points.find(point => location.pointId === point.pointId))) &&
+            (!location.pointName.includes('תצפית למטס')) &&
             (!location.type || location.type !== "base" || location.type !== "hospital")) {
-            locationsViewHtml += createLocationRow(location, false);
+                locationsViewHtml += createLocationRow(location, false);
         }
     }, this);
 
