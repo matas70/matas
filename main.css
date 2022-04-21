@@ -640,8 +640,8 @@ font-weight: 500;
 }
 .show-hid-check-box{
   display: flex;
-  margin-top: 5px;
-  font-size: 15px;
+  align-items: center;
+  font-size: 14.5px;
 }
 
 #space{

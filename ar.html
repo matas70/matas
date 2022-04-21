@@ -172,8 +172,8 @@
 				<div id="help-supported-ar-conteiner">
 					<div id="help-supported-ar">
 						<div id="supported-ar-conteiner">
-							<p class="title">מיד תועברו לעמוד חדש</p>
-							<p class="description">לחצו על המטוס כדי לצפות בו במציאות רבודה</p>
+							<p class="title">חיל האוויר אצלכם בסלון</p>
+							<p class="description">לחצו על המסך כדי למקם מטוס במרחב</p>
 							<img src="./assets/pictureInYourLivingRoom.png" alt="">
 							<div class="conteiner-bottom">
 								<button>הבנתי</button>
@@ -318,6 +318,7 @@
 						isSupported = supported;
 						if (isSupported){ 
 							document.body.classList.add('is-supported');
+							executeLoader();
 						}
 						init();
 						animate();
@@ -513,7 +514,9 @@
 			function init() {
 
 				// Detect filter change
+				
 				let isAircraftScrolling = setTimeout(() => { }, 0);
+				
 				document.getElementById('aircrafts_menu').onscroll = () => {
 					clearInterval(isAircraftScrolling);
 					isAircraftScrolling = setTimeout(() => {
@@ -530,6 +533,7 @@
 				}
 				
 				setTimeout(() => {
+					
 					window.scrollIntoView(document.getElementById('f35'), {
 						behavior: 'smooth',
 						block: 'center',
@@ -558,7 +562,7 @@
 						changeAircraft(aircraft);
 					})
 				})
-
+				
 				scene = new THREE.Scene();
 
 				clock = new THREE.Clock();
@@ -595,7 +599,7 @@
 				new EXRLoader()
 					.setDataType(THREE.UnsignedByteType)
 					.load('assets/textures/compressed.exr', function (texture) {
-
+						
 						exrCubeRenderTarget = pmremGenerator.fromEquirectangular(texture);
 						exrBackground = exrCubeRenderTarget.texture;
 
@@ -604,6 +608,7 @@
 					});
 
 				new THREE.TextureLoader().load('assets/textures/equirectangular.png', function (texture) {
+					
 					texture.encoding = THREE.sRGBEncoding;
 					pngCubeRenderTarget = pmremGenerator.fromEquirectangular(texture);
 					pngBackground = pngCubeRenderTarget.texture;
@@ -627,6 +632,7 @@
 				
 				if (isSupported) {
 					localStorage.setItem("finishedLoadingSupported", true);
+					
 					const arButton = ARButton.createButton(renderer, {
 						
 						optionalFeatures: ['dom-overlay'],
@@ -835,10 +841,11 @@
 				loadLight();
 				loadPainter();
 				loadController();
+				
 				// changeTrails(TRAILS_META_DATA[TRAILS_META_DATA.length - 1]);
 
 				window.addEventListener('resize', onWindowResize);
-
+				
 			}
 
 			function createVidBackgrounds() {
@@ -862,6 +869,7 @@
 						continue
 					}
 				}
+				
 			}
 
 			window.setInterval(createVidBackgrounds, 30)
@@ -890,13 +898,14 @@
 				window.close();
 			}
 
+			/*
 			function resetTrail() {
 				TRAILS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
 				scene.remove(trails);
 				trails.forEach(trail => { scene.remove(trail) });
 				trails = [];
 			}
-
+			*/
 			function loadController() {
 				function onSelectStart(event) {
 					event.inputSource
@@ -955,6 +964,7 @@
 					}, undefined, function (error) {
 						console.error(error);
 					});
+					
 			}
 
 			function loadAircraftOBJ(selectedAircraft) {
@@ -1002,6 +1012,7 @@
 				} else if (selectedAircraft.type == "obj") {
 					loadAircraftOBJ(selectedAircraft);
 				}
+				
 			}
 
 			function loadTrails(selectedTrails) {
@@ -1250,7 +1261,7 @@
 
 				helpSupportedArPopup.style.visibility ='visible';
 				let InfoPopupshowcheckbox = document.querySelector('.show-hid-check-box input').checked;
-				document.querySelector('#help-supported-ar .title').innerText = "מיד תועברו לעמוד חדש";
+				document.querySelector('#help-supported-ar .title').innerText = "חיל האוויר אצלכם בסלון";
 				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '0px';
 				document.querySelector('#help-supported-ar .conteiner-bottom .show-hid-check-box').style.display = 'flex';
 				if(!InfoPopupshowcheckbox){
@@ -1267,7 +1278,7 @@
 				document.querySelector('.loading-ar').style.display = 'flex';
 			    setTimeout(()=>{document.querySelector('.loading-ar').style.display = 'none';}, 3500);
 			}
-			executeLoader();
+			
 			document.querySelector("#change-ar-toggle #toggle").addEventListener('click', () =>{
 				environmentToggleClick = !environmentToggleClick;
 				document.getElementById("toggle").style.transition = 'all 0.3s';
