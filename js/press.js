@@ -38,7 +38,7 @@ function createCategoryTables(category) {
 
 function createBasesTables() {
     let bases = locations.filter((location) => {
-        return location.type === "base";
+        return location.type === "base" || (location.pointName.includes('בסיס') && !(location.pointName.includes('בסיס חצור')) || location.pointName.includes('מוזיאון'));
     });
 
     if (bases.length > 0) {        
@@ -117,6 +117,7 @@ function createBaseTableTitle(name, activeTimes, hasAerobatic) {
 }
 
 function createTableCategories(categories, aircrafts, exhibitions, type) {
+
     let tableCategoriesDiv = "";
     // flight category
     let categoryAircrafts = aircrafts.filter((aircraft) => {
@@ -131,12 +132,11 @@ function createTableCategories(categories, aircrafts, exhibitions, type) {
         if (categoryAircrafts.length > 0 && category.category !== "חזרות")
             tableCategoriesDiv += createTableCategory(category.category, categoryAircrafts, type);
     });
-
     // add exhibitions section
     if (exhibitions) {
         tableCategoriesDiv += `<div class="showcase-container">
                         <div class="exhibition-category">תערוכה:</div>
-                        ${exhibitions}
+                      
                     </div>`;
     }
 
@@ -145,10 +145,11 @@ function createTableCategories(categories, aircrafts, exhibitions, type) {
 
 function createTableCategory(categoryName, categoryAircrafts, type) {
     let flightCategoryTitle = "";
+    
     if (type === "base")
         flightCategoryTitle = `<div class="category-name">
                                 <div class="category-title">${categoryName}</div>
-                                <div class="category-start-time">${categoryAircrafts[0]?.time.substr(0, 5)}</div>
+                                <div class="category-start-time">${categoryAircrafts[0]?.time?.substr(0, 5)}</div>
                             </div>`;
     let flightCategoryIcons = "";
 
