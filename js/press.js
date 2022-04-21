@@ -70,8 +70,8 @@ function createCityTables() {
     return cityTables;
 }
 
-function createBaseTable(base) {        
-    return `<div class="base-table">
+function createBaseTable(base) {
+    return `<div class="base-table" ${base.aircrafts.length===0 ? 'class="no-aircrafts"':''}>
                 <div id="location-${base.pointId}" class="base-card">
                     ${createBaseTableTitle(base.pointName, base.activeTimes, false)}
                 </div>
@@ -107,11 +107,13 @@ function createCategoryTable(category, categoryLocation) {
 }
 
 function createBaseTableTitle(name, activeTimes, hasAerobatic) {
-    let tempActiveTimes = activeTimes? activeTimes : '';
+    let tempActiveTimes = activeTimes? `
+        &nbsp;|&nbsp;
+        <div class="base-title-times">${tempActiveTimes}</div>
+    ` : '';
     return `<div class="base-table-title">
                     <div class="base-table-title-group">
-                        <div class="base-table-title-text">${name}</div>&nbsp;|&nbsp;
-                        <div class="base-title-times">${tempActiveTimes}</div>
+                        <div class="base-table-title-text">${name}</div>
                     </div>
                     <img src="icons/aerobatic.svg" class="aerobatic-icon" style="visibility:${hasAerobatic ? "visible" : "hidden"}">
                 </div>`;
