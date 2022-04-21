@@ -1068,7 +1068,7 @@
 						});
 				}
 			}
-
+			let countLoad = 0;
 			function changeAircraft(selectedAircraft) {
 				setTimeout(() => {
 					AIRCRAFTS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
@@ -1078,10 +1078,11 @@
 				}, 10)
 				setTimeout(()=>{
 					document.querySelector('.loading-ar').style.display = 'none';
-					if(currentAircraft === "f35" && isSupported){
+					if(countLoad === 0 && isSupported){
 						document.querySelector('.full-screen-popup').style.display = 'flex';
 						document.querySelector('.dim-background').style.display = 'block';
 					}
+					countLoad = 1;
 				}, 3000)
 				
 			}
