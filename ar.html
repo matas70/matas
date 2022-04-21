@@ -1193,10 +1193,11 @@
 				scene.background = background;
 				renderer.toneMappingExposure = params.exposure;
 			}
+
 			function renderAircraft() {
 				if(!environmentToggleClick){
 					renderEnvironment();
-					
+					aircraft?.position.set(0, 0, 0)
 				}else{
 					scene.background = null;
 					handleController(controller);
