@@ -68,8 +68,9 @@ class ARButton {
 				// if(sessionInit.endSessionCallback) {
 				// 	sessionInit.endSessionCallback()
 				// }
-
-				currentSession.removeEventListener( 'end', onSessionEnded );
+				if(currentSession){
+					currentSession.removeEventListener( 'end', onSessionEnded );
+				}
 
 				//button.textContent = 'להתחיל תלת מימד';
 				//button.style.backgroundImage = url('/icons/ar.svg');
@@ -121,6 +122,7 @@ class ARButton {
 					}else{
 						currentSession.end();
 						currentSession = null;
+						openFullscreen(document.documentElement);
 					}
 				} catch (e) {
 					if(sessionInit.fallback) {
@@ -132,6 +134,15 @@ class ARButton {
 
 			
 		}
+		function openFullscreen(elem) {
+			if (elem.requestFullscreen) {
+			  elem.requestFullscreen();
+			} else if (elem.webkitRequestFullscreen) { /* Safari */
+			  elem.webkitRequestFullscreen();
+			} else if (elem.msRequestFullscreen) { /* IE11 */
+			  elem.msRequestFullscreen();
+			}
+		  }
 
 		function disableButton() {
 

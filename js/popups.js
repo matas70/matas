@@ -179,7 +179,7 @@ function showBaseLoactionPopup(pointId) {
     document.getElementById('open-bases-popup').style.display = 'block';
     document.getElementById('baseTheme').src = point.baseThemePath;
     document.getElementById('iconBase').src = point.iconBasePath;
-    document.getElementById('waze-base-link').href = point.wazeLink;
+    document.getElementById('waze-base-link').href = point.baseWazeDestinationLink;
     document.getElementById('baseName').innerHTML = point.baseName;
     document.getElementById('base-passage').innerHTML = point.basePassage;
     document.getElementById('baseArrivalTime').innerHTML = point.baseArrivalTime;
@@ -1026,7 +1026,11 @@ function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link 
     $(`#${iconId}`).show();
     if (link) {
         $("#basePopup").click(() => {
-            openExternal(link);
+            if(link === 'ar.html'){
+                openAR('barak');
+            }else{
+                openExternal(link);
+            }
         });
     } else {
         $("#basePopup").off('click');
@@ -1074,7 +1078,7 @@ function getMapUndark() {
 }
 
 function createClusterLocationRow(location) {
-    return "<div onclick='selectPoint(" + location.pointId + ");' class=\"tableRow\"><img src=\"icons/point-" + location.color + ".svg\" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
+    return `<div onclick='selectPoint(` + location.pointId + ");' class=\"tableRow\"><img src=\"icons/point-" + location.color + ".svg\" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
         + location.pointName + "</b></div></div></div>";
 }
 
