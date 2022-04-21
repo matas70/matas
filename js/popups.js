@@ -82,7 +82,7 @@ function initPopups() {
 }
 
 //on close for openBasePopup
-function onClose() {
+function onCloseOpenBasePopup() {
     let basePopUpElement = $("#open-bases-popup");
     let fullHeight = window.innerHeight;
     let fullWidth = window.innerWidth;
@@ -141,7 +141,7 @@ loadOpenBasesLocation();
 
 
 function showBaseLoactionPopup(pointId) {
-    onClose()
+    onCloseOpenBasePopup()
     deselectLocation()
     deselectAircraft()
 
@@ -195,10 +195,10 @@ function showBaseLoactionPopup(pointId) {
 
     // Close Event only when user doesn't click on openBasePopup it self.
     headerElement.addEventListener('click', function handleClick() {
-        onClose()
+        onCloseOpenBasePopup()
     });
     navBarHeaderElement.addEventListener('click', function handleClick() {
-        onClose()
+        onCloseOpenBasePopup()
     });
 
 
@@ -284,7 +284,7 @@ function showBaseLoactionPopup(pointId) {
 
 
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized = false, closeCallback) {
-    onClose()
+    onCloseOpenBasePopup()
     window.location.hash = locationPopupHash;
     previousHash.push(locationPopupHash);
 
