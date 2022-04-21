@@ -137,7 +137,7 @@ function createTableCategories(categories, aircrafts, exhibitions, type) {
     if (exhibitions) {
         tableCategoriesDiv += `<div class="showcase-container">
                         <div class="exhibition-category">תערוכה:</div>
-                      
+                        ${exhibitions}
                     </div>`;
     }
 
