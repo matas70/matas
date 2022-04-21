@@ -695,6 +695,7 @@ font-weight: 500;
   
 }
 #menu-block #change-ar-toggle #icons{
+  pointer-events: none;
   width: 124px;
   display: flex;
   align-items: center;
@@ -703,10 +704,12 @@ font-weight: 500;
   justify-content: space-around;
 }
 #menu-block #change-ar-toggle #icons svg:first-child{
-  margin-left: -7px;
+  pointer-events: none;
+  margin-left: -3px;
 }
 #menu-block #change-ar-toggle #icons svg:last-child{
-  margin-left: -22px;
+  pointer-events: none;
+  margin-left: -10px;
 }
 #menu-block #help{
   display: flex;
@@ -1299,4 +1302,25 @@ div.airplane-card a button.base-map {
   border: 0px;
   cursor: pointer;
   
+}
+.is-supported .loading-ar{
+  display: flex;
+}
+.loading-ar{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 998;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  height: -webkit-fill-available;
+  background: rgba(0, 0, 0, 0.678);
+  align-items: center;
+  justify-content: center;
+}
+.loading-ar img{
+  width: 11vmin;
+  height: 5vmax;
 }
