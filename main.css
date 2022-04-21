@@ -158,17 +158,15 @@ select {
 }
 
 #ARButton {
-  margin: auto;
-  display: block;
-  margin-top: 11.1px;
-  background-image: url(/icons/ar-btn.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size:170px,170px;
-  background-color:rgba(0, 0, 0, 0);
-  width: 165px;
-  height: 165px;
-  border-radius: 100px;
+  margin-left: 4px;
+  opacity: 0.63;
+  background: #3BB5F2;
+  border-radius: 5px;
+  height: 38px;
+  width: 59px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
 }
 
@@ -423,6 +421,8 @@ canvas {
   width: 100%;
   display: flex;
   flex-direction: column;
+  z-index: 999;
+  position: fixed;
 }
 
 #aircrafts_menu {
@@ -570,8 +570,10 @@ font-weight: 500;
 .is-supported #supported-menu-borders{
   display: block;
 }
+
 #supported-menu-borders{
   display: none;
+ 
 }
 .tringle-conteiner{
   width: 100%;
@@ -599,10 +601,10 @@ font-weight: 500;
 #help-supported-ar-conteiner{
   display: none;
   position: absolute;
-  display: none;
   bottom: 120%;
 }
 .is-supported #help-supported-ar-conteiner{
+  visibility: hidden;
   display: block;
 }
 #help-supported-ar{
@@ -672,8 +674,8 @@ font-weight: 500;
 }
 .show-hid-check-box{
   display: flex;
-  margin-top: 5px;
-  font-size: 15px;
+  align-items: center;
+  font-size: 14.5px;
 }
 
 #space{
@@ -686,12 +688,14 @@ font-weight: 500;
   border-radius: 30vh;
   display: none;
 }
+
 #supported-menu{
   background-color: black;
   height: 72px;
   width: 100%;
   display: none;
 }
+
 #menu-block{
   display: flex;
   width: 100%;
@@ -722,17 +726,10 @@ font-weight: 500;
   align-items: center;
 }
 #menu-block #change-ar-toggle #toggle{
-  margin-left: 61px;
-  opacity: 0.63;
-  background: #3BB5F2;
-  border-radius: 5px;
-  height: 36px;
-  width: 59px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  
 }
 #menu-block #change-ar-toggle #icons{
+  pointer-events: none;
   width: 124px;
   display: flex;
   align-items: center;
@@ -741,10 +738,12 @@ font-weight: 500;
   justify-content: space-around;
 }
 #menu-block #change-ar-toggle #icons svg:first-child{
-  margin-left: -7px;
+  pointer-events: none;
+  margin-left: -3px;
 }
 #menu-block #change-ar-toggle #icons svg:last-child{
-  margin-left: -22px;
+  pointer-events: none;
+  margin-left: -10px;
 }
 #menu-block #help{
   display: flex;
@@ -773,20 +772,6 @@ font-weight: 500;
   opacity: 0;
 }
 
-body:not(.is-supported) #ar-overly{
-  opacity: 1;
-}
-.is-supported #ar-overly{
-  opacity: 0;
-} 
-
-.is-supported #ar-overly .start{
-  opacity: 1;
-} 
-body:not(.is-supported) #ar-start {
-  display: none;
-}
-
 .ar-starts-text{
   color: white;
   font-family: Heebo;
@@ -798,17 +783,15 @@ body:not(.is-supported) #ar-start {
 }
 
 #ar-start {
+  margin-top: 120%;
   position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  height: -webkit-fill-available;
+  height: 10%;
   width: 100%;
   z-index: 999;
-  overflow: hidden;
-  background: black;
+  background: green;
   /* display: none; */
 }
+
 .is-supported #ar-start .d-open{
   margin-top:11px;
 }
@@ -1353,4 +1336,60 @@ div.airplane-card a button.base-map {
   border: 0px;
   cursor: pointer;
   
+}
+
+.loading-ar{
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 998;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  height: -webkit-fill-available;
+  background: black;
+  align-items: center;
+  justify-content: center;
+}
+.loading-ar img{
+  width: 11vmin;
+  height: 5vmax;
+}
+.is-supported .full-screen-popup{
+  display: none;
+}
+.full-screen-popup{
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  position: fixed;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: fit-content;
+  width: 200px;
+  background-color: white;
+  box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+.full-screen-popup p{
+  width: 180px;
+  direction:rtl;
+}
+.full-screen-popup button{
+  margin-bottom: 10px;
+}
+.is-supported .dim-background{
+  display: none;
+}
+.dim-background{
+  display: none;
+  background-color: rgba(0, 0, 0, 0.507);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 998;
 }
