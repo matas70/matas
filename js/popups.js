@@ -872,9 +872,9 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
 
 function createLocationRow(location, displayFirstAircraft, isSearchBar = false) {
     
-    /*if (location.aircrafts.length == 0)
+    if (location.aircrafts.length == 0 &&  !location.pointName.includes('תצפית למטס'))
         return "";
-*/
+
     return "<a class='locationRow' href='javascript:void(0);'><div id='location" + location.pointId + "' class='locationRow' onclick='expandLocation(" + location.pointId + "," + isSearchBar + ");'>" +
         "<div class='locationName'>" + location.pointName + "</div>" +
         "<div class='nextAircraftSection'>" +
