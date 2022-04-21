@@ -145,11 +145,11 @@ function createTableCategories(categories, aircrafts, exhibitions, type) {
 
 function createTableCategory(categoryName, categoryAircrafts, type) {
     let flightCategoryTitle = "";
-    
+    let baseTime = categoryAircrafts[0]?.time? categoryAircrafts[0]?.time?.substr(0, 5) : '';
     if (type === "base")
         flightCategoryTitle = `<div class="category-name">
                                 <div class="category-title">${categoryName}</div>
-                                <div class="category-start-time">${categoryAircrafts[0]?.time?.substr(0, 5)}</div>
+                                <div class="category-start-time">${baseTime}</div>
                             </div>`;
     let flightCategoryIcons = "";
 
