@@ -1262,23 +1262,26 @@
 					helpSupportedArPopup.style.display = 'none';
 			    }
 			}
-			document.querySelector('.loading-ar').style.display = 'none';
+
+			function executeLoader(){
+				document.querySelector('.loading-ar').style.display = 'flex';
+			    setTimeout(()=>{document.querySelector('.loading-ar').style.display = 'none';}, 3500);
+			}
+			executeLoader();
 			document.querySelector("#change-ar-toggle #toggle").addEventListener('click', () =>{
 				environmentToggleClick = !environmentToggleClick;
 				document.getElementById("toggle").style.transition = 'all 0.3s';
 				if(environmentToggleClick){
+					executeLoader();
 					ARSupportedsInfopopup();
 					document.getElementById("toggle").style.marginLeft = '61px';
-					
 					document.getElementById('camera-icon').style.fill = 'white';
 					document.getElementById('dynamic-icon-part-2').style.fill = 'rgb(170 170 170)';
 					document.getElementById('dynamic-icon-part').style.stroke = 'rgb(170 170 170)';
-					
-					
+
 				}else{
-					
+					executeLoader();
 					document.getElementById("toggle").style.marginLeft = '2px';
-					
 					document.getElementById('camera-icon').style.fill = 'rgb(170 170 170)';
 					document.getElementById('dynamic-icon-part-2').style.fill = 'white';
 					document.getElementById('dynamic-icon-part').style.stroke = 'white';
