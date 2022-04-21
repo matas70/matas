@@ -179,7 +179,7 @@ function showBaseLoactionPopup(pointId) {
     document.getElementById('open-bases-popup').style.display = 'block';
     document.getElementById('baseTheme').src = point.baseThemePath;
     document.getElementById('iconBase').src = point.iconBasePath;
-    document.getElementById('waze-base-link').href = point.wazeLink;
+    document.getElementById('waze-base-link').href = point.baseWazeDestinationLink;
     document.getElementById('baseName').innerHTML = point.baseName;
     document.getElementById('base-passage').innerHTML = point.basePassage;
     document.getElementById('baseArrivalTime').innerHTML = point.baseArrivalTime;
