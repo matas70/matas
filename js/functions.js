@@ -1852,6 +1852,7 @@ window.onhashchange = (e) => {
         closeAllPopups();
     }
 
+    
     // Should close the menu
     else if ((previousHashValue === menuHash || previousHashValue === locationsHash) && (currentHash === mainHash || currentHash === "/")) {
         $("#menuHamburger").click();
