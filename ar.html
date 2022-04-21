@@ -356,7 +356,7 @@
 								OS: dataToFirebase(cur_user_agent.getOS()),
 								engine: dataToFirebase(cur_user_agent.getEngine())
 							});
-					}
+						}
 				}
 			}
 			let container, stats;
@@ -853,7 +853,6 @@
 				window.addEventListener('resize', onWindowResize);
 				
 			}
-
 			function createVidBackgrounds() {
 				const canvas = document.createElement('canvas')
 				let ctx = canvas.getContext('2d');
@@ -1150,7 +1149,7 @@
 							resetSceneForFirstDraw = true;
 							resetScene();
 						}
-						painter.lineTo(cursor);
+						//painter.lineTo(cursor);
 						locations.push([cursor.x, cursor.y, cursor.z])
 						painter.update();
 					}
@@ -1304,7 +1303,7 @@
 			
 			document.querySelector("#change-ar-toggle #toggle").addEventListener('click', () =>{
 				environmentToggleClick = !environmentToggleClick;
-				document.getElementById("toggle").style.transition = 'all 0.3s';
+				document.getElementById("toggle").style.transition = 'all 0.5s';
 				if(environmentToggleClick){
 					executeLoader();
 					ARSupportedsInfopopup();
