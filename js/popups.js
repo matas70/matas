@@ -1074,7 +1074,9 @@ function getMapUndark() {
 }
 
 function createClusterLocationRow(location) {
-    return "<div onclick='selectPoint(" + location.pointId + ");' class=\"tableRow\"><img src=\"icons/point-" + location.color + ".svg\" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
+    let locationFunctionType = ((location.pointName.includes('בסיס')) || (location.pointName.includes('מוזיאון')))? 'showBaseLocationPopup' : 'selectPoint';
+
+    return `<div onclick='${locationFunctionType}(` + location.pointId + ");' class=\"tableRow\"><img src=\"icons/point-" + location.color + ".svg\" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
         + location.pointName + "</b></div></div></div>";
 }
 

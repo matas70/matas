@@ -1318,16 +1318,19 @@ function selectPoint(pointId, minimized = false) {
         deselectLocation(function () {
             // then show a new popup
             selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker,
-                mapAPI.getMarkerIcon(selectedRoute.color, false, isPointAerobatic(pointId), selectedPoint.pointName),
-                mapAPI.getMarkerIcon(selectedRoute.color, true, isPointAerobatic(pointId), selectedPoint.pointName),
+                mapAPI.getMarkerIcon(selectedRoute.color, false, isPointAerobatic(pointId), selectedPoint.pointName, selectedPoint),
+                mapAPI.getMarkerIcon(selectedRoute.color, true, isPointAerobatic(pointId), selectedPoint.pointName,
+                selectedPoint),
                 "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor,
                 "#" + selectedRoute.secondaryTextColor, minimized);
         });
     } else {
         // then show a new popup
         selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker,
-            mapAPI.getMarkerIcon(selectedRoute.color, false, isPointAerobatic(pointId), selectedPoint.pointName),
-            mapAPI.getMarkerIcon(selectedRoute.color, true, isPointAerobatic(pointId), selectedPoint.pointName),
+            mapAPI.getMarkerIcon(selectedRoute.color, false, isPointAerobatic(pointId), selectedPoint.pointName,
+            selectedPoint),
+            mapAPI.getMarkerIcon(selectedRoute.color, true, isPointAerobatic(pointId), selectedPoint.pointName,
+            selectedPoint),
             "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor,
             "#" + selectedRoute.secondaryTextColor, minimized);
     }
