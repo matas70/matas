@@ -171,7 +171,7 @@ html, body {
 .base-table-category {
     display: flex;
     align-items: center;
-    margin-bottom: 1px;
+    padding-bottom: 1px;
     background: white;
     padding-left: 10px;
     padding-right: 10px;
@@ -413,4 +413,13 @@ div.footer-text {
 
 #goto-press-icon {
     height: 22px;
+}
+
+.city-table-list .city-table.no-aircrafts .base-table-body {
+    display: none;
+}
+
+.no-aircrafts .base-table-title {
+    border-radius: 10px;
+    text-align: center;
 }

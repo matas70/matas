@@ -70,7 +70,7 @@ function createCityTables() {
     return cityTables;
 }
 
-function createBaseTable(base) {        
+function createBaseTable(base) {
     return `<div class="base-table">
                 <div id="location-${base.pointId}" class="base-card">
                     ${createBaseTableTitle(base.pointName, base.activeTimes, false)}
@@ -84,7 +84,7 @@ function createBaseTable(base) {
 
 function createCityTable(city) {
     hasAerobatic = city.aircrafts.filter((aircraft) => aircraft.specialInAircraft).length > 0;
-    return `<div class="city-table">
+    return `<div class="city-table ${city.aircrafts.length===0 ? 'no-aircrafts':''}">
                 <div id="location-${city.pointId}" class="base-card">
                     ${createBaseTableTitle(city.pointName, `${city.aircrafts[0]?.time.substr(0, 5)} - ${city.aircrafts[city.aircrafts.length-1]?.time.substr(0, 5)}`, hasAerobatic)}
                 </div>
@@ -96,7 +96,7 @@ function createCityTable(city) {
 
 function createCategoryTable(category, categoryLocation) {
     hasAerobatic = categoryLocation.aircrafts.filter((aircraft) => aircraft.specialInAircraft).length > 0;
-    return `<div class="city-table">
+    return `<div class="city-table ${categoryLocation.aircrafts.length===0 ? 'no-aircrafts':''}">
                 <div id="location-${categoryLocation.pointId}" class="base-card">
                     ${createBaseTableTitle(categoryLocation.pointName, categoryLocation.aircrafts[0]?.time.substr(0, 5), hasAerobatic)}
                 </div>
@@ -107,11 +107,14 @@ function createCategoryTable(category, categoryLocation) {
 }
 
 function createBaseTableTitle(name, activeTimes, hasAerobatic) {
-    let tempActiveTimes = activeTimes? activeTimes : '';
+    let tempActiveTimes = activeTimes? `
+        &nbsp;|&nbsp;
+        <div class="base-title-times">${activeTimes}</div>
+    ` : '';
     return `<div class="base-table-title">
                     <div class="base-table-title-group">
-                        <div class="base-table-title-text">${name}</div>&nbsp;|&nbsp;
-                        <div class="base-title-times">${tempActiveTimes}</div>
+                        <div class="base-table-title-text">${name}</div>
+                        ${tempActiveTimes}
                     </div>
                     <img src="icons/aerobatic.svg" class="aerobatic-icon" style="visibility:${hasAerobatic ? "visible" : "hidden"}">
                 </div>`;
