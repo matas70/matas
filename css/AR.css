@@ -46,6 +46,19 @@
   opacity: 0;
 }
 
+#ARButton {
+  z-index: 9999;
+  background-image: url('../icons/3d-button.png');
+  text-indent: -1000px;
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
 
 #notSupported {
   width: 50%;
@@ -128,7 +141,7 @@
   background-image: url('../assets/static-icon-selected.svg');
 }
 
-/* #ar-overly #controls #button-mode-toggle::after {
+#ar-overly #controls #button-mode-toggle::after {
   content: '';
   width: 50px;
   height: 3px;
@@ -137,7 +150,7 @@
   position: absolute;
   right: 10px;
   transition: all 0.2s;
-} */
+}
 
 #ar-overly #controls #button-mode-toggle:focus {
   outline: none;
@@ -374,6 +387,10 @@ transition: all 1s;
 
 .is-selecting #ar-overly button {
 opacity: 0;
+}
+
+#ARButton {
+z-index: 9999;
 }
 
 
