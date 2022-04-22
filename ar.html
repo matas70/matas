@@ -655,7 +655,7 @@
 						}
 					});
 					
-					document.querySelector('#change-ar-toggle #toggle').appendChild(arButton);
+					document.querySelector('#change-ar-toggle').appendChild(arButton);
 					//try on removing the start page of the ar 
 
 					//function eventFire(el, etype){
@@ -1300,7 +1300,7 @@
 			    setTimeout(()=>{document.querySelector('.loading-ar').style.display = 'none';}, 3500);
 			}
 			
-			document.querySelector("#change-ar-toggle #toggle").addEventListener('click', () =>{
+			document.querySelector("#change-ar-toggle").addEventListener('click', () =>{
 				environmentToggleClick = !environmentToggleClick;
 				document.getElementById("toggle").style.transition = 'all 0.5s';
 				if(environmentToggleClick){

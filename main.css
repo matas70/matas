@@ -158,16 +158,14 @@ select {
 }
 
 #ARButton {
-  margin-left: 4px;
-  opacity: 0.63;
-  background: #3BB5F2;
-  border-radius: 5px;
-  height: 38px;
-  width: 59px;
+  height: 42px;
+  width: 124px;
+  background-color: #1C1C1C;;
+  border-radius: 6px;
   display: flex;
   align-items: center;
-  justify-content: center;
   border: none;
+  margin-top: -5px;
 }
 
 #notSupported {
@@ -718,17 +716,25 @@ font-weight: 500;
   font-weight: 500;
 }
 #menu-block #change-ar-toggle{
-  height: 42px;
-  width: 124px;
-  background-color: #1C1C1C;;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-}
-#menu-block #change-ar-toggle #toggle{
   
 }
+#menu-block #change-ar-toggle #toggle{
+  margin-top: -3px;
+  position:absolute;
+  margin-left: 4px;
+  opacity: 0.63;
+  background: #3BB5F2;
+  border-radius: 5px;
+  height: 38px;
+  width: 59px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  pointer-events: none;
+}
 #menu-block #change-ar-toggle #icons{
+  margin-top: -8px;
   pointer-events: none;
   width: 124px;
   display: flex;
@@ -739,7 +745,7 @@ font-weight: 500;
 }
 #menu-block #change-ar-toggle #icons svg:first-child{
   pointer-events: none;
-  margin-left: -3px;
+  margin-left: -10px;
 }
 #menu-block #change-ar-toggle #icons svg:last-child{
   pointer-events: none;
