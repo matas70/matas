@@ -167,7 +167,7 @@ select {
   border: none;
   margin-top: -5px;
   outline: none;
-  background-repeat:no-repeat;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 #notSupported {
   width: 50%;
@@ -618,7 +618,6 @@ font-weight: 500;
   height: 402px;
   width: 270px;
   z-index: 1000000;
-  animation: fadeIn 0.8s;
 }
 @keyframes fadeIn {
   0% {opacity:0;}

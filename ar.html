@@ -1091,7 +1091,7 @@
 				document.getElementById(selectedTrails.id).classList.add("selected");
 				loadTrails(selectedTrails);
 			}
-
+			
 			function loadLight() {
 
 				const HemisphereLight = new THREE.HemisphereLight(0x999999, 0xbbbbff, 0.6);
@@ -1191,11 +1191,15 @@
 				scene.background = background;
 				renderer.toneMappingExposure = params.exposure;
 			}
-
+			let currentAircraftScale;
 			function renderAircraft() {
 				if(!environmentToggleClick){
 					renderEnvironment();
-					aircraft?.position.set(0, 0, 0)
+					if (aircraft) { 
+						aircraft?.position.set(0, 0, 0);
+					    aircraft?.rotation.set(0, 0, 0);
+				    }
+					
 				}else{
 					scene.background = null;
 					handleController(controller);
@@ -1280,6 +1284,7 @@
 			function ARSupportedsInfopopup(){
 
 				helpSupportedArPopup.style.visibility ='visible';
+				helpSupportedArPopup.style.animation = 'fadeIn 1.4s';
 				let InfoPopupshowcheckbox = document.querySelector('.show-hid-check-box input').checked;
 				document.querySelector('#help-supported-ar .title').innerText = "חיל האוויר אצלכם בסלון";
 				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '0px';

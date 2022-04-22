@@ -122,6 +122,7 @@ class ARButton {
 					}else{
 						currentSession.end();
 						currentSession = null;
+						
 					}
 				} catch (e) {
 					if(sessionInit.fallback) {
