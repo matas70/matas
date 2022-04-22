@@ -1077,8 +1077,10 @@
 				setTimeout(()=>{
 					document.querySelector('.loading-ar').style.display = 'none';
 					if(countLoad === 0 && isSupported){
+						setTimeout(()=>{
 						document.querySelector('.full-screen-popup').style.display = 'flex';
 						document.querySelector('.dim-background').style.display = 'block';
+					}, 500);
 					}
 					countLoad = 1;
 				}, 3000)
