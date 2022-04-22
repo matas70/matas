@@ -71,7 +71,7 @@ class ARButton {
 				if(currentSession){
 					currentSession.removeEventListener( 'end', onSessionEnded );
 				}
-
+				openFullscreen(document.documentElement)
 				//button.textContent = 'להתחיל תלת מימד';
 				//button.style.backgroundImage = url('/icons/ar.svg');
 				//sessionInit.domOverlay.root.style.display = 'none';
@@ -122,7 +122,6 @@ class ARButton {
 					}else{
 						currentSession.end();
 						currentSession = null;
-						openFullscreen(document.documentElement);
 					}
 				} catch (e) {
 					if(sessionInit.fallback) {
