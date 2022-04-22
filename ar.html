@@ -655,7 +655,7 @@
 						}
 					});
 					
-					document.querySelector('#change-ar-toggle #toggle').appendChild(arButton);
+					document.querySelector('#change-ar-toggle').appendChild(arButton);
 					//try on removing the start page of the ar 
 
 					//function eventFire(el, etype){
@@ -776,13 +776,11 @@
 					document.getElementById('blob').classList.add('animateScale');					
 					setTimeout(() => {
 						let targetUrl = document.location.href.substr(0,document.location.href.lastIndexOf("/")+1);
-						window.open(targetUrl);
-						/*
 						if (document.referrer == targetUrl) 
 							window.close();
 						else 
 							window.location.href = targetUrl; 
-							*/
+					
 					 } , 1000);
 
 					 // additional timeout in case the previous timeout didn't close the app 
@@ -1079,8 +1077,10 @@
 				setTimeout(()=>{
 					document.querySelector('.loading-ar').style.display = 'none';
 					if(countLoad === 0 && isSupported){
+						setTimeout(()=>{
 						document.querySelector('.full-screen-popup').style.display = 'flex';
 						document.querySelector('.dim-background').style.display = 'block';
+					}, 500);
 					}
 					countLoad = 1;
 				}, 3000)
@@ -1091,7 +1091,7 @@
 				document.getElementById(selectedTrails.id).classList.add("selected");
 				loadTrails(selectedTrails);
 			}
-
+			
 			function loadLight() {
 
 				const HemisphereLight = new THREE.HemisphereLight(0x999999, 0xbbbbff, 0.6);
@@ -1191,11 +1191,15 @@
 				scene.background = background;
 				renderer.toneMappingExposure = params.exposure;
 			}
-
+			let currentAircraftScale;
 			function renderAircraft() {
 				if(!environmentToggleClick){
 					renderEnvironment();
-					aircraft?.position.set(0, 0, 0)
+					if (aircraft) { 
+						aircraft?.position.set(0, 0, 0);
+					    aircraft?.rotation.set(0, 0, 0);
+				    }
+					
 				}else{
 					scene.background = null;
 					handleController(controller);
@@ -1280,6 +1284,7 @@
 			function ARSupportedsInfopopup(){
 
 				helpSupportedArPopup.style.visibility ='visible';
+				helpSupportedArPopup.style.animation = 'fadeIn 1.4s';
 				let InfoPopupshowcheckbox = document.querySelector('.show-hid-check-box input').checked;
 				document.querySelector('#help-supported-ar .title').innerText = "חיל האוויר אצלכם בסלון";
 				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '0px';
@@ -1300,12 +1305,12 @@
 			    setTimeout(()=>{document.querySelector('.loading-ar').style.display = 'none';}, 3500);
 			}
 			
-			document.querySelector("#change-ar-toggle #toggle").addEventListener('click', () =>{
+			document.querySelector("#change-ar-toggle").addEventListener('click', () =>{
 				environmentToggleClick = !environmentToggleClick;
 				document.getElementById("toggle").style.transition = 'all 0.5s';
 				if(environmentToggleClick){
 					executeLoader();
-					ARSupportedsInfopopup();
+					setTimeout(()=>{ARSupportedsInfopopup();}, 1000);
 					document.getElementById("toggle").style.marginLeft = '61px';
 					document.getElementById('camera-icon').style.fill = 'white';
 					document.getElementById('dynamic-icon-part-2').style.fill = 'rgb(170 170 170)';
