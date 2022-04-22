@@ -1303,7 +1303,7 @@
 				document.getElementById("toggle").style.transition = 'all 0.5s';
 				if(environmentToggleClick){
 					executeLoader();
-					ARSupportedsInfopopup();
+					setTimeout(()=>{ARSupportedsInfopopup();}, 1000);
 					document.getElementById("toggle").style.marginLeft = '61px';
 					document.getElementById('camera-icon').style.fill = 'white';
 					document.getElementById('dynamic-icon-part-2').style.fill = 'rgb(170 170 170)';

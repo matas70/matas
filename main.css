@@ -169,21 +169,6 @@ select {
   outline: none;
   background-repeat:no-repeat;
 }
-#ARButton:active{
-  background-color: #1C1C1C;
-  outline: none;
-  border: none;
-}
-#ARButton:focus{
-  background-color: #1C1C1C;
-  outline: none;
-  border: none;
-}
-#ARButton::after{
-  background-color: #1C1C1C;
-  outline: none;
-  border: none;
-}
 #notSupported {
   width: 50%;
   margin: auto;
@@ -622,7 +607,10 @@ font-weight: 500;
   display: block;
 }
 #help-supported-ar{
- 
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   background: #FFFFFF;
   border: 1px solid #EFF1F1;
   box-shadow: 0 0 15px 0 rgba(0,0,0,0.30);
@@ -630,7 +618,11 @@ font-weight: 500;
   height: 402px;
   width: 270px;
   z-index: 1000000;
-  
+  animation: fadeIn 0.8s;
+}
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
 }
 #supported-ar-conteiner{
   display: flex;
