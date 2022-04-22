@@ -160,14 +160,30 @@ select {
 #ARButton {
   height: 42px;
   width: 124px;
-  background-color: #1C1C1C;;
+  background-color: #1C1C1C;
   border-radius: 6px;
   display: flex;
   align-items: center;
   border: none;
   margin-top: -5px;
+  outline: none;
+  background-repeat:no-repeat;
 }
-
+#ARButton:active{
+  background-color: #1C1C1C;
+  outline: none;
+  border: none;
+}
+#ARButton:focus{
+  background-color: #1C1C1C;
+  outline: none;
+  border: none;
+}
+#ARButton::after{
+  background-color: #1C1C1C;
+  outline: none;
+  border: none;
+}
 #notSupported {
   width: 50%;
   margin: auto;

@@ -776,13 +776,11 @@
 					document.getElementById('blob').classList.add('animateScale');					
 					setTimeout(() => {
 						let targetUrl = document.location.href.substr(0,document.location.href.lastIndexOf("/")+1);
-						window.open(targetUrl);
-						/*
 						if (document.referrer == targetUrl) 
 							window.close();
 						else 
 							window.location.href = targetUrl; 
-							*/
+					
 					 } , 1000);
 
 					 // additional timeout in case the previous timeout didn't close the app 
