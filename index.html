@@ -482,33 +482,47 @@
 
 
 <!-- about popup -->
-<div id="aboutPopup" class="aboutPopup" style="display:none">
-    <img id="aboutExitLogo" class="aboutExitLogo" src = "icons/aboutExitLogo.svg"/>
+<div id="aboutPopup" class="aboutPopup" style="display:block">
+    <!-- <img id="aboutExitLogo" class="aboutExitLogo" src = "icons/aboutExitLogo.svg"/> -->
     <div id="aboutHeaderSpacing" class="aboutHeaderSpacing"></div>
     <div id="aboutLogoDiv">
         <div id="aboutHeader" class="aboutHeader"></div>
         <img id="aboutLogo" class="aboutLogo" style="top: -100px;width: 200px;" src="icons/logo-74/Big Logo.svg"/>
     </div>
     <div class="aboutSpacing"></div>
-    <div id="aboutTitle" class="aboutTitle">
+    <!-- <div id="aboutTitle" class="aboutTitle">
         חג עצמאות שמח!
-    </div>
+    </div> -->
     <div class="aboutSpacing"></div>
-    <div id="aboutBody" class="aboutBody">
+    <!-- <div id="aboutBody" class="aboutBody">
         האפליקציה פותחה ע"י <span style="font-weight: 600;">יחידת אופק 324</span>, היחידה הטכנולוגית המבצעית של
         חיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות לכבוד חגיגות 74 שנה
         למדינת ישראל
+    </div> -->
+    <div id="aboutBody" class="aboutBody">
+        <div style="font-weight: 600;">
+            האתר בעדכון
+        </div>
+        בעוד מספר ימים תוכלו למצוא פה את כל המידע על המטס לשנה הקרובה.
     </div>
     <div class="aboutSpacing"></div>
-    <img id="iafLogo"  src="icons/iaf-small.png" class="iafLogo"/>
-    <div class="aboutSpacing"></div>
-    <div class="bottomText">
-        לידיעתכם, ייתכנו שינוים בלוחות הזמנים
-    </div>
-    <div id="aboutBottomLink" class="aboutBottomLink">
-        <a id="facebookLink" href="https://www.facebook.com/IsraeliAirForce.HE/"><img src="icons/facebook.svg" class="aboutBottomImg"></a>
-        <a id="instagramLink" href="https://www.instagram.com/israeliairforce/"><img src="icons/instagram.svg" class="aboutBottomImg"></a>
-        <a id="twitterLink" href="https://twitter.com/iafsite"><img src="icons/twitter.svg" class="aboutBottomImg"></a>
+    <div style="display: flex;
+                flex-flow: column;
+                align-items: center;
+                justify-content: center;
+                position: fixed;
+                bottom: 0;
+                width: 100%;">
+        <img id="iafLogo"  src="icons/iaf-small.png" class="iafLogo"/>
+        <div class="aboutSpacing"></div>
+        <!-- <div class="bottomText">
+            לידיעתכם, ייתכנו שינוים בלוחות הזמנים
+        </div> -->
+        <div id="aboutBottomLink" class="aboutBottomLink">
+            <a id="facebookLink" href="https://www.facebook.com/IsraeliAirForce.HE/"><img src="icons/facebook.svg" class="aboutBottomImg"></a>
+            <a id="instagramLink" href="https://www.instagram.com/israeliairforce/"><img src="icons/instagram.svg" class="aboutBottomImg"></a>
+            <a id="twitterLink" href="https://twitter.com/iafsite"><img src="icons/twitter.svg" class="aboutBottomImg"></a>
+        </div>
     </div>
 </div>
 
