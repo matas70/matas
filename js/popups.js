@@ -82,7 +82,7 @@ function initPopups() {
 }
 
 //on close for openBasePopup
-function onClose() {
+function onCloseOpenBasePopup() {
     let basePopUpElement = $("#open-bases-popup");
     let fullHeight = window.innerHeight;
     let fullWidth = window.innerWidth;
@@ -141,7 +141,7 @@ loadOpenBasesLocation();
 
 
 function showBaseLoactionPopup(pointId) {
-    onClose()
+    onCloseOpenBasePopup()
     deselectLocation()
     deselectAircraft()
 
@@ -195,10 +195,10 @@ function showBaseLoactionPopup(pointId) {
 
     // Close Event only when user doesn't click on openBasePopup it self.
     headerElement.addEventListener('click', function handleClick() {
-        onClose()
+        onCloseOpenBasePopup()
     });
     navBarHeaderElement.addEventListener('click', function handleClick() {
-        onClose()
+        onCloseOpenBasePopup()
     });
 
 
@@ -284,7 +284,7 @@ function showBaseLoactionPopup(pointId) {
 
 
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized = false, closeCallback) {
-    onClose()
+    onCloseOpenBasePopup()
     window.location.hash = locationPopupHash;
     previousHash.push(locationPopupHash);
 
@@ -895,7 +895,10 @@ function expandLocation(pointId, isSearchBar = false) {
     if (locationSpace.html() === "") {
         var html = "";
         var lastAircraft = "";
-        if (location.aircrafts.length == 0) {
+        if(location.pointName.includes('תצפית למטס')) {
+            html+=createViewPointMessage();
+        }
+        else if (location.aircrafts.length == 0) {
             html += createNoAircraftMessageRow();
         } else {
             location.aircrafts.forEach(function (aircraft) {
@@ -939,6 +942,10 @@ function expandLocation(pointId, isSearchBar = false) {
 
 function createNoAircraftMessageRow() {
     return `<div id="noAircraftMessageRow">אין מטוסים נוספים הצפויים לעבור בנקודה זו השנה</div>`
+}
+
+function createViewPointMessage() {
+    return `<div id="noAircraftMessageRow">על מנת לראות איזה מטוסים יעברו מול נקודת התצפית כנס למפה בזמן המטס</div>`
 }
 
 function showIncompatibleDevicePopup() {

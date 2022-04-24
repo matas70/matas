@@ -46,14 +46,6 @@
   opacity: 0;
 }
 
-#ARButton.hide{
-  visibility: hidden;
-}
-
-#ARButton.show{
-  margin-top: 12px;
-}
-
 #ARButton {
   z-index: 9999;
   background-image: url('../icons/3d-button.png');
