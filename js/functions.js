@@ -629,6 +629,9 @@ function loadAircrafts(callback) {
             // load aircraft type info into a map
             aircraftInfo.aircraftTypes.forEach(function (aircraftTypeInfo) {
                 aircraftTypesInfo[aircraftTypeInfo.aircraftTypeId] = aircraftTypeInfo;
+                if(aircraftTypeInfo.name === "עפרוני") {
+                    aircraftTypeInfo.name = 'צוות האווירובטי'
+                }
             }, this);
 
             // load all aircrafts
