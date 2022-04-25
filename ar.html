@@ -537,7 +537,7 @@
 						})
 					}, 100);
 				}
-				
+				//change here name of selected aircraft 
 				setTimeout(() => {
 					
 					window.scrollIntoView(document.getElementById('f35'), {
@@ -637,7 +637,6 @@
 
 				
 				if (isSupported) {
-					localStorage.setItem("finishedLoadingSupported", true);
 					
 					const arButton = ARButton.createButton(renderer, {
 						
@@ -840,8 +839,12 @@
 					}
 				})
 				*/
-        
-				changeAircraft(AIRCRAFTS_META_DATA[5]);
+				let chosenAircraftIndex = findChosenAircraftIndex(localStorage.getItem('selectedAircraft'));
+				if(chosenAircraftIndex === -1){
+					changeAircraft(AIRCRAFTS_META_DATA[5]);
+				}else{
+					changeAircraft(AIRCRAFTS_META_DATA[chosenAircraftIndex]);
+				}
 				loadLight();
 				loadPainter();
 				loadController();
@@ -850,6 +853,9 @@
 
 				window.addEventListener('resize', onWindowResize);
 				
+			}
+			function findChosenAircraftIndex(aircraft){
+				return AIRCRAFTS_META_DATA.indexOf(AIRCRAFTS_META_DATA.find(element => element.id === aircraft));
 			}
 			function createVidBackgrounds() {
 				const canvas = document.createElement('canvas')
