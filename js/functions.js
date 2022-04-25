@@ -1223,6 +1223,7 @@ function openAR(aircraftName) {
         }
     }else{
         openExternal("ar.html");
+        localStorage.setItem('selectedAircraft', aircraftName);
         arClick = false;
         // if(cur_user_agent.getResult().os.name === 'Android'){
         //     openExternal("loadingar.html");
