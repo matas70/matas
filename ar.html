@@ -537,15 +537,6 @@
 						})
 					}, 100);
 				}
-				//change here name of selected aircraft 
-				setTimeout(() => {
-					
-					window.scrollIntoView(document.getElementById('f35'), {
-						behavior: 'smooth',
-						block: 'center',
-						inline: 'center'
-					});
-				}, 20);
 
 				document.getElementById('controls').addEventListener('beforexrselect', ev => ev.preventDefault());
 				document.getElementById('menus').addEventListener('beforexrselect', ev => ev.preventDefault());
@@ -840,11 +831,31 @@
 				})
 				*/
 				let chosenAircraftIndex = findChosenAircraftIndex(localStorage.getItem('selectedAircraft'));
+				let chosenAircraftObj = AIRCRAFTS_META_DATA[chosenAircraftIndex];
 				if(chosenAircraftIndex === -1){
 					changeAircraft(AIRCRAFTS_META_DATA[5]);
+					setTimeout(() => {
+					
+					window.scrollIntoView(document.getElementById('f35'), {
+						behavior: 'smooth',
+						block: 'center',
+						inline: 'center'
+					});
+				}, 20);
 				}else{
-					changeAircraft(AIRCRAFTS_META_DATA[chosenAircraftIndex]);
+					changeAircraft(chosenAircraftObj);
+					setTimeout(() => {
+					
+					window.scrollIntoView(document.getElementById(chosenAircraftObj.id), {
+						behavior: 'smooth',
+						block: 'center',
+						inline: 'center'
+					});
+				}, 20);
 				}
+
+				
+
 				loadLight();
 				loadPainter();
 				loadController();
