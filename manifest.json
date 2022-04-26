@@ -3,17 +3,17 @@
   "name": "הצגת מטס יום העצמאות 2022, שנת ה-74 למדינת ישראל, על גבי מפה אינטראקטיבית בזמן אמת",
   "icons": [
     {
-      "src": "icons/logo192x192.png",
+      "src": "icons/logo-74/IOS Icon@1.5x.png",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "icons/logo192x192.png",
+      "src": "icons/logo-74/Android Iconhdpi.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "icons/logo192x192.png",
+      "src": "icons/logo-74/Android Iconhdpi.png",
       "sizes": "192x192",
       "type": "image/png"
     }
