@@ -845,9 +845,9 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
         { name: "shimshon",hebName: "שמשון"},
         { name: "karnaf",hebName: 'קרנף'},
         { name: "efroni",hebName:'עפרוני'},
-        //{ name: "bazi"},
-        //{ name: "barak"},
-        //{ name: "peten"},
+        { name: "bazi",hebName: "רעם" },
+        { name: "barak",hebName: "ברק" },
+        { name: "peten",hebName: "שרף" }
     ];    
     
     var aerobaticIcon = "<div/>";
