@@ -331,9 +331,16 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
     // Check to see if aircraftList is empty in this location
     if (specials.size === 0 && (!tmp || tmp.length === 0)) {
-        $("#noAircraftMessage").show();
+        if(point.pointName.includes('תצפית למטס')) {
+            $("#viewPointMessage").show();
+            $("#noAircraftMessage").hide();
+        } else {
+          $("#noAircraftMessage").show();
+          $("#viewPointMessage").hide();
+        }
     } else {
         $("#noAircraftMessage").hide();
+        $("#viewPointMessage").hide();
 
         specials.set("מטס", tmp);
 
