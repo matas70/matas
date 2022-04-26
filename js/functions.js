@@ -1204,35 +1204,41 @@ let openAircraftInfo = true;
 const cur_user_agent = new UAParser();
 cur_user_agent.setUA(navigator.userAgent);
 
-function openAR(aircraftName) {
-  
+function openAR(aircraft) {
     if(isIOS()){
 
+        localStorage.setItem('selectedAircraftName', aircraft.name);
+        localStorage.setItem('selectedAircraftIsUsdz', aircraft.isUsdz);
+
         if(!document.querySelector("#popup-bottom #checkbox").checked){
+
             openAircraftInfo = false;
             document.getElementById("usdz-info-popup").style.display = "block";
             document.getElementById("dim-background").style.display = "block";
+            
             document.querySelector("#popup-bottom button").addEventListener('click', () =>{
                 document.getElementById("usdz-info-popup").style.display = "none";
                 document.getElementById("dim-background").style.display = "none";
                 openAircraftInfo = true;
-                openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
+                if(localStorage.getItem('selectedAircraftIsUsdz')){
+                    openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${localStorage.getItem('selectedAircraftName')}.usdz`);
+                }else{
+                    openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2Fbarak.usdz`);
+                }
             });
+
         }else{
-            openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
+            if(localStorage.getItem('selectedAircraftIsUsdz')){
+                openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${localStorage.getItem('selectedAircraftName')}.usdz`);
+            }else{
+                openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2Fbarak.usdz`);
+            }
         }
+
     }else{
         openExternal("ar.html");
-        localStorage.setItem('selectedAircraft', aircraftName);
+        localStorage.setItem('selectedAircraft', aircraft.name);
         arClick = false;
-        // if(cur_user_agent.getResult().os.name === 'Android'){
-        //     openExternal("loadingar.html");
-        //     window.close();
-        // }
-        // else{
-        //     openExternal("ar.html");
-        //     window.close();
-        // }
     }
 }
 

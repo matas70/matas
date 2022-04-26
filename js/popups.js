@@ -625,24 +625,24 @@ function showAircraftInfoPopup(aircraft, collapse) {
     }
 
     aircraftUsdzObjData = [
-        { name: "lavie",hebName: "לביא"},
-        { name: "baz",hebName: "בז"},
-        { name: "sofa",hebName: "סופה"},
-        { name: "tsofit",hebName: "צופית"},
-        { name: "f35",hebName: "אדיר"},
-        { name: "shimshon",hebName: "שמשון"},
-        { name: "karnaf",hebName: 'קרנף'},
-        { name: "efroni",hebName:'עפרוני'},
-        //{ name: "bazi"},
-        //{ name: "barak"},
-        //{ name: "peten"},
+        { name: "lavie",hebName: "לביא", isUsdz: true},
+        { name: "baz",hebName: "בז", isUsdz: true},
+        { name: "sofa",hebName: "סופה", isUsdz: true},
+        { name: "tsofit",hebName: "צופית", isUsdz: true},
+        { name: "f35",hebName: "אדיר", isUsdz: true},
+        { name: "shimshon",hebName: "שמשון", isUsdz: true},
+        { name: "karnaf",hebName: 'קרנף', isUsdz: true},
+        { name: "efroni",hebName:'עפרוני', isUsdz: true},
+        { name: "bazi",hebName: "רעם" , isUsdz: false},
+        { name: "barak",hebName: "ברק" , isUsdz: false},
+        { name: "peten",hebName: "שרף" , isUsdz: false}
     ];   
 
     let currAircraftName = aircraftUsdzObjData.find(obj => obj.hebName === aircraft.name);
 
     if(currAircraftName !== undefined){
         document.getElementById('aircraftInfo3D').innerHTML =
-    "<button id='ARButton' onclick='openAR(" + JSON.stringify(currAircraftName.name) + ")'></button>";
+    "<button id='ARButton' onclick='openAR(" + JSON.stringify(currAircraftName) + ")'></button>";
     }else{
         document.getElementById('aircraftInfo3D').innerHTML =
         "<button id='ARButton' onclick='openAR()'></button>";
@@ -837,24 +837,24 @@ function createScheduleRow(aircraft, location) {
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule = false, showAllPoints = false, from) {
     aircraftUsdzObjData = [
-        { name: "lavie",hebName: "לביא"},
-        { name: "baz",hebName: "בז"},
-        { name: "sofa",hebName: "סופה"},
-        { name: "tsofit",hebName: "צופית"},
-        { name: "f35",hebName: "אדיר"},
-        { name: "shimshon",hebName: "שמשון"},
-        { name: "karnaf",hebName: 'קרנף'},
-        { name: "efroni",hebName:'עפרוני'},
-        { name: "bazi",hebName: "רעם" },
-        { name: "barak",hebName: "ברק" },
-        { name: "peten",hebName: "שרף" }
+       { name: "lavie",hebName: "לביא", isUsdz: true},
+        { name: "baz",hebName: "בז", isUsdz: true},
+        { name: "sofa",hebName: "סופה", isUsdz: true},
+        { name: "tsofit",hebName: "צופית", isUsdz: true},
+        { name: "f35",hebName: "אדיר", isUsdz: true},
+        { name: "shimshon",hebName: "שמשון", isUsdz: true},
+        { name: "karnaf",hebName: 'קרנף', isUsdz: true},
+        { name: "efroni",hebName:'עפרוני', isUsdz: true},
+        { name: "bazi",hebName: "רעם" , isUsdz: false},
+        { name: "barak",hebName: "ברק" , isUsdz: false},
+        { name: "peten",hebName: "שרף" , isUsdz: false}
     ];    
     
     var aerobaticIcon = "<div/>";
     var classname = "";
     let currAircraftName = aircraftUsdzObjData.find(obj => obj.hebName === name);
     if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון'&& currAircraftName !== undefined) {
-        classname = "<button class=\"show\" id=\"ARButton\" onclick='openAR("+ JSON.stringify(currAircraftName.name) +")'></button>"
+        classname = "<button class=\"show\" id=\"ARButton\" onclick='openAR("+ JSON.stringify(currAircraftName) +")'></button>"
     } else classname = "<button class=\"hide\" id=\"ARButton\" onclick='openAR("+ JSON.stringify(currAircraftName)+")'></button>"
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
@@ -1034,7 +1034,8 @@ function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link 
     if (link) {
         $("#basePopup").click(() => {
             if(link === 'ar.html'){
-                openAR('barak');
+                
+                openAR({name:'barak'});
             }else{
                 openExternal(link);
             }
