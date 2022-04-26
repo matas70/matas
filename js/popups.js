@@ -848,6 +848,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
         { name: "bazi",hebName: "רעם" , isUsdz: false},
         { name: "barak",hebName: "ברק" , isUsdz: false},
         { name: "peten",hebName: "שרף" , isUsdz: false}
+        
     ];    
     
     var aerobaticIcon = "<div/>";
@@ -1034,7 +1035,6 @@ function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link 
     if (link) {
         $("#basePopup").click(() => {
             if(link === 'ar.html'){
-                
                 openAR({name:'barak'});
             }else{
                 openExternal(link);
