@@ -33,93 +33,10 @@
         gtag('config', 'UA-98360124-1');
     </script>
     <script>
-        function press_load() {
-            $.when(
-                $.getScript("js/date.js"),
-                $.getScript("js/utils.js"),
-                $.getScript("js/functions.js"),
-                $.getScript("js/press.js"),
-
-                $.Deferred(function( deferred ){
-                    $( deferred.resolve );
-                })
-            ).done(function(){
-                initPressPage();
-            });
-        }
+        window.location.href = "https://matas.iaf.org.il"
     </script>
 </head>
-<body class="press-body" onload="press_load()">
-
-<!-- page header -->
-<header>
-    <div class="press-header">
-        <div style="display: flex; align-items: center; flex: 1;justify-content: center;">
-            <img class="iaf-logo" src="icons/air_force.svg">
-            <a href="https://matas.iaf.org.il" target="_blank" style="text-decoration: none">
-                <div id="goto-press-button">
-                    <span id="goto-press-text">מפת מטוסים</span>
-                    <img id="goto-press-icon"  src="icons/location-on-map.svg">
-                </div>
-            </a>
-        </div>
-        <img class="main-logo" src="icons/logo-74/Big Logo.svg">
-        <div style="flex: 1; display: flex; justify-content: center;">
-            <img class="idf-logo" src="icons/press/idf.png">
-        </div>
-    </div>
-</header>
-<div class="main-content">
-    <div id="qrdiv">
-        <a class="qrlink" href="https://matas.iaf.org.il" target="_blank"><img class="qrcode" src="icons/qr-code.png"></a>
-        <div id="qrdivtext">
-            <h2 style="
-                margin: 0px 0px;
-                font-weight: 600;
-                font-size: 14px;
-                line-height: 17px;
-            ">רוצים לראות את המטס על המפה?</h2>סרקו את הקוד והיכנסו לאפליקציית המטס כדי לראות
-            <br>
-            את כל נתיבי המטס, ואת מיקום המטוסים בזמן אמת!
-        </div>
-    </div>
-    <div id="base-container" style="display: none">
-        <div class="main-title">
-            <div class="title-decoration"></div>
-            <div class="title-text">בסיסים</div>
-            <div class="title-decoration"></div>
-        </div>
-        <div class="base-table-list"><img src="animation/loading.gif" class="loading"></div>
-    </div>
-
-    <div id="hospital-container">
-        <div class="main-title">
-            <div class="title-decoration"></div>
-            <div class="title-text">נקודות תצפית</div>
-            <div class="title-decoration"></div>
-        </div>
-        <div id="hospital-table-list" class="city-table-list"><img src="animation/loading.gif" class="loading"></div>
-    </div>
-
-    <div id="city-container">
-        <div class="main-title">
-            <div class="title-decoration"></div>
-            <div class="title-text">ישובים</div>
-            <div class="title-decoration"></div>
-        </div>
-        <div id="city-table-list" class="city-table-list"><img src="animation/loading.gif" class="loading"></div>
-    </div>
-</div>
-
-
-<p style="text-align: center;">ועוד נקודות תצפית רבות לאורך הנתיב המפורטות באפליקציה</p>
-
-<footer class="footer">
+<body class="press-body">
     
-    <img class="aerobatic-footer-icon" src="icons/aerobatic.png">
-    <div class="footer-text">
-        &nbsp;מופע אווירובטי&nbsp; | לפרטים מלאים על כל הישובים והערים בהם יעבור המטס היכנסו לאתר המטס מהמכשיר הסלולרי
-    </div>
-</footer>
 </body>
 </html>
