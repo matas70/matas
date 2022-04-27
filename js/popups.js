@@ -391,7 +391,23 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
         $("#popupSubTitle").text("");
 
     // show times of the activity (aircraft times or base activity times)
-    if (!point.activeTimes && point.aircrafts.length > 0)
+    if(point.aircrafts.length === 1 && point.aircrafts[0].name === 'עפרוני') {
+        let endTimeMinutes;
+        let endTimeHours;
+        startTimeMinutes = Number(point.aircrafts[0].time.slice(3, 5) );
+        startTimeHours = Number(point.aircrafts[0].time.substr(0, 2));
+        tempMinutes = startTimeMinutes+10;
+        if(tempMinutes >60) {
+            endTimeMinutes = tempMinutes-60;
+            endTimeHours = endTimeHours+1;
+        }
+        else {
+            endTimeMinutes = tempMinutes;
+            endTimeHours = startTimeHours;
+        }
+        let endTime = endTimeHours+':'+endTimeMinutes;
+        $("#popupTime").text(point.aircrafts[0].time.substr(0, 5) + "-" + endTime);
+    }else if (!point.activeTimes && point.aircrafts.length > 0)
         $("#popupTime").text(point.aircrafts[0].time.substr(0, 5) + "-" + point.aircrafts[point.aircrafts.length - 1].time.substr(0, 5));
     else if (point.activeTimes)
         $("#popupTime").text(point.activeTimes);
