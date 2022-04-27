@@ -1034,7 +1034,7 @@ function showGenericPopup(title, subtitle, iconId = "genericAircraftIcon", link 
     if (link) {
         $("#basePopup").click(() => {
             if(link === 'ar.html'){
-                openAR({name:'barak'});
+                openAR({name:'f35'});
             }else{
                 openExternal(link);
             }
