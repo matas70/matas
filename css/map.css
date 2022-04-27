@@ -560,6 +560,11 @@ div.infoPopup {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    animation: fadeIn 0.8s;
+}
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
 }
 #usdz-block{
     width: 270px;
