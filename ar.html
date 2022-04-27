@@ -1326,6 +1326,7 @@
 				environmentToggleClick = !environmentToggleClick;
 				document.getElementById("toggle").style.transition = 'all 0.5s';
 				if(environmentToggleClick){
+					document.querySelector('#supported-menu #help').style.visibility = "visible";
 					executeLoader();
 					setTimeout(()=>{ARSupportedsInfopopup();}, 1000);
 					document.getElementById("toggle").style.marginLeft = '61px';
@@ -1334,6 +1335,7 @@
 					document.getElementById('dynamic-icon-part').style.stroke = 'rgb(170 170 170)';
 
 				}else{
+					document.querySelector('#supported-menu #help').style.visibility = "hidden";
 					executeLoader();
 					document.getElementById("toggle").style.marginLeft = '2px';
 					document.getElementById('camera-icon').style.fill = 'rgb(170 170 170)';

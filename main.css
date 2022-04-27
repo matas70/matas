@@ -759,6 +759,7 @@ font-weight: 500;
   margin-left: -10px;
 }
 #menu-block #help{
+  visibility: hidden;
   display: flex;
   font-family: Heebo-Medium;
   font-size: 15px;
