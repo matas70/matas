@@ -30,7 +30,7 @@
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
+ 		function gtag() { dataLayer.push(arguments); }
 		gtag('js', new Date());
 
 		gtag('config', 'UA-98360124-1');
@@ -1286,9 +1286,6 @@
 				helpSupportedArPopup.style.visibility ='visible';
 				helpSupportedArPopup.style.animation = 'fadeIn 1.4s';
 				let InfoPopupshowcheckbox = document.querySelector('.show-hid-check-box input').checked;
-				document.querySelector('#help-supported-ar .title').innerText = "חיל האוויר אצלכם בסלון";
-				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '0px';
-				document.querySelector('#help-supported-ar .conteiner-bottom .show-hid-check-box').style.display = 'flex';
 				if(!InfoPopupshowcheckbox){
 					helpSupportedArPopup.style.display = 'block';
 				    document.querySelector('#supported-ar-conteiner .conteiner-bottom button').addEventListener('click', ()=>{
@@ -1330,9 +1327,6 @@
 			document.getElementById("help").addEventListener('click', () =>{
 				helpSupportedArPopup.style.visibility ='visible';
 				document.getElementById('help-supported-ar').style.display = 'block';
-				document.querySelector('#help-supported-ar .title').innerText = "! עזרה"
-				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '20px';
-				document.querySelector('#help-supported-ar .conteiner-bottom .show-hid-check-box').style.display = 'none';
 				document.querySelector('.conteiner-bottom button').addEventListener('click', ()=>{
 					document.getElementById('help-supported-ar').style.display = 'none';
 				});
