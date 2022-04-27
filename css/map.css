@@ -1679,6 +1679,17 @@ hr.aircraftLineSeparator.two {
     margin-top: 6px;
 }
 
+#viewPointMessage {
+    display: none;
+    font-size: 16px;
+    display: block;
+    color: #8e8e93;
+    font-weight: 500;
+    font-family: "Heebo-Regular";
+    text-align: center;
+    margin-top: 6px;
+}
+
 #noAircraftMessageRow {
     font-size: 16px;
     display: block;
