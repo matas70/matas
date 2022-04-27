@@ -425,7 +425,7 @@ canvas {
 }
 
 #aircrafts_menu {
-  width: 100%;
+  width: 90%;
   overflow: scroll;
   display: flex;
   align-items: center;
