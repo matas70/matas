@@ -1835,7 +1835,7 @@ function initSearchBar() {
             });
         }
 
-        if (aircraftResults.length > 0 || citiesResults.length > 0 || basesResults.length > 0 || viewPointResults) {
+        if (aircraftResults.length > 0 || citiesResults.length > 0 || basesResults.length > 0 || viewPointResults.length >0) {
             $("#search-prompt").hide();
             $("#search-view").show();
             $("#search-view").html(resultsHtml);
