@@ -915,14 +915,10 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var eventsStartTime = convertTime(startDate, aircraftData.actualStartTime);
     let isSimulation = $.urlParam("simulation") != null;
     let theEventStarted = eventsStartTime - new Date().getTime() < 0 ;
-
-    //Checking weather audioMessages is not undifined    
-    //Checking weather aircraftType has not already been notified and if audio message for aircraftType is avalibale 
-    if (audioMessages &&
-        !(aircraft.aircraftTypeId in notifiedNearUser) &&
-        aircraft.aircraftTypeId in audioMessages && 
-        audioMessages[aircraft.aircraftTypeId]["audioSrc"] &&
-        (theEventStarted || isSimulation)) {
+    
+    // Checking weather aircraftType has not already been notified 
+    if ( (theEventStarted || isSimulation) && !(notifiedNearUser.includes(aircraft.aircraftTypeId)))
+         {
                 notifyUserIfNear(currentAircraftPosition, aircraft);
     }
     
@@ -2426,115 +2422,129 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 }
 
 
-(function () {
+
+
+
+function notifyUserIfNear(currentLocation, aircraft) {
     var userLoc = null;
     navigator.geolocation.watchPosition(function(newLoc){
         userLoc = newLoc;
         userLoc = {lon: userLoc.coords.longitude, lat: userLoc.coords.latitude};
     });
+    var closePopupTime = 60;
 
-
-    
-
-    
-    function notifyUserIfNear(currentLocation, aircraft) {
-
-        var closePopupTime = 60;
-
-        if (userLoc) 
+    if (userLoc) 
+    {
+        currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
+        if (haversineDistance(userLoc,currentLocation) < 3)   
         {
-            currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-            if (haversineDistance(userLoc,currentLocation) < 3)          
-            {
-                    if($('#myModal:hidden') && $('#gottoVoiceMessagePopup:hidden'))
-                    {
-                        //Closing popup After closePopupCount seconds
-                        setTimeout(()=>{$('#gottoVoiceMessagePopup').hide();},1000*closePopupTime);
-                        
-                        //Adding to array so the user won't get notifed twice  
-                        notifiedNearUser.push(aircraft.aircraftTypeId);
-                        
-                        let audioMessage = audioMessages[aircraft.aircraftTypeId];
-                        $("#gottoVoiceMessagePopup")[0].style.display = "block";
-                        $("#aircraftName").html(`${aircraft.type} - ${name}`);
-                        $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
-                        $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
-                        $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
-                        $('#audioMessageText').html(audioMessage.text);
+                if($('#myModal:hidden') && $('#gottoVoiceMessagePopup')[0].style.display == "none")
+                {
+                    //Closing popup After closePopupCount seconds
+                    setTimeout(()=>{$('#gottoVoiceMessagePopup').hide();},1000*closePopupTime);
+                    
+                    //Adding to array so the user won't get notifed twice  
+                    notifiedNearUser.push(aircraft.aircraftTypeId);
 
-
-                        $('#audioSRC').on('playing', function () {
-                            $('#audioMessagePlayPause').attr('src', 'icons/pause.svg')
-                        });
-                        $('#audioSRC').on('pause', function () {
-                            $('#audioMessagePlayPause').attr('src', 'icons/play.svg')
-                        });
-                        
-                        $('#audioSRC').on('ended', function () {
-                            $('#audioSRC')[0].currentTime = 0
-                        });
-
-                        if(audioMessage.audioSrc){
-                            $("#audioSRC").attr("src",audioMessage.audioSrc);
-                        }
-                        else{
-                            $("#audioSRC").attr("src",'audio/pilot-message.ogg');
-                        }
-                        
-                        if(aircraft.icon){
-                            $("#aircraftImg").attr("src",`icons/aircrafts/${aircraft.icon}.svg`);
-                        }
-                        else{
-                            $("#aircraftImg").attr("src",`icons/genericAircraft.svg`);
-                        }
+                    if(aircraft.icon){
+                        $("#aircraftImg").attr("src",`icons/aircrafts/${aircraft.icon}.svg`);
                     }
-                //}
-            }
-            
+                    else{
+                        $("#aircraftImg").attr("src",`icons/genericAircraft.svg`);
+                    }
+                    $("#gottoVoiceMessagePopup")[0].style.display = "block";
+                    $("#aircraftName").html(`${aircraft.type} - ${aircraft.name}`);
+                    $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
+                    
+                    //Checking weather audioMessages is not undifined    
+                    //and if audio message for aircraftType is avalibale 
+                    if (audioMessages &&
+                        aircraft.aircraftTypeId in audioMessages && 
+                        audioMessages[aircraft.aircraftTypeId]["audioSrc"] ){
+                        $("#hearTheMessage").show()
+
+                        notifyAudioMessage(aircraft)
+                    }
+
+                    else {
+                        $("#hearTheMessage").hide()
+                    }
+                }
+            //}
         }
-    }
-
-    window.notifyUserIfNear = notifyUserIfNear;
-
-    // taken from https://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
-    function haversineDistance(coords1, coords2) {
-        function toRad(x) {
-            return x * Math.PI / 180;
-        }
-
-        var lon1 = coords1.lon;
-        var lat1 = coords1.lat;
-
-        var lon2 = coords2.lon;
-        var lat2 = coords2.lat;
-
-        var R = 6371; // km
-
-        var x1 = lat2 - lat1;
-        var dLat = toRad(x1);
-        var x2 = lon2 - lon1;
-        var dLon = toRad(x2)
-        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var d = R * c;
-
-        return d;
-    }
-
-    if (Cookies.get('seen_welcome_2021') != '1') {
         
-       // $('.new-popup').show()
-        $('.new-popup button, .new-popup .quiz, .new-popup .ar').on('click', () => {
-           // $('.new-popup').fadeOut(200);
-            Cookies.set('seen_welcome_2021', '1', { expires: 10000});
-        })
-        $('.new-popup .ar').on('click', ()=>openAR());
-    };
+    }
+}
+
+window.notifyUserIfNear = notifyUserIfNear;
+
+function notifyAudioMessage (aircraft) {
+    let audioMessage = audioMessages[aircraft.aircraftTypeId];
+    $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
+    $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
+    $('#audioMessageText').html(audioMessage.text);
 
 
-})()
+    $('#audioSRC').on('playing', function () {
+        $('#audioMessagePlayPause').attr('src', 'icons/pause.svg')
+    });
+    $('#audioSRC').on('pause', function () {
+        $('#audioMessagePlayPause').attr('src', 'icons/play.svg')
+    });
+    
+    $('#audioSRC').on('ended', function () {
+        $('#audioSRC')[0].currentTime = 0
+    });
+
+    if(audioMessage.audioSrc){
+        $("#audioSRC").attr("src",audioMessage.audioSrc);
+    }
+    else{
+        $("#audioSRC").attr("src",'audio/pilot-message.ogg');
+    }
+}
+
+
+
+
+// taken from https://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
+function haversineDistance(coords1, coords2) {
+    function toRad(x) {
+        return x * Math.PI / 180;
+    }
+
+    var lon1 = coords1.lon;
+    var lat1 = coords1.lat;
+
+    var lon2 = coords2.lon;
+    var lat2 = coords2.lat;
+
+    var R = 6371; // km
+
+    var x1 = lat2 - lat1;
+    var dLat = toRad(x1);
+    var x2 = lon2 - lon1;
+    var dLon = toRad(x2)
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+
+    return d;
+}
+
+if (Cookies.get('seen_welcome_2021') != '1') {
+    
+    // $('.new-popup').show()
+    $('.new-popup button, .new-popup .quiz, .new-popup .ar').on('click', () => {
+        // $('.new-popup').fadeOut(200);
+        Cookies.set('seen_welcome_2021', '1', { expires: 10000});
+    })
+    $('.new-popup .ar').on('click', ()=>openAR());
+};
+
+
 function isIOS() {
     return [
         'iPad Simulator',
