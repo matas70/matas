@@ -1171,7 +1171,7 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     
     if (locations[pointId].pointName.includes('בסיס')) {
         showBaseLoactionPopup(pointId)
-    } else if (locations[pointId].pointName.includes('מוזיאון')) {
+    } else if (locations[pointId].pointName.includes('מוזיאון חיל האוויר')) {
         showBaseLoactionPopup(pointId)
     } else {
         showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, setMarkerOnDeselectLocation);
@@ -1658,7 +1658,7 @@ function displaySearchView() {
             // add bases
             searchViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
             sortedLocations.forEach(function (location) {
-                if ((location.pointName.includes('בסיס') && !location.pointName.includes('בסיס חצור'))|| location.pointName.includes('מוזיאון')) {
+                if ((location.pointName.includes('בסיס') && !location.pointName.includes('בסיס חצור'))|| location.pointName.includes('מוזיאון חיל האוויר')) {
                     searchViewHtml += createLocationRow(location, false, true);
                 }
             }, this);
@@ -1681,7 +1681,7 @@ function displaySearchView() {
         sortedLocations.forEach(function (location) {
             if (!location.hidden &&
                 !!routes.find(route => route.points.find(point => location.pointId === point.pointId)) &&
-                (!location.type || location.type !== "base" || location.pointName.includes('בסיס') || location.pointName.includes('מוזיאון') || location.type === "hospital" || location.pointName.includes('תצפית למטס'))) {
+                (!location.type || location.type !== "base" || location.pointName.includes('בסיס') || location.pointName.includes('מוזיאון חיל האוויר') || location.type === "hospital" || location.pointName.includes('תצפית למטס'))) {
                 searchViewHtml += createLocationRow(location, false, true);
             }
         }, this);
@@ -1765,7 +1765,7 @@ function initSearchBar() {
 
         // Filtering relevant bases
         basesResults = sortedLocations.filter(location => {
-            return  ( location.pointName.includes('בסיס') || location.pointName.includes('מוזיאון')) && location.pointName !== 'בסיס חצור' && location.pointName.includes(searchInput)
+            return  ( location.pointName.includes('בסיס') || location.pointName.includes('מוזיאון חיל האוויר')) && location.pointName !== 'בסיס חצור' && location.pointName.includes(searchInput)
         });
  
         if (basesResults.length > 0) {
@@ -1795,7 +1795,7 @@ function initSearchBar() {
 
         // Filtering relevant locations
         citiesResults = sortedLocations.filter(location => {
-            return !location.hidden && ( (location.type !== "base" && location.type !== "hospital" && !location.pointName.includes('מוזיאון') && !location.pointName.includes('בסיס') &&  !location.pointName.includes('תצפית למטס')) || location.pointName.includes('בסיס חצור') ) && location.pointName.includes(searchInput)
+            return !location.hidden && ( (location.type !== "base" && location.type !== "hospital" && !location.pointName.includes('מוזיאון חיל האוויר') && !location.pointName.includes('בסיס') &&  !location.pointName.includes('תצפית למטס')) || location.pointName.includes('בסיס חצור') ) && location.pointName.includes(searchInput)
         });
 
         if (citiesResults.length > 0) {
@@ -2148,7 +2148,7 @@ function fillMenu() {
             sortedLocations.forEach(function (location) {
                 if (location.pointName.includes('בסיס') && !(location.pointName.includes('בסיס חצור'))) {
                     locationsViewHtml += createBaseCategory(location)
-                } else if (location.pointName.includes('מוזיאון')) {
+                } else if (location.pointName.includes('מוזיאון חיל האוויר')) {
                     locationsViewHtml += createBaseCategory(location)
                 } 
             }, this); 

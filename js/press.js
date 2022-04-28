@@ -38,7 +38,7 @@ function createCategoryTables(category) {
 
 function createBasesTables() {
     let bases = locations.filter((location) => {
-        return location.type === "base" || (location.pointName.includes('בסיס') && !(location.pointName.includes('בסיס חצור')) || location.pointName.includes('מוזיאון'));
+        return location.type === "base" || (location.pointName.includes('בסיס') && !(location.pointName.includes('בסיס חצור')) || location.pointName.includes('מוזיאון חיל האוויר'));
     });
 
     if (bases.length > 0) {        
