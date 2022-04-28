@@ -106,15 +106,47 @@ function createCategoryTable(category, categoryLocation) {
             </div>`;
 }
 
+function createAerobaticEndTime(startTime, timeToAdd) {
+    let endTimeMinutes;
+    let endTimeHours;
+    let fixedStartTime = roundToMinute(startTime);
+    startTimeMinutes = Number(fixedStartTime.slice(3, 5) );
+    startTimeHours = Number(fixedStartTime.substr(0, 2));
+    tempMinutes = startTimeMinutes+timeToAdd;
+    if(tempMinutes >60) {
+        endTimeMinutes = tempMinutes-60;
+        endTimeHours = endTimeHours+1;
+    }
+    else {
+            endTimeMinutes = tempMinutes;
+            endTimeHours = startTimeHours;
+    }
+    let endTime = endTimeHours+':'+endTimeMinutes;
+    return endTime;
+}
+
 function createBaseTableTitle(name, activeTimes, hasAerobatic) {
-    let tempActiveTimes = activeTimes? `
+    let tempActiveTimesValue = activeTimes? activeTimes : null;
+    if(name.includes('מופע')) {
+        hasAerobatic = true;
+        let startTime = activeTimes.slice(0,5);
+        let endTime = createAerobaticEndTime(startTime, 10);
+        tempActiveTimesValue = endTime+':'+startTime;
+    } 
+    if (name === 'ירושלים - גן סאקר') {
+        hasAerobatic = true;
+        let startTime = activeTimes.slice(0,5);
+        let endTime = createAerobaticEndTime(activeTimes.slice(8,activeTimes.length), 10);
+        tempActiveTimesValue = endTime+':'+startTime;
+    }
+    let tempActiveTimesHTML = tempActiveTimesValue? `
         &nbsp;|&nbsp;
-        <div class="base-title-times">${activeTimes}</div>
+        <div class="base-title-times">${tempActiveTimesValue}</div>
     ` : '';
     return `<div class="base-table-title">
                     <div class="base-table-title-group">
                         <div class="base-table-title-text">${name}</div>
-                        ${tempActiveTimes}
+                        ${tempActiveTimesHTML}
                     </div>
                     <img src="icons/aerobatic.svg" class="aerobatic-icon" style="visibility:${hasAerobatic ? "visible" : "hidden"}">
                 </div>`;
