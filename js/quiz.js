@@ -537,8 +537,8 @@
       correctCount++
       gtag('event', 'quiz_finish', {
         'event_category': 'quiz_interaction',
-         'event_label': 'quiz_finish',
-        'value': 'correctCount'
+         'event_label': 'quiz_finish ('+correctCount+' correct)',
+        'value': correctCount
       });
     } else {
       marked.classList.add('wrong');
