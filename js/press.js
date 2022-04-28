@@ -131,13 +131,13 @@ function createBaseTableTitle(name, activeTimes, hasAerobatic) {
         hasAerobatic = true;
         let startTime = activeTimes.slice(0,5);
         let endTime = createAerobaticEndTime(startTime, 10);
-        tempActiveTimesValue = endTime+':'+startTime;
+        tempActiveTimesValue = startTime+' - '+endTime;
     } 
     if (name === 'ירושלים - גן סאקר') {
         hasAerobatic = true;
         let startTime = activeTimes.slice(0,5);
         let endTime = createAerobaticEndTime(activeTimes.slice(8,activeTimes.length), 10);
-        tempActiveTimesValue = endTime+':'+startTime;
+        tempActiveTimesValue = startTime+' - '+endTime;
     }
     let tempActiveTimesHTML = tempActiveTimesValue? `
         &nbsp;|&nbsp;
