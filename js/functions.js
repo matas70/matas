@@ -1681,7 +1681,7 @@ function displaySearchView() {
         sortedLocations.forEach(function (location) {
             if (!location.hidden &&
                 !!routes.find(route => route.points.find(point => location.pointId === point.pointId)) &&
-                (!location.type || location.type !== "base" || location.pointName.includes('בסיס') || location.pointName.includes('מוזיאון'))) {
+                (!location.type || location.type !== "base" || location.pointName.includes('בסיס') || location.pointName.includes('מוזיאון') || location.type === "hospital" || location.pointName.includes('תצפית למטס'))) {
                 searchViewHtml += createLocationRow(location, false, true);
             }
         }, this);
@@ -1761,17 +1761,14 @@ function initSearchBar() {
         var basesResults;
         var citiesResults;
         var aircraftResults;
+        var viewPointResults;
 
         // Filtering relevant bases
         basesResults = sortedLocations.filter(location => {
-            return !location.hidden && location.type && (location.type === "base" || location.pointName.includes('בסיס') || location.pointName.includes('מוזיאון')) && location.pointName.includes(searchInput)
+            return  ( location.pointName.includes('בסיס') || location.pointName.includes('מוזיאון')) && location.pointName !== 'בסיס חצור' && location.pointName.includes(searchInput)
         });
-        
+ 
         if (basesResults.length > 0) {
-            basesResults.forEach(function (location) {
-                resultsHtml +=
-                    createLocationRow(location, false, true);
-            }, this);
             // Create location category only if we have location results
             resultsHtml += createCategoryRow({category: "בסיסים"}, true);
 
@@ -1782,9 +1779,23 @@ function initSearchBar() {
             }, this);
         }
 
+        viewPointResults = sortedLocations.filter(location => {
+            return  location.pointName.includes('תצפית למטס') && location.pointName.includes(searchInput)
+        });
+        if (viewPointResults.length > 0) {
+            // Create location category only if we have location results
+            resultsHtml += createCategoryRow({category: "נקודות תצפית"}, true);
+
+            // Populate location results
+            viewPointResults.forEach(function (location) {
+                resultsHtml +=
+                    createLocationRow(location, false, true);
+            }, this);
+        }
+
         // Filtering relevant locations
         citiesResults = sortedLocations.filter(location => {
-            return !location.hidden && (!location.type || location.type !== "base") && location.pointName.includes(searchInput)
+            return !location.hidden && ( location.type !== "base" && location.type !== "hospital" && !location.pointName.includes('מוזיאון') && !location.pointName.includes('בסיס') &&  !location.pointName.includes('תצפית למטס')) && location.pointName.includes(searchInput)
         });
 
         if (citiesResults.length > 0) {
@@ -1824,7 +1835,7 @@ function initSearchBar() {
             });
         }
 
-        if (aircraftResults.length > 0 || citiesResults.length > 0 || basesResults.length > 0) {
+        if (aircraftResults.length > 0 || citiesResults.length > 0 || basesResults.length > 0 || viewPointResults) {
             $("#search-prompt").hide();
             $("#search-view").show();
             $("#search-view").html(resultsHtml);
