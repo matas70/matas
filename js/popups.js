@@ -281,7 +281,24 @@ function showBaseLoactionPopup(pointId) {
     }
 }
 
-
+function createAerobaticEndTime(startTime, timeToAdd) {
+    let endTimeMinutes;
+    let endTimeHours;
+    let fixedStartTime = roundToMinute(startTime);
+    startTimeMinutes = Number(fixedStartTime.slice(3, 5) );
+    startTimeHours = Number(fixedStartTime.substr(0, 2));
+    tempMinutes = startTimeMinutes+timeToAdd;
+    if(tempMinutes >60) {
+        endTimeMinutes = tempMinutes-60;
+        endTimeHours = endTimeHours+1;
+    }
+    else {
+            endTimeMinutes = tempMinutes;
+            endTimeHours = startTimeHours;
+    }
+    let endTime = endTimeHours+':'+endTimeMinutes;
+    return endTime;
+}
 
 function showLocationPopup(point, color, titleColor, subtitleColor, minimized = false, closeCallback) {
     onCloseOpenBasePopup()
@@ -391,7 +408,14 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
         $("#popupSubTitle").text("");
 
     // show times of the activity (aircraft times or base activity times)
-    if (!point.activeTimes && point.aircrafts.length > 0)
+    if(point.pointName === 'ירושלים - גן סאקר' && point.aircrafts.length > 0) {
+        let endTime = createAerobaticEndTime(point.aircrafts[point.aircrafts.length - 1].time, 10);
+        $("#popupTime").text(roundToMinute(point.aircrafts[0].time) + "-" + endTime);
+    }
+    else if(point.aircrafts.length === 1 && point.aircrafts[0].name === 'עפרוני') {
+        let endTime = createAerobaticEndTime(point.aircrafts[0].time, 10);
+        $("#popupTime").text(roundToMinute(point.aircrafts[0].time) + "-" + endTime);
+    }else if (!point.activeTimes && point.aircrafts.length > 0)
         $("#popupTime").text(point.aircrafts[0].time.substr(0, 5) + "-" + point.aircrafts[point.aircrafts.length - 1].time.substr(0, 5));
     else if (point.activeTimes)
         $("#popupTime").text(point.activeTimes);
