@@ -412,7 +412,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
         let endTime = createAerobaticEndTime(point.aircrafts[point.aircrafts.length - 1].time, 10);
         $("#popupTime").text(roundToMinute(point.aircrafts[0].time) + "-" + endTime);
     }
-    else if(point.aircrafts.length === 1 && point.aircrafts[0].name === 'עפרוני') {
+    else if(point.aircrafts.length === 1 && point.aircrafts[0].name === 'עפרוני' && point.pointName.includes('מופע')) {
         let endTime = createAerobaticEndTime(point.aircrafts[0].time, 10);
         $("#popupTime").text(roundToMinute(point.aircrafts[0].time) + "-" + endTime);
     }else if (!point.activeTimes && point.aircrafts.length > 0)
