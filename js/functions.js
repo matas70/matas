@@ -1575,6 +1575,18 @@ function loadMapApi() {
     $.ajaxSetup({cache: false});
 }
 
+function isNotHidden (location) {
+    let isExists = false;
+    routes?.forEach(route => {
+        route.points?.forEach(point => {
+            if(location.pointId === point.pointId)
+                if(!point.hidden)
+                    isExists = true;
+        })
+    });
+    return isExists;
+}
+
 function showComponents() {
     $(".splash").css('visibility', 'visible');
 }
@@ -1679,10 +1691,10 @@ function displaySearchView() {
         // add other locations category
         searchViewHtml += createCategoryRow({category: "יישובים"}, true);
         sortedLocations.forEach(function (location) {
-            if (!location.hidden &&
-                !!routes.find(route => route.points.find(point => location.pointId === point.pointId)) &&
-                (!location.type || location.type !== "base" || location.pointName.includes('בסיס') || location.pointName.includes('מוזיאון חיל האוויר') || location.type === "hospital" || location.pointName.includes('תצפית למטס'))) {
-                searchViewHtml += createLocationRow(location, false, true);
+            if (((!location.hidden &&
+                !!routes.find(route => route.points.find(point => location.pointId === point.pointId)) )|| isNotHidden(location)) &&
+                (location.type !== "base" || (!location.pointName.includes('בסיס')&& location.pointName !== 'בסיס חצור') || !location.pointName.includes('מוזיאון חיל האוויר') || location.type !== "hospital" || !location.pointName.includes('תצפית למטס'))) {
+                    searchViewHtml += createLocationRow(location, false, true);
             }
         }, this);
 
@@ -1795,7 +1807,7 @@ function initSearchBar() {
 
         // Filtering relevant locations
         citiesResults = sortedLocations.filter(location => {
-            return !location.hidden && ( (location.type !== "base" && location.type !== "hospital" && !location.pointName.includes('מוזיאון חיל האוויר') && !location.pointName.includes('בסיס') &&  !location.pointName.includes('תצפית למטס')) || location.pointName.includes('בסיס חצור') ) && location.pointName.includes(searchInput)
+            return (!location.hidden || isNotHidden(location)) && ( (location.type !== "base" && location.type !== "hospital" && !location.pointName.includes('מוזיאון חיל האוויר') && !location.pointName.includes('בסיס') &&  !location.pointName.includes('תצפית למטס')) || location.pointName.includes('בסיס חצור') ) && location.pointName.includes(searchInput)
         });
 
         if (citiesResults.length > 0) {
@@ -2168,10 +2180,10 @@ function fillMenu() {
     // add cities
     locationsViewHtml += createCategoryRow({category: "יישובים"}, true);
     sortedLocations.forEach(function (location) {
-        if ((!location.hidden &&
-            !!routes.find(route => route.points.find(point => location.pointId === point.pointId))) &&
+        if (((!location.hidden &&
+            !!routes.find(route => route.points.find(point => location.pointId === point.pointId))) || isNotHidden(location)) &&
             (!location.pointName.includes('תצפית למטס')) &&
-            (!location.type || location.type !== "base" || location.type !== "hospital")) {
+            (location.type !== "base" || (!location.pointName.includes('בסיס')&& location.pointName !== 'בסיס חצור') || !location.pointName.includes('מוזיאון חיל האוויר') || location.type !== "hospital" || !location.pointName.includes('תצפית למטס'))) {
                 locationsViewHtml += createLocationRow(location, false);
         }
     }, this);
