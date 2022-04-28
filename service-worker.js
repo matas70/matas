@@ -1,4 +1,4 @@
-// ServiceWorker version : 13 (increase this number every time you want the cache to updated)
+// ServiceWorker version : 14 (increase this number every time you want the cache to updated)
 
 'use strict';
 
