@@ -551,10 +551,12 @@ function updateLocationsMap(aircrafts) {
 
 function updateLocations(route) {
     route.points.forEach(function (point) {
-        locations[point.pointId] = point;
-        locations[point.pointId].aircrafts = [];
-        locations[point.pointId].hideAircrafts = point.hideAircrafts;
-        locations[point.pointId].color = route.color;
+       // if(!locations[point.pointId]){
+            locations[point.pointId] = point;
+            locations[point.pointId].aircrafts = [];
+            locations[point.pointId].hideAircrafts = point.hideAircrafts;
+            locations[point.pointId].color = route.color;
+       // }
     }, this);
 }
 
@@ -915,14 +917,10 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var eventsStartTime = convertTime(startDate, aircraftData.actualStartTime);
     let isSimulation = $.urlParam("simulation") != null;
     let theEventStarted = eventsStartTime - new Date().getTime() < 0 ;
-
-    //Checking weather audioMessages is not undifined    
-    //Checking weather aircraftType has not already been notified and if audio message for aircraftType is avalibale 
-    if (audioMessages &&
-        !(aircraft.aircraftTypeId in notifiedNearUser) &&
-        aircraft.aircraftTypeId in audioMessages && 
-        audioMessages[aircraft.aircraftTypeId]["audioSrc"] &&
-        (theEventStarted || isSimulation)) {
+    
+    // Checking weather aircraftType has not already been notified 
+    if ( (theEventStarted || isSimulation) && !(notifiedNearUser.includes(aircraft.aircraftTypeId)))
+         {
                 notifyUserIfNear(currentAircraftPosition, aircraft);
     }
     
@@ -1171,7 +1169,7 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     
     if (locations[pointId].pointName.includes('בסיס')) {
         showBaseLoactionPopup(pointId)
-    } else if (locations[pointId].pointName.includes('מוזיאון')) {
+    } else if (locations[pointId].pointName.includes('מוזיאון חיל האוויר')) {
         showBaseLoactionPopup(pointId)
     } else {
         showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, setMarkerOnDeselectLocation);
@@ -1204,38 +1202,46 @@ let openAircraftInfo = true;
 const cur_user_agent = new UAParser();
 cur_user_agent.setUA(navigator.userAgent);
 
-function openAR(aircraftName) {
-  
+function openAR(aircraft) {
     if(isIOS()){
 
+        localStorage.setItem('selectedAircraftName', aircraft.name);
+        localStorage.setItem('selectedAircraftIsUsdz', aircraft.isUsdz);
+
         if(!document.querySelector("#popup-bottom #checkbox").checked){
+
             openAircraftInfo = false;
             document.getElementById("usdz-info-popup").style.display = "block";
             document.getElementById("dim-background").style.display = "block";
+            
             document.querySelector("#popup-bottom button").addEventListener('click', () =>{
                 document.getElementById("usdz-info-popup").style.display = "none";
                 document.getElementById("dim-background").style.display = "none";
                 openAircraftInfo = true;
-                openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
+                if(localStorage.getItem('selectedAircraftIsUsdz')){
+                    openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${localStorage.getItem('selectedAircraftName')}.usdz`);
+                }else{
+                    openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2Fbarak.usdz`);
+                }
             });
+
         }else{
-            openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${aircraftName}.usdz`);
+            if(localStorage.getItem('selectedAircraftIsUsdz')){
+                openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2F${localStorage.getItem('selectedAircraftName')}.usdz`);
+            }else{
+                openExternal(`https://matasstorage.blob.core.windows.net/models/usdz%2Fbarak.usdz`);
+            }
         }
+
     }else{
         openExternal("ar.html");
+        localStorage.setItem('selectedAircraft', aircraft.name);
         arClick = false;
-        // if(cur_user_agent.getResult().os.name === 'Android'){
-        //     openExternal("loadingar.html");
-        //     window.close();
-        // }
-        // else{
-        //     openExternal("ar.html");
-        //     window.close();
-        // }
     }
 }
 
 function onAircraftSelected(aircraftId, collapse, showSchedule = false, showAllPoints = false) {
+    onCloseOpenBasePopup()
 
     if(!isIOS() || (openAircraftInfo && isIOS())){
         
@@ -1318,16 +1324,19 @@ function selectPoint(pointId, minimized = false) {
         deselectLocation(function () {
             // then show a new popup
             selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker,
-                mapAPI.getMarkerIcon(selectedRoute.color, false, isPointAerobatic(pointId), selectedPoint.pointName),
-                mapAPI.getMarkerIcon(selectedRoute.color, true, isPointAerobatic(pointId), selectedPoint.pointName),
+                mapAPI.getMarkerIcon(selectedRoute.color, false, isPointAerobatic(pointId), selectedPoint.pointName, selectedPoint),
+                mapAPI.getMarkerIcon(selectedRoute.color, true, isPointAerobatic(pointId), selectedPoint.pointName,
+                selectedPoint),
                 "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor,
                 "#" + selectedRoute.secondaryTextColor, minimized);
         });
     } else {
         // then show a new popup
         selectLocation(pointId, convertLocation(selectedPoint.N, selectedPoint.E), marker,
-            mapAPI.getMarkerIcon(selectedRoute.color, false, isPointAerobatic(pointId), selectedPoint.pointName),
-            mapAPI.getMarkerIcon(selectedRoute.color, true, isPointAerobatic(pointId), selectedPoint.pointName),
+            mapAPI.getMarkerIcon(selectedRoute.color, false, isPointAerobatic(pointId), selectedPoint.pointName,
+            selectedPoint),
+            mapAPI.getMarkerIcon(selectedRoute.color, true, isPointAerobatic(pointId), selectedPoint.pointName,
+            selectedPoint),
             "#" + selectedRoute.color, "#" + selectedRoute.primaryTextColor,
             "#" + selectedRoute.secondaryTextColor, minimized);
     }
@@ -1564,6 +1573,18 @@ function loadMapApi() {
     $.ajaxSetup({cache: false});
 }
 
+function isNotHidden (location) {
+    let isExists = false;
+    routes?.forEach(route => {
+        route.points?.forEach(point => {
+            if(location.pointId === point.pointId)
+                if(!point.hidden)
+                    isExists = true;
+        })
+    });
+    return isExists;
+}
+
 function showComponents() {
     $(".splash").css('visibility', 'visible');
 }
@@ -1647,7 +1668,7 @@ function displaySearchView() {
             // add bases
             searchViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
             sortedLocations.forEach(function (location) {
-                if (location.pointName.includes('בסיס')) {
+                if ((location.pointName.includes('בסיס') && !location.pointName.includes('בסיס חצור'))|| location.pointName.includes('מוזיאון חיל האוויר')) {
                     searchViewHtml += createLocationRow(location, false, true);
                 }
             }, this);
@@ -1659,7 +1680,7 @@ function displaySearchView() {
             searchViewHtml += createCategoryRow({category: "נקודות תצפית"}, true);
 
             sortedLocations.forEach(function (location) {
-                if (!location.hidden && location.type && location.type === "hospital") {
+                if (!location.hidden && location.type && (location.type === "hospital" || location.pointName.includes('תצפית למטס'))) {
                     searchViewHtml += createLocationRow(location, false, true);
                 }
             }, this);
@@ -1668,10 +1689,10 @@ function displaySearchView() {
         // add other locations category
         searchViewHtml += createCategoryRow({category: "יישובים"}, true);
         sortedLocations.forEach(function (location) {
-            if (!location.hidden &&
-                !!routes.find(route => route.points.find(point => location.pointId === point.pointId)) &&
-                (!location.type || location.type !== "base")) {
-                searchViewHtml += createLocationRow(location, false, true);
+            if (((!location.hidden &&
+                !!routes.find(route => route.points.find(point => location.pointId === point.pointId)) )|| isNotHidden(location)) &&
+                (location.type !== "base" || (!location.pointName.includes('בסיס')&& location.pointName !== 'בסיס חצור') || !location.pointName.includes('מוזיאון חיל האוויר') || location.type !== "hospital" || !location.pointName.includes('תצפית למטס'))) {
+                    searchViewHtml += createLocationRow(location, false, true);
             }
         }, this);
 
@@ -1750,17 +1771,14 @@ function initSearchBar() {
         var basesResults;
         var citiesResults;
         var aircraftResults;
+        var viewPointResults;
 
         // Filtering relevant bases
         basesResults = sortedLocations.filter(location => {
-            return !location.hidden && location.type && location.type === "base" && location.pointName.includes(searchInput)
+            return  ( location.pointName.includes('בסיס') || location.pointName.includes('מוזיאון חיל האוויר')) && location.pointName !== 'בסיס חצור' && location.pointName.includes(searchInput)
         });
-        
+ 
         if (basesResults.length > 0) {
-            basesResults.forEach(function (location) {
-                resultsHtml +=
-                    createLocationRow(location, false, true);
-            }, this);
             // Create location category only if we have location results
             resultsHtml += createCategoryRow({category: "בסיסים"}, true);
 
@@ -1771,9 +1789,23 @@ function initSearchBar() {
             }, this);
         }
 
+        viewPointResults = sortedLocations.filter(location => {
+            return  location.pointName.includes('תצפית למטס') && location.pointName.includes(searchInput)
+        });
+        if (viewPointResults.length > 0) {
+            // Create location category only if we have location results
+            resultsHtml += createCategoryRow({category: "נקודות תצפית"}, true);
+
+            // Populate location results
+            viewPointResults.forEach(function (location) {
+                resultsHtml +=
+                    createLocationRow(location, false, true);
+            }, this);
+        }
+
         // Filtering relevant locations
         citiesResults = sortedLocations.filter(location => {
-            return !location.hidden && (!location.type || location.type !== "base") && location.pointName.includes(searchInput)
+            return (!location.hidden || isNotHidden(location)) && ( (location.type !== "base" && location.type !== "hospital" && !location.pointName.includes('מוזיאון חיל האוויר') && !location.pointName.includes('בסיס') &&  !location.pointName.includes('תצפית למטס')) || location.pointName.includes('בסיס חצור') ) && location.pointName.includes(searchInput)
         });
 
         if (citiesResults.length > 0) {
@@ -1813,7 +1845,7 @@ function initSearchBar() {
             });
         }
 
-        if (aircraftResults.length > 0 || citiesResults.length > 0 || basesResults.length > 0) {
+        if (aircraftResults.length > 0 || citiesResults.length > 0 || basesResults.length > 0 || viewPointResults.length >0) {
             $("#search-prompt").hide();
             $("#search-view").show();
             $("#search-view").html(resultsHtml);
@@ -2126,7 +2158,7 @@ function fillMenu() {
             sortedLocations.forEach(function (location) {
                 if (location.pointName.includes('בסיס') && !(location.pointName.includes('בסיס חצור'))) {
                     locationsViewHtml += createBaseCategory(location)
-                } else if (location.pointName.includes('מוזיאון')) {
+                } else if (location.pointName.includes('מוזיאון חיל האוויר')) {
                     locationsViewHtml += createBaseCategory(location)
                 } 
             }, this); 
@@ -2146,10 +2178,9 @@ function fillMenu() {
     // add cities
     locationsViewHtml += createCategoryRow({category: "יישובים"}, true);
     sortedLocations.forEach(function (location) {
-        if ((!location.hidden &&
-            !!routes.find(route => route.points.find(point => location.pointId === point.pointId))) &&
-            (!location.pointName.includes('תצפית למטס')) &&
-            (!location.type || location.type !== "base" || location.type !== "hospital")) {
+        if (((!location.hidden &&
+            !!routes.find(route => route.points.find(point => location.pointId === point.pointId))) || isNotHidden(location)) &&
+            ( (!location.pointName.includes('בסיס') || location.pointName === 'בסיס חצור') && !location.pointName.includes('מוזיאון חיל האוויר') && location.type !== "hospital" && !location.pointName.includes('תצפית למטס'))) {
                 locationsViewHtml += createLocationRow(location, false);
         }
     }, this);
@@ -2415,115 +2446,129 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 }
 
 
-(function () {
+
+
+
+function notifyUserIfNear(currentLocation, aircraft) {
     var userLoc = null;
     navigator.geolocation.watchPosition(function(newLoc){
         userLoc = newLoc;
         userLoc = {lon: userLoc.coords.longitude, lat: userLoc.coords.latitude};
     });
+    var closePopupTime = 60;
 
-
-    
-
-    
-    function notifyUserIfNear(currentLocation, aircraft) {
-
-        var closePopupTime = 60;
-
-        if (userLoc) 
+    if (userLoc) 
+    {
+        currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
+        if (haversineDistance(userLoc,currentLocation) < 3)   
         {
-            currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-            if (haversineDistance(userLoc,currentLocation) < 3)          
-            {
-                    if($('#myModal:hidden') && $('#gottoVoiceMessagePopup:hidden'))
-                    {
-                        //Closing popup After closePopupCount seconds
-                        setTimeout(()=>{$('#gottoVoiceMessagePopup').hide();},1000*closePopupTime);
-                        
-                        //Adding to array so the user won't get notifed twice  
-                        notifiedNearUser.push(aircraft.aircraftTypeId);
-                        
-                        let audioMessage = audioMessages[aircraft.aircraftTypeId];
-                        $("#gottoVoiceMessagePopup")[0].style.display = "block";
-                        $("#aircraftName").html(`${aircraft.type} - ${name}`);
-                        $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
-                        $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
-                        $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
-                        $('#audioMessageText').html(audioMessage.text);
+                if($('#myModal:hidden') && $('#gottoVoiceMessagePopup')[0].style.display == "none")
+                {
+                    //Closing popup After closePopupCount seconds
+                    setTimeout(()=>{$('#gottoVoiceMessagePopup').hide();},1000*closePopupTime);
+                    
+                    //Adding to array so the user won't get notifed twice  
+                    notifiedNearUser.push(aircraft.aircraftTypeId);
 
-
-                        $('#audioSRC').on('playing', function () {
-                            $('#audioMessagePlayPause').attr('src', 'icons/pause.svg')
-                        });
-                        $('#audioSRC').on('pause', function () {
-                            $('#audioMessagePlayPause').attr('src', 'icons/play.svg')
-                        });
-                        
-                        $('#audioSRC').on('ended', function () {
-                            $('#audioSRC')[0].currentTime = 0
-                        });
-
-                        if(audioMessage.audioSrc){
-                            $("#audioSRC").attr("src",audioMessage.audioSrc);
-                        }
-                        else{
-                            $("#audioSRC").attr("src",'audio/pilot-message.ogg');
-                        }
-                        
-                        if(aircraft.icon){
-                            $("#aircraftImg").attr("src",`icons/aircrafts/${aircraft.icon}.svg`);
-                        }
-                        else{
-                            $("#aircraftImg").attr("src",`icons/genericAircraft.svg`);
-                        }
+                    if(aircraft.icon){
+                        $("#aircraftImg").attr("src",`icons/aircrafts/${aircraft.icon}.svg`);
                     }
-                //}
-            }
-            
+                    else{
+                        $("#aircraftImg").attr("src",`icons/genericAircraft.svg`);
+                    }
+                    $("#gottoVoiceMessagePopup")[0].style.display = "block";
+                    $("#aircraftName").html(`${aircraft.type} - ${aircraft.name}`);
+                    $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
+                    
+                    //Checking weather audioMessages is not undifined    
+                    //and if audio message for aircraftType is avalibale 
+                    if (audioMessages &&
+                        aircraft.aircraftTypeId in audioMessages && 
+                        audioMessages[aircraft.aircraftTypeId]["audioSrc"] ){
+                        $("#hearTheMessage").show()
+
+                        notifyAudioMessage(aircraft)
+                    }
+
+                    else {
+                        $("#hearTheMessage").hide()
+                    }
+                }
+            //}
         }
-    }
-
-    window.notifyUserIfNear = notifyUserIfNear;
-
-    // taken from https://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
-    function haversineDistance(coords1, coords2) {
-        function toRad(x) {
-            return x * Math.PI / 180;
-        }
-
-        var lon1 = coords1.lon;
-        var lat1 = coords1.lat;
-
-        var lon2 = coords2.lon;
-        var lat2 = coords2.lat;
-
-        var R = 6371; // km
-
-        var x1 = lat2 - lat1;
-        var dLat = toRad(x1);
-        var x2 = lon2 - lon1;
-        var dLon = toRad(x2)
-        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var d = R * c;
-
-        return d;
-    }
-
-    if (Cookies.get('seen_welcome_2021') != '1') {
         
-        $('.new-popup').show()
-        $('.new-popup button, .new-popup .quiz, .new-popup .ar').on('click', () => {
-            $('.new-popup').fadeOut(200);
-            Cookies.set('seen_welcome_2021', '1', { expires: 10000});
-        })
-        $('.new-popup .ar').on('click', ()=>openAR());
-    };
+    }
+}
+
+window.notifyUserIfNear = notifyUserIfNear;
+
+function notifyAudioMessage (aircraft) {
+    let audioMessage = audioMessages[aircraft.aircraftTypeId];
+    $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
+    $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
+    $('#audioMessageText').html(audioMessage.text);
 
 
-})()
+    $('#audioSRC').on('playing', function () {
+        $('#audioMessagePlayPause').attr('src', 'icons/pause.svg')
+    });
+    $('#audioSRC').on('pause', function () {
+        $('#audioMessagePlayPause').attr('src', 'icons/play.svg')
+    });
+    
+    $('#audioSRC').on('ended', function () {
+        $('#audioSRC')[0].currentTime = 0
+    });
+
+    if(audioMessage.audioSrc){
+        $("#audioSRC").attr("src",audioMessage.audioSrc);
+    }
+    else{
+        $("#audioSRC").attr("src",'audio/pilot-message.ogg');
+    }
+}
+
+
+
+
+// taken from https://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
+function haversineDistance(coords1, coords2) {
+    function toRad(x) {
+        return x * Math.PI / 180;
+    }
+
+    var lon1 = coords1.lon;
+    var lat1 = coords1.lat;
+
+    var lon2 = coords2.lon;
+    var lat2 = coords2.lat;
+
+    var R = 6371; // km
+
+    var x1 = lat2 - lat1;
+    var dLat = toRad(x1);
+    var x2 = lon2 - lon1;
+    var dLon = toRad(x2)
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+
+    return d;
+}
+
+if (Cookies.get('seen_welcome_2021') != '1') {
+    
+    // $('.new-popup').show()
+    $('.new-popup button, .new-popup .quiz, .new-popup .ar').on('click', () => {
+        // $('.new-popup').fadeOut(200);
+        Cookies.set('seen_welcome_2021', '1', { expires: 10000});
+    })
+    $('.new-popup .ar').on('click', ()=>openAR());
+};
+
+
 function isIOS() {
     return [
         'iPad Simulator',

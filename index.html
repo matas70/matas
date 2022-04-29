@@ -13,7 +13,7 @@
     <meta name="theme-color" content="#7bd1fc" />
     <meta name="og:title" content="מטס חיל האוויר">
     <meta name="og:description" content="בואו לצפות במטוסי חיל האוויר אצלכם בכף היד, לוחות זמנים, משחקים ועוד">
-    <meta name="og:image" content="https://matas.iaf.org.il/icons/fblogo.png">
+    <meta name="og:image" content="https://matas.iaf.org.il/icons/logo-74/logo74.png">
     <meta name="og:url" content="https://matas.iaf.org.il">
 
     <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
@@ -311,6 +311,9 @@
             <div id="noAircraftMessage">
                 המטס כבר חלף מעל נקודה זו
             </div>
+            <div id="viewPointMessage">
+                על מנת לראות איזה מטוסים יעברו מול נקודת התצפית כנס למפה בזמן המטס
+            </div>
         </div>
     </div>
 
@@ -484,32 +487,39 @@
 <!-- about popup -->
 <div id="aboutPopup" class="aboutPopup" style="display:none">
     <img id="aboutExitLogo" class="aboutExitLogo" src = "icons/aboutExitLogo.svg"/>
-    <div id="aboutHeaderSpacing" class="aboutHeaderSpacing"></div>
-    <div id="aboutLogoDiv">
-        <div id="aboutHeader" class="aboutHeader"></div>
-        <img id="aboutLogo" class="aboutLogo" style="top: -100px;width: 200px;" src="icons/logo-74/Big Logo.svg"/>
-    </div>
-    <div class="aboutSpacing"></div>
+   <div id="aboutHeaderSpacing" class="aboutHeaderSpacing"></div>
+   <div id="aboutLogoDiv">
+       <div id="aboutHeader" class="aboutHeader"></div>
+       <img id="aboutLogo" class="aboutLogo" style="top: -100px;width: 200px;" src="icons/logo-74/Big Logo.svg"/>
+   </div>
+   <div class="aboutSpacing"></div>
     <div id="aboutTitle" class="aboutTitle">
-        חג עצמאות שמח!
-    </div>
-    <div class="aboutSpacing"></div>
-    <div id="aboutBody" class="aboutBody">
-        האפליקציה פותחה ע"י <span style="font-weight: 600;">יחידת אופק 324</span>, היחידה הטכנולוגית המבצעית של
-        חיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות לכבוד חגיגות 74 שנה
-        למדינת ישראל
-    </div>
-    <div class="aboutSpacing"></div>
-    <img id="iafLogo"  src="icons/iaf-small.png" class="iafLogo"/>
-    <div class="aboutSpacing"></div>
-    <div class="bottomText">
-        לידיעתכם, ייתכנו שינוים בלוחות הזמנים
-    </div>
-    <div id="aboutBottomLink" class="aboutBottomLink">
-        <a id="facebookLink" href="https://www.facebook.com/IsraeliAirForce.HE/"><img src="icons/facebook.svg" class="aboutBottomImg"></a>
-        <a id="instagramLink" href="https://www.instagram.com/israeliairforce/"><img src="icons/instagram.svg" class="aboutBottomImg"></a>
-        <a id="twitterLink" href="https://twitter.com/iafsite"><img src="icons/twitter.svg" class="aboutBottomImg"></a>
-    </div>
+       חג עצמאות שמח!
+   </div> 
+   <div class="aboutSpacing"></div>
+   <div id="aboutBody" class="aboutBody">
+       האפליקציה פותחה ע"י <span style="font-weight: 600;">יחידת אופק 324</span>, היחידה הטכנולוגית המבצעית של
+       חיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת במהלך המטס החגיגי של יום העצמאות לכבוד חגיגות 74 שנה
+       למדינת ישראל
+   </div>
+   <div class="aboutSpacing"></div>
+   <div style="display: flex;
+               flex-flow: column;
+               align-items: center;
+               justify-content: center;
+               bottom: 0;
+               width: 100%;">
+       <img id="iafLogo"  src="icons/iaf-small.png" class="iafLogo"/>
+       <div class="aboutSpacing"></div>
+       <div class="bottomText">
+           לידיעתכם, ייתכנו שינוים בלוחות הזמנים
+       </div>
+       <div id="aboutBottomLink" class="aboutBottomLink">
+           <a id="facebookLink" href="https://www.facebook.com/IsraeliAirForce.HE/"><img src="icons/facebook.svg" class="aboutBottomImg"></a>
+           <a id="instagramLink" href="https://www.instagram.com/israeliairforce/"><img src="icons/instagram.svg" class="aboutBottomImg"></a>
+           <a id="twitterLink" href="https://twitter.com/iafsite"><img src="icons/twitter.svg" class="aboutBottomImg"></a>
+       </div>
+   </div>
 </div>
 
     <!-- incompatible browser popup -->
@@ -638,7 +648,7 @@
 
     </div>
 
-    <div class="new-popup">
+  <!--  <div class="new-popup">
         <div class="inner">
             <h2 class="title">אז מה חדש השנה?</h2>
             <ul>
@@ -647,7 +657,7 @@
                     <br>
                     אליכם לסלון
                     <br>
-                    <a onclick="openAR('adir')">כניסה לתלת מימד</a>
+                    <a onclick="openAR('barak')">כניסה לתלת מימד</a>
                 </li>
                 <li class='quiz'>
                     חושבים שאתם מכירים את חיל האוויר?
@@ -658,7 +668,7 @@
             <button>מגניב!</button>
         </div>
     </div>
-</div>
+</div> -->
 
 
 

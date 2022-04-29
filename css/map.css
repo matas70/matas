@@ -500,6 +500,9 @@ img.aircraftIcon {
     padding-top: 4px;
     padding-bottom: 4px;
     width: 35px;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    cursor: pointer;
 }
 
 .aircraftSchedule img.aircraftIcon {
@@ -515,6 +518,12 @@ div.aircraftName {
     /*width: 100%;*/
     float: right;
     flex: 1;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+
+div.aircraftName b {
+    -webkit-user-select: none;
 }
 
 div.time {
@@ -527,6 +536,8 @@ div.time {
     white-space: nowrap;
     direction: ltr;
     float: left;
+    -webkit-user-select: none;
+    cursor: pointer;
 }
 
 div.infoPopup {
@@ -549,6 +560,11 @@ div.infoPopup {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    animation: fadeIn 0.8s;
+}
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
 }
 #usdz-block{
     width: 270px;
@@ -730,6 +746,13 @@ div.locationInfoPopup {
     margin-left: 8px;
     margin-right: 8px;
     max-width: 400px;
+    /* padding-top: 18px;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 40%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center; */
 }
 
 .aboutBottom {
@@ -1163,6 +1186,7 @@ br.baseData {
     height: 71px;
     border-bottom: 1px #dadde3 solid;
     font-size: 17px;
+    -webkit-user-select: none;
 }
 
 .scheduleRow {
@@ -1650,6 +1674,17 @@ hr.aircraftLineSeparator.two {
 }
 
 #noAircraftMessage {
+    display: none;
+    font-size: 16px;
+    display: block;
+    color: #8e8e93;
+    font-weight: 500;
+    font-family: "Heebo-Regular";
+    text-align: center;
+    margin-top: 6px;
+}
+
+#viewPointMessage {
     display: none;
     font-size: 16px;
     display: block;

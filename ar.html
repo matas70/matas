@@ -14,7 +14,7 @@
     <meta name="theme-color" content="#7bd1fc" />
     <meta name="og:title" content="מטס חיל האוויר">
     <meta name="og:description" content="בואו לצפות במטוסי חיל האוויר אצלכם בכף היד, לוחות זמנים, משחקים ועוד">
-    <meta name="og:image" content="https://matas.iaf.org.il/icons/fblogo.png">
+    <meta name="og:image" content="https://matas.iaf.org.il/icons/logo-74/BigLogo.svg">
     <meta name="og:url" content="https://matas.iaf.org.il">
 
     <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
@@ -30,7 +30,7 @@
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
+ 		function gtag() { dataLayer.push(arguments); }
 		gtag('js', new Date());
 
 		gtag('config', 'UA-98360124-1');
@@ -50,8 +50,9 @@
 
 <body>
 	<div class="full-screen-popup">
-		<p>בשביל לחוות את החוויה במלואה יש לאשר כניסה למסך מלא</p>
-		<button>הכנס אותי</button>
+		<h1>ברוכים הבאים לתצוגת תלת מימד</h1>
+		<p>האתר יעבור למצב מסך-מלא</p>
+		<button>המשך</button>
 	</div>
 	<div class="dim-background">
 
@@ -179,8 +180,8 @@
 				<div id="help-supported-ar-conteiner">
 					<div id="help-supported-ar">
 						<div id="supported-ar-conteiner">
-							<p class="title">חיל האוויר אצלכם בסלון</p>
-							<p class="description">לחצו על המסך כדי למקם מטוס במרחב</p>
+							<p class="title">מצב מציאות רבודה</p>
+							<p class="description">יש ללחוץ על המסך כדי לצפות בכלי טיס וירטואלי בסביבתכם</p>
 							<img src="./assets/pictureInYourLivingRoom.png" alt="">
 							<div class="conteiner-bottom">
 								<button>הבנתי</button>
@@ -537,15 +538,6 @@
 						})
 					}, 100);
 				}
-				
-				setTimeout(() => {
-					
-					window.scrollIntoView(document.getElementById('f35'), {
-						behavior: 'smooth',
-						block: 'center',
-						inline: 'center'
-					});
-				}, 20);
 
 				document.getElementById('controls').addEventListener('beforexrselect', ev => ev.preventDefault());
 				document.getElementById('menus').addEventListener('beforexrselect', ev => ev.preventDefault());
@@ -637,7 +629,6 @@
 
 				
 				if (isSupported) {
-					localStorage.setItem("finishedLoadingSupported", true);
 					
 					const arButton = ARButton.createButton(renderer, {
 						
@@ -655,7 +646,7 @@
 						}
 					});
 					
-					document.querySelector('#change-ar-toggle #toggle').appendChild(arButton);
+					document.querySelector('#change-ar-toggle').appendChild(arButton);
 					//try on removing the start page of the ar 
 
 					//function eventFire(el, etype){
@@ -776,13 +767,11 @@
 					document.getElementById('blob').classList.add('animateScale');					
 					setTimeout(() => {
 						let targetUrl = document.location.href.substr(0,document.location.href.lastIndexOf("/")+1);
-						window.open(targetUrl);
-						/*
 						if (document.referrer == targetUrl) 
 							window.close();
 						else 
 							window.location.href = targetUrl; 
-							*/
+					
 					 } , 1000);
 
 					 // additional timeout in case the previous timeout didn't close the app 
@@ -842,8 +831,32 @@
 					}
 				})
 				*/
-        
-				changeAircraft(AIRCRAFTS_META_DATA[5]);
+				let chosenAircraftIndex = findChosenAircraftIndex(localStorage.getItem('selectedAircraft'));
+				let chosenAircraftObj = AIRCRAFTS_META_DATA[chosenAircraftIndex];
+				if(chosenAircraftIndex === -1){
+					changeAircraft(AIRCRAFTS_META_DATA[5]);
+					setTimeout(() => {
+					
+					window.scrollIntoView(document.getElementById('f35'), {
+						behavior: 'smooth',
+						block: 'center',
+						inline: 'center'
+					});
+				}, 20);
+				}else{
+					changeAircraft(chosenAircraftObj);
+					setTimeout(() => {
+					
+					window.scrollIntoView(document.getElementById(chosenAircraftObj.id), {
+						behavior: 'smooth',
+						block: 'center',
+						inline: 'center'
+					});
+				}, 20);
+				}
+
+				
+
 				loadLight();
 				loadPainter();
 				loadController();
@@ -852,6 +865,9 @@
 
 				window.addEventListener('resize', onWindowResize);
 				
+			}
+			function findChosenAircraftIndex(aircraft){
+				return AIRCRAFTS_META_DATA.indexOf(AIRCRAFTS_META_DATA.find(element => element.id === aircraft));
 			}
 			function createVidBackgrounds() {
 				const canvas = document.createElement('canvas')
@@ -1068,7 +1084,7 @@
 						});
 				}
 			}
-
+			let countLoad = 0;
 			function changeAircraft(selectedAircraft) {
 				setTimeout(() => {
 					AIRCRAFTS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
@@ -1078,10 +1094,13 @@
 				}, 10)
 				setTimeout(()=>{
 					document.querySelector('.loading-ar').style.display = 'none';
-					if(currentAircraft === "f35" && isSupported){
+					if(countLoad === 0 && isSupported){
+						setTimeout(()=>{
 						document.querySelector('.full-screen-popup').style.display = 'flex';
 						document.querySelector('.dim-background').style.display = 'block';
+					}, 500);
 					}
+					countLoad = 1;
 				}, 3000)
 				
 			}
@@ -1090,7 +1109,7 @@
 				document.getElementById(selectedTrails.id).classList.add("selected");
 				loadTrails(selectedTrails);
 			}
-
+			
 			function loadLight() {
 
 				const HemisphereLight = new THREE.HemisphereLight(0x999999, 0xbbbbff, 0.6);
@@ -1190,11 +1209,15 @@
 				scene.background = background;
 				renderer.toneMappingExposure = params.exposure;
 			}
-
+			let currentAircraftScale;
 			function renderAircraft() {
 				if(!environmentToggleClick){
 					renderEnvironment();
-					aircraft?.position.set(0, 0, 0)
+					if (aircraft) { 
+						aircraft?.position.set(0, 0, 0);
+					    aircraft?.rotation.set(0, 0, 0);
+				    }
+					
 				}else{
 					scene.background = null;
 					handleController(controller);
@@ -1279,10 +1302,8 @@
 			function ARSupportedsInfopopup(){
 
 				helpSupportedArPopup.style.visibility ='visible';
+				helpSupportedArPopup.style.animation = 'fadeIn 1.4s';
 				let InfoPopupshowcheckbox = document.querySelector('.show-hid-check-box input').checked;
-				document.querySelector('#help-supported-ar .title').innerText = "חיל האוויר אצלכם בסלון";
-				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '0px';
-				document.querySelector('#help-supported-ar .conteiner-bottom .show-hid-check-box').style.display = 'flex';
 				if(!InfoPopupshowcheckbox){
 					helpSupportedArPopup.style.display = 'block';
 				    document.querySelector('#supported-ar-conteiner .conteiner-bottom button').addEventListener('click', ()=>{
@@ -1299,18 +1320,20 @@
 			    setTimeout(()=>{document.querySelector('.loading-ar').style.display = 'none';}, 3500);
 			}
 			
-			document.querySelector("#change-ar-toggle #toggle").addEventListener('click', () =>{
+			document.querySelector("#change-ar-toggle").addEventListener('click', () =>{
 				environmentToggleClick = !environmentToggleClick;
 				document.getElementById("toggle").style.transition = 'all 0.5s';
 				if(environmentToggleClick){
+					document.querySelector('#supported-menu #help').style.visibility = "visible";
 					executeLoader();
-					ARSupportedsInfopopup();
+					setTimeout(()=>{ARSupportedsInfopopup();}, 1000);
 					document.getElementById("toggle").style.marginLeft = '61px';
 					document.getElementById('camera-icon').style.fill = 'white';
 					document.getElementById('dynamic-icon-part-2').style.fill = 'rgb(170 170 170)';
 					document.getElementById('dynamic-icon-part').style.stroke = 'rgb(170 170 170)';
 
 				}else{
+					document.querySelector('#supported-menu #help').style.visibility = "hidden";
 					executeLoader();
 					document.getElementById("toggle").style.marginLeft = '2px';
 					document.getElementById('camera-icon').style.fill = 'rgb(170 170 170)';
@@ -1322,9 +1345,6 @@
 			document.getElementById("help").addEventListener('click', () =>{
 				helpSupportedArPopup.style.visibility ='visible';
 				document.getElementById('help-supported-ar').style.display = 'block';
-				document.querySelector('#help-supported-ar .title').innerText = "! עזרה"
-				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '20px';
-				document.querySelector('#help-supported-ar .conteiner-bottom .show-hid-check-box').style.display = 'none';
 				document.querySelector('.conteiner-bottom button').addEventListener('click', ()=>{
 					document.getElementById('help-supported-ar').style.display = 'none';
 				});
