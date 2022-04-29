@@ -1805,7 +1805,7 @@ function initSearchBar() {
 
         // Filtering relevant locations
         citiesResults = sortedLocations.filter(location => {
-            return (!location.hidden || isNotHidden(location)) && ( (location.type !== "base" && location.type !== "hospital" && !location.pointName.includes('מוזיאון חיל האוויר') && !location.pointName.includes('בסיס') &&  !location.pointName.includes('תצפית למטס')) || location.pointName.includes('בסיס חצור') ) && location.pointName.includes(searchInput)
+            return (!location.hidden || isNotHidden(location)) && ( (location.type !== "base" && location.type !== "hospital" && !location.pointName.includes('מוזיאון') && !location.pointName.includes('בסיס') &&  !location.pointName.includes('תצפית למטס')) || location.pointName.includes('בסיס חצור') ) && location.pointName.includes(searchInput)
         });
 
         if (citiesResults.length > 0) {
