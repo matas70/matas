@@ -17,6 +17,18 @@ function initPressPage() {
     }
 }
 
+function isNotHidden (location) {
+    let isExists = false;
+    routes?.forEach(route => {
+        route.points?.forEach(point => {
+            if(location.pointId === point.pointId)
+                if(!point.hidden)
+                    isExists = true;
+        })
+    });
+    return isExists;
+}
+
 function createCategoryTables(category) {
     let categoryLocations = locations.filter((location) => {
         return location.type === category;
@@ -63,7 +75,7 @@ function createCityTables() {
     });
     let cityTables = "";
     cities.forEach((city) => {
-        if (city.aircrafts.length > 0 && !city.hidden) {
+        if (city.aircrafts.length > 0 && (!city.hidden || isNotHidden(city))) {
             cityTables += createCityTable(city);
         }
     });
