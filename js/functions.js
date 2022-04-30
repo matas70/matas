@@ -132,6 +132,10 @@ function loadOpenBasesLocation(callback) {
     });
 }
 
+function firstContainintRoute(location) {
+    return routes.find(route => route.points.find(point => location.pointId === point.pointId));
+}
+
 loadOpenBasesLocation();
 
 //create base category in navbar 
@@ -1586,7 +1590,7 @@ function loadMapApi() {
     $.ajaxSetup({cache: false});
 }
 
-function isNotHidden (location) {
+function isAppearAtLeastInOneRoute (location) {
     let isExists = false;
     routes?.forEach(route => {
         route.points?.forEach(point => {
@@ -1701,9 +1705,11 @@ function displaySearchView() {
 
         // add other locations category
         searchViewHtml += createCategoryRow({category: "יישובים"}, true);
-        sortedLocations.forEach(function (location) {
-            if (((!location.hidden &&
-                !!routes.find(route => route.points.find(point => location.pointId === point.pointId)) )|| isNotHidden(location)) &&
+        sortedLocations
+        .filter(location => !location.hidden || isAppearAtLeastInOneRoute(location))
+        .filter(firstContainintRoute) // has containing route
+        .forEach(function (location) {
+            if (() &&
                 (location.type !== "base" && location.type !== "hospital")) {
                     searchViewHtml += createLocationRow(location, false, true);
             }
@@ -1818,7 +1824,7 @@ function initSearchBar() {
 
         // Filtering relevant locations
         citiesResults = sortedLocations
-            .filter(location => !location.hidden || isNotHidden(location))
+            .filter(location => !location.hidden || isAppearAtLeastInOneRoute(location))
             .filter(location => location.type !== "base" && location.type !== "hospital")
             .filter(location => location.pointName.includes(searchInput));
 
@@ -2190,9 +2196,8 @@ function fillMenu() {
     // add cities
     locationsViewHtml += createCategoryRow({category: "יישובים"}, true);
     sortedLocations
-    .filter(location => isNotHidden(location)) // not hidden
-    .filter(location => !location.hidden) // not hidden
-    .filter(location => routes.find(route => route.points.find(point => location.pointId === point.pointId))) // has route
+    .filter(location => isAppearAtLeastInOneRoute(location) || !location.hidden) // not hidden
+    .filter(firstContainintRoute) // has route
     .filter(location => location.type !== 'base') // not base
     .filter(location => location.type !== 'hospital') // not a viewpoint
     .forEach(function (location) {
