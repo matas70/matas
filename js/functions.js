@@ -565,7 +565,10 @@ function updateLocations(route) {
                 type: oldPoint.type,
                 E: oldPoint.E,
                 N: oldPoint.N,
-                hideAircrafts: oldPoint.hideAircrafts,
+                //hideAircrafts: oldPoint.hideAircrafts,
+                pointLocation: oldPoint.pointLocation,
+                wazeLink: oldPoint.wazeLink,
+                pointName: oldPoint.pointName
             }
             point = {
                 ...point,
