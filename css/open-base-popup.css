@@ -443,3 +443,9 @@ div.aircraft-show div.tableRow  div.time{
         width: auto;
     }
 }
+
+div.tableRow div.inline-aircraft-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

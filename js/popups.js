@@ -161,7 +161,6 @@ function showBaseLoactionPopup(pointId) {
     const navBarHeaderElement = document.getElementById(`listHeader`);
     const mapElement = document.getElementById(`map`);
     let airplaneShowsElement = document.getElementById('airplanes-show');
-    let html;
 
     if( fullWidth <= 600 ) {
         basePopUpElement.animate({
@@ -185,6 +184,10 @@ function showBaseLoactionPopup(pointId) {
     document.getElementById('baseArrivalTime').innerHTML = point.baseArrivalTime;
     document.getElementById('baseArrivalExplanation').innerHTML = point.baseArrivalExplanation;
 
+    gtag('event', 'open base', {
+        'event_category': 'show open base',
+        'event_label': point.baseName
+    });
 
     let mapButton = (point.baseMapPath !== '')?`<a href=${point.baseMapPath} target="_blank"><button class="base-map">למפת התערוכה</button></a>`:'';
 
@@ -881,7 +884,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
         { name: "peten",hebName: "שרף" , isUsdz: false}
     ];    
     
-    var aerobaticIcon = "<div/>";
+    var aerobaticIcon = "<div class=\"inline-aircraft-info\" />";
     var classname = "";
     let currAircraftName = aircraftUsdzObjData.find(obj => obj.hebName === name);
     if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון'&& currAircraftName !== undefined) {

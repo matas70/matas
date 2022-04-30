@@ -2,6 +2,10 @@
 window.gm_authFailure = function () {
     mapFail = true;
     $("#closeIcon").hide();
+    gtag('event', 'gmap_failture', {
+        'event_category': 'google maps failture',
+        'event_label': 'gm_authFailture'
+    });
 };
 
 var mapFail = false;
@@ -835,11 +839,24 @@ function showCurrentLocation() {
             //         updateCurrentHeading(heading);
             //     }
             // });
+            
+            gtag('event', 'show_curr_location', {
+                'event_category': 'show_curr_location',
+                'event_label': 'success - show point ' + findClosestPoint(currentPosition)
+            });
         }, function () {
             // no location available
+            gtag('event', 'show_curr_location', {
+                'event_category': 'show_curr_location',
+                'event_label': 'failed - no permission'
+            });
         }, {enableHighAccuracy: true});
     } else {
         // Browser doesn't support Geolocation
+        gtag('event', 'show_curr_location', {
+            'event_category': 'show_curr_location',
+            'event_label': 'failed - not supported'
+        });
     }
 }
 
@@ -1224,6 +1241,11 @@ cur_user_agent.setUA(navigator.userAgent);
 
 function openAR(aircraft) {
     if(isIOS()){
+
+        gtag('event', 'showAircraftIOS', {
+            'event_category': 'showAircraftIOS',
+            'event_label': localStorage.getItem('selectedAircraftIsUsdz') || 'default aircraft'
+        });
 
         localStorage.setItem('selectedAircraftName', aircraft.name);
         localStorage.setItem('selectedAircraftIsUsdz', aircraft.isUsdz);
@@ -1773,6 +1795,17 @@ function hideSearchView() {
     }
 }
 
+var search_GA_report_timeout;
+function search_GA_report(needle) {
+    if(search_GA_report_timeout){ clearTimeout(search_GA_report_timeout);}
+    search_GA_report_timeout = setTimeout(function() {
+        gtag('event', 'search', {
+            'event_category': 'search',
+            'event_label': needle
+        });
+    }, 500); // wait 0.5 seconds before submitting the search term to google analitycs
+}
+
 function initSearchBar() {
     // Search bar code
     $(".search-input").focus(function () {
@@ -1786,6 +1819,9 @@ function initSearchBar() {
         if (searchInput.length > 0) {
             // Display relevant search view
             $("#search-clear-button").show();
+            
+            search_GA_report(searchInput)
+            
         }
 
         var resultsHtml = "";
@@ -1883,10 +1919,18 @@ function initSearchBar() {
         $(".search-input").focus();
         $("#search-clear-button").hide();
         $(".search-input").keyup();
+        gtag('event', 'search', {
+            'event_category': 'search clear',
+            'event_label': 'search clear'
+        });
     });
 
     $("#search-back-button").click(function () {
         hideSearchView();
+        gtag('event', 'search', {
+            'event_category': 'search clear',
+            'event_label': 'search back (hide)'
+        });
     });
 }
 
@@ -2525,6 +2569,10 @@ window.notifyUserIfNear = notifyUserIfNear;
 
 function notifyAudioMessage (aircraft) {
     let audioMessage = audioMessages[aircraft.aircraftTypeId];
+    gtag('event', 'audioMessage', {
+        'event_category': 'audioMessage',
+        'event_label': 'airfract ' + aircraft.name
+    });
     $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
     $("#voiceMessageImg").attr('src',"icons/voiceMessage/dictation_glyph.png");
     $('#audioMessageText').html(audioMessage.text);
