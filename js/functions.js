@@ -1708,12 +1708,11 @@ function displaySearchView() {
         sortedLocations
         .filter(location => !location.hidden || isAppearAtLeastInOneRoute(location))
         .filter(firstContainintRoute) // has containing route
+        .filter(location => location.type !== "base" && location.type !== "hospital")
         .forEach(function (location) {
-            if (() &&
-                (location.type !== "base" && location.type !== "hospital")) {
                     searchViewHtml += createLocationRow(location, false, true);
-            }
-        }, this);
+            
+        });
 
         // add aircrafts category
         searchViewHtml += createCategoryRow({category: "כלי טיס"}, true);
