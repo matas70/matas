@@ -1782,7 +1782,7 @@ function search_GA_report(needle) {
             'event_category': 'search',
             'event_label': needle
         });
-    }, 1500); // wait 1.5 seconds before submitting the search term to google analitycs
+    }, 500); // wait 0.5 seconds before submitting the search term to google analitycs
 }
 
 function initSearchBar() {
