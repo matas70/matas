@@ -185,6 +185,10 @@ function showBaseLoactionPopup(pointId) {
     document.getElementById('baseArrivalTime').innerHTML = point.baseArrivalTime;
     document.getElementById('baseArrivalExplanation').innerHTML = point.baseArrivalExplanation;
 
+    gtag('event', 'open base', {
+        'event_category': 'show open base',
+        'event_label': point.baseName
+    });
 
     let mapButton = (point.baseMapPath !== '')?`<a href=${point.baseMapPath} target="_blank"><button class="base-map">למפת התערוכה</button></a>`:'';
 
