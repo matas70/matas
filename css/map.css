@@ -530,7 +530,6 @@ div.time {
     display: table-cell;
     padding-left: 24px;
     padding-right: 10px;
-    margin-top: 20px;
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
@@ -538,6 +537,11 @@ div.time {
     float: left;
     -webkit-user-select: none;
     cursor: pointer;
+    font-family: Heebo-Regular;
+    font-size: 17px;
+    color: #37474F;
+    letter-spacing: 0;
+    font-weight: 400;
 }
 
 div.infoPopup {
