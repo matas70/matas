@@ -206,6 +206,11 @@
 				<div id="share">
 					<script>
 						document.getElementById("share").addEventListener('click', ()=>{
+							      gtag('event', 'ar_share', {
+								'event_category': 'share',
+								 'event_label': 'ar shared clicked ' + navigator.share ? 'working' : 'not working',
+								'value': correctCount
+							      });
 							if(navigator.share){
 								navigator.share({
 								title: 'matas.iaf ar',
