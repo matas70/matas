@@ -557,7 +557,7 @@ function updateLocations(route) {
              * other values will be overridden by the latest route.
              */
             const attributesToKeep = {
-                hidden: oldPoint.hidden,
+                // hidden: oldPoint.hidden,
                 type: oldPoint.type,
                 E: oldPoint.E,
                 N: oldPoint.N,
