@@ -1776,7 +1776,7 @@ function hideSearchView() {
 
 var search_GA_report_timeout;
 function search_GA_report(needle) {
-    if(search_GA_report_timeout){ clearTimeout(timeout);}
+    if(search_GA_report_timeout){ clearTimeout(search_GA_report_timeout);}
     search_GA_report_timeout = setTimeout(function() {
         gtag('event', 'search', {
             'event_category': 'search',
