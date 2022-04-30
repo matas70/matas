@@ -1184,7 +1184,7 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     selectedLocationMarkerIcon = markerIcon;
     mapAPI.panTo(map, location);
     
-    if (locations[pointId].pointName.includes('בסיס')) {
+    if (locations[pointId].pointName.includes('בסיס') && !locations[pointId].pointName.includes('חצור')) {
         showBaseLoactionPopup(pointId)
     } else if (locations[pointId].pointName.includes('מוזיאון חיל האוויר')) {
         showBaseLoactionPopup(pointId)
