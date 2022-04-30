@@ -551,12 +551,27 @@ function updateLocationsMap(aircrafts) {
 
 function updateLocations(route) {
     route.points.forEach(function (point) {
-       // if(!locations[point.pointId]){
-            locations[point.pointId] = point;
-            locations[point.pointId].aircrafts = [];
-            locations[point.pointId].hideAircrafts = point.hideAircrafts;
-            locations[point.pointId].color = route.color;
-       // }
+        const oldPoint = locations[point.pointId]
+        if(oldPoint) {
+            /* for these attributes, always use the 'points.json' as single source of truth.
+             * other values will be overridden by the latest route.
+             */
+            const attributesToKeep = {
+                hidden: oldPoint.hidden,
+                type: oldPoint.type,
+                E: oldPoint.E,
+                N: oldPoint.N,
+                hideAircrafts: oldPoint.hideAircrafts,
+            }
+            point = {
+                ...point,
+                ...attributesToKeep
+            }
+        }
+        locations[point.pointId] = point;
+        locations[point.pointId].aircrafts = [];
+        locations[point.pointId].hideAircrafts = point.hideAircrafts;
+        locations[point.pointId].color = route.color;
     }, this);
 }
 
