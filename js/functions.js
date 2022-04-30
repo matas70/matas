@@ -1593,7 +1593,7 @@ function loadMapApi() {
     $.ajaxSetup({cache: false});
 }
 
-function isAppearAtLeastInOneRoute (location) {
+function isNotHiddenAtLeastInOneRoute (location) {
     let isExists = false;
     routes?.forEach(route => {
         route.points?.forEach(point => {
@@ -1709,7 +1709,7 @@ function displaySearchView() {
         // add other locations category
         searchViewHtml += createCategoryRow({category: "יישובים"}, true);
         sortedLocations
-        .filter(location => !location.hidden || isAppearAtLeastInOneRoute(location))
+        .filter(location => !location.hidden || isNotHiddenAtLeastInOneRoute(location))
         .filter(firstContainintRoute) // has containing route
         .filter(location => location.type !== "base" && location.type !== "hospital")
         .forEach(function (location) {
@@ -1826,7 +1826,7 @@ function initSearchBar() {
 
         // Filtering relevant locations
         citiesResults = sortedLocations
-            .filter(location => !location.hidden || isAppearAtLeastInOneRoute(location))
+            .filter(location => !location.hidden || isNotHiddenAtLeastInOneRoute(location))
             .filter(location => location.type !== "base" && location.type !== "hospital")
             .filter(location => location.pointName.includes(searchInput));
 
@@ -2198,7 +2198,7 @@ function fillMenu() {
     // add cities
     locationsViewHtml += createCategoryRow({category: "יישובים"}, true);
     sortedLocations
-    .filter(location => isAppearAtLeastInOneRoute(location) || !location.hidden) // not hidden
+    .filter(location => isNotHiddenAtLeastInOneRoute(location) || !location.hidden) // not hidden
     .filter(firstContainintRoute) // has route
     .filter(location => location.type !== 'base') // not base
     .filter(location => location.type !== 'hospital') // not a viewpoint
