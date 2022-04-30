@@ -475,9 +475,9 @@
   // start the quiz
 
   $(".quiz.button, #quiz .finished .again, .new-popup .quiz").on('click', function () {
-
     gtag("event", "quiz_onParticipation", {
-      event_category: "quiz_interaction",
+      'event_category': "quiz_interaction",
+      'event_label': 'quiz start'
     });
 
     if (isMenuOpen) toggleListView();
@@ -535,14 +535,17 @@
       marked.classList.add('correct');
       $('#confetti').show()
       correctCount++
-      gtag('event', 'quiz_finish', {
-        'event_category': 'quiz_interaction',
-         'event_label': 'quiz_finish ('+correctCount+' correct)',
-        'value': correctCount
+      gtag('event', 'quiz', {
+        'event_category': 'quiz correct answer',
+         'event_label': question.title
       });
     } else {
       marked.classList.add('wrong');
       $('#quiz .question .option.' + question.correct).addClass('correct')
+      gtag('event', 'quiz', {
+        'event_category': 'quiz wrong answer',
+         'event_label': question.title
+      });
     }
     if (count < 5) {
       setTimeout(showNextQuestion, 3000)
@@ -561,6 +564,11 @@
           $('#quiz .finished').removeClass('almost-all-right')
         }
         $('#quiz .finished .correct.count').text(correctCount)
+        gtag('event', 'quiz_finish', {
+          'event_category': 'quiz_interaction',
+           'event_label': 'quiz_finish ('+correctCount+' correct)',
+          'value': correctCount
+        });
         count = correctCount = 0;
       }, 3000);
     }
@@ -573,13 +581,21 @@
   $('#quiz .share').on('click', async () => {
     try {
       var res = await navigator.share({
-        // title: `גם אני שיחקתי במטס חיל האוויר ליום העצמאות!`,
-        // text: 'גם אני שיחקתי במטס חיל האוויר ליום העצמאות! חג עצמאות שמח, ובואו להתחרות איתי!',
+        title: `גם אני שיחקתי במטס חיל האוויר ליום העצמאות!`,
+        text: 'גם אני שיחקתי במטס חיל האוויר ליום העצמאות! חג עצמאות שמח, ובואו להתחרות איתי!',
         url: 'https://www.matas.iaf.org.il/'
       })
       console.log(res)
+      gtag('event', 'quiz', {
+        'event_category': 'quiz share',
+         'event_label': 'shared successfully'
+      });
     } catch (err) {
       console.log('cant share', err)
+      gtag('event', 'quiz', {
+        'event_category': 'quiz share',
+         'event_label': 'share failed'
+      });
     }
   });
 
