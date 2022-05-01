@@ -14,7 +14,7 @@
     <meta name="theme-color" content="#7bd1fc" />
     <meta name="og:title" content="מטס חיל האוויר">
     <meta name="og:description" content="בואו לצפות במטוסי חיל האוויר אצלכם בכף היד, לוחות זמנים, משחקים ועוד">
-    <meta name="og:image" content="https://matas.iaf.org.il/icons/fblogo.png">
+    <meta name="og:image" content="https://matas.iaf.org.il/icons/logo-74/BigLogo.svg">
     <meta name="og:url" content="https://matas.iaf.org.il">
 
     <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
@@ -30,7 +30,7 @@
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
+ 		function gtag() { dataLayer.push(arguments); }
 		gtag('js', new Date());
 
 		gtag('config', 'UA-98360124-1');
@@ -50,8 +50,9 @@
 
 <body>
 	<div class="full-screen-popup">
-		<p>בשביל לחוות את החוויה במלואה יש לאשר כניסה למסך מלא</p>
-		<button>הכנס אותי</button>
+		<h1>ברוכים הבאים לתצוגת תלת מימד</h1>
+		<p>האתר יעבור למצב מסך-מלא</p>
+		<button>המשך</button>
 	</div>
 	<div class="dim-background">
 
@@ -179,8 +180,8 @@
 				<div id="help-supported-ar-conteiner">
 					<div id="help-supported-ar">
 						<div id="supported-ar-conteiner">
-							<p class="title">חיל האוויר אצלכם בסלון</p>
-							<p class="description">לחצו על המסך כדי למקם מטוס במרחב</p>
+							<p class="title">מצב מציאות רבודה</p>
+							<p class="description">יש ללחוץ על המסך כדי לצפות בכלי טיס וירטואלי בסביבתכם</p>
 							<img src="./assets/pictureInYourLivingRoom.png" alt="">
 							<div class="conteiner-bottom">
 								<button>הבנתי</button>
@@ -205,6 +206,10 @@
 				<div id="share">
 					<script>
 						document.getElementById("share").addEventListener('click', ()=>{
+							      gtag('event', 'ar_share', {
+								'event_category': 'share',
+								 'event_label': 'ar shared clicked ' + navigator.share ? 'working' : 'not working'
+							      });
 							if(navigator.share){
 								navigator.share({
 								title: 'matas.iaf ar',
@@ -537,15 +542,6 @@
 						})
 					}, 100);
 				}
-				
-				setTimeout(() => {
-					
-					window.scrollIntoView(document.getElementById('f35'), {
-						behavior: 'smooth',
-						block: 'center',
-						inline: 'center'
-					});
-				}, 20);
 
 				document.getElementById('controls').addEventListener('beforexrselect', ev => ev.preventDefault());
 				document.getElementById('menus').addEventListener('beforexrselect', ev => ev.preventDefault());
@@ -637,7 +633,6 @@
 
 				
 				if (isSupported) {
-					localStorage.setItem("finishedLoadingSupported", true);
 					
 					const arButton = ARButton.createButton(renderer, {
 						
@@ -670,8 +665,8 @@
 					//setTimeout(() => {eventFire(document.getElementById('ARButton'), 'click');}, 2000);
 				}
 				const shareData = {
-					// title: 'כיף לצפות במטוסי חיל האוויר - אצלי בטלפון, בתלת מימד!',
-					// text: 'כמה מגניב! באפליקצית מטס יום העצמאות ה74 אני רואה את כל המטוסים בתלת מימד. בואו לנסות גם',
+					title: 'כיף לצפות במטוסי חיל האוויר - אצלי בטלפון, בתלת מימד!',
+					text: 'כמה מגניב! באפליקצית מטס יום העצמאות ה74 אני רואה את כל המטוסים בתלת מימד. בואו לנסות גם',
 					url: 'https://matas.iaf.org.il',
 				}
 
@@ -687,8 +682,16 @@
 					try {
 						await navigator.share(shareData);
 						console.log('המשתמש שיתף בהצלחה את המטס');
+					      gtag('event', 'ar_share', {
+						'event_category': 'share',
+						 'event_label': 'ar shared successfully'
+					      });
 					} catch (err) {
 						console.log('נסיון שיתוף נכשל', err);
+					      gtag('event', 'ar_share', {
+						'event_category': 'share',
+						 'event_label': 'ar share failed'
+					      });
 					}
 				});
 				var streaming = false;
@@ -773,6 +776,10 @@
 				}
 
 				document.getElementById("button-close").addEventListener("click", (e) => {
+				      gtag('event', 'ar_close_btb', {
+					'event_category': 'ar_close',
+					 'event_label': 'ar closed'
+				      });
 					document.getElementById('blob').classList.add('animateScale');					
 					setTimeout(() => {
 						let targetUrl = document.location.href.substr(0,document.location.href.lastIndexOf("/")+1);
@@ -840,8 +847,32 @@
 					}
 				})
 				*/
-        
-				changeAircraft(AIRCRAFTS_META_DATA[5]);
+				let chosenAircraftIndex = findChosenAircraftIndex(localStorage.getItem('selectedAircraft'));
+				let chosenAircraftObj = AIRCRAFTS_META_DATA[chosenAircraftIndex];
+				if(chosenAircraftIndex === -1){
+					changeAircraft(AIRCRAFTS_META_DATA[5]);
+					setTimeout(() => {
+					
+					window.scrollIntoView(document.getElementById('f35'), {
+						behavior: 'smooth',
+						block: 'center',
+						inline: 'center'
+					});
+				}, 20);
+				}else{
+					changeAircraft(chosenAircraftObj);
+					setTimeout(() => {
+					
+					window.scrollIntoView(document.getElementById(chosenAircraftObj.id), {
+						behavior: 'smooth',
+						block: 'center',
+						inline: 'center'
+					});
+				}, 20);
+				}
+
+				
+
 				loadLight();
 				loadPainter();
 				loadController();
@@ -850,6 +881,9 @@
 
 				window.addEventListener('resize', onWindowResize);
 				
+			}
+			function findChosenAircraftIndex(aircraft){
+				return AIRCRAFTS_META_DATA.indexOf(AIRCRAFTS_META_DATA.find(element => element.id === aircraft));
 			}
 			function createVidBackgrounds() {
 				const canvas = document.createElement('canvas')
@@ -1068,6 +1102,10 @@
 			}
 			let countLoad = 0;
 			function changeAircraft(selectedAircraft) {
+				gtag('event', 'ar_select_aircraft', {
+				  'event_category': 'ar_select_aircraft',
+				  'event_label': selectedAircraft.name
+				});
 				setTimeout(() => {
 					AIRCRAFTS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
 					document.getElementById(selectedAircraft.id).classList.add("selected");
@@ -1264,6 +1302,9 @@
 			let environmentToggleClick;
 
 			function openFullscreen(elem) {
+				gtag('event', 'ar_fullscreen', {
+				  'event_category': 'ar_fullscreen'
+				});
 				if (elem.requestFullscreen) {
 				  elem.requestFullscreen();
 				} else if (elem.webkitRequestFullscreen) { /* Safari */
@@ -1286,9 +1327,6 @@
 				helpSupportedArPopup.style.visibility ='visible';
 				helpSupportedArPopup.style.animation = 'fadeIn 1.4s';
 				let InfoPopupshowcheckbox = document.querySelector('.show-hid-check-box input').checked;
-				document.querySelector('#help-supported-ar .title').innerText = "חיל האוויר אצלכם בסלון";
-				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '0px';
-				document.querySelector('#help-supported-ar .conteiner-bottom .show-hid-check-box').style.display = 'flex';
 				if(!InfoPopupshowcheckbox){
 					helpSupportedArPopup.style.display = 'block';
 				    document.querySelector('#supported-ar-conteiner .conteiner-bottom button').addEventListener('click', ()=>{
@@ -1307,8 +1345,13 @@
 			
 			document.querySelector("#change-ar-toggle").addEventListener('click', () =>{
 				environmentToggleClick = !environmentToggleClick;
+				gtag('event', 'ar_toggle', {
+				  'event_category': 'ar_toggle',
+				  'event_label': environmentToggleClick ? 'on' : 'off'
+				});
 				document.getElementById("toggle").style.transition = 'all 0.5s';
 				if(environmentToggleClick){
+					document.querySelector('#supported-menu #help').style.visibility = "visible";
 					executeLoader();
 					setTimeout(()=>{ARSupportedsInfopopup();}, 1000);
 					document.getElementById("toggle").style.marginLeft = '61px';
@@ -1317,6 +1360,7 @@
 					document.getElementById('dynamic-icon-part').style.stroke = 'rgb(170 170 170)';
 
 				}else{
+					document.querySelector('#supported-menu #help').style.visibility = "hidden";
 					executeLoader();
 					document.getElementById("toggle").style.marginLeft = '2px';
 					document.getElementById('camera-icon').style.fill = 'rgb(170 170 170)';
@@ -1326,11 +1370,12 @@
 				}
 			})
 			document.getElementById("help").addEventListener('click', () =>{
+				gtag('event', 'ar_help', {
+				  'event_category': 'ar_help',
+				  'event_label': 'open'
+				});
 				helpSupportedArPopup.style.visibility ='visible';
 				document.getElementById('help-supported-ar').style.display = 'block';
-				document.querySelector('#help-supported-ar .title').innerText = "! עזרה"
-				document.querySelector('#help-supported-ar .conteiner-bottom button').style.marginTop = '20px';
-				document.querySelector('#help-supported-ar .conteiner-bottom .show-hid-check-box').style.display = 'none';
 				document.querySelector('.conteiner-bottom button').addEventListener('click', ()=>{
 					document.getElementById('help-supported-ar').style.display = 'none';
 				});
@@ -1342,6 +1387,10 @@
 				setTimeout(() => {
 					document.getElementById('url-copied').style.display = 'none';
 				}, 1500);
+			      gtag('event', 'ar_share', {
+				'event_category': 'share',
+				 'event_label': 'unsupported share clicked - url copied'
+			      });
 			})
 			function smooth(locations) {
 				let result = [locations[0]];

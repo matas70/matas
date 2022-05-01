@@ -530,7 +530,6 @@ div.time {
     display: table-cell;
     padding-left: 24px;
     padding-right: 10px;
-    margin-top: 20px;
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
@@ -538,6 +537,11 @@ div.time {
     float: left;
     -webkit-user-select: none;
     cursor: pointer;
+    font-family: Heebo-Regular;
+    font-size: 17px;
+    color: #37474F;
+    letter-spacing: 0;
+    font-weight: 400;
 }
 
 div.infoPopup {
@@ -560,6 +564,11 @@ div.infoPopup {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    animation: fadeIn 0.8s;
+}
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
 }
 #usdz-block{
     width: 270px;
@@ -730,6 +739,7 @@ div.locationInfoPopup {
     flex: 1;
 }
 
+
 .aboutTitle {
     font-family: "Heebo-Bold", sans-serif;
     font-size: 22px;
@@ -738,16 +748,16 @@ div.locationInfoPopup {
 }
 
 .aboutBody {
-    /* margin-left: 8px;
-    margin-right: 8px; */
-    /* max-width: 400px; */
-    padding-top: 18px;
+    margin-left: 8px;
+    margin-right: 8px;
+    max-width: 400px;
+    /* padding-top: 18px;
     padding-left: 5px;
     padding-right: 5px;
     height: 40%;
     display: flex;
     flex-flow: column;
-    justify-content: center;
+    justify-content: center; */
 }
 
 .aboutBottom {
@@ -1669,6 +1679,17 @@ hr.aircraftLineSeparator.two {
 }
 
 #noAircraftMessage {
+    display: none;
+    font-size: 16px;
+    display: block;
+    color: #8e8e93;
+    font-weight: 500;
+    font-family: "Heebo-Regular";
+    text-align: center;
+    margin-top: 6px;
+}
+
+#viewPointMessage {
     display: none;
     font-size: 16px;
     display: block;

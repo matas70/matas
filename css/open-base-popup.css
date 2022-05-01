@@ -134,7 +134,7 @@ div.header-general-title a img {
 }
 
 div.open-bases-popup div.base-general-information {
-  height: 150%;
+  height: 100%;
   background: #FFFFFF;
   position: relative;
   display: flex;
@@ -442,4 +442,10 @@ div.aircraft-show div.tableRow  div.time{
     div.airplane-card img {
         width: auto;
     }
+}
+
+div.tableRow div.inline-aircraft-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

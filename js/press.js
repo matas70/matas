@@ -17,6 +17,18 @@ function initPressPage() {
     }
 }
 
+function isNotHidden (location) {
+    let isExists = false;
+    routes?.forEach(route => {
+        route.points?.forEach(point => {
+            if(location.pointId === point.pointId)
+                if(!point.hidden)
+                    isExists = true;
+        })
+    });
+    return isExists;
+}
+
 function createCategoryTables(category) {
     let categoryLocations = locations.filter((location) => {
         return location.type === category;
@@ -38,7 +50,7 @@ function createCategoryTables(category) {
 
 function createBasesTables() {
     let bases = locations.filter((location) => {
-        return location.type === "base" || (location.pointName.includes('בסיס') && !(location.pointName.includes('בסיס חצור')) || location.pointName.includes('מוזיאון'));
+        return location.type === "base" || (location.pointName.includes('בסיס') && !(location.pointName.includes('בסיס חצור')) || location.pointName.includes('מוזיאון חיל האוויר'));
     });
 
     if (bases.length > 0) {        
@@ -63,7 +75,7 @@ function createCityTables() {
     });
     let cityTables = "";
     cities.forEach((city) => {
-        if (city.aircrafts.length > 0 && !city.hidden) {
+        if (city.aircrafts.length > 0 && (!city.hidden || isNotHidden(city))) {
             cityTables += createCityTable(city);
         }
     });
@@ -106,15 +118,47 @@ function createCategoryTable(category, categoryLocation) {
             </div>`;
 }
 
+function createAerobaticEndTime(startTime, timeToAdd) {
+    let endTimeMinutes;
+    let endTimeHours;
+    let fixedStartTime = roundToMinute(startTime);
+    startTimeMinutes = Number(fixedStartTime.slice(3, 5) );
+    startTimeHours = Number(fixedStartTime.substr(0, 2));
+    tempMinutes = startTimeMinutes+timeToAdd;
+    if(tempMinutes >60) {
+        endTimeMinutes = tempMinutes-60;
+        endTimeHours = endTimeHours+1;
+    }
+    else {
+            endTimeMinutes = tempMinutes;
+            endTimeHours = startTimeHours;
+    }
+    let endTime = endTimeHours+':'+endTimeMinutes;
+    return endTime;
+}
+
 function createBaseTableTitle(name, activeTimes, hasAerobatic) {
-    let tempActiveTimes = activeTimes? `
+    let tempActiveTimesValue = activeTimes? activeTimes : null;
+    if(name.includes('מופע')) {
+        hasAerobatic = true;
+        let startTime = activeTimes.slice(0,5);
+        let endTime = createAerobaticEndTime(startTime, 10);
+        tempActiveTimesValue = startTime+' - '+endTime;
+    } 
+    if (name === 'ירושלים - גן סאקר') {
+        hasAerobatic = true;
+        let startTime = activeTimes.slice(0,5);
+        let endTime = createAerobaticEndTime(activeTimes.slice(8,activeTimes.length), 10);
+        tempActiveTimesValue = startTime+' - '+endTime;
+    }
+    let tempActiveTimesHTML = tempActiveTimesValue? `
         &nbsp;|&nbsp;
-        <div class="base-title-times">${activeTimes}</div>
+        <div class="base-title-times">${tempActiveTimesValue}</div>
     ` : '';
     return `<div class="base-table-title">
                     <div class="base-table-title-group">
                         <div class="base-table-title-text">${name}</div>
-                        ${tempActiveTimes}
+                        ${tempActiveTimesHTML}
                     </div>
                     <img src="icons/aerobatic.svg" class="aerobatic-icon" style="visibility:${hasAerobatic ? "visible" : "hidden"}">
                 </div>`;

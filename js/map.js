@@ -225,7 +225,7 @@ googleMaps = {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
                 iconUrl = "icons/lookout.svg";
-            } else if ((point.pointName.includes('בסיס')) || (point.pointName.includes('מוזיאון'))){
+            } else if (((point.pointName.includes('בסיס')) && (!point.pointName.includes('בסיס חצור')))|| (point.pointName.includes('מוזיאון חיל האוויר'))) {
                 iconUrl = "icons/OpenBaseMap.svg";
             } else if (aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
@@ -237,7 +237,7 @@ googleMaps = {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
                // iconUrl = "icons/hospital-clicked.svg";
-            } else if ((point.pointName.includes('בסיס')) || (point.pointName.includes('מוזיאון'))) {
+            } else if (((point.pointName.includes('בסיס')) && (!point.pointName.includes('בסיס חצור')))|| (point.pointName.includes('מוזיאון חיל האוויר'))) {
                 iconUrl = "icons/OpenBaseMap.svg";
             } else if (aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
