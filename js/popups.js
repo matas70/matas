@@ -163,11 +163,13 @@ function showBaseLoactionPopup(pointId) {
     let airplaneShowsElement = document.getElementById('airplanes-show');
 
     if( fullWidth <= 600 ) {
+        document.getElementById('open-base-card-theme').src = 'experimental-assets/base-card-airplane-for-mobile.png';
         basePopUpElement.animate({
             height: fullHeight + "px",
             top: `${headerElement.clientHeight+(mapElement.clientHeight * 0.4)}px`,
         }, "fast");
     } else {
+        document.getElementById('open-base-card-theme').src = 'experimental-assets/base-card-airplane-for-pc.png';
         document.getElementById('drag-button').style.display = 'none';
         basePopUpElement.animate({
             height: fullHeight + "px",
