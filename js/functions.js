@@ -1498,12 +1498,6 @@ function onLoad() {
             aircrafts = [];
             loadAircrafts(function (pAircrafts) {
                 aircrafts = pAircrafts;
-                aircrafts.forEach((aircraft)=>{
-                    if (aircraft.name === "עפרוני") {
-                        console.log(aircraft)
-                        aircraft.name = 'צוות אווירובטי'
-                    }
-                })
                 loadLocations(function (points) {
                     // load all routes
                     loadRoutes(function (routes) {

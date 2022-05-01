@@ -260,6 +260,8 @@ function showBaseLoactionPopup(pointId) {
                     date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
                 }
 
+                if (ac.name === "עפרוני") {ac.name = 'צוות אווירובטי'}
+
                 OpenBaseAircraftshtml += createTableRow(ac.aircraftId,
                     ac.name,
                     ac.icon,
