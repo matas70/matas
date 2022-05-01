@@ -1119,7 +1119,8 @@ function getMapUndark() {
 }
 
 function createClusterLocationRow(location) {
-    return `<div onclick='selectPoint(` + location.pointId + ");' class=\"tableRow\"><img src=\"icons/point-" + location.color + ".svg\" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
+    console.log(location);
+    return `<div onclick='selectPoint(` + location.pointId + ");' class=\"tableRow\"><img src=\"icons/" + ((location.type==="base")?'OpenBaseMap':`point-${location.color}`) + `.svg\" class=\"locationIcon${(location.type==="base")?'ForBases':''}\"><div class=\"aircraftName\"><b>`
         + location.pointName + "</b></div></div></div>";
 }
 

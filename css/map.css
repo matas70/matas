@@ -1217,6 +1217,12 @@ br.baseData {
     padding-bottom: 4px;
 }
 
+.locationIconForBases {
+    padding: 0;
+    width: 72px;
+    height: 50px;
+}
+
 .mapClusterPopupFooter {
     font-family: "Heebo-Bold";
     font-size: 14px;

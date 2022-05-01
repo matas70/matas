@@ -78,7 +78,7 @@ function getEnv(callback) {
         })
         .catch(() => {
             console.error("Matas: Couldn't load env from server, using defauls.");
-            appStage = "matas";
+            appStage = "matas-dev";
             callback(appStage);
         });
     }
