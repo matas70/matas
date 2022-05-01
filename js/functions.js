@@ -2491,60 +2491,57 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 
 
 
-
-
-function notifyUserIfNear(currentLocation, aircraft) {
+(function() {
     var userLoc = null;
     navigator.geolocation.watchPosition(function(newLoc){
         userLoc = newLoc;
         userLoc = {lon: userLoc.coords.longitude, lat: userLoc.coords.latitude};
     });
-    var closePopupTime = 60;
 
-    if (userLoc) 
-    {
-        currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-        if (haversineDistance(userLoc,currentLocation) < 3)   
-        {
-                if($('#myModal:hidden') && $('#gottoVoiceMessagePopup')[0].style.display == "none")
-                {
-                    //Closing popup After closePopupCount seconds
-                    setTimeout(()=>{$('#gottoVoiceMessagePopup').hide();},1000*closePopupTime);
-                    
-                    //Adding to array so the user won't get notifed twice  
-                    notifiedNearUser.push(aircraft.aircraftTypeId);
+    function notifyUserIfNear(currentLocation, aircraft) {
+        if (userLoc) {
+            var closePopupTime = 60;
+            currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
+            if (haversineDistance(userLoc,currentLocation) < 3) {
+                    if($('#myModal:hidden') && $('#gottoVoiceMessagePopup')[0].style.display == "none") {
+                        //Closing popup After closePopupCount seconds
+                        setTimeout(()=>{$('#gottoVoiceMessagePopup').hide();},1000*closePopupTime);
+                        
+                        //Adding to array so the user won't get notifed twice  
+                        notifiedNearUser.push(aircraft.aircraftTypeId);
 
-                    if(aircraft.icon){
-                        $("#aircraftImg").attr("src",`icons/aircrafts/${aircraft.icon}.svg`);
-                    }
-                    else{
-                        $("#aircraftImg").attr("src",`icons/genericAircraft.svg`);
-                    }
-                    $("#gottoVoiceMessagePopup")[0].style.display = "block";
-                    $("#aircraftName").html(`${aircraft.type} - ${aircraft.name}`);
-                    $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
-                    
-                    //Checking weather audioMessages is not undifined    
-                    //and if audio message for aircraftType is avalibale 
-                    if (audioMessages &&
-                        aircraft.aircraftTypeId in audioMessages && 
-                        audioMessages[aircraft.aircraftTypeId]["audioSrc"] ){
-                        $("#hearTheMessage").show()
+                        if(aircraft.icon){
+                            $("#aircraftImg").attr("src",`icons/aircrafts/${aircraft.icon}.svg`);
+                        }
+                        else{
+                            $("#aircraftImg").attr("src",`icons/genericAircraft.svg`);
+                        }
+                        $("#gottoVoiceMessagePopup")[0].style.display = "block";
+                        $("#aircraftName").html(`${aircraft.type} - ${aircraft.name}`);
+                        $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
+                        
+                        //Checking weather audioMessages is not undifined    
+                        //and if audio message for aircraftType is avalibale 
+                        if (audioMessages &&
+                            aircraft.aircraftTypeId in audioMessages && 
+                            audioMessages[aircraft.aircraftTypeId]["audioSrc"] ){
+                            $("#hearTheMessage").show()
 
-                        notifyAudioMessage(aircraft)
-                    }
+                            notifyAudioMessage(aircraft)
+                        }
 
-                    else {
-                        $("#hearTheMessage").hide()
+                        else {
+                            $("#hearTheMessage").hide()
+                        }
                     }
-                }
-            //}
+            }
+            
         }
-        
     }
-}
 
-window.notifyUserIfNear = notifyUserIfNear;
+    window.notifyUserIfNear = notifyUserIfNear;
+})();
+
 
 function notifyAudioMessage (aircraft) {
     let audioMessage = audioMessages[aircraft.aircraftTypeId];
