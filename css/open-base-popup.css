@@ -134,7 +134,7 @@ div.header-general-title a img {
 }
 
 div.open-bases-popup div.base-general-information {
-  height: 100%;
+  height: auto;
   background: #FFFFFF;
   position: relative;
   display: flex;
