@@ -1122,7 +1122,6 @@ function animateToNextLocation(aircraft, previousAzimuth, updateCurrent) {
     var userLoc = null;
     navigator.geolocation.getCurrentPosition((newLoc) => {
       userLoc = { lon: newLoc.coords.longitude, lat: newLoc.coords.latitude };
-      console.log(userLoc + " USER !!!!!");
       notifyUserIfNear(currentAircraftPosition,aircraft, userLoc);
     });
   }
