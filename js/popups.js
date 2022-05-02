@@ -839,8 +839,17 @@ function createCategoryLocationRow(location, time, from) {
 }
 
 function createLocationScheduleRow(aircraft, location, time, from) {
-    return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/point-${location.color}.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+    if(location.color === '#FF0000'){
+        return '';
+    }
+    
+ //   if(location.type === 'base'){
+   //     return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/OpenBaseMap.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+     //       ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} ${(from ? " - " + roundToMinute(from) : "")} </div></div>`;
+    //}else{
+        return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/point-${location.color}.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
             ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} ${(from ? " - " + roundToMinute(from) : "")} </div></div>`;
+    //}         
 }
 
 function selectPointFromSchedule(pointId, minimized = false) {
