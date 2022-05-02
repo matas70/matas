@@ -2327,7 +2327,7 @@ function initGenericPopups() {
         if (!changes) {
             let displayed = "false";
             if (localStorage)
-                displayed = localStorage.getItem("good_morning_displayed_2019");
+                displayed = localStorage.getItem("good_morning_displayed_2022");
             if (!(displayed === "true")) {
                 showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon", () => {
                     setTimeout(() => {
@@ -2335,7 +2335,7 @@ function initGenericPopups() {
                     }, 10*1000);
                 });
                 if (localStorage)
-                    localStorage.setItem("good_morning_displayed_2019", "true");
+                    localStorage.setItem("good_morning_displayed_2022", "true");
             }
         } else {
             showGenericPopup("עקב תנאי מזג האוויר", `חלו שינויים קלים בנתיבים ובמופעים, אך אנחנו עדיין באים! (: חג שמח!`, "flightStartChangesIcon", () => {
