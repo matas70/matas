@@ -851,7 +851,7 @@ function selectPointFromSchedule(pointId, minimized = false) {
 
 function createScheduleRow(aircraft, location) {
     var fullPoint = locations[location.pointId];
-    //if (!fullPoint.hidden) {
+    if (!fullPoint.hidden || isNotHidden(fullPoint)) {
         if (aircraft.aerobatic) {
             return createAerobaticRow(fullPoint, location.time, location.from);
         } else if (aircraft.parachutist) {
@@ -859,11 +859,21 @@ function createScheduleRow(aircraft, location) {
         } else {
             return createLocationScheduleRow(aircraft, fullPoint, location.time, location.from);
         }
-    //}
+    }
 
     return "";
 }
-
+function isNotHidden (location) {
+    let isExists = false;
+    routes?.forEach(route => {
+        route.points?.forEach(point => {
+            if(location.pointId === point.pointId)
+                if(!point.hidden)
+                    isExists = true;
+        })
+    });
+    return isExists;
+}
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule = false, showAllPoints = false, from) {
     aircraftUsdzObjData = [
