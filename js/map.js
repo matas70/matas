@@ -136,10 +136,11 @@ googleMaps = {
         } else {
             iconUrl = googleMaps.getMarkerIconUrl(color, true, aerobatic, label, point);
         }
+
         var markerHtml = /*html*/`
             <div class="locationMarkerDivGmaps">
                 <div class="locationIconContainer">
-                    <img class="locationMarkerIcon" src="${iconUrl}">
+                    <img class="locationMarkerIcon" src="${iconUrl}" ${(point.type==='base'?'style: z-index:9999999;': '')}>
                 </div>
                 <span class="locationMarkerLabel">${label}</span>
             </div>
@@ -220,25 +221,26 @@ googleMaps = {
         color = color.replace("#ff0000", "ffffff00")
         iconUrl = "icons/point-" + color + ".svg";
 
+
         if (!clicked) {
-            if(point && point.options && point.options.liveStream) {
+            if (point.pointName.includes('מוזיאון') || (point.pointName.includes('בסיס') && !point.pointName.includes('חצור'))) {
+                iconUrl = "icons/OpenBaseMap.svg";
+            } else if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
                 iconUrl = "icons/lookout.svg";
-            } else if (point.type == 'base') {
-                iconUrl = "icons/OpenBaseMap.svg";
             } else if (aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
             } else {
                 iconUrl = "icons/point-" + color + ".svg";
             }
         } else {
-            if(point && point.options && point.options.liveStream) {
+            if (point.pointName.includes('מוזיאון') || (point.pointName.includes('בסיס') && !point.pointName.includes('חצור'))) {
+                iconUrl = "icons/OpenBaseMap.svg";
+            } else if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
                // iconUrl = "icons/hospital-clicked.svg";
-            } else if (point.type == 'base') {
-                iconUrl = "icons/OpenBaseMap.svg";
             } else if (aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
             } else {
