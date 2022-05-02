@@ -849,7 +849,7 @@ function selectPointFromSchedule(pointId, minimized = false) {
 
 function createScheduleRow(aircraft, location) {
     var fullPoint = locations[location.pointId];
-    if (!fullPoint.hidden) {
+    //if (!fullPoint.hidden) {
         if (aircraft.aerobatic) {
             return createAerobaticRow(fullPoint, location.time, location.from);
         } else if (aircraft.parachutist) {
@@ -857,7 +857,7 @@ function createScheduleRow(aircraft, location) {
         } else {
             return createLocationScheduleRow(aircraft, fullPoint, location.time, location.from);
         }
-    }
+    //}
 
     return "";
 }
