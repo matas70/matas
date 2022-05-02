@@ -82,47 +82,48 @@ function initPopups() {
     let openBasePopupHeader = $("#header-base-popup");
     let openBasePopup = $("#open-bases-popup");
     let headerElementHeight = $("#headerBg").height();
-    console.log(headerElementHeight)
     let topY;
     let finalTouchY;
+    let fullWindowHeight = $( window ).height(); - $('headerBg').height();
+    let relativePercentage;
+    let minimizedPopupHeight;
+    
 
     openBasePopupHeader.on("tapstart", function (event) {
         dragStartTopY = event.touches[0].clientY;
         topY = Number(openBasePopup.css('top').replace('px', ''));
         finalTouchY = topY;
         event.preventDefault();
-        console.log(topY, typeof(topY))
     });
 
     openBasePopupHeader.on("tapmove", function (event) {
-        if (dragStartTopY != null) {
-            delta = (event.touches[0].clientY - dragStartTopY);
-            finalTouchY = topY + delta;
-            openBasePopup.css({top: finalTouchY + 'px'});
-            event.preventDefault();
+        delta = (dragStartTopY - event.touches[0].clientY);
+
+        if (finalTouchY >= headerElementHeight || delta < 0) {
+            finalTouchY = topY - delta;
+        }      
+        openBasePopup.css({top: finalTouchY + 'px'});
+
+        event.preventDefault();
+    });
+
+    openBasePopupHeader.on("tapend", function (event) {
+        minimizedPopupHeight = $( window ).height() - $('#header-base-popup').height() - ($('#base-passage').height() * 0.75);
+        relativePercentage = (finalTouchY / fullWindowHeight) * 100;
+        if (relativePercentage <= 45) {
+            openBasePopup.animate({ top: headerElementHeight + "px", borderRadius:'0px' }, "fast");
+        } else if (relativePercentage > 45 && relativePercentage < 70) {
+            openBasePopup.animate({ top: minimizedPopupHeight + "px", borderRadius:'15px' }, "fast");
+        } else {
+            openBasePopup.animate({ top: fullWindowHeight + "px" }, "fast");
         }
     });
 
-    /*openBasePopupHeader.on("tapend", function (event) {
-        if (dragStartTopY != null) {
-            var targetHeight = currHeight + delta;
-            if (targetHeight < 100) {
-                hideLocationPopup(null);
-                getMapUndark();
-                if (locationPopupCloseCallback != null)
-                    locationPopupCloseCallback.call(this);
-            } else if (targetHeight >= 0.5 * maxHeight) {
-                openBasePopup.animate({ height: maxHeight + "px" }, "fast");
-                aircraftListContainer.animate({ height: maxHeight - 50 + "px" }, "fast");
-            } else {
-                openBasePopup.animate({ height: normalHeight + "px" }, "fast");
-                aircraftListContainer.animate({ height: normalHeight - 50 + "px" }, "fast");
-            }
-            dragStartTopY = null;
-        }
-    });*/
-    
+    let closeButton = $("#close-button-open-base");
 
+    closeButton.on("tapstart", function (event) {
+        onCloseOpenBasePopup()
+    });
 }
 
 //on close for openBasePopup
@@ -172,6 +173,7 @@ function showBaseLoactionPopup(pointId) {
     let airplaneShowsElement = document.getElementById('airplanes-show');
 
     if( fullWidth <= 600 ) {
+        basePopUpElement.css({borderRadius: '15px'});
         basePopUpElement.animate({
             height: fullHeight + "px",
             top: `${headerElement.clientHeight+(mapElement.clientHeight * 0.4)}px`,
