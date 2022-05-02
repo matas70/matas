@@ -351,7 +351,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
     // Check to see if aircraftList is empty in this location
     if (specials.size === 0 && (!tmp || tmp.length === 0)) {
-        if(point.pointName.includes('תצפית למטס')) {
+        if(point.type === 'hospital') {
             $("#viewPointMessage").show();
             $("#noAircraftMessage").hide();
         } else {

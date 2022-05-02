@@ -1722,7 +1722,7 @@ function displaySearchView() {
             searchViewHtml += createCategoryRow({category: "נקודות תצפית"}, true);
 
             sortedLocations.forEach(function (location) {
-                if (!location.hidden && location.type && (location.type === "hospital" || location.pointName.includes('תצפית למטס'))) {
+                if (!location.hidden && location.type && location.type === "hospital") {
                     searchViewHtml += createLocationRow(location, false, true);
                 }
             }, this);
@@ -1847,7 +1847,7 @@ function initSearchBar() {
         }
 
         viewPointResults = sortedLocations.filter(location => {
-            return  location.pointName.includes('תצפית למטס') && location.pointName.includes(searchInput)
+            return  location.type === 'hospital' && location.pointName.includes(searchInput)
         });
         if (viewPointResults.length > 0) {
             // Create location category only if we have location results
