@@ -602,7 +602,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     $("#aircraftInfoName").text(aircraft.name);
     $("#aircraftInfoType").text(aircraft.type);
 
-    if (aircraft.name === 'צופית' | aircraft.name === 'עפרוני' | aircraft.name === 'ברק' | aircraft.name === 'אדיר' | aircraft.name === 'קרנף' | aircraft.name === 'לביא' | aircraft.name === 'בז' | aircraft.name === 'סופה' | aircraft.name === 'שמשון') {
+    if (aircraft.name === 'צופית' | aircraft.name === 'עפרוני' | aircraft.name === 'ברק' | aircraft.name === 'אדיר' | aircraft.name === 'קרנף' | aircraft.name === 'לביא' | aircraft.name === 'בז' | aircraft.name === 'סופה' | aircraft.name === 'שמשון'| aircraft.name === 'רעם' | aircraft.name === 'שרף') {
         $("#aircraftInfo3D").show();
     } else $("#aircraftInfo3D").hide();
     
@@ -860,7 +860,7 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
     var aerobaticIcon = "<div/>";
     var classname = "";
     let currAircraftName = aircraftUsdzObjData.find(obj => obj.hebName === name);
-    if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון'&& currAircraftName !== undefined) {
+    if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון' | name === 'רעם' | name === 'שרף'&& currAircraftName !== undefined) {
         classname = "<button class=\"show\" id=\"ARButton\" onclick='openAR("+ JSON.stringify(currAircraftName) +")'></button>"
     } else classname = "<button class=\"hide\" style=\"display: none;\" id=\"ARButton\" onclick='openAR("+ JSON.stringify(currAircraftName)+")'></button>"
     if (aerobatic) {
