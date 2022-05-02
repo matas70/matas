@@ -1833,7 +1833,7 @@ function initSearchBar() {
         // Filtering relevant bases
         basesResults = sortedLocations.filter(location => {
             return  location.type == 'base';
-        });
+        }).filter(location => location.pointName.includes(searchInput));
  
         if (basesResults.length > 0) {
             // Create location category only if we have location results
