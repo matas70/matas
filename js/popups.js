@@ -1,6 +1,3 @@
-const { point } = require("leaflet");
-
-
 var locationPopupExpanded = false;
 var locationPopupCloseCallback = null;
 var minimizedLocationPopupHeight = 100;
@@ -136,9 +133,6 @@ function onGrab(event) {
         }
     });
 }
-
-loadOpenBasesLocation();
-
 
 function showBaseLoactionPopup(pointId) {
     onCloseOpenBasePopup()
