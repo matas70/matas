@@ -2569,7 +2569,7 @@ function notifyAudioMessage (aircraft) {
         $("#audioSRC").attr("src",audioMessage.audioSrc);
     }
     else{
-        $("#audioSRC").attr("src",'audio/pilot-message.ogg');
+        $("#audioSRC").attr("src",'audio/efroni.mp3');
     }
 }
 
