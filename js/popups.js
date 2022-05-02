@@ -839,8 +839,17 @@ function createCategoryLocationRow(location, time, from) {
 }
 
 function createLocationScheduleRow(aircraft, location, time, from) {
-    return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/point-${location.color}.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+    if(location.color === '#FF0000'){
+        return '';
+    }
+    
+ //   if(location.type === 'base'){
+   //     return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/OpenBaseMap.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+     //       ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} ${(from ? " - " + roundToMinute(from) : "")} </div></div>`;
+    //}else{
+        return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/point-${location.color}.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
             ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} ${(from ? " - " + roundToMinute(from) : "")} </div></div>`;
+    //}         
 }
 
 function selectPointFromSchedule(pointId, minimized = false) {
@@ -851,7 +860,7 @@ function selectPointFromSchedule(pointId, minimized = false) {
 
 function createScheduleRow(aircraft, location) {
     var fullPoint = locations[location.pointId];
-    if (!fullPoint.hidden) {
+    if (!fullPoint.hidden || isNotHidden(fullPoint)) {
         if (aircraft.aerobatic) {
             return createAerobaticRow(fullPoint, location.time, location.from);
         } else if (aircraft.parachutist) {
@@ -863,7 +872,17 @@ function createScheduleRow(aircraft, location) {
 
     return "";
 }
-
+function isNotHidden (location) {
+    let isExists = false;
+    routes?.forEach(route => {
+        route.points?.forEach(point => {
+            if(location.pointId === point.pointId)
+                if(!point.hidden)
+                    isExists = true;
+        })
+    });
+    return isExists;
+}
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule = false, showAllPoints = false, from) {
     aircraftUsdzObjData = [
