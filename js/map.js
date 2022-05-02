@@ -225,7 +225,7 @@ googleMaps = {
 
 
         if (!clicked) {
-            if (point.pointName.includes('בסיס') || point.pointName.includes('מוזיאון')) {
+            if (point.pointName.includes('מוזיאון') || (point.pointName.includes('בסיס') && !point.pointName.includes('חצור'))) {
                 iconUrl = "icons/OpenBaseMap.svg";
             } else if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
@@ -237,7 +237,7 @@ googleMaps = {
                 iconUrl = "icons/point-" + color + ".svg";
             }
         } else {
-            if (point.pointName.includes('בסיס') || point.pointName.includes('מוזיאון')) {
+            if (point.pointName.includes('מוזיאון') || (point.pointName.includes('בסיס') && !point.pointName.includes('חצור'))) {
                 iconUrl = "icons/OpenBaseMap.svg";
             } else if(point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
