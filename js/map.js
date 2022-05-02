@@ -136,9 +136,7 @@ googleMaps = {
         } else {
             iconUrl = googleMaps.getMarkerIconUrl(color, true, aerobatic, label, point);
         }
-        if(point.type==='base') {
-            console.log(point)
-        }
+
         var markerHtml = /*html*/`
             <div class="locationMarkerDivGmaps">
                 <div class="locationIconContainer">
