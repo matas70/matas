@@ -2500,15 +2500,28 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 
     function notifyUserIfNear(currentLocation, aircraft) {
         if (userLoc) {
-            var closePopupTime = 60;
+            
             currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
+
+
+
             if (haversineDistance(userLoc,currentLocation) < 3) {
                     if($('#myModal:hidden') && $('#gottoVoiceMessagePopup')[0].style.display == "none") {
-                        //Closing popup After closePopupCount seconds
-                        setTimeout(()=>{$('#gottoVoiceMessagePopup').hide();},1000*closePopupTime);
+
+                        //Checking weather audioMessages is not undifined    
+                        //and if audio message for aircraftType is available 
+                        var audioMessageAvailable =(audioMessages &&
+                            aircraft.aircraftTypeId in audioMessages && 
+                            audioMessages[aircraft.aircraftTypeId]["audioSrc"] );
+                        
+                        //Close popup sooner 
+                        var closePopupTime = audioMessageAvailable ? 60 : 30;
                         
                         //Adding to array so the user won't get notifed twice  
                         notifiedNearUser.push(aircraft.aircraftTypeId);
+
+                        //Closing popup After closePopupCount seconds
+                        setTimeout(()=>{$('#gottoVoiceMessagePopup').hide();},1000*closePopupTime);
 
                         if(aircraft.icon){
                             $("#aircraftImg").attr("src",`icons/aircrafts/${aircraft.icon}.svg`);
@@ -2520,14 +2533,9 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         $("#aircraftName").html(`${aircraft.type} - ${aircraft.name}`);
                         $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
                         
-                        //Checking weather audioMessages is not undifined    
-                        //and if audio message for aircraftType is avalibale 
-                        if (audioMessages &&
-                            aircraft.aircraftTypeId in audioMessages && 
-                            audioMessages[aircraft.aircraftTypeId]["audioSrc"] ){
+                        if (audioMessageAvailable){
                             $("#hearTheMessage").show()
-
-                            notifyAudioMessage(aircraft)
+                            notifyAudioMessage(aircraft)      
                         }
 
                         else {
