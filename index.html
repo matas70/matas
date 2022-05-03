@@ -66,8 +66,8 @@
                 $.getScript("js/firebaseInteraction.js"),
                 $.getScript("js/quiz.js"),
                 $.getScript('js/smooth-scroll-into-view-if-needed.min.js'),
-                $.getScript('https://cdn.jsdelivr.net/npm/ua-parser-js@0/dist/ua-parser.min.js'),
-                $.getScript('https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js'),
+                $.getScript('js/ua-parser.min.js'),
+                $.getScript('js/cookie.min.js'),
 
                 $.Deferred(function( deferred ){
                     $( deferred.resolve );
@@ -81,9 +81,9 @@
     </script>
 </head>
 <body onload="loadScripts()" class="body" id="main">
-    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-messaging.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-functions.js"></script>
+    <script src="js/firebase-app.js"></script>
+    <script src="js/firebase-messaging.js"></script>
+    <script src="js/firebase-functions.js"></script>
    
     
 <div id="wrapper">
@@ -287,7 +287,6 @@
                 </div>
                 </div>
             </div>
-            <iframe id="liveStream" style="flex: 1; min-width: 0;" src="https://www.youtube.com/embed/vKnGFIoNEls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <div id="registerToLocationNotifcations">
@@ -322,7 +321,6 @@
         <div id="aircraftInfoBannerContainer">
             <img id="aircraftInfoBannerBackground" src=""></img>
             <img id="aircraftInfoBanner" src=""></img>
-            <iframe id="cockpitVideo" style="z-index: 1000000;" src="https://www.youtube.com/embed/Sj-QGdsoelE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="aircraftInfoContentRow aircraftInfoTitle">
             <div id="aircraftIconContainer">
