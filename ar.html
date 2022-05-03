@@ -344,7 +344,7 @@
 					animate();
 					if (window.isSecureContext == false) {
 						message.innerHTML = 'WEBXR NEEDS HTTPS';
-					} else if (getCookie('tut') !== 2) {
+					} else {
 						message.innerHTML = 'WEBXR NOT AVAILABLE';
 						firebase.database().ref('devices/not-available/' +
 							cur_user_agent.getDevice().vendor + " " +
@@ -535,7 +535,14 @@
 							document.body.offsetWidth / 2, document.documentElement.clientHeight - 140
 						);
 						
-						let selected = centeredElement.parentElement.children[0].src?.split('Planes_')[1].replace('.svg', '')
+						if(
+							!centeredElement ||
+							!centeredElement.parentElement ||
+							!centeredElement.parentElement.children[0] ||
+							!centeredElement.parentElement.children[0].src)
+							return;
+						
+						let selected = centeredElement.parentElement.children[0].src.split('Planes_')[1].replace('.svg', '')
 						AIRCRAFTS_META_DATA.forEach((e) => {
 							if (e.id === selected) changeAircraft(e);
 							
@@ -780,9 +787,9 @@
 					'event_category': 'ar_close',
 					 'event_label': 'ar closed'
 				      });
-					document.getElementById('blob').classList.add('animateScale');					
+					document.getElementById('blob').classList.add('animateScale');	
+					let targetUrl = document.location.href.substr(0,document.location.href.lastIndexOf("/")+1);				
 					setTimeout(() => {
-						let targetUrl = document.location.href.substr(0,document.location.href.lastIndexOf("/")+1);
 						if (document.referrer == targetUrl) 
 							window.close();
 						else 
@@ -978,7 +985,7 @@
 				new GLTFLoader()
 
 				
-					.load('./3d_models/aircrafts/gltf/' + selectedAircraft.id + '/object.' + selectedAircraft.type, function (gltf) {
+					.load('https://matasstorage.blob.core.windows.net/models/2022/gltf/' + selectedAircraft.id + '/object.' + selectedAircraft.type, function (gltf) {
 						if (aircraft)
 							scene.remove(aircraft);
 						aircraft = gltf.scene;
@@ -1003,12 +1010,12 @@
 			
 			function loadAircraftOBJ(selectedAircraft) {
 				new MTLLoader()
-					.setPath('./3d_models/aircrafts/obj/' + selectedAircraft.id + '/')
+					.setPath('https://matasstorage.blob.core.windows.net/models/2022/obj/' + selectedAircraft.id + '/')
 					.load('object.mtl', function (materials) {
 						materials.preload();
 						new OBJLoader()
 							.setMaterials(materials)
-							.setPath('./3d_models/aircrafts/obj/' + selectedAircraft.id + '/')
+							.setPath('https://matasstorage.blob.core.windows.net/models/2022/obj/' + selectedAircraft.id + '/')
 							.load('object.obj', function (object) {
 								if (aircraft)
 									scene.remove(aircraft);
@@ -1061,7 +1068,7 @@
 
 			function loadTrailsGLTF(selectedTrails) {
 				new GLTFLoader()
-					.load('./3d_models/trails/gltf/' + selectedTrails.id + '/object.' + selectedTrails.type, function (gltf) {
+					.load('https://matasstorage.blob.core.windows.net/models/2022/gltf/' + selectedTrails.id + '/object.' + selectedTrails.type, function (gltf) {
 						const trail = gltf.scene;
 						trails.forEach(trail => { scene.remove(trail) });
 						trails = [];
@@ -1079,25 +1086,25 @@
 
 			function loadTrailsOBJ(selectedTrails) {
 				for (let i = 0; i < 9; i++) {
-					new MTLLoader()
-						.setPath('./3d_models/trails/obj/' + selectedTrails.id + '/')
-						.load('object.mtl', function (materials) {
-							materials.preload();
-							new OBJLoader()
-								.setMaterials(materials)
-								.setPath('./3d_models/trails/obj/' + selectedTrails.id + '/')
-								.load('object.obj', function (object) {
-									const trail = object;
-									// const num = ((1 - (i / 10)) % 1) / 10000
-									const scale = (selectedTrails.scale * Math.abs((1 - ((i + 1) / 10)) % 1));
-									// const scale = selectedTrails.scale;
-									trail.scale.set(scale, scale, scale);
-									scene.add(trail);
-									trails.push(trail);
-								}, undefined, function (error) {
-									console.error(error);
-								});
-						});
+					// new MTLLoader()
+					// 	.setPath('https://matasstorage.blob.core.windows.net/models/2022/trails/obj/' + selectedTrails.id + '/')
+					// 	.load('object.mtl', function (materials) {
+					// 		materials.preload();
+					// 		new OBJLoader()
+					// 			.setMaterials(materials)
+					// 			.setPath('https://matasstorage.blob.core.windows.net/models/2022/trails/obj/' + selectedTrails.id + '/')
+					// 			.load('object.obj', function (object) {
+					// 				const trail = object;
+					// 				// const num = ((1 - (i / 10)) % 1) / 10000
+					// 				const scale = (selectedTrails.scale * Math.abs((1 - ((i + 1) / 10)) % 1));
+					// 				// const scale = selectedTrails.scale;
+					// 				trail.scale.set(scale, scale, scale);
+					// 				scene.add(trail);
+					// 				trails.push(trail);
+					// 			}, undefined, function (error) {
+					// 				console.error(error);
+					// 			});
+					// 	});
 				}
 			}
 			let countLoad = 0;

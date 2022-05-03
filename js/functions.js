@@ -136,6 +136,10 @@ function loadOpenBasesLocation(callback) {
     });
 }
 
+function firstContainintRoute(location) {
+    return routes.find(route => route.points.find(point => location.pointId === point.pointId));
+}
+
 loadOpenBasesLocation();
 
 //create base category in navbar 
@@ -555,12 +559,30 @@ function updateLocationsMap(aircrafts) {
 
 function updateLocations(route) {
     route.points.forEach(function (point) {
-       // if(!locations[point.pointId]){
-            locations[point.pointId] = point;
-            locations[point.pointId].aircrafts = [];
-            locations[point.pointId].hideAircrafts = point.hideAircrafts;
-            locations[point.pointId].color = route.color;
-       // }
+        const oldPoint = locations[point.pointId]
+        if(oldPoint) {
+            /* for these attributes, always use the 'points.json' as single source of truth.
+             * other values will be overridden by the latest route.
+             */
+            const attributesToKeep = {
+                // hidden: oldPoint.hidden,
+                type: oldPoint.type,
+                E: oldPoint.E,
+                N: oldPoint.N,
+                //hideAircrafts: oldPoint.hideAircrafts,
+                pointLocation: oldPoint.pointLocation,
+                wazeLink: oldPoint.wazeLink,
+                pointName: oldPoint.pointName
+            }
+            point = {
+                ...point,
+                ...attributesToKeep
+            }
+        }
+        locations[point.pointId] = point;
+        locations[point.pointId].aircrafts = [];
+        locations[point.pointId].hideAircrafts = point.hideAircrafts;
+        locations[point.pointId].color = route.color;
     }, this);
 }
 
@@ -1184,9 +1206,7 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     selectedLocationMarkerIcon = markerIcon;
     mapAPI.panTo(map, location);
     
-    if (locations[pointId].pointName.includes('בסיס') && !locations[pointId].pointName.includes('חצור')) {
-        showBaseLoactionPopup(pointId)
-    } else if (locations[pointId].pointName.includes('מוזיאון חיל האוויר')) {
+    if (locations[pointId].type === 'base') {
         showBaseLoactionPopup(pointId)
     } else {
         showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, setMarkerOnDeselectLocation);
@@ -1339,7 +1359,7 @@ function selectPoint(pointId, minimized = false) {
     var marker = markersMap[pointId];
 
     var selectedPoint = locations[pointId];
-    var selectedRoute = routes.find(route => route.points.includes(selectedPoint));
+    var selectedRoute = routes.find(route => route.points.find(p=> p.pointId == selectedPoint.pointId));
 
     // first hide the previous popup
     if (selectedLocation != null) {
@@ -1595,7 +1615,7 @@ function loadMapApi() {
     $.ajaxSetup({cache: false});
 }
 
-function isNotHidden (location) {
+function isNotHiddenAtLeastInOneRoute (location) {
     let isExists = false;
     routes?.forEach(route => {
         route.points?.forEach(point => {
@@ -1690,7 +1710,7 @@ function displaySearchView() {
             // add bases
             searchViewHtml += createCategoryRow({category: "ׁׁבסיסים"}, true);
             sortedLocations.forEach(function (location) {
-                if ((location.pointName.includes('בסיס') && !location.pointName.includes('בסיס חצור'))|| location.pointName.includes('מוזיאון חיל האוויר')) {
+                if (location.type === 'base') {
                     searchViewHtml += createLocationRow(location, false, true);
                 }
             }, this);
@@ -1702,7 +1722,7 @@ function displaySearchView() {
             searchViewHtml += createCategoryRow({category: "נקודות תצפית"}, true);
 
             sortedLocations.forEach(function (location) {
-                if (!location.hidden && location.type && (location.type === "hospital" || location.pointName.includes('תצפית למטס'))) {
+                if (!location.hidden && location.type && location.type === "hospital") {
                     searchViewHtml += createLocationRow(location, false, true);
                 }
             }, this);
@@ -1710,13 +1730,14 @@ function displaySearchView() {
 
         // add other locations category
         searchViewHtml += createCategoryRow({category: "יישובים"}, true);
-        sortedLocations.forEach(function (location) {
-            if (((!location.hidden &&
-                !!routes.find(route => route.points.find(point => location.pointId === point.pointId)) )|| isNotHidden(location)) &&
-                (location.type !== "base" || (!location.pointName.includes('בסיס')&& location.pointName !== 'בסיס חצור') || !location.pointName.includes('מוזיאון ') || location.type !== "hospital" || !location.pointName.includes('תצפית למטס'))) {
+        sortedLocations
+        .filter(location => !location.hidden || isNotHiddenAtLeastInOneRoute(location))
+        .filter(firstContainintRoute) // has containing route
+        .filter(location => location.type !== "base" && location.type !== "hospital")
+        .forEach(function (location) {
                     searchViewHtml += createLocationRow(location, false, true);
-            }
-        }, this);
+            
+        });
 
         // add aircrafts category
         searchViewHtml += createCategoryRow({category: "כלי טיס"}, true);
@@ -1811,8 +1832,8 @@ function initSearchBar() {
 
         // Filtering relevant bases
         basesResults = sortedLocations.filter(location => {
-            return  ( location.pointName.includes('בסיס') || location.pointName.includes('מוזיאון חיל האוויר')) && location.pointName !== 'בסיס חצור' && location.pointName.includes(searchInput)
-        });
+            return  location.type == 'base';
+        }).filter(location => location.pointName.includes(searchInput));
  
         if (basesResults.length > 0) {
             // Create location category only if we have location results
@@ -1826,7 +1847,7 @@ function initSearchBar() {
         }
 
         viewPointResults = sortedLocations.filter(location => {
-            return  location.pointName.includes('תצפית למטס') && location.pointName.includes(searchInput)
+            return  location.type === 'hospital' && location.pointName.includes(searchInput)
         });
         if (viewPointResults.length > 0) {
             // Create location category only if we have location results
@@ -1840,9 +1861,10 @@ function initSearchBar() {
         }
 
         // Filtering relevant locations
-        citiesResults = sortedLocations.filter(location => {
-            return (!location.hidden || isNotHidden(location)) && ( (location.type !== "base" && location.type !== "hospital" && !location.pointName.includes('מוזיאון') && !location.pointName.includes('בסיס') &&  !location.pointName.includes('תצפית למטס')) || location.pointName.includes('בסיס חצור') ) && location.pointName.includes(searchInput)
-        });
+        citiesResults = sortedLocations
+            .filter(location => !location.hidden || isNotHiddenAtLeastInOneRoute(location))
+            .filter(location => location.type !== "base" && location.type !== "hospital")
+            .filter(location => location.pointName.includes(searchInput));
 
         if (citiesResults.length > 0) {
             // Create location category only if we have location results
@@ -2199,13 +2221,11 @@ function fillMenu() {
 
         //if (airpalnesOnBasesCount > 0)
             locationsViewHtml += createCategoryRow({category: "בסיסים"}, true);
-            sortedLocations.forEach(function (location) {
-                if (location.pointName.includes('בסיס') && !(location.pointName.includes('בסיס חצור'))) {
-                    locationsViewHtml += createBaseCategory(location)
-                } else if (location.pointName.includes('מוזיאון חיל האוויר')) {
-                    locationsViewHtml += createBaseCategory(location)
-                } 
-            }, this); 
+            sortedLocations
+                .filter(location => location.type === 'base')
+                .forEach(function (location) {
+                    locationsViewHtml += createBaseCategory(location); 
+                }, this); 
     }
 
     if (shouldShowTypeCategory("hospital")) {
@@ -2213,7 +2233,7 @@ function fillMenu() {
         locationsViewHtml += createCategoryRow({category: "נקודות תצפית"}, true);
 
         sortedLocations.forEach(function (location) {
-            if ( location.pointName.includes('תצפית למטס')) {
+            if ( location.type === 'hospital') {
                 locationsViewHtml += createLocationRow(location, false);
             }
         }, this);
@@ -2221,13 +2241,14 @@ function fillMenu() {
 
     // add cities
     locationsViewHtml += createCategoryRow({category: "יישובים"}, true);
-    sortedLocations.forEach(function (location) {
-        if (((!location.hidden &&
-            !!routes.find(route => route.points.find(point => location.pointId === point.pointId))) || isNotHidden(location)) &&
-            ( (!location.pointName.includes('בסיס') || location.pointName === 'בסיס חצור') && !location.pointName.includes('מוזיאון') && location.type !== "hospital" && !location.pointName.includes('תצפית למטס'))) {
+    sortedLocations
+    .filter(location => isNotHiddenAtLeastInOneRoute(location) || !location.hidden) // not hidden
+    .filter(firstContainintRoute) // has route
+    .filter(location => location.type !== 'base') // not base
+    .filter(location => location.type !== 'hospital') // not a viewpoint
+    .forEach(function (location) {
                 locationsViewHtml += createLocationRow(location, false);
-        }
-    }, this);
+    });
 
 
     $("#locationsListView").html(locationsViewHtml);
@@ -2306,7 +2327,7 @@ function initGenericPopups() {
         if (!changes) {
             let displayed = "false";
             if (localStorage)
-                displayed = localStorage.getItem("good_morning_displayed_2019");
+                displayed = localStorage.getItem("good_morning_displayed_2022");
             if (!(displayed === "true")) {
                 showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon", () => {
                     setTimeout(() => {
@@ -2314,7 +2335,7 @@ function initGenericPopups() {
                     }, 10*1000);
                 });
                 if (localStorage)
-                    localStorage.setItem("good_morning_displayed_2019", "true");
+                    localStorage.setItem("good_morning_displayed_2022", "true");
             }
         } else {
             showGenericPopup("עקב תנאי מזג האוויר", `חלו שינויים קלים בנתיבים ובמופעים, אך אנחנו עדיין באים! (: חג שמח!`, "flightStartChangesIcon", () => {
@@ -2339,7 +2360,7 @@ function initGenericPopups() {
     if (timeToNotifyOfek > 0) {
         setTimeout(() => {
             showGenericPopup("חג עצמאות שמח!",
-                ` אנשי יחידת אופק 324 מתרגשים לחגוג אתכם את יום העצמאות ה-72!`,
+                ` אנשי יחידת אופק 324 מתרגשים לחגוג אתכם את יום העצמאות ה-74!`,
                 "ofekIcon",
                 "https://bit.ly/2PQAoVY");
         }, timeToNotifyOfek);
@@ -2491,60 +2512,72 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 
 
 
-
-
-function notifyUserIfNear(currentLocation, aircraft) {
+(function() {
     var userLoc = null;
     navigator.geolocation.watchPosition(function(newLoc){
         userLoc = newLoc;
         userLoc = {lon: userLoc.coords.longitude, lat: userLoc.coords.latitude};
     });
-    var closePopupTime = 60;
 
-    if (userLoc) 
-    {
-        currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
-        if (haversineDistance(userLoc,currentLocation) < 3)   
-        {
-                if($('#myModal:hidden') && $('#gottoVoiceMessagePopup')[0].style.display == "none")
-                {
-                    //Closing popup After closePopupCount seconds
-                    setTimeout(()=>{$('#gottoVoiceMessagePopup').hide();},1000*closePopupTime);
-                    
-                    //Adding to array so the user won't get notifed twice  
-                    notifiedNearUser.push(aircraft.aircraftTypeId);
+    function notifyUserIfNear(currentLocation, aircraft) {
+        if (userLoc) {
+            
+            currentLocation = {lon: currentLocation.lng, lat: currentLocation.lat};
 
-                    if(aircraft.icon){
-                        $("#aircraftImg").attr("src",`icons/aircrafts/${aircraft.icon}.svg`);
-                    }
-                    else{
-                        $("#aircraftImg").attr("src",`icons/genericAircraft.svg`);
-                    }
-                    $("#gottoVoiceMessagePopup")[0].style.display = "block";
-                    $("#aircraftName").html(`${aircraft.type} - ${aircraft.name}`);
-                    $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
-                    
-                    //Checking weather audioMessages is not undifined    
-                    //and if audio message for aircraftType is avalibale 
-                    if (audioMessages &&
-                        aircraft.aircraftTypeId in audioMessages && 
-                        audioMessages[aircraft.aircraftTypeId]["audioSrc"] ){
-                        $("#hearTheMessage").show()
 
-                        notifyAudioMessage(aircraft)
-                    }
 
-                    else {
-                        $("#hearTheMessage").hide()
+            if (haversineDistance(userLoc,currentLocation) < 3) {
+                    if($('#myModal:hidden') && $('#gottoVoiceMessagePopup')[0].style.display == "none") {
+
+                        //Checking weather audioMessages is not undifined    
+                        //and if audio message for aircraftType is available 
+                        var audioMessageAvailable =(audioMessages &&
+                            aircraft.aircraftTypeId in audioMessages && 
+                            audioMessages[aircraft.aircraftTypeId]["audioSrc"] );
+                        
+                        //Close popup sooner 
+                        var closePopupTime = audioMessageAvailable ? 60 : 30;
+                        
+                        //Adding to array so the user won't get notifed twice  
+                        notifiedNearUser.push(aircraft.aircraftTypeId);
+
+                        //Closing popup After closePopupCount seconds
+                        setTimeout(()=>{$('#gottoVoiceMessagePopup').hide();},1000*closePopupTime);
+
+                        if(aircraft.icon){
+                            $("#aircraftImg").attr("src",`icons/aircrafts/${aircraft.icon}.svg`);
+                        }
+                        else{
+                            $("#aircraftImg").attr("src",`icons/genericAircraft.svg`);
+                        }
+                        $("#gottoVoiceMessagePopup")[0].style.display = "block";
+                        //Change type and name if efroni to aerobatic team 
+                        if (aircraft.name === 'עפרוני'){
+                            $("#aircraftName").html(`הצוות האוירובטי - עפרוני`);
+                        }
+                        else{
+                             $("#aircraftName").html(`${aircraft.type} - ${aircraft.name}`);
+                        }
+                        
+                        $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
+                        
+                        if (audioMessageAvailable){
+                            $("#hearTheMessage").show()
+                            notifyAudioMessage(aircraft)      
+                        }
+
+                        else {
+                            $("#hearTheMessage").hide()
+                        }
                     }
-                }
-            //}
+            }
+            
         }
-        
     }
-}
 
-window.notifyUserIfNear = notifyUserIfNear;
+    window.notifyUserIfNear = notifyUserIfNear;
+})();
+
 
 function notifyAudioMessage (aircraft) {
     let audioMessage = audioMessages[aircraft.aircraftTypeId];
@@ -2572,7 +2605,7 @@ function notifyAudioMessage (aircraft) {
         $("#audioSRC").attr("src",audioMessage.audioSrc);
     }
     else{
-        $("#audioSRC").attr("src",'audio/pilot-message.ogg');
+        $("#audioSRC").attr("src",'audio/efroni.mp3');
     }
 }
 

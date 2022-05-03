@@ -1,6 +1,3 @@
-const { point } = require("leaflet");
-
-
 var locationPopupExpanded = false;
 var locationPopupCloseCallback = null;
 var minimizedLocationPopupHeight = 100;
@@ -79,10 +76,60 @@ function initPopups() {
         }
     });
 
+    let openBasePopupHeader = $("#header-base-popup");
+    let openBasePopup = $("#open-bases-popup");
+    let headerElementHeight = $("#headerBg").height();
+    let topY;
+    let finalTouchY;
+    let fullWindowHeight = $( window ).height(); - $('headerBg').height();
+    let relativePercentage;
+    let minimizedPopupHeight;
+    let openBasePopupStatus;
+    
+
+    openBasePopupHeader.on("tapstart", function (event) {
+        dragStartTopY = event.touches[0].clientY;
+        topY = Number(openBasePopup.css('top').replace('px', ''));
+        finalTouchY = topY;
+        event.preventDefault();
+    });
+
+    openBasePopupHeader.on("tapmove", function (event) {
+        delta = (dragStartTopY - event.touches[0].clientY);
+
+        if (finalTouchY >= headerElementHeight || delta < 0) {
+            finalTouchY = topY - delta;
+        }      
+        openBasePopup.css({top: finalTouchY + 'px'});
+
+        event.preventDefault();
+    });
+
+    openBasePopupHeader.on("tapend", function (event) {
+        minimizedPopupHeight = $( window ).height() - $('#header-base-popup').height() - ($('#base-passage').height() * 0.75);
+        relativePercentage = (finalTouchY / fullWindowHeight) * 100;
+        if (relativePercentage <= ((openBasePopupStatus === "full-sized")?15:45)) {
+            openBasePopupStatus = 'full-sized';
+            openBasePopup.animate({ top: headerElementHeight + "px", borderRadius:'0px' }, "fast");
+        } else if (relativePercentage > ((openBasePopupStatus === "full-sized")?15:45) && relativePercentage < ((openBasePopupStatus === "full-sized")?85:70)) {
+            openBasePopup.animate({ top: minimizedPopupHeight + "px", borderRadius:'15px' }, "fast");
+            openBasePopupStatus = 'minimized';
+        } else {
+            openBasePopup.animate({ top: fullWindowHeight + "px" }, "fast");
+            openBasePopupStatus = 'closed';
+        }
+    });
+
+    let closeButton = $("#close-button-open-base");
+
+    closeButton.on("tapstart", function (event) {
+        onCloseOpenBasePopup()
+    });
 }
 
 //on close for openBasePopup
 function onCloseOpenBasePopup() {
+    openBasePopupStatus = 'closed'
     let basePopUpElement = $("#open-bases-popup");
     let fullHeight = window.innerHeight;
     let fullWidth = window.innerWidth;
@@ -101,46 +148,9 @@ function onCloseOpenBasePopup() {
 }
 
 
-function onGrab(event) {
-    let headerHeight = document.getElementById('headerBg').clientHeight;
-    let windowFullSize = window.innerHeight - headerHeight;
-    let currentPosition =  windowFullSize - event.changedTouches[0].clientY;
-    let popupMinimizedPosition = document.getElementById(`headerBg`).clientHeight + (document.getElementById(`map`).clientHeight * 0.55);
-    let openBasePopupPosition = Number(document.getElementById('open-bases-popup').style.top.replace("px", ""));
-    let dragPopUpElement = document.getElementById('header-base-popup');
-    let bottomArea = windowFullSize * 0.4;
-    let topArea = windowFullSize * 0.7;
-
-    //phone onDrag event for open bases
-    dragPopUpElement.addEventListener("touchmove", (event) => {
-
-        document.getElementById('open-bases-popup').style.top = `${event.changedTouches[0].clientY}px`;
-
-        if (currentPosition <= bottomArea) {
-            document.getElementById('open-bases-popup').style.setProperty("overflow", "hidden");
-        } else if (currentPosition > bottomArea && currentPosition <  topArea) {
-            document.getElementById('open-bases-popup').style.setProperty("overflow", "hidden");
-        } else {
-            document.getElementById('open-bases-popup').style.setProperty("overflow", "scroll");
-        }
-    });
-    
-    //phone onDrag event for open bases
-    dragPopUpElement.addEventListener("touchend", (event) => {
-        if (currentPosition <= bottomArea) {
-            document.getElementById('open-bases-popup').style.top = `${windowFullSize + headerHeight}px`;
-        } else if (currentPosition > bottomArea && currentPosition < topArea) {
-            document.getElementById('open-bases-popup').style.top = `${popupMinimizedPosition}px`;
-        } else {
-            document.getElementById('open-bases-popup').style.top = `${headerHeight}px`;
-        }
-    });
-}
-
-loadOpenBasesLocation();
-
 
 function showBaseLoactionPopup(pointId) {
+    openBasePopupStatus = 'minimized'
     onCloseOpenBasePopup()
     deselectLocation()
     deselectAircraft()
@@ -163,11 +173,14 @@ function showBaseLoactionPopup(pointId) {
     let airplaneShowsElement = document.getElementById('airplanes-show');
 
     if( fullWidth <= 600 ) {
+        basePopUpElement.css({borderRadius: '15px'});
+        document.getElementById('open-base-card-theme').src = 'experimental-assets/base-card-airplane-for-mobile.png';
         basePopUpElement.animate({
             height: fullHeight + "px",
             top: `${headerElement.clientHeight+(mapElement.clientHeight * 0.4)}px`,
         }, "fast");
     } else {
+        document.getElementById('open-base-card-theme').src = 'experimental-assets/base-card-airplane-for-pc.png';
         document.getElementById('drag-button').style.display = 'none';
         basePopUpElement.animate({
             height: fullHeight + "px",
@@ -264,6 +277,7 @@ function showBaseLoactionPopup(pointId) {
                     date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
                 }
 
+               if (ac.name === "עפרוני") {ac.name = ' צוות אוירובטי (עפרוני)'}
                 OpenBaseAircraftshtml += createTableRow(ac.aircraftId,
                     ac.name,
                     ac.icon,
@@ -351,7 +365,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
     // Check to see if aircraftList is empty in this location
     if (specials.size === 0 && (!tmp || tmp.length === 0)) {
-        if(point.pointName.includes('תצפית למטס')) {
+        if(point.type === 'hospital') {
             $("#viewPointMessage").show();
             $("#noAircraftMessage").hide();
         } else {
@@ -368,15 +382,17 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
             if (value && value.length > 0) {
                 html += createLocationPopupCategoryRow(key);
                 value.forEach((ac) => {
+                    var aircraftname = ac.name;
+                    if (aircraftname === "עפרוני") {aircraftname = ' צוות אוירובטי (עפרוני)'};
                     var date = undefined;
-
+                    
                     if (ac.date) {
                         var split = ac.date.split('-');
                         date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
                     }
-
+                    
                     html += createTableRow(ac.aircraftId,
-                        ac.name,
+                        aircraftname,
                         ac.icon,
                         ac.aircraftType,
                         ac.time,
@@ -629,7 +645,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     $("#aircraftInfoName").text(aircraft.name);
     $("#aircraftInfoType").text(aircraft.type);
 
-    if (aircraft.name === 'צופית' | aircraft.name === 'עפרוני' | aircraft.name === 'ברק' | aircraft.name === 'אדיר' | aircraft.name === 'קרנף' | aircraft.name === 'לביא' | aircraft.name === 'בז' | aircraft.name === 'סופה' | aircraft.name === 'שמשון') {
+    if (aircraft.name === 'צופית' | aircraft.name === 'עפרוני' | aircraft.name === 'ברק' | aircraft.name === 'אדיר' | aircraft.name === 'קרנף' | aircraft.name === 'לביא' | aircraft.name === 'בז' | aircraft.name === 'סופה' | aircraft.name === 'שמשון'| aircraft.name === 'רעם' | aircraft.name === 'שרף') {
         $("#aircraftInfo3D").show();
     } else $("#aircraftInfo3D").hide();
     
@@ -843,8 +859,17 @@ function createCategoryLocationRow(location, time, from) {
 }
 
 function createLocationScheduleRow(aircraft, location, time, from) {
-    return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/point-${location.color}.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+    if(location.color === '#FF0000'){
+        return '';
+    }
+    
+ //   if(location.type === 'base'){
+   //     return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/OpenBaseMap.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+     //       ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} ${(from ? " - " + roundToMinute(from) : "")} </div></div>`;
+    //}else{
+        return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/point-${location.color}.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
             ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} ${(from ? " - " + roundToMinute(from) : "")} </div></div>`;
+    //}         
 }
 
 function selectPointFromSchedule(pointId, minimized = false) {
@@ -855,7 +880,7 @@ function selectPointFromSchedule(pointId, minimized = false) {
 
 function createScheduleRow(aircraft, location) {
     var fullPoint = locations[location.pointId];
-    if (!fullPoint.hidden) {
+    if (!fullPoint.hidden || isNotHidden(fullPoint)) {
         if (aircraft.aerobatic) {
             return createAerobaticRow(fullPoint, location.time, location.from);
         } else if (aircraft.parachutist) {
@@ -867,7 +892,17 @@ function createScheduleRow(aircraft, location) {
 
     return "";
 }
-
+function isNotHidden (location) {
+    let isExists = false;
+    routes?.forEach(route => {
+        route.points?.forEach(point => {
+            if(location.pointId === point.pointId)
+                if(!point.hidden)
+                    isExists = true;
+        })
+    });
+    return isExists;
+}
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule = false, showAllPoints = false, from) {
     aircraftUsdzObjData = [
@@ -887,9 +922,9 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
     var aerobaticIcon = "<div class=\"inline-aircraft-info\" />";
     var classname = "";
     let currAircraftName = aircraftUsdzObjData.find(obj => obj.hebName === name);
-    if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון'&& currAircraftName !== undefined) {
+    if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון' | name === 'רעם' | name === 'שרף'&& currAircraftName !== undefined) {
         classname = "<button class=\"show\" id=\"ARButton\" onclick='openAR("+ JSON.stringify(currAircraftName) +")'></button>"
-    } else classname = "<button class=\"hide\" id=\"ARButton\" onclick='openAR("+ JSON.stringify(currAircraftName)+")'></button>"
+    } else classname = "<button class=\"hide\" style=\"display: none;\" id=\"ARButton\" onclick='openAR("+ JSON.stringify(currAircraftName)+")'></button>"
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
         //aircraftType = "מופע אווירובטי";
@@ -936,6 +971,7 @@ function expandLocation(pointId, isSearchBar = false) {
             html += createNoAircraftMessageRow();
         } else {
             location.aircrafts.forEach(function (aircraft) {
+                if (aircraft.name === "עפרוני") {aircraft.name = ' צוות אוירובטי (עפרוני)'};
                 if (aircraft.name !== lastAircraft) {
                     html += createTableRow(aircraft.aircraftId,
                         aircraft.name,
@@ -1119,8 +1155,15 @@ function getMapUndark() {
 }
 
 function createClusterLocationRow(location) {
-    return `<div onclick='selectPoint(` + location.pointId + ");' class=\"tableRow\"><img src=\"icons/point-" + location.color + ".svg\" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
+    let resultLocationRow;
+    if (location.pointName.includes('מוזיאון') || (location.pointName.includes('בסיס') && !location.pointName.includes('חצור'))) {
+        resultLocationRow = `<div onclick='selectPoint(` + location.pointId + ");' class=\"tableRow\"><img src=\"icons/OpenBaseMap.svg \" class=\"locationIconForBases\"><div class=\"aircraftName\"><b>"
         + location.pointName + "</b></div></div></div>";
+    } else {
+        resultLocationRow = `<div onclick='selectPoint(` + location.pointId + ");' class=\"tableRow\"><img src=\"icons/point-" + location.color + ".svg \" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
+        + location.pointName + "</b></div></div></div>";
+    }
+    return resultLocationRow
 }
 
 function openMapClusterPopup(arrayOfObjects) {
