@@ -206,6 +206,10 @@
 				<div id="share">
 					<script>
 						document.getElementById("share").addEventListener('click', ()=>{
+							      gtag('event', 'ar_share', {
+								'event_category': 'share',
+								 'event_label': 'ar shared clicked ' + navigator.share ? 'working' : 'not working'
+							      });
 							if(navigator.share){
 								navigator.share({
 								title: 'matas.iaf ar',
@@ -661,8 +665,8 @@
 					//setTimeout(() => {eventFire(document.getElementById('ARButton'), 'click');}, 2000);
 				}
 				const shareData = {
-					// title: 'כיף לצפות במטוסי חיל האוויר - אצלי בטלפון, בתלת מימד!',
-					// text: 'כמה מגניב! באפליקצית מטס יום העצמאות ה74 אני רואה את כל המטוסים בתלת מימד. בואו לנסות גם',
+					title: 'כיף לצפות במטוסי חיל האוויר - אצלי בטלפון, בתלת מימד!',
+					text: 'כמה מגניב! באפליקצית מטס יום העצמאות ה74 אני רואה את כל המטוסים בתלת מימד. בואו לנסות גם',
 					url: 'https://matas.iaf.org.il',
 				}
 
@@ -678,8 +682,16 @@
 					try {
 						await navigator.share(shareData);
 						console.log('המשתמש שיתף בהצלחה את המטס');
+					      gtag('event', 'ar_share', {
+						'event_category': 'share',
+						 'event_label': 'ar shared successfully'
+					      });
 					} catch (err) {
 						console.log('נסיון שיתוף נכשל', err);
+					      gtag('event', 'ar_share', {
+						'event_category': 'share',
+						 'event_label': 'ar share failed'
+					      });
 					}
 				});
 				var streaming = false;
@@ -764,6 +776,10 @@
 				}
 
 				document.getElementById("button-close").addEventListener("click", (e) => {
+				      gtag('event', 'ar_close_btb', {
+					'event_category': 'ar_close',
+					 'event_label': 'ar closed'
+				      });
 					document.getElementById('blob').classList.add('animateScale');					
 					setTimeout(() => {
 						let targetUrl = document.location.href.substr(0,document.location.href.lastIndexOf("/")+1);
@@ -962,7 +978,7 @@
 				new GLTFLoader()
 
 				
-					.load('./3d_models/aircrafts/gltf/' + selectedAircraft.id + '/object.' + selectedAircraft.type, function (gltf) {
+					.load('https://matasstorage.blob.core.windows.net/models/2022/gltf/' + selectedAircraft.id + '/object.' + selectedAircraft.type, function (gltf) {
 						if (aircraft)
 							scene.remove(aircraft);
 						aircraft = gltf.scene;
@@ -987,12 +1003,12 @@
 			
 			function loadAircraftOBJ(selectedAircraft) {
 				new MTLLoader()
-					.setPath('./3d_models/aircrafts/obj/' + selectedAircraft.id + '/')
+					.setPath('https://matasstorage.blob.core.windows.net/models/2022/obj/' + selectedAircraft.id + '/')
 					.load('object.mtl', function (materials) {
 						materials.preload();
 						new OBJLoader()
 							.setMaterials(materials)
-							.setPath('./3d_models/aircrafts/obj/' + selectedAircraft.id + '/')
+							.setPath('https://matasstorage.blob.core.windows.net/models/2022/obj/' + selectedAircraft.id + '/')
 							.load('object.obj', function (object) {
 								if (aircraft)
 									scene.remove(aircraft);
@@ -1045,7 +1061,7 @@
 
 			function loadTrailsGLTF(selectedTrails) {
 				new GLTFLoader()
-					.load('./3d_models/trails/gltf/' + selectedTrails.id + '/object.' + selectedTrails.type, function (gltf) {
+					.load('https://matasstorage.blob.core.windows.net/models/2022/gltf/' + selectedTrails.id + '/object.' + selectedTrails.type, function (gltf) {
 						const trail = gltf.scene;
 						trails.forEach(trail => { scene.remove(trail) });
 						trails = [];
@@ -1063,29 +1079,33 @@
 
 			function loadTrailsOBJ(selectedTrails) {
 				for (let i = 0; i < 9; i++) {
-					new MTLLoader()
-						.setPath('./3d_models/trails/obj/' + selectedTrails.id + '/')
-						.load('object.mtl', function (materials) {
-							materials.preload();
-							new OBJLoader()
-								.setMaterials(materials)
-								.setPath('./3d_models/trails/obj/' + selectedTrails.id + '/')
-								.load('object.obj', function (object) {
-									const trail = object;
-									// const num = ((1 - (i / 10)) % 1) / 10000
-									const scale = (selectedTrails.scale * Math.abs((1 - ((i + 1) / 10)) % 1));
-									// const scale = selectedTrails.scale;
-									trail.scale.set(scale, scale, scale);
-									scene.add(trail);
-									trails.push(trail);
-								}, undefined, function (error) {
-									console.error(error);
-								});
-						});
+					// new MTLLoader()
+					// 	.setPath('https://matasstorage.blob.core.windows.net/models/2022/trails/obj/' + selectedTrails.id + '/')
+					// 	.load('object.mtl', function (materials) {
+					// 		materials.preload();
+					// 		new OBJLoader()
+					// 			.setMaterials(materials)
+					// 			.setPath('https://matasstorage.blob.core.windows.net/models/2022/trails/obj/' + selectedTrails.id + '/')
+					// 			.load('object.obj', function (object) {
+					// 				const trail = object;
+					// 				// const num = ((1 - (i / 10)) % 1) / 10000
+					// 				const scale = (selectedTrails.scale * Math.abs((1 - ((i + 1) / 10)) % 1));
+					// 				// const scale = selectedTrails.scale;
+					// 				trail.scale.set(scale, scale, scale);
+					// 				scene.add(trail);
+					// 				trails.push(trail);
+					// 			}, undefined, function (error) {
+					// 				console.error(error);
+					// 			});
+					// 	});
 				}
 			}
 			let countLoad = 0;
 			function changeAircraft(selectedAircraft) {
+				gtag('event', 'ar_select_aircraft', {
+				  'event_category': 'ar_select_aircraft',
+				  'event_label': selectedAircraft.name
+				});
 				setTimeout(() => {
 					AIRCRAFTS_META_DATA.forEach(option => { document.getElementById(option.id).classList.remove("selected") });
 					document.getElementById(selectedAircraft.id).classList.add("selected");
@@ -1282,6 +1302,9 @@
 			let environmentToggleClick;
 
 			function openFullscreen(elem) {
+				gtag('event', 'ar_fullscreen', {
+				  'event_category': 'ar_fullscreen'
+				});
 				if (elem.requestFullscreen) {
 				  elem.requestFullscreen();
 				} else if (elem.webkitRequestFullscreen) { /* Safari */
@@ -1322,6 +1345,10 @@
 			
 			document.querySelector("#change-ar-toggle").addEventListener('click', () =>{
 				environmentToggleClick = !environmentToggleClick;
+				gtag('event', 'ar_toggle', {
+				  'event_category': 'ar_toggle',
+				  'event_label': environmentToggleClick ? 'on' : 'off'
+				});
 				document.getElementById("toggle").style.transition = 'all 0.5s';
 				if(environmentToggleClick){
 					document.querySelector('#supported-menu #help').style.visibility = "visible";
@@ -1343,6 +1370,10 @@
 				}
 			})
 			document.getElementById("help").addEventListener('click', () =>{
+				gtag('event', 'ar_help', {
+				  'event_category': 'ar_help',
+				  'event_label': 'open'
+				});
 				helpSupportedArPopup.style.visibility ='visible';
 				document.getElementById('help-supported-ar').style.display = 'block';
 				document.querySelector('.conteiner-bottom button').addEventListener('click', ()=>{
@@ -1356,6 +1387,10 @@
 				setTimeout(() => {
 					document.getElementById('url-copied').style.display = 'none';
 				}, 1500);
+			      gtag('event', 'ar_share', {
+				'event_category': 'share',
+				 'event_label': 'unsupported share clicked - url copied'
+			      });
 			})
 			function smooth(locations) {
 				let result = [locations[0]];

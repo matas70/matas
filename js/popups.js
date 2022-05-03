@@ -1,6 +1,3 @@
-const { point } = require("leaflet");
-
-
 var locationPopupExpanded = false;
 var locationPopupCloseCallback = null;
 var minimizedLocationPopupHeight = 100;
@@ -137,9 +134,6 @@ function onGrab(event) {
     });
 }
 
-loadOpenBasesLocation();
-
-
 function showBaseLoactionPopup(pointId) {
     onCloseOpenBasePopup()
     deselectLocation()
@@ -163,11 +157,13 @@ function showBaseLoactionPopup(pointId) {
     let airplaneShowsElement = document.getElementById('airplanes-show');
 
     if( fullWidth <= 600 ) {
+        document.getElementById('open-base-card-theme').src = 'experimental-assets/base-card-airplane-for-mobile.png';
         basePopUpElement.animate({
             height: fullHeight + "px",
             top: `${headerElement.clientHeight+(mapElement.clientHeight * 0.4)}px`,
         }, "fast");
     } else {
+        document.getElementById('open-base-card-theme').src = 'experimental-assets/base-card-airplane-for-pc.png';
         document.getElementById('drag-button').style.display = 'none';
         basePopUpElement.animate({
             height: fullHeight + "px",
@@ -184,6 +180,10 @@ function showBaseLoactionPopup(pointId) {
     document.getElementById('baseArrivalTime').innerHTML = point.baseArrivalTime;
     document.getElementById('baseArrivalExplanation').innerHTML = point.baseArrivalExplanation;
 
+    gtag('event', 'open base', {
+        'event_category': 'show open base',
+        'event_label': point.baseName
+    });
 
     let mapButton = (point.baseMapPath !== '')?`<a href=${point.baseMapPath} target="_blank"><button class="base-map">למפת התערוכה</button></a>`:'';
 
@@ -349,7 +349,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
 
     // Check to see if aircraftList is empty in this location
     if (specials.size === 0 && (!tmp || tmp.length === 0)) {
-        if(point.pointName.includes('תצפית למטס')) {
+        if(point.type === 'hospital') {
             $("#viewPointMessage").show();
             $("#noAircraftMessage").hide();
         } else {
@@ -627,7 +627,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     $("#aircraftInfoName").text(aircraft.name);
     $("#aircraftInfoType").text(aircraft.type);
 
-    if (aircraft.name === 'צופית' | aircraft.name === 'עפרוני' | aircraft.name === 'ברק' | aircraft.name === 'אדיר' | aircraft.name === 'קרנף' | aircraft.name === 'לביא' | aircraft.name === 'בז' | aircraft.name === 'סופה' | aircraft.name === 'שמשון') {
+    if (aircraft.name === 'צופית' | aircraft.name === 'עפרוני' | aircraft.name === 'ברק' | aircraft.name === 'אדיר' | aircraft.name === 'קרנף' | aircraft.name === 'לביא' | aircraft.name === 'בז' | aircraft.name === 'סופה' | aircraft.name === 'שמשון'| aircraft.name === 'רעם' | aircraft.name === 'שרף') {
         $("#aircraftInfo3D").show();
     } else $("#aircraftInfo3D").hide();
     
@@ -841,8 +841,17 @@ function createCategoryLocationRow(location, time, from) {
 }
 
 function createLocationScheduleRow(aircraft, location, time, from) {
-    return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/point-${location.color}.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+    if(location.color === '#FF0000'){
+        return '';
+    }
+    
+ //   if(location.type === 'base'){
+   //     return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/OpenBaseMap.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+     //       ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} ${(from ? " - " + roundToMinute(from) : "")} </div></div>`;
+    //}else{
+        return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/point-${location.color}.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
             ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} ${(from ? " - " + roundToMinute(from) : "")} </div></div>`;
+    //}         
 }
 
 function selectPointFromSchedule(pointId, minimized = false) {
@@ -853,7 +862,7 @@ function selectPointFromSchedule(pointId, minimized = false) {
 
 function createScheduleRow(aircraft, location) {
     var fullPoint = locations[location.pointId];
-    if (!fullPoint.hidden) {
+    if (!fullPoint.hidden || isNotHidden(fullPoint)) {
         if (aircraft.aerobatic) {
             return createAerobaticRow(fullPoint, location.time, location.from);
         } else if (aircraft.parachutist) {
@@ -865,7 +874,17 @@ function createScheduleRow(aircraft, location) {
 
     return "";
 }
-
+function isNotHidden (location) {
+    let isExists = false;
+    routes?.forEach(route => {
+        route.points?.forEach(point => {
+            if(location.pointId === point.pointId)
+                if(!point.hidden)
+                    isExists = true;
+        })
+    });
+    return isExists;
+}
 
 function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, special, collapse, displayTime = true, date, showSchedule = false, showAllPoints = false, from) {
     aircraftUsdzObjData = [
@@ -885,9 +904,9 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
     var aerobaticIcon = "<div class=\"inline-aircraft-info\" />";
     var classname = "";
     let currAircraftName = aircraftUsdzObjData.find(obj => obj.hebName === name);
-    if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון'&& currAircraftName !== undefined) {
+    if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון' | name === 'רעם' | name === 'שרף'&& currAircraftName !== undefined) {
         classname = "<button class=\"show\" id=\"ARButton\" onclick='openAR("+ JSON.stringify(currAircraftName) +")'></button>"
-    } else classname = "<button class=\"hide\" id=\"ARButton\" onclick='openAR("+ JSON.stringify(currAircraftName)+")'></button>"
+    } else classname = "<button class=\"hide\" style=\"display: none;\" id=\"ARButton\" onclick='openAR("+ JSON.stringify(currAircraftName)+")'></button>"
     if (aerobatic) {
         aerobaticIcon = "<img src=\"icons/aircraft-menu/aerobatic.svg\" class=\"aerobaticTableIcon\"></img>";
         //aircraftType = "מופע אווירובטי";
