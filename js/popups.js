@@ -260,8 +260,7 @@ function showBaseLoactionPopup(pointId) {
                     date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
                 }
 
-                if (ac.name === "עפרוני") {ac.name = ' צוות אוירובטי (עפרוני)'}
-
+               if (ac.name === "עפרוני") {ac.name = ' צוות אוירובטי (עפרוני)'}
                 OpenBaseAircraftshtml += createTableRow(ac.aircraftId,
                     ac.name,
                     ac.icon,
@@ -366,15 +365,17 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
             if (value && value.length > 0) {
                 html += createLocationPopupCategoryRow(key);
                 value.forEach((ac) => {
+                    var aircraftname = ac.name;
+                    if (aircraftname === "עפרוני") {aircraftname = ' צוות אוירובטי (עפרוני)'};
                     var date = undefined;
-
+                    
                     if (ac.date) {
                         var split = ac.date.split('-');
                         date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
                     }
-                    if (ac.name === "עפרוני") {ac.name = ' צוות אוירובטי (עפרוני)'};
+                    
                     html += createTableRow(ac.aircraftId,
-                        ac.name,
+                        aircraftname,
                         ac.icon,
                         ac.aircraftType,
                         ac.time,
