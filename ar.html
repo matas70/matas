@@ -344,7 +344,7 @@
 					animate();
 					if (window.isSecureContext == false) {
 						message.innerHTML = 'WEBXR NEEDS HTTPS';
-					} else if (getCookie('tut') !== 2) {
+					} else {
 						message.innerHTML = 'WEBXR NOT AVAILABLE';
 						firebase.database().ref('devices/not-available/' +
 							cur_user_agent.getDevice().vendor + " " +
