@@ -780,9 +780,9 @@
 					'event_category': 'ar_close',
 					 'event_label': 'ar closed'
 				      });
-					document.getElementById('blob').classList.add('animateScale');					
+					document.getElementById('blob').classList.add('animateScale');	
+					let targetUrl = document.location.href.substr(0,document.location.href.lastIndexOf("/")+1);				
 					setTimeout(() => {
-						let targetUrl = document.location.href.substr(0,document.location.href.lastIndexOf("/")+1);
 						if (document.referrer == targetUrl) 
 							window.close();
 						else 
