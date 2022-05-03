@@ -76,10 +76,60 @@ function initPopups() {
         }
     });
 
+    let openBasePopupHeader = $("#header-base-popup");
+    let openBasePopup = $("#open-bases-popup");
+    let headerElementHeight = $("#headerBg").height();
+    let topY;
+    let finalTouchY;
+    let fullWindowHeight = $( window ).height(); - $('headerBg').height();
+    let relativePercentage;
+    let minimizedPopupHeight;
+    let openBasePopupStatus;
+    
+
+    openBasePopupHeader.on("tapstart", function (event) {
+        dragStartTopY = event.touches[0].clientY;
+        topY = Number(openBasePopup.css('top').replace('px', ''));
+        finalTouchY = topY;
+        event.preventDefault();
+    });
+
+    openBasePopupHeader.on("tapmove", function (event) {
+        delta = (dragStartTopY - event.touches[0].clientY);
+
+        if (finalTouchY >= headerElementHeight || delta < 0) {
+            finalTouchY = topY - delta;
+        }      
+        openBasePopup.css({top: finalTouchY + 'px'});
+
+        event.preventDefault();
+    });
+
+    openBasePopupHeader.on("tapend", function (event) {
+        minimizedPopupHeight = $( window ).height() - $('#header-base-popup').height() - ($('#base-passage').height() * 0.75);
+        relativePercentage = (finalTouchY / fullWindowHeight) * 100;
+        if (relativePercentage <= ((openBasePopupStatus === "full-sized")?15:45)) {
+            openBasePopupStatus = 'full-sized';
+            openBasePopup.animate({ top: headerElementHeight + "px", borderRadius:'0px' }, "fast");
+        } else if (relativePercentage > ((openBasePopupStatus === "full-sized")?15:45) && relativePercentage < ((openBasePopupStatus === "full-sized")?85:70)) {
+            openBasePopup.animate({ top: minimizedPopupHeight + "px", borderRadius:'15px' }, "fast");
+            openBasePopupStatus = 'minimized';
+        } else {
+            openBasePopup.animate({ top: fullWindowHeight + "px" }, "fast");
+            openBasePopupStatus = 'closed';
+        }
+    });
+
+    let closeButton = $("#close-button-open-base");
+
+    closeButton.on("tapstart", function (event) {
+        onCloseOpenBasePopup()
+    });
 }
 
 //on close for openBasePopup
 function onCloseOpenBasePopup() {
+    openBasePopupStatus = 'closed'
     let basePopUpElement = $("#open-bases-popup");
     let fullHeight = window.innerHeight;
     let fullWidth = window.innerWidth;
@@ -98,43 +148,9 @@ function onCloseOpenBasePopup() {
 }
 
 
-function onGrab(event) {
-    let headerHeight = document.getElementById('headerBg').clientHeight;
-    let windowFullSize = window.innerHeight - headerHeight;
-    let currentPosition =  windowFullSize - event.changedTouches[0].clientY;
-    let popupMinimizedPosition = document.getElementById(`headerBg`).clientHeight + (document.getElementById(`map`).clientHeight * 0.55);
-    let openBasePopupPosition = Number(document.getElementById('open-bases-popup').style.top.replace("px", ""));
-    let dragPopUpElement = document.getElementById('header-base-popup');
-    let bottomArea = windowFullSize * 0.4;
-    let topArea = windowFullSize * 0.7;
-
-    //phone onDrag event for open bases
-    dragPopUpElement.addEventListener("touchmove", (event) => {
-
-        document.getElementById('open-bases-popup').style.top = `${event.changedTouches[0].clientY}px`;
-
-        if (currentPosition <= bottomArea) {
-            document.getElementById('open-bases-popup').style.setProperty("overflow", "hidden");
-        } else if (currentPosition > bottomArea && currentPosition <  topArea) {
-            document.getElementById('open-bases-popup').style.setProperty("overflow", "hidden");
-        } else {
-            document.getElementById('open-bases-popup').style.setProperty("overflow", "scroll");
-        }
-    });
-    
-    //phone onDrag event for open bases
-    dragPopUpElement.addEventListener("touchend", (event) => {
-        if (currentPosition <= bottomArea) {
-            document.getElementById('open-bases-popup').style.top = `${windowFullSize + headerHeight}px`;
-        } else if (currentPosition > bottomArea && currentPosition < topArea) {
-            document.getElementById('open-bases-popup').style.top = `${popupMinimizedPosition}px`;
-        } else {
-            document.getElementById('open-bases-popup').style.top = `${headerHeight}px`;
-        }
-    });
-}
 
 function showBaseLoactionPopup(pointId) {
+    openBasePopupStatus = 'minimized'
     onCloseOpenBasePopup()
     deselectLocation()
     deselectAircraft()
@@ -157,6 +173,7 @@ function showBaseLoactionPopup(pointId) {
     let airplaneShowsElement = document.getElementById('airplanes-show');
 
     if( fullWidth <= 600 ) {
+        basePopUpElement.css({borderRadius: '15px'});
         document.getElementById('open-base-card-theme').src = 'experimental-assets/base-card-airplane-for-mobile.png';
         basePopUpElement.animate({
             height: fullHeight + "px",
