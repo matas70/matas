@@ -2552,7 +2552,7 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                         }
                         $("#gottoVoiceMessagePopup")[0].style.display = "block";
                         //Change type and name if efroni to aerobatic team 
-                        if (aircraft.name == 'עפרוני'){
+                        if (aircraft.name === 'עפרוני'){
                             $("#aircraftName").html(`הצוות האוירובטי - עפרוני`);
                         }
                         else{
