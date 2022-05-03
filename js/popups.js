@@ -277,6 +277,7 @@ function showBaseLoactionPopup(pointId) {
                     date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
                 }
 
+               if (ac.name === "עפרוני") {ac.name = ' צוות אוירובטי (עפרוני)'}
                 OpenBaseAircraftshtml += createTableRow(ac.aircraftId,
                     ac.name,
                     ac.icon,
@@ -381,15 +382,17 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
             if (value && value.length > 0) {
                 html += createLocationPopupCategoryRow(key);
                 value.forEach((ac) => {
+                    var aircraftname = ac.name;
+                    if (aircraftname === "עפרוני") {aircraftname = ' צוות אוירובטי (עפרוני)'};
                     var date = undefined;
-
+                    
                     if (ac.date) {
                         var split = ac.date.split('-');
                         date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
                     }
-
+                    
                     html += createTableRow(ac.aircraftId,
-                        ac.name,
+                        aircraftname,
                         ac.icon,
                         ac.aircraftType,
                         ac.time,
@@ -968,6 +971,7 @@ function expandLocation(pointId, isSearchBar = false) {
             html += createNoAircraftMessageRow();
         } else {
             location.aircrafts.forEach(function (aircraft) {
+                if (aircraft.name === "עפרוני") {aircraft.name = ' צוות אוירובטי (עפרוני)'};
                 if (aircraft.name !== lastAircraft) {
                     html += createTableRow(aircraft.aircraftId,
                         aircraft.name,
@@ -1151,8 +1155,15 @@ function getMapUndark() {
 }
 
 function createClusterLocationRow(location) {
-    return `<div onclick='selectPoint(` + location.pointId + ");' class=\"tableRow\"><img src=\"icons/point-" + location.color + ".svg\" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
+    let resultLocationRow;
+    if (location.pointName.includes('מוזיאון') || (location.pointName.includes('בסיס') && !location.pointName.includes('חצור'))) {
+        resultLocationRow = `<div onclick='selectPoint(` + location.pointId + ");' class=\"tableRow\"><img src=\"icons/OpenBaseMap.svg \" class=\"locationIconForBases\"><div class=\"aircraftName\"><b>"
         + location.pointName + "</b></div></div></div>";
+    } else {
+        resultLocationRow = `<div onclick='selectPoint(` + location.pointId + ");' class=\"tableRow\"><img src=\"icons/point-" + location.color + ".svg \" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
+        + location.pointName + "</b></div></div></div>";
+    }
+    return resultLocationRow
 }
 
 function openMapClusterPopup(arrayOfObjects) {
