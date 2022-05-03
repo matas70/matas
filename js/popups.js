@@ -953,6 +953,7 @@ function expandLocation(pointId, isSearchBar = false) {
             html += createNoAircraftMessageRow();
         } else {
             location.aircrafts.forEach(function (aircraft) {
+                if (aircraft.name === "עפרוני") {aircraft.name = ' צוות אוירובטי (עפרוני)'};
                 if (aircraft.name !== lastAircraft) {
                     html += createTableRow(aircraft.aircraftId,
                         aircraft.name,
