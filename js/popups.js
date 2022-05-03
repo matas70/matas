@@ -1151,8 +1151,15 @@ function getMapUndark() {
 }
 
 function createClusterLocationRow(location) {
-    return `<div onclick='selectPoint(` + location.pointId + ");' class=\"tableRow\"><img src=\"icons/point-" + location.color + ".svg\" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
+    let resultLocationRow;
+    if (location.pointName.includes('מוזיאון') || (location.pointName.includes('בסיס') && !location.pointName.includes('חצור'))) {
+        resultLocationRow = `<div onclick='selectPoint(` + location.pointId + ");' class=\"tableRow\"><img src=\"icons/OpenBaseMap.svg \" class=\"locationIconForBases\"><div class=\"aircraftName\"><b>"
         + location.pointName + "</b></div></div></div>";
+    } else {
+        resultLocationRow = `<div onclick='selectPoint(` + location.pointId + ");' class=\"tableRow\"><img src=\"icons/point-" + location.color + ".svg \" class=\"locationIcon\"><div class=\"aircraftName\"><b>"
+        + location.pointName + "</b></div></div></div>";
+    }
+    return resultLocationRow
 }
 
 function openMapClusterPopup(arrayOfObjects) {
