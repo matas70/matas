@@ -84,6 +84,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-functions.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-database.js"></script>
    
     
 <div id="wrapper">
@@ -668,6 +669,62 @@
     </div>
 </div> -->
 
+<script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+        apiKey: "AIzaSyCLGRmnw7ugm-R5w3_8p8qP5jHz4DogXXM",
+        authDomain: "matas-8f467.firebaseapp.com",
+        databaseURL: "https://matas-8f467-default-rtdb.firebaseio.com",
+        projectId: "matas-8f467",
+        storageBucket: "matas-8f467.appspot.com",
+        messagingSenderId: "119258401801",
+        appId: "1:119258401801:web:313d0d094555418e8cbcd8",
+        measurementId: "G-RWFBKYRZ5H"
+    };
+    // Initialize Firebase
+    var errorsFirebase = firebase.initializeApp(firebaseConfig, "errors");
+    var errorsDatabase = errorsFirebase.database();
+
+    function dataToFirebase(data) {
+        if (data == null) data = "null"
+        if (data == undefined) data = "undefined"
+        if (Array.isArray(data)) {
+            return data.map(item => dataToFirebase(item))
+        }
+        if (typeof data == 'object') {
+            Object.keys(data).map(function (key, index) {
+                data[key] = dataToFirebase(data[key]);
+            });
+        }
+        return data
+    }
+
+    window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
+
+        const today = new Date();
+        const date = today.getFullYear() + '-' + (today.getMonth() + 1) + "-" + today.getDate();
+        const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + ":" + (+ today) % 1000;
+        const dateTime = date + '/' + time;
+        const cur_user_agent = new UAParser();
+        cur_user_agent.setUA(navigator.userAgent);
+        const result = cur_user_agent.getResult();
+
+
+        errorsDatabase.ref('index-error-logs/' + dateTime + "/" + Math.floor(Math.random() * 10000)).set({
+            date: dataToFirebase(dateTime),
+            user_agent: dataToFirebase(navigator.userAgent),
+            browser: dataToFirebase(cur_user_agent.getBrowser()),
+            device: dataToFirebase(cur_user_agent.getDevice()),
+            OS: dataToFirebase(cur_user_agent.getOS()),
+            engine: dataToFirebase(cur_user_agent.getEngine()),
+            message: dataToFirebase(errorMsg),
+            url: dataToFirebase(url),
+            line_number: dataToFirebase(lineNumber),
+        });
+        return false;
+    }
+</script>
 
 
 </body>
