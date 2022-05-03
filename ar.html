@@ -535,7 +535,14 @@
 							document.body.offsetWidth / 2, document.documentElement.clientHeight - 140
 						);
 						
-						let selected = centeredElement.parentElement.children[0].src?.split('Planes_')[1].replace('.svg', '')
+						if(
+							!centeredElement ||
+							!centeredElement.parentElement ||
+							!centeredElement.parentElement.children[0] ||
+							!centeredElement.parentElement.children[0].src)
+							return;
+						
+						let selected = centeredElement.parentElement.children[0].src.split('Planes_')[1].replace('.svg', '')
 						AIRCRAFTS_META_DATA.forEach((e) => {
 							if (e.id === selected) changeAircraft(e);
 							
