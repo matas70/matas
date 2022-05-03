@@ -1218,12 +1218,6 @@ br.baseData {
     padding-bottom: 4px;
 }
 
-.locationIconForBases {
-    padding: 0;
-    width: 72px;
-    height: 50px;
-}
-
 .mapClusterPopupFooter {
     font-family: "Heebo-Bold";
     font-size: 14px;
@@ -2081,4 +2075,14 @@ hr.aircraftLineSeparator.two {
     height: 48px;
     border: none;
     width: calc(100% + 3px);
+}
+
+img.locationIconForBases {
+    padding: 0;
+    height: 72px;
+    width: 50px;
+    padding-left: 10px;
+    padding-right: 11px;
+    padding-top: 8px;
+    padding-bottom: 4px;
 }
