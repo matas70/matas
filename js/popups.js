@@ -372,7 +372,7 @@ function showLocationPopup(point, color, titleColor, subtitleColor, minimized = 
                         var split = ac.date.split('-');
                         date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
                     }
-
+                    if (ac.name === "עפרוני") {ac.name = ' צוות אוירובטי (עפרוני)'};
                     html += createTableRow(ac.aircraftId,
                         ac.name,
                         ac.icon,
