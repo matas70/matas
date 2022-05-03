@@ -39,11 +39,11 @@ function subscribe(topicName) {
                 resolve();
             }).catch((err) => {
                 console.log(err);
-                reject();
+                reject(err);
             });
         }).catch(function (err) {
             console.log(err);
-            reject();
+            reject(err);
         });
     });
 }
@@ -68,11 +68,11 @@ function unsubscribe(pointId) {
                 resolve();
             }).catch((err) => {
                 console.log(err);
-                reject();
+                reject(err);
             });
         }).catch(function (err) {
             console.log(err);
-            reject();
+            reject(err);
         });
     });
 }

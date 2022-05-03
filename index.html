@@ -84,8 +84,6 @@
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-functions.js"></script>
-    <script type="module" src="js/AR.mjs" async></script>
-
    
     
 <div id="wrapper">
@@ -473,7 +471,7 @@
                     <p>בבסיס תוכלו לראות תערוכה של מטוסי החיל, משגר הגנה אווירית,חימושים ושלל מערכות אחרות</p>
                     <div id="base-map-button-handler"></div>
                 </div>
-                <img src="experimental-assets/base-card-airplane.png"> 
+                <img id="open-base-card-theme"> 
             </div>
             <div class="airplanes-show-header" id="airplanes-show-header">
                 <h2 class="title">מטסים ומופעים</h2>
@@ -597,7 +595,7 @@
                 <img class="close" onclick="closeVoiceMessagePopup()" src="icons/voiceMessage/page_1.png"/>
                 <img class="audioImg" src="icons/voiceMessage/pilot-animated.gif"/>
                <div class="audio">
-                    <audio id="audioSRC" src="audio/pilot-message.ogg" ontimeupdate="updateAudioMessageTime()"></audio>
+                    <audio id="audioSRC" src="audio/catmam.wav" ontimeupdate="updateAudioMessageTime()"></audio>
                     <span id="audioTime" class="audioTime">00:00</span>
                     <img id="audioTrack" class="audioTrack" src="icons/voiceMessage/rectangle.png"/>
                     <img id="trackerPoint" class="trackerPoint" src="icons/voiceMessage/blue.png"/>
