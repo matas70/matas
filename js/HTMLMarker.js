@@ -34,6 +34,8 @@ HTMLMarker.prototype.onAdd= function(){
     this.clickableDiv.style.zIndex = this.attr.zIndex;
     this.clickableDiv.style.opacity = 0;
     panes.overlayMouseTarget.appendChild(this.clickableDiv);
+    google.maps.OverlayView.preventMapHitsFrom(this.clickableDiv);
+
 
     var self  = this;
     google.maps.event.addDomListener(this.clickableDiv, "click", function(event) {
