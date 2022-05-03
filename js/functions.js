@@ -2551,7 +2551,14 @@ function getEventDescription(isAerobatics, locationName, minutes) {
                             $("#aircraftImg").attr("src",`icons/genericAircraft.svg`);
                         }
                         $("#gottoVoiceMessagePopup")[0].style.display = "block";
-                        $("#aircraftName").html(`${aircraft.type} - ${aircraft.name}`);
+                        //Change type and name if efroni to aerobatic team 
+                        if (aircraft.aircraftTypeId == '25'){
+                            $("#aircraftName").html(`הצוות האוירובטי - עפרוני`);
+                        }
+                        else{
+                             $("#aircraftName").html(`${aircraft.type} - ${aircraft.name}`);
+                        }
+                        
                         $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
                         
                         if (audioMessageAvailable){
