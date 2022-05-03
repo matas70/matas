@@ -1,0 +1,74 @@
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  position: fixed;
+  font-family: 'Heebo', sans-serif;
+  border-radius: 100%;
+  width: 7rem;
+  height: 7rem;
+  background-color: #1b3340;
+  opacity: 0;
+}
+
+h4 {
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+img#map {
+  height: 100vh;
+}
+
+.button_content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.logo {
+  width: 3.5rem;
+}
+
+.button_text {
+  padding: 0;
+  margin: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  line-height: 98%;
+}
+
+#press_here_text {
+  color: #fff000;
+}
+
+@media only screen and (max-width: 600px) {
+  img#map {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    object-fit: contain;
+    top: 0;
+    left: 0;
+    margin: 0;
+  }
+
+  button {
+    top: -1rem;
+    left: -1rem;
+    opacity: 100;
+  }
+
+  .button_content {
+    padding-top: 0.7rem;
+    padding-left: 0.4rem;
+  }
+}
