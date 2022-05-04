@@ -1996,9 +1996,9 @@ hr.aircraftLineSeparator.two {
     display: none;
     z-index: 99999;
 }
-.new-popup .inner{
+.new-popup .weather-inner{
     width: 270px;
-    height: 290px;
+    height: 410px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -2008,6 +2008,38 @@ hr.aircraftLineSeparator.two {
     border: solid 1px #eff1f1;
     background-color: #ffffff;
     padding: 0 13px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.new-popup .popup-description {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 37px;
+    text-align: center;
+}
+
+.new-popup .description-title {
+    font-weight: 800;
+    padding-top: 20px;
+}
+
+.new-popup .description-body {
+    padding: 10px 0px;
+    width: 210px;
+}
+
+.new-popup .description-bottom {
+    padding-bottom: 30px;
+}
+
+.new-popup img {
+    width: 200px;
+    height: 130px;
 }
 
 .new-popup .title {
