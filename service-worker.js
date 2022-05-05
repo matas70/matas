@@ -24,9 +24,9 @@ var baseCacheFileList = [
     'js/functions.js',
     'manifest.json',
     '/css/jquery-ui.css',
-    '/js/jquery.min.js',
-    '/js/jquery-ui.min.js',
-    '/js/jquery.mobile-events.js'
+    'https://matasstorage.blob.core.windows.net/matas/js/jquery.min.js',
+    'https://matasstorage.blob.core.windows.net/matas/js/jquery-ui.min.js',
+    'https://matasstorage.blob.core.windows.net/matas/js/jquery.mobile-events.js'
 ];
 
 var cacheFileList = [
@@ -36,9 +36,9 @@ var cacheFileList = [
     // 'js/functions.js',
     // 'manifest.json',
     '/css/jquery-ui.css',
-    '/js/jquery.min.js',
-    '/js/jquery-ui.min.js',
-    '/js/jquery.mobile-events.js',
+    'https://matasstorage.blob.core.windows.net/matas/js/jquery.min.js',
+    'https://matasstorage.blob.core.windows.net/matas/js/jquery-ui.min.js',
+    'https://matasstorage.blob.core.windows.net/matas/js/jquery.mobile-events.js',
     'js/slidingMarker/jquery.easing.1.3.js',
     'js/slidingMarker/markerAnimate.js',
     'js/slidingMarker/SlidingMarker.min.js',
