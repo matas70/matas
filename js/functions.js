@@ -2319,9 +2319,6 @@ function initGenericPopups() {
     
     if (userSimulation) {
         showGenericPopup("מחממים מנועים!", "המטוסים המופיעים על המפה לפני המטס הינם הדמייה בלבד", undefined, null, () => {
-            setTimeout(() => {
-                showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
-            }, 10*1000);
         });
     } else if (getCurrentTime() >= realActualStartTime - 4 * 60 * 60 * 1000 && getCurrentTime() <= realActualStartTime + 3 * 60 * 60 * 1000) {
         if (!changes) {
@@ -2330,20 +2327,17 @@ function initGenericPopups() {
                 displayed = localStorage.getItem("good_morning_displayed_2022");
             if (!(displayed === "true")) {
                 showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon", () => {
-                    setTimeout(() => {
-                        showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
-                    }, 10*1000);
                 });
                 if (localStorage)
                     localStorage.setItem("good_morning_displayed_2022", "true");
             }
         } else {
             showGenericPopup("עקב תנאי מזג האוויר", `חלו שינויים קלים בנתיבים ובמופעים, אך אנחנו עדיין באים! (: חג שמח!`, "flightStartChangesIcon", () => {
-                setTimeout(() => {
-                    showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
-                }, 10*1000);
             });
         }
+        setTimeout(() => {
+            showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
+        }, 10*1000);
     } else {
         var timeToFlightEnd = new Date(realActualStartTime).addHours(6) - new Date();
         if (timeToFlightEnd < 0) {
