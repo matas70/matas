@@ -2329,7 +2329,7 @@ function initGenericPopups() {
             if (localStorage)
                 displayed = localStorage.getItem("good_morning_displayed_2022");
             if (!(displayed === "true")) {
-                showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon", () => {
+                showGenericPopup("בוקר כחול לבן!", `השמיים מושלמים למטס. <br> בואו לחגוג איתנו :)`, "flightStartIcon", null, () => {
                     setTimeout(() => {
                         showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
                     }, 10*1000);
@@ -2338,7 +2338,7 @@ function initGenericPopups() {
                     localStorage.setItem("good_morning_displayed_2022", "true");
             }
         } else {
-            showGenericPopup("עקב תנאי מזג האוויר", `חלו שינויים קלים בנתיבים ובמופעים, אך אנחנו עדיין באים! (: חג שמח!`, "flightStartChangesIcon", () => {
+            showGenericPopup("עקב תנאי מזג האוויר", `חלו שינויים קלים בנתיבים ובמופעים, אך אנחנו עדיין באים! (: חג שמח!`, "flightStartChangesIcon", null, () => {
                 setTimeout(() => {
                     showGenericPopup("בזמן שאתם ממתינים...", "הבאנו את מטוסי החיל אליכם,<br>בואו לצפות במטוסים אצלכם בסלון", "arIcon", "ar.html");
                 }, 10*1000);
