@@ -1997,8 +1997,8 @@ hr.aircraftLineSeparator.two {
     z-index: 99999;
 }
 .new-popup .weather-inner{
-    width: 270px;
-    height: 410px;
+    width: 285px;
+    height: 330px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -2025,16 +2025,16 @@ hr.aircraftLineSeparator.two {
 
 .new-popup .description-title {
     font-weight: 800;
-    padding-top: 20px;
+    font-size: larger;
 }
 
 .new-popup .description-body {
     padding: 10px 0px;
-    width: 210px;
+    width: 235px;
 }
 
 .new-popup .description-bottom {
-    padding-bottom: 30px;
+    padding-bottom: 15px;
 }
 
 .new-popup img {
