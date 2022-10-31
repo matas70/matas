@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "live-server --https=node_modules/live-server-https",
+    "start": "live-server --https=node_modules/live-server-https --wait=2147483647",
     "test": "playwright test"
   },
   "repository": {
