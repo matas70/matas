@@ -3,7 +3,7 @@ import test, { expect } from "@playwright/test";
 test.describe("Open Bases Popup", () => {
 
     test.beforeEach(async ({ page }) => {
-        await page.goto("https://127.0.0.1:8080/#main");
+        await page.goto("https://localhost:8080/#main");
     });
 
     test('popup opens', async ({ page }) => {

@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('generic tests', () => {
 
   test.beforeEach(async ({ page }) => {
-    await page.goto("https://127.0.0.1:8080/#main");
+    await page.goto("https://localhost:8080/#main");
   });
   
   test('page has independance day title', async ({ page }) => {
