@@ -79,28 +79,40 @@ const config: PlaywrightTestConfig = {
       name: 'Mobile Chrome',
       use: {
         ...devices['Pixel 5'],
+        contextOptions: {
+          ignoreHTTPSErrors: true
+        },
       },
     },
     {
       name: 'Mobile Safari',
       use: {
         ...devices['iPhone 12'],
+        contextOptions: {
+          ignoreHTTPSErrors: true
+        },
       },
     },
 
     /* Test against branded browsers. */
-    {
-      name: 'Microsoft Edge',
-      use: {
-        channel: 'msedge',
-      },
-    },
-    {
-      name: 'Google Chrome',
-      use: {
-        channel: 'chrome',
-      },
-    },
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: {
+    //     channel: 'msedge',
+    //     contextOptions: {
+    //       ignoreHTTPSErrors: true
+    //     },
+    //   },
+    // },
+    // {
+    //   name: 'Google Chrome',
+    //   use: {
+    //     channel: 'chrome',
+    //     contextOptions: {
+    //       ignoreHTTPSErrors: true
+    //     },
+    //   },
+    // },
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */

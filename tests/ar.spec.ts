@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
+test('choose ar aircraft', async ({ page }) => {
 
   await page.goto('https://localhost:8080/#main');
   await expect(page).toHaveURL('https://localhost:8080/#main');
