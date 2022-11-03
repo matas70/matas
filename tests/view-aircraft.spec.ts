@@ -1,16 +1,10 @@
 import { test, expect } from '@playwright/test';
+import { loadApp, openMenu } from './common';
 test('see aircraft details', async ({ page }) => {
-    await page.goto('https://localhost:8080');
-    await expect(page).toHaveURL('https://localhost:8080/#main');
-
-    // wait loading to be finished
-    await page.waitForSelector('.splash', { state: 'hidden' });
+    await loadApp(page);
 
     // if mobile, open menu
-    if((page.viewportSize()?.width ?? 0) < 600) {
-        const menuSelector = '#menuHamburger';
-        await page.click(menuSelector);
-    }
+    await openMenu(page);
 
     await page.getByRole('link', { name: 'כלי טיס' }).click();
 

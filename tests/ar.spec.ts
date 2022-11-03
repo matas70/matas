@@ -1,9 +1,13 @@
 import { test, expect } from '@playwright/test';
+import { loadApp, openMenu } from './common';
 
 test('choose ar aircraft', async ({ page }) => {
+  test.slow();
+  test.slow();
+  test.fixme();
 
-  await page.goto('https://localhost:8080/#main');
-  await expect(page).toHaveURL('https://localhost:8080/#main');
+  await loadApp(page);
+  await openMenu(page); // if mobile
 
   await page.getByRole('link', { name: 'כלי טיס' }).click();
   
@@ -16,6 +20,11 @@ test('choose ar aircraft', async ({ page }) => {
     page.waitForEvent('popup'),
     page.locator('#aircraftInfo3D #ARButton').click()
   ]);
+
+  await expect(arPage).toHaveURL('https://localhost:8080/ar.html');
+
+  // wait for the ar to load
+  await expect(arPage.locator('.loading-ar')).not.toBeVisible();
 
   await arPage.getByRole('button', { name: 'ברק' }).click();
 

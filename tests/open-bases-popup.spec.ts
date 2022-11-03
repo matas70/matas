@@ -1,9 +1,11 @@
 import test, { expect } from "@playwright/test";
+import { loadApp, openMenu } from "./common";
 
 test.describe("Open Bases Popup", () => {
 
     test.beforeEach(async ({ page }) => {
-        await page.goto("https://localhost:8080/#main");
+        await loadApp(page);
+        await openMenu(page); // if mobile
     });
 
     test('popup opens', async ({ page }) => {

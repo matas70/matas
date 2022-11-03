@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { isMobile } from './common';
 
 test.describe('generic tests', () => {
 
@@ -17,13 +18,17 @@ test.describe('generic tests', () => {
     // create a locator
     const press = page.locator('#goto-press-button');
 
-    // Expect an element to be visible.
-    await expect(press).toBeVisible();
+    if(isMobile(page)) {
+      await expect(press).not.toBeVisible();
+    } else {
+      // Expect an element to be visible.
+      await expect(press).toBeVisible();
 
-    // Click the get started link.
-    await press.click();
+      // Click the get started link.
+      await press.click();
 
-    // Expects the URL to contain intro.
-    await expect(page).toHaveURL(/.*press.html/);
+      // Expects the URL to contain intro.
+      await expect(page).toHaveURL(/.*press.html/);
+    }
   });
 });
