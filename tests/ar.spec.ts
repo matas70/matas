@@ -3,6 +3,7 @@ import { loadApp, openMenu } from './common';
 
 test('choose ar aircraft', async ({ page }) => {
   test.slow();
+  test.fixme();
   /** 
    * network file generated using the command:
    * 
