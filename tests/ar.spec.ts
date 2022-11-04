@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { loadApp, openMenu } from './common';
 
 test('choose ar aircraft', async ({ page }) => {
+  test.slow();
   /** 
    * network file generated using the command:
    * 
