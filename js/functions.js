@@ -382,23 +382,70 @@ function getCurrentTime() {
     return now.getTime();
 }
 
-function convertTime(dateString, timeString) {
-    if (!dateString) dateString = startDate;
-    var year = dateString.substr(0, 4);
-    var month = dateString.substr(5, 2);
-    var day = dateString.substr(8, 2);
-    var hours = timeString.substr(0, 2);
-    var minutes = timeString.substr(3, 2);
-    var seconds = timeString.substr(6, 2);
 
-    if ($.urlParam("ff") === "true") {
-        realTime = new Date(year, month - 1, day, 0, hours, minutes, seconds / 60 * 1000).getTime();
-    } else {
-        realTime = new Date(year, month - 1, day, hours, minutes, seconds).getTime();
-    }
-
-    return realTime;
+function organizedDate(dateString) {
+    // let invalid = 'this date is invalid: '
+//     console.log(dateString, timeString)
+    let organizedArray = [];
+    let dateSplit = dateString.split(".")
+    let a = prompt('if you write date in month-day-year format - write 0. if you write date in day-month-year format - write 1')
+   if (/*!Date.parse(dateString)*/  a === '0') {
+    organizedArray[0] = dateSplit[1] //day
+    organizedArray[1] = dateSplit[0] //month
+    organizedArray[2] = dateSplit[2] //year
+    return organizedArray
+   }
+   else{
+    organizedArray[0] = dateSplit[0] //day
+    organizedArray[1] = dateSplit[1] //month
+    organizedArray[2] = dateSplit[2] //year
+    return organizedArray
+   }
+  
 }
+
+function clockSplit(timeString){
+    const clockArray = timeString.split(":")
+    return clockArray
+}
+
+
+
+
+function convertTime(dateString, timeString) {
+    const organizeddateString = organizedDate(dateString)
+    const year = organizeddateString[2];
+    const month = organizeddateString[1];
+    const day = organizeddateString[0];
+
+    const organizedTime = clockSplit(timeString)
+    if (organizedTime.length === 2) {
+         const hours = organizedTime[0];
+         const minutes = organizedTime[1];
+
+         if ($.urlParam("ff") === "true") { // האם הפונקציה תמיד צריכה לבדוק את ff ?
+              var realTime = new Date(year, month - 1, day, 0, hours, minutes / 60 * 1000);
+         } else {
+              var realTime = new Date(year, month - 1, day, hours, minutes);
+         }
+    
+         return realTime;   
+    }
+    if (organizedTime.length === 3){
+         const hours = organizedTime[0];
+         const minutes = organizedTime[1];
+         const seconds = organizedTime[2];
+
+         if ($.urlParam("ff") === "true") { 
+              var realTime = new Date(year, month - 1, day, 0, hours, minutes, seconds / 60 * 1000);
+         } else {
+              var realTime = new Date(year, month - 1, day, hours, minutes, seconds);
+         }
+    
+         return realTime;   
+    }
+}
+
 
 function containsPosition(pos, list) {
     var i;
