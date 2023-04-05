@@ -17,6 +17,38 @@
     background-color: #E6E6E6;
     width: 180px;
     height: 3px;
-    
 
+}
+.icons-section{
+    width: 255px;
+    height: 69px;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-around; */
+    justify-content: center;
+}
+
+.airplane-icon{
+    width: 50px;
+    border: #b9b9b9 0.6px;
+    border-style:dashed;
+    padding: 1px;
+}
+.pilot-icon{
+    width: 54px;
+}
+.airplane-name{
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+.airplane-type{
+    font-size: 17px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.airplane-des{
+    display: flex;
+    flex-direction: column;
 }
