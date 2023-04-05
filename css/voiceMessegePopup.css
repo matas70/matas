@@ -64,7 +64,7 @@
 }
 
 .audio-section{
-    height: 147px;
+    /* height: 147px; */
     width: fit-content;
     display: flex;
     flex-direction: column;
@@ -90,4 +90,11 @@
     line-height: 23px;
     margin: 0;
     text-align:start;
+}
+
+.exit-icon{
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    width: 12px;
 }
