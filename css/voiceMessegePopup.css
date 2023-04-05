@@ -11,7 +11,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    display:none;
+    display:flex;
     transition: 0.3s;
 }
 .progress-bar{

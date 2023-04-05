@@ -1286,3 +1286,11 @@ function closeVoiceMessegePopup(){
     dimBackground.style.display = "none";
     popup.style.display = "none";
 }
+let isPlaying = false;
+
+
+function playOrStopVoiceMessege(){
+    isPlaying = !isPlaying;
+    const audioFile = document.querySelector(".audio-file");
+    isPlaying? audioFile.play(): audioFile.pause();
+}
