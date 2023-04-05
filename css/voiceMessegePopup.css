@@ -77,3 +77,17 @@
     height: 1px;
     transition: none;
 }
+
+.text-section{
+    width: 255px;
+    height: 242px;
+    overflow: hidden;
+
+}
+.audio-text{
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 23px;
+    margin: 0;
+    text-align:start;
+}
