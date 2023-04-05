@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/hamburgers.css">
     <link rel="stylesheet" href="css/quiz.css">
+    <link rel="stylesheet" href="css/voiceMessegePopup.css">
     <link rel="icon" sizes="192x192" href="icons/logo-75/Android Iconhdpi.svg">
     <link rel="apple-touch-icon" sizes="192x192" href="icons/logo-75/IOS Icon@1.5x.png">
     <link rel="stylesheet" href="js/leaflet/leaflet.css" />
@@ -216,9 +217,24 @@
         <div id="map" style="display: none;">
         </div>
 
+        <div id="voiceMessegePopup">
+            <div class="icons-section">
+                <div class="pilot-icon"></div>
+                <div class="airplane-icon"></div>
+                <p class="airplane-name"></p>
+                <p class="airplane-type"></p>
+            </div>
+            <div class="audio-progress-section">
+                <div class="progress-bar">
+
+                </div>
+            </div>
+            <div class="text-section"></div>
+        </div>
+
         <div class="subheader">
             <!-- goto voiceMessage popup-->
-            <div id="gottoVoiceMessagePopup" class="gotoVoiceMessagePopup"
+            <!-- <div id="gottoVoiceMessagePopup" class="gotoVoiceMessagePopup"
                 style="display:none; top:0;height: 98px; position: absolute; width: 100%;">
                 <div id="aircraftDetatilsContainer" style="background-color: white; height: 70%;display: flex;">
                     <img id="aircraftImg" src="" alt="" style="margin: 7px; object-fit: contain;" />
@@ -240,7 +256,9 @@
                     <img id="closeGotoVoiceMessagePopupBTN" src="icons/voiceMessage/group.png"
                         onclick="closeGotoVoiceMessagePopup()" />
                 </div>
-            </div>
+            </div> -->
+            
+
             <!-- entrance popup -->
             <div id="entrancePopup" class="entrancePopup" style="display:none">
                 <div id="countdownContainer">

@@ -1,0 +1,22 @@
+#voiceMessegePopup{
+    position: absolute;
+    z-index: 100000;
+    width: 295px;
+    height: 415px;
+    background-color: #FFFFFF;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.progress-bar{
+    background-color: #E6E6E6;
+    width: 180px;
+    height: 3px;
+    
+
+}
