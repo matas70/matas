@@ -71,3 +71,9 @@
     align-items: center;
     justify-content: center;
 }
+.seperetor{
+    width: 100%;
+    background: #E7E7E7;
+    height: 1px;
+    transition: none;
+}
