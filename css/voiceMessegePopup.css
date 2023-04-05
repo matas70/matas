@@ -52,3 +52,12 @@
     display: flex;
     flex-direction: column;
 }
+
+
+.audio-progress-section{
+    width: 255px;
+    height: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
