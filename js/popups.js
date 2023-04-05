@@ -1272,3 +1272,8 @@ function updateAudioMessageTime() {
 function isDesktop() {
     return $(window).width() > 600;
 }
+
+function openVoiceMessegePopup(){
+    const popup = document.querySelector("#voiceMessegePopup");
+    popup.style.display = "flex";
+}
