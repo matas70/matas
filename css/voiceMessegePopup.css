@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: center;
     display:none;
+    transition: 0.3s;
 }
 .progress-bar{
     background-color: #E6E6E6;

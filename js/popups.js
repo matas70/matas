@@ -1275,5 +1275,14 @@ function isDesktop() {
 
 function openVoiceMessegePopup(){
     const popup = document.querySelector("#voiceMessegePopup");
+    const dimBackground =  document.getElementById("dim-background");
+    dimBackground.style.display = "block";
     popup.style.display = "flex";
+}
+
+function closeVoiceMessegePopup(){
+    const popup = document.querySelector("#voiceMessegePopup");
+    const dimBackground =  document.getElementById("dim-background");
+    dimBackground.style.display = "none";
+    popup.style.display = "none";
 }
