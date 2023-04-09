@@ -1305,10 +1305,13 @@ isPlaying = true;
 
 function playOrStopVoiceMessege(){
 
+    
+
     if(playPauseIcon.src.includes("play.svg")){
         voiceMessegeFile.play();
         isPlaying = true;
         playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
+
     }else{
         voiceMessegeFile.pause();
         isPlaying = false;
@@ -1317,15 +1320,18 @@ function playOrStopVoiceMessege(){
 }
 
 
-// if(isPlaying){
-//     let progressChnage = setInterval(function(){
-//         progressBar.value = voiceMessegeFile.currentTime;
-//         // console.log(timer++);
-//     }, 100);
-//     if(!isPlaying){
-//         clearInterval(progressChnage);
-//     }
-// }
+if(isPlaying){
+
+    let progressChnage = setInterval(function(){
+        valPres = Math.round((progressBar.value / progressBar.max) * 100);
+        valPres < 10 ? valPres = valPres + 1: valPres;
+        progressBar.value = voiceMessegeFile.currentTime;
+        progressBar.style.background =`linear-gradient(90deg,  #3BB5F2 ${valPres}%, #E6E6E6 ${valPres}%)`;
+    }, 100);
+    if(!isPlaying){
+        clearInterval(progressChnage);
+    }
+}
 
 
 progressBar.onchange = function(){

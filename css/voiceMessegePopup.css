@@ -14,7 +14,7 @@
     display:flex;
 }
 .progress-bar{
-    background-color: #E6E6E6;
+    background: #E6E6E6;
     width: 180px;
     height: 3px;
     display: flex;
