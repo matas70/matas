@@ -757,6 +757,24 @@ div.infoPopup {
     height: 100%;
 }
 
+#entrancePopup {
+    width: 100%;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    transition: background-image 5s ease-in-out;
+}
+
+#entrancePopup.mapLoaded {
+    background: rgba(255, 255, 255, 0.6);
+}
+
 .infoBasePopup {
     display: inline-flex;
     flex-direction: column;
@@ -768,6 +786,11 @@ div.infoPopup {
 
 @media only screen and (max-width: 600px) {
     .infoBasePopup {
+        top: 64px !important;
+    }
+
+    #entrancePopup {
+        position: absolute !important;
         top: 64px !important;
     }
 }
@@ -1345,25 +1368,6 @@ br.baseData {
     text-align: center;
     line-height: 47px;
     color: #37474f;
-}
-
-#entrancePopup {
-    width: 100%;
-    text-align: center;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    transition: background-image 5s ease-in-out;
-    position: relative;
-}
-
-#entrancePopup.mapLoaded {
-    background: rgba(255, 255, 255, 0.6);
 }
 
 #countdownContainer {
