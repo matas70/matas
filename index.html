@@ -237,11 +237,14 @@
                 </div>
 
                 <div class="audio-progress-section">
-                    <audio class="audio-file" src="./audio/efroni.mp3"></audio>
+                    <!-- <audio class="audio-file" src="./audio/efroni.mp3"></audio> -->
                     <p class="time">0:22</p>
-                    <div class="progress-bar">
-                    </div>
-                    <img class="play-icon" onclick="playOrStopVoiceMessege()"
+                    <input class="progress-bar" type="range" step="0.01">
+                    <!-- <div class="progress-bar" 
+                    onclick="getRangeValue()">
+                        <div class="progress-line"></div>
+                    </div> -->
+                    <img class="play-pause-icon" onclick="playOrStopVoiceMessege()"
                     src="./assets/voice-messege-popup/play.svg" alt="play">
                 </div>
 

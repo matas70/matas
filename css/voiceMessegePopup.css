@@ -12,14 +12,39 @@
     align-items: center;
     justify-content: center;
     display:flex;
-    transition: 0.3s;
 }
 .progress-bar{
     background-color: #E6E6E6;
     width: 180px;
     height: 3px;
-
+    display: flex;
+    align-items: center;
+    transition: 1s;
+    direction: ltr;
+    outline: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    /* overflow: hidden; */
+    /* transition: 0.2s; */
 }
+.progress-bar::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    background-color:#3BB5F2;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    /* box-shadow: -400px 0 0 400px #223843; */
+}
+/* .progress-bar::-moz-range-thumb{
+    -webkit-appearance: none;
+    background-color: #116d92;
+} */
+/* .progress-line{
+    width: 0%;
+    height: 100%;
+    background-color: #52AEE7;
+    transition: 0.3s;
+} */
 .icons-section{
     width: 255px;
     height: 69px;
@@ -104,7 +129,7 @@
 /*listen-to-voice-messege-button*/
 
 .listen-to-voice-messege-button{
-    position: absolute;
+    position: fixed;
     height: 56px;
     width: 200px;
     background-color: #1388B7;

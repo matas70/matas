@@ -1273,6 +1273,8 @@ function isDesktop() {
     return $(window).width() > 600;
 }
 
+//voice-messege-popup
+
 function openVoiceMessegePopup(){
     const popup = document.querySelector("#voiceMessegePopup");
     const dimBackground =  document.getElementById("dim-background");
@@ -1286,11 +1288,51 @@ function closeVoiceMessegePopup(){
     dimBackground.style.display = "none";
     popup.style.display = "none";
 }
-let isPlaying = false;
 
+
+
+let voiceMessegeFile = new Audio('./audio/efroni.mp3');
+const progressBar = document.querySelector(".progress-bar");
+const playPauseIcon =  document.querySelector(".play-pause-icon");
+
+
+voiceMessegeFile.onloadedmetadata = () =>{
+    progressBar.max = voiceMessegeFile.duration;
+    progressBar.value = voiceMessegeFile.currentTime;
+}
+
+isPlaying = true;
 
 function playOrStopVoiceMessege(){
-    isPlaying = !isPlaying;
-    const audioFile = document.querySelector(".audio-file");
-    isPlaying? audioFile.play(): audioFile.pause();
+
+    if(playPauseIcon.src.includes("play.svg")){
+        voiceMessegeFile.play();
+        isPlaying = true;
+        playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
+    }else{
+        voiceMessegeFile.pause();
+        isPlaying = false;
+        playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg' , "play.svg");
+    }
 }
+
+
+// if(isPlaying){
+//     let progressChnage = setInterval(function(){
+//         progressBar.value = voiceMessegeFile.currentTime;
+//         // console.log(timer++);
+//     }, 100);
+//     if(!isPlaying){
+//         clearInterval(progressChnage);
+//     }
+// }
+
+
+progressBar.onchange = function(){
+
+    voiceMessegeFile.play();
+    voiceMessegeFile.currentTime = progressBar.value;
+    playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
+
+}
+
