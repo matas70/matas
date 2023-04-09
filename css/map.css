@@ -214,6 +214,45 @@ div.splash {
     justify-content: center;
 }
 
+
+
+#headerIconContainer img {
+    background-repeat: no-repeat;
+
+    width: 75px;
+    height: 50px;
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+
+    animation: about-us-icon-animation;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+}
+
+@supports (-webkit-touch-callout: none){
+    #headerIconContainer img{
+        animation: none;
+        background-image: url("../icons/logo-75/Header Logo.svg");
+    }
+}
+
+/* @keyframes new-icon {
+    0% {
+        transform: rotateY(0deg);
+        background-image: url("../icons/logo-75/Header Logo.svg");
+    }
+    50% {
+        transform: rotateY(90deg);
+    } 
+    75%{
+        background-image: url("../icons/logo-75/Big Logo.svg");
+    }
+
+} */
+
 @keyframes about-us-icon-animation {
     0% {
         transform: rotate3d(0, 1, 0, 0deg);
@@ -242,22 +281,6 @@ div.splash {
         transform: rotate3d(0, 1, 0, 0deg);
         background-image: url("../icons/logo-75/Header Logo.svg");
     }
-}
-
-#headerIconContainer img {
-    background-repeat: no-repeat;
-
-    width: 75px;
-    height: 50px;
-
-    -webkit-user-drag: none;
-    -webkit-user-select: none;
-    cursor: pointer;
-
-    animation: about-us-icon-animation;
-    animation-duration: 5s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
 }
 
 #aboutButton {
@@ -1248,7 +1271,7 @@ br.baseData {
 .mapClusterPopup {
     display: flex;
     flex-direction: column;
-    z-index: 10001;
+    z-index: 1000;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
