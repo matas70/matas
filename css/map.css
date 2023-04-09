@@ -28,21 +28,20 @@
 }
 
 .footer {
-    position: absolute;
+    position: absolute ;
     /* Sizing correctly */
     box-sizing: border-box;
     width: 100%;
-    height: 4.5%;
-    background: rgba(255, 255, 255, 0.9);
+    height: 28px;
+    background: rgba(255, 255, 255, 0.9); 
     /* Making the footer stick to the bottom of it's position */
     bottom: 0;
     /* Adjusting the content placement inside the footer */
-    padding-left: 30%;
-    padding-right: 9%;
+    padding: 0px 16px;
+    gap: 8px;
     /* Adding flex-box properties */
     display: flex;
     align-items: center;
-    justify-content: space-between;
 }
 
 /* If the broswer supprorts backdrop-filter or -webkit-backdrop-filter (this property may not be fully supported) */
@@ -56,9 +55,9 @@
 
 .footer__share-icon,
 .footer__info-icon  {
-    color: #455773;
-    height: 19px;
     width: 20px;
+    margin: 0 6px ;
+    height: 19px;
 }
 
 .text__bold {
@@ -66,6 +65,8 @@
 }
 
 .footer__info-text{
+    margin: 0px 6px;
+    width: 140px;
     font-family: Heebo;
     font-size: 13px;
     text-decoration: underline;
@@ -2005,8 +2006,13 @@ hr.aircraftLineSeparator.two {
         left: 0;
     }
     .footer {
-        width: calc(100% - 400px);
-        left: 0;
+        width: 248px;
+        height: 28px;
+        padding: 0px 8px;
+        /* Adding flex-box properties */
+        gap: 8px;
+        border-radius: 8px 0px 0px 0px;
+        right: 400px;
     }
     
     #headerIconContainer {
