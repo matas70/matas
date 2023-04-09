@@ -1294,6 +1294,7 @@ function closeVoiceMessegePopup(){
 let voiceMessegeFile = new Audio('./audio/efroni.mp3');
 const progressBar = document.querySelector(".progress-bar");
 const playPauseIcon =  document.querySelector(".play-pause-icon");
+const timer = document.querySelector(".audio-time");
 
 
 voiceMessegeFile.onloadedmetadata = () =>{
@@ -1304,8 +1305,6 @@ voiceMessegeFile.onloadedmetadata = () =>{
 isPlaying = true;
 
 function playOrStopVoiceMessege(){
-
-    
 
     if(playPauseIcon.src.includes("play.svg")){
         voiceMessegeFile.play();
@@ -1323,10 +1322,17 @@ function playOrStopVoiceMessege(){
 if(isPlaying){
 
     let progressChnage = setInterval(function(){
+
+        //calculate pres for progress line
         valPres = Math.round((progressBar.value / progressBar.max) * 100);
         valPres < 10 ? valPres = valPres + 1: valPres;
+
+        currTimeInSecondes = Math.round(voiceMessegeFile.currentTime);
+        currTimeInSecondes >= 10 ? timer.innerText = `0:${currTimeInSecondes}`:timer.innerText = `0:0${currTimeInSecondes}`;
+        
         progressBar.value = voiceMessegeFile.currentTime;
         progressBar.style.background =`linear-gradient(90deg,  #3BB5F2 ${valPres}%, #E6E6E6 ${valPres}%)`;
+
     }, 100);
     if(!isPlaying){
         clearInterval(progressChnage);
