@@ -1274,19 +1274,17 @@ function isDesktop() {
 }
 
 //voice-messege-popup
+const voicMessagePopup = document.querySelector("#voiceMessegePopup");
+const dimBackground =  document.getElementById("dim-background");
 
 function openVoiceMessegePopup(){
-    const popup = document.querySelector("#voiceMessegePopup");
-    const dimBackground =  document.getElementById("dim-background");
     dimBackground.style.display = "block";
-    popup.style.display = "flex";
+    voicMessagePopup.style.display = "flex";
 }
 
 function closeVoiceMessegePopup(){
-    const popup = document.querySelector("#voiceMessegePopup");
-    const dimBackground =  document.getElementById("dim-background");
     dimBackground.style.display = "none";
-    popup.style.display = "none";
+    voicMessagePopup.style.display = "none";
 }
 
 
@@ -1348,3 +1346,11 @@ progressBar.onchange = function(){
 
 }
 
+document.addEventListener('mouseup', function(e) {
+   
+    if(!voicMessagePopup.contains(e.target)){
+        voicMessagePopup.style.display = "none";
+        dimBackground.style.display = "none";
+    };
+
+});
