@@ -727,6 +727,7 @@ div.infoPopup {
 }
 
 #popupIcon {
+    display: block;
     position: absolute;
     top: 8px;
     left: 0px;
