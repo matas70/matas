@@ -18,6 +18,11 @@
     display: inline-block;
     cursor: pointer;
 }
+
+.quiz.button {
+    background-color: transparent !important;
+}
+
 #quiz-background{
     display: flex;
     flex-direction: row-reverse;
