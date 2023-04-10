@@ -1292,6 +1292,11 @@ function openVoiceMessegePopup(){
 function closeVoiceMessegePopup(){
     dimBackground.style.display = "none";
     voicMessagePopup.style.display = "none";
+
+    voiceMessegeFile.pause();
+    progressBar.value = 0;
+    voiceMessegeFile.currentTime = 0;
+    playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg' , "play.svg");
 }
 
 
@@ -1307,21 +1312,21 @@ voiceMessegeFile.onloadedmetadata = () =>{
     progressBar.value = voiceMessegeFile.currentTime;
 }
 
-isPlaying = true;
+// isPlaying = true;
 
 function playOrStopVoiceMessege(){
 
     if(playPauseIcon.src.includes("play.svg")){
         voiceMessegeFile.play();
-        isPlaying = true;
+        // isPlaying = true;
         playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
 
     }else{
         voiceMessegeFile.pause();
-        isPlaying = false;
+        // isPlaying = false;
         playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg' , "play.svg");
     }
-    playOrStopProgress();
+    // playOrStopProgress();
 }
 
 function calculateProgressLine(){
@@ -1329,33 +1334,40 @@ function calculateProgressLine(){
     valPres = Math.round((progressBar.value / progressBar.max) * 100);
     valPres < 10 ? valPres = valPres + 1: valPres;
     progressBar.style.background =`linear-gradient(90deg,  #3BB5F2 ${valPres}%, #E6E6E6 ${valPres}%)`;
-    
+
 }
 
-function playOrStopProgress(currAudioTime){
-
-    if(currAudioTime !== undefined){
-        voiceMessegeFile.currentTime = currAudioTime;
-    }
-    if(isPlaying){
-        let progressChange = setInterval(function(){
-
-            //calculate pres for progress line
+function displayTimeLeft(){
+    currTimeInSecondes = Math.round(voiceMessegeFile.currentTime);
+    currTimeInSecondes >= 10 ? timer.innerText = `0:${currTimeInSecondes}`:timer.innerText = `0:0${currTimeInSecondes}`;
             
-            console.log(voiceMessegeFile.currentTime)
-            currTimeInSecondes = Math.round(voiceMessegeFile.currentTime);
-            currTimeInSecondes >= 10 ? timer.innerText = `0:${currTimeInSecondes}`:timer.innerText = `0:0${currTimeInSecondes}`;
-            
-            progressBar.value = voiceMessegeFile.currentTime;
-            calculateProgressLine();
-    
-            if(!isPlaying){
-                clearInterval(progressChange);
-            }
-        }, 100);
-    }
-    
 }
+
+// function playOrStopProgress(stopSec){
+//     // console.log(voiceMessegeFile.currentTime);
+    
+    
+//     if(isPlaying){
+//         let progressChange = setInterval(function(){
+
+//             // console.log("start animation");
+//             progressBar.value = voiceMessegeFile.currentTime;
+//             calculateProgressLine();
+//             displayTimeLeft();
+            
+
+//             if(!isPlaying){
+//                 // if(stopSec === undefined){
+//                 //     stopSec = voiceMessegeFile.currentTime;
+//                 // }
+//                 // console.log("stop animation");
+//                 // progressBar.value = stopSec;/
+//                 clearInterval(progressChange);
+//             }
+//         }, 100);
+//     }
+    
+// }
 
 // if(isPlaying){
 
@@ -1378,17 +1390,103 @@ function playOrStopProgress(currAudioTime){
 //     }, 100);
     
 // }
-progressBar.onclick = function(){
-    voiceMessegeFile.play();
-    isPlaying = true;
-    playOrStopProgress(progressBar.value);
-    playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
-}
+// progressBar.onclick = function(){
+//     isPlaying = false;
+// }
 
-progressBar.addEventListener('input', () =>{
-    console.log("input");
+// progressBar.addEventListener('click', (event)=>{
 
-    calculateProgressLine();  
+    
+//     // let cordStart = progressBar.getBoundingClientRect().left;
+//     // let cordEnd = event.clientX;
+
+//     // let progress = (cordEnd-cordStart) / progressBar.offsetWidth;
+
+//     // console.log(progress);
+//     isPlaying = false;
+//     playOrStopProgress();
+
+//     voiceMessegeFile.currentTime = progressBar.value;
+    
+//     voiceMessegeFile.play();
+//     isPlaying = true;
+//     playOrStopProgress();
+//     playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
+//     playOrStopProgress();
+
+// });
+// let count = 0;
+// let isDragging = false;
+voiceMessegeFile.addEventListener('play', () =>{
+    setInterval(function(){
+
+        // console.log("start animation");
+        progressBar.value = voiceMessegeFile.currentTime;
+        calculateProgressLine();
+        displayTimeLeft();
+        // console.log("lol");
+        // if(isDragging){
+        //     clearInterval(proggresAnimation);
+        // }
+        // if(!isPlaying){
+        //     // if(stopSec === undefined){
+        //     //     stopSec = voiceMessegeFile.currentTime;
+        //     // }
+        //     // console.log("stop animation");
+        //     // progressBar.value = stopSec;/
+        //     clearInterval(progressChange);
+        // }
+    }, 10);
+})
+
+// voiceMessegeFile.addEventListener('pause', () =>{
+//     console.log(progressBar.value);
+// })
+
+// progressBar.addEventListener('mouseup', (event) =>{
+    
+//     // = progressBar.value;
+//     // console.log(voiceMessegeFile.currentTime)
+//     let progress = (event.clientX - progressBar.getBoundingClientRect().left)/progressBar.offsetWidth;
+//     // voiceMessegeFile.currentTime = (progress * 100)/(100/voiceMessegeFile.duration);
+//     // voiceMessegeFile.pause();
+    
+//     // playOrStopProgress();
+
+    
+    
+    
+//     // console.log();
+
+//     // playOrStopProgress();
+//     // progressBar.value = voiceMessegeFile.currentTime;
+    
+//     // voiceMessegeFile.currentTime = progressBar.value;
+    
+//     // voiceMessegeFile.play();
+//     // isPlaying = true;
+//     // playOrStopProgress();
+//     // playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
+    
+// });
+// progressBar.addEventListener('oninput', () =>{
+//     console.lo
+// })
+progressBar.addEventListener('input', (event) =>{
+    
+    // isPlaying = false;
+    // let progress = (event.clientX - progressBar.getBoundingClientRect().left)/progressBar.offsetWidth;
+    // voiceMessegeFile.currentTime = (progress * 100)/(100/voiceMessegeFile.duration);
+    // isDragging = true;
+    // voiceMessegeFile.pause();
+    console.log(event.target.value);
+    voiceMessegeFile.currentTime = event.target.value;
+    // voiceMessegeFile.play();
+
+    displayTimeLeft();
+    calculateProgressLine(); 
+    // isDragging = false;
+
 })
 // progressBar.onchange = function(){
 
@@ -1406,6 +1504,11 @@ document.addEventListener('mouseup', function(e) {
     if(!voicMessagePopup.contains(e.target)){
         voicMessagePopup.style.display = "none";
         dimBackground.style.display = "none";
+
+        voiceMessegeFile.pause();
+        progressBar.value = 0;
+        voiceMessegeFile.currentTime = 0;
+        playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg' , "play.svg");
     };
 
 });
