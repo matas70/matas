@@ -33,24 +33,12 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    /* box-shadow: -400px 0 0 400px #223843; */
 }
-/* .progress-bar::-moz-range-thumb{
-    -webkit-appearance: none;
-    background-color: #116d92;
-} */
-/* .progress-line{
-    width: 0%;
-    height: 100%;
-    background-color: #52AEE7;
-    transition: 0.3s;
-} */
 .icons-section{
     width: 255px;
     height: 69px;
     display: flex;
     align-items: center;
-    /* justify-content: space-around; */
     justify-content: center;
 }
 
@@ -90,7 +78,6 @@
 }
 
 .audio-section{
-    /* height: 147px; */
     width: fit-content;
     display: flex;
     flex-direction: column;
@@ -152,6 +139,7 @@
 .listen-to-voice-messege-button:active{
     background-color: #116d92;
 }
+
 .button-text{
     color: white;
     font-size: 14px;

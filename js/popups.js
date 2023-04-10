@@ -1273,6 +1273,8 @@ function isDesktop() {
     return $(window).width() > 600;
 }
 
+
+
 //voice-messege-popup
 const voiceMessagePopup = document.querySelector("#voiceMessegePopup");
 const dimBackground =  document.getElementById("dim-background");
@@ -1356,6 +1358,7 @@ voiceMessegeFile.addEventListener('play', () =>{
 
         progressBar.value = voiceMessegeFile.currentTime;
         calculateProgressLine();
+        console.log("lol");
         displayTimeLeft();
         
         if(stopInterval){
