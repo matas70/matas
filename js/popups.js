@@ -1297,19 +1297,26 @@ function closeVoiceMessegePopup(){
     progressBar.value = 0;
     voiceMessegeFile.currentTime = 0;
     playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg' , "play.svg");
+    stopInterval = true;
+
 }
 
 
-
+//global elements for voice message popup 
 let voiceMessegeFile = new Audio('./audio/efroni.mp3');
 const progressBar = document.querySelector(".progress-bar");
 const playPauseIcon =  document.querySelector(".play-pause-icon");
 const timer = document.querySelector(".audio-time");
 
+let stopInterval = false;
+
 
 voiceMessegeFile.onloadedmetadata = () =>{
+
     progressBar.max = voiceMessegeFile.duration;
     progressBar.value = voiceMessegeFile.currentTime;
+    stopInterval = false;
+
 }
 
 
@@ -1325,6 +1332,8 @@ function playOrStopVoiceMessege(){
     }
 }
 
+//animation functions
+
 function calculateProgressLine(){
 
     valPres = Math.round((progressBar.value / progressBar.max) * 100);
@@ -1334,25 +1343,30 @@ function calculateProgressLine(){
 }
 
 function displayTimeLeft(){
+
     currTimeInSecondes = Math.round(voiceMessegeFile.currentTime);
     currTimeInSecondes >= 10 ? timer.innerText = `0:${currTimeInSecondes}`:timer.innerText = `0:0${currTimeInSecondes}`;
             
 }
 
+//actions functions 
+
 voiceMessegeFile.addEventListener('play', () =>{
-    setInterval(function(){
+    let progressAnimation = setInterval(function(){
 
         progressBar.value = voiceMessegeFile.currentTime;
         calculateProgressLine();
         displayTimeLeft();
         
+        if(stopInterval){
+            clearInterval(progressAnimation);
+        }
     }, 10);
 })
 
 
 progressBar.addEventListener('input', (event) =>{
     
-    console.log(event.target.value);
     voiceMessegeFile.currentTime = event.target.value;
 
     displayTimeLeft();
@@ -1380,6 +1394,8 @@ document.addEventListener('mouseup', function(e) {
         progressBar.value = 0;
         voiceMessegeFile.currentTime = 0;
         playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg' , "play.svg");
+        stopInterval = true;
+        
     };
 
 });
