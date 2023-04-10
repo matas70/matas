@@ -183,6 +183,7 @@ function showBaseLoactionPopup(pointId) {
         document.getElementById('open-base-card-theme').src = 'experimental-assets/base-card-airplane-for-pc.png';
         document.getElementById('drag-button').style.display = 'none';
         basePopUpElement.animate({
+            top: "0px",
             height: fullHeight + "px",
             left: "0px",
         }, "fast");
