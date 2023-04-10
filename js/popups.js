@@ -1274,7 +1274,7 @@ function isDesktop() {
 }
 
 //voice-messege-popup
-const voicMessagePopup = document.querySelector("#voiceMessegePopup");
+const voiceMessagePopup = document.querySelector("#voiceMessegePopup");
 const dimBackground =  document.getElementById("dim-background");
 
 function openVoiceMessegePopup(){
@@ -1286,12 +1286,12 @@ function openVoiceMessegePopup(){
     
     
     dimBackground.style.display = "block";
-    voicMessagePopup.style.display = "flex";
+    voiceMessagePopup.style.display = "flex";
 }
 
 function closeVoiceMessegePopup(){
     dimBackground.style.display = "none";
-    voicMessagePopup.style.display = "none";
+    voiceMessagePopup.style.display = "none";
 
     voiceMessegeFile.pause();
     progressBar.value = 0;
@@ -1386,8 +1386,8 @@ progressBar.addEventListener('mouseup', () =>{
 
 document.addEventListener('mouseup', function(e) {
    
-    if(!voicMessagePopup.contains(e.target)){
-        voicMessagePopup.style.display = "none";
+    if(!voiceMessagePopup.contains(e.target)){
+        voiceMessagePopup.style.display = "none";
         dimBackground.style.display = "none";
 
         voiceMessegeFile.pause();
