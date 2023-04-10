@@ -1278,6 +1278,13 @@ const voicMessagePopup = document.querySelector("#voiceMessegePopup");
 const dimBackground =  document.getElementById("dim-background");
 
 function openVoiceMessegePopup(){
+
+    document.querySelector(".airplane-name").innerText = document.querySelector("#aircraftInfoName").innerText;
+    document.querySelector(".airplane-type").innerText = document.querySelector("#aircraftInfoType").innerText;
+    document.querySelector(".airplane-icon").src = document.querySelector("#aircraftInfoIcon").src;
+    document.querySelector(".audio-text").innerText = document.querySelector("#aircraftInfoContentDescription").innerText;
+    
+    
     dimBackground.style.display = "block";
     voicMessagePopup.style.display = "flex";
 }
@@ -1314,37 +1321,85 @@ function playOrStopVoiceMessege(){
         isPlaying = false;
         playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg' , "play.svg");
     }
+    playOrStopProgress();
 }
 
+function calculateProgressLine(){
 
-if(isPlaying){
+    valPres = Math.round((progressBar.value / progressBar.max) * 100);
+    valPres < 10 ? valPres = valPres + 1: valPres;
+    progressBar.style.background =`linear-gradient(90deg,  #3BB5F2 ${valPres}%, #E6E6E6 ${valPres}%)`;
+    
+}
 
-    let progressChnage = setInterval(function(){
+function playOrStopProgress(currAudioTime){
 
-        //calculate pres for progress line
-        valPres = Math.round((progressBar.value / progressBar.max) * 100);
-        valPres < 10 ? valPres = valPres + 1: valPres;
-
-        currTimeInSecondes = Math.round(voiceMessegeFile.currentTime);
-        currTimeInSecondes >= 10 ? timer.innerText = `0:${currTimeInSecondes}`:timer.innerText = `0:0${currTimeInSecondes}`;
-        
-        progressBar.value = voiceMessegeFile.currentTime;
-        progressBar.style.background =`linear-gradient(90deg,  #3BB5F2 ${valPres}%, #E6E6E6 ${valPres}%)`;
-
-    }, 100);
-    if(!isPlaying){
-        clearInterval(progressChnage);
+    if(currAudioTime !== undefined){
+        voiceMessegeFile.currentTime = currAudioTime;
     }
+    if(isPlaying){
+        let progressChange = setInterval(function(){
+
+            //calculate pres for progress line
+            
+            console.log(voiceMessegeFile.currentTime)
+            currTimeInSecondes = Math.round(voiceMessegeFile.currentTime);
+            currTimeInSecondes >= 10 ? timer.innerText = `0:${currTimeInSecondes}`:timer.innerText = `0:0${currTimeInSecondes}`;
+            
+            progressBar.value = voiceMessegeFile.currentTime;
+            calculateProgressLine();
+    
+            if(!isPlaying){
+                clearInterval(progressChange);
+            }
+        }, 100);
+    }
+    
 }
 
+// if(isPlaying){
 
-progressBar.onchange = function(){
+//     let progressChnage = setInterval(function(){
 
+//         //calculate pres for progress line
+//         valPres = Math.round((progressBar.value / progressBar.max) * 100);
+//         valPres < 10 ? valPres = valPres + 1: valPres;
+
+//         currTimeInSecondes = Math.round(voiceMessegeFile.currentTime);
+//         currTimeInSecondes >= 10 ? timer.innerText = `0:${currTimeInSecondes}`:timer.innerText = `0:0${currTimeInSecondes}`;
+        
+//         console.log("lol");
+//         progressBar.value = voiceMessegeFile.currentTime;
+//         progressBar.style.background =`linear-gradient(90deg,  #3BB5F2 ${valPres}%, #E6E6E6 ${valPres}%)`;
+
+//         if(!isPlaying){
+//             clearInterval(progressChnage);
+//         }
+//     }, 100);
+    
+// }
+progressBar.onclick = function(){
     voiceMessegeFile.play();
-    voiceMessegeFile.currentTime = progressBar.value;
+    isPlaying = true;
+    playOrStopProgress(progressBar.value);
     playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
-
 }
+
+progressBar.addEventListener('input', () =>{
+    console.log("input");
+
+    calculateProgressLine();  
+})
+// progressBar.onchange = function(){
+
+//     // voiceMessegeFile.play();
+//     console.log("change")
+    
+
+//     // voiceMessegeFile.currentTime = progressBar.value;
+    
+
+// }
 
 document.addEventListener('mouseup', function(e) {
    
