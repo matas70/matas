@@ -1312,21 +1312,17 @@ voiceMessegeFile.onloadedmetadata = () =>{
     progressBar.value = voiceMessegeFile.currentTime;
 }
 
-// isPlaying = true;
 
 function playOrStopVoiceMessege(){
 
     if(playPauseIcon.src.includes("play.svg")){
         voiceMessegeFile.play();
-        // isPlaying = true;
         playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
 
     }else{
         voiceMessegeFile.pause();
-        // isPlaying = false;
         playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg' , "play.svg");
     }
-    // playOrStopProgress();
 }
 
 function calculateProgressLine(){
@@ -1343,161 +1339,27 @@ function displayTimeLeft(){
             
 }
 
-// function playOrStopProgress(stopSec){
-//     // console.log(voiceMessegeFile.currentTime);
-    
-    
-//     if(isPlaying){
-//         let progressChange = setInterval(function(){
-
-//             // console.log("start animation");
-//             progressBar.value = voiceMessegeFile.currentTime;
-//             calculateProgressLine();
-//             displayTimeLeft();
-            
-
-//             if(!isPlaying){
-//                 // if(stopSec === undefined){
-//                 //     stopSec = voiceMessegeFile.currentTime;
-//                 // }
-//                 // console.log("stop animation");
-//                 // progressBar.value = stopSec;/
-//                 clearInterval(progressChange);
-//             }
-//         }, 100);
-//     }
-    
-// }
-
-// if(isPlaying){
-
-//     let progressChnage = setInterval(function(){
-
-//         //calculate pres for progress line
-//         valPres = Math.round((progressBar.value / progressBar.max) * 100);
-//         valPres < 10 ? valPres = valPres + 1: valPres;
-
-//         currTimeInSecondes = Math.round(voiceMessegeFile.currentTime);
-//         currTimeInSecondes >= 10 ? timer.innerText = `0:${currTimeInSecondes}`:timer.innerText = `0:0${currTimeInSecondes}`;
-        
-//         console.log("lol");
-//         progressBar.value = voiceMessegeFile.currentTime;
-//         progressBar.style.background =`linear-gradient(90deg,  #3BB5F2 ${valPres}%, #E6E6E6 ${valPres}%)`;
-
-//         if(!isPlaying){
-//             clearInterval(progressChnage);
-//         }
-//     }, 100);
-    
-// }
-// progressBar.onclick = function(){
-//     isPlaying = false;
-// }
-
-// progressBar.addEventListener('click', (event)=>{
-
-    
-//     // let cordStart = progressBar.getBoundingClientRect().left;
-//     // let cordEnd = event.clientX;
-
-//     // let progress = (cordEnd-cordStart) / progressBar.offsetWidth;
-
-//     // console.log(progress);
-//     isPlaying = false;
-//     playOrStopProgress();
-
-//     voiceMessegeFile.currentTime = progressBar.value;
-    
-//     voiceMessegeFile.play();
-//     isPlaying = true;
-//     playOrStopProgress();
-//     playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
-//     playOrStopProgress();
-
-// });
-// let count = 0;
-// let isDragging = false;
 voiceMessegeFile.addEventListener('play', () =>{
     setInterval(function(){
 
-        // console.log("start animation");
         progressBar.value = voiceMessegeFile.currentTime;
         calculateProgressLine();
         displayTimeLeft();
-        // console.log("lol");
-        // if(isDragging){
-        //     clearInterval(proggresAnimation);
-        // }
-        // if(!isPlaying){
-        //     // if(stopSec === undefined){
-        //     //     stopSec = voiceMessegeFile.currentTime;
-        //     // }
-        //     // console.log("stop animation");
-        //     // progressBar.value = stopSec;/
-        //     clearInterval(progressChange);
-        // }
+        
     }, 10);
 })
 
-// voiceMessegeFile.addEventListener('pause', () =>{
-//     console.log(progressBar.value);
-// })
 
-// progressBar.addEventListener('mouseup', (event) =>{
-    
-//     // = progressBar.value;
-//     // console.log(voiceMessegeFile.currentTime)
-//     let progress = (event.clientX - progressBar.getBoundingClientRect().left)/progressBar.offsetWidth;
-//     // voiceMessegeFile.currentTime = (progress * 100)/(100/voiceMessegeFile.duration);
-//     // voiceMessegeFile.pause();
-    
-//     // playOrStopProgress();
-
-    
-    
-    
-//     // console.log();
-
-//     // playOrStopProgress();
-//     // progressBar.value = voiceMessegeFile.currentTime;
-    
-//     // voiceMessegeFile.currentTime = progressBar.value;
-    
-//     // voiceMessegeFile.play();
-//     // isPlaying = true;
-//     // playOrStopProgress();
-//     // playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
-    
-// });
-// progressBar.addEventListener('oninput', () =>{
-//     console.lo
-// })
 progressBar.addEventListener('input', (event) =>{
     
-    // isPlaying = false;
-    // let progress = (event.clientX - progressBar.getBoundingClientRect().left)/progressBar.offsetWidth;
-    // voiceMessegeFile.currentTime = (progress * 100)/(100/voiceMessegeFile.duration);
-    // isDragging = true;
-    // voiceMessegeFile.pause();
     console.log(event.target.value);
     voiceMessegeFile.currentTime = event.target.value;
-    // voiceMessegeFile.play();
 
     displayTimeLeft();
     calculateProgressLine(); 
-    // isDragging = false;
 
 })
-// progressBar.onchange = function(){
 
-//     // voiceMessegeFile.play();
-//     console.log("change")
-    
-
-//     // voiceMessegeFile.currentTime = progressBar.value;
-    
-
-// }
 
 document.addEventListener('mouseup', function(e) {
    
