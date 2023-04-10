@@ -1358,8 +1358,17 @@ progressBar.addEventListener('input', (event) =>{
     displayTimeLeft();
     calculateProgressLine(); 
 
-})
+});
 
+progressBar.addEventListener('mousedown', () =>{
+    voiceMessegeFile.pause();
+});
+
+progressBar.addEventListener('mouseup', () =>{
+    if(playPauseIcon.src.includes("pause-solid.svg")){
+        voiceMessegeFile.play();
+    }
+});
 
 document.addEventListener('mouseup', function(e) {
    
