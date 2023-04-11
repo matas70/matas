@@ -12,6 +12,17 @@
     align-items: center;
     justify-content: center;
     display:none;
+
+    animation-name: fading;
+    animation-duration: 0.6s;
+}
+@keyframes fading {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        visibility: 1;
+    }
 }
 .progress-bar{
     background: #E6E6E6;
