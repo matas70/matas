@@ -1376,11 +1376,12 @@ document.addEventListener("click", function (event) {
     }
 });
 
-
+//todo: feedback function
 function openFeedback(){
 
 }
 
+//todo: share function
 function openShare(){
     
 }
