@@ -11,7 +11,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    display:flex;
+    display:none;
 }
 .progress-bar{
     background: #E6E6E6;

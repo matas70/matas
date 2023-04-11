@@ -1353,18 +1353,19 @@ function displayTimeLeft(){
 
 //actions functions 
 
-voiceMessegeFile.addEventListener('play', () =>{
-    let progressAnimation = setInterval(function(){
+voiceMessegeFile.addEventListener('play', async ()  =>{
+
+    return await new Promise(
+    setInterval(function(){
 
         progressBar.value = voiceMessegeFile.currentTime;
         calculateProgressLine();
-        console.log("lol");
         displayTimeLeft();
         
         if(stopInterval){
-            clearInterval(progressAnimation);
+            clearInterval();
         }
-    }, 10);
+    }, 10))
 })
 
 
@@ -1402,3 +1403,7 @@ document.addEventListener('mouseup', function(e) {
     };
 
 });
+
+function openpopup(){
+    voiceMessagePopup.style.display = 'flex';
+}
