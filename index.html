@@ -125,11 +125,11 @@
                     </div>
                 </a>
 
-                <divv id="headerIconContainer">
+                <div id="headerIconContainer">
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                         onclick="onAboutButtonClick();" />
                     <div id="aboutMenuTitle" style="display:none">אודות</div>
-                </divv>
+                </div>
                 <div style="display: flex; align-items: center;">
                     <div id="goto-press-button" onclick="window.location='press.html'">
                         <img id="goto-press-icon" src="icons/printing.svg">
@@ -254,6 +254,51 @@
         </div>
 
       
+        <!-- entrance popup -->
+        <div id="entrancePopup" class="entrancePopup">
+            <div class="icon-wrapper"> <img class="remove-icon" src='icons/Close.svg' alt="remove-icon"
+                    onclick="closePopupEntrance()" /></div>
+            <div class="content-wrapper">
+                <p class="entrance-text">אירועי עצמאות 75 יתחילו ב-26.04.23 בשעה 9:00</p>
+                <div class="countdown-container">
+                    <div class="timer-container">
+                        <div class="timer-item">
+                            <p class="days"></p>
+                        </div>
+                        <div class="timer-item">
+                            <p class="hours"></p>
+                        </div>
+                        <div class="timer-item">
+                            <p class="minutes"></p>
+                        </div>
+                    </div>
+                    <div class="label-container">
+                        <div class="label">
+                            <p class="label-text">ימים</p>
+                        </div>
+                        <div class="label">
+                            <p class="label-text">שעות</p>
+                        </div>
+                        <div class="label">
+                            <p class="label-text">דקות</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="video-trailer-text">
+                    ביום המטס ניתן יהיה לצפות במפה בזמן אמת. כעת תוכלו להתעדכן בלוח זמני המטס, ללמוד על כלי הטיס
+                    ועוד!
+                </p>
+                <div class="video-container">
+                </div>
+            </div>
+            <div class="footer-wrapper">
+                <div class="button" onclick="closePopupEntrance()">
+                    <p>קח אותי לאפליקצייה</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
         <div class="subheader">
             <!-- goto voiceMessage popup-->
             <div id="gottoVoiceMessagePopup" class="gotoVoiceMessagePopup"
@@ -279,29 +324,7 @@
                         onclick="closeGotoVoiceMessagePopup()" />
                 </div>
             </div>
-            
-
-            <!-- entrance popup -->
-            <div id="entrancePopup" class="entrancePopup" style="display:none">
-                <div id="countdownContainer">
-                    <div id="countdownMeter" class="countdown">
-                        <div class="countdownLabel">
-                            <div id="days" class="countdownText">05</div>
-                            <div id="daysText">ימים</div>
-                        </div>
-                        <div class="countdownLabel">
-                            <div id="hours" class="countdownText">13</div>
-                            <div id="hoursText">שעות</div>
-                        </div>
-                        <div class="countdownLabel">
-                            <div id="minutes" class="countdownText">54</div>
-                            <div id="minutesText">דקות</div>
-                        </div>
-                    </div>
-                    <div class="entranceBody">לתחילת אירועי חיל האוויר - עצמאות 74
-                    </div>
-                </div>
-            </div>
+         
             <!-- shows popup -->
             <div id="basePopup" class="infoBasePopup" style="display: none">
                 <div id="headerBase">
@@ -680,7 +703,7 @@
                     </div>
                     <div class="border"></div>
                     <p id="audioMessageText" class="wroteMessage">שלום! כאן הצוות האווירובטי של חיל האוויר. אנו גאים
-                        לקיים את מטס ההצדעה לאזרחי ישראל, לרגל 74 שנים של עצמאות. חיל האוויר עומד מאחוריכם, ומאחל לכל עם
+                        לקיים את מטס ההצדעה לאזרחי ישראל, לרגל 75 שנים של עצמאות. חיל האוויר עומד מאחוריכם, ומאחל לכל עם
                         ישראל בריאות איתנה, וחג עצמאות שמח!</p>
                 </div>
                 <!-- <div class="sendPost">
