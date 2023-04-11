@@ -638,6 +638,7 @@ function toggleAircraftContentSeparator(shouldShow) {
 }
 
 function showAircraftInfoPopup(aircraft, collapse) {
+
     $("#cockpitVideo").hide();
     if (aircraft.icon === "efroni")
         $("#cockpitVideo").show();
@@ -673,6 +674,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     } else {
         $("#aircraftInfoCountry").hide();
     }
+    
 
     aircraftUsdzObjData = [
         { name: "lavie",hebName: "לביא", isUsdz: true},
@@ -750,7 +752,6 @@ function showAircraftInfoPopup(aircraft, collapse) {
         $("#aircraftInfoMore").on("click", function () {
             window.location.hash = moreInfoHash;
             previousHash.push(moreInfoHash);
-
             toggleAircraftContentSeparator(true);
             $("#aircraftInfoButton").click();
             var height = $(window).height();
@@ -810,7 +811,11 @@ function showAircraftInfoPopup(aircraft, collapse) {
         'event_category': 'popup_interaction',
         'event_label': aircraft.name
     });
-}
+
+   setTimeout(() => { document.querySelector('.listen-to-voice-messege-button').style.position = 'fixed';}, 1000);
+
+};
+
 
 function hideAircraftInfoPopup(callback) {
     hidePopup("#aircraftInfoPopup", function () {
@@ -831,6 +836,8 @@ function hideAircraftInfoPopup(callback) {
         window.location.hash = mainHash;
         previousHash.push(mainHash);
     }
+   document.querySelector('.listen-to-voice-messege-button').style.position = 'absolute';
+
 }
 
 function hidePopup(popup, callback) {

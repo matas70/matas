@@ -116,7 +116,7 @@
 /*listen-to-voice-messege-button*/
 
 .listen-to-voice-messege-button{
-    position: fixed;
+    position: absolute;
     height: 56px;
     width: 200px;
     background-color: #1388B7;
