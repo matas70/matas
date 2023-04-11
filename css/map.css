@@ -1375,6 +1375,14 @@ br.baseData {
    margin: 0;
 }
 
+.bold-info{
+    font-size: 16px;
+    line-height: 22px;
+    text-align: justify;
+    color: #37474F;
+    font-weight: 500;
+}
+
 .info-text{
 font-style: normal;
 font-weight: 400;
