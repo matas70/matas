@@ -775,6 +775,7 @@ div.infoPopup {
         position: absolute !important;
         /* top: 64px !important; */
     }
+
 }
 
 .screenshot {
@@ -2267,6 +2268,10 @@ hr.aircraftLineSeparator.two {}
         left: 0;
     }
     #entrancePopup {
+        left:37%;
+    }
+
+    #footerPopup {
         left:37%;
     }
     
