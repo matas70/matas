@@ -1,4 +1,6 @@
-const gif = document.getElementById("gif-container");
-gif.addEventListener("click", () => {
-    document.getElementById("youtube-video").style.display = "block";
-});
+function openYoutubeVideo() {
+    document.getElementById('youtube-video-container').style.display= "block";
+}
+function closeYoutubeVideo() {
+    document.getElementById('youtube-video-container').style.display= "none";
+}
