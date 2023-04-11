@@ -1410,7 +1410,3 @@ document.addEventListener('mouseup', function(e) {
     };
 
 });
-
-function openpopup(){
-    voiceMessagePopup.style.display = 'flex';
-}
