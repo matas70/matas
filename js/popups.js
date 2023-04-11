@@ -1353,7 +1353,7 @@ const countDownClock = (finalDate) => {
 countDownClock('26 Apr 2023 9:00:00 GMT+3');
 
 //footer popup
-//todo: connect to footer iabout icon
+//todo: connect to footer in about icon
 function openFooterPopup(){
     const dimBackground = document.getElementById("dim-background");
     dimBackground.style.display = "block";

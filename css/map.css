@@ -1352,8 +1352,8 @@ br.baseData {
     left: 50%;
     transform: translate(-50%, -62%);
     z-index: 1000000;
-    /* change to none */
-    display: flex;
+    /* to see the popup nedd to change to flex */
+    display: none;
     flex-direction: column;
     align-items: center;
     padding: 0px;
