@@ -1278,6 +1278,7 @@ function isDesktop() {
     return $(window).width() > 600;
 }
 
+//entrance popup
 function dimBackgroundEntrance() {
     const dimBackground = document.getElementById("dim-background");
     dimBackground.style.display = "block";
@@ -1301,6 +1302,7 @@ function closePopupEntrance() {
     popup.style.display = "none";
 }
 
+//countdown function
 const countDownClock = (finalDate) => {
 
     const daysElement = document.querySelector('.days');
@@ -1350,6 +1352,8 @@ const countDownClock = (finalDate) => {
 
 countDownClock('26 Apr 2023 9:00:00 GMT+3');
 
+//footer popup
+//todo: connect to footer iabout icon
 function openFooterPopup(){
     const dimBackground = document.getElementById("dim-background");
     dimBackground.style.display = "block";
@@ -1372,3 +1376,11 @@ document.addEventListener("click", function (event) {
     }
 });
 
+
+function openFeedback(){
+
+}
+
+function openShare(){
+    
+}
