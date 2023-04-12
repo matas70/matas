@@ -820,6 +820,7 @@ div.infoPopup {
         position: absolute !important;
         /* top: 64px !important; */
     }
+
 }
 
 .screenshot {
@@ -1385,6 +1386,120 @@ br.baseData {
     line-height: 47px;
     color: #37474f;
 }
+
+#footerPopup{
+    height: 547px;
+    width: 296px;
+    border-radius: 16px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    position: absolute;
+    top: calc(50% + 64px);
+    left: 50%;
+    transform: translate(-50%, -62%);
+    z-index: 1000000;
+    /* to see the popup nedd to change to flex */
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    margin: 10px;
+    font-family: Heebo;
+}
+
+.big-logo-air-force{
+    height: 110px;
+    width: 156px;
+}
+
+.bold-text{
+   font-weight: 700;
+   font-size: 17px;
+   line-height: 20px;
+   text-align: center;
+   color: #37474F;
+   margin: 0;
+}
+
+.bold-info{
+    font-size: 16px;
+    line-height: 22px;
+    text-align: justify;
+    color: #37474F;
+    font-weight: 500;
+}
+
+.info-text{
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+text-align: justify;
+color: #37474F;
+margin: 0;
+}
+
+.small-text{
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+text-align: center;
+color: #37474F;
+margin: 0;
+}
+
+.images-container{
+    height: 55px;
+    width: 186px;
+    display: flex;
+    justify-content: space-between;
+    direction: ltr;
+}
+
+.share-button{
+    width: 50%;
+    background-color: #4FCE5D;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    direction: rtl;
+    cursor: pointer;
+}
+
+.content-wrapper-footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    padding: 5px 32px 32px 32px;
+    box-sizing: border-box;
+}
+
+.feedback-button{
+    width: 50%;
+    background-color:  #3BB5F2;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    direction: rtl;
+    cursor: pointer;
+}
+
+.button-icon{
+    padding: 0px 0px 0px 12px;
+    height: 20px;
+}
+
 
 #entrancePopup {
     height: 547px;
@@ -2210,6 +2325,10 @@ hr.aircraftLineSeparator.two {}
     }
 
     #entrancePopup {
+        left:37%;
+    }
+
+    #footerPopup {
         left:37%;
     }
     
