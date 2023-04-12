@@ -19,7 +19,7 @@
 
 #map {
     position: absolute;
-    top: 64px;
+    top: 0px;
     /* Header Height */
     bottom: 0px;
     /* Footer Height */
@@ -85,7 +85,8 @@
     font-style: normal;
     font-weight: 300;
     src: local("Heebo Light"), local("Heebo-Light"), url("../fonts/heebo-v3-hebrew_latin-300.woff2") format("woff2"),
-        /* Super Modern Browsers */ url("../fonts/heebo-v3-hebrew_latin-300.svg#Heebo") format("svg");
+        /* Super Modern Browsers */
+        url("../fonts/heebo-v3-hebrew_latin-300.svg#Heebo") format("svg");
     /* Legacy iOS */
 }
 
@@ -96,7 +97,8 @@
     font-style: normal;
     font-weight: 400;
     src: local("Heebo"), local("Heebo-Regular"), url("../fonts/heebo-v3-hebrew_latin-regular.woff2") format("woff2"),
-        /* Super Modern Browsers */ url("../fonts/heebo-v3-hebrew_latin-regular.svg#Heebo") format("svg");
+        /* Super Modern Browsers */
+        url("../fonts/heebo-v3-hebrew_latin-regular.svg#Heebo") format("svg");
     /* Legacy iOS */
 }
 
@@ -107,7 +109,8 @@
     font-style: normal;
     font-weight: 700;
     src: local("Heebo Bold"), local("Heebo-Bold"), url("../fonts/heebo-v3-hebrew_latin-700.woff2") format("woff2"),
-        /* Super Modern Browsers */ url("../fonts/heebo-v3-hebrew_latin-700.svg#Heebo") format("svg");
+        /* Super Modern Browsers */
+        url("../fonts/heebo-v3-hebrew_latin-700.svg#Heebo") format("svg");
     /* Legacy iOS */
 }
 
@@ -121,10 +124,14 @@
     /* IE9 Compat Modes */
     src: local("Heebo Medium"), local("Heebo-Medium"),
         url("../fonts/heebo-v4-latin-500.eot?#iefix") format("embedded-opentype"),
-        /* IE6-IE8 */ url("../fonts/heebo-v4-latin-500.woff2") format("woff2"),
-        /* Super Modern Browsers */ url("../fonts/heebo-v4-latin-500.woff") format("woff"),
-        /* Modern Browsers */ url("../fonts/heebo-v4-latin-500.ttf") format("truetype"),
-        /* Safari, Android, iOS */ url("../fonts/heebo-v4-latin-500.svg#Heebo") format("svg");
+        /* IE6-IE8 */
+        url("../fonts/heebo-v4-latin-500.woff2") format("woff2"),
+        /* Super Modern Browsers */
+        url("../fonts/heebo-v4-latin-500.woff") format("woff"),
+        /* Modern Browsers */
+        url("../fonts/heebo-v4-latin-500.ttf") format("truetype"),
+        /* Safari, Android, iOS */
+        url("../fonts/heebo-v4-latin-500.svg#Heebo") format("svg");
     /* Legacy iOS */
 }
 
@@ -252,30 +259,7 @@ div.splash {
     justify-content: center;
 }
 
-@keyframes about-us-icon-animation {
-    0% {
-        transform: rotate3d(0, 1, 0, 0deg);
-        background-image: url("../icons/logo-75/Header Logo.svg");
-    }
-    10% {
-        transform: rotate3d(0, 1, 0, 90deg);
-    }
-    20% {
-        transform: rotate3d(0, 0, 0, 180deg);
-        background-image: url("../icons/logo-75/Big Logo.svg");
-    }
-    80% {
-        transform: rotate3d(0, 0, 0, 180deg);
-        background-image: url("../icons/logo-75/Big Logo.svg");
-    }
-    90% {
-        transform: rotate3d(0, 1, 0, 90deg);
-    }
-    100% {
-        transform: rotate3d(0, 1, 0, 0deg);
-        background-image: url("../icons/logo-75/Header Logo.svg");
-    }
-}
+
 
 #headerIconContainer img {
     background-repeat: no-repeat;
@@ -291,6 +275,57 @@ div.splash {
     animation-duration: 5s;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
+}
+
+@supports (-webkit-touch-callout: none){
+    #headerIconContainer img{
+        animation: none;
+        background-image: url("../icons/logo-75/Header Logo.svg");
+    }
+}
+
+/* @keyframes new-icon {
+    0% {
+        transform: rotateY(0deg);
+        background-image: url("../icons/logo-75/Header Logo.svg");
+    }
+    50% {
+        transform: rotateY(90deg);
+    } 
+    75%{
+        background-image: url("../icons/logo-75/Big Logo.svg");
+    }
+
+} */
+
+@keyframes about-us-icon-animation {
+    0% {
+        transform: rotate3d(0, 1, 0, 0deg);
+        background-image: url("../icons/logo-75/Header Logo.svg");
+    }
+
+    10% {
+        transform: rotate3d(0, 1, 0, 90deg);
+    }
+
+    20% {
+        transform: rotate3d(0, 0, 0, 180deg);
+        background-image: url("../icons/logo-75/Big Logo.svg");
+    }
+
+    80% {
+        transform: rotate3d(0, 0, 0, 180deg);
+        background-image: url("../icons/logo-75/Big Logo.svg");
+    }
+
+    90% {
+        transform: rotate3d(0, 1, 0, 90deg);
+    }
+
+    100% {
+        transform: rotate3d(0, 1, 0, 0deg);
+        background-image: url("../icons/logo-75/Header Logo.svg");
+    }
 }
 
 #aboutButton {
@@ -372,8 +407,7 @@ div.splash {
     margin-left: 21px;
 }
 
-#registerToggle {
-}
+#registerToggle {}
 
 #aircraftListContainer {
     height: 150px;
@@ -463,6 +497,7 @@ div.splash {
     color: #455773;
     font-weight: lighter;
 }
+
 #aircraftInfo3D {
     position: absolute;
     left: 142px;
@@ -646,8 +681,9 @@ div.infoPopup {
     -webkit-box-shadow: 0px -2.5px 10px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0px -2.5px 10px 0px rgba(0, 0, 0, 0.1);
 }
+
 /*usdz popup for ios*/
-#usdz-info-popup{
+#usdz-info-popup {
     display: none;
     position: absolute;
     z-index: 200000;
@@ -656,24 +692,32 @@ div.infoPopup {
     transform: translate(-50%, -50%);
     animation: fadeIn 0.8s;
 }
+
 @keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
-#usdz-block{
+
+#usdz-block {
     width: 270px;
     height: 383px;
     background-color: #3BB5F2;
     background: #FFFFFF;
     border: 1px solid #EFF1F1;
-    box-shadow: 0 0 15px 0 rgba(0,0,0,0.30);
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.30);
     border-radius: 18px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
 }
-#usdz-block .explain{
+
+#usdz-block .explain {
     font-family: Heebo-Regular;
     font-size: 15px;
     color: #37474F;
@@ -684,7 +728,8 @@ div.infoPopup {
     width: 180px;
     margin-top: -8px;
 }
-#usdz-block .title{
+
+#usdz-block .title {
     font-family: Heebo-Bold;
     font-size: 17px;
     color: #37474F;
@@ -693,7 +738,8 @@ div.infoPopup {
     line-height: 20px;
     font-weight: 700;
 }
-#popup-bottom{
+
+#popup-bottom {
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;
@@ -702,7 +748,8 @@ div.infoPopup {
     align-items: center;
     justify-content: space-around;
 }
-#popup-bottom button{
+
+#popup-bottom button {
     width: 86px;
     height: 34.98px;
     background: #3BB5F2;
@@ -717,16 +764,18 @@ div.infoPopup {
     line-height: 15px;
     font-weight: 500;
 }
-#popup-bottom .show-hid-check-box{
+
+#popup-bottom .show-hid-check-box {
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
 }
-#usdz-info-popoup-img{
+
+#usdz-info-popoup-img {
     width: 72%;
 }
 
-#dim-background{
+#dim-background {
     background-color: rgba(0, 0, 0, 0.297);
     z-index: 200000;
     position: absolute;
@@ -746,19 +795,31 @@ div.infoPopup {
 }
 
 #popupIcon {
+    display: block;
     position: absolute;
     top: 8px;
     left: 0px;
     height: 100%;
 }
 
-div.infoBasePopup {
+.infoBasePopup {
     display: inline-flex;
     flex-direction: column;
     width: 100%;
     z-index: 100000;
-    bottom: 0;
+    top: 0px;
     position: relative;
+}
+
+@media only screen and (max-width: 600px) {
+    .infoBasePopup {
+        top: 64px !important;
+    }
+
+    #entrancePopup {
+        position: absolute !important;
+        /* top: 64px !important; */
+    }
 }
 
 .screenshot {
@@ -774,8 +835,7 @@ div.locationInfoPopup {
     bottom: 0px;
 }
 
-#aboutPopup {
-}
+#aboutPopup {}
 
 .aboutPopup {
     display: flex;
@@ -916,11 +976,17 @@ HEADER {
 #headerBg {
     display: flex;
     height: 64px;
-    width: 100%;
+    width: 400px;
     position: absolute;
     z-index: 10000;
     align-items: center;
     background: #080c1a;
+}
+
+@media only screen and (max-width: 600px) {
+    #headerBg {
+        width: 100%;
+    }
 }
 
 #expandedInfo {
@@ -1062,13 +1128,13 @@ hr {
     margin-bottom: 12px;
 }
 
-div.quiz-tab{
+div.quiz-tab {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-div.quizIcon{
+div.quizIcon {
     margin-right: 12px;
 }
 
@@ -1204,17 +1270,6 @@ br.baseData {
     align-self: center;
 }
 
-.entranceBody {
-    display: flex;
-    align-self: center;
-    align-items: center;
-    font-size: 12pt;
-    flex: none;
-    flex-shrink: 2;
-    margin-top: 5px;
-    margin-bottom: 2px;
-}
-
 #scheduleLink {
     justify-content: center;
     display: flex;
@@ -1255,7 +1310,7 @@ br.baseData {
 .mapClusterPopup {
     display: flex;
     flex-direction: column;
-    z-index: 10001;
+    z-index: 0;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -1291,12 +1346,12 @@ br.baseData {
     margin-bottom: 1px;
 }
 
-.scheduleRow > div.aircraftName {
+.scheduleRow>div.aircraftName {
     margin-top: 18px;
     margin-bottom: 18px;
 }
 
-.scheduleRow > div.time {
+.scheduleRow>div.time {
     margin-top: 18px;
     margin-bottom: 18px;
 }
@@ -1332,32 +1387,165 @@ br.baseData {
 }
 
 #entrancePopup {
-    width: 100%;
-    text-align: center;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    transition: background-image 5s ease-in-out;
-    position: relative;
-}
-
-#entrancePopup.mapLoaded {
-    background: rgba(255, 255, 255, 0.6);
-}
-
-#countdownContainer {
-    width: 100%;
-    flex-direction: column;
+    height: 547px;
+    width: 296px;
+    border-radius: 16px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    position: absolute;
+    top: calc(50% + 64px);
+    left: 50%;
+    transform: translate(-50%, -62%);
+    z-index: 1000000;
     display: flex;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
-    margin: auto;
+    flex-direction: column;
     align-items: center;
-    z-index: 2;
+    padding: 0px;
+    margin: 10px;
+    font-family: Heebo;
+}
+
+.icon-wrapper{
+    width:  100%;
+    height: 25px;
+    padding: 0px 18px;
+    margin: 18px 0px 0px 0px;
+    direction: ltr;
+    box-sizing: border-box;
+}
+
+.remove-icon{
+    cursor: pointer;
+}
+
+.content-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    padding: 5px 20px 20px 20px;
+    box-sizing: border-box;
+}
+
+.entrance-text{
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 20px;
+    text-align: center;
+    color: #37474F;
+    margin: 0px;
+}
+
+.video-trailer-text{
+    margin: 0px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 19px;
+    text-align: center;
+    color: #37474F;
+}
+
+.video-container{
+    width: 255px;
+    height: 245px;
+    border-radius: 8px;
+    background-color: #4eb5f16e;
+}
+
+.footer-wrapper{
+    height: 48px;
+    padding: 0px;
+    width: 100%;
+    border-radius: 0px 0px 16px 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.button{
+    background-color: #3BB5F2;
+    height: 100%;
+    width: 100%;
+    border-radius: 0px;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    direction: rtl;
+    cursor: pointer;
+}
+
+.countdown-container{
+    z-index: 1000001;
+    font-family: Heebo;
+    display: flex;
+    flex-direction: column;
+    width: 122px;
+    height: 62px;
+    direction: ltr;
+    
+}  
+
+.timer-container{ 
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: calc(100% - 22px);
+    border-radius:7px;
+    overflow: hidden;
+    justify-content: space-between;
+}
+
+.label-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 22px;
+    justify-content: space-between;
+}
+
+.timer-item{
+  background-color: #3BB5F2;
+  width: 32%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.days{
+    color: white;
+    font-size:20px;
+}
+
+.hours{
+    color: white;
+    font-size:20px;
+}
+
+.minutes{
+    color: white;
+    font-size:20px;
+}
+
+.label{
+    width: 32%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.label-text{
+    color: #37474F;
+    font-size: 13px;
 }
 
 .confirmationPopup {
@@ -1506,12 +1694,12 @@ br.baseData {
     padding: 6px;
 }
 
-.alert-header > img {
+.alert-header>img {
     display: inline-block;
     vertical-align: middle;
 }
 
-.alert-header > span {
+.alert-header>span {
     font-size: 10pt;
     font-weight: bold;
 }
@@ -1555,8 +1743,7 @@ br.baseData {
     border-radius: 0 0 8pt 8pt;
 }
 
-.aircraftScheduleContent {
-}
+.aircraftScheduleContent {}
 
 .aircraftInfoButton {
     width: 100%;
@@ -1596,8 +1783,7 @@ hr.aircraftLineSeparator {
     height: 0;
 }
 
-hr.aircraftLineSeparator.two {
-}
+hr.aircraftLineSeparator.two {}
 
 #aircraftInfoStartTime {
     font-family: "Heebo-Medium";
@@ -1752,8 +1938,7 @@ hr.aircraftLineSeparator.two {
     overflow-x: hidden;
 }
 
-.search-view {
-}
+.search-view {}
 
 #search-prompt {
     color: #8e8e93;
@@ -1804,7 +1989,7 @@ hr.aircraftLineSeparator.two {
     display: flex;
     flex-direction: column;
     width: 100%;
-    top: 64px;
+    top: 0px;
     position: fixed;
 }
 
@@ -1866,6 +2051,7 @@ hr.aircraftLineSeparator.two {
         transform: scale(0.5, 0.5);
         opacity: 0.9;
     }
+
     to {
         transform: scale(2.5, 2.5);
         opacity: 0;
@@ -1937,10 +2123,11 @@ hr.aircraftLineSeparator.two {
 #audioMessageText {
     text-align: justify;
 }
+
 /* Desktop mode handler */
 
 @media only screen and (min-width: 600px) {
-    
+
     #cockpitVideo {
         border-radius: 20px 20px 0 0;
         margin-top: 20px;
@@ -1966,10 +2153,10 @@ hr.aircraftLineSeparator.two {
         width: 0;
         white-space: nowrap;
         overflow-x: hidden;
-        
+
     }
 
-    #goto-press-button:hover #goto-press-text{
+    #goto-press-button:hover #goto-press-text {
         display: block;
         margin-right: 10px;
         width: 75px;
@@ -1986,25 +2173,31 @@ hr.aircraftLineSeparator.two {
         height: calc(100vh - 64px) !important;
         margin: 0 400px 0 0;
     }
+
     .tabs {
         height: calc(100vh - 204px) !important;
     }
+
     #locationPopup {
         width: calc(100% - 400px);
         height: 500px;
         left: 0;
         overflow: hidden;
     }
+
     #menuHamburger {
         display: none;
     }
+
     #baseInfo {
         width: 100%;
     }
+
     #map {
         width: calc(100% - 400px);
         left: 0;
     }
+    
     .footer {
         width: 248px;
         height: 28px;
@@ -2013,12 +2206,18 @@ hr.aircraftLineSeparator.two {
         gap: 8px;
         border-radius: 8px 0px 0px 0px;
         right: 400px;
+
+    }
+
+    #entrancePopup {
+        left:37%;
     }
     
     #headerIconContainer {
         text-align: right;
         margin-right: 15px;
     }
+
     .subheader {
         width: calc(100% - 400px);
         left: 0;
@@ -2096,7 +2295,8 @@ hr.aircraftLineSeparator.two {
     display: none;
     z-index: 99999;
 }
-.new-popup .weather-inner{
+
+.new-popup .weather-inner {
     width: 285px;
     height: 330px;
     position: fixed;
@@ -2148,7 +2348,7 @@ hr.aircraftLineSeparator.two {
     font-weight: bold;
     line-height: 1.18;
     text-align: center;
-    color: #37474f;  
+    color: #37474f;
 }
 
 .new-popup ul {
@@ -2164,7 +2364,8 @@ hr.aircraftLineSeparator.two {
     margin-top: 21px;
 }
 
-.new-popup ul li.ar::before, .new-popup ul li.quiz::before {
+.new-popup ul li.ar::before,
+.new-popup ul li.quiz::before {
     content: '';
     width: 44px;
     height: 31.7px;
@@ -2190,7 +2391,7 @@ hr.aircraftLineSeparator.two {
     font-weight: 500;
     color: #3bb5f2;
     margin-top: 8px;
-    display: block;  
+    display: block;
 }
 
 
@@ -2198,7 +2399,7 @@ hr.aircraftLineSeparator.two {
     color: white;
     font-family: Heebo;
     font-weight: bold;
-    font-size:18px;
+    font-size: 18px;
     background-color: #3bb5f2;
     border-radius: 0 0 15px 15px;
     position: absolute;

@@ -183,6 +183,7 @@ function showBaseLoactionPopup(pointId) {
         document.getElementById('open-base-card-theme').src = 'experimental-assets/base-card-airplane-for-pc.png';
         document.getElementById('drag-button').style.display = 'none';
         basePopUpElement.animate({
+            top: "0px",
             height: fullHeight + "px",
             left: "0px",
         }, "fast");
@@ -1169,8 +1170,11 @@ function createClusterLocationRow(location) {
 function openMapClusterPopup(arrayOfObjects) {
     window.location.hash = clusterHash;
     previousHash.push(clusterHash);
+
     getMapDarker();
     closeAllPopups();
+
+    $("#mapClusterPopupFooter").on("click", () => closeMapClusterPopup(true))
 
     var contentDiv = $("#mapClusterPopupContent");
     var html = "";
@@ -1193,11 +1197,12 @@ function openMapClusterPopup(arrayOfObjects) {
     contentDiv.scrollTop(0);
 
     $("#mapClusterPopupFooter").on("click", () => closeMapClusterPopup(true))
+
+    $("#mapClusterPopup").css("z-index", "1000")
     $("#mapClusterPopup").fadeIn();
 }
 
 function closeMapClusterPopup(clearMap) {
-    // deselectLocation();
     if (clearMap) {
         getMapUndark();
     }
@@ -1276,3 +1281,75 @@ function updateAudioMessageTime() {
 function isDesktop() {
     return $(window).width() > 600;
 }
+
+function dimBackgroundEntrance() {
+    const dimBackground = document.getElementById("dim-background");
+    dimBackground.style.display = "block";
+}
+
+window.onload = dimBackgroundEntrance();
+
+//click outside listener
+document.addEventListener("click", function (event) {
+    if (event.target.closest("#entrancePopup")) return;
+    else {
+        closePopupEntrance();
+    }
+});
+
+
+function closePopupEntrance() {
+    const dimBackground = document.getElementById("dim-background");
+    dimBackground.style.display = 'none';
+    const popup = document.querySelector("#entrancePopup");
+    popup.style.display = "none";
+}
+
+const countDownClock = (finalDate) => {
+
+    const daysElement = document.querySelector('.days');
+    const hoursElement = document.querySelector('.hours');
+    const minutesElement = document.querySelector('.minutes');
+
+    const second = 1000,
+        minute = second * 60,
+        hour = minute * 60,
+        day = hour * 24;
+
+    const date = finalDate;
+
+    let countDown = new Date(date).getTime(),
+        x = setInterval(function () {
+
+            let now = new Date().getTime(),
+                distance = countDown - now;
+
+            if (daysElement != null) {
+                let days = Math.floor(distance / (day));
+                days < 10 ?
+                    daysElement.innerText = "0" + days :
+                    daysElement.innerText = days;
+            }
+
+            if (hoursElement != null) {
+                let hours = Math.floor((distance % (day)) / (hour));
+                hours < 10 ?
+                    hoursElement.innerText = "0" + hours :
+                    hoursElement.innerText = hours;
+            }
+
+            if (minutesElement != null) {
+                let minutes = Math.floor((distance % (hour)) / (minute));
+                minutes < 10 ?
+                    minutesElement.innerText = "0" + minutes :
+                    minutesElement.innerText = minutes;
+            }
+
+            if (distance < 60000) {
+                closePopupEntrance();
+            }
+
+        }, second)
+}
+
+countDownClock('26 Apr 2023 9:00:00 GMT+3');
