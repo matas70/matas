@@ -1290,7 +1290,7 @@ function dimBackgroundEntrance() {
 
 window.onload = dimBackgroundEntrance();
 
-//click outside listener
+//click outside listener to popup
 document.addEventListener("click", function (event) {
     if (event.target.closest("#entrancePopup")) return;
     else {
