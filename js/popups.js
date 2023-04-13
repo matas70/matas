@@ -1696,5 +1696,3 @@ function closePopupFooter() {
 //todo: feedback function
 function openFeedback() {}
 
-//todo: share function
-function openShare() {}
