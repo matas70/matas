@@ -58,6 +58,11 @@
     width: 20px;
     margin: 0 6px ;
     height: 19px;
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+
+    cursor: pointer;
 }
 
 .text__bold {
@@ -70,6 +75,10 @@
     font-family: Heebo;
     font-size: 13px;
     text-decoration: underline;
+
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    cursor: pointer;
 }
 
 .sticky {
