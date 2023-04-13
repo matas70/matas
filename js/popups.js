@@ -1589,7 +1589,8 @@ function isDesktop() {
   return $(window).width() > 600;
 }
 
-//entrance popup
+//dim background functions
+
 function turnOnDimBackground() {
   const dimBackground = document.getElementById("dim-background");
   dimBackground.style.display = "block";
@@ -1599,8 +1600,6 @@ function turnOffDimBackground() {
   const dimBackground = document.getElementById("dim-background");
   dimBackground.style.display = "none";
 }
-
-window.onload = turnOnDimBackground();
 
 //click outside listener to popups: entrance and footer
 
@@ -1626,6 +1625,11 @@ window.onclick = function (event) {
     dimBackground.style.display = "none";
   }
 };
+
+// entrance popup
+// dim bckground to entrance popup load
+
+window.onload = turnOnDimBackground();
 
 function closePopupEntrance() {
   turnOffDimBackground();
@@ -1681,6 +1685,7 @@ const countDownClock = (finalDate) => {
 countDownClock("26 Apr 2023 9:00:00 GMT+3");
 
 //footer popup
+
 function openUnitInfo() {
   turnOnDimBackground();
   const popup = document.querySelector("#footerPopup");
