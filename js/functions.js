@@ -42,7 +42,7 @@ var userSimulation = false;
 var aircraftData = null;
 var appLoaded = false;
 var changes = false;
-var appStage;
+var appStage = "matas";
 
 var audioMessages;
 $.getJSON('/data/audio-messages.json', (res) => {
