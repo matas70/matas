@@ -3,6 +3,3 @@
 Thumbs*
 node_modules
 /data/env.json
-/test-results/
-/playwright-report/
-/playwright/.cache/
