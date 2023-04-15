@@ -1,7 +1,5 @@
 .body,
 #wrapper {
-    /* Break the flow */
-    position: absolute;
     top: 0px;
     /* Give them all the available space */
     width: 100%;

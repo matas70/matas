@@ -15,6 +15,8 @@
 
     animation-name: fading;
     animation-duration: 0.6s;
+
+    box-shadow: 0px 0px 12px 1px #888888;
 }
 @keyframes fading {
     0%{
@@ -51,6 +53,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
 }
 
 .airplane-icon{
@@ -58,9 +63,13 @@
     border: #b9b9b9 0.6px;
     border-style:dashed;
     padding: 1px;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
 }
 .pilot-icon{
     width: 54px;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
 }
 .airplane-name{
     font-size: 24px;
@@ -86,6 +95,9 @@
     align-items: center;
     justify-content: space-around;
     margin-top: 6.4px;
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
 }
 
 .audio-section{
@@ -95,6 +107,12 @@
     align-items: center;
     justify-content: center;
 }
+
+.play-pause-icon {
+    -webkit-user-drag: none;
+    cursor: pointer;
+}
+
 .seperetor{
     width: 100%;
     background: #E7E7E7;

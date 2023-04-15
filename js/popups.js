@@ -1301,6 +1301,7 @@ function openVoiceMessegePopup(){
     
     dimBackground.style.display = "block";
     voiceMessagePopup.style.display = "flex";
+    hideAircraftInfoPopup();
 }
 
 function closeVoiceMessegePopup(){
