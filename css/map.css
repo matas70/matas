@@ -27,6 +27,60 @@
     z-index: 0;
 }
 
+.footer {
+    position: absolute ;
+    /* Sizing correctly */
+    box-sizing: border-box;
+    width: 100%;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.9); 
+    /* Making the footer stick to the bottom of it's position */
+    bottom: 0;
+    /* Adjusting the content placement inside the footer */
+    padding: 0px 16px;
+    gap: 8px;
+    /* Adding flex-box properties */
+    display: flex;
+    align-items: center;
+}
+
+/* If the broswer supprorts backdrop-filter or -webkit-backdrop-filter (this property may not be fully supported) */
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+    .footer{
+      background-color: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+}
+
+.footer__share-icon,
+.footer__info-icon  {
+    width: 20px;
+    margin: 0 6px ;
+    height: 19px;
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+
+    cursor: pointer;
+}
+
+.text__bold {
+    font-weight: 500;
+}
+
+.footer__info-text{
+    margin: 0px 6px;
+    width: 140px;
+    font-family: Heebo;
+    font-size: 13px;
+    text-decoration: underline;
+
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    cursor: pointer;
+}
+
 .sticky {
     position: fixed;
     top: 0;
@@ -775,6 +829,7 @@ div.infoPopup {
         position: absolute !important;
         /* top: 64px !important; */
     }
+
 }
 
 .screenshot {
@@ -1340,6 +1395,120 @@ br.baseData {
     line-height: 47px;
     color: #37474f;
 }
+
+#footerPopup{
+    height: 547px;
+    width: 296px;
+    border-radius: 16px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    position: absolute;
+    top: calc(50% + 64px);
+    left: 50%;
+    transform: translate(-50%, -62%);
+    z-index: 1000000;
+    /* to see the popup nedd to change to flex */
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    margin: 10px;
+    font-family: Heebo;
+}
+
+.big-logo-air-force{
+    height: 110px;
+    width: 156px;
+}
+
+.bold-text{
+   font-weight: 700;
+   font-size: 17px;
+   line-height: 20px;
+   text-align: center;
+   color: #37474F;
+   margin: 0;
+}
+
+.bold-info{
+    font-size: 16px;
+    line-height: 22px;
+    text-align: justify;
+    color: #37474F;
+    font-weight: 500;
+}
+
+.info-text{
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+text-align: justify;
+color: #37474F;
+margin: 0;
+}
+
+.small-text{
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+text-align: center;
+color: #37474F;
+margin: 0;
+}
+
+.images-container{
+    height: 55px;
+    width: 186px;
+    display: flex;
+    justify-content: space-between;
+    direction: ltr;
+}
+
+.share-button{
+    width: 50%;
+    background-color: #4FCE5D;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    direction: rtl;
+    cursor: pointer;
+}
+
+.content-wrapper-footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    padding: 5px 32px 32px 32px;
+    box-sizing: border-box;
+}
+
+.feedback-button{
+    width: 50%;
+    background-color:  #3BB5F2;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    direction: rtl;
+    cursor: pointer;
+}
+
+.button-icon{
+    padding: 0px 0px 0px 12px;
+    height: 20px;
+}
+
 
 #entrancePopup {
     height: 547px;
@@ -2152,7 +2321,23 @@ hr.aircraftLineSeparator.two {}
         width: calc(100% - 400px);
         left: 0;
     }
+    
+    .footer {
+        width: 248px;
+        height: 28px;
+        padding: 0px 8px;
+        /* Adding flex-box properties */
+        gap: 8px;
+        border-radius: 8px 0px 0px 0px;
+        right: 400px;
+
+    }
+
     #entrancePopup {
+        left:37%;
+    }
+
+    #footerPopup {
         left:37%;
     }
     
