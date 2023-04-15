@@ -1,7 +1,5 @@
 .body,
 #wrapper {
-    /* Break the flow */
-    position: absolute;
     top: 0px;
     /* Give them all the available space */
     width: 100%;
@@ -28,12 +26,12 @@
 }
 
 .footer {
-    position: absolute ;
+    position: absolute;
     /* Sizing correctly */
     box-sizing: border-box;
     width: 100%;
     height: 28px;
-    background: rgba(255, 255, 255, 0.9); 
+    background: rgba(255, 255, 255, 0.9);
     /* Making the footer stick to the bottom of it's position */
     bottom: 0;
     /* Adjusting the content placement inside the footer */
@@ -46,17 +44,17 @@
 
 /* If the broswer supprorts backdrop-filter or -webkit-backdrop-filter (this property may not be fully supported) */
 @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-    .footer{
-      background-color: rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
+    .footer {
+        background-color: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
     }
 }
 
 .footer__share-icon,
-.footer__info-icon  {
+.footer__info-icon {
     width: 20px;
-    margin: 0 6px ;
+    margin: 0 6px;
     height: 19px;
 
     -webkit-user-drag: none;
@@ -69,7 +67,7 @@
     font-weight: 500;
 }
 
-.footer__info-text{
+.footer__info-text {
     margin: 0px 6px;
     width: 140px;
     font-family: Heebo;
@@ -168,6 +166,15 @@ div.aircraftInfoContent {
 
 img.aircraftImage {
     width: 140px;
+}
+
+#dim {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(1, 2, 4, 0.2);
+    z-index: 100000;
+    transition: 0.2s;
 }
 
 img.aerobaticIcon {
@@ -286,8 +293,8 @@ div.splash {
     animation-iteration-count: infinite;
 }
 
-@supports (-webkit-touch-callout: none){
-    #headerIconContainer img{
+@supports (-webkit-touch-callout: none) {
+    #headerIconContainer img {
         animation: none;
         background-image: url("../icons/logo-75/Header Logo.svg");
     }
@@ -1396,7 +1403,7 @@ br.baseData {
     color: #37474f;
 }
 
-#footerPopup{
+#footerPopup {
     height: 547px;
     width: 296px;
     border-radius: 16px;
@@ -1416,21 +1423,21 @@ br.baseData {
     font-family: Heebo;
 }
 
-.big-logo-air-force{
+.big-logo-air-force {
     height: 110px;
     width: 156px;
 }
 
-.bold-text{
-   font-weight: 700;
-   font-size: 17px;
-   line-height: 20px;
-   text-align: center;
-   color: #37474F;
-   margin: 0;
+.bold-text {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 20px;
+    text-align: center;
+    color: #37474F;
+    margin: 0;
 }
 
-.bold-info{
+.bold-info {
     font-size: 16px;
     line-height: 22px;
     text-align: justify;
@@ -1438,26 +1445,26 @@ br.baseData {
     font-weight: 500;
 }
 
-.info-text{
-font-style: normal;
-font-weight: 400;
-font-size: 16px;
-line-height: 22px;
-text-align: justify;
-color: #37474F;
-margin: 0;
+.info-text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: justify;
+    color: #37474F;
+    margin: 0;
 }
 
-.small-text{
-font-weight: 300;
-font-size: 14px;
-line-height: 22px;
-text-align: center;
-color: #37474F;
-margin: 0;
+.small-text {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+    color: #37474F;
+    margin: 0;
 }
 
-.images-container{
+.images-container {
     height: 55px;
     width: 186px;
     display: flex;
@@ -1465,7 +1472,7 @@ margin: 0;
     direction: ltr;
 }
 
-.share-button{
+.share-button {
     width: 50%;
     background-color: #4FCE5D;
     text-align: center;
@@ -1479,7 +1486,7 @@ margin: 0;
     cursor: pointer;
 }
 
-.content-wrapper-footer{
+.content-wrapper-footer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1490,9 +1497,9 @@ margin: 0;
     box-sizing: border-box;
 }
 
-.feedback-button{
+.feedback-button {
     width: 50%;
-    background-color:  #3BB5F2;
+    background-color: #3BB5F2;
     text-align: center;
     color: white;
     font-size: 13px;
@@ -1504,7 +1511,7 @@ margin: 0;
     cursor: pointer;
 }
 
-.button-icon{
+.button-icon {
     padding: 0px 0px 0px 12px;
     height: 20px;
 }
@@ -1529,8 +1536,8 @@ margin: 0;
     font-family: Heebo;
 }
 
-.icon-wrapper{
-    width:  100%;
+.icon-wrapper {
+    width: 100%;
     height: 25px;
     padding: 0px 18px;
     margin: 18px 0px 0px 0px;
@@ -1538,11 +1545,11 @@ margin: 0;
     box-sizing: border-box;
 }
 
-.remove-icon{
+.remove-icon {
     cursor: pointer;
 }
 
-.content-wrapper{
+.content-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1553,7 +1560,7 @@ margin: 0;
     box-sizing: border-box;
 }
 
-.entrance-text{
+.entrance-text {
     font-weight: 700;
     font-size: 17px;
     line-height: 20px;
@@ -1562,7 +1569,7 @@ margin: 0;
     margin: 0px;
 }
 
-.video-trailer-text{
+.video-trailer-text {
     margin: 0px;
     font-weight: 400;
     font-size: 15px;
@@ -1571,14 +1578,14 @@ margin: 0;
     color: #37474F;
 }
 
-.video-container{
+.video-container {
     width: 255px;
     height: 245px;
     border-radius: 8px;
     background-color: #4eb5f16e;
 }
 
-.footer-wrapper{
+.footer-wrapper {
     height: 48px;
     padding: 0px;
     width: 100%;
@@ -1590,7 +1597,7 @@ margin: 0;
     overflow: hidden;
 }
 
-.button{
+.button {
     background-color: #3BB5F2;
     height: 100%;
     width: 100%;
@@ -1606,7 +1613,7 @@ margin: 0;
     cursor: pointer;
 }
 
-.countdown-container{
+.countdown-container {
     z-index: 1000001;
     font-family: Heebo;
     display: flex;
@@ -1614,20 +1621,20 @@ margin: 0;
     width: 122px;
     height: 62px;
     direction: ltr;
-    
-}  
 
-.timer-container{ 
+}
+
+.timer-container {
     display: flex;
     flex-direction: row;
     width: 100%;
     height: calc(100% - 22px);
-    border-radius:7px;
+    border-radius: 7px;
     overflow: hidden;
     justify-content: space-between;
 }
 
-.label-container{
+.label-container {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -1635,31 +1642,8 @@ margin: 0;
     justify-content: space-between;
 }
 
-.timer-item{
-  background-color: #3BB5F2;
-  width: 32%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.days{
-    color: white;
-    font-size:20px;
-}
-
-.hours{
-    color: white;
-    font-size:20px;
-}
-
-.minutes{
-    color: white;
-    font-size:20px;
-}
-
-.label{
+.timer-item {
+    background-color: #3BB5F2;
     width: 32%;
     height: 100%;
     display: flex;
@@ -1667,7 +1651,30 @@ margin: 0;
     justify-content: center;
 }
 
-.label-text{
+.days {
+    color: white;
+    font-size: 20px;
+}
+
+.hours {
+    color: white;
+    font-size: 20px;
+}
+
+.minutes {
+    color: white;
+    font-size: 20px;
+}
+
+.label {
+    width: 32%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.label-text {
     color: #37474F;
     font-size: 13px;
 }
@@ -2321,7 +2328,7 @@ hr.aircraftLineSeparator.two {}
         width: calc(100% - 400px);
         left: 0;
     }
-    
+
     .footer {
         width: 248px;
         height: 28px;
@@ -2334,13 +2341,13 @@ hr.aircraftLineSeparator.two {}
     }
 
     #entrancePopup {
-        left:37%;
+        left: 37%;
     }
 
     #footerPopup {
-        left:37%;
+        left: 37%;
     }
-    
+
     #headerIconContainer {
         text-align: right;
         margin-right: 15px;

@@ -499,8 +499,8 @@ function showLocationPopup(
   } else if (!point.activeTimes && point.aircrafts.length > 0)
     $("#popupTime").text(
       point.aircrafts[0].time.substr(0, 5) +
-        "-" +
-        point.aircrafts[point.aircrafts.length - 1].time.substr(0, 5)
+      "-" +
+      point.aircrafts[point.aircrafts.length - 1].time.substr(0, 5)
     );
   else if (point.activeTimes) $("#popupTime").text(point.activeTimes);
   else $("#popupTime").text("");
@@ -763,7 +763,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     : aircraft.path[0].time;
   $("#aircraftInfoStartTime").text(
     (startTime != endTime ? roundToMinute(startTime) + " - " : "") +
-      roundToMinute(endTime)
+    roundToMinute(endTime)
   );
   $("#aircraftInfoIcon").attr(
     "src",
@@ -859,12 +859,11 @@ function showAircraftInfoPopup(aircraft, collapse) {
     $("#aircraftInfoMore").on("click", function () {
       window.location.hash = moreInfoHash;
       previousHash.push(moreInfoHash);
-
       toggleAircraftContentSeparator(true);
       $("#aircraftInfoButton").click();
       var height = $(window).height();
       $("#aircraftInfoMore").css("display", "none");
-      $("#aircraftInfoPopup").animate({ height: height + "px" }, 500);
+      $("#aircraftInfoPopup").animate({ "height": height + "px" }, 500);
       $("#shrinkAircraftInfoPopup").css("display", "block");
       $("#expandedInfo").css("display", "block");
     });
@@ -875,17 +874,15 @@ function showAircraftInfoPopup(aircraft, collapse) {
       $("#aircraftInfoMore").css("height", "32px");
       $("#expandedInfo").css("display", "none");
       $("#shrinkAircraftInfoPopup").css("display", "none");
-      var $aircraftInfoPopup = $("#aircraftInfoPopup");
+      var $aircraftInfoPopup = $('#aircraftInfoPopup');
       var curHeight = $aircraftInfoPopup.height();
-      $aircraftInfoPopup.css("height", "auto");
-      $(".aircraftTabs #aircraftInfoContent").show().siblings().hide();
+      $aircraftInfoPopup.css('height', 'auto');
+      $('.aircraftTabs #aircraftInfoContent').show().siblings().hide();
 
       var autoHeight = $aircraftInfoPopup.height();
-      $aircraftInfoPopup
-        .height(curHeight)
-        .animate({ height: autoHeight }, 500, function () {
-          $aircraftInfoPopup.height("auto");
-        });
+      $aircraftInfoPopup.height(curHeight).animate({ height: autoHeight }, 500, function () {
+        $aircraftInfoPopup.height('auto');
+      });
     });
   } else {
     // Lots of code to set the correct state of html elements according to collapse/extended
@@ -893,7 +890,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     var height = $(window).height();
     $("#aircraftInfoMore").css("display", "none");
     $("#aircraftInfoPopup").height("0px");
-    $("#aircraftInfoPopup").animate({ height: height + "px" }, 500);
+    $("#aircraftInfoPopup").animate({ "height": height + "px" }, 500);
     $("#shrinkAircraftInfoPopup").css("display", "block");
     $("#expandedInfo").css("display", "block");
 
@@ -905,25 +902,27 @@ function showAircraftInfoPopup(aircraft, collapse) {
   var popupHeight = $("#locationPopup").height();
   $("#aircraftInfoPopup").css("bottom", -popupHeight);
   $("#aircraftInfoPopup").show();
-  $("#aircraftInfoPopup").animate(
-    {
-      bottom: "0px",
-    },
-    "fast"
-  );
+  $("#aircraftInfoPopup").animate({
+    bottom: "0px"
+  }, "fast");
 
   setTimeout(function () {
     if (!isDesktop()) {
-      // Hide only on mobile
+      // Hide only on mobile 
       $("#listView").hide();
     }
+
   }, 500);
 
-  gtag("event", "aircraft_info_open", {
-    event_category: "popup_interaction",
-    event_label: aircraft.name,
+  gtag('event', 'aircraft_info_open', {
+    'event_category': 'popup_interaction',
+    'event_label': aircraft.name
   });
-}
+
+  setTimeout(() => { document.querySelector('.listen-to-voice-messege-button').style.position = 'fixed'; }, 1000);
+
+};
+
 
 function hideAircraftInfoPopup(callback) {
   hidePopup("#aircraftInfoPopup", function () {
@@ -931,6 +930,8 @@ function hideAircraftInfoPopup(callback) {
     if (callback) {
       callback.call(this);
     }
+    document.querySelector('.listen-to-voice-messege-button').style.position = 'absolute';
+
   });
   $("#listView").show();
   $("#expandedInfo").css("display", "none");
@@ -1009,16 +1010,12 @@ function createLocationScheduleRow(aircraft, location, time, from) {
   //     return `<div onclick="selectPointFromSchedule(${location.pointId})" class=\"scheduleRow\"><img src=\"icons/OpenBaseMap.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
   //       ${location.pointName} </b></div><div class=\"time\"> ${roundToMinute(time)} ${(from ? " - " + roundToMinute(from) : "")} </div></div>`;
   //}else{
-  return `<div onclick="selectPointFromSchedule(${
-    location.pointId
-  })" class=\"scheduleRow\"><img src=\"icons/point-${
-    location.color
-  }.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
-            ${
-              location.pointName
-            } </b></div><div class=\"time\"> ${roundToMinute(time)} ${
-    from ? " - " + roundToMinute(from) : ""
-  } </div></div>`;
+  return `<div onclick="selectPointFromSchedule(${location.pointId
+    })" class=\"scheduleRow\"><img src=\"icons/point-${location.color
+    }.svg\" class=\"aircraftIcon\"></img> <div class=\"aircraftName\"><b>
+            ${location.pointName
+    } </b></div><div class=\"time\"> ${roundToMinute(time)} ${from ? " - " + roundToMinute(from) : ""
+    } </div></div>`;
   //}
 }
 
@@ -1094,16 +1091,16 @@ function createTableRow(
   );
   if (
     (name === "צופית") |
-      (name === "עפרוני") |
-      (name === "ברק") |
-      (name === "אדיר") |
-      (name === "קרנף") |
-      (name === "לביא") |
-      (name === "בז") |
-      (name === "סופה") |
-      (name === "שמשון") |
-      (name === "רעם") |
-      (name === "שרף") &&
+    (name === "עפרוני") |
+    (name === "ברק") |
+    (name === "אדיר") |
+    (name === "קרנף") |
+    (name === "לביא") |
+    (name === "בז") |
+    (name === "סופה") |
+    (name === "שמשון") |
+    (name === "רעם") |
+    (name === "שרף") &&
     currAircraftName !== undefined
   ) {
     classname =
@@ -1177,8 +1174,8 @@ function createLocationRow(
     "<div class='nextAircraftSection'>" +
     (displayFirstAircraft
       ? "<div class='smallAircraftName'>" +
-        location.aircrafts[0].name +
-        "</div>"
+      location.aircrafts[0].name +
+      "</div>"
       : "") +
     "<div class='nextAircraftTime'>" +
     (displayFirstAircraft ? roundToMinute(location.aircrafts[0].time) : "") +
@@ -1364,7 +1361,7 @@ function showGenericPopup(
   subtitle,
   iconId = "genericAircraftIcon",
   link = undefined,
-  after = () => {}
+  after = () => { }
 ) {
   var html = '<b class="baseData">';
   html += title;
@@ -1589,6 +1586,157 @@ function isDesktop() {
   return $(window).width() > 600;
 }
 
+function turnOnSecondaryDim() {
+  $("#dim").css("display", "block")
+}
+
+function turnOffSecondaryDim() {
+  $("#dim").css("display", "none")
+}
+
+//voice-messege-popup
+const voiceMessagePopup = document.querySelector("#voiceMessegePopup");
+
+function openVoiceMessegePopup() {
+
+  document.querySelector(".airplane-name").innerText = document.querySelector("#aircraftInfoName").innerText;
+  document.querySelector(".airplane-type").innerText = document.querySelector("#aircraftInfoType").innerText;
+  document.querySelector(".airplane-icon").src = document.querySelector("#aircraftInfoIcon").src;
+  document.querySelector(".audio-text").innerText = document.querySelector("#aircraftInfoContentDescription").innerText;
+
+
+  turnOnSecondaryDim()
+
+  voiceMessagePopup.style.display = "flex";
+  hideAircraftInfoPopup();
+}
+
+function closeVoiceMessegePopup() {
+  turnOffSecondaryDim()
+  voiceMessagePopup.style.display = "none";
+
+  voiceMessegeFile.pause();
+  progressBar.value = 0;
+  voiceMessegeFile.currentTime = 0;
+  playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg', "play.svg");
+  stopInterval = true;
+
+}
+
+
+//global elements for voice message popup 
+let voiceMessegeFile = new Audio('./audio/efroni.mp3');
+const progressBar = document.querySelector(".progress-bar");
+const playPauseIcon = document.querySelector(".play-pause-icon");
+const timer = document.querySelector(".audio-time");
+
+let stopInterval = false;
+
+
+voiceMessegeFile.onloadedmetadata = () => {
+
+  progressBar.max = voiceMessegeFile.duration;
+  progressBar.value = voiceMessegeFile.currentTime;
+  stopInterval = false;
+
+}
+
+
+function playOrStopVoiceMessege() {
+
+  if (playPauseIcon.src.includes("play.svg")) {
+    voiceMessegeFile.play();
+    playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
+
+  } else {
+    voiceMessegeFile.pause();
+    playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg', "play.svg");
+  }
+}
+
+//animation functions
+
+function calculateProgressLine() {
+
+  valPres = Math.round((progressBar.value / progressBar.max) * 100);
+  valPres < 10 ? valPres = valPres + 1 : valPres;
+  progressBar.style.background = `linear-gradient(90deg,  #3BB5F2 ${valPres}%, #E6E6E6 ${valPres}%)`;
+
+}
+
+function displayTimeLeft() {
+
+  currTimeInSecondes = Math.round(voiceMessegeFile.currentTime);
+  currTimeInSecondes >= 10 ? timer.innerText = `0:${currTimeInSecondes}` : timer.innerText = `0:0${currTimeInSecondes}`;
+
+}
+
+//actions functions 
+
+voiceMessegeFile.addEventListener('play', async () => {
+
+  return await new Promise(
+    setInterval(function () {
+
+      progressBar.value = voiceMessegeFile.currentTime;
+      calculateProgressLine();
+      displayTimeLeft();
+
+      if (stopInterval) {
+        clearInterval();
+      }
+    }, 10))
+})
+
+
+progressBar.addEventListener('input', (event) => {
+
+  voiceMessegeFile.currentTime = event.target.value;
+
+  displayTimeLeft();
+  calculateProgressLine();
+
+});
+
+progressBar.addEventListener('mousedown', () => {
+  voiceMessegeFile.pause();
+});
+
+progressBar.addEventListener('mouseup', () => {
+  if (playPauseIcon.src.includes("pause-solid.svg")) {
+    voiceMessegeFile.play();
+  }
+});
+
+document.addEventListener('mouseup', function (e) {
+
+  if (!voiceMessagePopup.contains(e.target)) {
+    voiceMessagePopup.style.display = "none";
+    turnOffSecondaryDim()
+
+    voiceMessegeFile.pause();
+    progressBar.value = 0;
+    voiceMessegeFile.currentTime = 0;
+    playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg', "play.svg");
+    stopInterval = true;
+
+  };
+
+});
+
+function dimBackgroundEntrance() {
+  const dimBackground = document.getElementById("dim-background");
+  dimBackground.style.display = "block";
+}
+
+window.onload = dimBackgroundEntrance();
+//click outside listener to popup
+document.addEventListener("click", function (event) {
+  if (event.target.closest("#entrancePopup")) return;
+  else {
+    closePopupEntrance();
+  }
+});
 //dim background functions
 
 function turnOnDimBackground() {
@@ -1605,8 +1753,6 @@ function turnOffDimBackground() {
 
 const footerPopupElement = document.querySelector("#footerPopup");
 
-const dimBackground = document.getElementById("dim-background");
-
 const entrancePopupElement = document.querySelector("#entrancePopup");
 
 window.onclick = function (event) {
@@ -1615,7 +1761,7 @@ window.onclick = function (event) {
     $("#entrancePopup").css("display") === "flex"
   ) {
     entrancePopupElement.style.display = "none";
-    dimBackground.style.display = "none";
+    turnOffDimBackground()
   }
   if (
     event.target === dimBackground &&
@@ -1692,6 +1838,7 @@ function openUnitInfo() {
   popup.style.display = "flex";
 }
 
+countDownClock('26 Apr 2023 9:00:00 GMT+3');
 function closePopupFooter() {
   turnOffDimBackground();
   const popup = document.querySelector("#footerPopup");
@@ -1699,5 +1846,5 @@ function closePopupFooter() {
 }
 
 //todo: feedback function
-function openFeedback() {}
+function openFeedback() { }
 
