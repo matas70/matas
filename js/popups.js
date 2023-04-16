@@ -1520,10 +1520,6 @@ function closeAllPopups() {
   }
 }
 
-$(document).ready(function () {
-  //window.scrollTo(0,document.body.scrollHeight);
-});
-
 function closeGotoVoiceMessagePopup() {
   $("#gottoVoiceMessagePopup").hide();
 }
@@ -1548,10 +1544,6 @@ function playAudioMessageAndTracker() {
     $("#audioSRC")[0].play();
     audioPLay = true;
   }
-}
-
-function openUnitInfo() {
-  console.log("hello");
 }
 
 function playBTN() {
@@ -1724,19 +1716,6 @@ document.addEventListener('mouseup', function (e) {
 
 });
 
-function dimBackgroundEntrance() {
-  const dimBackground = document.getElementById("dim-background");
-  dimBackground.style.display = "block";
-}
-
-window.onload = dimBackgroundEntrance();
-//click outside listener to popup
-document.addEventListener("click", function (event) {
-  if (event.target.closest("#entrancePopup")) return;
-  else {
-    closePopupEntrance();
-  }
-});
 //dim background functions
 
 function turnOnDimBackground() {
@@ -1751,24 +1730,27 @@ function turnOffDimBackground() {
 
 //click outside listener to popups: entrance and footer
 
+const dimBackground = document.getElementById("dim-background");
+
 const footerPopupElement = document.querySelector("#footerPopup");
 
 const entrancePopupElement = document.querySelector("#entrancePopup");
 
 window.onclick = function (event) {
+console.log(event.target === dimBackground );
   if (
     event.target === dimBackground &&
     $("#entrancePopup").css("display") === "flex"
   ) {
     entrancePopupElement.style.display = "none";
-    turnOffDimBackground()
+    turnOffDimBackground();
   }
   if (
     event.target === dimBackground &&
     $("#footerPopup").css("display") === "flex"
   ) {
     footerPopupElement.style.display = "none";
-    dimBackground.style.display = "none";
+    turnOffDimBackground();
   }
 };
 
