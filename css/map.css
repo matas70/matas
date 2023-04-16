@@ -288,7 +288,7 @@ div.splash {
     cursor: pointer;
 
     animation: about-us-icon-animation;
-    animation-duration: 5s;
+    animation-duration: 10s;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
 }
@@ -320,22 +320,32 @@ div.splash {
         background-image: url("../icons/logo-75/Header Logo.svg");
     }
 
-    10% {
+    22.5% {
+        transform: rotate3d(0, 1, 0, 0deg);
+        background-image: url("../icons/logo-75/Header Logo.svg");
+    }
+
+    25% {
         transform: rotate3d(0, 1, 0, 90deg);
     }
 
-    20% {
+    27.5% {
         transform: rotate3d(0, 0, 0, 180deg);
         background-image: url("../icons/logo-75/Big Logo.svg");
     }
 
-    80% {
+    72.5% {
         transform: rotate3d(0, 0, 0, 180deg);
         background-image: url("../icons/logo-75/Big Logo.svg");
     }
 
-    90% {
+    75% {
         transform: rotate3d(0, 1, 0, 90deg);
+    }
+
+    77.5% {
+        transform: rotate3d(0, 1, 0, 0deg);
+        background-image: url("../icons/logo-75/Header Logo.svg");
     }
 
     100% {
