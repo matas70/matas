@@ -114,6 +114,11 @@
 
         </div>
 
+
+        <!-- location popup -->
+
+        <img id="homeButton" src="icons/home.svg" onclick="onHomeButtonClick()"/>
+
         <!-- page header -->
         <header id="headerMobile">
             <div id="headerBg">
@@ -132,14 +137,6 @@
                         onclick="onAboutButtonClick();" />
                     <div id="aboutMenuTitle" style="display:none">אודות</div>
                 </div>
-                <div style="display: flex; align-items: center;">
-                    <div id="goto-press-button" onclick="window.location='press.html'">
-                        <img id="goto-press-icon" src="icons/printing.svg">
-                        <span id="goto-press-text">גרסא להדפסה</span>
-                    </div>
-                    <img id="homeButton" src="icons/home.svg" onclick="onHomeButtonClick()"
-                        style="visibility: hidden" />
-                </div>
             </div>
         </header>
 
@@ -151,7 +148,7 @@
                     <div class="button quiz"></div>
                 </div>
                 <div id="search-bar" class="search-bar">
-                    <span class="search-icon">
+                    <span class="search-icon" onclick="displaySearchView()">
                     </span>
                     <input class="search-input" type="text" placeholder="חיפוש" spellcheck="false" name="input"
                         id="input" required pattern=".*">
