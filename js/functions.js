@@ -1698,6 +1698,7 @@ function displaySearchView() {
         $("#search-prompt").hide();
         $('.tabs #search').show().siblings().hide();
         $('.menuHeader').show().hide("fast");
+        $(".search-input").focus()
 
 
         listViewHeight = $("#listView").height();
