@@ -576,6 +576,7 @@
 
   $('#quiz .exit').on('click', () => {
     $('#quiz').hide();
+    count = 0;
   })
 
   $('#quiz .share').on('click', async () => {
