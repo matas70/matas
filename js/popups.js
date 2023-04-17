@@ -1739,7 +1739,6 @@ const entrancePopupElement = document.querySelector("#entrancePopup");
 $("#entrancePopup").css("transform", `translate(-${(window.innerWidth - $("#entrancePopup").width()) / 2}px, ${(window.innerHeight - $("#entrancePopup").height()) / 2}px)`)
 
 window.onclick = function (event) {
-console.log(event.target === dimBackground );
   if (
     event.target === dimBackground &&
     $("#entrancePopup").css("display") === "flex"

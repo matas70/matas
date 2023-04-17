@@ -2026,9 +2026,8 @@ function initMenu() {
         currentAttrValue = $(this).attr('href');
         previousHash.push(currentAttrValue);
         if (currMenuTab != currentAttrValue) {
-            $("hr").toggleClass("two");
+            $("hr.headerTabsHr").toggleClass("two");
         }
-
         currMenuTab = currentAttrValue;
         $('.tabs ' + currentAttrValue).show().siblings().hide();
     });
