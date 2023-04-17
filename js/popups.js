@@ -1463,6 +1463,16 @@ function openMapClusterPopup(arrayOfObjects) {
   window.location.hash = clusterHash;
   previousHash.push(clusterHash);
 
+  if (window.innerWidth >= 600) {
+    $("#mapClusterPopup").css("transform", `translate(
+      ${(window.innerWidth - 400 - $("#mapClusterPopup").width()) / 2}px, ${(window.innerHeight - $("#mapClusterPopup").height()) / 2}px)`
+    )
+  } else {
+    $("#mapClusterPopup").css("transform", `translate(
+      ${(window.innerWidth - $("#mapClusterPopup").width()) / 2}px, ${(window.innerHeight - $("#mapClusterPopup").height() - $("#headerBg").height()) / 2}px)`
+    )
+  }
+
   getMapDarker();
   closeAllPopups();
 
@@ -1739,7 +1749,7 @@ const entrancePopupElement = document.querySelector("#entrancePopup");
 $("#entrancePopup").css("transform", `translate(-${(window.innerWidth - $("#entrancePopup").width()) / 2}px, ${(window.innerHeight - $("#entrancePopup").height()) / 2}px)`)
 
 window.onclick = function (event) {
-console.log(event.target === dimBackground );
+  console.log(event.target === dimBackground);
   if (
     event.target === dimBackground &&
     $("#entrancePopup").css("display") === "flex"
