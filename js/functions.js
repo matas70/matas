@@ -2028,7 +2028,6 @@ function initMenu() {
         if (currMenuTab != currentAttrValue) {
             $("hr").toggleClass("two");
         }
-
         currMenuTab = currentAttrValue;
         $('.tabs ' + currentAttrValue).show().siblings().hide();
     });
@@ -2053,6 +2052,7 @@ function openMenu() {
 }
 
 function closeMenu() {
+    console.log('vvvvv');
     previousHash.push("#main");
     $("#listView").css({"transform": "translateX(100%)"});
     isMenuOpen = false;
