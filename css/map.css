@@ -1403,6 +1403,7 @@ br.baseData {
     display: block;
     background: white;
     margin-bottom: 1px;
+    border-bottom: 2px solid #eee;
 }
 
 .scheduleRow>div.aircraftName {
@@ -1985,7 +1986,6 @@ hr.aircraftLineSeparator.two {}
     max-height: 800px;
     flex-direction: column;
     overflow-y: scroll;
-    background: #e5e5e6;
 }
 
 .locationMarkerIcon {
@@ -2382,14 +2382,6 @@ hr.aircraftLineSeparator.two {}
         border-radius: 8px 0px 0px 0px;
         right: 400px;
 
-    }
-
-    #entrancePopup {
-        left: 37%;
-    }
-
-    #footerPopup {
-        left: 37%;
     }
 
     #headerIconContainer {
