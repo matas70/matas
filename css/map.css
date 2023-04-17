@@ -757,24 +757,6 @@ div.infoPopup {
     height: 100%;
 }
 
-#entrancePopup {
-    width: 100%;
-    text-align: center;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    transition: background-image 5s ease-in-out;
-}
-
-#entrancePopup.mapLoaded {
-    background: rgba(255, 255, 255, 0.6);
-}
-
 .infoBasePopup {
     display: inline-flex;
     flex-direction: column;
@@ -791,7 +773,7 @@ div.infoPopup {
 
     #entrancePopup {
         position: absolute !important;
-        top: 64px !important;
+        /* top: 64px !important; */
     }
 }
 
@@ -1243,17 +1225,6 @@ br.baseData {
     align-self: center;
 }
 
-.entranceBody {
-    display: flex;
-    align-self: center;
-    align-items: center;
-    font-size: 12pt;
-    flex: none;
-    flex-shrink: 2;
-    margin-top: 5px;
-    margin-bottom: 2px;
-}
-
 #scheduleLink {
     justify-content: center;
     display: flex;
@@ -1294,7 +1265,7 @@ br.baseData {
 .mapClusterPopup {
     display: flex;
     flex-direction: column;
-    z-index: 1000;
+    z-index: 0;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -1370,14 +1341,166 @@ br.baseData {
     color: #37474f;
 }
 
-#countdownContainer {
-    width: 100%;
-    flex-direction: column;
+#entrancePopup {
+    height: 547px;
+    width: 296px;
+    border-radius: 16px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    position: absolute;
+    top: calc(50% + 64px);
+    left: 50%;
+    transform: translate(-50%, -62%);
+    z-index: 1000000;
     display: flex;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
-    margin: auto;
+    flex-direction: column;
     align-items: center;
-    z-index: 2;
+    padding: 0px;
+    margin: 10px;
+    font-family: Heebo;
+}
+
+.icon-wrapper{
+    width:  100%;
+    height: 25px;
+    padding: 0px 18px;
+    margin: 18px 0px 0px 0px;
+    direction: ltr;
+    box-sizing: border-box;
+}
+
+.remove-icon{
+    cursor: pointer;
+}
+
+.content-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    padding: 5px 20px 20px 20px;
+    box-sizing: border-box;
+}
+
+.entrance-text{
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 20px;
+    text-align: center;
+    color: #37474F;
+    margin: 0px;
+}
+
+.video-trailer-text{
+    margin: 0px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 19px;
+    text-align: center;
+    color: #37474F;
+}
+
+.video-container{
+    width: 255px;
+    height: 245px;
+    border-radius: 8px;
+    background-color: #4eb5f16e;
+}
+
+.footer-wrapper{
+    height: 48px;
+    padding: 0px;
+    width: 100%;
+    border-radius: 0px 0px 16px 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.button{
+    background-color: #3BB5F2;
+    height: 100%;
+    width: 100%;
+    border-radius: 0px;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    direction: rtl;
+    cursor: pointer;
+}
+
+.countdown-container{
+    z-index: 1000001;
+    font-family: Heebo;
+    display: flex;
+    flex-direction: column;
+    width: 122px;
+    height: 62px;
+    direction: ltr;
+    
+}  
+
+.timer-container{ 
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: calc(100% - 22px);
+    border-radius:7px;
+    overflow: hidden;
+    justify-content: space-between;
+}
+
+.label-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 22px;
+    justify-content: space-between;
+}
+
+.timer-item{
+  background-color: #3BB5F2;
+  width: 32%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.days{
+    color: white;
+    font-size:20px;
+}
+
+.hours{
+    color: white;
+    font-size:20px;
+}
+
+.minutes{
+    color: white;
+    font-size:20px;
+}
+
+.label{
+    width: 32%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.label-text{
+    color: #37474F;
+    font-size: 13px;
 }
 
 .confirmationPopup {
@@ -2029,7 +2152,10 @@ hr.aircraftLineSeparator.two {}
         width: calc(100% - 400px);
         left: 0;
     }
-
+    #entrancePopup {
+        left:37%;
+    }
+    
     #headerIconContainer {
         text-align: right;
         margin-right: 15px;
