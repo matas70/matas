@@ -52,7 +52,7 @@ function initPopups() {
       }
 
       locationPopup.height(targetHeight);
-      aircraftListContainer.height(targetHeight - 50);
+
       event.preventDefault();
     }
   });
@@ -618,7 +618,7 @@ function hideLocationPopup(callback) {
     locationPopup.hide();
     if (callback != null) callback.call(this);
   });
-  $("#aircraftListContainer").animate({ height: "150px" }, "fast");
+  $("#aircraftListContainer").animate({ height: "auto" }, "fast");
 
   window.location.hash = mainHash;
   previousHash.push(mainHash);
