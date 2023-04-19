@@ -1,7 +1,5 @@
 .body,
 #wrapper {
-    /* Break the flow */
-    position: absolute;
     top: 0px;
     /* Give them all the available space */
     width: 100%;
@@ -25,6 +23,60 @@
     /* Footer Height */
     width: 100%;
     z-index: 0;
+}
+
+.footer {
+    position: absolute;
+    /* Sizing correctly */
+    box-sizing: border-box;
+    width: 100%;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.9);
+    /* Making the footer stick to the bottom of it's position */
+    bottom: 0;
+    /* Adjusting the content placement inside the footer */
+    padding: 0px 16px;
+    gap: 8px;
+    /* Adding flex-box properties */
+    display: flex;
+    align-items: center;
+}
+
+/* If the broswer supprorts backdrop-filter or -webkit-backdrop-filter (this property may not be fully supported) */
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+    .footer {
+        background-color: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+    }
+}
+
+.footer__share-icon,
+.footer__info-icon {
+    width: 20px;
+    margin: 0 6px;
+    height: 19px;
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+
+    cursor: pointer;
+}
+
+.text__bold {
+    font-weight: 500;
+}
+
+.footer__info-text {
+    margin: 0px 6px;
+    width: 140px;
+    font-family: Heebo;
+    font-size: 13px;
+    text-decoration: underline;
+
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    cursor: pointer;
 }
 
 .sticky {
@@ -114,6 +166,15 @@ div.aircraftInfoContent {
 
 img.aircraftImage {
     width: 140px;
+}
+
+.dim {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(1, 2, 4, 0.2);
+    z-index: 100000 !important;
+    transition: 0.2s;
 }
 
 img.aerobaticIcon {
@@ -227,13 +288,19 @@ div.splash {
     cursor: pointer;
 
     animation: about-us-icon-animation;
-    animation-duration: 5s;
+    animation-duration: 20s;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@supports (-webkit-touch-callout: none){
-    #headerIconContainer img{
+@supports (-webkit-touch-callout: none) {
+    #headerIconContainer img {
         animation: none;
         background-image: url("../icons/logo-75/Header Logo.svg");
     }
@@ -257,29 +324,55 @@ div.splash {
     0% {
         transform: rotate3d(0, 1, 0, 0deg);
         background-image: url("../icons/logo-75/Header Logo.svg");
+        width: 75px;
+        height: 50px;
     }
 
-    10% {
+    22.5% {
+        transform: rotate3d(0, 1, 0, 0deg);
+        background-image: url("../icons/logo-75/Header Logo.svg");
+        width: 75px;
+        height: 50px;
+    }
+
+    25% {
         transform: rotate3d(0, 1, 0, 90deg);
+        width: 75px;
+        height: 50px;
     }
 
-    20% {
+    27.5% {
         transform: rotate3d(0, 0, 0, 180deg);
-        background-image: url("../icons/logo-75/Big Logo.svg");
+        background-image: url("../icons/logo-75/75 Logo.svg");
+        width: 50px;
+        height: 50px;
     }
 
-    80% {
+    72.5% {
         transform: rotate3d(0, 0, 0, 180deg);
-        background-image: url("../icons/logo-75/Big Logo.svg");
+        background-image: url("../icons/logo-75/75 Logo.svg");
+        width: 50px;
+        height: 50px;
     }
 
-    90% {
+    75% {
         transform: rotate3d(0, 1, 0, 90deg);
+        width: 75px;
+        height: 50px;
+    }
+
+    77.5% {
+        transform: rotate3d(0, 1, 0, 0deg);
+        background-image: url("../icons/logo-75/Header Logo.svg");
+        width: 75px;
+        height: 50px;
     }
 
     100% {
         transform: rotate3d(0, 1, 0, 0deg);
         background-image: url("../icons/logo-75/Header Logo.svg");
+        width: 75px;
+        height: 50px;
     }
 }
 
@@ -290,10 +383,20 @@ div.splash {
 }
 
 #homeButton {
-    margin-top: 2px;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
     cursor: pointer;
-    padding: 6px 6px;
-    margin-left: 15px;
+
+    display: block;
+    z-index: 99;
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+
+    padding: 17px;
+    background-color: #080c1a;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
 }
 
 #popupBody {
@@ -365,7 +468,6 @@ div.splash {
 #registerToggle {}
 
 #aircraftListContainer {
-    height: 150px;
     overflow-y: scroll;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
@@ -775,6 +877,7 @@ div.infoPopup {
         position: absolute !important;
         /* top: 64px !important; */
     }
+
 }
 
 .screenshot {
@@ -1263,20 +1366,17 @@ br.baseData {
 }
 
 .mapClusterPopup {
+    position: absolute;
+    top: 0;
+    left: 0;
+
     display: flex;
     flex-direction: column;
-    z-index: 0;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
+
     width: 296px;
     height: 309px;
-    position: absolute;
     border-radius: 16px 16px 16px 16px;
+
     background-color: white;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
 }
@@ -1285,6 +1385,10 @@ br.baseData {
     height: 100%;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    cursor: pointer;
 }
 
 .mapClusterPopupContent .tableRow {
@@ -1299,6 +1403,7 @@ br.baseData {
     display: block;
     background: white;
     margin-bottom: 1px;
+    border-bottom: 2px solid #eee;
 }
 
 .scheduleRow>div.aircraftName {
@@ -1328,6 +1433,9 @@ br.baseData {
     line-height: 47px;
     color: white;
     background-color: #3bb5f2;
+
+    -webkit-user-select: none;
+    cursor: pointer;
 }
 
 .mapClusterPopupHeader {
@@ -1339,9 +1447,11 @@ br.baseData {
     text-align: center;
     line-height: 47px;
     color: #37474f;
+
+    -webkit-user-select: none;
 }
 
-#entrancePopup {
+#footerPopup {
     height: 547px;
     width: 296px;
     border-radius: 16px;
@@ -1352,7 +1462,8 @@ br.baseData {
     left: 50%;
     transform: translate(-50%, -62%);
     z-index: 1000000;
-    display: flex;
+    /* to see the popup nedd to change to flex */
+    display: none;
     flex-direction: column;
     align-items: center;
     padding: 0px;
@@ -1360,8 +1471,116 @@ br.baseData {
     font-family: Heebo;
 }
 
-.icon-wrapper{
-    width:  100%;
+.big-logo-air-force {
+    height: 110px;
+    width: 156px;
+}
+
+.bold-text {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 20px;
+    text-align: center;
+    color: #37474F;
+    margin: 0;
+}
+
+.bold-info {
+    font-size: 16px;
+    line-height: 22px;
+    text-align: justify;
+    color: #37474F;
+    font-weight: 500;
+}
+
+.info-text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: justify;
+    color: #37474F;
+    margin: 0;
+}
+
+.small-text {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+    color: #37474F;
+    margin: 0;
+}
+
+.images-container {
+    height: 55px;
+    width: 186px;
+    display: flex;
+    justify-content: space-between;
+    direction: ltr;
+}
+
+.share-button {
+    width: 50%;
+    background-color: #4FCE5D;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    direction: rtl;
+    cursor: pointer;
+}
+
+.content-wrapper-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    padding: 5px 32px 32px 32px;
+    box-sizing: border-box;
+}
+
+.feedback-button {
+    width: 50%;
+    background-color: #3BB5F2;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    direction: rtl;
+    cursor: pointer;
+}
+
+.button-icon {
+    padding: 0px 0px 0px 12px;
+    height: 20px;
+}
+
+
+#entrancePopup {
+    height: 300px;
+    width: 296px;
+    border-radius: 16px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    position: absolute;
+    z-index: 1000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Heebo;
+}
+
+.icon-wrapper {
+    width: 100%;
     height: 25px;
     padding: 0px 18px;
     margin: 18px 0px 0px 0px;
@@ -1369,11 +1588,11 @@ br.baseData {
     box-sizing: border-box;
 }
 
-.remove-icon{
+.remove-icon {
     cursor: pointer;
 }
 
-.content-wrapper{
+.content-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1384,7 +1603,7 @@ br.baseData {
     box-sizing: border-box;
 }
 
-.entrance-text{
+.entrance-text {
     font-weight: 700;
     font-size: 17px;
     line-height: 20px;
@@ -1393,7 +1612,7 @@ br.baseData {
     margin: 0px;
 }
 
-.video-trailer-text{
+.video-trailer-text {
     margin: 0px;
     font-weight: 400;
     font-size: 15px;
@@ -1402,14 +1621,15 @@ br.baseData {
     color: #37474F;
 }
 
-.video-container{
+.video-container {
+    display: none;
     width: 255px;
     height: 245px;
     border-radius: 8px;
     background-color: #4eb5f16e;
 }
 
-.footer-wrapper{
+.footer-wrapper {
     height: 48px;
     padding: 0px;
     width: 100%;
@@ -1421,7 +1641,7 @@ br.baseData {
     overflow: hidden;
 }
 
-.button{
+.button {
     background-color: #3BB5F2;
     height: 100%;
     width: 100%;
@@ -1437,7 +1657,7 @@ br.baseData {
     cursor: pointer;
 }
 
-.countdown-container{
+.countdown-container {
     z-index: 1000001;
     font-family: Heebo;
     display: flex;
@@ -1445,20 +1665,20 @@ br.baseData {
     width: 122px;
     height: 62px;
     direction: ltr;
-    
-}  
 
-.timer-container{ 
+}
+
+.timer-container {
     display: flex;
     flex-direction: row;
     width: 100%;
     height: calc(100% - 22px);
-    border-radius:7px;
+    border-radius: 7px;
     overflow: hidden;
     justify-content: space-between;
 }
 
-.label-container{
+.label-container {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -1466,31 +1686,8 @@ br.baseData {
     justify-content: space-between;
 }
 
-.timer-item{
-  background-color: #3BB5F2;
-  width: 32%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.days{
-    color: white;
-    font-size:20px;
-}
-
-.hours{
-    color: white;
-    font-size:20px;
-}
-
-.minutes{
-    color: white;
-    font-size:20px;
-}
-
-.label{
+.timer-item {
+    background-color: #3BB5F2;
     width: 32%;
     height: 100%;
     display: flex;
@@ -1498,7 +1695,30 @@ br.baseData {
     justify-content: center;
 }
 
-.label-text{
+.days {
+    color: white;
+    font-size: 20px;
+}
+
+.hours {
+    color: white;
+    font-size: 20px;
+}
+
+.minutes {
+    color: white;
+    font-size: 20px;
+}
+
+.label {
+    width: 32%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.label-text {
     color: #37474F;
     font-size: 13px;
 }
@@ -1772,7 +1992,6 @@ hr.aircraftLineSeparator.two {}
     max-height: 800px;
     flex-direction: column;
     overflow-y: scroll;
-    background: #e5e5e6;
 }
 
 .locationMarkerIcon {
@@ -1866,6 +2085,10 @@ hr.aircraftLineSeparator.two {}
     z-index: 1;
     width: 25px;
     right: 38px;
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    cursor: text;
 }
 
 #search-clear-button {
@@ -1886,6 +2109,9 @@ hr.aircraftLineSeparator.two {}
     margin-right: 20px;
     display: none;
     margin-top: 7px;
+
+    -webkit-user-select: none;
+    cursor: pointer;
 }
 
 #search-view {
@@ -2152,10 +2378,18 @@ hr.aircraftLineSeparator.two {}
         width: calc(100% - 400px);
         left: 0;
     }
-    #entrancePopup {
-        left:37%;
+
+    .footer {
+        width: 248px;
+        height: 28px;
+        padding: 0px 8px;
+        /* Adding flex-box properties */
+        gap: 8px;
+        border-radius: 8px 0px 0px 0px;
+        right: 400px;
+
     }
-    
+
     #headerIconContainer {
         text-align: right;
         margin-right: 15px;
