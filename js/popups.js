@@ -923,6 +923,11 @@ function createTableRow(aircraftId, name, icon, aircraftType, time, aerobatic, s
     var aerobaticIcon = "<div class=\"inline-aircraft-info\" />";
     var classname = "";
     let currAircraftName = aircraftUsdzObjData.find(obj => obj.hebName === name);
+    let airplaneVideo = document.querySelector('#aircraftInfoVideo');
+    let airplaneVideoName = document.querySelector('aircraftInfoName');
+    console.log(airplaneVideoName);
+    //airplaneVideo.src = ``;
+
     if (name === 'צופית' | name === 'עפרוני' | name === 'ברק' | name === 'אדיר' | name === 'קרנף' | name === 'לביא' | name === 'בז' | name === 'סופה' | name === 'שמשון' | name === 'רעם' | name === 'שרף' && currAircraftName !== undefined) {
         classname = "<button class=\"show\" id=\"ARButton\" onclick='openAR(" + JSON.stringify(currAircraftName) + ")'></button>"
     } else classname = "<button class=\"hide\" style=\"display: none;\" id=\"ARButton\" onclick='openAR(" + JSON.stringify(currAircraftName) + ")'></button>"
