@@ -729,6 +729,9 @@ function showAircraftInfoPopup(aircraft, collapse) {
   $("#aircraftInfoType").text(aircraft.type);
 
 
+
+
+
   const aircraftsVideoId = [
     {name: "אדיר", id: "0pM6bGZWGRU"},
     {name: "איתן", id: "XCMu7WQS96c"},
@@ -752,7 +755,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     {name: "שמשון", id: "_3_4btQCiS4"},
     {name: "שרף", id: "77mbzmecJdc"},
 ];
-    //find matching youtube video
+    //find matching youtube video for each airplane
     let airplaneVideo = document.querySelector('#aircraftInfoVideo');
     let airplaneVideoName = document.querySelector('#aircraftInfoName').innerText;
     const currAircraft = aircraftsVideoId.find(aircraft =>  aircraft.name === airplaneVideoName);
