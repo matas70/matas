@@ -42,7 +42,7 @@ var userSimulation = false;
 var aircraftData = null;
 var appLoaded = false;
 var changes = false;
-var appStage;
+var appStage = "matas-dev";
 
 var audioMessages;
 $.getJSON('/data/audio-messages.json', (res) => {
@@ -1698,6 +1698,7 @@ function displaySearchView() {
         $("#search-prompt").hide();
         $('.tabs #search').show().siblings().hide();
         $('.menuHeader').show().hide("fast");
+        $(".search-input").focus()
 
 
         listViewHeight = $("#listView").height();
@@ -2025,9 +2026,8 @@ function initMenu() {
         currentAttrValue = $(this).attr('href');
         previousHash.push(currentAttrValue);
         if (currMenuTab != currentAttrValue) {
-            $("hr").toggleClass("two");
+            $("hr.headerTabsHr").toggleClass("two");
         }
-
         currMenuTab = currentAttrValue;
         $('.tabs ' + currentAttrValue).show().siblings().hide();
     });

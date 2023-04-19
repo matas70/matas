@@ -416,7 +416,7 @@ function notifyForEventOnLocation(locationName, timeBefore, showType) {
         if (Notification.permission === "granted") {
 
 
-            let title = "מטס עצמאות 2022"
+            let title = "מטס עצמאות 2023"
             let text;
             if (showType === "flight") text = `בעוד ${timeBefore} דקות יחלוף המטס מעל יישוב ${locationName}`;
             else if (showType === "airShow") text = `בעוד ${timeBefore} דקות יחל מופע אווירי ב${locationName}`;
