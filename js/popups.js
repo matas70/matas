@@ -729,36 +729,6 @@ function showAircraftInfoPopup(aircraft, collapse) {
   $("#aircraftInfoType").text(aircraft.type);
 
 
-  const aircraftsVideoId = [
-    {name: "אדיר", id: "0pM6bGZWGRU"},
-    {name: "איתן", id: "XCMu7WQS96c"},
-    {name: "בז", id: "zlFwy_qrMM8"},
-    {name: "ברק", id: "pcQ1KSKmDis"},
-    {name: "הרווארד", id: "BjOCrBv1zZk"},
-    {name: "ינשוף", id: "ivj5smYeJGY"},
-    {name: "יסעור", id: "s-n8DhWX3PE"},
-    {name: "לביא", id: "xdAFBKKWMKo"},
-    {name: "נחשון", id: "K5K5KaloSfg"},
-    {name: "סופה", id: "W7zWeE0kchc"},
-    {name: "סנונית", id: "NuQzvdGowOE"},
-    {name: "עטלף", id: "3vzUo9JAygU"},
-    {name: "עפרוני", id: "Kfkd5GEymvA"},
-    {name: "פתן", id: "PK0FqDks8_Q"},
-    {name: "צופית", id: "lW7tx5lcCTE"},
-    {name: "קרנף", id: "hkJ0u40mKCs"},
-    {name: "ראם", id: "J2N_PReaobE"},
-    {name: "רעם", id: "SuxqbK3PjC0"},
-    {name: "שובל", id: "Sv3WdFLnlCw"},
-    {name: "שמשון", id: "_3_4btQCiS4"},
-    {name: "שרף", id: "77mbzmecJdc"},
-];
-    //find matching youtube video
-    let airplaneVideo = document.querySelector('#aircraftInfoVideo');
-    let airplaneVideoName = document.querySelector('#aircraftInfoName').innerText;
-    const currAircraft = aircraftsVideoId.find(aircraft =>  aircraft.name === airplaneVideoName);
-    airplaneVideo.src = `https://www.youtube.com/embed/${currAircraft.id}`;
-
-
   if (
     (aircraft.name === "צופית") |
     (aircraft.name === "עפרוני") |
@@ -885,6 +855,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
   // Collapse==true <=> The info popup is not extended.
   // I know it's confusing but I'm too lazy to fix it.
   if (!collapse) {
+    
     // Lots of code to set the correct state of html elements according to collapse/extended
     toggleAircraftContentSeparator(false);
     $("#aircraftInfoMore").on("click", function () {
@@ -916,6 +887,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
       });
     });
   } else {
+    
     // Lots of code to set the correct state of html elements according to collapse/extended
     toggleAircraftContentSeparator(true);
     var height = $(window).height();

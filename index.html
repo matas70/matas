@@ -94,12 +94,12 @@
 
     <div id="wrapper">
 
-        <div id="youtube-video-container" style="z-index: 10000000; display: none; position: fixed; width: 100%; height:100%">
-            <iframe id="youtube-video" width="100%" height="100%"
-                src="https://www.youtube.com/embed/rDNqCv3TA1Y"> 
+        <div id="youtube-video-container"
+            style="z-index: 10000000; display: none; position: fixed; width: 100%; height:100%">
+            <iframe id="youtube-video" width="100%" height="100%" src="https://www.youtube.com/embed/rDNqCv3TA1Y">
             </iframe>
             <img id="youtube-video-close-button" src="./icons/youtube-close-button.svg" onclick="closeYoutubeVideo()"
-            style="position: absolute; top: 4%; left: 3%; z-index: 10000001; width: 5%; height: 5%;cursor: pointer;">
+                style="position: absolute; top: 4%; left: 3%; z-index: 10000001; width: 5%; height: 5%;cursor: pointer;">
         </div>
 
         <!-- explain ios user how to use usdz  -->
@@ -170,7 +170,7 @@
                             href="#aircraft">כלי טיס</a></li>
                     <li class="two" class="menuItem"><a id="locationsLink" class="menuLink active"
                             href="#locations">מקומות</a></li>
-                    <hr class="headerTabsHr"/>
+                    <hr class="headerTabsHr" />
                 </ul>
             </div>
             <div class="tabs">
@@ -493,10 +493,12 @@
         <div id="aircraftInfoMore">קרא עוד</div>
         <div class="aircraftTabs">
             <div id="aircraftInfoContent" class="tab-content">
-                <iframe id="aircraftInfoVideo" style="border-radius: 8px; margin: 2%;aspect-ratio: 16 / 9;width: 96%;"
-                    src="https://www.youtube.com/embed/0pM6bGZWGRU"> 
-                </iframe>
+
                 <div id="expandedInfo">
+                    <iframe id="aircraftInfoVideo"
+                        style="border-radius: 8px; margin: 2%;aspect-ratio: 16 / 9;width: 96%;"
+                        src="https://www.youtube.com/embed/0pM6bGZWGRU">
+                    </iframe>
                     <div class="aircraftInfoContentRow">
                         <p class="aircraftDescription" id="aircraftInfoContentDescription">
                         </p>
