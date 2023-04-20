@@ -416,7 +416,7 @@ function notifyForEventOnLocation(locationName, timeBefore, showType) {
         if (Notification.permission === "granted") {
 
 
-            let title = "מטס עצמאות 2022"
+            let title = "מטס עצמאות 2023"
             let text;
             if (showType === "flight") text = `בעוד ${timeBefore} דקות יחלוף המטס מעל יישוב ${locationName}`;
             else if (showType === "airShow") text = `בעוד ${timeBefore} דקות יחל מופע אווירי ב${locationName}`;
@@ -425,10 +425,10 @@ function notifyForEventOnLocation(locationName, timeBefore, showType) {
             let notificationOptions =
                 {
                     body: text,
-                    icon: '../icons/logo-74/IOS Icons@0.5x.png',
+                    icon: '../icons/logo-75/IOS Icons@0.5x.png',
                     dir: "rtl",
                     lang: 'he',
-                    badge: '../icons/logo-74/IOS Icons@0.5x.png',
+                    badge: '../icons/logo-75/IOS Icons@0.5x.png',
                     vibrate: [300, 100, 400],
                     data: {url: 'https://matas.iaf.org.il'}
                 };

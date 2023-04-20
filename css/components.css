@@ -20,6 +20,14 @@
     height: 0;
 }
 
+/* Quiz navbar */
+
+.quiz-final-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
 
 /* The slider */
 
