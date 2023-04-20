@@ -1779,13 +1779,8 @@ function search_GA_report(needle) {
 }
 
 function initSearchBar() {
-    // Search bar code
-    $(".search-input").focus(function () {
-        displaySearchView();
-    });
 
     $(".search-input").keyup(function () {
-        displaySearchView();
         var searchInput = $(this).val();
 
         if (searchInput.length > 0) {

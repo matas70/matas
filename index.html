@@ -155,10 +155,10 @@
                     <div class="button quiz"></div>
                 </div>
                 <div id="search-bar" class="search-bar">
-                    <span class="search-icon" onclick="displaySearchView()">
+                    <span class="search-icon">
                     </span>
                     <input class="search-input" type="text" placeholder="חיפוש" spellcheck="false" name="input"
-                        id="input" required pattern=".*">
+                        id="input" required pattern=".*" onfocus="displaySearchView()" onchange="initSearchBar()">
                     <span id="search-clear-button">
                     </span>
                     <div id="search-back-button">
