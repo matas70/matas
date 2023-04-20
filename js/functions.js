@@ -1684,9 +1684,6 @@ var listViewHeight;
 function displaySearchView() {
     if (!searchOpen) {
         searchOpen = true;
-        $(".search-input").animate({ width: "65%" }, "fast", () => {
-            $("#listView").animate({ height: "100%" }, "fast");
-        });
 
         $(".search-input").css({
             "background": "white",
@@ -1756,13 +1753,9 @@ function hideSearchView() {
         $(".search-input").val("");
         $("#search-clear-button").hide();
 
-        $(".search-input").animate({ width: "100%" }, "fast", () => {
-            $("#listView").animate({ height: listViewHeight + "px" }, "fast", () => {
-                $(".tabs").height(tabsHeight);
-                $("#listHeader #search-bar").siblings().show();
-                $('.tabs ' + currMenuTab).show().siblings().hide();
-            })
-        });
+        $(".tabs").height(tabsHeight);
+        $("#listHeader #search-bar").siblings().show();
+        $('.tabs ' + currMenuTab).show().siblings().hide();
 
     }
 }
