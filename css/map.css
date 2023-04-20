@@ -2119,7 +2119,7 @@ hr.aircraftLineSeparator.two {}
     position: absolute;
     left: 0px;
 
-    width: 100%;
+    width: calc((100% - 47px)  * 0.35);
     height: 50%;
     color: #3bb5f2;
     font-family: "Heebo-Regular";
