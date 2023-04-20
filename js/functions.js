@@ -1693,7 +1693,6 @@ function displaySearchView() {
 
         $('.tabs #search').show().siblings().hide();
         $('.menuHeader').show().hide("fast");
-        $(".search-input").on("focus")
 
 
         listViewHeight = $("#listView").height();
@@ -1876,7 +1875,6 @@ function initSearchBar() {
 
     $("#search-clear-button").click(function () {
         $(".search-input").val('');
-        $(".search-input").focus();
         $("#search-clear-button").hide();
         $(".search-input").keyup();
         gtag('event', 'search', {
