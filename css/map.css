@@ -2075,6 +2075,7 @@ hr.aircraftLineSeparator.two {}
 }
 
 .search-input:focus {
+    width: 65%;
     background: white;
 }
 
