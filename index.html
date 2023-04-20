@@ -91,8 +91,124 @@
     <script src="js/firebase-messaging.js"></script>
     <script src="js/firebase-functions.js"></script>
 
+    <div style="    background-color: #3bb5f2;
+    height: 100%;
+    width: 100%;
+    z-index: 10000000000000000;
+    position: absolute;">
+
+<div id="youtube-video-container"
+style="z-index: 10000000; display: none; position: fixed; width: 100%; height:100%">
+<iframe id="youtube-video" width="100%" height="100%" src="https://www.youtube.com/embed/rDNqCv3TA1Y">
+</iframe>
+<img id="youtube-video-close-button" src="./icons/youtube-close-button.svg" onclick="closeYoutubeVideo()"
+    style="position: absolute; top: 4%; left: 3%; z-index: 10000001; width: 5%; height: 5%;cursor: pointer;">
+</div>
+
+<div style="    width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: #b9e6fc;
+   padding-bottom: 12px;">
+     <img  src="icons/logo-75/header copy.png" style="width: 135px;" >
+    </div>
+
+<div class="content-wrapper" style="background-color: white; justify-content: space-evenly; align-items: center; padding: 0px 0px 75px 0px">
+   
+    <p class="entrance-text" style="margin: 7px 10px 5px 10px;
+    font-size: 18px;
+    line-height: 25px;">אירועי עצמאות 75 יתחילו ב-26.04.2023 בשעה 9:00</p>
+    <div class="countdown-container" style="width: 118px;
+    height: 58px;">
+        <div class="timer-container">
+            <div class="timer-item">
+                <p class="days"></p>
+            </div>
+            <div class="timer-item">
+                <p class="hours"></p>
+            </div>
+            <div class="timer-item">
+                <p class="minutes"></p>
+            </div>
+        </div>
+        <div class="label-container">
+            <div class="label">
+                <p class="label-text">ימים</p>
+            </div>
+            <div class="label">
+                <p class="label-text">שעות</p>
+            </div>
+            <div class="label">
+                <p class="label-text">דקות</p>
+            </div>
+        </div>
+    </div>
+    <p class="video-trailer-text" style="font-size: 14px;">
+        ביום המטס ניתן יהיה לצפות במפה בזמן אמת. 
+    </p>
+    <p class="video-trailer-text" style="font-weight: bold; font-size:15px;">
+    זמני המטס יתעדכנו בימים הקרובים!
+    </p>
+    <div id="airplane-video-container" class="airplane-video-container" onclick="openYoutubeVideo()" style="height: 162px;
+    width: 231px;
+    margin-bottom: 30px;">
+        <img id="youtube-gif" src="./assets/entrance_popup_video_gif.png" style="height: 162px;
+        width: 231px;
+        margin-bottom: 30px;">
+    </div>
+</div>
+
+<div></div>
+
+    </div>
+
+    <!-- <div id="entrancePopup" class="entrancePopup" >
+        <div class="content-wrapper">
+            <p class="entrance-text" style="margin: 20px;">אירועי עצמאות 75 יתחילו ב-26.04.23 בשעה 9:00</p>
+            <div class="countdown-container">
+                <div class="timer-container">
+                    <div class="timer-item">
+                        <p class="days"></p>
+                    </div>
+                    <div class="timer-item">
+                        <p class="hours"></p>
+                    </div>
+                    <div class="timer-item">
+                        <p class="minutes"></p>
+                    </div>
+                </div>
+                <div class="label-container">
+                    <div class="label">
+                        <p class="label-text">ימים</p>
+                    </div>
+                    <div class="label">
+                        <p class="label-text">שעות</p>
+                    </div>
+                    <div class="label">
+                        <p class="label-text">דקות</p>
+                    </div>
+                </div>
+            </div>
+            <p class="video-trailer-text">
+                ביום המטס ניתן יהיה לצפות במפה בזמן אמת. 
+            </p>
+            <p class="video-trailer-text" style="font-weight: bold;">
+            זמני המטס יתעדכנו בימים הקרובים!
+            </p>
+            <div id="airplane-video-container" class="airplane-video-container" onclick="openYoutubeVideo()">
+                <img id="youtube-gif" src="./assets/entrance_popup_video_gif.png" height="245px" width="255px">
+            </div>
+        </div>
+        <div class="footer-wrapper">
+        </div>
+    </div> -->
+
+
+
 
     <div id="wrapper">
+
 
         <div id="youtube-video-container"
             style="z-index: 10000000; display: none; position: fixed; width: 100%; height:100%">
@@ -270,7 +386,7 @@
 
 
         <!-- entrance popup -->
-        <div id="entrancePopup" class="entrancePopup">
+       <!-- <div id="entrancePopup" class="entrancePopup">
             <div class="icon-wrapper"> <img class="remove-icon" src='icons/Close.svg' alt="remove-icon"
                     onclick="closePopupEntrance()" /></div>
             <div class="content-wrapper">
@@ -299,13 +415,10 @@
                         </div>
                     </div>
                 </div>
-                <!--<p class="video-trailer-text">
+                <p class="video-trailer-text">
                     ביום המטס ניתן יהיה לצפות במפה בזמן אמת. כעת תוכלו להתעדכן בלוח זמני המטס, ללמוד על כלי הטיס
                     ועוד!
-                </p> -->
-                <p class="video-trailer-text">
-                    ביום המטס ניתן יהיה לצפות במפה בזמן אמת. זמני המטס התעדכנו בימים הקרובים! 
-                </p>
+                </p> 
                 <div id="airplane-video-container" class="airplane-video-container" onclick="openYoutubeVideo()">
                     <img id="youtube-gif" src="./assets/entrance_popup_video_gif.png" height="245px" width="255px">
                 </div>
@@ -316,7 +429,7 @@
                 </div>
             </div>
         </div>
-
+    -->
 
         <!-- footer popup -->
         <div id="footerPopup" class="footer-popup">
