@@ -2117,14 +2117,17 @@ hr.aircraftLineSeparator.two {}
     cursor: pointer;
 
     position: absolute;
-    left: calc((100% - 65% - 56px) / 2);
+    left: calc((100% - 65% - 47px - 15%) / 2);
 
-    font-size: 15pt;
+    width: 15%;
+    height: 50%;
     color: #3bb5f2;
     font-family: "Heebo-Regular";
     font-weight: 600;
 
     display: flex;
+    align-items: center;
+    justify-content: center;
     align-self: center;
 }
 
