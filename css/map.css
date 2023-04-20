@@ -1458,16 +1458,13 @@ br.baseData {
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
     background-color: white;
     position: absolute;
-    top: calc(50% + 64px);
-    left: 50%;
-    transform: translate(-50%, -62%);
     z-index: 1000000;
     /* to see the popup nedd to change to flex */
     display: none;
     flex-direction: column;
     align-items: center;
     padding: 0px;
-    margin: 10px;
+    margin: 0px;
     font-family: Heebo;
 }
 
