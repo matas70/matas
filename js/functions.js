@@ -1684,6 +1684,9 @@ var listViewHeight;
 function displaySearchView() {
     if (!searchOpen) {
         searchOpen = true;
+        $(".search-input").animate({ width: "65%" }, "fast", () => {
+            $("#listView").animate({ height: "100%" }, "fast");
+        });
 
         $(".search-input").css({
             "background": "white",
@@ -1693,6 +1696,7 @@ function displaySearchView() {
 
         $('.tabs #search').show().siblings().hide();
         $('.menuHeader').show().hide("fast");
+        $(".search-input").on("focus")
 
 
         listViewHeight = $("#listView").height();
@@ -1752,9 +1756,13 @@ function hideSearchView() {
         $(".search-input").val("");
         $("#search-clear-button").hide();
 
-        $(".tabs").height(tabsHeight);
-        $("#listHeader #search-bar").siblings().show();
-        $('.tabs ' + currMenuTab).show().siblings().hide();
+        $(".search-input").animate({ width: "100%" }, "fast", () => {
+            $("#listView").animate({ height: listViewHeight + "px" }, "fast", () => {
+                $(".tabs").height(tabsHeight);
+                $("#listHeader #search-bar").siblings().show();
+                $('.tabs ' + currMenuTab).show().siblings().hide();
+            })
+        });
 
     }
 }
@@ -1771,8 +1779,13 @@ function search_GA_report(needle) {
 }
 
 function initSearchBar() {
+    // Search bar code
+    $(".search-input").focus(function () {
+        displaySearchView();
+    });
 
     $(".search-input").keyup(function () {
+        displaySearchView();
         var searchInput = $(this).val();
 
         if (searchInput.length > 0) {
@@ -1875,6 +1888,7 @@ function initSearchBar() {
 
     $("#search-clear-button").click(function () {
         $(".search-input").val('');
+        $(".search-input").focus();
         $("#search-clear-button").hide();
         $(".search-input").keyup();
         gtag('event', 'search', {
@@ -2619,4 +2633,3 @@ function isIOS() {
         // iPad on iOS 13 detection
         || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
 }
-
