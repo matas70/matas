@@ -2094,11 +2094,11 @@ hr.aircraftLineSeparator.two {}
 }
 
 #search-clear-button {
-        
+
     -webkit-user-drag: none;
     -webkit-user-select: none;
     cursor: pointer;
-    
+
     background: url("../icons/clear-button.svg") no-repeat;
 
     height: 35px;
@@ -2117,9 +2117,9 @@ hr.aircraftLineSeparator.two {}
     cursor: pointer;
 
     position: absolute;
-    left: 0px;
+    left: 22px;
 
-    width: calc((100% - 47px)  * 0.35);
+    width: calc(35% - 58px);
     height: 50%;
     color: #3bb5f2;
     font-family: "Heebo-Regular";
