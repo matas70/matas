@@ -888,6 +888,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
   // Collapse==true <=> The info popup is not extended.
   // I know it's confusing but I'm too lazy to fix it.
   if (!collapse) {
+    
     // Lots of code to set the correct state of html elements according to collapse/extended
     toggleAircraftContentSeparator(false);
     $("#aircraftInfoMore").on("click", function () {
@@ -919,6 +920,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
       });
     });
   } else {
+    
     // Lots of code to set the correct state of html elements according to collapse/extended
     toggleAircraftContentSeparator(true);
     var height = $(window).height();
