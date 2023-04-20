@@ -759,7 +759,12 @@ function showAircraftInfoPopup(aircraft, collapse) {
     let airplaneVideo = document.querySelector('#aircraftInfoVideo');
     let airplaneVideoName = document.querySelector('#aircraftInfoName').innerText;
     const currAircraft = aircraftsVideoId.find(aircraft =>  aircraft.name === airplaneVideoName);
-    airplaneVideo.src = `https://www.youtube.com/embed/${currAircraft.id}`;
+    if(currAircraft) {
+      airplaneVideo.src = currAircraft.id !== undefined ?  `https://www.youtube.com/embed/${currAircraft.id}`: null;
+    }
+    else {
+      document.querySelector('#aircraftInfoVideo').style.display = "none";
+    }
 
 
   if (
