@@ -1514,12 +1514,22 @@ br.baseData {
 
 .images-container {
     height: 55px;
-    width: 186px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     direction: ltr;
 }
 
+
+.air-force-logo-seventy-five{
+    width: 39px;
+    height: 55px;
+}
+
+.air-force-logo{
+    width: 55px;
+    height: 55px;
+}
 .share-button {
     width: 50%;
     background-color: #4FCE5D;
