@@ -1789,6 +1789,8 @@ const entrancePopupElement = document.querySelector("#entrancePopup");
 
 $("#entrancePopup").css("transform", `translate(-${(window.innerWidth - $("#entrancePopup").width()) / 2}px, ${(window.innerHeight - $("#entrancePopup").height()) / 2}px)`)
 
+$("#footerPopup").css("transform", `translate(-${(window.innerWidth - $("#footerPopup").width()) / 2}px, ${(window.innerHeight - $("#footerPopup").height()) / 2}px)`);
+
 window.onclick = function (event) {
   if (
     event.target === dimBackground &&
