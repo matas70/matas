@@ -235,11 +235,186 @@ function showBaseLoactionPopup(pointId) {
     event_label: point.baseName,
   });
 
+  $("#base-airplane-card").show()
   let mapButton =
     point.baseMapPath !== ""
       ? `<a href=${point.baseMapPath} target="_blank"><button class="base-map">למפת התערוכה</button></a>`
       : "";
 
+
+  $("#iconBase").show();
+  $(".header-title p").text("בסיס פתוח");
+  $("#waze-base-link").show();
+
+  document.getElementById("base-map-button-handler").innerHTML = mapButton;
+
+  // Close Event only when user doesn't click on openBasePopup it self.
+  headerElement.addEventListener("click", function handleClick() {
+    onCloseOpenBasePopup();
+  });
+  navBarHeaderElement.addEventListener("click", function handleClick() {
+    onCloseOpenBasePopup();
+  });
+
+  let OpenBaseAircraftshtml = "";
+  let OpenBaseAircraftspecials = new Map();
+
+  OpenBaseAircraftspecials.set("מטס", []);
+
+  let pointInSortedLocation;
+
+  sortedLocations.forEach((e) => {
+    if (e.pointId === point.pointId) {
+      pointInSortedLocation = e;
+    }
+  });
+
+  pointInSortedLocation.aircrafts.forEach((ac) => {
+    if (ac.specialInAircraft) {
+      if (
+        !OpenBaseAircraftspecials.has(ac.specialInAircraft) &&
+        getCurrentTime() < getActualPathTime(ac.date, ac.time)
+      ) {
+        OpenBaseAircraftspecials.set(ac.specialInAircraft, []);
+      }
+
+      if (OpenBaseAircraftspecials.get(ac.specialInAircraft)) {
+        OpenBaseAircraftspecials.get(ac.specialInAircraft).push(ac);
+      }
+    } else if (ac.specialInPath) {
+      if (!OpenBaseAircraftspecials.has(ac.specialInPath)) {
+        OpenBaseAircraftspecials.set(ac.specialInPath, []);
+      }
+      OpenBaseAircraftspecials.get(ac.specialInPath).push(ac);
+    } else {
+      OpenBaseAircraftspecials.get("מטס").push(ac);
+    }
+  });
+
+  // Filter out empty categories
+  OpenBaseAircraftspecials = new Map(
+    [...OpenBaseAircraftspecials].filter(([key, value]) => value.length > 0)
+  );
+
+  let openBaseTmp = OpenBaseAircraftspecials.get("מטס");
+  OpenBaseAircraftspecials.delete("מטס");
+
+  // Check to see if aircraftList is empty in this location
+  if (
+    OpenBaseAircraftspecials.size === 0 &&
+    (!openBaseTmp || openBaseTmp.length === 0)
+  ) {
+    airplaneShowsElement.innerHTML =
+      '<div id="noAircraftMessage"> המטס כבר חלף מעל נקודה זו</div>';
+  } else {
+    OpenBaseAircraftspecials.set("מטס", openBaseTmp);
+
+    OpenBaseAircraftspecials.forEach((value, key) => {
+      if (value && value.length > 0) {
+        OpenBaseAircraftshtml += createLocationPopupCategoryRow(key);
+        value.forEach((ac) => {
+          var date = undefined;
+
+          if (ac.date) {
+            var split = ac.date.split("-");
+            date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
+          }
+
+          if (ac.name === "עפרוני") {
+            ac.name = " צוות אוירובטי (עפרוני)";
+          }
+          OpenBaseAircraftshtml += createTableRow(
+            ac.aircraftId,
+            ac.name,
+            ac.icon,
+            ac.aircraftType,
+            ac.time,
+            ac.aerobatic || key === "מופעים אווירובטיים" || key === "חזרות",
+            ac.parachutist,
+            false,
+            true,
+            date,
+            false,
+            false,
+            ac.from
+          );
+        });
+        airplaneShowsElement.innerHTML = OpenBaseAircraftshtml;
+      }
+    });
+  }
+}
+
+function showHistoryBaseLoactionPopup(pointId) {
+  openBasePopupStatus = "minimized";
+  onCloseOpenBasePopup();
+  deselectLocation();
+  deselectAircraft();
+
+  let point;
+
+  historyBaseData.forEach((element) => {
+    if (element.pointId === Number(pointId)) {
+      point = element;
+    }
+  });
+
+  let basePopUpElement = $("#open-bases-popup");
+  let fullHeight = window.innerHeight;
+  let fullWidth = window.innerWidth;
+  const headerElement = document.getElementById(`headerBg`);
+  const navBarHeaderElement = document.getElementById(`listHeader`);
+  const mapElement = document.getElementById(`map`);
+  let airplaneShowsElement = document.getElementById("airplanes-show");
+
+  if (fullWidth <= 600) {
+    basePopUpElement.css({ borderRadius: "15px" });
+    document.getElementById("open-base-card-theme").src =
+      "experimental-assets/base-card-airplane-for-mobile.png";
+    basePopUpElement.animate(
+      {
+        height: fullHeight + "px",
+        top: `${headerElement.clientHeight + mapElement.clientHeight * 0.4}px`,
+      },
+      "fast"
+    );
+  } else {
+    document.getElementById("open-base-card-theme").src =
+      "experimental-assets/base-card-airplane-for-pc.png";
+    document.getElementById("drag-button").style.display = "none";
+    basePopUpElement.animate(
+      {
+        top: "0px",
+        height: fullHeight + "px",
+        left: "0px",
+      },
+      "fast"
+    );
+  }
+
+  document.getElementById("open-bases-popup").style.display = "block";
+  document.getElementById("baseTheme").src = point.baseThemePath;
+  document.getElementById("baseName").innerHTML = point.baseName;
+  document.getElementById("base-passage").innerHTML = point.basePassage;
+  document.getElementById("baseArrivalTime").innerHTML = point.baseArrivalTime;
+  document.getElementById("baseArrivalExplanation").innerHTML = point.baseArrivalExplanation;
+
+  gtag("event", "open base", {
+    event_category: "show open base",
+    event_label: point.baseName,
+  });
+
+  $("#iconBase").hide();
+  $(".header-title p").text("נקודה היסטורית");
+  $("#waze-base-link").hide();
+
+  let mapButton =
+    point.baseMapPath !== ""
+      ? `<a href=${point.baseMapPath} target="_blank"><button class="base-map">למפת התערוכה</button></a>`
+      : "";
+
+
+  $("#base-airplane-card").hide()
   document.getElementById("base-map-button-handler").innerHTML = mapButton;
 
   // Close Event only when user doesn't click on openBasePopup it self.
@@ -893,7 +1068,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
   // Collapse==true <=> The info popup is not extended.
   // I know it's confusing but I'm too lazy to fix it.
   if (!collapse) {
-    
+
     // Lots of code to set the correct state of html elements according to collapse/extended
     toggleAircraftContentSeparator(false);
     $("#aircraftInfoMore").on("click", function () {
@@ -925,7 +1100,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
       });
     });
   } else {
-    
+
     // Lots of code to set the correct state of html elements according to collapse/extended
     toggleAircraftContentSeparator(true);
     var height = $(window).height();
@@ -1883,7 +2058,7 @@ function closePopupFooter() {
 
 //todo: feedback function
 function openFeedback() {
-    window.open('https://docs.google.com/forms/d/1pS9lswPQOu7hibzyHOvZrv0wRlyiUrVbEqteUuUIcZc/edit');
-    closePopupFooter();
- }
+  window.open('https://docs.google.com/forms/d/1pS9lswPQOu7hibzyHOvZrv0wRlyiUrVbEqteUuUIcZc/edit');
+  closePopupFooter();
+}
 
