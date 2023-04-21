@@ -2195,6 +2195,7 @@ function fillMenu() {
         sortedLocations
             .filter(location => location.type === 'base')
             .forEach(function (location) {
+                console.log(location);
                 locationsViewHtml += createBaseCategory(location);
             }, this);
     }
