@@ -179,9 +179,7 @@ loadHistoryBasesLocation();
 
 function createHistoryBasesCategory(point) {
     let base;
-    console.log(base)
     historyBaseData.forEach(element => {
-        console.log(element)
         if (element.pointId === point.pointId) {
             console.log(element)
             base = element
@@ -2216,7 +2214,7 @@ function fillMenu() {
     var currTime = getCurrentTime();
 
 
-    locationsViewHtml += createCategoryRow({ category: "מקומות היסטוריים" }, true);
+    locationsViewHtml += createCategoryRow({ category: "נקודות ציון" }, true);
     sortedLocations
         .forEach(function (location) {
             locationsViewHtml += createHistoryBasesCategory(location);
