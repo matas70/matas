@@ -146,7 +146,7 @@ loadOpenBasesLocation();
 function createBaseCategory(point) {
     let base;
     baseData.forEach(element => {
-        if (element.baseName === point.pointName) {
+        if (element.pointId === point.pointId) {
             base = element
         }
     })
@@ -160,6 +160,41 @@ function createBaseCategory(point) {
                 </a>
             </div>`
 }
+
+
+//create history base category in navbar 
+let historyBaseData = [];
+
+function loadHistoryBasesLocation(callback) {
+    getEnv((env) => {
+        $.getJSON(`${config.apiURL}/${env}/historyPoints.json?t=` + (new Date()).getTime(), function (baseLocations) {
+            baseLocations.forEach(element => {
+                historyBaseData.push(element)
+            });
+        });
+    });
+}
+
+loadHistoryBasesLocation();
+
+function createHistoryBasesCategory(point) {
+    let base;
+    console.log(base)
+    historyBaseData.forEach(element => {
+        console.log(element)
+        if (element.pointId === point.pointId) {
+            console.log(element)
+            base = element
+        }
+    })
+
+    if (base === undefined) return '';
+
+    return `<div class="base-category-container" onclick=showHistoryBaseLoactionPopup("${point.pointId}")>
+                <h2 class="header">${base.baseName}</h2>
+            </div>`
+}
+
 
 function getRelativeLocation(prevLocation, nextLocation, ratio) {
     var lng = prevLocation.lng + (nextLocation.lng - prevLocation.lng) * ratio;
@@ -2180,24 +2215,20 @@ function fillMenu() {
 
     var currTime = getCurrentTime();
 
-    if (shouldShowTypeCategory("base")) {
-        // var airpalnesOnBasesCount = 0;
 
-        // add bases
-        /* locations.forEach(function (location) {
-             if (location.pointName.includes('בסיס')) {
-                 airpalnesOnBasesCount += location.aircrafts.length;
-             } 
-         }, this); */
+    locationsViewHtml += createCategoryRow({ category: "מקומות היסטוריים" }, true);
+    sortedLocations
+        .forEach(function (location) {
+            locationsViewHtml += createHistoryBasesCategory(location);
+        }, this);
 
-        //if (airpalnesOnBasesCount > 0)
-        locationsViewHtml += createCategoryRow({ category: "בסיסים" }, true);
-        sortedLocations
-            .filter(location => location.type === 'base')
-            .forEach(function (location) {
-                locationsViewHtml += createBaseCategory(location);
-            }, this);
-    }
+    locationsViewHtml += createCategoryRow({ category: "בסיסים פתוחים" }, true);
+    sortedLocations
+        .filter(location => location.type === "base" || !location.hidden)
+        .forEach(function (location) {
+            locationsViewHtml += createBaseCategory(location);
+        }, this);
+
 
     if (shouldShowTypeCategory("hospital")) {
         // add view points
