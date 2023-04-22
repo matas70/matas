@@ -27,6 +27,8 @@ var loadedRoutes;
 var aircraftTypesInfo = {};
 var groundedAircrafts = new Set();
 var locations = [];
+var baseData = [];
+var historyBaseData = [];
 var aircraftMarkers = {};
 var aircraftPaths = {};
 var startDate;
@@ -124,7 +126,7 @@ function calcAzimuth(source, target) {
     return azimuth;
 }
 
-let baseData = [];
+// let baseData = [];
 
 function loadOpenBasesLocation(callback) {
     getEnv((env) => {
@@ -163,7 +165,7 @@ function createBaseCategory(point) {
 
 
 //create history base category in navbar 
-let historyBaseData = [];
+//let historyBaseData = [];
 
 function loadHistoryBasesLocation(callback) {
     getEnv((env) => {

@@ -9,6 +9,7 @@ function initPressPage() {
                 loadCategories(function () {
                     updateLocationsMap(aircrafts);
                     $(".base-table-list").html(createBasesTables());
+                  //  $(".mention-points-table-list").html(createMentionPointsTables());
                     $("#hospital-table-list").html(createCategoryTables("hospital"));
                     $("#city-table-list").html(createCityTables());
                 });
@@ -48,11 +49,21 @@ function createCategoryTables(category) {
     }
 }
 
+function checkIfBase(location) {
+    let exsist = false;
+    baseData.forEach(element => {
+        if (element.pointId === location.pointId) {
+            exsist = true;
+            return;
+        }
+    })
+    return exsist;
+}
+
 function createBasesTables() {
     let bases = locations.filter((location) => {
-        return location.type === "base";
+        return checkIfBase(location);
     });
-
     if (bases.length > 0) {        
         $("#base-container").show();
         let baseTables = "";
@@ -67,9 +78,38 @@ function createBasesTables() {
     }
 }
 
+function checkIfMentionPoints(location) {
+    let exsist = false;
+    mentionPoints.forEach(element => {
+        if (element.pointId === location.pointId) {
+            exsist = true;
+            return;
+        }
+    })
+    return exsist;
+}
+
+function createMentionPointsTables() {
+    let mentionPoints = locations.filter((location) => {
+        return checkIfMentionPoints(location);
+    });
+    if (mentionPoints.length > 0) {        
+        $("#hospital-container").show();
+        let baseTables = "";
+        bases.forEach((base) => {
+            baseTables += createBaseTable(base);
+        });
+
+        return baseTables;
+    } else {  
+        $("#hospital-container").hide();      
+        return "";
+    }
+}
+
 function createCityTables() {
     let cities = locations.filter((location) => {        
-        return location.type !== "base";
+        return !checkIfBase(location);
     }).sort((city1, city2) => {
         return city1.pointName > city2.pointName ? 1 : city1.pointName < city2.pointName ? -1 : 0;
     });
@@ -80,6 +120,18 @@ function createCityTables() {
         }
     });
     return cityTables;
+}
+
+function createMentionPointsTable(mentionPoint) {
+    return `<div class="base-table">
+                <div id="location-${mentionPoint.pointId}" class="base-card">
+                    ${createBaseTableTitle(mentionPoint.pointName, mentionPoint.activeTimes, false)}
+                </div>
+                <div class="base-table-body">
+                    ${createTableCategories(categories, mentionPoint.aircrafts, mentionPoint.exhibitions, "base")}
+                </div>
+                <div class="base-table-end"></div>
+            </div>`;
 }
 
 function createBaseTable(base) {
