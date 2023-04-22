@@ -23,12 +23,12 @@
         <g opacity=".7" transform="translate(3.5 2.5)">
             <use fill="#000" filter="url(#a)" xlink:href="#b"/>
             <circle cx="19.013" cy="19.074" r="13.575" stroke="#656869" stroke-width="2"/>
-            <use stroke="#F64B58" stroke-width="3" xlink:href="#b"/>
+            <use stroke="#ffcccc" stroke-width="3" xlink:href="#b"/>
         </g>
         <g transform="translate(14.513 13.574)">
             <use fill="#000" filter="url(#c)" xlink:href="#d"/>
-            <circle cx="8" cy="8" r="8.5" fill="#F64B58" stroke="#656869"/>
-            <circle cx="8" cy="8" r="8" fill="#F64B58"/>
+            <circle cx="8" cy="8" r="8.5" fill="#ffcccc" stroke="#656869"/>
+            <circle cx="8" cy="8" r="8" fill="#ffcccc"/>
         </g>
     </g>
 </svg>
