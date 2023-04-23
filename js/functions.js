@@ -2362,7 +2362,7 @@ function initGenericPopups() {
     if (timeToNotifyOfek > 0) {
         setTimeout(() => {
             showGenericPopup("חג עצמאות שמח!",
-                ` אנשי יחידת אופק 324 מתרגשים לחגוג אתכם את יום העצמאות ה-74!`,
+                ` אנשי יחידת אופק 324 מתרגשים לחגוג אתכם את יום העצמאות ה-75!`,
                 "ofekIcon",
                 "https://bit.ly/2PQAoVY");
         }, timeToNotifyOfek);
