@@ -1118,6 +1118,8 @@ HEADER {
     transform: translateX(100%);
     transition: transform 0.3s;
     bottom: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
@@ -1153,6 +1155,10 @@ HEADER {
 
 hr.two {
     margin-left: 0%;
+}
+
+.hr-list-header{
+    margin-bottom: 0px;
 }
 
 hr {
