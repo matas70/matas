@@ -5,6 +5,8 @@ selectedLocationMarker = null;
 selectedLocationMarkerIcon = null;
 aerobaticPoints = null;
 
+var renderedPoints = [];
+
 
 googleMaps = {
     MAP_URL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyCUXH83rHT5JRHMFr2A2Wlg2ulXWOPRkHA&map_ids=6571b907d96d29e6&callback=initMap&language=he&region=IL",
@@ -282,7 +284,9 @@ googleMaps = {
 
         // create the points marker
         route.points.forEach((point) => {
-            if (!point.hidden) {
+            console.log(point)
+            if (!point.hidden && !renderedPoints.includes(point.pointId)) {
+                renderedPoints.push(point.pointId)
                 var markerIcon;
                 var markerIconClicked;
                 var aerobatic = isPointAerobatic(point.pointId);
