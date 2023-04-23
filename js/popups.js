@@ -405,7 +405,7 @@ function showHistoryBaseLoactionPopup(pointId) {
   });
 
   $("#iconBase").hide();
-  $(".header-title p").text("נקודה היסטורית");
+  $(".header-title p").text("נקודת ציון");
   $("#waze-base-link").hide();
 
   let mapButton =
