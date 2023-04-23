@@ -2049,7 +2049,6 @@ function openUnitInfo() {
   popup.style.display = "flex";
 }
 
-countDownClock('26 Apr 2023 9:00:00 GMT+3');
 function closePopupFooter() {
   turnOffDimBackground();
   const popup = document.querySelector("#footerPopup");
