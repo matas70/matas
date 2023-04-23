@@ -36,12 +36,13 @@
 }
 
 /* Makes the page fill the window. */
-html, body {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+/* html, body {
+    /* width: 100%; */
+    /* margin: 0; */
+    /* padding: 0; */
+    
+*{
     direction: rtl;
-    background: white;
     font-family: 'Heebo-Regular', sans-serif;
     text-rendering: optimizeLegibility;
 }
@@ -63,6 +64,7 @@ html, body {
     width: 58px;
     height: 54px;
     align-self: center;
+
 }
 
 .iaf-logo {
@@ -76,8 +78,8 @@ html, body {
     height: 108px;
 }
 
-#hospital-container
 #city-container {
+    /* overflow: hidden; */
     margin-top: 24px;
     display: flex;
     flex-direction: column;
@@ -95,8 +97,6 @@ html, body {
     font-size: 18px;
     color: #37474f;
     align-items: center;
-    right: 40px;
-    padding-left: 40px;
 }
 
 .footer {
@@ -112,11 +112,22 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 820px;
+    width: fit-content;
+    flex-wrap: wrap;
+    max-width: 1200px;
 }
+/* 
+@media screen and (max-width: 720px) {
+    .base-table-list .base-table {
+        box-sizing: border-box;
+        box-sizing: border-box;
+        min-width: 150px;
+        max-width: 95% !important;
+    }
+} */
 
 .title-decoration {
-    width: 100%;
+    width: 50px;
     height: 2px;
     background: #cecfcf;
     border-radius: 1px;
@@ -149,14 +160,17 @@ html, body {
     display: flex;
     flex-direction: row;
     flex-flow: row wrap;
+    justify-content: center;
 }
 
 .base-table-list .base-table {
-    width: 50%;
+    width: fit-content;
     box-sizing: border-box;
     padding: 8.5px;
     box-sizing: border-box;
-    max-width: 410px;
+    min-width: 150px;
+    width: fit-content;
+    max-width: 400px;
 }
 
 .base-table-title-group {
@@ -228,10 +242,7 @@ html, body {
 
 .category-name {
     color: #37474f;
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-    width: 103px;
+    margin: 6px;
     flex-shrink: 0;
 }
 
@@ -257,6 +268,8 @@ html, body {
 
 .press-body {
     background: #f5f5f7;
+    padding: 0;
+    margin: 0;
 }
 
 .exhibition-category {

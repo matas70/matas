@@ -1,5 +1,5 @@
 function initPressPage() {
-    
+    console.log(screen.width)
         loadAircrafts((pAircrafts) => {
             aircrafts = pAircrafts; //.filter((aircraft) => aircraft.name !== 'כחל');
             loadRoutes((routes) => {
