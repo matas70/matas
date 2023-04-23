@@ -194,6 +194,9 @@ function showBaseLoactionPopup(pointId) {
   const mapElement = document.getElementById(`map`);
   let airplaneShowsElement = document.getElementById("airplanes-show");
 
+  $("#base-subject").css("display", "none");
+  $("#baseContactWrapper").css("display", "none");
+
   if (fullWidth <= 600) {
     basePopUpElement.css({ borderRadius: "15px" });
     document.getElementById("open-base-card-theme").src =
@@ -360,12 +363,18 @@ function showHistoryBaseLoactionPopup(pointId) {
   });
 
   let basePopUpElement = $("#open-bases-popup");
+  let firstP
   let fullHeight = window.innerHeight;
   let fullWidth = window.innerWidth;
   const headerElement = document.getElementById(`headerBg`);
   const navBarHeaderElement = document.getElementById(`listHeader`);
   const mapElement = document.getElementById(`map`);
   let airplaneShowsElement = document.getElementById("airplanes-show");
+
+  $("#base-subject").css("display", "block");
+  $("#base-subject").text(point.subject)
+  $("#baseContactWrapper").css("display", "flex");
+  $("#baseContactWrapper").text(point.pointContact)
 
   if (fullWidth <= 600) {
     basePopUpElement.css({ borderRadius: "15px" });
@@ -908,38 +917,38 @@ function showAircraftInfoPopup(aircraft, collapse) {
 
 
   const aircraftsVideoId = [
-    {name: "אדיר", id: "0pM6bGZWGRU"},
-    {name: "איתן", id: "XCMu7WQS96c"},
-    {name: "בז", id: "zlFwy_qrMM8"},
-    {name: "ברק", id: "pcQ1KSKmDis"},
-    {name: "הרווארד", id: "BjOCrBv1zZk"},
-    {name: "ינשוף", id: "ivj5smYeJGY"},
-    {name: "יסעור", id: "s-n8DhWX3PE"},
-    {name: "לביא", id: "xdAFBKKWMKo"},
-    {name: "נחשון", id: "K5K5KaloSfg"},
-    {name: "סופה", id: "W7zWeE0kchc"},
-    {name: "סנונית", id: "NuQzvdGowOE"},
-    {name: "עטלף", id: "3vzUo9JAygU"},
-    {name: "עפרוני", id: "Kfkd5GEymvA"},
-    {name: "פתן", id: "PK0FqDks8_Q"},
-    {name: "צופית", id: "lW7tx5lcCTE"},
-    {name: "קרנף", id: "hkJ0u40mKCs"},
-    {name: "ראם", id: "J2N_PReaobE"},
-    {name: "רעם", id: "SuxqbK3PjC0"},
-    {name: "שובל", id: "Sv3WdFLnlCw"},
-    {name: "שמשון", id: "_3_4btQCiS4"},
-    {name: "שרף", id: "77mbzmecJdc"},
-];
-    //find matching youtube video for each airplane
-    let airplaneVideo = document.querySelector('#aircraftInfoVideo');
-    let airplaneVideoName = document.querySelector('#aircraftInfoName').innerText;
-    const currAircraft = aircraftsVideoId.find(aircraft =>  aircraft.name === airplaneVideoName);
-    if(currAircraft) {
-      airplaneVideo.src = currAircraft.id !== undefined ?  `https://www.youtube.com/embed/${currAircraft.id}`: null;
-    }
-    else {
-      document.querySelector('#aircraftInfoVideo').style.display = "none";
-    }
+    { name: "אדיר", id: "0pM6bGZWGRU" },
+    { name: "איתן", id: "XCMu7WQS96c" },
+    { name: "בז", id: "zlFwy_qrMM8" },
+    { name: "ברק", id: "pcQ1KSKmDis" },
+    { name: "הרווארד", id: "BjOCrBv1zZk" },
+    { name: "ינשוף", id: "ivj5smYeJGY" },
+    { name: "יסעור", id: "s-n8DhWX3PE" },
+    { name: "לביא", id: "xdAFBKKWMKo" },
+    { name: "נחשון", id: "K5K5KaloSfg" },
+    { name: "סופה", id: "W7zWeE0kchc" },
+    { name: "סנונית", id: "NuQzvdGowOE" },
+    { name: "עטלף", id: "3vzUo9JAygU" },
+    { name: "עפרוני", id: "Kfkd5GEymvA" },
+    { name: "פתן", id: "PK0FqDks8_Q" },
+    { name: "צופית", id: "lW7tx5lcCTE" },
+    { name: "קרנף", id: "hkJ0u40mKCs" },
+    { name: "ראם", id: "J2N_PReaobE" },
+    { name: "רעם", id: "SuxqbK3PjC0" },
+    { name: "שובל", id: "Sv3WdFLnlCw" },
+    { name: "שמשון", id: "_3_4btQCiS4" },
+    { name: "שרף", id: "77mbzmecJdc" },
+  ];
+  //find matching youtube video for each airplane
+  let airplaneVideo = document.querySelector('#aircraftInfoVideo');
+  let airplaneVideoName = document.querySelector('#aircraftInfoName').innerText;
+  const currAircraft = aircraftsVideoId.find(aircraft => aircraft.name === airplaneVideoName);
+  if (currAircraft) {
+    airplaneVideo.src = currAircraft.id !== undefined ? `https://www.youtube.com/embed/${currAircraft.id}` : null;
+  }
+  else {
+    document.querySelector('#aircraftInfoVideo').style.display = "none";
+  }
 
 
   if (
