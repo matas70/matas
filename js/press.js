@@ -195,18 +195,18 @@ function createBaseTableTitle(name, activeTimes, hasAerobatic) {
 
 
     let tempActiveTimesValue = activeTimes? activeTimes : null;
-    if(name.includes('מופע')) {
-        hasAerobatic = true;
-        let startTime = activeTimes.slice(0,5);
-        let endTime = createAerobaticEndTime(startTime, 10);
-        tempActiveTimesValue = startTime+' - '+endTime;
-    } 
-    if (name === 'ירושלים - גן סאקר') {
-        hasAerobatic = true;
-        let startTime = activeTimes.slice(0,5);
-        let endTime = createAerobaticEndTime(activeTimes.slice(8,activeTimes.length), 10);
-        tempActiveTimesValue = startTime+' - '+endTime;
-    }
+    // if(name.includes('מופע')) {
+    //     hasAerobatic = true;
+    //     let startTime = activeTimes.slice(0,5);
+    //     let endTime = createAerobaticEndTime(startTime, 10);
+    //     tempActiveTimesValue = startTime+' - '+endTime;
+    // } 
+    // if (name === 'ירושלים - גן סאקר') {
+    //     hasAerobatic = true;
+    //     let startTime = activeTimes.slice(0,5);
+    //     let endTime = createAerobaticEndTime(activeTimes.slice(8,activeTimes.length), 10);
+    //     tempActiveTimesValue = startTime+' - '+endTime;
+    // }
     let tempActiveTimesHTML = `
         &nbsp;|&nbsp;
         <div class="base-title-times">${tempActiveTimesValue}</div>
