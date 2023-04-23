@@ -2039,7 +2039,13 @@ const countDownClock = (finalDate) => {
     }, second);
 };
 
-countDownClock("26 Apr 2023 8:00:00 GMT+3");
+const date = '26 Apr 2023';
+const startHour = '8:00:00';
+const timeZone = 'GMT+3';
+
+const startTime = [ date , startHour , timeZone ].join(' ');
+
+countDownClock(startTime);
 
 //footer popup
 
