@@ -105,7 +105,8 @@ function createMentionPointsTables() {
 }
 
 function createCityTables() {
-    let cities = locations.filter((location) => {        
+
+    let cities = locations.filter((location) => { 
         return !checkIfBase(location);
     }).sort((city1, city2) => {
         return city1.pointName > city2.pointName ? 1 : city1.pointName < city2.pointName ? -1 : 0;
@@ -132,9 +133,13 @@ function createMentionPointsTable(mentionPoint) {
 }
 
 function createBaseTable(base) {
+
+    let startTime = base.aircrafts[0].time.slice(0,5);
+    let endTime = base.aircrafts[base.aircrafts.length - 1].time.slice(0,5);
+    
     return `<div class="base-table">
                 <div id="location-${base.pointId}" class="base-card">
-                    ${createBaseTableTitle(base.pointName, base.activeTimes, false)}
+                    ${createBaseTableTitle(base.pointName, `${endTime} - ${startTime}`, false)}
                 </div>
                 <div class="base-table-body">
                     ${createTableCategories(categories, base.aircrafts, base.exhibitions, "base")}
@@ -187,23 +192,25 @@ function createAerobaticEndTime(startTime, timeToAdd) {
 }
 
 function createBaseTableTitle(name, activeTimes, hasAerobatic) {
+
+
     let tempActiveTimesValue = activeTimes? activeTimes : null;
-    if(name.includes('מופע')) {
-        hasAerobatic = true;
-        let startTime = activeTimes.slice(0,5);
-        let endTime = createAerobaticEndTime(startTime, 10);
-        tempActiveTimesValue = startTime+' - '+endTime;
-    } 
-    if (name === 'ירושלים - גן סאקר') {
-        hasAerobatic = true;
-        let startTime = activeTimes.slice(0,5);
-        let endTime = createAerobaticEndTime(activeTimes.slice(8,activeTimes.length), 10);
-        tempActiveTimesValue = startTime+' - '+endTime;
-    }
-    let tempActiveTimesHTML = tempActiveTimesValue? `
+    // if(name.includes('מופע')) {
+    //     hasAerobatic = true;
+    //     let startTime = activeTimes.slice(0,5);
+    //     let endTime = createAerobaticEndTime(startTime, 10);
+    //     tempActiveTimesValue = startTime+' - '+endTime;
+    // } 
+    // if (name === 'ירושלים - גן סאקר') {
+    //     hasAerobatic = true;
+    //     let startTime = activeTimes.slice(0,5);
+    //     let endTime = createAerobaticEndTime(activeTimes.slice(8,activeTimes.length), 10);
+    //     tempActiveTimesValue = startTime+' - '+endTime;
+    // }
+    let tempActiveTimesHTML = `
         &nbsp;|&nbsp;
         <div class="base-title-times">${tempActiveTimesValue}</div>
-    ` : '';
+    `;
     return `<div class="base-table-title">
                     <div class="base-table-title-group">
                         <div class="base-table-title-text">${name}</div>
@@ -242,12 +249,13 @@ function createTableCategories(categories, aircrafts, exhibitions, type) {
 
 function createTableCategory(categoryName, categoryAircrafts, type) {
     let flightCategoryTitle = "";
-    let baseTime = categoryAircrafts[0]?.time? categoryAircrafts[0]?.time?.substr(0, 5) : '';
-    if (type === "base")
-        flightCategoryTitle = `<div class="category-name">
-                                <div class="category-title">${categoryName}</div>
-                                <div class="category-start-time">${baseTime}</div>
-                            </div>`;
+    // let baseTime = categoryAircrafts[0]?.time? categoryAircrafts[0]?.time?.substr(0, 5) : '';
+
+    // if (type === "base")
+    //     flightCategoryTitle = `<div class="category-name">
+    //                             <div class="category-title">${categoryName}</div>
+    //                             <div class="category-start-time">${baseTime}</div>
+    //                         </div>`;
     let flightCategoryIcons = "";
 
     let aircraftShown = new Map();
