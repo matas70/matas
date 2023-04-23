@@ -52,7 +52,7 @@ function initPopups() {
       }
 
       locationPopup.height(targetHeight);
-      aircraftListContainer.height(targetHeight - 50);
+
       event.preventDefault();
     }
   });
@@ -235,10 +235,16 @@ function showBaseLoactionPopup(pointId) {
     event_label: point.baseName,
   });
 
+  $("#base-airplane-card").show()
   let mapButton =
     point.baseMapPath !== ""
       ? `<a href=${point.baseMapPath} target="_blank"><button class="base-map">למפת התערוכה</button></a>`
       : "";
+
+
+  $("#iconBase").show();
+  $(".header-title p").text("בסיס פתוח");
+  $("#waze-base-link").show();
 
   document.getElementById("base-map-button-handler").innerHTML = mapButton;
 
@@ -315,7 +321,176 @@ function showBaseLoactionPopup(pointId) {
           }
 
           if (ac.name === "עפרוני") {
-            ac.name = " צוות אוירובטי (עפרוני)";
+            ac.name = "עפרוני (צוות אווירובטי)";
+          }
+          OpenBaseAircraftshtml += createTableRow(
+            ac.aircraftId,
+            ac.name,
+            ac.icon,
+            ac.aircraftType,
+            ac.time,
+            ac.aerobatic || key === "מופעים אווירובטיים" || key === "חזרות",
+            ac.parachutist,
+            false,
+            true,
+            date,
+            false,
+            false,
+            ac.from
+          );
+        });
+        airplaneShowsElement.innerHTML = OpenBaseAircraftshtml;
+      }
+    });
+  }
+}
+
+function showHistoryBaseLoactionPopup(pointId) {
+  openBasePopupStatus = "minimized";
+  onCloseOpenBasePopup();
+  deselectLocation();
+  deselectAircraft();
+
+  let point;
+
+  historyBaseData.forEach((element) => {
+    if (element.pointId === Number(pointId)) {
+      point = element;
+    }
+  });
+
+  let basePopUpElement = $("#open-bases-popup");
+  let fullHeight = window.innerHeight;
+  let fullWidth = window.innerWidth;
+  const headerElement = document.getElementById(`headerBg`);
+  const navBarHeaderElement = document.getElementById(`listHeader`);
+  const mapElement = document.getElementById(`map`);
+  let airplaneShowsElement = document.getElementById("airplanes-show");
+
+  if (fullWidth <= 600) {
+    basePopUpElement.css({ borderRadius: "15px" });
+    document.getElementById("open-base-card-theme").src =
+      "experimental-assets/base-card-airplane-for-mobile.png";
+    basePopUpElement.animate(
+      {
+        height: fullHeight + "px",
+        top: `${headerElement.clientHeight + mapElement.clientHeight * 0.4}px`,
+      },
+      "fast"
+    );
+  } else {
+    document.getElementById("open-base-card-theme").src =
+      "experimental-assets/base-card-airplane-for-pc.png";
+    document.getElementById("drag-button").style.display = "none";
+    basePopUpElement.animate(
+      {
+        top: "0px",
+        height: fullHeight + "px",
+        left: "0px",
+      },
+      "fast"
+    );
+  }
+
+  document.getElementById("open-bases-popup").style.display = "block";
+  document.getElementById("baseTheme").src = point.baseThemePath;
+  document.getElementById("baseName").innerHTML = point.baseName;
+  document.getElementById("base-passage").innerHTML = point.basePassage;
+  document.getElementById("baseArrivalTime").innerHTML = point.baseArrivalTime;
+  document.getElementById("baseArrivalExplanation").innerHTML = point.baseArrivalExplanation;
+
+  gtag("event", "open base", {
+    event_category: "show open base",
+    event_label: point.baseName,
+  });
+
+  $("#iconBase").hide();
+  $(".header-title p").text("נקודת ציון");
+  $("#waze-base-link").hide();
+
+  let mapButton =
+    point.baseMapPath !== ""
+      ? `<a href=${point.baseMapPath} target="_blank"><button class="base-map">למפת התערוכה</button></a>`
+      : "";
+
+
+  $("#base-airplane-card").hide()
+  document.getElementById("base-map-button-handler").innerHTML = mapButton;
+
+  // Close Event only when user doesn't click on openBasePopup it self.
+  headerElement.addEventListener("click", function handleClick() {
+    onCloseOpenBasePopup();
+  });
+  navBarHeaderElement.addEventListener("click", function handleClick() {
+    onCloseOpenBasePopup();
+  });
+
+  let OpenBaseAircraftshtml = "";
+  let OpenBaseAircraftspecials = new Map();
+
+  OpenBaseAircraftspecials.set("מטס", []);
+
+  let pointInSortedLocation;
+
+  sortedLocations.forEach((e) => {
+    if (e.pointId === point.pointId) {
+      pointInSortedLocation = e;
+    }
+  });
+
+  pointInSortedLocation.aircrafts.forEach((ac) => {
+    if (ac.specialInAircraft) {
+      if (
+        !OpenBaseAircraftspecials.has(ac.specialInAircraft) &&
+        getCurrentTime() < getActualPathTime(ac.date, ac.time)
+      ) {
+        OpenBaseAircraftspecials.set(ac.specialInAircraft, []);
+      }
+
+      if (OpenBaseAircraftspecials.get(ac.specialInAircraft)) {
+        OpenBaseAircraftspecials.get(ac.specialInAircraft).push(ac);
+      }
+    } else if (ac.specialInPath) {
+      if (!OpenBaseAircraftspecials.has(ac.specialInPath)) {
+        OpenBaseAircraftspecials.set(ac.specialInPath, []);
+      }
+      OpenBaseAircraftspecials.get(ac.specialInPath).push(ac);
+    } else {
+      OpenBaseAircraftspecials.get("מטס").push(ac);
+    }
+  });
+
+  // Filter out empty categories
+  OpenBaseAircraftspecials = new Map(
+    [...OpenBaseAircraftspecials].filter(([key, value]) => value.length > 0)
+  );
+
+  let openBaseTmp = OpenBaseAircraftspecials.get("מטס");
+  OpenBaseAircraftspecials.delete("מטס");
+
+  // Check to see if aircraftList is empty in this location
+  if (
+    OpenBaseAircraftspecials.size === 0 &&
+    (!openBaseTmp || openBaseTmp.length === 0)
+  ) {
+    airplaneShowsElement.innerHTML =
+      '<div id="noAircraftMessage"> המטס כבר חלף מעל נקודה זו</div>';
+  } else {
+    OpenBaseAircraftspecials.set("מטס", openBaseTmp);
+
+    OpenBaseAircraftspecials.forEach((value, key) => {
+      if (value && value.length > 0) {
+        OpenBaseAircraftshtml += createLocationPopupCategoryRow(key);
+        value.forEach((ac) => {
+          var date = undefined;
+
+          if (ac.date) {
+            var split = ac.date.split("-");
+            date = split[2] + "/" + split[1] + "/" + split[0].substr(2, 2);
+          }
+
+          if (ac.name === "עפרוני") {
+            ac.name = " עפרוני (צוות אווירובטי)";
           }
           OpenBaseAircraftshtml += createTableRow(
             ac.aircraftId,
@@ -434,7 +609,7 @@ function showLocationPopup(
         value.forEach((ac) => {
           var aircraftname = ac.name;
           if (aircraftname === "עפרוני") {
-            aircraftname = " צוות אוירובטי (עפרוני)";
+            aircraftname = " עפרוני (צוות אווירובטי)";
           }
           var date = undefined;
 
@@ -618,7 +793,7 @@ function hideLocationPopup(callback) {
     locationPopup.hide();
     if (callback != null) callback.call(this);
   });
-  $("#aircraftListContainer").animate({ height: "150px" }, "fast");
+  $("#aircraftListContainer").animate({ height: "auto" }, "fast");
 
   window.location.hash = mainHash;
   previousHash.push(mainHash);
@@ -727,6 +902,45 @@ function showAircraftInfoPopup(aircraft, collapse) {
 
   $("#aircraftInfoName").text(aircraft.name);
   $("#aircraftInfoType").text(aircraft.type);
+
+
+
+
+
+  const aircraftsVideoId = [
+    {name: "אדיר", id: "0pM6bGZWGRU"},
+    {name: "איתן", id: "XCMu7WQS96c"},
+    {name: "בז", id: "zlFwy_qrMM8"},
+    {name: "ברק", id: "pcQ1KSKmDis"},
+    {name: "הרווארד", id: "BjOCrBv1zZk"},
+    {name: "ינשוף", id: "ivj5smYeJGY"},
+    {name: "יסעור", id: "s-n8DhWX3PE"},
+    {name: "לביא", id: "xdAFBKKWMKo"},
+    {name: "נחשון", id: "K5K5KaloSfg"},
+    {name: "סופה", id: "W7zWeE0kchc"},
+    {name: "סנונית", id: "NuQzvdGowOE"},
+    {name: "עטלף", id: "3vzUo9JAygU"},
+    {name: "עפרוני", id: "Kfkd5GEymvA"},
+    {name: "פתן", id: "PK0FqDks8_Q"},
+    {name: "צופית", id: "lW7tx5lcCTE"},
+    {name: "קרנף", id: "hkJ0u40mKCs"},
+    {name: "ראם", id: "J2N_PReaobE"},
+    {name: "רעם", id: "SuxqbK3PjC0"},
+    {name: "שובל", id: "Sv3WdFLnlCw"},
+    {name: "שמשון", id: "_3_4btQCiS4"},
+    {name: "שרף", id: "77mbzmecJdc"},
+];
+    //find matching youtube video for each airplane
+    let airplaneVideo = document.querySelector('#aircraftInfoVideo');
+    let airplaneVideoName = document.querySelector('#aircraftInfoName').innerText;
+    const currAircraft = aircraftsVideoId.find(aircraft =>  aircraft.name === airplaneVideoName);
+    if(currAircraft) {
+      airplaneVideo.src = currAircraft.id !== undefined ?  `https://www.youtube.com/embed/${currAircraft.id}`: null;
+    }
+    else {
+      document.querySelector('#aircraftInfoVideo').style.display = "none";
+    }
+
 
   if (
     (aircraft.name === "צופית") |
@@ -854,6 +1068,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
   // Collapse==true <=> The info popup is not extended.
   // I know it's confusing but I'm too lazy to fix it.
   if (!collapse) {
+
     // Lots of code to set the correct state of html elements according to collapse/extended
     toggleAircraftContentSeparator(false);
     $("#aircraftInfoMore").on("click", function () {
@@ -885,6 +1100,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
       });
     });
   } else {
+
     // Lots of code to set the correct state of html elements according to collapse/extended
     toggleAircraftContentSeparator(true);
     var height = $(window).height();
@@ -1207,7 +1423,7 @@ function expandLocation(pointId, isSearchBar = false) {
     } else {
       location.aircrafts.forEach(function (aircraft) {
         if (aircraft.name === "עפרוני") {
-          aircraft.name = " צוות אוירובטי (עפרוני)";
+          aircraft.name = " עפרוני (צוות אווירובטי)";
         }
         if (aircraft.name !== lastAircraft) {
           html += createTableRow(
@@ -1462,6 +1678,16 @@ function createClusterLocationRow(location) {
 function openMapClusterPopup(arrayOfObjects) {
   window.location.hash = clusterHash;
   previousHash.push(clusterHash);
+
+  if (window.innerWidth >= 600) {
+    $("#mapClusterPopup").css("transform", `translate(
+      ${(window.innerWidth - 400 - $("#mapClusterPopup").width()) / 2}px, ${(window.innerHeight - $("#mapClusterPopup").height()) / 2}px)`
+    )
+  } else {
+    $("#mapClusterPopup").css("transform", `translate(
+      ${(window.innerWidth - $("#mapClusterPopup").width()) / 2}px, ${(window.innerHeight - $("#mapClusterPopup").height() - $("#headerBg").height()) / 2}px)`
+    )
+  }
 
   getMapDarker();
   closeAllPopups();
@@ -1738,8 +1964,9 @@ const entrancePopupElement = document.querySelector("#entrancePopup");
 
 $("#entrancePopup").css("transform", `translate(-${(window.innerWidth - $("#entrancePopup").width()) / 2}px, ${(window.innerHeight - $("#entrancePopup").height()) / 2}px)`)
 
+$("#footerPopup").css("transform", `translate(-${(window.innerWidth - $("#footerPopup").width()) / 2}px, ${(window.innerHeight - $("#footerPopup").height()) / 2}px)`);
+
 window.onclick = function (event) {
-console.log(event.target === dimBackground );
   if (
     event.target === dimBackground &&
     $("#entrancePopup").css("display") === "flex"
@@ -1830,5 +2057,8 @@ function closePopupFooter() {
 }
 
 //todo: feedback function
-function openFeedback() { }
+function openFeedback() {
+  window.open('https://docs.google.com/forms/d/1pS9lswPQOu7hibzyHOvZrv0wRlyiUrVbEqteUuUIcZc/edit');
+  closePopupFooter();
+}
 

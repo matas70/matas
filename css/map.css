@@ -293,7 +293,7 @@ div.splash {
     animation-iteration-count: infinite;
     background-size: contain;
     background-repeat: no-repeat;
-    
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -468,7 +468,6 @@ div.splash {
 #registerToggle {}
 
 #aircraftListContainer {
-    height: 150px;
     overflow-y: scroll;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
@@ -1373,20 +1372,17 @@ br.baseData {
 }
 
 .mapClusterPopup {
+    position: absolute;
+    top: 0;
+    left: 0;
+
     display: flex;
     flex-direction: column;
-    z-index: 0;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
+
     width: 296px;
     height: 309px;
-    position: absolute;
     border-radius: 16px 16px 16px 16px;
+
     background-color: white;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
 }
@@ -1395,6 +1391,10 @@ br.baseData {
     height: 100%;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    cursor: pointer;
 }
 
 .mapClusterPopupContent .tableRow {
@@ -1439,6 +1439,9 @@ br.baseData {
     line-height: 47px;
     color: white;
     background-color: #3bb5f2;
+
+    -webkit-user-select: none;
+    cursor: pointer;
 }
 
 .mapClusterPopupHeader {
@@ -1450,6 +1453,8 @@ br.baseData {
     text-align: center;
     line-height: 47px;
     color: #37474f;
+
+    -webkit-user-select: none;
 }
 
 #footerPopup {
@@ -1459,16 +1464,13 @@ br.baseData {
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
     background-color: white;
     position: absolute;
-    top: calc(50% + 64px);
-    left: 50%;
-    transform: translate(-50%, -62%);
     z-index: 1000000;
     /* to see the popup nedd to change to flex */
     display: none;
     flex-direction: column;
     align-items: center;
     padding: 0px;
-    margin: 10px;
+    margin: 0px;
     font-family: Heebo;
 }
 
@@ -1515,12 +1517,22 @@ br.baseData {
 
 .images-container {
     height: 55px;
-    width: 186px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     direction: ltr;
 }
 
+
+.air-force-logo-seventy-five{
+    width: 39px;
+    height: 55px;
+}
+
+.air-force-logo{
+    width: 55px;
+    height: 55px;
+}
 .share-button {
     width: 50%;
     background-color: #4FCE5D;
@@ -1622,11 +1634,11 @@ br.baseData {
     color: #37474F;
 }
 
-.video-container {
+.airplane-video-container {
     width: 255px;
     height: 245px;
     border-radius: 8px;
-    background-color: #4eb5f16e;
+    cursor: pointer;
 }
 
 .footer-wrapper {
@@ -2045,6 +2057,7 @@ hr.aircraftLineSeparator.two {}
 
 #search-bar {
     display: flex;
+    align-items: center;
     padding: 22px 25px 22px 25px;
     color: #080c1a;
     background: #080c1a;
@@ -2066,6 +2079,7 @@ hr.aircraftLineSeparator.two {}
     caret-color: #3bb5f2;
     position: sticky;
     transition: width 0.6s, background 0.5s;
+    z-index: 99;
 }
 
 .search-input::placeholder {
@@ -2074,6 +2088,7 @@ hr.aircraftLineSeparator.two {}
 }
 
 .search-input:focus {
+    width: 65%;
     background: white;
 }
 
@@ -2085,33 +2100,48 @@ hr.aircraftLineSeparator.two {}
     z-index: 1;
     width: 25px;
     right: 38px;
-    
+
     -webkit-user-drag: none;
     -webkit-user-select: none;
     cursor: text;
 }
 
 #search-clear-button {
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+
     background: url("../icons/clear-button.svg") no-repeat;
+
     height: 35px;
-    display: none;
     width: 35px;
+
     position: absolute;
-    left: 98px;
-    top: 26px;
+    left: calc((100% - 65% - 35px - 20px) + (35px / 2));
+    z-index: 100;
+
+    display: none;
+
 }
 
 #search-back-button {
-    font-size: 15pt;
+    -webkit-user-select: none;
+    cursor: pointer;
+
+    position: absolute;
+    left: 22px;
+
+    width: calc(35% - 58px);
+    height: 50%;
     color: #3bb5f2;
     font-family: "Heebo-Regular";
     font-weight: 600;
-    margin-right: 20px;
-    display: none;
-    margin-top: 7px;
 
-    -webkit-user-select: none;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
 }
 
 #search-view {
