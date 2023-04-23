@@ -2039,7 +2039,7 @@ const countDownClock = (finalDate) => {
     }, second);
 };
 
-countDownClock("26 Apr 2023 9:00:00 GMT+3");
+countDownClock("26 Apr 2023 8:00:00 GMT+3");
 
 //footer popup
 
