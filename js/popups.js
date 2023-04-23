@@ -2040,12 +2040,15 @@ const countDownClock = (finalDate) => {
 };
 
 const date = '26 Apr 2023';
-const startHour = '8:00:00';
+const startHour = '8:00';
 const timeZone = 'GMT+3';
 
 const startTime = [ date , startHour , timeZone ].join(' ');
 
 countDownClock(startTime);
+
+const startTimeElement = document.querySelector(".startHour");
+startTimeElement.innerText = startHour;
 
 //footer popup
 
