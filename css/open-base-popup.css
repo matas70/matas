@@ -142,6 +142,16 @@ div.open-bases-popup div.base-general-information {
   margin-top: 16px;
 }
 
+#base-subject {
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+  font-family: Heebo-Regular;
+  text-align: center;
+  padding: 10px;
+}
+
 div.open-bases-popup div.base-general-information p.base-passage {
     margin: 0;
     margin-bottom: 10.5px;
@@ -157,6 +167,8 @@ div.open-bases-popup div.base-general-information p.base-passage {
     font-weight: 400;
     display: flex;
     justify-content: center;
+    text-align: center;
+    padding: 10px;
 }
 
 

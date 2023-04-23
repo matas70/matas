@@ -1240,7 +1240,7 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     selectedLocationMarkerIcon = markerIcon;
     mapAPI.panTo(map, location);
 
-    if (locations[pointId].type === 'base') {
+    if (locations[pointId].type === 'base'){
         showBaseLoactionPopup(pointId)
     } else {
         showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, setMarkerOnDeselectLocation);
