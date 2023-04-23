@@ -2528,51 +2528,51 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 
 
 
-            if (haversineDistance(userLoc, currentLocation) < 3) {
-                if ($('#myModal:hidden') && $('#gottoVoiceMessagePopup')[0].style.display == "none") {
+            // if (haversineDistance(userLoc, currentLocation) < 3) {
+            //     if ($('#myModal:hidden') && $('#gottoVoiceMessagePopup')[0].style.display == "none") {
 
-                    //Checking weather audioMessages is not undifined    
-                    //and if audio message for aircraftType is available 
-                    var audioMessageAvailable = (audioMessages &&
-                        aircraft.aircraftTypeId in audioMessages &&
-                        audioMessages[aircraft.aircraftTypeId]["audioSrc"]);
+            //         //Checking weather audioMessages is not undifined    
+            //         //and if audio message for aircraftType is available 
+            //         var audioMessageAvailable = (audioMessages &&
+            //             aircraft.aircraftTypeId in audioMessages &&
+            //             audioMessages[aircraft.aircraftTypeId]["audioSrc"]);
 
-                    //Close popup sooner 
-                    var closePopupTime = audioMessageAvailable ? 60 : 30;
+            //         //Close popup sooner 
+            //         var closePopupTime = audioMessageAvailable ? 60 : 30;
 
-                    //Adding to array so the user won't get notifed twice  
-                    notifiedNearUser.push(aircraft.aircraftTypeId);
+            //         //Adding to array so the user won't get notifed twice  
+            //         notifiedNearUser.push(aircraft.aircraftTypeId);
 
-                    //Closing popup After closePopupCount seconds
-                    setTimeout(() => { $('#gottoVoiceMessagePopup').hide(); }, 1000 * closePopupTime);
+            //         //Closing popup After closePopupCount seconds
+            //         setTimeout(() => { $('#gottoVoiceMessagePopup').hide(); }, 1000 * closePopupTime);
 
-                    if (aircraft.icon) {
-                        $("#aircraftImg").attr("src", `icons/aircrafts/${aircraft.icon}.svg`);
-                    }
-                    else {
-                        $("#aircraftImg").attr("src", `icons/genericAircraft.svg`);
-                    }
-                    $("#gottoVoiceMessagePopup")[0].style.display = "block";
-                    //Change type and name if efroni to aerobatic team 
-                    if (aircraft.name === 'עפרוני') {
-                        $("#aircraftName").html(`הצוות האוירובטי - עפרוני`);
-                    }
-                    else {
-                        $("#aircraftName").html(`${aircraft.type} - ${aircraft.name}`);
-                    }
+            //         if (aircraft.icon) {
+            //             $("#aircraftImg").attr("src", `icons/aircrafts/${aircraft.icon}.svg`);
+            //         }
+            //         else {
+            //             $("#aircraftImg").attr("src", `icons/genericAircraft.svg`);
+            //         }
+            //         $("#gottoVoiceMessagePopup")[0].style.display = "block";
+            //         //Change type and name if efroni to aerobatic team 
+            //         if (aircraft.name === 'עפרוני') {
+            //             $("#aircraftName").html(`הצוות האוירובטי - עפרוני`);
+            //         }
+            //         else {
+            //             $("#aircraftName").html(`${aircraft.type} - ${aircraft.name}`);
+            //         }
 
-                    $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
+            //         $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
 
-                    if (audioMessageAvailable) {
-                        $("#hearTheMessage").show()
-                        notifyAudioMessage(aircraft)
-                    }
+            //         if (audioMessageAvailable) {
+            //             $("#hearTheMessage").show()
+            //             notifyAudioMessage(aircraft)
+            //         }
 
-                    else {
-                        $("#hearTheMessage").hide()
-                    }
-                }
-            }
+            //         else {
+            //             $("#hearTheMessage").hide()
+            //         }
+            //     }
+            // }
 
         }
     }
@@ -2582,33 +2582,33 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 
 
 function notifyAudioMessage(aircraft) {
-    let audioMessage = audioMessages[aircraft.aircraftTypeId];
-    gtag('event', 'audioMessage', {
-        'event_category': 'audioMessage',
-        'event_label': 'airfract ' + aircraft.name
-    });
-    $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
-    $("#voiceMessageImg").attr('src', "icons/voiceMessage/dictation_glyph.png");
-    $('#audioMessageText').html(audioMessage.text);
+    // let audioMessage = audioMessages[aircraft.aircraftTypeId];
+    // gtag('event', 'audioMessage', {
+    //     'event_category': 'audioMessage',
+    //     'event_label': 'airfract ' + aircraft.name
+    // });
+    // $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
+    // $("#voiceMessageImg").attr('src', "icons/voiceMessage/dictation_glyph.png");
+    // $('#audioMessageText').html(audioMessage.text);
 
 
-    $('#audioSRC').on('playing', function () {
-        $('#audioMessagePlayPause').attr('src', 'icons/pause.svg')
-    });
-    $('#audioSRC').on('pause', function () {
-        $('#audioMessagePlayPause').attr('src', 'icons/play.svg')
-    });
+    // $('#audioSRC').on('playing', function () {
+    //     $('#audioMessagePlayPause').attr('src', 'icons/pause.svg')
+    // });
+    // $('#audioSRC').on('pause', function () {
+    //     $('#audioMessagePlayPause').attr('src', 'icons/play.svg')
+    // });
 
-    $('#audioSRC').on('ended', function () {
-        $('#audioSRC')[0].currentTime = 0
-    });
+    // $('#audioSRC').on('ended', function () {
+    //     $('#audioSRC')[0].currentTime = 0
+    // });
 
-    if (audioMessage.audioSrc) {
-        $("#audioSRC").attr("src", audioMessage.audioSrc);
-    }
-    else {
-        $("#audioSRC").attr("src", 'audio/efroni.mp3');
-    }
+    // if (audioMessage.audioSrc) {
+    //     $("#audioSRC").attr("src", audioMessage.audioSrc);
+    // }
+    // else {
+    //     $("#audioSRC").attr("src", 'audio/efroni.mp3');
+    // }
 }
 
 
