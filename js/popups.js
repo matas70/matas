@@ -321,7 +321,7 @@ function showBaseLoactionPopup(pointId) {
           }
 
           if (ac.name === "עפרוני") {
-            ac.name = " צוות אוירובטי (עפרוני)";
+            ac.name = "עפרוני (צוות אווירובטי)";
           }
           OpenBaseAircraftshtml += createTableRow(
             ac.aircraftId,
@@ -409,7 +409,7 @@ function showHistoryBaseLoactionPopup(pointId) {
   });
 
   $("#iconBase").hide();
-  $(".header-title p").text("נקודה היסטורית");
+  $(".header-title p").text("נקודת ציון");
   $("#waze-base-link").hide();
 
   let mapButton =
@@ -494,7 +494,7 @@ function showHistoryBaseLoactionPopup(pointId) {
           }
 
           if (ac.name === "עפרוני") {
-            ac.name = " צוות אוירובטי (עפרוני)";
+            ac.name = " עפרוני (צוות אווירובטי)";
           }
           OpenBaseAircraftshtml += createTableRow(
             ac.aircraftId,
@@ -613,7 +613,7 @@ function showLocationPopup(
         value.forEach((ac) => {
           var aircraftname = ac.name;
           if (aircraftname === "עפרוני") {
-            aircraftname = " צוות אוירובטי (עפרוני)";
+            aircraftname = " עפרוני (צוות אווירובטי)";
           }
           var date = undefined;
 
@@ -1427,7 +1427,7 @@ function expandLocation(pointId, isSearchBar = false) {
     } else {
       location.aircrafts.forEach(function (aircraft) {
         if (aircraft.name === "עפרוני") {
-          aircraft.name = " צוות אוירובטי (עפרוני)";
+          aircraft.name = " עפרוני (צוות אווירובטי)";
         }
         if (aircraft.name !== lastAircraft) {
           html += createTableRow(
