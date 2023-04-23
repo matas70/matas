@@ -194,6 +194,9 @@ function showBaseLoactionPopup(pointId) {
   const mapElement = document.getElementById(`map`);
   let airplaneShowsElement = document.getElementById("airplanes-show");
 
+  $("#base-subject").css("display", "none");
+  $("#baseContactWrapper").css("display", "none");
+
   if (fullWidth <= 600) {
     basePopUpElement.css({ borderRadius: "15px" });
     document.getElementById("open-base-card-theme").src =
@@ -370,6 +373,8 @@ function showHistoryBaseLoactionPopup(pointId) {
 
   $("#base-subject").css("display", "block");
   $("#base-subject").text(point.subject)
+  $("#baseContactWrapper").css("display", "flex");
+  $("#baseContactWrapper").text(point.pointContact)
 
   if (fullWidth <= 600) {
     basePopUpElement.css({ borderRadius: "15px" });
