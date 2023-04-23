@@ -724,15 +724,33 @@ function showLocationPopup(
   }
 
   // animate popup coming from bottom
-  locationPopup.height(0);
-  locationPopup.show();
-  locationPopup.animate(
-    {
-      height: targetHeight + "px",
-    },
-    "fast"
-  );
 
+  var isOpenBase = baseData.find(function (item) {
+    if (item.pointId === point.pointId)
+    return true;
+  });
+
+  var isHistoryBase = historyBaseData.find(function (item) {
+    if (item.pointId === point.pointId)
+    return true;
+  });
+
+  if (isOpenBase) {
+    showBaseLoactionPopup(point.pointId);
+  } if (isHistoryBase) {
+    showHistoryBaseLoactionPopup(point.pointId);
+  }else{
+    locationPopup.height(0);
+    locationPopup.show();
+
+    locationPopup.animate(
+      {
+        height: targetHeight + "px",
+      },
+      "fast"
+    );
+  }
+ 
   // // add touch events on the list to allow user expand or collapse it
   $("#aircraftListContainer").scrollTop(0);
 
