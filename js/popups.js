@@ -2066,7 +2066,16 @@ const countDownClock = (finalDate) => {
     }, second);
 };
 
-countDownClock("26 Apr 2023 9:00:00 GMT+3");
+const date = '26 Apr 2023';
+const startHour = '8:00';
+const timeZone = 'GMT+3';
+
+const startTime = [ date , startHour , timeZone ].join(' ');
+
+countDownClock(startTime);
+
+const startTimeElement = document.querySelector(".startHour");
+startTimeElement.innerText = startHour;
 
 //footer popup
 
@@ -2076,7 +2085,6 @@ function openUnitInfo() {
   popup.style.display = "flex";
 }
 
-countDownClock('26 Apr 2023 9:00:00 GMT+3');
 function closePopupFooter() {
   turnOffDimBackground();
   const popup = document.querySelector("#footerPopup");
