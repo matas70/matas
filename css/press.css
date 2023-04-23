@@ -79,13 +79,10 @@
 }
 
 #city-container {
-    /* overflow: hidden; */
     margin-top: 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 48px;
-    margin-right: 48px;
     max-width: 1200px;
 }
 
@@ -317,6 +314,13 @@
     box-sizing: border-box;
     max-width: 240px;
 }
+
+@media screen and (max-width: 720px) {
+    .city-table-list .city-table {
+        width: 100%;
+        max-width: 85%;
+    }
+  }
 
 .city-table-category {
     display: flex;
