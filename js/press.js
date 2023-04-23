@@ -1,7 +1,5 @@
 function initPressPage() {
-    if (compatibleDevice() && !checkIframe()) {
-        window.location.replace(window.location.href.substr(0, window.location.href.lastIndexOf('/')));
-    } else {
+    
         loadAircrafts((pAircrafts) => {
             aircrafts = pAircrafts; //.filter((aircraft) => aircraft.name !== 'כחל');
             loadRoutes((routes) => {
@@ -15,7 +13,7 @@ function initPressPage() {
                 });
             }, this);
         }, this);
-    }
+    
 }
 
 function isNotHidden (location) {
