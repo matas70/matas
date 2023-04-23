@@ -27,6 +27,8 @@ var loadedRoutes;
 var aircraftTypesInfo = {};
 var groundedAircrafts = new Set();
 var locations = [];
+var baseData = [];
+var historyBaseData = [];
 var aircraftMarkers = {};
 var aircraftPaths = {};
 var startDate;
@@ -124,7 +126,7 @@ function calcAzimuth(source, target) {
     return azimuth;
 }
 
-let baseData = [];
+// let baseData = [];
 
 function loadOpenBasesLocation(callback) {
     getEnv((env) => {
@@ -146,7 +148,7 @@ loadOpenBasesLocation();
 function createBaseCategory(point) {
     let base;
     baseData.forEach(element => {
-        if (element.baseName === point.pointName) {
+        if (element.pointId === point.pointId) {
             base = element
         }
     })
@@ -160,6 +162,39 @@ function createBaseCategory(point) {
                 </a>
             </div>`
 }
+
+
+//create history base category in navbar 
+//let historyBaseData = [];
+
+function loadHistoryBasesLocation(callback) {
+    getEnv((env) => {
+        $.getJSON(`${config.apiURL}/${env}/historyPoints.json?t=` + (new Date()).getTime(), function (baseLocations) {
+            baseLocations.forEach(element => {
+                historyBaseData.push(element)
+            });
+        });
+    });
+}
+
+loadHistoryBasesLocation();
+
+function createHistoryBasesCategory(point) {
+    let base;
+    historyBaseData.forEach(element => {
+        if (element.pointId === point.pointId) {
+            console.log(element)
+            base = element
+        }
+    })
+
+    if (base === undefined) return '';
+
+    return `<div class="base-category-container" onclick=showHistoryBaseLoactionPopup("${point.pointId}")>
+                <h2 class="header">${base.baseName}</h2>
+            </div>`
+}
+
 
 function getRelativeLocation(prevLocation, nextLocation, ratio) {
     var lng = prevLocation.lng + (nextLocation.lng - prevLocation.lng) * ratio;
@@ -1205,7 +1240,7 @@ function selectLocation(pointId, location, marker, markerIcon, markerIconClicked
     selectedLocationMarkerIcon = markerIcon;
     mapAPI.panTo(map, location);
 
-    if (locations[pointId].type === 'base') {
+    if (locations[pointId].type === 'base'){
         showBaseLoactionPopup(pointId)
     } else {
         showLocationPopup(locations[pointId], color, titleColor, subtitleColor, minimized, setMarkerOnDeselectLocation);
@@ -2180,24 +2215,20 @@ function fillMenu() {
 
     var currTime = getCurrentTime();
 
-    if (shouldShowTypeCategory("base")) {
-        // var airpalnesOnBasesCount = 0;
 
-        // add bases
-        /* locations.forEach(function (location) {
-             if (location.pointName.includes('בסיס')) {
-                 airpalnesOnBasesCount += location.aircrafts.length;
-             } 
-         }, this); */
+    locationsViewHtml += createCategoryRow({ category: "נקודות ציון" }, true);
+    sortedLocations
+        .forEach(function (location) {
+            locationsViewHtml += createHistoryBasesCategory(location);
+        }, this);
 
-        //if (airpalnesOnBasesCount > 0)
-        locationsViewHtml += createCategoryRow({ category: "בסיסים" }, true);
-        sortedLocations
-            .filter(location => location.type === 'base')
-            .forEach(function (location) {
-                locationsViewHtml += createBaseCategory(location);
-            }, this);
-    }
+    locationsViewHtml += createCategoryRow({ category: "בסיסים פתוחים" }, true);
+    sortedLocations
+        .filter(location => location.type === "base" || !location.hidden)
+        .forEach(function (location) {
+            locationsViewHtml += createBaseCategory(location);
+        }, this);
+
 
     if (shouldShowTypeCategory("hospital")) {
         // add view points
@@ -2331,7 +2362,7 @@ function initGenericPopups() {
     if (timeToNotifyOfek > 0) {
         setTimeout(() => {
             showGenericPopup("חג עצמאות שמח!",
-                ` אנשי יחידת אופק 324 מתרגשים לחגוג אתכם את יום העצמאות ה-74!`,
+                ` אנשי יחידת אופק 324 מתרגשים לחגוג אתכם את יום העצמאות ה-75!`,
                 "ofekIcon",
                 "https://bit.ly/2PQAoVY");
         }, timeToNotifyOfek);
@@ -2497,51 +2528,51 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 
 
 
-            if (haversineDistance(userLoc, currentLocation) < 3) {
-                if ($('#myModal:hidden') && $('#gottoVoiceMessagePopup')[0].style.display == "none") {
+            // if (haversineDistance(userLoc, currentLocation) < 3) {
+            //     if ($('#myModal:hidden') && $('#gottoVoiceMessagePopup')[0].style.display == "none") {
 
-                    //Checking weather audioMessages is not undifined    
-                    //and if audio message for aircraftType is available 
-                    var audioMessageAvailable = (audioMessages &&
-                        aircraft.aircraftTypeId in audioMessages &&
-                        audioMessages[aircraft.aircraftTypeId]["audioSrc"]);
+            //         //Checking weather audioMessages is not undifined    
+            //         //and if audio message for aircraftType is available 
+            //         var audioMessageAvailable = (audioMessages &&
+            //             aircraft.aircraftTypeId in audioMessages &&
+            //             audioMessages[aircraft.aircraftTypeId]["audioSrc"]);
 
-                    //Close popup sooner 
-                    var closePopupTime = audioMessageAvailable ? 60 : 30;
+            //         //Close popup sooner 
+            //         var closePopupTime = audioMessageAvailable ? 60 : 30;
 
-                    //Adding to array so the user won't get notifed twice  
-                    notifiedNearUser.push(aircraft.aircraftTypeId);
+            //         //Adding to array so the user won't get notifed twice  
+            //         notifiedNearUser.push(aircraft.aircraftTypeId);
 
-                    //Closing popup After closePopupCount seconds
-                    setTimeout(() => { $('#gottoVoiceMessagePopup').hide(); }, 1000 * closePopupTime);
+            //         //Closing popup After closePopupCount seconds
+            //         setTimeout(() => { $('#gottoVoiceMessagePopup').hide(); }, 1000 * closePopupTime);
 
-                    if (aircraft.icon) {
-                        $("#aircraftImg").attr("src", `icons/aircrafts/${aircraft.icon}.svg`);
-                    }
-                    else {
-                        $("#aircraftImg").attr("src", `icons/genericAircraft.svg`);
-                    }
-                    $("#gottoVoiceMessagePopup")[0].style.display = "block";
-                    //Change type and name if efroni to aerobatic team 
-                    if (aircraft.name === 'עפרוני') {
-                        $("#aircraftName").html(`הצוות האוירובטי - עפרוני`);
-                    }
-                    else {
-                        $("#aircraftName").html(`${aircraft.type} - ${aircraft.name}`);
-                    }
+            //         if (aircraft.icon) {
+            //             $("#aircraftImg").attr("src", `icons/aircrafts/${aircraft.icon}.svg`);
+            //         }
+            //         else {
+            //             $("#aircraftImg").attr("src", `icons/genericAircraft.svg`);
+            //         }
+            //         $("#gottoVoiceMessagePopup")[0].style.display = "block";
+            //         //Change type and name if efroni to aerobatic team 
+            //         if (aircraft.name === 'עפרוני') {
+            //             $("#aircraftName").html(`הצוות האוירובטי - עפרוני`);
+            //         }
+            //         else {
+            //             $("#aircraftName").html(`${aircraft.type} - ${aircraft.name}`);
+            //         }
 
-                    $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
+            //         $("#aircraftTime").html("יעבור מעלייך בקרוב 👏");
 
-                    if (audioMessageAvailable) {
-                        $("#hearTheMessage").show()
-                        notifyAudioMessage(aircraft)
-                    }
+            //         if (audioMessageAvailable) {
+            //             $("#hearTheMessage").show()
+            //             notifyAudioMessage(aircraft)
+            //         }
 
-                    else {
-                        $("#hearTheMessage").hide()
-                    }
-                }
-            }
+            //         else {
+            //             $("#hearTheMessage").hide()
+            //         }
+            //     }
+            // }
 
         }
     }
@@ -2551,33 +2582,33 @@ function getEventDescription(isAerobatics, locationName, minutes) {
 
 
 function notifyAudioMessage(aircraft) {
-    let audioMessage = audioMessages[aircraft.aircraftTypeId];
-    gtag('event', 'audioMessage', {
-        'event_category': 'audioMessage',
-        'event_label': 'airfract ' + aircraft.name
-    });
-    $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
-    $("#voiceMessageImg").attr('src', "icons/voiceMessage/dictation_glyph.png");
-    $('#audioMessageText').html(audioMessage.text);
+    // let audioMessage = audioMessages[aircraft.aircraftTypeId];
+    // gtag('event', 'audioMessage', {
+    //     'event_category': 'audioMessage',
+    //     'event_label': 'airfract ' + aircraft.name
+    // });
+    // $("#youHaveVoicemessage").html("יש לך הודעה קולית מהטייס!");
+    // $("#voiceMessageImg").attr('src', "icons/voiceMessage/dictation_glyph.png");
+    // $('#audioMessageText').html(audioMessage.text);
 
 
-    $('#audioSRC').on('playing', function () {
-        $('#audioMessagePlayPause').attr('src', 'icons/pause.svg')
-    });
-    $('#audioSRC').on('pause', function () {
-        $('#audioMessagePlayPause').attr('src', 'icons/play.svg')
-    });
+    // $('#audioSRC').on('playing', function () {
+    //     $('#audioMessagePlayPause').attr('src', 'icons/pause.svg')
+    // });
+    // $('#audioSRC').on('pause', function () {
+    //     $('#audioMessagePlayPause').attr('src', 'icons/play.svg')
+    // });
 
-    $('#audioSRC').on('ended', function () {
-        $('#audioSRC')[0].currentTime = 0
-    });
+    // $('#audioSRC').on('ended', function () {
+    //     $('#audioSRC')[0].currentTime = 0
+    // });
 
-    if (audioMessage.audioSrc) {
-        $("#audioSRC").attr("src", audioMessage.audioSrc);
-    }
-    else {
-        $("#audioSRC").attr("src", 'audio/efroni.mp3');
-    }
+    // if (audioMessage.audioSrc) {
+    //     $("#audioSRC").attr("src", audioMessage.audioSrc);
+    // }
+    // else {
+    //     $("#audioSRC").attr("src", 'audio/efroni.mp3');
+    // }
 }
 
 
