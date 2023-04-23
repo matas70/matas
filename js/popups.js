@@ -374,7 +374,7 @@ function showHistoryBaseLoactionPopup(pointId) {
   $("#base-subject").css("display", "block");
   $("#base-subject").text(point.subject)
   $("#baseContactWrapper").css("display", "flex");
-  $("#baseContactWrapper").text(point.pointContact)
+  $("#baseContact").text(point.pointContact)
 
   if (fullWidth <= 600) {
     basePopUpElement.css({ borderRadius: "15px" });
