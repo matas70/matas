@@ -1625,6 +1625,15 @@ br.baseData {
     margin: 0px;
 }
 
+.startHour {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 20px;
+    text-align: center;
+    color: #37474F;
+    margin: 0px;
+}
+
 .video-trailer-text {
     margin: 0px;
     font-weight: 400;
