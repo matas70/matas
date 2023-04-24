@@ -183,7 +183,6 @@ function createHistoryBasesCategory(point) {
     let base;
     historyBaseData.forEach(element => {
         if (element.pointId === point.pointId) {
-            // console.log(element)
             base = element
         }
     })
