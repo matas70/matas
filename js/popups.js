@@ -1767,64 +1767,64 @@ function closeMapClusterPopup(clearMap) {
 function closeAllPopups() {
   deselectLocation();
   deselectAircraft();
-  //closeVoiceMessagePopup();
+  closeVoiceMessagePopup();
   if (!isDesktop()) {
     closeMapClusterPopup(true);
   }
 }
 
 function closeGotoVoiceMessagePopup() {
-  // $("#gottoVoiceMessagePopup").hide();
+  $("#gottoVoiceMessagePopup").hide();
 }
 
 function showAudioMessagePopup() {
-  // $("#gottoVoiceMessagePopup").hide();
-  // $("#myModal").show();
-  // $("#myModal")[0].style.display = "flex";
-  // playAudioMessageAndTracker();
+  $("#gottoVoiceMessagePopup").hide();
+  $("#myModal").show();
+  $("#myModal")[0].style.display = "flex";
+  playAudioMessageAndTracker();
 }
 
 function closeVoiceMessagePopup() {
-  // $("#audioSRC")[0].pause();
-  // $("#audioSRC")[0].currentTime = 0;
-  // $("#myModal").hide();
-  // $("#gottoVoiceMessagePopup").hide();
+  $("#audioSRC")[0].pause();
+  $("#audioSRC")[0].currentTime = 0;
+  $("#myModal").hide();
+  $("#gottoVoiceMessagePopup").hide();
 }
 
 var audioPLay;
 function playAudioMessageAndTracker() {
-  // if ($("#audioSRC")[0].src !== "") {
-  //   $("#audioSRC")[0].play();
-  //   audioPLay = true;
-  // }
+  if ($("#audioSRC")[0].src !== "") {
+    $("#audioSRC")[0].play();
+    audioPLay = true;
+  }
 }
 
 function playBTN() {
-  // if ($("#audioSRC")[0].src !== "") {
-  //   if (audioPLay) {
-  //     audioPLay = false;
-  //     $("#audioSRC")[0].pause();
-  //   } else {
-  //     audioPLay = true;
-  //     $("#audioSRC")[0].play();
-  //   }
-  // }
+  if ($("#audioSRC")[0].src !== "") {
+    if (audioPLay) {
+      audioPLay = false;
+      $("#audioSRC")[0].pause();
+    } else {
+      audioPLay = true;
+      $("#audioSRC")[0].play();
+    }
+  }
 }
 
 function updateAudioMessageTime() {
-  // activeVoiceMessage = $("#audioSRC")[0];
-  // var currentSeconds =
-  //   (Math.floor(activeVoiceMessage.currentTime % 60) < 10 ? "0" : "") +
-  //   Math.floor(activeVoiceMessage.currentTime % 60);
-  // var currentMinutes = Math.floor(activeVoiceMessage.currentTime / 60);
+  activeVoiceMessage = $("#audioSRC")[0];
+  var currentSeconds =
+    (Math.floor(activeVoiceMessage.currentTime % 60) < 10 ? "0" : "") +
+    Math.floor(activeVoiceMessage.currentTime % 60);
+  var currentMinutes = Math.floor(activeVoiceMessage.currentTime / 60);
 
-  // $("#audioTime")[0].innerHTML = currentMinutes + ":" + currentSeconds;
+  $("#audioTime")[0].innerHTML = currentMinutes + ":" + currentSeconds;
 
-  // var percentageOfSong =
-  //   activeVoiceMessage.currentTime / activeVoiceMessage.duration;
-  // var percentageOfSlider = $("#audioTrack")[0].offsetWidth * percentageOfSong;
+  var percentageOfSong =
+    activeVoiceMessage.currentTime / activeVoiceMessage.duration;
+  var percentageOfSlider = $("#audioTrack")[0].offsetWidth * percentageOfSong;
 
-  // $("#trackerPoint")[0].style.left = Math.round(percentageOfSlider) + "px";
+  $("#trackerPoint")[0].style.left = Math.round(percentageOfSlider) + "px";
 }
 
 function isDesktop() {
@@ -1857,14 +1857,14 @@ function openVoiceMessegePopup() {
 }
 
 function closeVoiceMessegePopup() {
-  // turnOffSecondaryDim()
-  // voiceMessagePopup.style.display = "none";
+  turnOffSecondaryDim()
+  voiceMessagePopup.style.display = "none";
 
-  // voiceMessegeFile.pause();
-  // progressBar.value = 0;
-  // voiceMessegeFile.currentTime = 0;
-  // playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg', "play.svg");
-  // stopInterval = true;
+  voiceMessegeFile.pause();
+  progressBar.value = 0;
+  voiceMessegeFile.currentTime = 0;
+  playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg', "play.svg");
+  stopInterval = true;
 
 }
 
