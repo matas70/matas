@@ -4,9 +4,15 @@ const shareData = {
 };
 
 async function shareWebsiteLink()  {
-    if(navigator.userAgent.includes("Mac")){
+    
+    executeMacLinkShare();
+    try {
+        await navigator.share(shareData);
+      } catch (err) {}
+};
 
-
+function executeMacLinkShare(){
+    if(navigator.userAgent.includes("Mac") && !navigator.userAgent.includes("iPhone")){
         let macLink = document.querySelector('.macLinkShare');
         let shareButton = document.querySelector('.share-button');
         
@@ -24,9 +30,8 @@ async function shareWebsiteLink()  {
         setTimeout(() => {
         macLink.style.display = "none";
         }, 1000);
-        
     }
-    try {
-        await navigator.share(shareData);
-      } catch (err) {}
-};
+    else{
+        return;
+    }
+}
