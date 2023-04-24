@@ -45,6 +45,13 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
     <script>
 
+        if (!location.hash) {
+        location.hash = "#reloading";
+        location.reload(true);
+        } else {
+        location.hash = "#reloaded";
+        }
+        
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
@@ -209,7 +216,8 @@ overflow-y: auto;">
 
 
 
-
+   
+    
     <div id="wrapper">
 
 
@@ -224,8 +232,11 @@ overflow-y: auto;">
         <!-- explain ios user how to use usdz  -->
         <div id="dim-background"></div>
         <div id="dim" class="dim" style="display: none"></div>
+
         <div id="usdz-info-popup">
             <div id="usdz-block">
+                <div class="icon-wrapper-usdz"> <img class="remove-icon" src='icons/Close.svg' alt="remove-icon"
+                    onclick="closePopupUsdz()" /></div>
                 <p class="title">מיד תועברו לעמוד חדש</p>
                 <p class="explain">לחצו על המטוס כדי לצפות בו במציאות רבודה</p>
                 <img id="usdz-info-popoup-img" src="./images/usdz-inpo-popup-imge.png" alt="ios-tutorial">
@@ -240,6 +251,9 @@ overflow-y: auto;">
 
         </div>
 
+        <div class="macLinkShare">
+            <p>הקישור הועתק</p>
+        </div>
 
         <!-- location popup -->
 
@@ -445,16 +459,16 @@ overflow-y: auto;">
                 <img class="big-logo-air-force" src="icons/logo-75/Big Logo.svg" alt="75-image">
                 <p class="bold-text">חג עצמאות שמח!</p>
                 <p class="info-text">האפליקציה פותחה ע"י
-                    <a href="https://ofek-324.webflow.io/"><b class="bold-info" style="text-decoration: underline"> יחידת אופק 324,</b></a>
+                    <a href="https://ofek-324.webflow.io/"><b class="bold-info" style="text-decoration: underline; color: #4783a1;"> יחידת אופק 324,</b></a>
                     היחידה הטכנולוגית המבצעית של חיל האוויר, לטובת הצגת מיקום כלי הטיס בזמן אמת, במהלך המטס החגיגי של
                     יום העצמאות, לכבוד חגיגות 75 שנה למדינת ישראל.
                 </p>
                 <p class="small-text">לידיעתכם, לוח הזמנים הינו משוער בלבד
                 </p>
                 <div class="images-container">
-                    <img class="image-footer-popup" src="icons/footer-popup/ofekLogo.svg" alt="ofek-logo">
+                    <a href="https://ofek-324.webflow.io/"><img class="image-footer-popup" src="icons/footer-popup/ofekLogo.svg" alt="ofek-logo"></a>
                     <img class="air-force-logo-seventy-five" src="icons/footer-popup/75.png" alt="75-air-force-logo">
-                    <img class="air-force-logo" src="icons/footer-popup/airForceLogo.png" alt="air-force-logo">
+                    <a href="https://iaf.org.il/"><img class="air-force-logo" src="icons/footer-popup/airForceLogo.png" alt="air-force-logo"></a>
                 </div>
             </div>
             <div class="footer-wrapper">
@@ -473,7 +487,7 @@ overflow-y: auto;">
 
     <div class="subheader">
         <!-- goto voiceMessage popup-->
-        <!-- <div id="gottoVoiceMessagePopup" class="gotoVoiceMessagePopup"
+        <div id="gottoVoiceMessagePopup" class="gotoVoiceMessagePopup"
             style="display:none; top:0;height: 98px; position: absolute; width: 100%;">
             <div id="aircraftDetatilsContainer" style="background-color: white; height: 70%;display: flex;">
                 <img id="aircraftImg" src="" alt="" style="margin: 7px; object-fit: contain;" />
@@ -495,7 +509,7 @@ overflow-y: auto;">
                 <img id="closeGotoVoiceMessagePopupBTN" src="icons/voiceMessage/group.png"
                     onclick="closeGotoVoiceMessagePopup()" />
             </div>
-        </div> -->
+        </div>
 
         <!-- shows popup -->
         <div id="basePopup" class="infoBasePopup" style="display: none">
@@ -860,7 +874,7 @@ overflow-y: auto;">
     </div>
 
     <div id="myModal" class="modal" style="display: none;">
-        <div class="modal-content">
+        <div class="modal-content" id="modalContent">
             <div class="messagePart">
                 <img class="close" onclick="closeVoiceMessagePopup()" src="icons/voiceMessage/page_1.png" />
                 <img class="audioImg" src="icons/voiceMessage/pilot-animated.gif" />
@@ -912,7 +926,7 @@ overflow-y: auto;">
                 <button class='exit button'></button>
             </div>
 
-            <button class='share' id='sharebutton'></button>
+            <button class='share' id='sharebutton' onclick="executeMacLinkShare(this)"></button>
         </div>
         <div id="confetti"></div>
 

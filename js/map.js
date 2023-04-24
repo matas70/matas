@@ -123,7 +123,7 @@ googleMaps = {
      * Sets the map's focus on the given location and zooms in on it
      * @param location
      */
-    focusOnLocation: (location, zoom = 12) => {
+    focusOnLocation: (location, zoom = 10) => {
         map.setCenter(location);
         map.setZoom(zoom);
     },
@@ -438,7 +438,7 @@ googleMaps = {
     createMapObject: (clickCallback) => {
         map = new google.maps.Map(document.getElementById('map'),
             {
-                mapId: '6571b907d96d29e6',
+                mapId: '3bdc26e42e65963d',
                 center: {lat: 31.20, lng: 34.97},
                 zoom: ($(window).height() > 950) ? 8 : 7,
                 minZoom: 7,

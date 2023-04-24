@@ -285,3 +285,23 @@ input:checked+.slider:before {
     }
 
 }
+
+.macLinkShare{
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000000;
+    display: none;
+}
+
+.macLinkShare p {
+    background-color: hsla(0, 1%, 74%, 0.7);
+    color:rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 6px;
+    font-size: 13px;
+    
+}
