@@ -2111,4 +2111,3 @@ function openFeedback() {
   window.open('https://docs.google.com/forms/d/1pS9lswPQOu7hibzyHOvZrv0wRlyiUrVbEqteUuUIcZc/edit');
   closePopupFooter();
 }
-
