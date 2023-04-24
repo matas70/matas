@@ -136,7 +136,7 @@ function createBaseTable(base) {
 
     let startTime = base.aircrafts[0].time.slice(0,5);
     let endTime = base.aircrafts[base.aircrafts.length - 1].time.slice(0,5);
-    
+
     return `<div class="base-table">
                 <div id="location-${base.pointId}" class="base-card">
                     ${createBaseTableTitle(base.pointName, `${endTime} - ${startTime}`, false)}
@@ -267,7 +267,7 @@ function createTableCategory(categoryName, categoryAircrafts, type) {
                             <p class="time">${aircraft.time.slice(0, -3)}</p>
                             
                         </div>`;
-            aircraftShown[aircraft.name] = true;
+            // aircraftShown[aircraft.name] = true;
         }
     });
     return `<div class="${type}-table-category">${flightCategoryTitle}<div class="${type}-category-icons">${flightCategoryIcons}</div></div>`;
