@@ -1954,9 +1954,17 @@ function turnOffDimBackground() {
   dimBackground.style.display = "none";
 }
 
+function closePopupUsdz(){
+  turnOffDimBackground();
+  const popup = document.querySelector("#usdz-info-popup");
+  popup.style.display = "none";
+}
+
 //click outside listener to popups: entrance and footer
 
 const dimBackground = document.getElementById("dim-background");
+
+const usdzPopupElement = document.querySelector("#usdz-info-popup");
 
 const footerPopupElement = document.querySelector("#footerPopup");
 
@@ -1967,6 +1975,7 @@ $("#entrancePopup").css("transform", `translate(-${(window.innerWidth - $("#entr
 $("#footerPopup").css("transform", `translate(-${(window.innerWidth - $("#footerPopup").width()) / 2}px, ${(window.innerHeight - $("#footerPopup").height()) / 2}px)`);
 
 window.onclick = function (event) {
+  console.log(event.target === dimBackground);
   if (
     event.target === dimBackground &&
     $("#entrancePopup").css("display") === "flex"
@@ -1979,6 +1988,13 @@ window.onclick = function (event) {
     $("#footerPopup").css("display") === "flex"
   ) {
     footerPopupElement.style.display = "none";
+    turnOffDimBackground();
+  }
+  if (
+    event.target === dimBackground &&
+    $("#usdz-info-popup").css("display") === "block"
+  ) {
+    usdzPopupElement.style.display = "none";
     turnOffDimBackground();
   }
 };
