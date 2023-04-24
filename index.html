@@ -45,6 +45,13 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-98360124-1"></script>
     <script>
 
+        if (!location.hash) {
+        location.hash = "#reloading";
+        location.reload(true);
+        } else {
+        location.hash = "#reloaded";
+        }
+        
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
