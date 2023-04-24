@@ -1975,7 +1975,6 @@ $("#entrancePopup").css("transform", `translate(-${(window.innerWidth - $("#entr
 $("#footerPopup").css("transform", `translate(-${(window.innerWidth - $("#footerPopup").width()) / 2}px, ${(window.innerHeight - $("#footerPopup").height()) / 2}px)`);
 
 window.onclick = function (event) {
-  console.log(event.target === dimBackground);
   if (
     event.target === dimBackground &&
     $("#entrancePopup").css("display") === "flex"
