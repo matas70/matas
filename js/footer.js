@@ -5,20 +5,20 @@ const shareData = {
 
 async function shareWebsiteLink()  {
     
-    executeMacLinkShare();
+    executeMacLinkShare(document.querySelector('.share-button'));
+
     try {
         await navigator.share(shareData);
       } catch (err) {}
 };
 
-function executeMacLinkShare(){
+function executeMacLinkShare(element){
     if(navigator.userAgent.includes("Mac") && !navigator.userAgent.includes("iPhone")){
+
         let macLink = document.querySelector('.macLinkShare');
-        let shareButton = document.querySelector('.share-button');
         
-        
-        macLink.style.top = shareButton.getBoundingClientRect().top + 'px';
-        macLink.style.left = shareButton.getBoundingClientRect().left +  20 + 'px';
+        macLink.style.top = element.getBoundingClientRect().top + 'px';
+        macLink.style.left = element.getBoundingClientRect().left +  20 + 'px';
         
         
         macLink.style.left = parseInt(macLink.style.left.slice(0,macLink.style.left.indexOf('px'))) + 90 + 'px';
