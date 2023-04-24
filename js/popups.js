@@ -1846,7 +1846,7 @@ function openVoiceMessegePopup() {
 
   document.querySelector(".airplane-name").innerText = document.querySelector("#aircraftInfoName").innerText;
   document.querySelector(".airplane-type").innerText = document.querySelector("#aircraftInfoType").innerText;
-  document.querySelector(".airplane-icon").src = document.querySelector("#aircraftInfoIcon").src;
+//   document.querySelector(".airplane-icon").src = document.querySelector("#aircraftInfoIcon").src;
   document.querySelector(".audio-text").innerText = document.querySelector("#aircraftInfoContentDescription").innerText;
 
 
