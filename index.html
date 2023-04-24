@@ -216,7 +216,8 @@ overflow-y: auto;">
 
 
 
-
+   
+    
     <div id="wrapper">
 
 
@@ -231,8 +232,11 @@ overflow-y: auto;">
         <!-- explain ios user how to use usdz  -->
         <div id="dim-background"></div>
         <div id="dim" class="dim" style="display: none"></div>
+
         <div id="usdz-info-popup">
             <div id="usdz-block">
+                <div class="icon-wrapper-usdz"> <img class="remove-icon" src='icons/Close.svg' alt="remove-icon"
+                    onclick="closePopupUsdz()" /></div>
                 <p class="title">מיד תועברו לעמוד חדש</p>
                 <p class="explain">לחצו על המטוס כדי לצפות בו במציאות רבודה</p>
                 <img id="usdz-info-popoup-img" src="./images/usdz-inpo-popup-imge.png" alt="ios-tutorial">
@@ -247,6 +251,9 @@ overflow-y: auto;">
 
         </div>
 
+        <div class="macLinkShare">
+            <p>הקישור הועתק</p>
+        </div>
 
         <!-- location popup -->
 
@@ -919,7 +926,7 @@ overflow-y: auto;">
                 <button class='exit button'></button>
             </div>
 
-            <button class='share' id='sharebutton'></button>
+            <button class='share' id='sharebutton' onclick="executeMacLinkShare(this)"></button>
         </div>
         <div id="confetti"></div>
 

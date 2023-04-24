@@ -762,7 +762,7 @@ div.infoPopup {
 
 #usdz-block {
     width: 270px;
-    height: 383px;
+    height: 390px;
     background-color: #3BB5F2;
     background: #FFFFFF;
     border: 1px solid #EFF1F1;
@@ -786,7 +786,17 @@ div.infoPopup {
     margin-top: -8px;
 }
 
+.icon-wrapper-usdz{
+    width: 100%;
+    height: 17px;
+    padding: 0px 18px;
+    margin: 18px 0px 0px 0px;
+    direction: ltr;
+    box-sizing: border-box;
+}
+
 #usdz-block .title {
+    margin: 0px 0px 10px 0px;
     font-family: Heebo-Bold;
     font-size: 17px;
     color: #37474F;
@@ -798,7 +808,7 @@ div.infoPopup {
 
 #popup-bottom {
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 18px;
     width: 100%;
     display: flex;
     flex-direction: row-reverse;
