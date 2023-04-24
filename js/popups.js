@@ -1993,7 +1993,7 @@ const dimBackground = document.getElementById("dim-background");
 
 const usdzPopupElement = document.querySelector("#usdz-info-popup");
 
-const myModalElement = document.querySelector("#myModal");
+const myModalBackgroundElement = document.querySelector("#myModal");
 
 const modalContentElement = document.querySelector("#modalContent");
 
@@ -2028,10 +2028,10 @@ window.onclick = function (event) {
     turnOffDimBackground();
   }
   if (
-    event.target === myModalElement && event.target != modalContentElement &&
+    event.target === myModalBackgroundElement && event.target != modalContentElement &&
     $("#myModal").css("display") === "flex"
   ) {
-    myModalElement.style.display = "none";
+    myModalBackgroundElement.style.display = "none";
   }
 };
 
