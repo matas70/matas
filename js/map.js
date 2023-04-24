@@ -259,7 +259,7 @@ googleMaps = {
         for (var i = 0; i < route.points.length; i++) {
             path[i] = convertLocation(route.points[i].N, route.points[i].E);
         }
-        console.log(route.color.split("")[route.color.split("").length - 1], route.color.split("")[route.color.split("").length - 2])
+
         if (!(route.color.split("")[route.color.split("").length - 1] === "0" && route.color.split("")[route.color.split("").length - 2] === "0")) {
             // add lines as data layer
             var data = new google.maps.Data.LineString(path);
