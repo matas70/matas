@@ -727,19 +727,19 @@ function showLocationPopup(
 
   var isOpenBase = baseData.find(function (item) {
     if (item.pointId === point.pointId)
-    return true;
+      return true;
   });
 
   var isHistoryBase = historyBaseData.find(function (item) {
     if (item.pointId === point.pointId)
-    return true;
+      return true;
   });
 
   if (isOpenBase) {
     showBaseLoactionPopup(point.pointId);
   } if (isHistoryBase) {
     showHistoryBaseLoactionPopup(point.pointId);
-  }else{
+  } else {
     locationPopup.height(0);
     locationPopup.show();
 
@@ -750,7 +750,7 @@ function showLocationPopup(
       "fast"
     );
   }
- 
+
   // // add touch events on the list to allow user expand or collapse it
   $("#aircraftListContainer").scrollTop(0);
 
@@ -853,11 +853,10 @@ function fillAircraftSchedule(aircraft, showAllPoints = false) {
       [].concat.apply(
         [],
         aircrafts
-          .filter(
-            (otherAircraft) =>
-              otherAircraft.aircraftTypeId === aircraft.aircraftTypeId
-          )
-          .map((relevantAircraft) => relevantAircraft.path)
+          .map((relevantAircraft) => {
+            if (otherAircraft.aircraftTypeId === aircraft.aircraftTypeId)
+              return relevantAircraft.path
+          })
       )
     ).sort((point1, point2) =>
       locations[point1.pointId].pointName.localeCompare(
@@ -2070,7 +2069,7 @@ const date = '26 Apr 2023';
 const startHour = '8:00';
 const timeZone = 'GMT+3';
 
-const startTime = [ date , startHour , timeZone ].join(' ');
+const startTime = [date, startHour, timeZone].join(' ');
 
 countDownClock(startTime);
 

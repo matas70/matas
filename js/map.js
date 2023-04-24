@@ -25,7 +25,7 @@ googleMaps = {
         }
     },
 
-    setMarkerIcon : (marker, icon) => {
+    setMarkerIcon: (marker, icon) => {
         marker.setIcon(icon);
     },
 
@@ -142,7 +142,7 @@ googleMaps = {
         var markerHtml = /*html*/`
             <div class="locationMarkerDivGmaps">
                 <div class="locationIconContainer">
-                    <img class="locationMarkerIcon" src="${iconUrl}" ${(point.type==='base'?'style: z-index:9999999;': '')}>
+                    <img class="locationMarkerIcon" src="${iconUrl}" ${(point.type === 'base' ? 'style: z-index:9999999;' : '')}>
                 </div>
                 <span class="locationMarkerLabel">${label}</span>
             </div>
@@ -215,7 +215,7 @@ googleMaps = {
                 }
             } else return [];
         });
-        return {aircrafts: aircraftsInCircle, locations: locationsInCircle};
+        return { aircrafts: aircraftsInCircle, locations: locationsInCircle };
     },
 
     getMarkerIconUrl: (color, clicked, aerobatic, label, point) => {
@@ -227,7 +227,7 @@ googleMaps = {
         if (!clicked) {
             if (point.pointName.includes('מוזיאון') || (point.pointName.includes('בסיס') && !point.pointName.includes('חצור'))) {
                 iconUrl = "icons/OpenBaseMap.svg";
-            } else if(point && point.options && point.options.liveStream) {
+            } else if (point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
                 iconUrl = "icons/lookout.svg";
@@ -239,10 +239,10 @@ googleMaps = {
         } else {
             if (point.pointName.includes('מוזיאון') || (point.pointName.includes('בסיס') && !point.pointName.includes('חצור'))) {
                 iconUrl = "icons/OpenBaseMap.svg";
-            } else if(point && point.options && point.options.liveStream) {
+            } else if (point && point.options && point.options.liveStream) {
                 iconUrl = "icons/live-stream-point.svg";
             } else if (point && point.type === "hospital") {
-               // iconUrl = "icons/hospital-clicked.svg";
+                // iconUrl = "icons/hospital-clicked.svg";
             } else if (aerobatic) {
                 iconUrl = "icons/show-" + color + ".svg";
             } else {
@@ -259,24 +259,25 @@ googleMaps = {
         for (var i = 0; i < route.points.length; i++) {
             path[i] = convertLocation(route.points[i].N, route.points[i].E);
         }
+        console.log(route.color.split("")[route.color.split("").length - 1], route.color.split("")[route.color.split("").length - 2])
+        if (!(route.color.split("")[route.color.split("").length - 1] === "0" && route.color.split("")[route.color.split("").length - 2] === "0")) {
+            // add lines as data layer
+            var data = new google.maps.Data.LineString(path);
+            var dropShadowFeature = new google.maps.Data.Feature();
+            dropShadowFeature.setGeometry(data);
+            dropShadowFeature.setProperty("type", "dropShadow");
+            dropShadowFeature.setProperty("visibile", route.visible);
 
-        // add lines as data layer
-        var data = new google.maps.Data.LineString(path);
-        var dropShadowFeature = new google.maps.Data.Feature();
-        dropShadowFeature.setGeometry(data);
-        dropShadowFeature.setProperty("type", "dropShadow");
-        dropShadowFeature.setProperty("visibile", route.visible);
+            var pathFeature = new google.maps.Data.Feature();
+            pathFeature.setGeometry(data);
+            pathFeature.setProperty("zIndex", route.routeId);
+            pathFeature.setProperty("color", "#" + route.color.toLowerCase());
+            pathFeature.setProperty("type", "path");
+            pathFeature.setProperty("visibile", route.visible);
 
-        var pathFeature = new google.maps.Data.Feature();
-        pathFeature.setGeometry(data);
-        pathFeature.setProperty("zIndex", route.routeId);
-        pathFeature.setProperty("color", "#" + route.color.toLowerCase());
-        pathFeature.setProperty("type", "path");
-        pathFeature.setProperty("visibile", route.visible);
-
-        map.data.add(dropShadowFeature);
-        
-        if(window.location.href.indexOf('no-lines') === -1)
+            map.data.add(dropShadowFeature);
+        }
+        if (window.location.href.indexOf('no-lines') === -1)
             map.data.add(pathFeature);
 
         var allMarkers = [];
@@ -284,7 +285,6 @@ googleMaps = {
 
         // create the points marker
         route.points.forEach((point) => {
-            console.log(point)
             if (!point.hidden && !renderedPoints.includes(point.pointId)) {
                 renderedPoints.push(point.pointId)
                 var markerIcon;
@@ -315,11 +315,11 @@ googleMaps = {
                                 deselectLocation(() => {
                                     // then show a new popup
 
-                                        selectLocation(point.pointId, location, marker, markerHtml, markerHtmlClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
-                                    })
-                                } else {
-                                    // then show a new popup
                                     selectLocation(point.pointId, location, marker, markerHtml, markerHtmlClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
+                                })
+                            } else {
+                                // then show a new popup
+                                selectLocation(point.pointId, location, marker, markerHtml, markerHtmlClicked, "#" + route.color.toLowerCase(), "#" + route.primaryTextColor, "#" + route.secondaryTextColor);
                             }
                         }
                     } else {
@@ -439,7 +439,7 @@ googleMaps = {
         map = new google.maps.Map(document.getElementById('map'),
             {
                 mapId: '6571b907d96d29e6',
-                center: {lat: 31.20, lng: 34.97},
+                center: { lat: 31.20, lng: 34.97 },
                 zoom: ($(window).height() > 950) ? 8 : 7,
                 minZoom: 7,
                 gestureHandling: 'greedy',
@@ -449,7 +449,7 @@ googleMaps = {
                         featureType: "poi",
                         elementType: "labels",
                         stylers: [
-                              { visibility: "off" }
+                            { visibility: "off" }
                         ]
                     }
                 ]
@@ -499,5 +499,5 @@ googleMaps = {
     getMarkerIconToSet: (marker) => {
         return marker.html;
     },
-    circleClassName:  "",
+    circleClassName: "",
 };
