@@ -1274,7 +1274,7 @@ const cur_user_agent = new UAParser();
 cur_user_agent.setUA(navigator.userAgent);
 
 function openAR(aircraft) {
-    if (!isIOS()) {
+    if (isIOS()) {
 
         gtag('event', 'showAircraftIOS', {
             'event_category': 'showAircraftIOS',
