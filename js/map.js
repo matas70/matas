@@ -284,7 +284,7 @@ googleMaps = {
 
         // create the points marker
         route.points.forEach((point) => {
-            console.log(point)
+            // console.log(point)
             if (!point.hidden && !renderedPoints.includes(point.pointId)) {
                 renderedPoints.push(point.pointId)
                 var markerIcon;

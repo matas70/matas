@@ -3,6 +3,14 @@ var locationPopupCloseCallback = null;
 var minimizedLocationPopupHeight = 100;
 var locationPopupHeight = 200;
 
+
+let voiceMessegesJsonData;
+
+fetch('../data/audio-messages.json')
+.then((response) => response.json())
+.then((json) => voiceMessegesJsonData = json);
+
+
 function initPopups() {
   $("#locationPopup").hide();
   $("#aircraftInfoPopup").hide();
@@ -958,6 +966,23 @@ function showAircraftInfoPopup(aircraft, collapse) {
     { name: "שרף", id: "77mbzmecJdc" },
   ];
   //find matching youtube video for each airplane
+
+  let voiceMessegeButton = document.querySelector('.listen-to-voice-messege-button');
+  voiceMessegeButton.style.display = "none";
+
+  for (const point in voiceMessegesJsonData) {
+    if(voiceMessegesJsonData[point].name == document.querySelector('#aircraftInfoName').innerText){
+        setTimeout(() => {
+            voiceMessegeButton.style.display = "flex";
+        }, 600);
+    }
+  }
+
+//   if(voiceMessegesJsonData.includes()){
+//     console.log("lol")
+//   }
+
+
   let airplaneVideo = document.querySelector('#aircraftInfoVideo');
   let airplaneVideoName = document.querySelector('#aircraftInfoName').innerText;
   const currAircraft = aircraftsVideoId.find(aircraft => aircraft.name === airplaneVideoName);
@@ -1842,12 +1867,12 @@ function turnOffSecondaryDim() {
 //voice-messege-popup
 const voiceMessagePopup = document.querySelector("#voiceMessegePopup");
 
+
 function openVoiceMessegePopup() {
 
-  document.querySelector(".airplane-name").innerText = document.querySelector("#aircraftInfoName").innerText;
-  document.querySelector(".airplane-type").innerText = document.querySelector("#aircraftInfoType").innerText;
-//   document.querySelector(".airplane-icon").src = document.querySelector("#aircraftInfoIcon").src;
-  document.querySelector(".audio-text").innerText = document.querySelector("#aircraftInfoContentDescription").innerText;
+    document.querySelector(".airplane-name").innerText = document.querySelector("#aircraftInfoName").innerText;
+    document.querySelector(".airplane-type").innerText = document.querySelector("#aircraftInfoType").innerText;
+//   document.querySelector(".audio-text").innerText = ;
 
 
   turnOnSecondaryDim()

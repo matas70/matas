@@ -2,7 +2,7 @@
     position: absolute;
     z-index: 1000000;
     width: 295px;
-    height: 415px;
+    height: fit-content;
     background-color: #FFFFFF;
     left: 50%;
     top: 50%;
@@ -12,6 +12,8 @@
     align-items: center;
     justify-content: center;
     display: flex;
+    padding-top: 20px;
+    padding-bottom: 10px;
 
     animation-name: fading;
     animation-duration: 0.6s;
@@ -87,9 +89,7 @@
     display: flex;
     align-items: center;
     padding-right: 5px;
-
 }
-
 
 .audio-progress-section {
     width: 255px;
@@ -126,7 +126,6 @@
 .text-section {
     width: 255px;
     height: 242px;
-    overflow: hidden;
     overflow: scroll;
 }
 
