@@ -16,6 +16,7 @@
 }
 
 #map {
+    height: calc(100% - 28px); 
     position: absolute;
     top: 0px;
     /* Header Height */
@@ -31,7 +32,7 @@
     box-sizing: border-box;
     width: 100%;
     height: 28px;
-    background: rgba(255, 255, 255, 0.9);
+    background: white;
     /* Making the footer stick to the bottom of it's position */
     bottom: 0;
     /* Adjusting the content placement inside the footer */
@@ -40,14 +41,15 @@
     /* Adding flex-box properties */
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 /* If the broswer supprorts backdrop-filter or -webkit-backdrop-filter (this property may not be fully supported) */
 @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
     .footer {
-        background-color: rgba(255, 255, 255, 0.4);
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(2px);
+        background-color: white ;
+        /* backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px); */
     }
 }
 
@@ -390,7 +392,7 @@ div.splash {
     display: block;
     z-index: 99;
     position: absolute;
-    bottom: 16px;
+    bottom: 44px;
     left: 16px;
 
     padding: 17px;
@@ -2401,17 +2403,19 @@ hr.aircraftLineSeparator.two {}
     #map {
         width: calc(100% - 400px);
         left: 0;
+        height: calc(100% - 28px); 
     }
 
     .footer {
-        width: 248px;
+        width: calc(100% - 400px);
         height: 28px;
         padding: 0px 8px;
         /* Adding flex-box properties */
         gap: 8px;
         border-radius: 8px 0px 0px 0px;
         right: 400px;
-
+        background-color: white;
+        justify-content: flex-start;
     }
 
     #headerIconContainer {
