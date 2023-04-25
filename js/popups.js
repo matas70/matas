@@ -375,14 +375,17 @@ function showHistoryBaseLoactionPopup(pointId) {
 
     document.querySelector(".airplane-name").innerText = voiceMessegesJsonData[pointId].name;
     document.querySelector(".airplane-type").innerText = "";
-
+    
+    
     voiceMessegeFile.src = voiceMessegesJsonData[pointId].audioSrc;
     voiceMessegeFile.load();
+    
 
     setTimeout(() => {
     document.querySelector('#listen-to-voice-messege-button').style.position = 'fixed';
         
-    }, 400);
+    }, 300);
+
   openBasePopupStatus = "minimized";
   onCloseOpenBasePopup();
   deselectLocation();
