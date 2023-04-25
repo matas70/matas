@@ -16,11 +16,9 @@ fetch('../data/audio-messages.json')
         VoiceMessegesTrack.push({name: voiceMessegesJsonData[point].name, audio: new Audio(voiceMessegesJsonData[point].audioSrc )});
     }
 });
+
+
 let voiceMessegeFile = new Audio('audio/ilan.mp3');
-
-
-
-
 
 
 function initPopups() {
@@ -374,7 +372,7 @@ function showHistoryBaseLoactionPopup(pointId) {
     document.querySelector(".airplane-name").innerText = voiceMessegesJsonData[pointId].name;
     document.querySelector(".airplane-type").innerText = "";
 
-    changeTrack(VoiceMessegesTrack[1].audio);
+    changeTrack(voiceMessegesJsonData[pointId].audioSrc);
 
 //   voiceMessegeFile = new Audio();
 //   voiceMessegeFile.load();
@@ -996,7 +994,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     if(voiceMessegesJsonData[point].name == document.querySelector('#aircraftInfoName').innerText){
         setTimeout(() => {
             voiceMessegeButton.style.display = "flex";
-            voiceMessegeFile = new Audio(voiceMessegesJsonData[point].audioSrc);
+            // voiceMessegeFile = new Audio(voiceMessegesJsonData[point].audioSrc);
             voiceMessegeFile.load();
         }, 600);
         
@@ -1931,17 +1929,19 @@ let stopInterval = false;
 
 async function changeTrack(audio){
     
-    voiceMessegeFile = audio;
-    // progressBar.max = 12;
-    console.log(voiceMessegeFile.duration)
-    // progressBar.value = voiceMessegeFile.currentTime;
+    // voiceMessegeFile;
+    voiceMessegeFile.src = audio;
     voiceMessegeFile.load();
+    // progressBar.max = 12;
+    // console.log(voiceMessegeFile.duration)
+    // progressBar.value = voiceMessegeFile.currentTime;
 
 }
 
 voiceMessegeFile.onloadedmetadata = () => {
     progressBar.value = 0;
-  progressBar.max = voiceMessegeFile.duration;
+    progressBar.max = voiceMessegeFile.duration;
+    // console.log('dd')
 //   progressBar.value = voiceMessegeFile.currentTime;
   stopInterval = false;
 
@@ -1979,7 +1979,7 @@ function displayTimeLeft() {
 //actions functions 
 
 voiceMessegeFile.addEventListener('play', async () => {
-
+    console.log('play')
   return await new Promise(
     setInterval(function () {
 
