@@ -124,34 +124,34 @@ function initPopups() {
     event.preventDefault();
   });
 
-  openBasePopupHeader.on("tapend", function (event) {
-    minimizedPopupHeight =
-      $(window).height() -
-      $("#header-base-popup").height() -
-      $("#base-passage").height() * 0.75;
-    relativePercentage = (finalTouchY / fullWindowHeight) * 100;
-    if (
-      relativePercentage <= (openBasePopupStatus === "full-sized" ? 15 : 45)
-    ) {
-      openBasePopupStatus = "full-sized";
-      openBasePopup.animate(
-        { top: headerElementHeight + "px", borderRadius: "0px" },
-        "fast"
-      );
-    } else if (
-      relativePercentage > (openBasePopupStatus === "full-sized" ? 15 : 45) &&
-      relativePercentage < (openBasePopupStatus === "full-sized" ? 85 : 70)
-    ) {
-      openBasePopup.animate(
-        { top: minimizedPopupHeight + "px", borderRadius: "15px" },
-        "fast"
-      );
-      openBasePopupStatus = "minimized";
-    } else {
-      openBasePopup.animate({ top: fullWindowHeight + "px" }, "fast");
-      openBasePopupStatus = "closed";
-    }
-  });
+//   openBasePopupHeader.on("tapend", function (event) {
+//     minimizedPopupHeight =
+//       $(window).height() -
+//       $("#header-base-popup").height() -
+//       $("#base-passage").height() * 0.75;
+//     relativePercentage = (finalTouchY / fullWindowHeight) * 100;
+//     if (
+//       relativePercentage <= (openBasePopupStatus === "full-sized" ? 15 : 45)
+//     ) {
+//       openBasePopupStatus = "full-sized";
+//       openBasePopup.animate(
+//         { top: headerElementHeight + "px", borderRadius: "0px" },
+//         "fast"
+//       );
+//     } else if (
+//       relativePercentage > (openBasePopupStatus === "full-sized" ? 15 : 45) &&
+//       relativePercentage < (openBasePopupStatus === "full-sized" ? 85 : 70)
+//     ) {
+//       openBasePopup.animate(
+//         { top: minimizedPopupHeight + "px", borderRadius: "15px" },
+//         "fast"
+//       );
+//       openBasePopupStatus = "minimized";
+//     } else {
+//       openBasePopup.animate({ top: fullWindowHeight + "px" }, "fast");
+//       openBasePopupStatus = "closed";
+//     }
+//   });
 
   let closeButton = $("#close-button-open-base");
 
