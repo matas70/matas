@@ -375,6 +375,8 @@ function showHistoryBaseLoactionPopup(pointId) {
 
     document.querySelector(".airplane-name").innerText = voiceMessegesJsonData[pointId].name;
     document.querySelector(".airplane-type").innerText = "";
+    document.querySelector(".audio-text").innerText = voiceMessegesJsonData[pointId].text;
+    
     
     
     voiceMessegeFile.src = voiceMessegesJsonData[pointId].audioSrc;
@@ -1007,6 +1009,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
         setTimeout(() => {
             voiceMessegeButton.style.display = "flex";
             voiceMessegeFile.src = voiceMessegesJsonData[point].audioSrc;
+            document.querySelector(".audio-text").innerText = voiceMessegesJsonData[point].text;
             voiceMessegeFile.load();
         }, 600);
         
