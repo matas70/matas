@@ -1971,7 +1971,6 @@ function displayTimeLeft() {
 //actions functions 
 
 voiceMessegeFile.addEventListener('play', async () => {
-    console.log('play')
   return await new Promise(
     setInterval(function () {
 
