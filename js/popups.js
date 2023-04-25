@@ -5,16 +5,11 @@ var locationPopupHeight = 200;
 
 
 let voiceMessegesJsonData;
-// let voiceMessegesFiles = [];
-let VoiceMessegesTrack = [];
 
 fetch('../data/audio-messages.json')
 .then((response) => response.json())
 .then((json) => {
     voiceMessegesJsonData = json;
-    for(const point in voiceMessegesJsonData){
-        VoiceMessegesTrack.push({name: voiceMessegesJsonData[point].name, audio: new Audio(voiceMessegesJsonData[point].audioSrc )});
-    }
 });
 
 
@@ -169,6 +164,7 @@ function initPopups() {
 function onCloseOpenBasePopup() {
     openBasePopupStatus = "closed";
     let basePopUpElement = $("#open-bases-popup");
+    
     let fullHeight = window.innerHeight;
     let fullWidth = window.innerWidth;
     
@@ -188,7 +184,12 @@ function onCloseOpenBasePopup() {
                 "fast"
                 );
             }
-        }
+
+            if(basePopUpElement[0].style.left == '0px'){
+                document.querySelector('#listen-to-voice-messege-button').style.position = 'absolute';
+            }
+            
+}
         
         function showBaseLoactionPopup(pointId) {
             openBasePopupStatus = "minimized";
@@ -239,6 +240,7 @@ function onCloseOpenBasePopup() {
       },
       "fast"
     );
+
   }
 
   document.getElementById("open-bases-popup").style.display = "block";
@@ -267,6 +269,7 @@ function onCloseOpenBasePopup() {
   $("#iconBase").show();
   $(".header-title p").text("בסיס פתוח");
   $("#waze-base-link").show();
+
 
   document.getElementById("base-map-button-handler").innerHTML = mapButton;
 
@@ -365,6 +368,7 @@ function onCloseOpenBasePopup() {
       }
     });
   }
+
 }
 
 function showHistoryBaseLoactionPopup(pointId) {
@@ -372,11 +376,13 @@ function showHistoryBaseLoactionPopup(pointId) {
     document.querySelector(".airplane-name").innerText = voiceMessegesJsonData[pointId].name;
     document.querySelector(".airplane-type").innerText = "";
 
-    changeTrack(voiceMessegesJsonData[pointId].audioSrc);
+    voiceMessegeFile.src = voiceMessegesJsonData[pointId].audioSrc;
+    voiceMessegeFile.load();
 
-//   voiceMessegeFile = new Audio();
-//   voiceMessegeFile.load();
-
+    setTimeout(() => {
+    document.querySelector('#listen-to-voice-messege-button').style.position = 'fixed';
+        
+    }, 400);
   openBasePopupStatus = "minimized";
   onCloseOpenBasePopup();
   deselectLocation();
@@ -758,6 +764,7 @@ function showLocationPopup(
     return true;
   });
 
+
   var isHistoryBase = historyBaseData.find(function (item) {
     if (item.pointId === point.pointId)
     return true;
@@ -765,6 +772,8 @@ function showLocationPopup(
 
   if (isOpenBase) {
     showBaseLoactionPopup(point.pointId);
+    
+
   } if (isHistoryBase) {
     showHistoryBaseLoactionPopup(point.pointId);
   }else{
@@ -994,7 +1003,7 @@ function showAircraftInfoPopup(aircraft, collapse) {
     if(voiceMessegesJsonData[point].name == document.querySelector('#aircraftInfoName').innerText){
         setTimeout(() => {
             voiceMessegeButton.style.display = "flex";
-            // voiceMessegeFile = new Audio(voiceMessegesJsonData[point].audioSrc);
+            voiceMessegeFile.src = voiceMessegesJsonData[point].audioSrc;
             voiceMessegeFile.load();
         }, 600);
         
@@ -1892,16 +1901,8 @@ const voiceMessagePopup = document.querySelector("#voiceMessegePopup");
 
 
 function openVoiceMessegePopup() {
-//   voiceMessegeFile = voiceMessegesFiles[4];
-// indexFile = 2;
-
-    // document.querySelector(".airplane-name").innerText = document.querySelector("#aircraftInfoName").innerText;
-    // document.querySelector(".airplane-type").innerText = document.querySelector("#aircraftInfoType").innerText;
-
 
   turnOnSecondaryDim();
-  
-
   voiceMessagePopup.style.display = "flex";
   hideAircraftInfoPopup();
 }
@@ -1927,22 +1928,10 @@ const timer = document.querySelector(".audio-time");
 
 let stopInterval = false;
 
-async function changeTrack(audio){
-    
-    // voiceMessegeFile;
-    voiceMessegeFile.src = audio;
-    voiceMessegeFile.load();
-    // progressBar.max = 12;
-    // console.log(voiceMessegeFile.duration)
-    // progressBar.value = voiceMessegeFile.currentTime;
-
-}
-
 voiceMessegeFile.onloadedmetadata = () => {
     progressBar.value = 0;
     progressBar.max = voiceMessegeFile.duration;
-    // console.log('dd')
-//   progressBar.value = voiceMessegeFile.currentTime;
+  progressBar.value = voiceMessegeFile.currentTime;
   stopInterval = false;
 
 }
