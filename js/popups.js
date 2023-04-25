@@ -183,11 +183,12 @@ function onCloseOpenBasePopup() {
                 },
                 "fast"
                 );
-            }
-
-            if(basePopUpElement[0].style.left == '0px'){
                 document.querySelector('#listen-to-voice-messege-button').style.position = 'absolute';
             }
+
+            // if(basePopUpElement[0].style.left == '0px'){
+            //     document.querySelector('#listen-to-voice-messege-button').style.position = 'absolute';
+            // }
             
 }
         
