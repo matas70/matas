@@ -6,25 +6,20 @@ var locationPopupHeight = 200;
 
 let voiceMessegesJsonData;
 // let voiceMessegesFiles = [];
+let VoiceMessegesTrack = [];
 
 fetch('../data/audio-messages.json')
 .then((response) => response.json())
 .then((json) => {
     voiceMessegesJsonData = json;
-    // for(const point in voiceMessegesJsonData){
-    //     voiceMessegesFiles.push(new Audio(voiceMessegesJsonData[point].audioSrc))
-    // }
+    for(const point in voiceMessegesJsonData){
+        VoiceMessegesTrack.push({name: voiceMessegesJsonData[point].name, audio: new Audio(voiceMessegesJsonData[point].audioSrc )});
+    }
 });
+let voiceMessegeFile = new Audio('audio/ilan.mp3');
 
-let indexFile = 0;
 
-let voiceMessegeFile = [
-    new Audio('./audio/efroni.mp3'),
-    new Audio('./audio/106.mp3'),
-    new Audio('./audio/efroni.mp3'),
-    new Audio('./audio/efroni.mp3')
-];  
-// let voiceMessegeFile2 = new Audio('./audio/106.mp3');    
+
 
 
 
@@ -379,24 +374,10 @@ function showHistoryBaseLoactionPopup(pointId) {
     document.querySelector(".airplane-name").innerText = voiceMessegesJsonData[pointId].name;
     document.querySelector(".airplane-type").innerText = "";
 
+    changeTrack(VoiceMessegesTrack[1].audio);
 
-//   let promise = new Promise((resolve, reject) => {
-//     setTimeout(() => resolve(1), 1000)
-//   });
-
-//   let result = await promise; // wait until the promise resolves (*)
-    indexFile = 1;
-    voiceMessegeFile[1].load(); 
-    // $("#voiceMessegePopup").load("#voiceMessegePopup > *");
-    // $("#voiceMessegePopup").load("#voiceMessegePopup")
-
-    // voiceMessegeFile = voiceMessegeFile2;
-    // voiceMessegeSrc = `${voiceMessegesJsonData[pointId].audioSrc}`;
-    // progressBar.max = voiceMessegeFile.duration;
-    // progressBar.value = voiceMessegeFile.currentTime;
-    // stopInterval = false; 
-
-    // document.querySelector(".audio-time").innerText = `0:${voiceMessegeFile.duration}`;
+//   voiceMessegeFile = new Audio();
+//   voiceMessegeFile.load();
 
   openBasePopupStatus = "minimized";
   onCloseOpenBasePopup();
@@ -1015,12 +996,16 @@ function showAircraftInfoPopup(aircraft, collapse) {
     if(voiceMessegesJsonData[point].name == document.querySelector('#aircraftInfoName').innerText){
         setTimeout(() => {
             voiceMessegeButton.style.display = "flex";
+            voiceMessegeFile = new Audio(voiceMessegesJsonData[point].audioSrc);
+            voiceMessegeFile.load();
         }, 600);
         
     }
   }
   document.querySelector(".airplane-name").innerText = document.querySelector("#aircraftInfoName").innerText;
   document.querySelector(".airplane-type").innerText = document.querySelector("#aircraftInfoType").innerText;
+
+
 
 
   let airplaneVideo = document.querySelector('#aircraftInfoVideo');
@@ -1927,9 +1912,9 @@ function closeVoiceMessegePopup() {
   turnOffSecondaryDim()
   voiceMessagePopup.style.display = "none";
 
-  voiceMessegeFile[indexFile].pause();
+  voiceMessegeFile.pause();
   progressBar.value = 0;
-  voiceMessegeFile[indexFile].currentTime = 0;
+  voiceMessegeFile.currentTime = 0;
   playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg', "play.svg");
   stopInterval = true;
 
@@ -1944,24 +1929,32 @@ const timer = document.querySelector(".audio-time");
 
 let stopInterval = false;
 
+async function changeTrack(audio){
+    
+    voiceMessegeFile = audio;
+    // progressBar.max = 12;
+    console.log(voiceMessegeFile.duration)
+    // progressBar.value = voiceMessegeFile.currentTime;
+    voiceMessegeFile.load();
 
-voiceMessegeFile[indexFile].onloadedmetadata = () => {
+}
 
-  progressBar.max = voiceMessegeFile[indexFile].duration;
-  progressBar.value = voiceMessegeFile[indexFile].currentTime;
+voiceMessegeFile.onloadedmetadata = () => {
+    progressBar.value = 0;
+  progressBar.max = voiceMessegeFile.duration;
+//   progressBar.value = voiceMessegeFile.currentTime;
   stopInterval = false;
 
 }
 
-
 function playOrStopVoiceMessege() {
 
   if (playPauseIcon.src.includes("play.svg")) {
-    voiceMessegeFile[indexFile].play();
+    voiceMessegeFile.play();
     playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
 
   } else {
-    voiceMessegeFile[indexFile].pause();
+    voiceMessegeFile.pause();
     playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg', "play.svg");
   }
 }
@@ -1978,19 +1971,19 @@ function calculateProgressLine() {
 
 function displayTimeLeft() {
 
-  currTimeInSecondes = Math.round(voiceMessegeFile[indexFile].currentTime);
+  currTimeInSecondes = Math.round(voiceMessegeFile.currentTime);
   currTimeInSecondes >= 10 ? timer.innerText = `0:${currTimeInSecondes}` : timer.innerText = `0:0${currTimeInSecondes}`;
 
 }
 
 //actions functions 
 
-voiceMessegeFile[indexFile].addEventListener('play', async () => {
+voiceMessegeFile.addEventListener('play', async () => {
 
   return await new Promise(
     setInterval(function () {
 
-      progressBar.value = voiceMessegeFile[indexFile].currentTime;
+      progressBar.value = voiceMessegeFile.currentTime;
       calculateProgressLine();
       displayTimeLeft();
 
@@ -2003,7 +1996,7 @@ voiceMessegeFile[indexFile].addEventListener('play', async () => {
 
 progressBar.addEventListener('input', (event) => {
 
-  voiceMessegeFile[indexFile].currentTime = event.target.value;
+  voiceMessegeFile.currentTime = event.target.value;
 
   displayTimeLeft();
   calculateProgressLine();
@@ -2011,12 +2004,12 @@ progressBar.addEventListener('input', (event) => {
 });
 
 progressBar.addEventListener('mousedown', () => {
-  voiceMessegeFile[indexFile].pause();
+  voiceMessegeFile.pause();
 });
 
 progressBar.addEventListener('mouseup', () => {
   if (playPauseIcon.src.includes("pause-solid.svg")) {
-    voiceMessegeFile[indexFile].play();
+    voiceMessegeFile.play();
   }
 });
 
@@ -2026,9 +2019,9 @@ document.addEventListener('mouseup', function (e) {
     voiceMessagePopup.style.display = "none";
     turnOffSecondaryDim()
 
-    voiceMessegeFile[indexFile].pause();
+    voiceMessegeFile.pause();
     progressBar.value = 0;
-    voiceMessegeFile[indexFile].currentTime = 0;
+    voiceMessegeFile.currentTime = 0;
     playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg', "play.svg");
     stopInterval = true;
 

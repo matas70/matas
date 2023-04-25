@@ -11,7 +11,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    display: flex;
+    display: none;
     padding-top: 20px;
     padding-bottom: 10px;
 
