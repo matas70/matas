@@ -699,6 +699,10 @@ overflow-y: auto;">
     <!-- open bases info popup -->
     <div class="open-bases-popup" id="open-bases-popup"
         style="height: 100%; top: 64px; display: none; overflow: scroll">
+
+       
+        
+
         <div id="header-base-popup" class="header-base-popup">
             <div class="header-theme">
                 <img id="baseTheme" class="base-theme">
@@ -708,6 +712,8 @@ overflow-y: auto;">
                     <img class="drag" id="drag-button" src="experimental-assets/drag-button.svg">
                 </div>
             </div>
+
+            
             <div class="header-general-title">
                 <img id="iconBase">
                 <div class="header-title">
@@ -720,6 +726,12 @@ overflow-y: auto;">
             </div>
         </div>
         <div id="base-general-information" class="base-general-information">
+
+            <div id="listen-to-voice-messege-button" onclick="openVoiceMessegePopup()">
+                <p class="button-text">האזנה להודעה מהטייס</p>
+                <img class="play-icon" src="./assets/voice-messege-popup/play-white.svg" alt="play">
+            </div>
+            
             <div class="subject" id="base-subject" style="display: none;"></div>
             <p class="base-passage" id="base-passage"></p>
             <div class="base-passage-line"></div>

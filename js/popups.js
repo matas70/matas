@@ -5,10 +5,27 @@ var locationPopupHeight = 200;
 
 
 let voiceMessegesJsonData;
+// let voiceMessegesFiles = [];
 
 fetch('../data/audio-messages.json')
 .then((response) => response.json())
-.then((json) => voiceMessegesJsonData = json);
+.then((json) => {
+    voiceMessegesJsonData = json;
+    // for(const point in voiceMessegesJsonData){
+    //     voiceMessegesFiles.push(new Audio(voiceMessegesJsonData[point].audioSrc))
+    // }
+});
+
+let indexFile = 0;
+
+let voiceMessegeFile = [
+    new Audio('./audio/efroni.mp3'),
+    new Audio('./audio/106.mp3'),
+    new Audio('./audio/efroni.mp3'),
+    new Audio('./audio/efroni.mp3')
+];  
+// let voiceMessegeFile2 = new Audio('./audio/106.mp3');    
+
 
 
 function initPopups() {
@@ -157,52 +174,53 @@ function initPopups() {
 
 //on close for openBasePopup
 function onCloseOpenBasePopup() {
-  openBasePopupStatus = "closed";
-  let basePopUpElement = $("#open-bases-popup");
-  let fullHeight = window.innerHeight;
-  let fullWidth = window.innerWidth;
-
-  if (fullWidth <= 600) {
-    basePopUpElement.animate(
-      {
-        top: fullHeight + "px",
-        height: "0px",
-      },
-      "fast"
-    );
-  } else {
-    basePopUpElement.animate(
-      {
-        left: `-${fullWidth}px`,
-      },
-      "fast"
-    );
-  }
-}
-
-function showBaseLoactionPopup(pointId) {
-  openBasePopupStatus = "minimized";
-  onCloseOpenBasePopup();
-  deselectLocation();
-  deselectAircraft();
-
-  let point;
-
-  baseData.forEach((element) => {
-    if (element.pointId === Number(pointId)) {
-      point = element;
-    }
-  });
-
-  let basePopUpElement = $("#open-bases-popup");
-  let fullHeight = window.innerHeight;
-  let fullWidth = window.innerWidth;
-  const headerElement = document.getElementById(`headerBg`);
-  const navBarHeaderElement = document.getElementById(`listHeader`);
-  const mapElement = document.getElementById(`map`);
-  let airplaneShowsElement = document.getElementById("airplanes-show");
-
-  $("#base-subject").css("display", "none");
+    openBasePopupStatus = "closed";
+    let basePopUpElement = $("#open-bases-popup");
+    let fullHeight = window.innerHeight;
+    let fullWidth = window.innerWidth;
+    
+    if (fullWidth <= 600) {
+        basePopUpElement.animate(
+            {
+                top: fullHeight + "px",
+                height: "0px",
+            },
+            "fast"
+            );
+        } else {
+            basePopUpElement.animate(
+                {
+                    left: `-${fullWidth}px`,
+                },
+                "fast"
+                );
+            }
+        }
+        
+        function showBaseLoactionPopup(pointId) {
+            openBasePopupStatus = "minimized";
+            onCloseOpenBasePopup();
+            deselectLocation();
+            deselectAircraft();
+            
+            let point;
+            
+            baseData.forEach((element) => {
+                if (element.pointId === Number(pointId)) {
+                    point = element;
+                }
+            });
+            
+            let basePopUpElement = $("#open-bases-popup");
+            let fullHeight = window.innerHeight;
+            let fullWidth = window.innerWidth;
+            const headerElement = document.getElementById(`headerBg`);
+            const navBarHeaderElement = document.getElementById(`listHeader`);
+            const mapElement = document.getElementById(`map`);
+            let airplaneShowsElement = document.getElementById("airplanes-show");
+            
+            
+            $("#base-subject").css("display", "none");
   $("#baseContactWrapper").css("display", "none");
 
   if (fullWidth <= 600) {
@@ -357,6 +375,29 @@ function showBaseLoactionPopup(pointId) {
 }
 
 function showHistoryBaseLoactionPopup(pointId) {
+
+    document.querySelector(".airplane-name").innerText = voiceMessegesJsonData[pointId].name;
+    document.querySelector(".airplane-type").innerText = "";
+
+
+//   let promise = new Promise((resolve, reject) => {
+//     setTimeout(() => resolve(1), 1000)
+//   });
+
+//   let result = await promise; // wait until the promise resolves (*)
+    indexFile = 1;
+    voiceMessegeFile[1].load(); 
+    // $("#voiceMessegePopup").load("#voiceMessegePopup > *");
+    // $("#voiceMessegePopup").load("#voiceMessegePopup")
+
+    // voiceMessegeFile = voiceMessegeFile2;
+    // voiceMessegeSrc = `${voiceMessegesJsonData[pointId].audioSrc}`;
+    // progressBar.max = voiceMessegeFile.duration;
+    // progressBar.value = voiceMessegeFile.currentTime;
+    // stopInterval = false; 
+
+    // document.querySelector(".audio-time").innerText = `0:${voiceMessegeFile.duration}`;
+
   openBasePopupStatus = "minimized";
   onCloseOpenBasePopup();
   deselectLocation();
@@ -975,12 +1016,11 @@ function showAircraftInfoPopup(aircraft, collapse) {
         setTimeout(() => {
             voiceMessegeButton.style.display = "flex";
         }, 600);
+        
     }
   }
-
-//   if(voiceMessegesJsonData.includes()){
-//     console.log("lol")
-//   }
+  document.querySelector(".airplane-name").innerText = document.querySelector("#aircraftInfoName").innerText;
+  document.querySelector(".airplane-type").innerText = document.querySelector("#aircraftInfoType").innerText;
 
 
   let airplaneVideo = document.querySelector('#aircraftInfoVideo');
@@ -1869,13 +1909,15 @@ const voiceMessagePopup = document.querySelector("#voiceMessegePopup");
 
 
 function openVoiceMessegePopup() {
+//   voiceMessegeFile = voiceMessegesFiles[4];
+// indexFile = 2;
 
-    document.querySelector(".airplane-name").innerText = document.querySelector("#aircraftInfoName").innerText;
-    document.querySelector(".airplane-type").innerText = document.querySelector("#aircraftInfoType").innerText;
-//   document.querySelector(".audio-text").innerText = ;
+    // document.querySelector(".airplane-name").innerText = document.querySelector("#aircraftInfoName").innerText;
+    // document.querySelector(".airplane-type").innerText = document.querySelector("#aircraftInfoType").innerText;
 
 
-  turnOnSecondaryDim()
+  turnOnSecondaryDim();
+  
 
   voiceMessagePopup.style.display = "flex";
   hideAircraftInfoPopup();
@@ -1885,9 +1927,9 @@ function closeVoiceMessegePopup() {
   turnOffSecondaryDim()
   voiceMessagePopup.style.display = "none";
 
-  voiceMessegeFile.pause();
+  voiceMessegeFile[indexFile].pause();
   progressBar.value = 0;
-  voiceMessegeFile.currentTime = 0;
+  voiceMessegeFile[indexFile].currentTime = 0;
   playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg', "play.svg");
   stopInterval = true;
 
@@ -1895,7 +1937,7 @@ function closeVoiceMessegePopup() {
 
 
 //global elements for voice message popup 
-let voiceMessegeFile = new Audio('./audio/efroni.mp3');
+
 const progressBar = document.querySelector(".progress-bar");
 const playPauseIcon = document.querySelector(".play-pause-icon");
 const timer = document.querySelector(".audio-time");
@@ -1903,10 +1945,10 @@ const timer = document.querySelector(".audio-time");
 let stopInterval = false;
 
 
-voiceMessegeFile.onloadedmetadata = () => {
+voiceMessegeFile[indexFile].onloadedmetadata = () => {
 
-  progressBar.max = voiceMessegeFile.duration;
-  progressBar.value = voiceMessegeFile.currentTime;
+  progressBar.max = voiceMessegeFile[indexFile].duration;
+  progressBar.value = voiceMessegeFile[indexFile].currentTime;
   stopInterval = false;
 
 }
@@ -1915,11 +1957,11 @@ voiceMessegeFile.onloadedmetadata = () => {
 function playOrStopVoiceMessege() {
 
   if (playPauseIcon.src.includes("play.svg")) {
-    voiceMessegeFile.play();
+    voiceMessegeFile[indexFile].play();
     playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
 
   } else {
-    voiceMessegeFile.pause();
+    voiceMessegeFile[indexFile].pause();
     playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg', "play.svg");
   }
 }
@@ -1936,19 +1978,19 @@ function calculateProgressLine() {
 
 function displayTimeLeft() {
 
-  currTimeInSecondes = Math.round(voiceMessegeFile.currentTime);
+  currTimeInSecondes = Math.round(voiceMessegeFile[indexFile].currentTime);
   currTimeInSecondes >= 10 ? timer.innerText = `0:${currTimeInSecondes}` : timer.innerText = `0:0${currTimeInSecondes}`;
 
 }
 
 //actions functions 
 
-voiceMessegeFile.addEventListener('play', async () => {
+voiceMessegeFile[indexFile].addEventListener('play', async () => {
 
   return await new Promise(
     setInterval(function () {
 
-      progressBar.value = voiceMessegeFile.currentTime;
+      progressBar.value = voiceMessegeFile[indexFile].currentTime;
       calculateProgressLine();
       displayTimeLeft();
 
@@ -1961,7 +2003,7 @@ voiceMessegeFile.addEventListener('play', async () => {
 
 progressBar.addEventListener('input', (event) => {
 
-  voiceMessegeFile.currentTime = event.target.value;
+  voiceMessegeFile[indexFile].currentTime = event.target.value;
 
   displayTimeLeft();
   calculateProgressLine();
@@ -1969,12 +2011,12 @@ progressBar.addEventListener('input', (event) => {
 });
 
 progressBar.addEventListener('mousedown', () => {
-  voiceMessegeFile.pause();
+  voiceMessegeFile[indexFile].pause();
 });
 
 progressBar.addEventListener('mouseup', () => {
   if (playPauseIcon.src.includes("pause-solid.svg")) {
-    voiceMessegeFile.play();
+    voiceMessegeFile[indexFile].play();
   }
 });
 
@@ -1984,9 +2026,9 @@ document.addEventListener('mouseup', function (e) {
     voiceMessagePopup.style.display = "none";
     turnOffSecondaryDim()
 
-    voiceMessegeFile.pause();
+    voiceMessegeFile[indexFile].pause();
     progressBar.value = 0;
-    voiceMessegeFile.currentTime = 0;
+    voiceMessegeFile[indexFile].currentTime = 0;
     playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg', "play.svg");
     stopInterval = true;
 
