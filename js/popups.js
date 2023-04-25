@@ -3,6 +3,19 @@ var locationPopupCloseCallback = null;
 var minimizedLocationPopupHeight = 100;
 var locationPopupHeight = 200;
 
+
+let voiceMessegesJsonData;
+
+fetch('../data/audio-messages.json')
+.then((response) => response.json())
+.then((json) => {
+    voiceMessegesJsonData = json;
+});
+
+
+let voiceMessegeFile = new Audio('audio/ilan.mp3');
+
+
 function initPopups() {
   $("#locationPopup").hide();
   $("#aircraftInfoPopup").hide();
@@ -111,34 +124,34 @@ function initPopups() {
     event.preventDefault();
   });
 
-  openBasePopupHeader.on("tapend", function (event) {
-    minimizedPopupHeight =
-      $(window).height() -
-      $("#header-base-popup").height() -
-      $("#base-passage").height() * 0.75;
-    relativePercentage = (finalTouchY / fullWindowHeight) * 100;
-    if (
-      relativePercentage <= (openBasePopupStatus === "full-sized" ? 15 : 45)
-    ) {
-      openBasePopupStatus = "full-sized";
-      openBasePopup.animate(
-        { top: headerElementHeight + "px", borderRadius: "0px" },
-        "fast"
-      );
-    } else if (
-      relativePercentage > (openBasePopupStatus === "full-sized" ? 15 : 45) &&
-      relativePercentage < (openBasePopupStatus === "full-sized" ? 85 : 70)
-    ) {
-      openBasePopup.animate(
-        { top: minimizedPopupHeight + "px", borderRadius: "15px" },
-        "fast"
-      );
-      openBasePopupStatus = "minimized";
-    } else {
-      openBasePopup.animate({ top: fullWindowHeight + "px" }, "fast");
-      openBasePopupStatus = "closed";
-    }
-  });
+//   openBasePopupHeader.on("tapend", function (event) {
+//     minimizedPopupHeight =
+//       $(window).height() -
+//       $("#header-base-popup").height() -
+//       $("#base-passage").height() * 0.75;
+//     relativePercentage = (finalTouchY / fullWindowHeight) * 100;
+//     if (
+//       relativePercentage <= (openBasePopupStatus === "full-sized" ? 15 : 45)
+//     ) {
+//       openBasePopupStatus = "full-sized";
+//       openBasePopup.animate(
+//         { top: headerElementHeight + "px", borderRadius: "0px" },
+//         "fast"
+//       );
+//     } else if (
+//       relativePercentage > (openBasePopupStatus === "full-sized" ? 15 : 45) &&
+//       relativePercentage < (openBasePopupStatus === "full-sized" ? 85 : 70)
+//     ) {
+//       openBasePopup.animate(
+//         { top: minimizedPopupHeight + "px", borderRadius: "15px" },
+//         "fast"
+//       );
+//       openBasePopupStatus = "minimized";
+//     } else {
+//       openBasePopup.animate({ top: fullWindowHeight + "px" }, "fast");
+//       openBasePopupStatus = "closed";
+//     }
+//   });
 
   let closeButton = $("#close-button-open-base");
 
@@ -149,52 +162,59 @@ function initPopups() {
 
 //on close for openBasePopup
 function onCloseOpenBasePopup() {
-  openBasePopupStatus = "closed";
-  let basePopUpElement = $("#open-bases-popup");
-  let fullHeight = window.innerHeight;
-  let fullWidth = window.innerWidth;
+    openBasePopupStatus = "closed";
+    let basePopUpElement = $("#open-bases-popup");
+    
+    let fullHeight = window.innerHeight;
+    let fullWidth = window.innerWidth;
+    
+    if (fullWidth <= 600) {
+        basePopUpElement.animate(
+            {
+                top: fullHeight + "px",
+                height: "0px",
+            },
+            "fast"
+            );
+        } else {
+            basePopUpElement.animate(
+                {
+                    left: `-${fullWidth}px`,
+                },
+                "fast"
+                );
+            }
 
-  if (fullWidth <= 600) {
-    basePopUpElement.animate(
-      {
-        top: fullHeight + "px",
-        height: "0px",
-      },
-      "fast"
-    );
-  } else {
-    basePopUpElement.animate(
-      {
-        left: `-${fullWidth}px`,
-      },
-      "fast"
-    );
-  }
+            if(basePopUpElement[0].style.left == '0px'){
+                document.querySelector('#listen-to-voice-messege-button').style.position = 'absolute';
+            }
+            
 }
-
-function showBaseLoactionPopup(pointId) {
-  openBasePopupStatus = "minimized";
-  onCloseOpenBasePopup();
-  deselectLocation();
-  deselectAircraft();
-
-  let point;
-
-  baseData.forEach((element) => {
-    if (element.pointId === Number(pointId)) {
-      point = element;
-    }
-  });
-
-  let basePopUpElement = $("#open-bases-popup");
-  let fullHeight = window.innerHeight;
-  let fullWidth = window.innerWidth;
-  const headerElement = document.getElementById(`headerBg`);
-  const navBarHeaderElement = document.getElementById(`listHeader`);
-  const mapElement = document.getElementById(`map`);
-  let airplaneShowsElement = document.getElementById("airplanes-show");
-
-  $("#base-subject").css("display", "none");
+        
+        function showBaseLoactionPopup(pointId) {
+            openBasePopupStatus = "minimized";
+            onCloseOpenBasePopup();
+            deselectLocation();
+            deselectAircraft();
+            
+            let point;
+            
+            baseData.forEach((element) => {
+                if (element.pointId === Number(pointId)) {
+                    point = element;
+                }
+            });
+            
+            let basePopUpElement = $("#open-bases-popup");
+            let fullHeight = window.innerHeight;
+            let fullWidth = window.innerWidth;
+            const headerElement = document.getElementById(`headerBg`);
+            const navBarHeaderElement = document.getElementById(`listHeader`);
+            const mapElement = document.getElementById(`map`);
+            let airplaneShowsElement = document.getElementById("airplanes-show");
+            
+            
+            $("#base-subject").css("display", "none");
   $("#baseContactWrapper").css("display", "none");
 
   if (fullWidth <= 600) {
@@ -220,6 +240,7 @@ function showBaseLoactionPopup(pointId) {
       },
       "fast"
     );
+
   }
 
   document.getElementById("open-bases-popup").style.display = "block";
@@ -248,6 +269,7 @@ function showBaseLoactionPopup(pointId) {
   $("#iconBase").show();
   $(".header-title p").text("בסיס פתוח");
   $("#waze-base-link").show();
+
 
   document.getElementById("base-map-button-handler").innerHTML = mapButton;
 
@@ -346,9 +368,26 @@ function showBaseLoactionPopup(pointId) {
       }
     });
   }
+
 }
 
 function showHistoryBaseLoactionPopup(pointId) {
+
+    document.querySelector(".airplane-name").innerText = voiceMessegesJsonData[pointId].name;
+    document.querySelector(".airplane-type").innerText = "";
+    document.querySelector(".audio-text").innerText = voiceMessegesJsonData[pointId].text;
+    
+    
+    
+    voiceMessegeFile.src = voiceMessegesJsonData[pointId].audioSrc;
+    voiceMessegeFile.load();
+    
+
+    setTimeout(() => {
+    document.querySelector('#listen-to-voice-messege-button').style.position = 'fixed';
+        
+    }, 300);
+
   openBasePopupStatus = "minimized";
   onCloseOpenBasePopup();
   deselectLocation();
@@ -730,6 +769,7 @@ function showLocationPopup(
     return true;
   });
 
+
   var isHistoryBase = historyBaseData.find(function (item) {
     if (item.pointId === point.pointId)
     return true;
@@ -737,6 +777,8 @@ function showLocationPopup(
 
   if (isOpenBase) {
     showBaseLoactionPopup(point.pointId);
+    
+
   } if (isHistoryBase) {
     showHistoryBaseLoactionPopup(point.pointId);
   }else{
@@ -958,6 +1000,27 @@ function showAircraftInfoPopup(aircraft, collapse) {
     { name: "שרף", id: "77mbzmecJdc" },
   ];
   //find matching youtube video for each airplane
+
+  let voiceMessegeButton = document.querySelector('.listen-to-voice-messege-button');
+  voiceMessegeButton.style.display = "none";
+
+  for (const point in voiceMessegesJsonData) {
+    if(voiceMessegesJsonData[point].name == document.querySelector('#aircraftInfoName').innerText){
+        setTimeout(() => {
+            voiceMessegeButton.style.display = "flex";
+            voiceMessegeFile.src = voiceMessegesJsonData[point].audioSrc;
+            document.querySelector(".audio-text").innerText = voiceMessegesJsonData[point].text;
+            voiceMessegeFile.load();
+        }, 600);
+        
+    }
+  }
+  document.querySelector(".airplane-name").innerText = document.querySelector("#aircraftInfoName").innerText;
+  document.querySelector(".airplane-type").innerText = document.querySelector("#aircraftInfoType").innerText;
+
+
+
+
   let airplaneVideo = document.querySelector('#aircraftInfoVideo');
   let airplaneVideoName = document.querySelector('#aircraftInfoName').innerText;
   const currAircraft = aircraftsVideoId.find(aircraft => aircraft.name === airplaneVideoName);
@@ -1842,16 +1905,10 @@ function turnOffSecondaryDim() {
 //voice-messege-popup
 const voiceMessagePopup = document.querySelector("#voiceMessegePopup");
 
+
 function openVoiceMessegePopup() {
 
-  document.querySelector(".airplane-name").innerText = document.querySelector("#aircraftInfoName").innerText;
-  document.querySelector(".airplane-type").innerText = document.querySelector("#aircraftInfoType").innerText;
-  document.querySelector(".airplane-icon").src = document.querySelector("#aircraftInfoIcon").src;
-  document.querySelector(".audio-text").innerText = document.querySelector("#aircraftInfoContentDescription").innerText;
-
-
-  turnOnSecondaryDim()
-
+  turnOnSecondaryDim();
   voiceMessagePopup.style.display = "flex";
   hideAircraftInfoPopup();
 }
@@ -1870,22 +1927,20 @@ function closeVoiceMessegePopup() {
 
 
 //global elements for voice message popup 
-let voiceMessegeFile = new Audio('./audio/efroni.mp3');
+
 const progressBar = document.querySelector(".progress-bar");
 const playPauseIcon = document.querySelector(".play-pause-icon");
 const timer = document.querySelector(".audio-time");
 
 let stopInterval = false;
 
-
 voiceMessegeFile.onloadedmetadata = () => {
-
-  progressBar.max = voiceMessegeFile.duration;
+    progressBar.value = 0;
+    progressBar.max = voiceMessegeFile.duration;
   progressBar.value = voiceMessegeFile.currentTime;
   stopInterval = false;
 
 }
-
 
 function playOrStopVoiceMessege() {
 
@@ -1919,7 +1974,6 @@ function displayTimeLeft() {
 //actions functions 
 
 voiceMessegeFile.addEventListener('play', async () => {
-
   return await new Promise(
     setInterval(function () {
 

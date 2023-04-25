@@ -284,7 +284,7 @@ googleMaps = {
 
         // create the points marker
         route.points.forEach((point) => {
-            console.log(point)
+            // console.log(point)
             if (!point.hidden && !renderedPoints.includes(point.pointId)) {
                 renderedPoints.push(point.pointId)
                 var markerIcon;
@@ -438,7 +438,7 @@ googleMaps = {
     createMapObject: (clickCallback) => {
         map = new google.maps.Map(document.getElementById('map'),
             {
-                mapId: '3bdc26e42e65963d',
+                mapId: 'b3053dc6c3efeaf2',
                 center: {lat: 31.20, lng: 34.97},
                 zoom: ($(window).height() > 950) ? 8 : 7,
                 minZoom: 7,

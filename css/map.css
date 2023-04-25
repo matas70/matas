@@ -175,7 +175,7 @@ img.aircraftImage {
     height: 100%;
     width: 100%;
     background-color: rgba(1, 2, 4, 0.2);
-    z-index: 100000 !important;
+    z-index: 10000000 !important;
     transition: 0.2s;
 }
 
