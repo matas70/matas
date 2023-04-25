@@ -185,10 +185,6 @@ function onCloseOpenBasePopup() {
                 );
                 document.querySelector('#listen-to-voice-messege-button').style.position = 'absolute';
             }
-
-            // if(basePopUpElement[0].style.left == '0px'){
-            //     document.querySelector('#listen-to-voice-messege-button').style.position = 'absolute';
-            // }
             
 }
         
@@ -1908,7 +1904,8 @@ const voiceMessagePopup = document.querySelector("#voiceMessegePopup");
 
 
 function openVoiceMessegePopup() {
-
+    voiceMessegeFile.play();
+    playPauseIcon.src = playPauseIcon.src.replace('play.svg', 'pause-solid.svg');
   turnOnSecondaryDim();
   voiceMessagePopup.style.display = "flex";
   hideAircraftInfoPopup();
@@ -1988,6 +1985,11 @@ voiceMessegeFile.addEventListener('play', async () => {
     }, 10))
 })
 
+voiceMessegeFile.onended = () =>{
+    playPauseIcon.src = playPauseIcon.src.replace('pause-solid.svg', "play.svg");
+    voiceMessegeFile.currentTime = 0;
+    progressBar.value = 0;
+}
 
 progressBar.addEventListener('input', (event) => {
 
@@ -1995,6 +1997,7 @@ progressBar.addEventListener('input', (event) => {
 
   displayTimeLeft();
   calculateProgressLine();
+  
 
 });
 
