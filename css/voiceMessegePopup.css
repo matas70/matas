@@ -1,7 +1,7 @@
 #voiceMessegePopup {
     position: absolute;
     z-index: 10000000;
-    width: 295px;
+    min-width: 295px;
     height: fit-content;
     background-color: #FFFFFF;
     left: 50%;
@@ -55,7 +55,7 @@
 }
 
 .icons-section {
-    width: 255px;
+    /* width: 255px; */
     height: 69px;
     display: flex;
     flex-direction: column;
@@ -76,9 +76,8 @@
     font-size: 18px;
     font-weight: 700;
     margin: 0;
-
-    padding-top: 2px;
-    padding-bottom: 2px;
+    /* margin: 5px;
+    margin-bottom: 10px; */
     text-align: center;
 }
 
