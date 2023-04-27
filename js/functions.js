@@ -1277,7 +1277,7 @@ function openAR(aircraft) {
 
         gtag('event', 'showAircraftIOS', {
             'event_category': 'showAircraftIOS',
-            'event_label': localStorage.getItem('selectedAircraftIsUsdz') || 'default aircraft'
+            'event_label': localStorage.getItem('selectedAircraftName') || 'default aircraft'
         });
 
         localStorage.setItem('selectedAircraftName', aircraft.name);
