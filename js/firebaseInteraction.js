@@ -4,7 +4,7 @@ const NOTIFICATIONS_URL = 'https://matas-notifications.azurewebsites.net';
 function registerToFirebaseNotifications() {
     console.log("registering to firebase notifications.");
     firebase.initializeApp({
-        apiKey: "AIzaSyB5tNk6r15ANgj-8UktIYIj2Z_ItL6p39M",
+        apiKey: "",
         authDomain: "maps-ext-47253069.firebaseapp.com",
         databaseURL: "https://maps-ext-47253069.firebaseio.com",
         projectId: "maps-ext-47253069",
